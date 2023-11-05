@@ -1,0 +1,30 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "."
+    },
+    {
+      "name": "core",
+      "path": "packages/core"
+    },
+    {
+      "name": "listen_to_music_by_location",
+      "path": "packages/listen_to_music_by_location"
+    },
+  ],
+  "settings": {
+    "cSpell.ignorePaths": [
+      "package-lock.json",
+      "node_modules",
+      ".git/objects",
+      ".vscode",
+      ".vscode-insiders",
+      "*.g.dart",
+      "*.freezed.dart",
+      "*.gen.dart",
+      "*.mocks.dart",
+      "firebase_options*.dart"
+    ]
+  }
+}
