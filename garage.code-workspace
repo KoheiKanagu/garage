@@ -12,8 +12,36 @@
       "name": "listen_to_music_by_location",
       "path": "packages/listen_to_music_by_location"
     },
+    {
+      "name": "firebase",
+      "path": "firebase"
+    },
+    {
+      "name": "functions",
+      "path": "firebase/functions"
+    },
   ],
   "settings": {
+    "dart.flutterSdkPath": ".fvm/versions/beta",
+    "search.exclude": {
+      "**/.fvm": true
+    },
+    "files.watcherExclude": {
+      "**/.fvm": true
+    },
+    "files.exclude": {
+      ".metadata": true,
+      "*.log": true,
+      ".idea": true,
+      ".gitignore": true,
+      "build": true,
+      ".dart_tool": true,
+      ".flutter-*": true,
+      "*.iml": true,
+      "coverage": true,
+      ".fvm": true,
+      ".fvmrc": true,
+    },
     "cSpell.ignorePaths": [
       "package-lock.json",
       "node_modules",
@@ -25,6 +53,37 @@
       "*.gen.dart",
       "*.mocks.dart",
       "firebase_options*.dart"
+    ],
+    "cSpell.words": [
+      "appbundle",
+      "budoux",
+      "codesign",
+      "cupertino",
+      "firestore",
+      "flutterfire",
+      "goldens",
+      "kingu",
+      "lcov",
+      "loca",
+      "mobilesdk",
+      "Podfile",
+      "predeploy",
+      "pubspec",
+      "riverpod",
+      "roggle",
+      "typedefs"
+    ],
+    "jest.disabledWorkspaceFolders": [
+      "root",
+      "core",
+      "firebase",
+      "listen_to_music_by_location",
+    ],
+    "conventionalCommits.scopes": [
+      "common",
+      "ci",
+      "core",
+      "LocaMusic",
     ]
   }
 }

@@ -6,7 +6,11 @@ packages:
 repository: https://github.com/KoheiKanagu/garage
 
 command:
+  version:
+    branch: main
+    linkToCommits: true
   bootstrap:
+    runPubGetInParallel: false
     hooks:
       post: |
         melos run pub:get
@@ -14,11 +18,14 @@ command:
 scripts:
   analyze:
     run: |
-      fvm dart pub get
-      fvm dart pub run build_runner build --delete-conflicting-outputs
+      fvm flutter pub get
+      fvm flutter pub run build_runner build --delete-conflicting-outputs
+      (cd MELOS_ROOT_PATH && grind update-coverage-test --package=MELOS_PACKAGE_NAME)
       fvm dart fix --apply lib
-      fvm dart format .
-      fvm flutter analyze .
+      fvm dart format --set-exit-if-changed .
+      fvm dart analyze --fatal-infos .
+      fvm dart run custom_lint
+      git diff --exit-code
     exec:
       concurrency: 1
       orderDependents: true
@@ -26,52 +33,46 @@ scripts:
   pub:get:
     run: |
       fvm dart pub get
-      melos exec -- "fvm dart pub get"
+      melos exec -- "fvm flutter pub get"
 
   flutter:test:
     exec: |
-      fvm dart pub get
+      fvm flutter pub get
       fvm flutter test \
-        --exclude-tags=golden \
-        --coverage \
-        --coverage-path coverage/lcov.info \
-        --flavor dev \
-        --dart-define-from-file configs/dart_define.dev.json
+        --exclude-tags golden \
+        --flavor dev
     packageFilters:
       flutter: true
       dirExists: test
 
-  flutter:golden_test:
+  flutter:golden:test:
     exec: |
-      fvm dart pub get
+      fvm flutter pub get
+
       fvm flutter test \
-        --tags=golden \
-        --coverage \
-        --coverage-path coverage/lcov.info \
-        --flavor dev \
-        --dart-define-from-file configs/dart_define.dev.json
+        --tags golden \
+        --flavor dev
     packageFilters:
       flutter: true
       dirExists: test
-      dependsOn: golden_toolkit
 
-  flutter:golden_test:update:
+  flutter:golden:update:
     exec: |
-      fvm dart pub get
+      fvm flutter pub get
+
       fvm flutter test \
         --update-goldens \
-        --tags=golden \
-        --flavor dev \
-        --dart-define-from-file configs/dart_define.dev.json
+        --tags golden \
+        --flavor dev
     packageFilters:
       flutter: true
       dirExists: test
-      dependsOn: golden_toolkit
+      dependsOn: alchemist
 
   build_runner:build:
     run: |
-      fvm dart pub get
-      fvm dart pub run build_runner build --delete-conflicting-outputs
+      fvm flutter pub get
+      fvm flutter pub run build_runner build --delete-conflicting-outputs
     exec:
       concurrency: 1
       orderDependents: true
@@ -81,19 +82,22 @@ scripts:
 
   build_runner:watch:
     exec: |
-      fvm dart pub get
-      fvm dart pub run build_runner watch --delete-conflicting-outputs
+      fvm flutter pub get
+      fvm flutter pub run build_runner watch --delete-conflicting-outputs
     packageFilters:
       flutter: true
       dependsOn: build_runner
 
   build:ios:config-only:
     run: |
-      fvm dart pub get
+      fvm flutter pub get
+
       pod repo update
-      rm -rf ios/Podfile.lock
-      rm -rf ios/Pods
-      fvm flutter build ios --config-only --flavor dev
+
+      fvm flutter build ios \
+        --config-only \
+        --flavor dev \
+        --target lib/main_dev.dart
     exec:
       concurrency: 1
     packageFilters:
@@ -106,27 +110,31 @@ scripts:
         --release \
         --flavor dev \
         --target-platform android-arm64 \
-        --dart-define-from-file configs/dart_define.dev.json \
+        --target lib/main_dev.dart \
         --obfuscate \
-        --split-debug-info=build/app/outputs
+        --split-debug-info build/app/outputs
     exec:
       concurrency: 1
     packageFilters:
       flutter: true
       dirExists: android
 
-  build:appbundle:prod:
+  build:appbundle:prod:upload:
     run: |
       fvm flutter build appbundle \
         --release \
         --flavor prod \
-        --dart-define-from-file configs/dart_define.prod.json \
+        --target lib/main_prod.dart \
         --obfuscate \
-        --split-debug-info=build/app/outputs
+        --split-debug-info build/app/outputs
 
       firebase crashlytics:symbols:upload \
         --app $(cat packages/$MELOS_PACKAGES/android/app/src/prod/google-services.json | jq -r '.client[0].client_info.mobilesdk_app_id') \
         build/app/outputs/app.android-*.symbols
+
+      echo "TODO: upload app bundle to Google Play Console."
+      # fastlane supply \
+      #   --aab MELOS_PACKAGE_PATH/build/app/outputs/bundle/release/app-release.aab
     exec:
       concurrency: 1
     packageFilters:
@@ -141,9 +149,9 @@ scripts:
         --release \
         --no-codesign \
         --flavor dev \
-        --dart-define-from-file configs/dart_define.dev.json \
+        --target lib/main_dev.dart \
         --obfuscate \
-        --split-debug-info=build/app/outputs
+        --split-debug-info build/app/outputs
     exec:
       concurrency: 1
     packageFilters:
@@ -158,9 +166,9 @@ scripts:
         --release \
         --no-codesign \
         --flavor prod \
-        --dart-define-from-file configs/dart_define.prod.json \
+        --target lib/main_prod.dart \
         --obfuscate \
-        --split-debug-info=build/app/outputs
+        --split-debug-info build/app/outputs
     exec:
       concurrency: 1
     packageFilters:
@@ -174,45 +182,36 @@ scripts:
       fvm flutter build ipa \
         --release \
         --flavor dev \
-        --dart-define-from-file configs/dart_define.dev.json \
+        --target lib/main_dev.dart \
         --export-options-plist configs/AdHocExportOptions.plist \
         --obfuscate \
-        --split-debug-info=build/app/outputs
+        --split-debug-info build/app/outputs
     exec:
       concurrency: 1
     packageFilters:
       flutter: true
       dirExists: ios
 
-  build:ipa:prod:
+  build:ipa:prod:upload:
     run: |
       pod repo update
 
       fvm flutter build ipa \
         --release \
         --flavor prod \
-        --dart-define-from-file configs/dart_define.prod.json \
+        --target lib/main_prod.dart \
         --export-options-plist configs/AppStoreExportOptions.plist \
         --obfuscate \
-        --split-debug-info=build/app/outputs
+        --split-debug-info build/app/outputs
+
+      fastlane pilot upload \
+        --ipa MELOS_PACKAGE_PATH/build/ios/ipa/*.ipa \
+        --skip_waiting_for_build_processing
     exec:
       concurrency: 1
     packageFilters:
       flutter: true
       dirExists: ios
-
-  firebase:deploy:dev:
-    exec: |
-      firebase use dev
-      firebase deploy --force
-    packageFilters:
-      dirExists: firebase
-
-  flutterfire:configure:
-    exec: |
-      ./flutterfire_configure.sh
-    packageFilters:
-      fileExists: flutterfire_configure.sh
 
   pigeon:
     exec: |
@@ -226,14 +225,3 @@ scripts:
       fvm flutter clean
     packageFilters:
       flutter: true
-
-  bump_all_deps:
-    run: |
-      fvm dart pub run grinder bump-all-deps
-
-  bump:
-    exec: |
-      cd MELOS_ROOT_PATH
-      fvm dart pub run grinder bump --package=MELOS_PACKAGE_NAME
-    packageFilters:
-      fileExists: pubspec.yaml

@@ -1,0 +1,78 @@
+name: Bug Report | バグレポート
+description: File a bug report | バグを報告する
+labels: ["bug", "needs-triage"]
+assignees:
+  - KoheiKanagu
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+        このバグレポートを記入していただき、ありがとうございます！
+  - type: input
+    id: app
+    attributes:
+      label: Which app are you reporting a bug for? | どのアプリのバグを報告しますか？
+  - type: input
+    id: version
+    attributes:
+      label: Version | バージョン
+      description: |
+        What version of our app are you running?
+        どのバージョンのアプリを使用していますか？
+      value: latest | 最新
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened? | 何が起きましたか？
+      description: |
+        Also tell us, what did you expect to happen? You can also attach videos or screenshots.
+        また、どうなってほしかったかも教えてください。動画やスクリーンショットも添付できます。
+      placeholder: |
+        Tell us what you see!
+        何があったか教えてください！
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: What environment are you seeing the problem on? | どの環境で問題が発生していますか？
+      multiple: true
+      options:
+        - iOS
+        - Android
+        - macOS
+        - Windows
+        - Linux
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other
+  - type: input
+    id: environment-version
+    attributes:
+      label: What version of the environment are you running? | どのバージョンの環境を使用していますか？
+      description: |
+        If you're using a browser, please tell us the version of the browser.
+        ブラウザを使用している場合は、ブラウザのバージョンを教えてください。
+  - type: dropdown
+    id: severity
+    attributes:
+      label: How severe is the bug? | バグの深刻度はどのくらいですか？
+      default: 0
+      options:
+        - Critical | 致命的
+        - Major | 重大
+        - Minor | 軽微
+        - Trivial | 些細
+  - type: input
+    id: datetime
+    attributes:
+      label: When did you encounter the bug? | いつバグに遭遇しましたか？
+      description: |
+        Please tell us the approximate time
+        おおよその時間を教えてください
+      placeholder: YYYY-MM-DD HH:MM | 年-月-日 時:分

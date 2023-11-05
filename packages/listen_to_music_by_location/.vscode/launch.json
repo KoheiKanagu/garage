@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "LocaMusic dev",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--flavor",
+        "dev",
+      ],
+      "program": "lib/main_dev.dart"
+    },
+    {
+      "name": "LocaMusic prod",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--flavor",
+        "prod",
+      ],
+      "program": "lib/main_prod.dart",
+    }
+  ]
+}

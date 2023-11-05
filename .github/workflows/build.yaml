@@ -1,0 +1,89 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 19 * * *" # JTS 04:00
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pull_request_jobs:
+    uses: ./.github/workflows/pull_request.yaml
+
+  build_ios_no-codesign:
+    timeout-minutes: 30
+    runs-on: macos-13
+    steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v1.8.7
+
+      ### Set up ###
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: KoheiKanagu/composite-actions/setup-flutter@main
+
+      - name: Pods Cache
+        uses: actions/cache@v3
+        with:
+          path: packages/*/ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      ### Build ###
+      - run: melos run build:ios:no-codesign:dev --no-select
+
+  # TODO
+  # build_android:
+  #   timeout-minutes: 30
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       flavor: # FIXME
+  #         - dev
+  #         - prod
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     id-token: write
+  #     contents: read
+  #   steps:
+  #     ### Set up ###
+  #     - uses: actions/checkout@v4
+
+  #     - name: Setup Flutter
+  #       uses: KoheiKanagu/composite-actions/setup-flutter@main
+
+  #     - name: Gradle Cache
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: |
+  #           ~/.gradle/caches
+  #           ~/.gradle/wrapper
+  #         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-gradle-
+
+  #     - uses: KoheiKanagu/composite-actions/setup-android-signing@main
+  #       with:
+  #         package: listen_to_music_by_location
+  #         signing_configs_base64: ${{ secrets.SIGNING_CONFIGS_LISTEN_TO_MUSIC_BY_LOCATION_BASE64 }}
+  #         upload_keystore_base64: ${{ secrets.UPLOAD_KEYSTORE_LISTEN_TO_MUSIC_BY_LOCATION_BASE64 }}
+
+  #     # for `firebase crashlytics:symbols:upload`
+  #     - name: Setup Firebase CLI Prod
+  #       uses: KoheiKanagu/composite-actions/setup-firebase-cli@main
+  #       if: matrix.flavor == 'prod'
+  #       with:
+  #         workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_PROD }}
+  #         service_account: ${{ vars.SERVICE_ACCOUNT_PROD }}
+
+  #     ### Build ###
+  #     - if: matrix.flavor == 'dev'
+  #       run: melos run build:apk:dev --no-select
+
+  #     - if: matrix.flavor == 'prod'
+  #       run: melos run build:appbundle:prod --no-select

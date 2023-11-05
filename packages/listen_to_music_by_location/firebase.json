@@ -1,0 +1,60 @@
+{
+  "flutter": {
+    "platforms": {
+      "ios": {
+        "buildConfigurations": {
+          "Debug-dev": {
+            "projectId": "kingu-garage-dev",
+            "appId": "1:682848709439:ios:3361e1e37cb0d30884c18a",
+            "uploadDebugSymbols": true,
+            "fileOutput": "ios/dev/GoogleService-Info.plist"
+          },
+          "Release-dev": {
+            "projectId": "kingu-garage-dev",
+            "appId": "1:682848709439:ios:3361e1e37cb0d30884c18a",
+            "uploadDebugSymbols": true,
+            "fileOutput": "ios/dev/GoogleService-Info.plist"
+          },
+          "Profile-dev": {
+            "projectId": "kingu-garage-dev",
+            "appId": "1:682848709439:ios:3361e1e37cb0d30884c18a",
+            "uploadDebugSymbols": true,
+            "fileOutput": "ios/dev/GoogleService-Info.plist"
+          },
+          "Debug-prod": {
+            "projectId": "kingu-garage-prod",
+            "appId": "1:468490578657:ios:af5af82afe08d9df82e5a0",
+            "uploadDebugSymbols": true,
+            "fileOutput": "ios/prod/GoogleService-Info.plist"
+          },
+          "Release-prod": {
+            "projectId": "kingu-garage-prod",
+            "appId": "1:468490578657:ios:af5af82afe08d9df82e5a0",
+            "uploadDebugSymbols": true,
+            "fileOutput": "ios/prod/GoogleService-Info.plist"
+          },
+          "Profile-prod": {
+            "projectId": "kingu-garage-prod",
+            "appId": "1:468490578657:ios:af5af82afe08d9df82e5a0",
+            "uploadDebugSymbols": true,
+            "fileOutput": "ios/prod/GoogleService-Info.plist"
+          }
+        }
+      },
+      "dart": {
+        "lib/constants/firebase_options_dev.dart": {
+          "projectId": "kingu-garage-dev",
+          "configurations": {
+            "ios": "1:682848709439:ios:3361e1e37cb0d30884c18a"
+          }
+        },
+        "lib/constants/firebase_options_prod.dart": {
+          "projectId": "kingu-garage-prod",
+          "configurations": {
+            "ios": "1:468490578657:ios:af5af82afe08d9df82e5a0"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+name: Firebase Deploy Dev
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-Dev
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      ### Setup ###
+      - uses: actions/checkout@v4
+
+      - name: Setup Firebase CLI
+        uses: KoheiKanagu/composite-actions/setup-firebase-cli@main
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
+
+      ### Deploy ###
+      - name: Deploy
+        run: |
+          firebase use dev --debug
+          firebase deploy --force --except extensions
