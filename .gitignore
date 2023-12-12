@@ -24,7 +24,12 @@ doc/api/
 .flutter-plugins
 .flutter-plugins-dependencies
 
-**/.fvm/flutter_sdk
-
 .idea/
 *.iml
+*.log
+
+# FVM Version Cache
+.fvm/
+
+pubspec_overrides.yaml
+**/coverage/lcov.info

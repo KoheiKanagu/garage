@@ -1,0 +1,46 @@
+{
+  "firestore": [
+    {
+      "database": "(default)",
+      "rules": "firebase/firestore/firestore.default.rules",
+      "indexes": "firebase/firestore/firestore.default.indexes.json"
+    },
+    {
+      "database": "loca-music",
+      "rules": "firebase/firestore/firestore.loca-music.rules",
+      "indexes": "firebase/firestore/firestore.loca-music.indexes.json"
+    }
+  ],
+  "functions": [
+    {
+      "source": "firebase/functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run clean",
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ],
+  "emulators": {
+    "singleProjectMode": true,
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "ui": {
+      "enabled": true
+    }
+  }
+}

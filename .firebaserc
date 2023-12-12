@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "kingu-garage-dev",
+    "dev": "kingu-garage-dev",
+    "prod": "kingu-garage-prod"
+  }
+}

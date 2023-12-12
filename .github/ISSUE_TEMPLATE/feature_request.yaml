@@ -1,0 +1,28 @@
+name: Feature request | 機能追加の提案
+description: Suggest a feature to make our app better | アプリをより良くする機能を提案する
+labels: ["enhancement", "needs-triage"]
+assignees:
+  - KoheiKanagu
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an idea to make our app better! Please fill out the fields below.
+        アプリをより良くするアイデアを提案していただき、ありがとうございます！以下の項目を記入してください。
+  - type: textarea
+    attributes:
+      label: What is the feature you'd like to see? | どのような機能を追加してほしいですか？
+      description: |
+        Describe the feature you'd like to see added. Please be as detailed as possible.
+        追加してほしい機能を説明してください。できるだけ詳細にお願いします。
+    validations:
+      required: true
+  - type: textarea
+    id: usecase
+    attributes:
+      label: What is the use case for this feature? | この機能はどのような用途で使用しますか？
+      description: |
+        Describe the problem you're trying to solve. Please be as detailed as possible.
+        解決しようとしている問題を説明してください。できるだけ詳細にお願いします。
+    validations:
+      required: true

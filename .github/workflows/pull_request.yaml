@@ -1,0 +1,129 @@
+name: Pull Request
+
+on:
+  workflow_dispatch:
+  pull_request:
+  workflow_call:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: KoheiKanagu/composite-actions/run-actionlint@main
+
+  analyze:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v1.8.7
+        with:
+          comment_on_pr: false
+
+      ### Set up ###
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: KoheiKanagu/composite-actions/setup-flutter@main
+
+      ### Analyze ###
+      - name: Analyze
+        run: |
+          melos run analyze --no-select
+
+  test:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v1.8.7
+        with:
+          comment_on_pr: false
+
+      ### Set up ###
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: KoheiKanagu/composite-actions/setup-flutter@main
+
+      ### Test ###
+      - name: Test
+        run: |
+          melos run flutter:test --no-select
+
+  build_ios_config-only:
+    timeout-minutes: 30
+    runs-on: macos-13
+    steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v1.8.7
+        with:
+          comment_on_pr: false
+
+      ### Set up ###
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: KoheiKanagu/composite-actions/setup-flutter@main
+
+      - name: Pods Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            packages/*/ios/Pods
+            ~/Library/Caches/CocoaPods/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Update CocoaPods
+        run: gem update cocoapods
+
+      ### Build ###
+      - run: melos run build:ios:config-only
+
+      - run: git diff --exit-code
+
+  firebase-test:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v1.8.7
+        with:
+          comment_on_pr: false
+
+      ### Set up ###
+      - uses: actions/checkout@v4
+
+      - name: Setup Firebase CLI Dev
+        uses: KoheiKanagu/composite-actions/setup-firebase-cli@main
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
+
+      ### Test ###
+      - name: Test
+        run: |
+          ./firebase_emulators_test.sh dev
+
+  pull_request_conclusion:
+    needs:
+      - actionlint
+      - analyze
+      - test
+      - build_ios_config-only
+      - firebase-test
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Build Conclusion"

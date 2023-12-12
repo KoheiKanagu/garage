@@ -1,0 +1,5 @@
+enum ServiceStatus {
+  up,
+  down,
+  ;
+}
