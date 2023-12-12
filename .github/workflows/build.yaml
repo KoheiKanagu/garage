@@ -12,6 +12,9 @@ concurrency:
 jobs:
   pull_request_jobs:
     uses: ./.github/workflows/pull_request.yaml
+    permissions: # for KoheiKanagu/composite-actions/setup-firebase-cli@main
+      id-token: write
+      contents: read
 
   build_ios_no-codesign:
     timeout-minutes: 30

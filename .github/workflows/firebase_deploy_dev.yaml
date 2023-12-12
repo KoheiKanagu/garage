@@ -11,7 +11,7 @@ jobs:
   deploy:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    permissions:
+    permissions: # for KoheiKanagu/composite-actions/setup-firebase-cli@main
       id-token: write
       contents: read
 
