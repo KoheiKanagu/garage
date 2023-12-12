@@ -28,6 +28,10 @@ jobs:
           workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_PROD }}
           service_account: ${{ vars.SERVICE_ACCOUNT_PROD }}
 
+      - name: Install dependencies
+        run: npm ci
+        working-directory: firebase/functions
+
       ### Deploy ###
       - name: Deploy
         run: |
