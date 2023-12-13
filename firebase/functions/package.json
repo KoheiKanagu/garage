@@ -13,7 +13,6 @@
     "compile:watch": "tsc --watch",
     "fix": "gts fix",
     "prepare": "npm run compile",
-    "pretest": "npm run compile",
     "posttest": "npm run lint"
   },
   "engines": {
