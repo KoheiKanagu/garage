@@ -57,7 +57,7 @@ jobs:
         run: |
           melos run flutter:test --no-select
 
-  build_ios_config-only:
+  pod_update:
     timeout-minutes: 60
     runs-on: macos-13
     steps:
@@ -86,7 +86,7 @@ jobs:
         run: gem update cocoapods
 
       ### Build ###
-      - run: melos run build:ios:config-only
+      - run: melos run pod:update
 
       - run: git diff --exit-code
 
