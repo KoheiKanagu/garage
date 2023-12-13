@@ -41,6 +41,7 @@
       "coverage": true,
       ".fvm": true,
       ".fvmrc": true,
+      "firebase/functions/lib": true,
     },
     "cSpell.ignorePaths": [
       "package-lock.json",
