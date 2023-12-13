@@ -115,15 +115,3 @@ jobs:
       - name: Test
         run: |
           ./firebase_emulators_test.sh dev
-
-  pull_request_conclusion:
-    needs:
-      - actionlint
-      - analyze
-      - test
-      - build_ios_config-only
-      - firebase-test
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          echo "Build Conclusion"
