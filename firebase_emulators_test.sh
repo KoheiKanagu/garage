@@ -9,8 +9,8 @@ else
     firebase use dev --debug
 fi
 
-npm --prefix firebase/functions run clean
 npm --prefix firebase/functions ci
+npm --prefix firebase/functions run clean
 
 firebase emulators:exec \
     --debug \
