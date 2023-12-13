@@ -1,8 +1,6 @@
 import {FieldValue} from 'firebase-admin/firestore';
-
 import {logger} from 'firebase-functions/v2';
 import {onCall} from 'firebase-functions/v2/https';
-
 import {initializeAuth, initializeFirestore} from '.';
 import {CollectionPaths} from './utils/collection_paths';
 
