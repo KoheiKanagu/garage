@@ -114,4 +114,4 @@ jobs:
       ### Test ###
       - name: Test
         run: |
-          ./firebase_emulators_test.sh dev
+          ./firebase_emulators_test.sh
