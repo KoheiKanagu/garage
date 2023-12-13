@@ -90,6 +90,7 @@ scripts:
 
   pod:update:
     run: |
+      fvm flutter precache --ios
       fvm flutter pub get
 
       cd ios
