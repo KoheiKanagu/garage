@@ -88,16 +88,12 @@ scripts:
       flutter: true
       dependsOn: build_runner
 
-  build:ios:config-only:
+  pod:update:
     run: |
       fvm flutter pub get
 
-      pod repo update
-
-      fvm flutter build ios \
-        --config-only \
-        --flavor dev \
-        --target lib/main_dev.dart
+      cd ios
+      pod update
     exec:
       concurrency: 1
     packageFilters:
@@ -143,8 +139,6 @@ scripts:
 
   build:ios:no-codesign:dev:
     run: |
-      pod repo update
-
       fvm flutter build ios \
         --release \
         --no-codesign \
@@ -160,8 +154,6 @@ scripts:
 
   build:ios:no-codesign:prod:
     run: |
-      pod repo update
-
       fvm flutter build ios \
         --release \
         --no-codesign \
@@ -177,8 +169,6 @@ scripts:
 
   build:ipa:dev:
     run: |
-      pod repo update
-
       fvm flutter build ipa \
         --release \
         --flavor dev \
@@ -194,8 +184,6 @@ scripts:
 
   build:ipa:prod:upload:
     run: |
-      pod repo update
-
       fvm flutter build ipa \
         --release \
         --flavor prod \
