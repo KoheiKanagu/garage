@@ -15,5 +15,6 @@ jobs:
       statuses: write
     steps:
       - uses: aslafy-z/conventional-pr-title-action@v3
+        if: github.actor != 'dependabot[bot]'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
