@@ -1,25 +1,18 @@
 {
+  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "lib": [
-      "ES2022",
-      "DOM"
-    ],
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "outDir": "lib",
-    "sourceMap": true,
-    "strict": true,
-    "target": "ES2022",
-    "resolveJsonModule": true,
-    "esModuleInterop": true
+    "rootDir": ".",
+    "outDir": "build"
   },
-  "compileOnSave": true,
   "include": [
-    "src",
-    "scripts",
-    "test"
+    "src/**/*.ts",
+    "test/**/*.ts"
+  ],
+  "lib": [
+    "ES2023"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
   ]
 }

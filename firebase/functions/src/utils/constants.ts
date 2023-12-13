@@ -1,1 +1,1 @@
-export const isProd = process.env.FLAVOR === "prod";
+export const isProd = process.env.FLAVOR === 'prod';

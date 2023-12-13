@@ -1,8 +1,8 @@
-import * as admin from "firebase-admin";
-import * as fs from "firebase-admin/firestore";
-import * as f from "firebase-functions";
-import { setGlobalOptions } from "firebase-functions/v2";
-import { tenantIdToDatabaseId } from "./utils/tenant_id_to_database_id";
+import * as admin from 'firebase-admin';
+import * as fs from 'firebase-admin/firestore';
+import * as f from 'firebase-functions';
+import {setGlobalOptions} from 'firebase-functions/v2';
+import {tenantIdToDatabaseId} from './utils/tenant_id_to_database_id';
 
 const app = admin.initializeApp();
 
@@ -24,10 +24,10 @@ export function initializeFirestore(
 
 // for v2
 setGlobalOptions({
-  region: "asia-northeast1",
+  region: 'asia-northeast1',
   minInstances: 0,
   timeoutSeconds: 10,
-  memory: "256MiB",
+  memory: '256MiB',
   enforceAppCheck: true,
 });
 
@@ -35,13 +35,13 @@ setGlobalOptions({
 export function functions(): f.FunctionBuilder {
   return f
     .runWith({
-      memory: "256MB",
+      memory: '256MB',
       timeoutSeconds: 10,
       failurePolicy: true,
       enforceAppCheck: true,
     })
-    .region("asia-northeast1");
+    .region('asia-northeast1');
 }
 
-export { deleteUser } from "./deleteUser";
-export { onCreateAuthUser } from "./onCreateAuthUser";
+export {deleteUser} from './deleteUser';
+export {onCreateAuthUser} from './onCreateAuthUser';

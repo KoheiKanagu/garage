@@ -1,9 +1,9 @@
 export function tenantIdToDatabaseId(tenantId: string | undefined): string {
   if (!tenantId) {
-    return "";
+    return '';
   }
 
-  const parts = tenantId.split("-");
+  const parts = tenantId.split('-');
   parts.pop();
-  return parts.join("-");
+  return parts.join('-');
 }
