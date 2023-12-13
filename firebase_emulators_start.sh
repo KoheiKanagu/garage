@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 npm --prefix firebase/functions install --also=dev
-npm --prefix firebase/functions run build:watch >/dev/null 2>&1 &
+npm --prefix firebase/functions run compile:watch >/dev/null 2>&1 &
 
 firebase use dev
 

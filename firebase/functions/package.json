@@ -1,16 +1,17 @@
 {
   "name": "functions",
   "scripts": {
-    "lint": "eslint --ext .js,.ts .",
-    "build": "tsc",
-    "build:watch": "tsc --watch",
+    "lint": "gts lint",
     "serve": "npm run build && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "clean": "rm -rf lib",
-    "test": "jest"
+    "clean": "gts clean",
+    "test": "jest",
+    "compile": "tsc",
+    "compile:watch": "tsc --watch",
+    "fix": "gts fix"
   },
   "engines": {
     "node": "20"
@@ -34,7 +35,8 @@
     "eslint-plugin-import": "^2.29.0",
     "firebase-functions-test": "^3.1.0",
     "jest": "^29.7.0",
-    "typescript": "^5.2.2"
+    "typescript": "~5.2.0",
+    "gts": "^5.2.0"
   },
   "private": true,
   "jest": {

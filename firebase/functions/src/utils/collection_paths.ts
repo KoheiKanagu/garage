@@ -1,5 +1,5 @@
 export const CollectionPaths = {
-  USERS: "users_v1",
+  USERS: 'users_v1',
 } as const;
 
 export type CollectionPaths =
