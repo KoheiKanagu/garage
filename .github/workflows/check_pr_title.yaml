@@ -9,11 +9,12 @@ on:
       - synchronize
 
 jobs:
-  lint:
+  check-pr-title:
     runs-on: ubuntu-latest
     permissions:
       statuses: write
     steps:
       - uses: aslafy-z/conventional-pr-title-action@v3
+        if: github.actor != 'dependabot[bot]'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
