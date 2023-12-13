@@ -6,7 +6,7 @@ on:
   workflow_call:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-pull_request
   cancel-in-progress: true
 
 jobs:
@@ -58,7 +58,7 @@ jobs:
           melos run flutter:test --no-select
 
   build_ios_config-only:
-    timeout-minutes: 30
+    timeout-minutes: 60
     runs-on: macos-13
     steps:
       - name: Collect Workflow Telemetry
@@ -93,7 +93,7 @@ jobs:
   firebase-test:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    permissions:
+    permissions: # for KoheiKanagu/composite-actions/setup-firebase-cli@main
       id-token: write
       contents: read
     steps:

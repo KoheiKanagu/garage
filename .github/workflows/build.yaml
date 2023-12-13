@@ -6,15 +6,18 @@ on:
     - cron: "0 19 * * *" # JTS 04:00
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-build
   cancel-in-progress: true
 
 jobs:
   pull_request_jobs:
     uses: ./.github/workflows/pull_request.yaml
+    permissions: # for KoheiKanagu/composite-actions/setup-firebase-cli@main
+      id-token: write
+      contents: read
 
   build_ios_no-codesign:
-    timeout-minutes: 30
+    timeout-minutes: 60
     runs-on: macos-13
     steps:
       - name: Collect Workflow Telemetry
@@ -29,7 +32,9 @@ jobs:
       - name: Pods Cache
         uses: actions/cache@v3
         with:
-          path: packages/*/ios/Pods
+          path: |
+            packages/*/ios/Pods
+            ~/Library/Caches/CocoaPods/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-

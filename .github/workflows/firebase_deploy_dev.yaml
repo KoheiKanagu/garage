@@ -11,7 +11,7 @@ jobs:
   deploy:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    permissions:
+    permissions: # for KoheiKanagu/composite-actions/setup-firebase-cli@main
       id-token: write
       contents: read
 
@@ -24,6 +24,10 @@ jobs:
         with:
           workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
           service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: firebase/functions
 
       ### Deploy ###
       - name: Deploy
