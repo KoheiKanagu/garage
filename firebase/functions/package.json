@@ -16,8 +16,8 @@
     "node": "20"
   },
   "type": "commonjs",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/src/index.js",
+  "types": "lib/src/index.d.ts",
   "dependencies": {
     "firebase-admin": "^11.11.0",
     "firebase-functions": "^4.5.0"
