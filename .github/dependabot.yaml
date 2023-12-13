@@ -10,6 +10,7 @@ updates:
 
   - package-ecosystem: "npm"
     directory: "/firebase/functions"
+    versioning-strategy: increase-if-necessary
     schedule:
       interval: "weekly"
       day: "monday"
@@ -28,6 +29,7 @@ updates:
 
   - package-ecosystem: "pub"
     directory: "/packages/core"
+    versioning-strategy: increase-if-necessary
     schedule:
       interval: "weekly"
       day: "monday"
@@ -63,6 +65,7 @@ updates:
 
   - package-ecosystem: "pub"
     directory: "/packages/listen_to_music_by_location"
+    versioning-strategy: increase-if-necessary
     schedule:
       interval: "weekly"
       day: "monday"
