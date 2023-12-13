@@ -6,7 +6,7 @@ on:
     - cron: "0 19 * * *" # JTS 04:00
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-build
   cancel-in-progress: true
 
 jobs:
