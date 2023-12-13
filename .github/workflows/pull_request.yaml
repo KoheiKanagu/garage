@@ -58,7 +58,7 @@ jobs:
           melos run flutter:test --no-select
 
   build_ios_config-only:
-    timeout-minutes: 30
+    timeout-minutes: 60
     runs-on: macos-13
     steps:
       - name: Collect Workflow Telemetry

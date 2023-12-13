@@ -17,7 +17,7 @@ jobs:
       contents: read
 
   build_ios_no-codesign:
-    timeout-minutes: 30
+    timeout-minutes: 60
     runs-on: macos-13
     steps:
       - name: Collect Workflow Telemetry
