@@ -1,10 +1,10 @@
 #!/bin/bash
 set -euxo pipefail
 
-npm --prefix firebase/functions install --also=dev
-npm --prefix firebase/functions run compile:watch >/dev/null 2>&1 &
+firebase use dev --dev
 
-firebase use dev
+npm --prefix firebase/functions install --include=dev
+npm --prefix firebase/functions run compile:watch >/dev/null 2>&1 &
 
 firebase emulators:start \
     --only auth,functions,firestore \
