@@ -11,13 +11,7 @@
   "prHourlyLimit": 0,
   "rangeStrategy": "bump",
   "semanticCommits": "enabled",
-  "enabledManagers": [
-    "github-actions",
-    "pub",
-    "npm",
-    "custom.regex",
-    "cocoapods"
-  ],
+  "enabledManagers": ["github-actions", "pub", "npm", "custom.regex"],
   "labels": ["dependencies"],
   "ignoreDeps": ["dart"],
   "packageRules": [
