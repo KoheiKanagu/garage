@@ -1,6 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
+    open-pull-requests-limit: 100
     directory: "/"
     schedule:
       interval: "weekly"
@@ -9,8 +10,8 @@ updates:
       timezone: "Asia/Tokyo"
 
   - package-ecosystem: "npm"
+    open-pull-requests-limit: 100
     directory: "/firebase/functions"
-    versioning-strategy: increase
     schedule:
       interval: "weekly"
       day: "monday"
@@ -28,8 +29,8 @@ updates:
           - "jest"
 
   - package-ecosystem: "pub"
+    open-pull-requests-limit: 100
     directory: "/packages/core"
-    versioning-strategy: increase
     schedule:
       interval: "weekly"
       day: "monday"
@@ -64,8 +65,8 @@ updates:
           - "*_info_plus"
 
   - package-ecosystem: "pub"
+    open-pull-requests-limit: 100
     directory: "/packages/listen_to_music_by_location"
-    versioning-strategy: increase
     schedule:
       interval: "weekly"
       day: "monday"
