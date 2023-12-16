@@ -1,0 +1,51 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":semanticCommits"],
+  "schedule": ["before 4am on Monday"],
+  "timezone": "Asia/Tokyo",
+  "prHourlyLimit": 0,
+  "rangeStrategy": "bump",
+  "semanticCommits": "enabled",
+  "enabledManagers": ["github-actions", "pub", "npm"],
+  "ignoreDeps": ["dart"],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "firebase_*",
+        "cloud_firestore",
+        "cloud_functions"
+      ],
+      "groupName": "firebase"
+    },
+    {
+      "matchPackagePatterns": [
+        "freezed_annotation",
+        "freezed",
+        "json_annotation",
+        "json_serializable"
+      ],
+      "groupName": "freezed"
+    },
+    {
+      "matchPackagePatterns": ["hooks_riverpod", "riverpod_*"],
+      "groupName": "riverpod"
+    },
+    {
+      "matchPackagePatterns": ["go_router", "go_router_builder"],
+      "groupName": "go_router"
+    },
+    {
+      "matchPackagePatterns": ["_info_plus$"],
+      "groupName": "info_plus"
+    },
+    {
+      "matchPackagePatterns": ["@typescript-eslint/*", "eslint*"],
+      "groupName": "eslint"
+    },
+    {
+      "matchPackagePatterns": ["@swc/jest", "@types/jest", "jest"],
+      "groupName": "jest"
+    }
+  ]
+}
