@@ -9,6 +9,12 @@
   "enabledManagers": ["github-actions", "pub", "npm"],
   "ignoreDeps": ["dart"],
   "labels": ["dependencies"],
+  "force": {
+    "constraints": {
+      "dart": "3.3.0-174.3.beta",
+      "flutter": "3.18.0-0.2.pre"
+    }
+  },
   "packageRules": [
     {
       "matchPackagePatterns": [
