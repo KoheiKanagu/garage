@@ -7,7 +7,7 @@
   "rangeStrategy": "bump",
   "semanticCommits": "enabled",
   "enabledManagers": ["github-actions", "pub", "npm"],
-  "ignoreDeps": ["dart"],
+  "ignoreDeps": ["dart", "flutter"],
   "labels": ["dependencies"],
   "force": {
     "constraints": {
