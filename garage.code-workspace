@@ -71,9 +71,11 @@
       "Podfile",
       "predeploy",
       "pubspec",
+      "remoteconfig",
       "riverpod",
       "roggle",
-      "typedefs"
+      "typedefs",
+      "webp"
     ],
     "jest.disabledWorkspaceFolders": [
       "root",

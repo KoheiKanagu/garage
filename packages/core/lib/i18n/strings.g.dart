@@ -138,4 +138,17 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// コメント
 	String hello({required Object name}) => 'こんにちは ${name}';
+
+	late final _StringsConfigureJa configure = _StringsConfigureJa._(_root);
+}
+
+// Path: configure
+class _StringsConfigureJa {
+	_StringsConfigureJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => '設定';
+	String get feedback => 'フィードバックを送る';
 }

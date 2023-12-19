@@ -6,4 +6,6 @@ class RemoteConfigConstant {
   static const int kLatestVersionCodeValue = 0;
 
   static const String kServiceStatus = 'service_status';
+
+  static const String kFeedbackUri = 'feedback_uri';
 }
