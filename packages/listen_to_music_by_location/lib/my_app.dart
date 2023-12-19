@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/i18n/strings.g.dart';
-import 'package:listen_to_music_by_location/my_go_router.dart';
+import 'package:listen_to_music_by_location/routing/my_go_router.dart';
 
 class MyApp extends HookConsumerWidget {
   const MyApp({
@@ -29,10 +29,7 @@ class MyApp extends HookConsumerWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      routerConfig: myGoRouter(
-        crashlytics: ref.watch(firebaseCrashlyticsProvider),
-        analytics: ref.watch(firebaseAnalyticsProvider),
-      ),
+      routerConfig: ref.watch(myGoRouterProvider),
     );
   }
 }

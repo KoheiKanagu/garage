@@ -1,3 +1,4 @@
+import 'package:core/features/configure/application/configure_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +12,16 @@ class HomePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              const ConfigurePageRoute().push<void>(context);
+            },
+            icon: const Icon(Icons.settings),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Text(
