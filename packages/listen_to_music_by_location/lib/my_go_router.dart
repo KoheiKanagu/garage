@@ -1,4 +1,6 @@
 import 'package:core/core.dart';
+import 'package:core/features/configure/application/configure_route.dart'
+    as configure_route;
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -14,6 +16,7 @@ GoRouter myGoRouter({
     navigatorKey: rootNavigatorStateKey,
     routes: [
       ...home_route.$appRoutes,
+      ...configure_route.$appRoutes,
     ],
     errorBuilder: (context, state) {
       logger.e(
