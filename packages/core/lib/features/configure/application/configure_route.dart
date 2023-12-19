@@ -1,4 +1,5 @@
 import 'package:core/features/configure/domain/configure_item.dart';
+import 'package:core/features/configure/presentation/about_this_app_page.dart';
 import 'package:core/features/configure/presentation/configure_page.dart';
 import 'package:core/features/configure/presentation/my_license_page.dart';
 import 'package:flutter/widgets.dart';
@@ -8,11 +9,6 @@ part 'configure_route.g.dart';
 
 @TypedGoRoute<ConfigurePageRoute>(
   path: ConfigurePageRoute.path,
-  routes: [
-    TypedGoRoute<MyLicensePageRoute>(
-      path: MyLicensePageRoute.path,
-    ),
-  ],
 )
 class ConfigurePageRoute extends GoRouteData {
   const ConfigurePageRoute({
@@ -28,6 +24,25 @@ class ConfigurePageRoute extends GoRouteData {
     return ConfigurePage(
       additionalItems: $extra,
     );
+  }
+}
+
+@TypedGoRoute<AboutThisAppPageRoute>(
+  path: AboutThisAppPageRoute.path,
+  routes: [
+    TypedGoRoute<MyLicensePageRoute>(
+      path: MyLicensePageRoute.path,
+    ),
+  ],
+)
+class AboutThisAppPageRoute extends GoRouteData {
+  const AboutThisAppPageRoute();
+
+  static const path = '/about_this_app';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AboutThisAppPage();
   }
 }
 

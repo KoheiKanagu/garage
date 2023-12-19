@@ -10,17 +10,12 @@ part of 'configure_route.dart';
 
 List<RouteBase> get $appRoutes => [
       $configurePageRoute,
+      $aboutThisAppPageRoute,
     ];
 
 RouteBase get $configurePageRoute => GoRouteData.$route(
       path: '/configure',
       factory: $ConfigurePageRouteExtension._fromState,
-      routes: [
-        GoRouteData.$route(
-          path: 'license',
-          factory: $MyLicensePageRouteExtension._fromState,
-        ),
-      ],
     );
 
 extension $ConfigurePageRouteExtension on ConfigurePageRoute {
@@ -45,12 +40,41 @@ extension $ConfigurePageRouteExtension on ConfigurePageRoute {
       context.replace(location, extra: $extra);
 }
 
+RouteBase get $aboutThisAppPageRoute => GoRouteData.$route(
+      path: '/about_this_app',
+      factory: $AboutThisAppPageRouteExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: 'license',
+          factory: $MyLicensePageRouteExtension._fromState,
+        ),
+      ],
+    );
+
+extension $AboutThisAppPageRouteExtension on AboutThisAppPageRoute {
+  static AboutThisAppPageRoute _fromState(GoRouterState state) =>
+      const AboutThisAppPageRoute();
+
+  String get location => GoRouteData.$location(
+        '/about_this_app',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $MyLicensePageRouteExtension on MyLicensePageRoute {
   static MyLicensePageRoute _fromState(GoRouterState state) =>
       const MyLicensePageRoute();
 
   String get location => GoRouteData.$location(
-        '/configure/license',
+        '/about_this_app/license',
       );
 
   void go(BuildContext context) => context.go(location);

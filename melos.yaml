@@ -21,6 +21,7 @@ scripts:
       fvm flutter pub get
       fvm flutter pub run build_runner build --delete-conflicting-outputs
       (cd MELOS_ROOT_PATH && grind update-coverage-test --package=MELOS_PACKAGE_NAME)
+      (cd MELOS_ROOT_PATH && grind update-core-export)
       fvm dart fix --apply lib
       find lib test -name "*.dart" -not -path "lib/i18n/strings.g.dart" -exec fvm dart format --set-exit-if-changed {} \;
       fvm dart analyze --fatal-infos .
@@ -73,6 +74,7 @@ scripts:
     run: |
       fvm flutter pub get
       fvm flutter pub run build_runner build --delete-conflicting-outputs
+      (cd MELOS_ROOT_PATH && grind update-core-export)
     exec:
       concurrency: 1
       orderDependents: true

@@ -3,6 +3,10 @@
   "hello": "こんにちは $name",
   "configure": {
     "title": "設定",
-    "feedback": "フィードバックを送る"
+    "feedback": "フィードバックを送る",
+    "about_this_app": "このアプリについて",
+    "terms_of_service": "利用規約",
+    "privacy_policy": "プライバシーポリシー",
+    "license": "ライセンス"
   }
 }

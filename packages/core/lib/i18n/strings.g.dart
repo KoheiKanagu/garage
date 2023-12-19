@@ -151,4 +151,8 @@ class _StringsConfigureJa {
 	// Translations
 	String get title => '設定';
 	String get feedback => 'フィードバックを送る';
+	String get about_this_app => 'このアプリについて';
+	String get terms_of_service => '利用規約';
+	String get privacy_policy => 'プライバシーポリシー';
+	String get license => 'ライセンス';
 }

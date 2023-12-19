@@ -58,10 +58,46 @@ final configureServiceStatusProvider =
 );
 
 typedef ConfigureServiceStatusRef = AutoDisposeFutureProviderRef<ServiceStatus>;
+String _$configureTermsOfServiceUriHash() =>
+    r'559d609108fc05b2da5334093c7bc68bd0d16a4b';
+
+/// See also [configureTermsOfServiceUri].
+@ProviderFor(configureTermsOfServiceUri)
+final configureTermsOfServiceUriProvider =
+    AutoDisposeFutureProvider<Uri?>.internal(
+  configureTermsOfServiceUri,
+  name: r'configureTermsOfServiceUriProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$configureTermsOfServiceUriHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef ConfigureTermsOfServiceUriRef = AutoDisposeFutureProviderRef<Uri?>;
+String _$configurePrivacyPolicyUriHash() =>
+    r'960a672322cfc4ec91e92847d5386e5d3d089a72';
+
+/// See also [configurePrivacyPolicyUri].
+@ProviderFor(configurePrivacyPolicyUri)
+final configurePrivacyPolicyUriProvider =
+    AutoDisposeFutureProvider<Uri?>.internal(
+  configurePrivacyPolicyUri,
+  name: r'configurePrivacyPolicyUriProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$configurePrivacyPolicyUriHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef ConfigurePrivacyPolicyUriRef = AutoDisposeFutureProviderRef<Uri?>;
 String _$configureFeedbackUriHash() =>
     r'e47c4c4339c304f2501646e4dcd2596a199e46a6';
 
-/// See also [configureFeedbackUri].
+/// Returns the URI of the feedback page.
+///
+/// Copied from [configureFeedbackUri].
 @ProviderFor(configureFeedbackUri)
 final configureFeedbackUriProvider = AutoDisposeFutureProvider<Uri?>.internal(
   configureFeedbackUri,

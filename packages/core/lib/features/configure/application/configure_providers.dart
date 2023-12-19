@@ -50,6 +50,34 @@ Future<ServiceStatus> configureServiceStatus(
   };
 }
 
+@riverpod
+Future<Uri?> configureTermsOfServiceUri(
+  ConfigureTermsOfServiceUriRef ref,
+) {
+  return ref
+      .watch(
+        remoteConfigGetStringValueProvider(
+          key: RemoteConfigConstant.kTermsOfServiceUri,
+          defaultValue: '',
+        ).future,
+      )
+      .then(Uri.tryParse);
+}
+
+@riverpod
+Future<Uri?> configurePrivacyPolicyUri(
+  ConfigurePrivacyPolicyUriRef ref,
+) {
+  return ref
+      .watch(
+        remoteConfigGetStringValueProvider(
+          key: RemoteConfigConstant.kPrivacyPolicyUri,
+          defaultValue: '',
+        ).future,
+      )
+      .then(Uri.tryParse);
+}
+
 /// Returns the URI of the feedback page.
 @riverpod
 Future<Uri?> configureFeedbackUri(
