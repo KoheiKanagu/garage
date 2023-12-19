@@ -24,3 +24,11 @@ targets:
         generate_for:
           exclude:
             - "test/mocks/*.dart"
+      slang_build_runner:
+        options:
+          base_locale: ja
+          fallback_strategy: base_locale
+          translate_var: i18n
+          flat_map: false
+          timestamp: false
+          statistics: false

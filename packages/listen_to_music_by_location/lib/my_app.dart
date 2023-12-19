@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:listen_to_music_by_location/i18n/strings.g.dart';
 import 'package:listen_to_music_by_location/my_go_router.dart';
 
 class MyApp extends HookConsumerWidget {
@@ -22,9 +23,7 @@ class MyApp extends HookConsumerWidget {
           // .android()
           .build(),
       scaffoldMessengerKey: rootScaffoldMessengerKey,
-      supportedLocales: const [
-        Locale('ja', 'JP'),
-      ],
+      supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: const [
         GlobalCupertinoLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

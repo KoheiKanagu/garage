@@ -45,6 +45,8 @@ dependencies:
   roggle: ^0.4.2+1
   share_plus: ^7.2.1
   shared_preferences: ^2.2.2
+  slang: ^3.27.0
+  slang_flutter: ^3.27.0
   uuid: ^4.3.1
 
 dev_dependencies:
@@ -61,6 +63,7 @@ dev_dependencies:
   mockito: ^5.4.4
   riverpod_generator: ^2.3.9
   riverpod_lint: ^2.3.7
+  slang_build_runner: ^3.27.0
   test: any
   very_good_analysis: ^5.1.0
 
