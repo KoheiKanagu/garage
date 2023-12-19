@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:core/features/configure/application/remote_config_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'configure_providers.g.dart';
