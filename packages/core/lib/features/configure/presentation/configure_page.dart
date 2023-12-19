@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ConfigurePage extends HookConsumerWidget {
@@ -28,6 +29,14 @@ class ConfigurePage extends HookConsumerWidget {
               if (url != null) {
                 await launchUrl(url);
               }
+            },
+          ),
+          ConfigureListTile(
+            title: i18n.configure.review_app,
+            onTap: () {
+              InAppReview.instance.openStoreListing(
+                appStoreId: kAppStoreId,
+              );
             },
           ),
           ConfigureListTile(

@@ -155,4 +155,5 @@ class _StringsConfigureJa {
 	String get terms_of_service => '利用規約';
 	String get privacy_policy => 'プライバシーポリシー';
 	String get license => 'ライセンス';
+	String get review_app => 'アプリを評価する';
 }

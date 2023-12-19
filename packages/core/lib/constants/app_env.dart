@@ -9,6 +9,10 @@ String get kDatabaseId {
   return ids.join('-');
 }
 
+// ignore: comment_references
+/// App Store id. Used for [InAppReview]
+late final String kAppStoreId;
+
 late final AppEnv appEnv;
 
 final kAppEnvDev = appEnv == AppEnv.dev;
