@@ -1,9 +1,11 @@
 import 'package:core/core.dart';
+import 'package:core/i18n/strings.g.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,6 +23,9 @@ Future<ProviderContainer?> initialize() {
 
 Future<ProviderContainer> _initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  final locale = LocaleSettings.useDeviceLocale();
+  Intl.defaultLocale = locale.languageCode;
 
   final (_, sharedPreferences, packageInfo) = (
     await Firebase.initializeApp(),
