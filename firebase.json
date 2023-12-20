@@ -41,5 +41,11 @@
     "ui": {
       "enabled": true
     }
+  },
+  "remoteconfig": {
+    "template": "remoteconfig.template.json"
+  },
+  "storage": {
+    "rules": "firebase/storage/storage.rules"
   }
 }
