@@ -140,6 +140,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String hello({required Object name}) => 'こんにちは ${name}';
 
 	late final _StringsConfigureJa configure = _StringsConfigureJa._(_root);
+	late final _StringsFeedbackJa feedback = _StringsFeedbackJa._(_root);
 }
 
 // Path: configure
@@ -156,4 +157,20 @@ class _StringsConfigureJa {
 	String get privacy_policy => 'プライバシーポリシー';
 	String get license => 'ライセンス';
 	String get review_app => 'アプリを評価する';
+}
+
+// Path: feedback
+class _StringsFeedbackJa {
+	_StringsFeedbackJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get do_not_enter_personal_info => '個人情報を含む内容は記入しないでください';
+	String get input_email_if_reply_is_needed => '返信をご希望の場合はメールアドレスをご記入ください';
+	String get email_address => 'メールアドレス';
+	String get device_info_collection_notice => '問題解決やアプリの改善に活用するため、ご利用の端末の情報が自動的に送信されます';
+	String get os_version => 'OSとバージョン';
+	String get model_name => 'モデル名';
+	String get locale => '言語と地域';
 }
