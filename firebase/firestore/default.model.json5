@@ -1,0 +1,29 @@
+{
+  feedback_v1: {
+    $documentId: {
+      createdAt: "Timestamp", // FieldValue.serverTimestamp
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
+
+      // サインアウト後のフィードバックの場合はnull
+      // nullable
+      uid: "$uid",
+
+      // 返信先のメールアドレス
+      // nullable
+      email: "email@example.com",
+
+      message: "メッセージ",
+
+      // pngのスクリーンショットをbase64でエンコードしたもの
+      screenshotBase64: "base64",
+
+      deviceInfo: {
+        osVersion: "foo",
+        modelName: "foo",
+        locale: "foo",
+        appVersion: "foo",
+        appPackageName: "foo",
+      },
+    },
+  },
+}

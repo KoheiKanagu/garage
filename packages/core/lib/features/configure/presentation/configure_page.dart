@@ -1,9 +1,11 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
+import 'package:core/features/feedback/application/feedback_providers.dart';
 import 'package:core/i18n/strings.g.dart';
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ConfigurePage extends HookConsumerWidget {
   const ConfigurePage({
@@ -23,12 +25,23 @@ class ConfigurePage extends HookConsumerWidget {
         children: [
           ConfigureListTile(
             title: i18n.configure.feedback,
-            onTap: () async {
-              final url = await ref.watch(configureFeedbackUriProvider.future);
+            onTap: () {
+              BetterFeedback.of(context).show(
+                (feedback) async {
+                  await ref.read(feedbackSubmitProvider(feedback).future);
 
-              if (url != null) {
-                await launchUrl(url);
-              }
+                  if (context.mounted) {
+                    await showOkAlertDialog(
+                      context: context,
+                      message: i18n.feedback.thank_you_for_your_feedback,
+                    );
+                  }
+
+                  if (context.mounted) {
+                    BetterFeedback.of(context).hide();
+                  }
+                },
+              );
             },
           ),
           ConfigureListTile(

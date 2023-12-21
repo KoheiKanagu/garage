@@ -13,10 +13,15 @@
   "feedback": {
     "do_not_enter_personal_info": "個人情報を含む内容は記入しないでください",
     "input_email_if_reply_is_needed": "返信をご希望の場合はメールアドレスをご記入ください",
+    "input_email_if_reply_is_needed2": "なお、お問い合わせ内容によってはお返事できない場合もございますので、あらかじめご了承ください",
     "email_address": "メールアドレス",
     "device_info_collection_notice": "問題解決やアプリの改善に活用するため、ご利用の端末の情報が自動的に送信されます",
     "os_version": "OSとバージョン",
     "model_name": "モデル名",
-    "locale": "言語と地域"
+    "locale": "言語と地域",
+    "submit": "送信",
+    "confirm_sending_feedback": "フィードバックを送信しますか？",
+    "thank_you_for_your_feedback": "ご意見ありがとうございました",
+    "please_enter_your_feedback": "ご意見をご記入ください"
   }
 }

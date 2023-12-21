@@ -17,6 +17,7 @@ void updateCoreExport() {
       .map((e) => e.path)
       .map((e) => e.replaceFirst('packages/core/lib/', ''))
       .whereNot((element) => element == 'core.dart')
+      .whereNot((element) => element == 'constants/collection_path.dart')
       .whereNot((element) => element.endsWith('.g.dart'))
       .whereNot((element) => element.endsWith('.freezed.dart'))
       .map((e) => "export '$e';")

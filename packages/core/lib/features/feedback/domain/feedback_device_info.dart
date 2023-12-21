@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -16,4 +17,14 @@ class FeedbackDeviceInfo with _$FeedbackDeviceInfo {
 
   factory FeedbackDeviceInfo.fromJson(Json json) =>
       _$FeedbackDeviceInfoFromJson(json);
+
+  static FromFirestore<FeedbackDeviceInfo> get fromFirestore =>
+      (snapshot, _) => FeedbackDeviceInfo.fromJson(
+            snapshot.data() ?? {},
+          );
+
+  static ToFirestore<FeedbackDeviceInfo> get toFirestore =>
+      (data, _) => TimestampConverter.updateServerTimestamp(
+            data.toJson(),
+          );
 }

@@ -2,12 +2,8 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    function isSignedIn() {
-      return request.auth != null;
-    }
-
     match /feedback_v1/{documentId} {
-      allow create: true;
+      allow create: if true;
     }
   }
 }

@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:core/features/configure/application/device_info_providers.dart';
-import 'package:core/features/configure/application/package_info_providers.dart';
-import 'package:core/features/feedback/domain/feedback_device_info.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:core/constants/collection_path.dart';
+import 'package:core/core.dart';
+import 'package:feedback/feedback.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'feedback_providers.g.dart';
@@ -28,4 +30,35 @@ Future<FeedbackDeviceInfo> feedbackDeviceInfo(
     appVersion: appVersion,
     appPackageName: appPackageName,
   );
+}
+
+@riverpod
+CollectionReference<FeedbackData> feedbackCollectionReference(
+  FeedbackCollectionReferenceRef ref,
+) {
+  return ref
+      .read(firebaseFirestoreDefaultProvider)
+      .collection(CollectionPath.kFeedback)
+      .withConverter(
+        fromFirestore: FeedbackData.fromFirestore,
+        toFirestore: FeedbackData.toFirestore,
+      );
+}
+
+@riverpod
+Future<void> feedbackSubmit(
+  FeedbackSubmitRef ref,
+  UserFeedback userFeedback,
+) async {
+  final data = userFeedback.extra!['data'] as FeedbackData;
+
+  final feedbackData = FeedbackData(
+    uid: data.uid,
+    email: data.email,
+    message: data.message,
+    screenshotBase64: base64Encode(userFeedback.screenshot),
+    deviceInfo: data.deviceInfo,
+  );
+
+  await ref.read(feedbackCollectionReferenceProvider).add(feedbackData);
 }

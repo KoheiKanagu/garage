@@ -20,7 +20,14 @@ class MyBetterFeedback extends StatelessWidget {
       ],
       feedbackBuilder: (_, submit, scrollController) {
         return MyFeedbackSheet(
-          onSubmit: submit,
+          onSubmit: (data) {
+            submit(
+              '',
+              extras: {
+                'data': data,
+              },
+            );
+          },
           scrollController: scrollController,
         );
       },
