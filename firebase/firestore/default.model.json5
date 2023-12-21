@@ -9,7 +9,6 @@
       uid: "$uid",
 
       // 返信先のメールアドレス
-      // nullable
       email: "email@example.com",
 
       message: "メッセージ",

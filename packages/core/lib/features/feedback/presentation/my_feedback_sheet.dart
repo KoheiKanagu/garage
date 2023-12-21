@@ -73,7 +73,7 @@ class MyFeedbackSheet extends HookConsumerWidget {
             style: Theme.of(context).textTheme.bodySmall,
           ),
           const Gap(8),
-          TextField(
+          TextFormField(
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
               hintText: 'email@example.com',
@@ -83,6 +83,8 @@ class MyFeedbackSheet extends HookConsumerWidget {
             maxLength: 256,
             keyboardType: TextInputType.emailAddress,
             controller: emailFieldController,
+            onSaved: (newValue) =>
+                emailFieldController.text = newValue?.trim() ?? '',
           ),
           const Gap(32),
           i18n.feedback.device_info_collection_notice.wrapBudouXTextStyle(

@@ -22,7 +22,7 @@ class MyBetterFeedback extends StatelessWidget {
         return MyFeedbackSheet(
           onSubmit: (data) {
             submit(
-              '',
+              'unused',
               extras: {
                 'data': data,
               },
