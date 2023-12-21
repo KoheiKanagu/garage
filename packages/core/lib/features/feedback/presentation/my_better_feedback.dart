@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
+import 'package:core/features/feedback/domain/feedback_from.dart';
 import 'package:core/i18n/strings.g.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,11 @@ class _Wrap extends HookConsumerWidget {
                   );
 
                   if (context.mounted) {
-                    showMyBetterFeedback(context, ref);
+                    showMyBetterFeedback(
+                      context,
+                      ref,
+                      from: FeedbackFrom.shortcut,
+                    );
                   }
                 }
               },
@@ -83,11 +88,17 @@ class _Wrap extends HookConsumerWidget {
 
 void showMyBetterFeedback(
   BuildContext context,
-  WidgetRef ref,
-) {
+  WidgetRef ref, {
+  required FeedbackFrom from,
+}) {
   BetterFeedback.of(context).show(
     (feedback) async {
-      await ref.read(feedbackSubmitProvider(feedback).future);
+      await ref.read(
+        feedbackSubmitProvider(
+          feedback,
+          from: from,
+        ).future,
+      );
 
       if (context.mounted) {
         await showOkAlertDialog(

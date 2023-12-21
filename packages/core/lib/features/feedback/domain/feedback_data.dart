@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
+import 'package:core/features/feedback/domain/feedback_from.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'feedback_data.freezed.dart';
@@ -11,8 +12,9 @@ class FeedbackData with _$FeedbackData {
     required String? uid,
     required String? email,
     required String message,
-    required String screenshotBase64,
     required FeedbackDeviceInfo deviceInfo,
+    @Default('') String screenshotBase64,
+    @Default(FeedbackFrom.unknown) FeedbackFrom from,
     @TimestampConverter() Timestamp? createdAt,
     @TimestampConverter() Timestamp? updatedAt,
   }) = _FeedbackData;

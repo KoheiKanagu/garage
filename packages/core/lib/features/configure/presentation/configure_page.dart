@@ -1,8 +1,7 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:core/core.dart';
+import 'package:core/features/feedback/domain/feedback_from.dart';
 import 'package:core/i18n/strings.g.dart';
-import 'package:feedback/feedback.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -62,7 +61,11 @@ class ConfigurePage extends HookConsumerWidget {
           ConfigureListTile(
             title: i18n.configure.feedback,
             onTap: () {
-              showMyBetterFeedback(context, ref);
+              showMyBetterFeedback(
+                context,
+                ref,
+                from: FeedbackFrom.configure,
+              );
             },
           ),
           ConfigureListTile(

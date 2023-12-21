@@ -624,7 +624,7 @@ class _RemoteConfigGetBoolValueProviderElement
 }
 
 String _$remoteConfigValuesHash() =>
-    r'2340f2510d1a676920a98b6fb287a70e7afb4b5b';
+    r'678e2c52ce370c5bd4dc71ffe2d5d7c1f2751ac6';
 
 /// See also [RemoteConfigValues].
 @ProviderFor(RemoteConfigValues)

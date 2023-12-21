@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/constants/collection_path.dart';
 import 'package:core/core.dart';
+import 'package:core/features/feedback/domain/feedback_from.dart';
 import 'package:feedback/feedback.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -50,16 +51,14 @@ CollectionReference<FeedbackData> feedbackCollectionReference(
 @riverpod
 Future<void> feedbackSubmit(
   FeedbackSubmitRef ref,
-  UserFeedback userFeedback,
-) async {
+  UserFeedback userFeedback, {
+  required FeedbackFrom from,
+}) async {
   final data = userFeedback.extra!['data'] as FeedbackData;
 
-  final feedbackData = FeedbackData(
-    uid: data.uid,
-    email: data.email,
-    message: data.message,
+  final feedbackData = data.copyWith(
     screenshotBase64: base64Encode(userFeedback.screenshot),
-    deviceInfo: data.deviceInfo,
+    from: from,
   );
 
   await ref.read(feedbackCollectionReferenceProvider).add(feedbackData);

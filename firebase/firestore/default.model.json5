@@ -23,6 +23,9 @@
         appVersion: "foo",
         appPackageName: "foo",
       },
+
+      // どこからのフィードバックか
+      from: "foo", // configure | shortcut | unknown
     },
   },
 }

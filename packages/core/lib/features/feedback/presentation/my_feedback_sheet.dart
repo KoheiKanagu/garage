@@ -135,7 +135,6 @@ class MyFeedbackSheet extends HookConsumerWidget {
                     uid: currentUser?.uid,
                     email: emailFieldController.text,
                     message: messageFieldController.text,
-                    screenshotBase64: '',
                     deviceInfo:
                         await ref.read(feedbackDeviceInfoProvider.future),
                   ),

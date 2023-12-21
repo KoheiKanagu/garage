@@ -17,10 +17,15 @@ _$FeedbackDataImpl _$$FeedbackDataImplFromJson(Map<String, dynamic> json) =>
           uid: $checkedConvert('uid', (v) => v as String?),
           email: $checkedConvert('email', (v) => v as String?),
           message: $checkedConvert('message', (v) => v as String),
-          screenshotBase64:
-              $checkedConvert('screenshotBase64', (v) => v as String),
           deviceInfo: $checkedConvert('deviceInfo',
               (v) => FeedbackDeviceInfo.fromJson(v as Map<String, dynamic>)),
+          screenshotBase64:
+              $checkedConvert('screenshotBase64', (v) => v as String? ?? ''),
+          from: $checkedConvert(
+              'from',
+              (v) =>
+                  $enumDecodeNullable(_$FeedbackFromEnumMap, v) ??
+                  FeedbackFrom.unknown),
           createdAt: $checkedConvert(
               'createdAt', (v) => const TimestampConverter().fromJson(v)),
           updatedAt: $checkedConvert(
@@ -35,8 +40,15 @@ Map<String, dynamic> _$$FeedbackDataImplToJson(_$FeedbackDataImpl instance) =>
       'uid': instance.uid,
       'email': instance.email,
       'message': instance.message,
-      'screenshotBase64': instance.screenshotBase64,
       'deviceInfo': instance.deviceInfo.toJson(),
+      'screenshotBase64': instance.screenshotBase64,
+      'from': _$FeedbackFromEnumMap[instance.from]!,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
     };
+
+const _$FeedbackFromEnumMap = {
+  FeedbackFrom.unknown: 'unknown',
+  FeedbackFrom.configure: 'configure',
+  FeedbackFrom.shortcut: 'shortcut',
+};

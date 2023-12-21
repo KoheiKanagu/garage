@@ -44,7 +44,7 @@ final feedbackCollectionReferenceProvider =
 
 typedef FeedbackCollectionReferenceRef
     = AutoDisposeProviderRef<CollectionReference<FeedbackData>>;
-String _$feedbackSubmitHash() => r'fa83d0a76073227a33987a6513f9f2496ad1cd78';
+String _$feedbackSubmitHash() => r'15df20a859513d76463db8045e3f7383ddb469d0';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -78,10 +78,12 @@ class FeedbackSubmitFamily extends Family<AsyncValue<void>> {
 
   /// See also [feedbackSubmit].
   FeedbackSubmitProvider call(
-    UserFeedback userFeedback,
-  ) {
+    UserFeedback userFeedback, {
+    required FeedbackFrom from,
+  }) {
     return FeedbackSubmitProvider(
       userFeedback,
+      from: from,
     );
   }
 
@@ -91,6 +93,7 @@ class FeedbackSubmitFamily extends Family<AsyncValue<void>> {
   ) {
     return call(
       provider.userFeedback,
+      from: provider.from,
     );
   }
 
@@ -113,11 +116,13 @@ class FeedbackSubmitFamily extends Family<AsyncValue<void>> {
 class FeedbackSubmitProvider extends AutoDisposeFutureProvider<void> {
   /// See also [feedbackSubmit].
   FeedbackSubmitProvider(
-    UserFeedback userFeedback,
-  ) : this._internal(
+    UserFeedback userFeedback, {
+    required FeedbackFrom from,
+  }) : this._internal(
           (ref) => feedbackSubmit(
             ref as FeedbackSubmitRef,
             userFeedback,
+            from: from,
           ),
           from: feedbackSubmitProvider,
           name: r'feedbackSubmitProvider',
@@ -129,6 +134,7 @@ class FeedbackSubmitProvider extends AutoDisposeFutureProvider<void> {
           allTransitiveDependencies:
               FeedbackSubmitFamily._allTransitiveDependencies,
           userFeedback: userFeedback,
+          from: from,
         );
 
   FeedbackSubmitProvider._internal(
@@ -139,9 +145,11 @@ class FeedbackSubmitProvider extends AutoDisposeFutureProvider<void> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.userFeedback,
+    required this.from,
   }) : super.internal();
 
   final UserFeedback userFeedback;
+  final FeedbackFrom from;
 
   @override
   Override overrideWith(
@@ -157,6 +165,7 @@ class FeedbackSubmitProvider extends AutoDisposeFutureProvider<void> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         userFeedback: userFeedback,
+        from: from,
       ),
     );
   }
@@ -169,13 +178,15 @@ class FeedbackSubmitProvider extends AutoDisposeFutureProvider<void> {
   @override
   bool operator ==(Object other) {
     return other is FeedbackSubmitProvider &&
-        other.userFeedback == userFeedback;
+        other.userFeedback == userFeedback &&
+        other.from == from;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, userFeedback.hashCode);
+    hash = _SystemHash.combine(hash, from.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -184,6 +195,9 @@ class FeedbackSubmitProvider extends AutoDisposeFutureProvider<void> {
 mixin FeedbackSubmitRef on AutoDisposeFutureProviderRef<void> {
   /// The parameter `userFeedback` of this provider.
   UserFeedback get userFeedback;
+
+  /// The parameter `from` of this provider.
+  FeedbackFrom get from;
 }
 
 class _FeedbackSubmitProviderElement
@@ -193,6 +207,8 @@ class _FeedbackSubmitProviderElement
   @override
   UserFeedback get userFeedback =>
       (origin as FeedbackSubmitProvider).userFeedback;
+  @override
+  FeedbackFrom get from => (origin as FeedbackSubmitProvider).from;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
