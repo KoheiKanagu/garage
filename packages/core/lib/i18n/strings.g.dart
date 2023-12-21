@@ -178,4 +178,5 @@ class _StringsFeedbackJa {
 	String get confirm_sending_feedback => 'フィードバックを送信しますか？';
 	String get thank_you_for_your_feedback => 'ご意見ありがとうございました';
 	String get please_enter_your_feedback => 'ご意見をご記入ください';
+	String get please_feedback => 'フィードバックにご協力ください';
 }

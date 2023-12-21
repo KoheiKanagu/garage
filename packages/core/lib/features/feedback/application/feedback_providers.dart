@@ -9,6 +9,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'feedback_providers.g.dart';
 
+const kFeedbackShortcut = 'feedback_shortcut';
+
 @riverpod
 Future<FeedbackDeviceInfo> feedbackDeviceInfo(
   FeedbackDeviceInfoRef ref,

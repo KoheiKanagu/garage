@@ -22,6 +22,7 @@
     "submit": "送信",
     "confirm_sending_feedback": "フィードバックを送信しますか？",
     "thank_you_for_your_feedback": "ご意見ありがとうございました",
-    "please_enter_your_feedback": "ご意見をご記入ください"
+    "please_enter_your_feedback": "ご意見をご記入ください",
+    "please_feedback": "フィードバックにご協力ください"
   }
 }

@@ -62,22 +62,7 @@ class ConfigurePage extends HookConsumerWidget {
           ConfigureListTile(
             title: i18n.configure.feedback,
             onTap: () {
-              BetterFeedback.of(context).show(
-                (feedback) async {
-                  await ref.read(feedbackSubmitProvider(feedback).future);
-
-                  if (context.mounted) {
-                    await showOkAlertDialog(
-                      context: context,
-                      message: i18n.feedback.thank_you_for_your_feedback,
-                    );
-                  }
-
-                  if (context.mounted) {
-                    BetterFeedback.of(context).hide();
-                  }
-                },
-              );
+              showMyBetterFeedback(context, ref);
             },
           ),
           ConfigureListTile(
