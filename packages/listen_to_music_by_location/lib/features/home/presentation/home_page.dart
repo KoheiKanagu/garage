@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:core/features/configure/application/configure_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
