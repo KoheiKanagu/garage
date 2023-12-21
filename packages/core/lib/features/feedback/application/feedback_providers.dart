@@ -52,13 +52,13 @@ CollectionReference<FeedbackData> feedbackCollectionReference(
 Future<void> feedbackSubmit(
   FeedbackSubmitRef ref,
   UserFeedback userFeedback, {
-  required FeedbackFrom from,
+  required FeedbackFrom feedbackFrom,
 }) async {
   final data = userFeedback.extra!['data'] as FeedbackData;
 
   final feedbackData = data.copyWith(
     screenshotBase64: base64Encode(userFeedback.screenshot),
-    from: from,
+    from: feedbackFrom,
   );
 
   await ref.read(feedbackCollectionReferenceProvider).add(feedbackData);
