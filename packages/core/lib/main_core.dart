@@ -83,24 +83,31 @@ Future<ProviderContainer> _initialize() async {
   );
 
   /// listen Providers ---
-  container.listen(
-    firebaseUserUidProvider,
-    (_, next) async {
-      final uid = next.value;
-      logger.i('listen firebaseUserUidProvider: $uid');
+  container
+    ..listen(
+      firebaseUserUidProvider,
+      (_, next) async {
+        final uid = next.value;
+        logger.i('listen firebaseUserUidProvider: $uid');
 
-      await Future.wait(
-        [
-          container.read(firebaseAnalyticsProvider).setUserId(
-                id: uid,
-              ),
-          container.read(firebaseCrashlyticsProvider).setUserIdentifier(
-                uid ?? '',
-              ),
-        ],
-      );
-    },
-  );
+        await Future.wait(
+          [
+            container.read(firebaseAnalyticsProvider).setUserId(
+                  id: uid,
+                ),
+            container.read(firebaseCrashlyticsProvider).setUserIdentifier(
+                  uid ?? '',
+                ),
+          ],
+        );
+      },
+    )
+    ..listen(
+      remoteConfigValuesProvider,
+      (_, __) {
+        // disposeされるのを防ぐ
+      },
+    );
 
   return container;
 }

@@ -76,18 +76,3 @@ Future<Uri?> configurePrivacyPolicyUri(
       )
       .then(Uri.tryParse);
 }
-
-/// Returns the URI of the feedback page.
-@riverpod
-Future<Uri?> configureFeedbackUri(
-  ConfigureFeedbackUriRef ref,
-) {
-  return ref
-      .watch(
-        remoteConfigGetStringValueProvider(
-          key: RemoteConfigConstant.kFeedbackUri,
-          defaultValue: '',
-        ).future,
-      )
-      .then(Uri.tryParse);
-}

@@ -92,23 +92,5 @@ final configurePrivacyPolicyUriProvider =
 );
 
 typedef ConfigurePrivacyPolicyUriRef = AutoDisposeFutureProviderRef<Uri?>;
-String _$configureFeedbackUriHash() =>
-    r'e47c4c4339c304f2501646e4dcd2596a199e46a6';
-
-/// Returns the URI of the feedback page.
-///
-/// Copied from [configureFeedbackUri].
-@ProviderFor(configureFeedbackUri)
-final configureFeedbackUriProvider = AutoDisposeFutureProvider<Uri?>.internal(
-  configureFeedbackUri,
-  name: r'configureFeedbackUriProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$configureFeedbackUriHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef ConfigureFeedbackUriRef = AutoDisposeFutureProviderRef<Uri?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

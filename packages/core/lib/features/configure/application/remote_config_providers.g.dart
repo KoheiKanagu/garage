@@ -624,13 +624,13 @@ class _RemoteConfigGetBoolValueProviderElement
 }
 
 String _$remoteConfigValuesHash() =>
-    r'eadcc135eed6496c8330e26618935ee8294e0b37';
+    r'2340f2510d1a676920a98b6fb287a70e7afb4b5b';
 
-/// See also [remoteConfigValues].
-@ProviderFor(remoteConfigValues)
-final remoteConfigValuesProvider =
-    AutoDisposeStreamProvider<Map<String, RemoteConfigValue>>.internal(
-  remoteConfigValues,
+/// See also [RemoteConfigValues].
+@ProviderFor(RemoteConfigValues)
+final remoteConfigValuesProvider = AutoDisposeStreamNotifierProvider<
+    RemoteConfigValues, Map<String, RemoteConfigValue>>.internal(
+  RemoteConfigValues.new,
   name: r'remoteConfigValuesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
@@ -639,7 +639,7 @@ final remoteConfigValuesProvider =
   allTransitiveDependencies: null,
 );
 
-typedef RemoteConfigValuesRef
-    = AutoDisposeStreamProviderRef<Map<String, RemoteConfigValue>>;
+typedef _$RemoteConfigValues
+    = AutoDisposeStreamNotifier<Map<String, RemoteConfigValue>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
