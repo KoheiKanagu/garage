@@ -157,6 +157,9 @@ class _StringsConfigureJa {
 	String get privacy_policy => 'プライバシーポリシー';
 	String get license => 'ライセンス';
 	String get review_app => 'アプリを評価する';
+	String get delete_all => 'すべてのデータを削除';
+	String get delete_all_description => 'ユーザ情報が削除され、すべてのデータが閲覧できなくなります。この操作は取り消せません。削除してもよろしいですか？';
+	String get delete_complete => 'ユーザ情報を削除しました';
 }
 
 // Path: feedback

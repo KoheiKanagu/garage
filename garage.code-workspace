@@ -76,6 +76,7 @@
       "riverpod",
       "roggle",
       "typedefs",
+      "unawaited",
       "webp"
     ],
     "jest.disabledWorkspaceFolders": [

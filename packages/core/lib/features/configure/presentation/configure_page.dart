@@ -1,4 +1,6 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:collection/collection.dart';
+import 'package:core/common_widgets/show_my_progress_indicator.dart';
 import 'package:core/core.dart';
 import 'package:core/features/feedback/domain/feedback_from.dart';
 import 'package:core/i18n/strings.g.dart';
@@ -80,6 +82,33 @@ class ConfigurePage extends HookConsumerWidget {
             title: i18n.configure.about_this_app,
             onTap: () {
               const AboutThisAppPageRoute().push<void>(context);
+            },
+          ),
+          const Divider(),
+          ConfigureListTile(
+            title: i18n.configure.delete_all,
+            onTap: () async {
+              final result = await showOkCancelAlertDialog(
+                context: context,
+                title: i18n.configure.delete_all,
+                message: i18n.configure.delete_all_description,
+                okLabel: MaterialLocalizations.of(context).deleteButtonTooltip,
+                isDestructiveAction: true,
+              );
+              if (result != OkCancelResult.ok) {
+                return;
+              }
+
+              final indicator = showMyProgressIndicator();
+              await ref.read(firebaseUserDeleteProvider.future);
+              indicator.dismiss();
+
+              if (context.mounted) {
+                await showOkAlertDialog(
+                  context: context,
+                  title: i18n.configure.delete_complete,
+                );
+              }
             },
           ),
         ],
