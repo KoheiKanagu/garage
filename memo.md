@@ -83,6 +83,11 @@ touch packages/$NEW_PACKAGE/lib/features/home/application/home_route.dart
 touch packages/$NEW_PACKAGE/lib/features/home/presentation/home_page.dart
 ```
 
+### OAuth
+
+- `REVERSED_CLIENT_ID` を URL スキームに追加
+- エンコードした AppID を URL スキームに追加
+
 ## リリース手順
 
 ```sh
