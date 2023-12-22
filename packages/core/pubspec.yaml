@@ -65,3 +65,8 @@ dev_dependencies:
   slang_build_runner: ^3.27.0
   test: any
   very_good_analysis: ^5.1.0
+
+fonts:
+  - family: SocialIcons
+    fonts:
+      - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
