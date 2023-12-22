@@ -62,6 +62,8 @@ class ConfigurePage extends HookConsumerWidget {
           const Divider(),
           ConfigureListTile(
             title: i18n.configure.feedback,
+            leadingIcon: Icons.feedback_outlined,
+            trailingIcon: Icons.adaptive.arrow_forward_rounded,
             onTap: () {
               showMyBetterFeedback(
                 context,
@@ -72,6 +74,8 @@ class ConfigurePage extends HookConsumerWidget {
           ),
           ConfigureListTile(
             title: i18n.configure.review_app,
+            leadingIcon: Icons.star_outline_rounded,
+            trailingIcon: Icons.adaptive.arrow_forward_rounded,
             onTap: () {
               InAppReview.instance.openStoreListing(
                 appStoreId: kAppStoreId,
@@ -80,6 +84,8 @@ class ConfigurePage extends HookConsumerWidget {
           ),
           ConfigureListTile(
             title: i18n.configure.about_this_app,
+            leadingIcon: Icons.info_outline_rounded,
+            trailingIcon: Icons.adaptive.arrow_forward_rounded,
             onTap: () {
               const AboutThisAppPageRoute().push<void>(context);
             },
@@ -87,6 +93,8 @@ class ConfigurePage extends HookConsumerWidget {
           const Divider(),
           ConfigureListTile(
             title: i18n.configure.delete_all,
+            leadingIcon: Icons.delete_forever_outlined,
+            isDestructiveAction: true,
             onTap: () async {
               final result = await showOkCancelAlertDialog(
                 context: context,
