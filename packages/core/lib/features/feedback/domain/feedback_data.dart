@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
-import 'package:core/features/feedback/domain/feedback_from.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'feedback_data.freezed.dart';
