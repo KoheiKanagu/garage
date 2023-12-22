@@ -138,4 +138,48 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// コメント
 	String hello({required Object name}) => 'こんにちは ${name}';
+
+	late final _StringsConfigureJa configure = _StringsConfigureJa._(_root);
+	late final _StringsFeedbackJa feedback = _StringsFeedbackJa._(_root);
+}
+
+// Path: configure
+class _StringsConfigureJa {
+	_StringsConfigureJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => '設定';
+	String get feedback => 'フィードバックを送る';
+	String get about_this_app => 'このアプリについて';
+	String get terms_of_service => '利用規約';
+	String get privacy_policy => 'プライバシーポリシー';
+	String get license => 'ライセンス';
+	String get review_app => 'アプリを評価する';
+	String get delete_all => 'すべてのデータを削除';
+	String get delete_all_description => 'ユーザ情報が削除され、すべてのデータが閲覧できなくなります。この操作は取り消せません。削除してもよろしいですか？';
+	String get delete_complete => 'ユーザ情報を削除しました';
+}
+
+// Path: feedback
+class _StringsFeedbackJa {
+	_StringsFeedbackJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get do_not_enter_personal_info => '個人情報を含む内容は記入しないでください';
+	String get input_email_if_reply_is_needed => '返信をご希望の場合はメールアドレスをご記入ください';
+	String get input_email_if_reply_is_needed2 => 'なお、お問い合わせ内容によってはお返事できない場合もございますので、あらかじめご了承ください';
+	String get email_address => 'メールアドレス';
+	String get device_info_collection_notice => '問題解決やアプリの改善に活用するため、ご利用の端末の情報が自動的に送信されます';
+	String get os_version => 'OSとバージョン';
+	String get model_name => 'モデル名';
+	String get locale => '言語と地域';
+	String get submit => '送信';
+	String get confirm_sending_feedback => 'フィードバックを送信しますか？';
+	String get thank_you_for_your_feedback => 'ご意見ありがとうございました';
+	String get please_enter_your_feedback => 'ご意見をご記入ください';
+	String get please_feedback => 'フィードバックにご協力ください';
 }

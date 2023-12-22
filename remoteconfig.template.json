@@ -1,0 +1,61 @@
+{
+  "conditions": [
+    {
+      "name": "listen_to_music_by_location",
+      "expression": "app.id == '1:682848709439:ios:3361e1e37cb0d30884c18a'",
+      "tagColor": "ORANGE"
+    }
+  ],
+  "parameters": {
+    "requirement_version_code": {
+      "defaultValue": {
+        "value": "0"
+      },
+      "conditionalValues": {
+        "listen_to_music_by_location": {
+          "value": "0"
+        }
+      },
+      "description": "必須バージョンのアプリのバージョンコード",
+      "valueType": "NUMBER"
+    },
+    "latest_version_code": {
+      "defaultValue": {
+        "value": "0"
+      },
+      "conditionalValues": {
+        "listen_to_music_by_location": {
+          "value": "0"
+        }
+      },
+      "description": "最新版のアプリのバージョンコード",
+      "valueType": "NUMBER"
+    },
+    "serviceStatus": {
+      "defaultValue": {
+        "value": "up"
+      },
+      "conditionalValues": {
+        "listen_to_music_by_location": {
+          "value": "0"
+        }
+      },
+      "description": "サービスステータス",
+      "valueType": "STRING"
+    },
+    "terms_of_service_uri": {
+      "defaultValue": {
+        "value": "https://github.com/KoheiKanagu/garage/blob/main/term_of_service.md"
+      },
+      "description": "利用規約",
+      "valueType": "STRING"
+    },
+    "privacy_policy_uri": {
+      "defaultValue": {
+        "value": "https://github.com/KoheiKanagu/garage/blob/main/privacy_policy.md"
+      },
+      "description": "プライバシーポリシー",
+      "valueType": "STRING"
+    }
+  }
+}

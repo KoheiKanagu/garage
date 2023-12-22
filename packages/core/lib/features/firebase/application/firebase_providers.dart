@@ -33,6 +33,20 @@ FirebaseFirestore firebaseFirestore(FirebaseFirestoreRef _) {
 }
 
 @riverpod
+FirebaseFirestore firebaseFirestoreDefault(
+  FirebaseFirestoreDefaultRef ref,
+) {
+  final instance = FirebaseFirestore.instanceFor(
+    app: Firebase.app(),
+  );
+
+  if (kUseFirebaseEmulator) {
+    return instance..useFirestoreEmulator(_host, 8080);
+  }
+  return instance;
+}
+
+@riverpod
 FirebaseAuth firebaseAuth(FirebaseAuthRef _) {
   final instance = FirebaseAuth.instance..tenantId = kTenantId;
 

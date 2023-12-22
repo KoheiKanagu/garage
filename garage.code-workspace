@@ -58,6 +58,7 @@
     ],
     "cSpell.words": [
       "appbundle",
+      "autovalidate",
       "budoux",
       "codesign",
       "cupertino",
@@ -71,9 +72,12 @@
       "Podfile",
       "predeploy",
       "pubspec",
+      "remoteconfig",
       "riverpod",
       "roggle",
-      "typedefs"
+      "typedefs",
+      "unawaited",
+      "webp"
     ],
     "jest.disabledWorkspaceFolders": [
       "root",

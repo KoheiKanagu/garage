@@ -41,6 +41,23 @@ final firebaseFirestoreProvider =
 );
 
 typedef FirebaseFirestoreRef = AutoDisposeProviderRef<FirebaseFirestore>;
+String _$firebaseFirestoreDefaultHash() =>
+    r'7ce0c04c5fc623cf63ca9a464d8d51b13004a5fb';
+
+/// See also [firebaseFirestoreDefault].
+@ProviderFor(firebaseFirestoreDefault)
+final firebaseFirestoreDefaultProvider =
+    AutoDisposeProvider<FirebaseFirestore>.internal(
+  firebaseFirestoreDefault,
+  name: r'firebaseFirestoreDefaultProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$firebaseFirestoreDefaultHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseFirestoreDefaultRef = AutoDisposeProviderRef<FirebaseFirestore>;
 String _$firebaseAuthHash() => r'40fc209f097d41a02bc7b21aa887df10fb961e98';
 
 /// See also [firebaseAuth].

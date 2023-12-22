@@ -26,3 +26,9 @@ String packageInfoAppName(
   PackageInfoAppNameRef ref,
 ) =>
     ref.watch(packageInfoProvider).appName;
+
+@riverpod
+String packageInfoPackageName(
+  PackageInfoPackageNameRef ref,
+) =>
+    ref.watch(packageInfoProvider).packageName;

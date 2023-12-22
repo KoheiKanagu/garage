@@ -24,4 +24,15 @@ extension StringExtension on String {
             )
             .toList(),
       );
+
+  Widget wrapBudouXTextStyle({
+    required TextStyle? style,
+    WrapAlignment alignment = WrapAlignment.start,
+  }) =>
+      wrapBudouX(
+        (e) => Text(
+          e,
+          style: style,
+        ),
+      );
 }

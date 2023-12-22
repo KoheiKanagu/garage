@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'configure_providers.g.dart';
@@ -51,52 +50,29 @@ Future<ServiceStatus> configureServiceStatus(
 }
 
 @riverpod
-Future<String> remoteConfigGetStringValue(
-  RemoteConfigGetStringValueRef ref, {
-  required String key,
-  required String defaultValue,
-}) async {
-  final result = await ref.watch(remoteConfigValuesProvider.future);
-  return result[key]?.asString() ?? defaultValue;
+Future<Uri?> configureTermsOfServiceUri(
+  ConfigureTermsOfServiceUriRef ref,
+) {
+  return ref
+      .watch(
+        remoteConfigGetStringValueProvider(
+          key: RemoteConfigConstant.kTermsOfServiceUri,
+          defaultValue: '',
+        ).future,
+      )
+      .then(Uri.tryParse);
 }
 
 @riverpod
-Future<int> remoteConfigGetIntValue(
-  RemoteConfigGetIntValueRef ref, {
-  required String key,
-  required int defaultValue,
-}) async {
-  final result = await ref.watch(remoteConfigValuesProvider.future);
-  return result[key]?.asInt() ?? defaultValue;
+Future<Uri?> configurePrivacyPolicyUri(
+  ConfigurePrivacyPolicyUriRef ref,
+) {
+  return ref
+      .watch(
+        remoteConfigGetStringValueProvider(
+          key: RemoteConfigConstant.kPrivacyPolicyUri,
+          defaultValue: '',
+        ).future,
+      )
+      .then(Uri.tryParse);
 }
-
-@riverpod
-Future<double> remoteConfigGetDoubleValue(
-  RemoteConfigGetDoubleValueRef ref, {
-  required String key,
-  required double defaultValue,
-}) async {
-  final result = await ref.watch(remoteConfigValuesProvider.future);
-  return result[key]?.asDouble() ?? defaultValue;
-}
-
-@riverpod
-Future<bool> remoteConfigGetBoolValue(
-  RemoteConfigGetBoolValueRef ref, {
-  required String key,
-  required bool defaultValue,
-}) async {
-  final result = await ref.watch(remoteConfigValuesProvider.future);
-  return result[key]?.asBool() ?? defaultValue;
-}
-
-@riverpod
-Stream<Map<String, RemoteConfigValue>> remoteConfigValues(
-  RemoteConfigValuesRef ref,
-) =>
-    ref.watch(firebaseRemoteConfigProvider).whenOrNull(
-          data: (value) => value.onConfigUpdated.map(
-            (_) => value.getAll(),
-          ),
-        ) ??
-    const Stream.empty();

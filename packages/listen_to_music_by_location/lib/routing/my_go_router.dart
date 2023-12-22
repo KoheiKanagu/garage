@@ -1,19 +1,24 @@
 import 'package:core/core.dart';
+import 'package:core/features/configure/application/configure_route.dart'
+    as configure_route;
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:listen_to_music_by_location/features/home/application/home_route.dart'
     as home_route;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-GoRouter myGoRouter({
-  required FirebaseCrashlytics crashlytics,
-  required FirebaseAnalytics analytics,
-}) {
+part 'my_go_router.g.dart';
+
+@riverpod
+Raw<GoRouter> myGoRouter(
+  MyGoRouterRef ref,
+) {
   return GoRouter(
     navigatorKey: rootNavigatorStateKey,
     routes: [
       ...home_route.$appRoutes,
+      ...configure_route.$appRoutes,
     ],
     errorBuilder: (context, state) {
       logger.e(
@@ -33,9 +38,11 @@ GoRouter myGoRouter({
       return const FailedRunApp();
     },
     observers: [
-      MyNavigatorObserver(crashlytics),
+      MyNavigatorObserver(
+        ref.watch(firebaseCrashlyticsProvider),
+      ),
       FirebaseAnalyticsObserver(
-        analytics: analytics,
+        analytics: ref.watch(firebaseAnalyticsProvider),
       ),
     ],
     debugLogDiagnostics: kDebugMode,

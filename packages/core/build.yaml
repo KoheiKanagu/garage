@@ -15,6 +15,7 @@ targets:
           include:
             - lib/features/*/domain/**.dart
             - lib/features/*/application/**.dart
+            - lib/routing/**.dart
       json_serializable:
         options:
           checked: true

@@ -1,0 +1,9 @@
+{
+  users_v1: {
+    $uid: {
+      createdAt: "Timestamp", // FieldValue.serverTimestamp
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
+      deleted: false,
+    },
+  },
+}

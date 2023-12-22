@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<ProviderContainer?> initialize() {
@@ -79,28 +80,43 @@ Future<ProviderContainer> _initialize() async {
           ),
         false => FirebaseAppCheck.instance.activate(),
       },
+      const QuickActions().setShortcutItems(
+        [
+          ShortcutItem(
+            type: kFeedbackShortcut,
+            localizedTitle: i18n.feedback.please_feedback,
+          ),
+        ],
+      ),
     ],
   );
 
   /// listen Providers ---
-  container.listen(
-    firebaseUserUidProvider,
-    (_, next) async {
-      final uid = next.value;
-      logger.i('listen firebaseUserUidProvider: $uid');
+  container
+    ..listen(
+      firebaseUserUidProvider,
+      (_, next) async {
+        final uid = next.value;
+        logger.i('listen firebaseUserUidProvider: $uid');
 
-      await Future.wait(
-        [
-          container.read(firebaseAnalyticsProvider).setUserId(
-                id: uid,
-              ),
-          container.read(firebaseCrashlyticsProvider).setUserIdentifier(
-                uid ?? '',
-              ),
-        ],
-      );
-    },
-  );
+        await Future.wait(
+          [
+            container.read(firebaseAnalyticsProvider).setUserId(
+                  id: uid,
+                ),
+            container.read(firebaseCrashlyticsProvider).setUserIdentifier(
+                  uid ?? '',
+                ),
+          ],
+        );
+      },
+    )
+    ..listen(
+      remoteConfigValuesProvider,
+      (_, __) {
+        // disposeされるのを防ぐ
+      },
+    );
 
   return container;
 }

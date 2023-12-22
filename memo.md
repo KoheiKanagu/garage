@@ -57,6 +57,15 @@ cp packages/listen_to_music_by_location/configs/AppStoreExportOptions.plist pack
 
 `provisioningProfiles`を修正
 
+### Remote Config
+
+[remoteconfig.template.json](remoteconfig.template.json) の conditions に追記
+
+### Firebase プロジェクト 統合
+
+- <https://console.firebase.google.com/u/0/project/kingu-garage-dev/settings/integrations>
+- <https://console.firebase.google.com/u/0/project/kingu-garage-prod/settings/integrations>
+
 ### chore
 
 ```sh
