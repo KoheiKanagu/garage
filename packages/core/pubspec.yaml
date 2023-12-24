@@ -62,6 +62,6 @@ dev_dependencies:
   mockito: ^5.4.4
   riverpod_generator: ^2.3.9
   riverpod_lint: ^2.3.7
-  slang_build_runner: ^3.27.0
+  slang_build_runner: ^3.28.0
   test: any
   very_good_analysis: ^5.1.0
