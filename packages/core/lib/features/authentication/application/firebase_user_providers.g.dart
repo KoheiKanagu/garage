@@ -379,5 +379,169 @@ final firebaseUserDeleteProvider = AutoDisposeFutureProvider<void>.internal(
 );
 
 typedef FirebaseUserDeleteRef = AutoDisposeFutureProviderRef<void>;
+String _$firebaseUserLinkedProvidersHash() =>
+    r'32f447edc45005b0d199cb3861db01cbe7f6173a';
+
+/// サインインしているアカウントのプロバイダーを取得する
+///
+/// Copied from [firebaseUserLinkedProviders].
+@ProviderFor(firebaseUserLinkedProviders)
+final firebaseUserLinkedProvidersProvider =
+    AutoDisposeStreamProvider<List<String>>.internal(
+  firebaseUserLinkedProviders,
+  name: r'firebaseUserLinkedProvidersProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$firebaseUserLinkedProvidersHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseUserLinkedProvidersRef
+    = AutoDisposeStreamProviderRef<List<String>>;
+String _$firebaseUserUnlinkProviderHash() =>
+    r'ca791f0e81cc5a8a2681585d66880d7bc4a25c71';
+
+/// リンクしているプロバイダーを解除する
+///
+/// Copied from [firebaseUserUnlinkProvider].
+@ProviderFor(firebaseUserUnlinkProvider)
+const firebaseUserUnlinkProviderProvider = FirebaseUserUnlinkProviderFamily();
+
+/// リンクしているプロバイダーを解除する
+///
+/// Copied from [firebaseUserUnlinkProvider].
+class FirebaseUserUnlinkProviderFamily extends Family<AsyncValue<void>> {
+  /// リンクしているプロバイダーを解除する
+  ///
+  /// Copied from [firebaseUserUnlinkProvider].
+  const FirebaseUserUnlinkProviderFamily();
+
+  /// リンクしているプロバイダーを解除する
+  ///
+  /// Copied from [firebaseUserUnlinkProvider].
+  FirebaseUserUnlinkProviderProvider call(
+    String providerId,
+  ) {
+    return FirebaseUserUnlinkProviderProvider(
+      providerId,
+    );
+  }
+
+  @override
+  FirebaseUserUnlinkProviderProvider getProviderOverride(
+    covariant FirebaseUserUnlinkProviderProvider provider,
+  ) {
+    return call(
+      provider.providerId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'firebaseUserUnlinkProviderProvider';
+}
+
+/// リンクしているプロバイダーを解除する
+///
+/// Copied from [firebaseUserUnlinkProvider].
+class FirebaseUserUnlinkProviderProvider
+    extends AutoDisposeFutureProvider<void> {
+  /// リンクしているプロバイダーを解除する
+  ///
+  /// Copied from [firebaseUserUnlinkProvider].
+  FirebaseUserUnlinkProviderProvider(
+    String providerId,
+  ) : this._internal(
+          (ref) => firebaseUserUnlinkProvider(
+            ref as FirebaseUserUnlinkProviderRef,
+            providerId,
+          ),
+          from: firebaseUserUnlinkProviderProvider,
+          name: r'firebaseUserUnlinkProviderProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$firebaseUserUnlinkProviderHash,
+          dependencies: FirebaseUserUnlinkProviderFamily._dependencies,
+          allTransitiveDependencies:
+              FirebaseUserUnlinkProviderFamily._allTransitiveDependencies,
+          providerId: providerId,
+        );
+
+  FirebaseUserUnlinkProviderProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.providerId,
+  }) : super.internal();
+
+  final String providerId;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(FirebaseUserUnlinkProviderRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FirebaseUserUnlinkProviderProvider._internal(
+        (ref) => create(ref as FirebaseUserUnlinkProviderRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        providerId: providerId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _FirebaseUserUnlinkProviderProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FirebaseUserUnlinkProviderProvider &&
+        other.providerId == providerId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, providerId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin FirebaseUserUnlinkProviderRef on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `providerId` of this provider.
+  String get providerId;
+}
+
+class _FirebaseUserUnlinkProviderProviderElement
+    extends AutoDisposeFutureProviderElement<void>
+    with FirebaseUserUnlinkProviderRef {
+  _FirebaseUserUnlinkProviderProviderElement(super.provider);
+
+  @override
+  String get providerId =>
+      (origin as FirebaseUserUnlinkProviderProvider).providerId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -41,7 +41,7 @@ class MyFeedbackSheet extends HookConsumerWidget {
         children: [
           const FeedbackSheetDragHandle(),
           const Gap(16),
-          i18n.feedback.do_not_enter_personal_info.wrapBudouXTextStyle(
+          i18n.feedback.do_not_enter_personal_info.wrapBudouXText(
             style: Theme.of(context).textTheme.bodySmall,
           ),
           const Gap(8),
@@ -65,11 +65,11 @@ class MyFeedbackSheet extends HookConsumerWidget {
                 messageFieldController.text = newValue?.trim() ?? '',
           ),
           const Gap(16),
-          i18n.feedback.input_email_if_reply_is_needed.wrapBudouXTextStyle(
+          i18n.feedback.input_email_if_reply_is_needed.wrapBudouXText(
             style: Theme.of(context).textTheme.bodySmall,
           ),
           const Gap(4),
-          i18n.feedback.input_email_if_reply_is_needed2.wrapBudouXTextStyle(
+          i18n.feedback.input_email_if_reply_is_needed2.wrapBudouXText(
             style: Theme.of(context).textTheme.bodySmall,
           ),
           const Gap(8),
@@ -87,7 +87,7 @@ class MyFeedbackSheet extends HookConsumerWidget {
                 emailFieldController.text = newValue?.trim() ?? '',
           ),
           const Gap(32),
-          i18n.feedback.device_info_collection_notice.wrapBudouXTextStyle(
+          i18n.feedback.device_info_collection_notice.wrapBudouXText(
             style: Theme.of(context).textTheme.bodySmall,
           ),
           ref.watch(feedbackDeviceInfoProvider).maybeWhen(

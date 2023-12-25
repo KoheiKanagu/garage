@@ -141,6 +141,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	late final _StringsConfigureJa configure = _StringsConfigureJa._(_root);
 	late final _StringsFeedbackJa feedback = _StringsFeedbackJa._(_root);
+	late final _StringsAuthJa auth = _StringsAuthJa._(_root);
 }
 
 // Path: configure
@@ -160,6 +161,11 @@ class _StringsConfigureJa {
 	String get delete_all => 'すべてのデータを削除';
 	String get delete_all_description => 'ユーザ情報が削除され、すべてのデータが閲覧できなくなります。この操作は取り消せません。削除してもよろしいですか？';
 	String get delete_complete => 'ユーザ情報を削除しました';
+	String get user_info => 'ユーザ情報';
+	String get link_account => 'アカウントを接続';
+	String get link_account_description => 'いずれかのアカウントを接続すると別のデバイスでも引き続きこれまでと同じデータが利用できます';
+	String get link_account_description2 => 'アカウントから取得した全ての情報はユーザ認証のためだけに使用され、他の目的に利用されることはありません';
+	String get unlink_account => 'アカウントの接続を解除';
 }
 
 // Path: feedback
@@ -182,4 +188,24 @@ class _StringsFeedbackJa {
 	String get thank_you_for_your_feedback => 'ご意見ありがとうございました';
 	String get please_enter_your_feedback => 'ご意見をご記入ください';
 	String get please_feedback => 'フィードバックにご協力ください';
+}
+
+// Path: auth
+class _StringsAuthJa {
+	_StringsAuthJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get sigh_in_with_apple => 'Appleでサインイン';
+	String get unlink_apple => 'Appleとの接続を解除';
+	String get apple_id => 'Apple ID';
+	String get sigh_in_with_google => 'Googleでサインイン';
+	String get unlink_google => 'Googleとの接続を解除';
+	String get google_account => 'Googleアカウント';
+	String get sigh_in_with_github => 'GitHubでサインイン';
+	String get unlink_github => 'GitHubとの接続を解除';
+	String get github_account => 'GitHubアカウント';
+	String unlink_confirm({required Object account}) => '${account}との接続を解除しますか？';
+	String get unlink => '解除';
 }

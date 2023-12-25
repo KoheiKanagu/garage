@@ -23,6 +23,14 @@ class ConfigurePage extends HookConsumerWidget {
       ),
       body: ListView(
         children: [
+          ConfigureListTile(
+            title: i18n.configure.user_info,
+            onTap: () {
+              const UserInfoPageRoute().push<void>(context);
+            },
+            leadingIcon: Icons.person_outline_rounded,
+            trailingIcon: Icons.adaptive.arrow_forward_rounded,
+          ),
           ...additionalItems.whereNot((e) => e.forDebug).map(
                 (e) => ConfigureListTile(
                   title: e.text,

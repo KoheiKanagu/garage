@@ -1,7 +1,9 @@
 import 'package:core/core.dart';
+import 'package:core/features/authentication/application/oauth/oauth_providers.dart';
 import 'package:core/i18n/strings.g.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -28,10 +30,15 @@ Future<ProviderContainer> _initialize() async {
   final locale = LocaleSettings.useDeviceLocale();
   Intl.defaultLocale = locale.languageCode;
 
-  final (_, sharedPreferences, packageInfo) = (
+  final (firebaseApp, sharedPreferences, packageInfo) = (
     await Firebase.initializeApp(),
     await SharedPreferences.getInstance(),
     await PackageInfo.fromPlatform(),
+  );
+
+  FirebaseUIAuth.configureProviders(
+    firebaseUIAuthProviders,
+    app: firebaseApp,
   );
 
   final container = ProviderContainer(

@@ -11,7 +11,12 @@
     "review_app": "アプリを評価する",
     "delete_all": "すべてのデータを削除",
     "delete_all_description": "ユーザ情報が削除され、すべてのデータが閲覧できなくなります。この操作は取り消せません。削除してもよろしいですか？",
-    "delete_complete": "ユーザ情報を削除しました"
+    "delete_complete": "ユーザ情報を削除しました",
+    "user_info": "ユーザ情報",
+    "link_account": "アカウントを接続",
+    "link_account_description": "いずれかのアカウントを接続すると別のデバイスでも引き続きこれまでと同じデータが利用できます",
+    "link_account_description2": "アカウントから取得した全ての情報はユーザ認証のためだけに使用され、他の目的に利用されることはありません",
+    "unlink_account": "アカウントの接続を解除"
   },
   "feedback": {
     "do_not_enter_personal_info": "個人情報を含む内容は記入しないでください",
@@ -27,5 +32,18 @@
     "thank_you_for_your_feedback": "ご意見ありがとうございました",
     "please_enter_your_feedback": "ご意見をご記入ください",
     "please_feedback": "フィードバックにご協力ください"
+  },
+  "auth": {
+    "sigh_in_with_apple": "Appleでサインイン",
+    "unlink_apple": "Appleとの接続を解除",
+    "apple_id": "Apple ID",
+    "sigh_in_with_google": "Googleでサインイン",
+    "unlink_google": "Googleとの接続を解除",
+    "google_account": "Googleアカウント",
+    "sigh_in_with_github": "GitHubでサインイン",
+    "unlink_github": "GitHubとの接続を解除",
+    "github_account": "GitHubアカウント",
+    "unlink_confirm": "$accountとの接続を解除しますか？",
+    "unlink": "解除"
   }
 }

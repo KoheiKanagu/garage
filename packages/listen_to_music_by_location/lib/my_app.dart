@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,11 +26,23 @@ class MyApp extends HookConsumerWidget {
             .build(),
         scaffoldMessengerKey: rootScaffoldMessengerKey,
         supportedLocales: AppLocaleUtils.supportedLocales,
-        localizationsDelegates: const [
+        localizationsDelegates: [
           GlobalCupertinoLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
+          FirebaseUILocalizations.delegate,
         ],
+        theme: ThemeData.from(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.red,
+          ),
+        ),
+        darkTheme: ThemeData.from(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.red,
+            brightness: Brightness.dark,
+          ),
+        ),
         routerConfig: ref.watch(myGoRouterProvider),
       ),
     );

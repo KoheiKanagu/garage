@@ -105,3 +105,31 @@ Future<void> firebaseUserDelete(
   await ref.read(firebaseAuthProvider).signOut();
   logger.d('success signOut');
 }
+
+/// サインインしているアカウントのプロバイダーを取得する
+@riverpod
+Stream<List<String>> firebaseUserLinkedProviders(
+  FirebaseUserLinkedProvidersRef ref,
+) =>
+    ref
+        .watch(firebaseAuthProvider)
+        .userChanges()
+        .map(
+          (event) => event?.providerData.map((e) => e.providerId).toList(),
+        )
+        .where((event) => event != null)
+        .map((event) => event!);
+
+/// リンクしているプロバイダーを解除する
+@riverpod
+Future<void> firebaseUserUnlinkProvider(
+  FirebaseUserUnlinkProviderRef ref,
+  String providerId,
+) async {
+  final user = await ref
+      .read(firebaseAuthProvider)
+      .userChanges()
+      .where((event) => event != null)
+      .first;
+  await user!.unlink(providerId);
+}
