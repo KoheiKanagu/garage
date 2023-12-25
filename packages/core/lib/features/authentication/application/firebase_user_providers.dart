@@ -111,14 +111,22 @@ Future<void> firebaseUserDelete(
 Stream<List<String>> firebaseUserLinkedProviders(
   FirebaseUserLinkedProvidersRef ref,
 ) =>
-    ref
-        .watch(firebaseAuthProvider)
-        .userChanges()
-        .map(
-          (event) => event?.providerData.map((e) => e.providerId).toList(),
-        )
-        .where((event) => event != null)
-        .map((event) => event!);
+    Stream.value(
+      [
+        'apple.com',
+        // 'google.com',
+        'github.com',
+      ],
+    );
+
+// ref
+//     .watch(firebaseAuthProvider)
+//     .userChanges()
+//     .map(
+//       (event) => event?.providerData.map((e) => e.providerId).toList(),
+//     )
+//     .where((event) => event != null)
+//     .map((event) => event!);
 
 /// リンクしているプロバイダーを解除する
 @riverpod

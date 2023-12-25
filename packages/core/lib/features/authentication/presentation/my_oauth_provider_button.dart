@@ -30,7 +30,7 @@ class MyOAuthProviderButton extends HookConsumerWidget {
         final result = await showOkCancelAlertDialog(
           context: context,
           title: i18n.auth.unlink_confirm(
-            account: type.name,
+            account: type.providerName,
           ),
           isDestructiveAction: true,
           okLabel: i18n.auth.unlink,
@@ -85,6 +85,12 @@ enum MyOAuthProviderType {
   google,
   github,
   ;
+
+  String get providerName => switch (this) {
+        MyOAuthProviderType.apple => i18n.auth.apple_id,
+        MyOAuthProviderType.google => i18n.auth.google_account,
+        MyOAuthProviderType.github => i18n.auth.github_account,
+      };
 
   String get providerId => switch (this) {
         MyOAuthProviderType.apple => fa.AppleAuthProvider.PROVIDER_ID,

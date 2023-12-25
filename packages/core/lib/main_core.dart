@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:core/features/authentication/application/oauth/oauth_providers.dart';
 import 'package:core/i18n/strings.g.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
