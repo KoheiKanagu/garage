@@ -13,9 +13,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'my_go_router.g.dart';
 
 @riverpod
-Raw<GoRouter> myGoRouter(MyGoRouterRef ref) {
-  final signIn =
-      ref.watch(firebaseUserIsSignedInProvider).asData?.value ?? false;
+Future<Raw<GoRouter>> myGoRouter(MyGoRouterRef ref) async {
+  final signIn = await ref.watch(firebaseUserIsSignedInProvider.future);
 
   return GoRouter(
     navigatorKey: rootNavigatorStateKey,

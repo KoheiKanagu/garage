@@ -13,6 +13,17 @@ class MyApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(myGoRouterProvider);
+    if (router.isLoading) {
+      return const MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: CircularProgressIndicator.adaptive(),
+          ),
+        ),
+      );
+    }
+
     return MyBetterFeedback(
       child: MaterialApp.router(
         builder: (context, child) => MediaQueryPreview(context, child)
@@ -43,7 +54,7 @@ class MyApp extends HookConsumerWidget {
             brightness: Brightness.dark,
           ),
         ),
-        routerConfig: ref.watch(myGoRouterProvider),
+        routerConfig: router.asData?.value,
       ),
     );
   }
