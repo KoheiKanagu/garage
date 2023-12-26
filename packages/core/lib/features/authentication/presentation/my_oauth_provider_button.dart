@@ -1,9 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:core/features/authentication/application/firebase_user_providers.dart';
-import 'package:core/features/authentication/application/oauth/github_provider.dart';
-import 'package:core/features/authentication/application/oauth/oauth_providers.dart';
+import 'package:core/core.dart';
 import 'package:core/i18n/strings.g.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fa;
 import 'package:firebase_ui_oauth/firebase_ui_oauth.dart';
@@ -46,10 +44,13 @@ class MyOAuthProviderButton extends HookConsumerWidget {
         return;
       }
 
-      provider.signIn(
-        Theme.of(context).platform,
-        action.toAuthAction,
-      );
+      final isSignIn = await ref.read(firebaseUserIsSignedInProvider.future);
+      if (context.mounted) {
+        provider.signIn(
+          Theme.of(context).platform,
+          isSignIn ? AuthAction.link : AuthAction.signIn,
+        );
+      }
     }
 
     Widget loadingIndicator(OAuthProvider provider) {
@@ -71,11 +72,20 @@ class MyOAuthProviderButton extends HookConsumerWidget {
 
     return OAuthProviderButtonBase(
       provider: provider,
-      action: action.toAuthAction,
+      action: AuthAction.none,
       onTap: () => onTap(provider),
       overrideDefaultTapAction: true,
       label: action.label(type),
       loadingIndicator: loadingIndicator(provider),
+      onError: (exception) {
+        logger.e(
+          'onError [${provider.providerId}]',
+          error: exception,
+        );
+      },
+      onCancelled: () {
+        logger.d('onCancelled [${provider.providerId}]');
+      },
     );
   }
 }
@@ -100,33 +110,23 @@ enum MyOAuthProviderType {
 }
 
 enum MyOAuthProviderButtonAction {
-  signIn,
-  link,
+  signInOrLink,
   unlink,
   ;
 
-  AuthAction get toAuthAction => switch (this) {
-        MyOAuthProviderButtonAction.signIn => AuthAction.signIn,
-        MyOAuthProviderButtonAction.link => AuthAction.link,
-        _ => AuthAction.none,
-      };
-
   String label(MyOAuthProviderType type) => switch (type) {
         MyOAuthProviderType.apple => switch (this) {
-            MyOAuthProviderButtonAction.signIn ||
-            MyOAuthProviderButtonAction.link =>
+            MyOAuthProviderButtonAction.signInOrLink =>
               i18n.auth.sigh_in_with_apple,
             MyOAuthProviderButtonAction.unlink => i18n.auth.unlink_apple,
           },
         MyOAuthProviderType.google => switch (this) {
-            MyOAuthProviderButtonAction.signIn ||
-            MyOAuthProviderButtonAction.link =>
+            MyOAuthProviderButtonAction.signInOrLink =>
               i18n.auth.sigh_in_with_google,
             MyOAuthProviderButtonAction.unlink => i18n.auth.unlink_google,
           },
         MyOAuthProviderType.github => switch (this) {
-            MyOAuthProviderButtonAction.signIn ||
-            MyOAuthProviderButtonAction.link =>
+            MyOAuthProviderButtonAction.signInOrLink =>
               i18n.auth.sigh_in_with_github,
             MyOAuthProviderButtonAction.unlink => i18n.auth.unlink_github,
           },

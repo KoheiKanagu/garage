@@ -23,7 +23,7 @@ class UserInfoPage extends HookConsumerWidget {
             title: Text(i18n.configure.user_id),
             leading: const Icon(Icons.person_outline_rounded),
             subtitle: switch (ref.watch(firebaseUserUidProvider)) {
-              AsyncValue(:final value) when value != null => FittedBox(
+              AsyncData(:final value) when value != null => FittedBox(
                   alignment: Alignment.centerLeft,
                   fit: BoxFit.scaleDown,
                   child: Text(value),
@@ -41,7 +41,7 @@ class UserInfoPage extends HookConsumerWidget {
             ),
           ),
           const Divider(),
-          const LinkProviderButtons(),
+          const LinkProviderWidget(),
           const Divider(),
           ConfigureListTile(
             title: i18n.configure.delete_all,

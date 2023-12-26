@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core/features/authentication/presentation/my_oauth_provider_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -28,7 +29,7 @@ class HomePage extends HookConsumerWidget {
             },
             child: const Text('同意してはじめる'),
           ),
-          const LinkProviderButtons(),
+          const MyOauthProviderButtons(),
         ],
       ),
     );
