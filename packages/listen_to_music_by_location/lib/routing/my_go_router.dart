@@ -1,6 +1,8 @@
 import 'package:core/core.dart';
 import 'package:core/features/configure/application/configure_route.dart'
     as configure_route;
+import 'package:core/features/onboarding/application/onboarding_route.dart'
+    as onboarding_route;
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
@@ -11,12 +13,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'my_go_router.g.dart';
 
 @riverpod
-Raw<GoRouter> myGoRouter(
-  MyGoRouterRef ref,
-) {
+Future<Raw<GoRouter>> myGoRouter(MyGoRouterRef ref) async {
+  final signIn = await ref.watch(firebaseUserIsSignedInProvider.future);
+
   return GoRouter(
     navigatorKey: rootNavigatorStateKey,
     routes: [
+      ...onboarding_route.$appRoutes,
       ...home_route.$appRoutes,
       ...configure_route.$appRoutes,
     ],
@@ -46,5 +49,8 @@ Raw<GoRouter> myGoRouter(
       ),
     ],
     debugLogDiagnostics: kDebugMode,
+    initialLocation: signIn
+        ? const home_route.HomePageRoute().location
+        : const onboarding_route.OnboardingPageRoute().location,
   );
 }

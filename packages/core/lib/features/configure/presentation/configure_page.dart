@@ -23,6 +23,14 @@ class ConfigurePage extends HookConsumerWidget {
       ),
       body: ListView(
         children: [
+          ConfigureListTile(
+            title: i18n.configure.user_info,
+            onTap: () {
+              const UserInfoPageRoute().push<void>(context);
+            },
+            leadingIcon: Icons.person_outline_rounded,
+            trailingIcon: Icons.adaptive.arrow_forward_rounded,
+          ),
           ...additionalItems.whereNot((e) => e.forDebug).map(
                 (e) => ConfigureListTile(
                   title: e.text,
@@ -40,23 +48,7 @@ class ConfigurePage extends HookConsumerWidget {
                     leadingIcon: e.leadingIcon,
                   ),
                 ),
-          if (kDebugMode) ...[
-            ConfigureListTile(
-              title: '[debug] SignOut',
-              onTap: () => ref.read(firebaseAuthProvider).signOut(),
-              leadingIcon: Icons.logout,
-              trailingIcon: Icons.warning_rounded,
-            ),
-            ConfigureListTile(
-              title: '[debug] clear SharedPreferences',
-              onTap: () async {
-                await ref.read(sharedPreferencesClearProvider.future);
-                logger.w('cleared SharedPreferences');
-              },
-              leadingIcon: Icons.clear_all,
-              trailingIcon: Icons.warning_rounded,
-            ),
-          ],
+          const _DebugListTiles(),
           const Divider(),
           ConfigureListTile(
             title: i18n.configure.feedback,
@@ -88,37 +80,64 @@ class ConfigurePage extends HookConsumerWidget {
               const AboutThisAppPageRoute().push<void>(context);
             },
           ),
-          const Divider(),
-          ConfigureListTile(
-            title: i18n.configure.delete_all,
-            leadingIcon: Icons.delete_forever_outlined,
-            isDestructiveAction: true,
-            onTap: () async {
-              final result = await showOkCancelAlertDialog(
-                context: context,
-                title: i18n.configure.delete_all,
-                message: i18n.configure.delete_all_description,
-                okLabel: MaterialLocalizations.of(context).deleteButtonTooltip,
-                isDestructiveAction: true,
-              );
-              if (result != OkCancelResult.ok) {
-                return;
-              }
-
-              final indicator = showMyProgressIndicator();
-              await ref.read(firebaseUserDeleteProvider.future);
-              indicator.dismiss();
-
-              if (context.mounted) {
-                await showOkAlertDialog(
-                  context: context,
-                  title: i18n.configure.delete_complete,
-                );
-              }
-            },
-          ),
         ],
       ),
+    );
+  }
+}
+
+class _DebugListTiles extends HookConsumerWidget {
+  const _DebugListTiles();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (!kDebugMode) {
+      return const SizedBox.shrink();
+    }
+
+    return Column(
+      children: [
+        ConfigureListTile(
+          title: '[debug] SignOut',
+          onTap: () async {
+            final result = await showOkCancelAlertDialog(
+              context: context,
+              title: 'SignOut?',
+            );
+
+            if (result == OkCancelResult.ok) {
+              await ref.read(firebaseAuthProvider).signOut();
+              logger.d('SignOut');
+            }
+          },
+          leadingIcon: Icons.logout,
+          trailingIcon: Icons.warning_rounded,
+        ),
+        ConfigureListTile(
+          title: '[debug] clear SharedPreferences',
+          onTap: () async {
+            final result = await showOkCancelAlertDialog(
+              context: context,
+              title: 'clear SharedPreferences?',
+            );
+
+            if (result == OkCancelResult.ok) {
+              await ref.read(sharedPreferencesClearProvider.future);
+              logger.d('clear SharedPreferences');
+            }
+          },
+          leadingIcon: Icons.clear_all,
+          trailingIcon: Icons.warning_rounded,
+        ),
+        ConfigureListTile(
+          title: '[debug] go ${const OnboardingPageRoute().location}',
+          onTap: () {
+            const OnboardingPageRoute().go(context);
+          },
+          leadingIcon: Icons.start_rounded,
+          trailingIcon: Icons.warning_rounded,
+        ),
+      ],
     );
   }
 }

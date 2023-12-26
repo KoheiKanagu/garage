@@ -25,6 +25,7 @@ dependencies:
   firebase_performance: ^0.9.3+5
   firebase_remote_config: ^4.3.8
   firebase_ui_auth: ^1.11.0
+  firebase_ui_localizations: ^1.9.0
   firebase_ui_oauth_apple: ^1.2.15
   firebase_ui_oauth_google: ^1.2.15
   flutter:
@@ -47,6 +48,7 @@ dependencies:
   shared_preferences: ^2.2.2
   slang: ^3.28.0
   slang_flutter: ^3.28.0
+  smooth_page_indicator: ^1.1.0
   url_launcher: ^6.2.2
   uuid: ^4.3.1
 
@@ -65,3 +67,8 @@ dev_dependencies:
   slang_build_runner: ^3.28.0
   test: any
   very_good_analysis: ^5.1.0
+
+fonts:
+  - family: SocialIcons
+    fonts:
+      - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf

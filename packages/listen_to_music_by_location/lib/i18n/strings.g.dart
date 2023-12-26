@@ -135,7 +135,4 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final Translations _root = this; // ignore: unused_field
 
 	// Translations
-
-	/// コメント
-	String hello({required Object name}) => 'こんにちは ${name}';
 }
