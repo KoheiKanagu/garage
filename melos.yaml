@@ -6,26 +6,25 @@ packages:
 repository: https://github.com/KoheiKanagu/garage
 
 command:
-  version:
-    branch: main
-    linkToCommits: true
   bootstrap:
     runPubGetInParallel: false
     hooks:
       post: |
         melos run pub:get
 
+sdkPath: .fvm/versions/beta
+
 scripts:
   analyze:
     run: |
-      fvm flutter pub get
-      fvm flutter pub run build_runner build --delete-conflicting-outputs
+      flutter pub get
+      flutter pub run build_runner build --delete-conflicting-outputs
       (cd MELOS_ROOT_PATH && grind update-coverage-test --package=MELOS_PACKAGE_NAME)
       (cd MELOS_ROOT_PATH && grind update-core-export)
-      fvm dart fix --apply lib
-      find lib test -name "*.dart" -not -path "lib/i18n/strings.g.dart" -exec fvm dart format --set-exit-if-changed {} \;
-      fvm dart analyze --fatal-infos .
-      fvm dart run custom_lint
+      dart fix --apply lib
+      find lib test -name "*.dart" -not -path "lib/i18n/strings.g.dart" -exec dart format --set-exit-if-changed {} \;
+      dart analyze --fatal-infos .
+      dart run custom_lint
       git diff --exit-code
     exec:
       concurrency: 1
@@ -33,13 +32,13 @@ scripts:
 
   pub:get:
     run: |
-      fvm dart pub get
-      melos exec -- "fvm flutter pub get"
+      dart pub get
+      melos exec -- "flutter pub get"
 
   flutter:test:
     exec: |
-      fvm flutter pub get
-      fvm flutter test \
+      flutter pub get
+      flutter test \
         --exclude-tags golden \
         --flavor dev
     packageFilters:
@@ -48,9 +47,9 @@ scripts:
 
   flutter:golden:test:
     exec: |
-      fvm flutter pub get
+      flutter pub get
 
-      fvm flutter test \
+      flutter test \
         --tags golden \
         --flavor dev
     packageFilters:
@@ -59,9 +58,9 @@ scripts:
 
   flutter:golden:update:
     exec: |
-      fvm flutter pub get
+      flutter pub get
 
-      fvm flutter test \
+      flutter test \
         --update-goldens \
         --tags golden \
         --flavor dev
@@ -72,8 +71,8 @@ scripts:
 
   build_runner:build:
     run: |
-      fvm flutter pub get
-      fvm flutter pub run build_runner build --delete-conflicting-outputs
+      flutter pub get
+      flutter pub run build_runner build --delete-conflicting-outputs
       (cd MELOS_ROOT_PATH && grind update-core-export)
     exec:
       concurrency: 1
@@ -84,16 +83,16 @@ scripts:
 
   build_runner:watch:
     exec: |
-      fvm flutter pub get
-      fvm flutter pub run build_runner watch --delete-conflicting-outputs
+      flutter pub get
+      flutter pub run build_runner watch --delete-conflicting-outputs
     packageFilters:
       flutter: true
       dependsOn: build_runner
 
   pod:update:
     run: |
-      fvm flutter precache --ios
-      fvm flutter pub get
+      flutter precache --ios
+      flutter pub get
 
       cd ios
       pod update
@@ -105,7 +104,7 @@ scripts:
 
   build:apk:dev:
     run: |
-      fvm flutter build apk \
+      flutter build apk \
         --release \
         --flavor dev \
         --target-platform android-arm64 \
@@ -120,7 +119,7 @@ scripts:
 
   build:appbundle:prod:upload:
     run: |
-      fvm flutter build appbundle \
+      flutter build appbundle \
         --release \
         --flavor prod \
         --target lib/main_prod.dart \
@@ -142,7 +141,7 @@ scripts:
 
   build:ios:no-codesign:dev:
     run: |
-      fvm flutter build ios \
+      flutter build ios \
         --release \
         --no-codesign \
         --flavor dev \
@@ -157,7 +156,7 @@ scripts:
 
   build:ios:no-codesign:prod:
     run: |
-      fvm flutter build ios \
+      flutter build ios \
         --release \
         --no-codesign \
         --flavor prod \
@@ -172,7 +171,7 @@ scripts:
 
   build:ipa:dev:
     run: |
-      fvm flutter build ipa \
+      flutter build ipa \
         --release \
         --flavor dev \
         --target lib/main_dev.dart \
@@ -187,7 +186,7 @@ scripts:
 
   build:ipa:prod:upload:
     run: |
-      fvm flutter build ipa \
+      flutter build ipa \
         --release \
         --flavor prod \
         --target lib/main_prod.dart \
@@ -206,13 +205,19 @@ scripts:
 
   pigeon:
     exec: |
-      fvm dart run pigeon \
+      dart run pigeon \
         --input pigeons/message.dart
     packageFilters:
       dependsOn: pigeon
 
   clean:
     exec: |
-      fvm flutter clean
+      flutter clean
+    packageFilters:
+      flutter: true
+
+  version:
+    exec: |
+      which flutter
     packageFilters:
       flutter: true
