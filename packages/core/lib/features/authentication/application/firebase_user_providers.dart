@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'firebase_user_providers.g.dart';
@@ -43,12 +42,9 @@ Stream<bool> firebaseUserIsSignedIn(
           (event) => event != null,
         );
 
-/// サインインをした後、User Documentが取得できるまで待つ
+/// サインインをした後、Userドキュメントが取得できるまで待つ
 @riverpod
-Future<void> firebaseSignIn(
-  FirebaseSignInRef ref, {
-  required CollectionReference<dynamic> userCollectionReference,
-}) async {
+Future<void> firebaseSignIn(FirebaseSignInRef ref) async {
   logger.d('signIn');
 
   // 初期化が完了するまで待つ
@@ -72,10 +68,10 @@ Future<void> firebaseSignIn(
 
   logger.d('await user document');
 
-  await userCollectionReference.doc(uid).snapshots().firstWhere(
-        (e) => e.exists,
-        orElse: () => throw Exception('not found user document: $uid'),
+  await ref.watch(userDocumentSnapshotProvider(uid).future).catchError(
+        (_, __) => throw Exception('not found user document: $uid'),
       );
+
   logger.d('success signIn');
 }
 

@@ -16,7 +16,9 @@
     "link_account": "アカウントを接続",
     "link_account_description": "いずれかのアカウントを接続すると別のデバイスでも引き続きこれまでと同じデータが利用できます",
     "link_account_description2": "アカウントから取得した全ての情報はユーザ認証のためだけに使用され、他の目的に利用されることはありません",
-    "unlink_account": "アカウントの接続を解除"
+    "unlink_account": "アカウントの接続を解除",
+    "user_id": "ユーザID",
+    "user_id_description": "ユーザIDは自動的に生成された一意の識別子です。あなたのデータを他のユーザーから区別するために使用されます"
   },
   "feedback": {
     "do_not_enter_personal_info": "個人情報を含む内容は記入しないでください",

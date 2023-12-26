@@ -219,148 +219,23 @@ final firebaseUserIsSignedInProvider = AutoDisposeStreamProvider<bool>.internal(
 );
 
 typedef FirebaseUserIsSignedInRef = AutoDisposeStreamProviderRef<bool>;
-String _$firebaseSignInHash() => r'0e67905407c8c0e0002e6a9e00580b206a78bb2c';
+String _$firebaseSignInHash() => r'996adc7337ebd2910234759c1c39a84cc77f736b';
 
-/// サインインをした後、User Documentが取得できるまで待つ
+/// サインインをした後、Userドキュメントが取得できるまで待つ
 ///
 /// Copied from [firebaseSignIn].
 @ProviderFor(firebaseSignIn)
-const firebaseSignInProvider = FirebaseSignInFamily();
+final firebaseSignInProvider = AutoDisposeFutureProvider<void>.internal(
+  firebaseSignIn,
+  name: r'firebaseSignInProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$firebaseSignInHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
-/// サインインをした後、User Documentが取得できるまで待つ
-///
-/// Copied from [firebaseSignIn].
-class FirebaseSignInFamily extends Family<AsyncValue<void>> {
-  /// サインインをした後、User Documentが取得できるまで待つ
-  ///
-  /// Copied from [firebaseSignIn].
-  const FirebaseSignInFamily();
-
-  /// サインインをした後、User Documentが取得できるまで待つ
-  ///
-  /// Copied from [firebaseSignIn].
-  FirebaseSignInProvider call({
-    required CollectionReference<dynamic> userCollectionReference,
-  }) {
-    return FirebaseSignInProvider(
-      userCollectionReference: userCollectionReference,
-    );
-  }
-
-  @override
-  FirebaseSignInProvider getProviderOverride(
-    covariant FirebaseSignInProvider provider,
-  ) {
-    return call(
-      userCollectionReference: provider.userCollectionReference,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'firebaseSignInProvider';
-}
-
-/// サインインをした後、User Documentが取得できるまで待つ
-///
-/// Copied from [firebaseSignIn].
-class FirebaseSignInProvider extends AutoDisposeFutureProvider<void> {
-  /// サインインをした後、User Documentが取得できるまで待つ
-  ///
-  /// Copied from [firebaseSignIn].
-  FirebaseSignInProvider({
-    required CollectionReference<dynamic> userCollectionReference,
-  }) : this._internal(
-          (ref) => firebaseSignIn(
-            ref as FirebaseSignInRef,
-            userCollectionReference: userCollectionReference,
-          ),
-          from: firebaseSignInProvider,
-          name: r'firebaseSignInProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$firebaseSignInHash,
-          dependencies: FirebaseSignInFamily._dependencies,
-          allTransitiveDependencies:
-              FirebaseSignInFamily._allTransitiveDependencies,
-          userCollectionReference: userCollectionReference,
-        );
-
-  FirebaseSignInProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.userCollectionReference,
-  }) : super.internal();
-
-  final CollectionReference<dynamic> userCollectionReference;
-
-  @override
-  Override overrideWith(
-    FutureOr<void> Function(FirebaseSignInRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: FirebaseSignInProvider._internal(
-        (ref) => create(ref as FirebaseSignInRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        userCollectionReference: userCollectionReference,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<void> createElement() {
-    return _FirebaseSignInProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is FirebaseSignInProvider &&
-        other.userCollectionReference == userCollectionReference;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, userCollectionReference.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin FirebaseSignInRef on AutoDisposeFutureProviderRef<void> {
-  /// The parameter `userCollectionReference` of this provider.
-  CollectionReference<dynamic> get userCollectionReference;
-}
-
-class _FirebaseSignInProviderElement
-    extends AutoDisposeFutureProviderElement<void> with FirebaseSignInRef {
-  _FirebaseSignInProviderElement(super.provider);
-
-  @override
-  CollectionReference<dynamic> get userCollectionReference =>
-      (origin as FirebaseSignInProvider).userCollectionReference;
-}
-
+typedef FirebaseSignInRef = AutoDisposeFutureProviderRef<void>;
 String _$firebaseUserDeleteHash() =>
     r'674fc0fd983c6b8b22de82bff0417a7684d2877f';
 
@@ -380,7 +255,7 @@ final firebaseUserDeleteProvider = AutoDisposeFutureProvider<void>.internal(
 
 typedef FirebaseUserDeleteRef = AutoDisposeFutureProviderRef<void>;
 String _$firebaseUserLinkedProvidersHash() =>
-    r'32f447edc45005b0d199cb3861db01cbe7f6173a';
+    r'572fbf59bb81e36ea230c490ecf25184b524a208';
 
 /// サインインしているアカウントのプロバイダーを取得する
 ///
@@ -400,7 +275,7 @@ final firebaseUserLinkedProvidersProvider =
 typedef FirebaseUserLinkedProvidersRef
     = AutoDisposeStreamProviderRef<List<String>>;
 String _$firebaseUserUnlinkProviderHash() =>
-    r'ca791f0e81cc5a8a2681585d66880d7bc4a25c71';
+    r'd9dc17bdc503b9495b826c2df8bea2b47c80a94e';
 
 /// リンクしているプロバイダーを解除する
 ///

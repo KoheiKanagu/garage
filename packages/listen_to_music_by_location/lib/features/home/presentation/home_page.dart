@@ -24,15 +24,9 @@ class HomePage extends HookConsumerWidget {
         children: [
           ElevatedButton(
             onPressed: () {
-              // ref.read(firebaseSignInProvider(
-              //   userCollectionReference:
-              //   ref.read(usercollection)
-
-              // ));
-
-              ref.read(firebaseAuthProvider).signInAnonymously();
+              ref.read(firebaseSignInProvider.future);
             },
-            child: const Text('hoge'),
+            child: const Text('同意してはじめる'),
           ),
           const LinkProviderButtons(),
         ],

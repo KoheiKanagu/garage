@@ -1,4 +1,3 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:core/i18n/strings.g.dart';
@@ -94,35 +93,6 @@ class ConfigurePage extends HookConsumerWidget {
             trailingIcon: Icons.adaptive.arrow_forward_rounded,
             onTap: () {
               const AboutThisAppPageRoute().push<void>(context);
-            },
-          ),
-          const Divider(),
-          ConfigureListTile(
-            title: i18n.configure.delete_all,
-            leadingIcon: Icons.delete_forever_outlined,
-            isDestructiveAction: true,
-            onTap: () async {
-              final result = await showOkCancelAlertDialog(
-                context: context,
-                title: i18n.configure.delete_all,
-                message: i18n.configure.delete_all_description,
-                okLabel: MaterialLocalizations.of(context).deleteButtonTooltip,
-                isDestructiveAction: true,
-              );
-              if (result != OkCancelResult.ok) {
-                return;
-              }
-
-              final indicator = showMyProgressIndicator();
-              await ref.read(firebaseUserDeleteProvider.future);
-              indicator.dismiss();
-
-              if (context.mounted) {
-                await showOkAlertDialog(
-                  context: context,
-                  title: i18n.configure.delete_complete,
-                );
-              }
             },
           ),
         ],

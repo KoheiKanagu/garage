@@ -2,7 +2,7 @@ import 'package:core/features/configure/domain/configure_item.dart';
 import 'package:core/features/configure/presentation/about_this_app_page.dart';
 import 'package:core/features/configure/presentation/configure_page.dart';
 import 'package:core/features/configure/presentation/my_license_page.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:core/features/configure/presentation/user_info_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -68,6 +68,6 @@ class UserInfoPageRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const ProfileScreen();
+    return const UserInfoPage();
   }
 }
