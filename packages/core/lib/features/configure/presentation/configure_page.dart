@@ -4,6 +4,7 @@ import 'package:core/core.dart';
 import 'package:core/i18n/strings.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:in_app_review/in_app_review.dart';
 
@@ -127,6 +128,14 @@ class _DebugListTiles extends HookConsumerWidget {
             }
           },
           leadingIcon: Icons.clear_all,
+          trailingIcon: Icons.warning_rounded,
+        ),
+        ConfigureListTile(
+          title: '[debug] go /',
+          onTap: () {
+            GoRouter.of(context).go('/');
+          },
+          leadingIcon: Icons.start_rounded,
           trailingIcon: Icons.warning_rounded,
         ),
       ],
