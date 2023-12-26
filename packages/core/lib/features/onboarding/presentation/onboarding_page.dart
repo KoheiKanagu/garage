@@ -52,8 +52,8 @@ class OnboardingPage extends HookConsumerWidget {
             },
             effect: WormEffect(
               type: WormType.thinUnderground,
-              dotWidth: 12,
-              dotHeight: 12,
+              dotWidth: 8,
+              dotHeight: 8,
               activeDotColor: Theme.of(context).colorScheme.primary,
               dotColor: Theme.of(context).colorScheme.onSurface,
             ),
