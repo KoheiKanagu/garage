@@ -1,6 +1,8 @@
 import 'package:core/core.dart';
 import 'package:core/features/configure/application/configure_route.dart'
     as configure_route;
+import 'package:core/features/onboarding/application/onboarding_route.dart'
+    as onboarding_route;
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +19,7 @@ Raw<GoRouter> myGoRouter(
   return GoRouter(
     navigatorKey: rootNavigatorStateKey,
     routes: [
+      ...onboarding_route.$appRoutes,
       ...home_route.$appRoutes,
       ...configure_route.$appRoutes,
     ],

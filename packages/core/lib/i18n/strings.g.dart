@@ -138,6 +138,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsConfigureJa configure = _StringsConfigureJa._(_root);
 	late final _StringsFeedbackJa feedback = _StringsFeedbackJa._(_root);
 	late final _StringsAuthJa auth = _StringsAuthJa._(_root);
+	late final _StringsOnboardingJa onboarding = _StringsOnboardingJa._(_root);
 }
 
 // Path: configure
@@ -206,4 +207,25 @@ class _StringsAuthJa {
 	String get github_account => 'GitHubアカウント';
 	String unlink_confirm({required Object account}) => '${account}との接続を解除しますか？';
 	String get unlink => '解除';
+}
+
+// Path: onboarding
+class _StringsOnboardingJa {
+	_StringsOnboardingJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get start => 'はじめる';
+	String get social_account_sign_in => 'ソーシャルアカウントでサインイン';
+	String get social_account_sign_in_description => 'これまでに、このアプリにソーシャルアカウントを接続したことがある場合は、こちらからサインインしてください';
+	TextSpan ack_term({required InlineSpanBuilder termOfService, required InlineSpanBuilder privacyPolicy}) => TextSpan(children: [
+		const TextSpan(text: '本アプリの利用開始をもって'),
+		termOfService('利用規約'),
+		const TextSpan(text: 'と'),
+		privacyPolicy('プライバシーポリシー'),
+		const TextSpan(text: 'に同意したものとみなされます'),
+	]);
+	String get anonymous_start => 'サインインせずにはじめる';
+	String get or => 'または';
 }
