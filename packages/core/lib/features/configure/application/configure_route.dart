@@ -2,6 +2,7 @@ import 'package:core/features/configure/domain/configure_item.dart';
 import 'package:core/features/configure/presentation/about_this_app_page.dart';
 import 'package:core/features/configure/presentation/configure_page.dart';
 import 'package:core/features/configure/presentation/my_license_page.dart';
+import 'package:core/features/configure/presentation/user_info_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -54,5 +55,19 @@ class MyLicensePageRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const MyLicensePage();
+  }
+}
+
+@TypedGoRoute<UserInfoPageRoute>(
+  path: UserInfoPageRoute.path,
+)
+class UserInfoPageRoute extends GoRouteData {
+  const UserInfoPageRoute();
+
+  static const path = '/user_info';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const UserInfoPage();
   }
 }

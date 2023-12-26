@@ -25,8 +25,8 @@ extension StringExtension on String {
             .toList(),
       );
 
-  Widget wrapBudouXTextStyle({
-    required TextStyle? style,
+  Widget wrapBudouXText({
+    TextStyle? style,
     WrapAlignment alignment = WrapAlignment.start,
   }) =>
       wrapBudouX(

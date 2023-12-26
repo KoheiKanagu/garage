@@ -11,6 +11,7 @@ part of 'configure_route.dart';
 List<RouteBase> get $appRoutes => [
       $configurePageRoute,
       $aboutThisAppPageRoute,
+      $userInfoPageRoute,
     ];
 
 RouteBase get $configurePageRoute => GoRouteData.$route(
@@ -75,6 +76,29 @@ extension $MyLicensePageRouteExtension on MyLicensePageRoute {
 
   String get location => GoRouteData.$location(
         '/about_this_app/license',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $userInfoPageRoute => GoRouteData.$route(
+      path: '/user_info',
+      factory: $UserInfoPageRouteExtension._fromState,
+    );
+
+extension $UserInfoPageRouteExtension on UserInfoPageRoute {
+  static UserInfoPageRoute _fromState(GoRouterState state) =>
+      const UserInfoPageRoute();
+
+  String get location => GoRouteData.$location(
+        '/user_info',
       );
 
   void go(BuildContext context) => context.go(location);

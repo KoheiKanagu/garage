@@ -13,7 +13,7 @@ List<RouteBase> get $appRoutes => [
     ];
 
 RouteBase get $homePageRoute => GoRouteData.$route(
-      path: '/',
+      path: '/home',
       factory: $HomePageRouteExtension._fromState,
     );
 
@@ -21,7 +21,7 @@ extension $HomePageRouteExtension on HomePageRoute {
   static HomePageRoute _fromState(GoRouterState state) => const HomePageRoute();
 
   String get location => GoRouteData.$location(
-        '/',
+        '/home',
       );
 
   void go(BuildContext context) => context.go(location);

@@ -10,7 +10,7 @@ part 'home_route.g.dart';
 class HomePageRoute extends GoRouteData {
   const HomePageRoute();
 
-  static const path = '/';
+  static const path = '/home';
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
