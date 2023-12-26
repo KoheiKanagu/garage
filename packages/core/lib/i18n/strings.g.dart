@@ -135,10 +135,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final Translations _root = this; // ignore: unused_field
 
 	// Translations
-
-	/// コメント
-	String hello({required Object name}) => 'こんにちは ${name}';
-
 	late final _StringsConfigureJa configure = _StringsConfigureJa._(_root);
 	late final _StringsFeedbackJa feedback = _StringsFeedbackJa._(_root);
 	late final _StringsAuthJa auth = _StringsAuthJa._(_root);

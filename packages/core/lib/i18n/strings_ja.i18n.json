@@ -1,6 +1,4 @@
 {
-  "@hello": "コメント",
-  "hello": "こんにちは $name",
   "configure": {
     "title": "設定",
     "feedback": "フィードバックを送る",
