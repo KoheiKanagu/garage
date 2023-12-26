@@ -128,8 +128,7 @@ class MyFeedbackSheet extends HookConsumerWidget {
               );
 
               if (result == OkCancelResult.ok) {
-                final currentUser =
-                    await ref.read(firebaseAuthProvider).userChanges().first;
+                final currentUser = await ref.read(firebaseUserProvider.future);
                 onSubmit(
                   FeedbackData(
                     uid: currentUser?.uid,

@@ -22,10 +22,14 @@ class UserInfoPage extends HookConsumerWidget {
           ListTile(
             title: Text(i18n.configure.user_id),
             leading: const Icon(Icons.person_outline_rounded),
-            subtitle: ref.watch(firebaseUserUidProvider).maybeWhen(
-                  orElse: CircularProgressIndicator.adaptive,
-                  data: Text.new,
+            subtitle: switch (ref.watch(firebaseUserUidProvider)) {
+              AsyncValue(:final value) when value != null => FittedBox(
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.scaleDown,
+                  child: Text(value),
                 ),
+              _ => const CircularProgressIndicator.adaptive(),
+            },
             trailing: IconButton(
               onPressed: () {
                 showOkAlertDialog(

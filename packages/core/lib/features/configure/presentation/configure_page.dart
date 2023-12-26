@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:core/i18n/strings.g.dart';
@@ -50,15 +51,32 @@ class ConfigurePage extends HookConsumerWidget {
           if (kDebugMode) ...[
             ConfigureListTile(
               title: '[debug] SignOut',
-              onTap: () => ref.read(firebaseAuthProvider).signOut(),
+              onTap: () async {
+                final result = await showOkCancelAlertDialog(
+                  context: context,
+                  title: 'SignOut?',
+                );
+
+                if (result == OkCancelResult.ok) {
+                  await ref.read(firebaseAuthProvider).signOut();
+                  logger.d('SignOut');
+                }
+              },
               leadingIcon: Icons.logout,
               trailingIcon: Icons.warning_rounded,
             ),
             ConfigureListTile(
               title: '[debug] clear SharedPreferences',
               onTap: () async {
-                await ref.read(sharedPreferencesClearProvider.future);
-                logger.w('cleared SharedPreferences');
+                final result = await showOkCancelAlertDialog(
+                  context: context,
+                  title: 'clear SharedPreferences?',
+                );
+
+                if (result == OkCancelResult.ok) {
+                  await ref.read(sharedPreferencesClearProvider.future);
+                  logger.d('clear SharedPreferences');
+                }
               },
               leadingIcon: Icons.clear_all,
               trailingIcon: Icons.warning_rounded,

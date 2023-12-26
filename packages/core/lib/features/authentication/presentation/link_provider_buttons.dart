@@ -26,33 +26,33 @@ class LinkProviderButtons extends HookConsumerWidget {
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
           ),
-          child: ref.watch(firebaseUserLinkedProvidersProvider).maybeWhen(
-                orElse: () => const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                ),
-                data: (data) => Column(
-                  children: [
-                    MyOAuthProviderButton(
-                      type: MyOAuthProviderType.apple,
-                      action: data.contains(AppleAuthProvider.PROVIDER_ID)
-                          ? MyOAuthProviderButtonAction.unlink
-                          : MyOAuthProviderButtonAction.signIn,
-                    ),
-                    MyOAuthProviderButton(
-                      type: MyOAuthProviderType.google,
-                      action: data.contains(GoogleAuthProvider.PROVIDER_ID)
-                          ? MyOAuthProviderButtonAction.unlink
-                          : MyOAuthProviderButtonAction.signIn,
-                    ),
-                    MyOAuthProviderButton(
-                      type: MyOAuthProviderType.github,
-                      action: data.contains(GithubAuthProvider.PROVIDER_ID)
-                          ? MyOAuthProviderButtonAction.unlink
-                          : MyOAuthProviderButtonAction.signIn,
-                    ),
-                  ],
-                ),
+          child: switch (ref.watch(firebaseUserLinkedProvidersProvider)) {
+            AsyncValue(:final value) when value != null => Column(
+                children: [
+                  MyOAuthProviderButton(
+                    type: MyOAuthProviderType.apple,
+                    action: value.contains(AppleAuthProvider.PROVIDER_ID)
+                        ? MyOAuthProviderButtonAction.unlink
+                        : MyOAuthProviderButtonAction.signIn,
+                  ),
+                  MyOAuthProviderButton(
+                    type: MyOAuthProviderType.google,
+                    action: value.contains(GoogleAuthProvider.PROVIDER_ID)
+                        ? MyOAuthProviderButtonAction.unlink
+                        : MyOAuthProviderButtonAction.signIn,
+                  ),
+                  MyOAuthProviderButton(
+                    type: MyOAuthProviderType.github,
+                    action: value.contains(GithubAuthProvider.PROVIDER_ID)
+                        ? MyOAuthProviderButtonAction.unlink
+                        : MyOAuthProviderButtonAction.signIn,
+                  ),
+                ],
               ),
+            _ => const Center(
+                child: CircularProgressIndicator.adaptive(),
+              ),
+          },
         ),
       ],
     );

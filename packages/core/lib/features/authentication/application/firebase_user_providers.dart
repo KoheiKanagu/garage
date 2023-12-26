@@ -1,45 +1,47 @@
 import 'dart:async';
 
 import 'package:core/core.dart';
-import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'firebase_user_providers.g.dart';
 
-/// [IdTokenResult]を取得する
-/// サインインしていないなどで、IdTokenResultが取得できない場合は返さない
 @riverpod
-Stream<IdTokenResult> firebaseUserIdTokenResult(
+Stream<fb_auth.User?> firebaseUser(
+  FirebaseUserRef ref,
+) =>
+    ref.watch(firebaseAuthProvider).userChanges();
+
+/// [fb_auth.IdTokenResult]を取得する
+///
+/// サインインしていない場合はnullを返す
+@riverpod
+Future<fb_auth.IdTokenResult?> firebaseUserIdTokenResult(
   FirebaseUserIdTokenResultRef ref, {
   bool forceRefresh = false,
 }) =>
     ref
-        .watch(firebaseAuthProvider)
-        .userChanges()
-        .where((event) => event != null)
-        .asyncMap(
-          (event) => event!.getIdTokenResult(forceRefresh),
-        );
+        .watch(firebaseUserProvider.future)
+        .then((value) => value?.getIdTokenResult(forceRefresh));
 
 /// UIDを取得する
-/// サインインしていないなどで、UIDが取得できない場合は返さない
+///
+/// サインインしていない場合はnullを返す
 @riverpod
-Stream<String> firebaseUserUid(
+Future<String?> firebaseUserUid(
   FirebaseUserUidRef ref,
 ) =>
-    ref
-        .watch(firebaseAuthProvider)
-        .userChanges()
-        .where((event) => event != null)
-        .map((event) => event!.uid);
+    ref.watch(firebaseUserProvider.future).then(
+          (value) => value?.uid,
+        );
 
 /// サインインしているかどうか
 @riverpod
-Stream<bool> firebaseUserIsSignedIn(
+Future<bool> firebaseUserIsSignedIn(
   FirebaseUserIsSignedInRef ref,
 ) =>
-    ref.watch(firebaseAuthProvider).userChanges().map(
-          (event) => event != null,
+    ref.watch(firebaseUserUidProvider.future).then(
+          (value) => value != null,
         );
 
 /// サインインをした後、Userドキュメントが取得できるまで待つ
@@ -93,28 +95,18 @@ Future<void> firebaseUserDelete(
   logger.d('clear SharedPreferences');
   await ref.read(sharedPreferencesClearProvider.future);
 
-  logger.d('signOut');
-  await ref.read(firebaseAnalyticsProvider).logEvent(
-        name: 'sign_out',
-      );
-
   await ref.read(firebaseAuthProvider).signOut();
   logger.d('success signOut');
 }
 
 /// サインインしているアカウントのプロバイダーを取得する
 @riverpod
-Stream<List<String>> firebaseUserLinkedProviders(
+Future<List<String>?> firebaseUserLinkedProviders(
   FirebaseUserLinkedProvidersRef ref,
 ) =>
-    ref
-        .watch(firebaseAuthProvider)
-        .userChanges()
-        .map(
-          (event) => event?.providerData.map((e) => e.providerId).toList(),
-        )
-        .where((event) => event != null)
-        .map((event) => event!);
+    ref.watch(firebaseUserProvider.future).then(
+          (value) => value?.providerData.map((e) => e.providerId).toList(),
+        );
 
 /// リンクしているプロバイダーを解除する
 @riverpod
@@ -122,10 +114,6 @@ Future<void> firebaseUserUnlinkProvider(
   FirebaseUserUnlinkProviderRef ref,
   String providerId,
 ) async {
-  final user = await ref
-      .read(firebaseAuthProvider)
-      .userChanges()
-      .where((event) => event != null)
-      .first;
+  final user = await ref.watch(firebaseUserProvider.future);
   await user!.unlink(providerId);
 }

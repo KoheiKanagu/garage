@@ -8,8 +8,22 @@ part of 'firebase_user_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$firebaseUserHash() => r'c89432ee835eb5fa5addbb18812e9b17c1100f44';
+
+/// See also [firebaseUser].
+@ProviderFor(firebaseUser)
+final firebaseUserProvider = AutoDisposeStreamProvider<fb_auth.User?>.internal(
+  firebaseUser,
+  name: r'firebaseUserProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$firebaseUserHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseUserRef = AutoDisposeStreamProviderRef<fb_auth.User?>;
 String _$firebaseUserIdTokenResultHash() =>
-    r'6b0613aea9fd0d71a0c18d5baea72e2d2e1dffbd';
+    r'f89d261388098570dfce95738d6d050c70e394f5';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -32,27 +46,31 @@ class _SystemHash {
   }
 }
 
-/// [IdTokenResult]を取得する
-/// サインインしていないなどで、IdTokenResultが取得できない場合は返さない
+/// [fb_auth.IdTokenResult]を取得する
+///
+/// サインインしていない場合はnullを返す
 ///
 /// Copied from [firebaseUserIdTokenResult].
 @ProviderFor(firebaseUserIdTokenResult)
 const firebaseUserIdTokenResultProvider = FirebaseUserIdTokenResultFamily();
 
-/// [IdTokenResult]を取得する
-/// サインインしていないなどで、IdTokenResultが取得できない場合は返さない
+/// [fb_auth.IdTokenResult]を取得する
+///
+/// サインインしていない場合はnullを返す
 ///
 /// Copied from [firebaseUserIdTokenResult].
 class FirebaseUserIdTokenResultFamily
-    extends Family<AsyncValue<IdTokenResult>> {
-  /// [IdTokenResult]を取得する
-  /// サインインしていないなどで、IdTokenResultが取得できない場合は返さない
+    extends Family<AsyncValue<fb_auth.IdTokenResult?>> {
+  /// [fb_auth.IdTokenResult]を取得する
+  ///
+  /// サインインしていない場合はnullを返す
   ///
   /// Copied from [firebaseUserIdTokenResult].
   const FirebaseUserIdTokenResultFamily();
 
-  /// [IdTokenResult]を取得する
-  /// サインインしていないなどで、IdTokenResultが取得できない場合は返さない
+  /// [fb_auth.IdTokenResult]を取得する
+  ///
+  /// サインインしていない場合はnullを返す
   ///
   /// Copied from [firebaseUserIdTokenResult].
   FirebaseUserIdTokenResultProvider call({
@@ -87,14 +105,16 @@ class FirebaseUserIdTokenResultFamily
   String? get name => r'firebaseUserIdTokenResultProvider';
 }
 
-/// [IdTokenResult]を取得する
-/// サインインしていないなどで、IdTokenResultが取得できない場合は返さない
+/// [fb_auth.IdTokenResult]を取得する
+///
+/// サインインしていない場合はnullを返す
 ///
 /// Copied from [firebaseUserIdTokenResult].
 class FirebaseUserIdTokenResultProvider
-    extends AutoDisposeStreamProvider<IdTokenResult> {
-  /// [IdTokenResult]を取得する
-  /// サインインしていないなどで、IdTokenResultが取得できない場合は返さない
+    extends AutoDisposeFutureProvider<fb_auth.IdTokenResult?> {
+  /// [fb_auth.IdTokenResult]を取得する
+  ///
+  /// サインインしていない場合はnullを返す
   ///
   /// Copied from [firebaseUserIdTokenResult].
   FirebaseUserIdTokenResultProvider({
@@ -130,7 +150,8 @@ class FirebaseUserIdTokenResultProvider
 
   @override
   Override overrideWith(
-    Stream<IdTokenResult> Function(FirebaseUserIdTokenResultRef provider)
+    FutureOr<fb_auth.IdTokenResult?> Function(
+            FirebaseUserIdTokenResultRef provider)
         create,
   ) {
     return ProviderOverride(
@@ -148,7 +169,7 @@ class FirebaseUserIdTokenResultProvider
   }
 
   @override
-  AutoDisposeStreamProviderElement<IdTokenResult> createElement() {
+  AutoDisposeFutureProviderElement<fb_auth.IdTokenResult?> createElement() {
     return _FirebaseUserIdTokenResultProviderElement(this);
   }
 
@@ -168,13 +189,13 @@ class FirebaseUserIdTokenResultProvider
 }
 
 mixin FirebaseUserIdTokenResultRef
-    on AutoDisposeStreamProviderRef<IdTokenResult> {
+    on AutoDisposeFutureProviderRef<fb_auth.IdTokenResult?> {
   /// The parameter `forceRefresh` of this provider.
   bool get forceRefresh;
 }
 
 class _FirebaseUserIdTokenResultProviderElement
-    extends AutoDisposeStreamProviderElement<IdTokenResult>
+    extends AutoDisposeFutureProviderElement<fb_auth.IdTokenResult?>
     with FirebaseUserIdTokenResultRef {
   _FirebaseUserIdTokenResultProviderElement(super.provider);
 
@@ -183,14 +204,15 @@ class _FirebaseUserIdTokenResultProviderElement
       (origin as FirebaseUserIdTokenResultProvider).forceRefresh;
 }
 
-String _$firebaseUserUidHash() => r'74f0e6baf9aa5183290996fa40f9d096964532b4';
+String _$firebaseUserUidHash() => r'481232445127efaf863fa3d4ec1dad9a886b7708';
 
 /// UIDを取得する
-/// サインインしていないなどで、UIDが取得できない場合は返さない
+///
+/// サインインしていない場合はnullを返す
 ///
 /// Copied from [firebaseUserUid].
 @ProviderFor(firebaseUserUid)
-final firebaseUserUidProvider = AutoDisposeStreamProvider<String>.internal(
+final firebaseUserUidProvider = AutoDisposeFutureProvider<String?>.internal(
   firebaseUserUid,
   name: r'firebaseUserUidProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -200,15 +222,15 @@ final firebaseUserUidProvider = AutoDisposeStreamProvider<String>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef FirebaseUserUidRef = AutoDisposeStreamProviderRef<String>;
+typedef FirebaseUserUidRef = AutoDisposeFutureProviderRef<String?>;
 String _$firebaseUserIsSignedInHash() =>
-    r'824d25c7ce3be53ab933406d8429c9e096f10c53';
+    r'a48913ac98b3b0421b1e6115cca5af333ed62536';
 
 /// サインインしているかどうか
 ///
 /// Copied from [firebaseUserIsSignedIn].
 @ProviderFor(firebaseUserIsSignedIn)
-final firebaseUserIsSignedInProvider = AutoDisposeStreamProvider<bool>.internal(
+final firebaseUserIsSignedInProvider = AutoDisposeFutureProvider<bool>.internal(
   firebaseUserIsSignedIn,
   name: r'firebaseUserIsSignedInProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -218,7 +240,7 @@ final firebaseUserIsSignedInProvider = AutoDisposeStreamProvider<bool>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef FirebaseUserIsSignedInRef = AutoDisposeStreamProviderRef<bool>;
+typedef FirebaseUserIsSignedInRef = AutoDisposeFutureProviderRef<bool>;
 String _$firebaseSignInHash() => r'996adc7337ebd2910234759c1c39a84cc77f736b';
 
 /// サインインをした後、Userドキュメントが取得できるまで待つ
@@ -237,7 +259,7 @@ final firebaseSignInProvider = AutoDisposeFutureProvider<void>.internal(
 
 typedef FirebaseSignInRef = AutoDisposeFutureProviderRef<void>;
 String _$firebaseUserDeleteHash() =>
-    r'674fc0fd983c6b8b22de82bff0417a7684d2877f';
+    r'c28447a0e10d3217dbdfa2257aea2c5d9d41b423';
 
 /// SharedPreferencesとUser Documentの削除が完了するまで待った後、サインアウトする
 ///
@@ -255,14 +277,14 @@ final firebaseUserDeleteProvider = AutoDisposeFutureProvider<void>.internal(
 
 typedef FirebaseUserDeleteRef = AutoDisposeFutureProviderRef<void>;
 String _$firebaseUserLinkedProvidersHash() =>
-    r'572fbf59bb81e36ea230c490ecf25184b524a208';
+    r'e5f10f2ac53d88626cc2211b3a02eff2bd568564';
 
 /// サインインしているアカウントのプロバイダーを取得する
 ///
 /// Copied from [firebaseUserLinkedProviders].
 @ProviderFor(firebaseUserLinkedProviders)
 final firebaseUserLinkedProvidersProvider =
-    AutoDisposeStreamProvider<List<String>>.internal(
+    AutoDisposeFutureProvider<List<String>?>.internal(
   firebaseUserLinkedProviders,
   name: r'firebaseUserLinkedProvidersProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -273,9 +295,9 @@ final firebaseUserLinkedProvidersProvider =
 );
 
 typedef FirebaseUserLinkedProvidersRef
-    = AutoDisposeStreamProviderRef<List<String>>;
+    = AutoDisposeFutureProviderRef<List<String>?>;
 String _$firebaseUserUnlinkProviderHash() =>
-    r'd9dc17bdc503b9495b826c2df8bea2b47c80a94e';
+    r'bb82da4637dda1b34b179f1994144773e371c6e9';
 
 /// リンクしているプロバイダーを解除する
 ///
