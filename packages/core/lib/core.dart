@@ -30,6 +30,7 @@ export 'features/feedback/domain/feedback_from.dart';
 export 'features/feedback/presentation/my_better_feedback.dart';
 export 'features/feedback/presentation/my_feedback_sheet.dart';
 export 'features/firebase/application/firebase_providers.dart';
+export 'features/onboarding/application/sign_in_route.dart' hide $appRoutes;
 export 'features/onboarding/presentation/onboarding_page_base.dart';
 export 'features/onboarding/presentation/sign_in_page.dart';
 export 'features/onboarding/presentation/term_ack_text.dart';

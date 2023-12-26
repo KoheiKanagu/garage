@@ -28,6 +28,7 @@ import 'package:core/features/feedback/domain/feedback_from.dart';
 import 'package:core/features/feedback/presentation/my_better_feedback.dart';
 import 'package:core/features/feedback/presentation/my_feedback_sheet.dart';
 import 'package:core/features/firebase/application/firebase_providers.dart';
+import 'package:core/features/onboarding/application/sign_in_route.dart';
 import 'package:core/features/onboarding/presentation/onboarding_page_base.dart';
 import 'package:core/features/onboarding/presentation/sign_in_page.dart';
 import 'package:core/features/onboarding/presentation/term_ack_text.dart';
