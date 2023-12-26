@@ -20,7 +20,11 @@ void updateCoreExport() {
       .whereNot((element) => element == 'constants/collection_path.dart')
       .whereNot((element) => element.endsWith('.g.dart'))
       .whereNot((element) => element.endsWith('.freezed.dart'))
-      .map((e) => "export '$e';")
+      .map(
+        (e) => e.endsWith('_route.dart')
+            ? "export '$e' hide \$appRoutes;"
+            : "export '$e';",
+      )
       .toList()
     ..sort();
 
