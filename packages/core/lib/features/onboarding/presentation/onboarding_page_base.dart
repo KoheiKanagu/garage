@@ -1,4 +1,4 @@
-import 'package:core/features/onboarding/application/onboarding_route.dart';
+import 'package:core/features/onboarding/application/sign_in_route.dart';
 import 'package:core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -6,10 +6,13 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class OnboardingPage extends HookConsumerWidget {
-  const OnboardingPage({
+class OnboardingPageBase extends HookConsumerWidget {
+  const OnboardingPageBase({
+    required this.children,
     super.key,
   });
+
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,18 +20,6 @@ class OnboardingPage extends HookConsumerWidget {
     final controller = usePageController(
       initialPage: currentPageIndex.value,
     );
-
-    final children = [
-      Container(
-        color: Colors.red,
-      ),
-      Container(
-        color: Colors.green,
-      ),
-      Container(
-        color: Colors.blue,
-      ),
-    ];
 
     return Scaffold(
       body: Column(
@@ -52,8 +43,8 @@ class OnboardingPage extends HookConsumerWidget {
             },
             effect: WormEffect(
               type: WormType.thinUnderground,
-              dotWidth: 12,
-              dotHeight: 12,
+              dotWidth: 8,
+              dotHeight: 8,
               activeDotColor: Theme.of(context).colorScheme.primary,
               dotColor: Theme.of(context).colorScheme.onSurface,
             ),

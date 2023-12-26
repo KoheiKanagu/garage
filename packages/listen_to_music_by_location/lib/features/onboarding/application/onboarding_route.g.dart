@@ -15,12 +15,6 @@ List<RouteBase> get $appRoutes => [
 RouteBase get $onboardingPageRoute => GoRouteData.$route(
       path: '/',
       factory: $OnboardingPageRouteExtension._fromState,
-      routes: [
-        GoRouteData.$route(
-          path: 'sign_in',
-          factory: $SignInPageRouteExtension._fromState,
-        ),
-      ],
     );
 
 extension $OnboardingPageRouteExtension on OnboardingPageRoute {
@@ -29,24 +23,6 @@ extension $OnboardingPageRouteExtension on OnboardingPageRoute {
 
   String get location => GoRouteData.$location(
         '/',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-extension $SignInPageRouteExtension on SignInPageRoute {
-  static SignInPageRoute _fromState(GoRouterState state) =>
-      const SignInPageRoute();
-
-  String get location => GoRouteData.$location(
-        '/sign_in',
       );
 
   void go(BuildContext context) => context.go(location);

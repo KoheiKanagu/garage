@@ -4,6 +4,7 @@ import 'package:core/core.dart';
 import 'package:core/i18n/strings.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:in_app_review/in_app_review.dart';
 
@@ -42,7 +43,7 @@ class ConfigurePage extends HookConsumerWidget {
           if (kDebugMode)
             ...additionalItems.where((e) => e.forDebug).map(
                   (e) => ConfigureListTile(
-                    title: '[debug]${e.text}',
+                    title: '[debug] ${e.text}',
                     onTap: e.onTap,
                     trailingIcon: e.trailingIcon,
                     leadingIcon: e.leadingIcon,
@@ -130,9 +131,9 @@ class _DebugListTiles extends HookConsumerWidget {
           trailingIcon: Icons.warning_rounded,
         ),
         ConfigureListTile(
-          title: '[debug] go ${const OnboardingPageRoute().location}',
+          title: '[debug] go /',
           onTap: () {
-            const OnboardingPageRoute().go(context);
+            GoRouter.of(context).go('/');
           },
           leadingIcon: Icons.start_rounded,
           trailingIcon: Icons.warning_rounded,
