@@ -1,6 +1,4 @@
 import 'package:core/core.dart';
-import 'package:core/features/authentication/presentation/my_oauth_provider_buttons.dart';
-import 'package:core/features/onboarding/presentation/term_ack_text.dart';
 import 'package:core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
