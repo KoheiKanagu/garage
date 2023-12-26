@@ -13,9 +13,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'my_go_router.g.dart';
 
 @riverpod
-Raw<GoRouter> myGoRouter(
-  MyGoRouterRef ref,
-) {
+Raw<GoRouter> myGoRouter(MyGoRouterRef ref) {
+  final signIn =
+      ref.watch(firebaseUserIsSignedInProvider).asData?.value ?? false;
+
   return GoRouter(
     navigatorKey: rootNavigatorStateKey,
     routes: [
@@ -49,5 +50,8 @@ Raw<GoRouter> myGoRouter(
       ),
     ],
     debugLogDiagnostics: kDebugMode,
+    initialLocation: signIn
+        ? const home_route.HomePageRoute().location
+        : const onboarding_route.OnboardingPageRoute().location,
   );
 }

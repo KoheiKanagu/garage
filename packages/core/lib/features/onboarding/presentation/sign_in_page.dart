@@ -54,21 +54,13 @@ class SignInPage extends HookConsumerWidget {
                 onPressed: () async {
                   await ref.read(firebaseSignInProvider.future);
                 },
-                child: switch (ref.watch(firebaseUserIsSignedInProvider)) {
-                  AsyncData() => Text(
-                      i18n.onboarding.anonymous_start,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                  _ => Center(
-                      child: CircularProgressIndicator.adaptive(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.onPrimary,
+                child: Text(
+                  i18n.onboarding.anonymous_start,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        fontWeight: FontWeight.bold,
                       ),
-                    )
-                },
+                ),
               ),
             ),
           ],
