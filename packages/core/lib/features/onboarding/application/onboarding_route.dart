@@ -7,27 +7,31 @@ part 'onboarding_route.g.dart';
 
 @TypedGoRoute<OnboardingPageRoute>(
   path: OnboardingPageRoute.path,
-  routes: [
-    TypedGoRoute<SignInPageRoute>(
-      path: SignInPageRoute.path,
-    ),
-  ],
 )
 class OnboardingPageRoute extends GoRouteData {
-  const OnboardingPageRoute();
+  const OnboardingPageRoute({
+    required this.$extra,
+  });
 
   static const path = '/';
 
+  final List<Widget> $extra;
+
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const OnboardingPage();
+    return OnboardingPage(
+      children: $extra,
+    );
   }
 }
 
+@TypedGoRoute<SignInPageRoute>(
+  path: SignInPageRoute.path,
+)
 class SignInPageRoute extends GoRouteData {
   const SignInPageRoute();
 
-  static const path = 'sign_in';
+  static const path = '/sign_in';
 
   @override
   Widget build(BuildContext context, GoRouterState state) {

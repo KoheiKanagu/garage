@@ -8,8 +8,11 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingPage extends HookConsumerWidget {
   const OnboardingPage({
+    required this.children,
     super.key,
   });
+
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,18 +20,6 @@ class OnboardingPage extends HookConsumerWidget {
     final controller = usePageController(
       initialPage: currentPageIndex.value,
     );
-
-    final children = [
-      Container(
-        color: Colors.red,
-      ),
-      Container(
-        color: Colors.green,
-      ),
-      Container(
-        color: Colors.blue,
-      ),
-    ];
 
     return Scaffold(
       body: Column(

@@ -42,7 +42,7 @@ class ConfigurePage extends HookConsumerWidget {
           if (kDebugMode)
             ...additionalItems.where((e) => e.forDebug).map(
                   (e) => ConfigureListTile(
-                    title: '[debug]${e.text}',
+                    title: '[debug] ${e.text}',
                     onTap: e.onTap,
                     trailingIcon: e.trailingIcon,
                     leadingIcon: e.leadingIcon,
@@ -127,14 +127,6 @@ class _DebugListTiles extends HookConsumerWidget {
             }
           },
           leadingIcon: Icons.clear_all,
-          trailingIcon: Icons.warning_rounded,
-        ),
-        ConfigureListTile(
-          title: '[debug] go ${const OnboardingPageRoute().location}',
-          onTap: () {
-            const OnboardingPageRoute().go(context);
-          },
-          leadingIcon: Icons.start_rounded,
           trailingIcon: Icons.warning_rounded,
         ),
       ],

@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:listen_to_music_by_location/features/home/application/home_route.dart'
     as home_route;
+import 'package:listen_to_music_by_location/features/onboarding/presentation/onboarding_widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'my_go_router.g.dart';
@@ -51,6 +52,8 @@ Future<Raw<GoRouter>> myGoRouter(MyGoRouterRef ref) async {
     debugLogDiagnostics: kDebugMode,
     initialLocation: signIn
         ? const home_route.HomePageRoute().location
-        : const onboarding_route.OnboardingPageRoute().location,
+        : onboarding_route.OnboardingPageRoute(
+            $extra: onboardingWidgets,
+          ).location,
   );
 }

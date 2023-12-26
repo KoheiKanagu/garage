@@ -25,20 +25,24 @@ RouteBase get $onboardingPageRoute => GoRouteData.$route(
 
 extension $OnboardingPageRouteExtension on OnboardingPageRoute {
   static OnboardingPageRoute _fromState(GoRouterState state) =>
-      const OnboardingPageRoute();
+      OnboardingPageRoute(
+        $extra: state.extra as List<Widget>,
+      );
 
   String get location => GoRouteData.$location(
         '/',
       );
 
-  void go(BuildContext context) => context.go(location);
+  void go(BuildContext context) => context.go(location, extra: $extra);
 
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
 
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
+      context.pushReplacement(location, extra: $extra);
 
-  void replace(BuildContext context) => context.replace(location);
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }
 
 extension $SignInPageRouteExtension on SignInPageRoute {
