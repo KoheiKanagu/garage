@@ -13,6 +13,10 @@
       "path": "packages/listen_to_music_by_location"
     },
     {
+      "name": "listen_to_music_by_location/ios",
+      "path": "packages/listen_to_music_by_location/ios"
+    },
+    {
       "name": "firebase",
       "path": "firebase"
     },
@@ -44,6 +48,7 @@
       "**/lib/src": true,
       "**/lib/test": true,
       "**/.symlinks": true,
+      "**/Pods": true
     },
     "cSpell.ignorePaths": [
       "package-lock.json",
@@ -85,6 +90,7 @@
       "core",
       "firebase",
       "listen_to_music_by_location",
+      "listen_to_music_by_location/ios"
     ],
     "conventionalCommits.scopes": [
       "common",
