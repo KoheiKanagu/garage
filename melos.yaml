@@ -215,9 +215,3 @@ scripts:
       flutter clean
     packageFilters:
       flutter: true
-
-  version:
-    exec: |
-      which flutter
-    packageFilters:
-      flutter: true
