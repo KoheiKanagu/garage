@@ -43,6 +43,7 @@
       ".fvmrc": true,
       "**/lib/src": true,
       "**/lib/test": true,
+      "**/.symlinks": true,
     },
     "cSpell.ignorePaths": [
       "package-lock.json",
