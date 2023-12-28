@@ -1,32 +1,31 @@
 import Flutter
 import MapKit
 
-class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
+class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate, MyHostApi {
+
   var arguments: [String: Any?] = [:]
+  var myFlutterApi: MyFlutterApi?
 
   convenience init(
-    args: Any?
+    args: Any?,
+    flutterApi: MyFlutterApi?
   ) {
     self.init(
       frame: CGRect.zero
     )
     delegate = self
+    myFlutterApi = flutterApi
+
     arguments = args as? [String: Any?] ?? [:]
 
     let latitude = arguments["latitude"] as? Double ?? 0.0
     let longitude = arguments["longitude"] as? Double ?? 0.0
     let meters = arguments["meters"] as? Double ?? 0.0
 
-    setRegion(
-      MKCoordinateRegion(
-        center: CLLocationCoordinate2D(
-          latitude: latitude,
-          longitude: longitude
-        ),
-        latitudinalMeters: meters,
-        longitudinalMeters: meters
-      ),
-      animated: true
+    try? setMapRegion(
+      latitude: latitude,
+      longitude: longitude,
+      meters: meters
     )
 
     addGestureRecognizer(
@@ -69,12 +68,12 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       )
 
       if renderer.path.contains(point) {
-        print(circle.identifier!)
-        print("contains")
+        myFlutterApi?.onTapCircle(
+          identifier: circle.identifier,
+          completion: { _ in }
+        )
       }
-
     }
-
   }
 
   @objc func onLongPress(
@@ -91,19 +90,11 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       toCoordinateFrom: self
     )
 
-    // アノテーションを作る
-    let annotation = MyMKPointAnnotation()
-    annotation.coordinate = coordinate
-    annotation.title = "You long pressed here"
-    annotation.identifier = "identifier"
-    addAnnotation(annotation)
-
-    // 円を追加
-    let circle = MyMKCircle(
-      center: coordinate,
-      radius: CLLocationDistance(500)
+    myFlutterApi?.onLongPressedMap(
+      latitude: coordinate.latitude,
+      longitude: coordinate.longitude,
+      completion: { _ in }
     )
-    addOverlay(circle)
   }
 
   func mapView(
@@ -123,6 +114,70 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
     }
 
     return MKOverlayRenderer()
+  }
+
+  func setMapRegion(
+    latitude: Double,
+    longitude: Double,
+    meters: Double
+  ) throws {
+    // カメラの位置
+    setRegion(
+      MKCoordinateRegion(
+        center: CLLocationCoordinate2D(
+          latitude: latitude,
+          longitude: longitude
+        ),
+        latitudinalMeters: meters,
+        longitudinalMeters: meters
+      ),
+      animated: true
+    )
+  }
+
+  func addAnnotation(
+    identifier: String,
+    latitude: Double,
+    longitude: Double,
+    title: String,
+    circleDistance: Double
+  ) throws {
+    // アノテーションを作る
+    let annotation = MyMKPointAnnotation()
+    annotation.coordinate = CLLocationCoordinate2D(
+      latitude: latitude,
+      longitude: longitude
+    )
+    annotation.title = title
+    annotation.identifier = identifier
+    addAnnotation(annotation)
+
+    // 円を追加
+    let circle = MyMKCircle(
+      center: annotation.coordinate,
+      radius: CLLocationDistance(
+        circleDistance
+      )
+    )
+    circle.identifier = identifier
+    addOverlay(circle)
+  }
+
+  func removeAnnotation(
+    identifier: String
+  ) throws {
+
+    for case let annotation as MyMKPointAnnotation in annotations {
+      if annotation.identifier == identifier {
+        removeAnnotation(annotation)
+      }
+    }
+
+    for case let circle as MyMKCircle in overlays {
+      if circle.identifier == identifier {
+        removeOverlay(circle)
+      }
+    }
   }
 
 }

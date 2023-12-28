@@ -3,6 +3,9 @@ import UIKit
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
+
+  private var myHostApi: MyMapView?
+
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -11,7 +14,11 @@ import UIKit
       with: self
     )
 
-    let myViewFactory = MyMapFlutterPlatformViewFactory()
+    let controller = window?.rootViewController as! FlutterViewController
+
+    let myViewFactory = MyMapFlutterPlatformViewFactory(
+      controller: controller
+    )
     registrar(
       forPlugin: "MyMapView"
     )?.register(
@@ -27,15 +34,33 @@ import UIKit
 }
 
 class MyMapFlutterPlatformViewFactory: NSObject, FlutterPlatformViewFactory {
+
+  let controller: FlutterViewController
+
+  init(controller: FlutterViewController) {
+    self.controller = controller
+  }
+
   func create(
     withFrame frame: CGRect,
     viewIdentifier viewId: Int64,
     arguments args: Any?
   ) -> FlutterPlatformView {
 
+    let myMapView = MyMapView(
+      args: args,
+      flutterApi: MyFlutterApi(
+        binaryMessenger: controller.binaryMessenger
+      )
+    )
+
+    MyHostApiSetup.setUp(
+      binaryMessenger: controller.binaryMessenger,
+      api: myMapView
+    )
+
     return MyMapFlutterPlatformView(
-      frame: frame,
-      args: args
+      myMapView: myMapView
     )
   }
 
@@ -48,17 +73,11 @@ class MyMapFlutterPlatformView: NSObject, FlutterPlatformView {
 
   let myMapView: MyMapView
 
-  init(
-    frame: CGRect,
-    args: Any?
-  ) {
-    myMapView = MyMapView(
-      args: args
-    )
+  init(myMapView: MyMapView) {
+    self.myMapView = myMapView
   }
 
   func view() -> UIView {
     return myMapView
   }
-
 }

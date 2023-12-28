@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomePage extends HookConsumerWidget {
@@ -20,8 +21,22 @@ class HomePage extends HookConsumerWidget {
           ),
         ],
       ),
-      body: const Center(
-        child: Text('center'),
+      body: const Column(
+        children: [
+          Text('text'),
+          Expanded(
+            child: UiKitView(
+              viewType: 'my_map_platform_view',
+              creationParams: {
+                'latitude': 37.42796133580664,
+                'longitude': -122.085749655962,
+                // 'latitude': 37.334900,
+                // 'longitude': -122.009020,
+              },
+              creationParamsCodec: StandardMessageCodec(),
+            ),
+          ),
+        ],
       ),
     );
   }

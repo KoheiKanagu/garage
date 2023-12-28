@@ -13,8 +13,10 @@ struct MyMapUIViewRepresentable: UIViewRepresentable {
     context: Context
   ) -> some UIView {
     return MyMapFlutterPlatformView(
-      frame: UIScreen.main.bounds,
-      args: args
+      myMapView: MyMapView(
+        args: args,
+        flutterApi: nil
+      )
     ).view()
   }
 
@@ -30,7 +32,7 @@ struct MyMap_Previews: PreviewProvider {
     return MyMapUIViewRepresentable(
       args: [
         "latitude": 37.334900,
-        "longitude": -122.009020
+        "longitude": -122.009020,
       ]
     )
   }
