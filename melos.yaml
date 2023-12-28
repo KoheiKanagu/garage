@@ -139,6 +139,18 @@ scripts:
       flutter: true
       dirExists: android
 
+  build:ios:config-only:
+    run: |
+      flutter build ios \
+        --config-only \
+        --flavor dev \
+        --target lib/main_dev.dart
+    exec:
+      concurrency: 1
+    packageFilters:
+      flutter: true
+      dirExists: ios
+
   build:ios:no-codesign:dev:
     run: |
       flutter build ios \
