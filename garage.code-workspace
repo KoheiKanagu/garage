@@ -13,10 +13,6 @@
       "path": "packages/listen_to_music_by_location"
     },
     {
-      "name": "listen_to_music_by_location/ios",
-      "path": "packages/listen_to_music_by_location/ios"
-    },
-    {
       "name": "firebase",
       "path": "firebase"
     },
@@ -90,7 +86,6 @@
       "core",
       "firebase",
       "listen_to_music_by_location",
-      "listen_to_music_by_location/ios"
     ],
     "conventionalCommits.scopes": [
       "common",
