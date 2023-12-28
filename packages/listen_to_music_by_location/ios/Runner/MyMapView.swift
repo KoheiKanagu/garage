@@ -60,7 +60,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       toCoordinateFrom: self
     )
 
-    for case let circle as MKCircle in overlays {
+    for case let circle as MyMKCircle in overlays {
       let renderer = MKCircleRenderer(
         circle: circle
       )
@@ -69,6 +69,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       )
 
       if renderer.path.contains(point) {
+        print(circle.identifier!)
         print("contains")
       }
 
@@ -94,11 +95,11 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
     let annotation = MyMKPointAnnotation()
     annotation.coordinate = coordinate
     annotation.title = "You long pressed here"
-    annotation.identifier = "asdf"
+    annotation.identifier = "identifier"
     addAnnotation(annotation)
 
     // 円を追加
-    let circle = MKCircle(
+    let circle = MyMKCircle(
       center: coordinate,
       radius: CLLocationDistance(500)
     )
@@ -111,7 +112,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
   ) -> MKOverlayRenderer {
 
     // 円のスタイル
-    if let circle = overlay as? MKCircle {
+    if let circle = overlay as? MyMKCircle {
       let renderer = MKCircleRenderer(
         circle: circle
       )
@@ -124,6 +125,10 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
     return MKOverlayRenderer()
   }
 
+}
+
+class MyMKCircle: MKCircle {
+  var identifier: String!
 }
 
 class MyMKPointAnnotation: MKPointAnnotation {
