@@ -18,15 +18,17 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate, MyHo
 
     arguments = args as? [String: Any?] ?? [:]
 
-    let latitude = arguments["latitude"] as? Double ?? 0.0
-    let longitude = arguments["longitude"] as? Double ?? 0.0
-    let meters = arguments["meters"] as? Double ?? 0.0
+    let latitude = arguments["latitude"] as? Double
+    let longitude = arguments["longitude"] as? Double
+    let meters = arguments["meters"] as? Double
 
-    try? setMapRegion(
-      latitude: latitude,
-      longitude: longitude,
-      meters: meters
-    )
+    if latitude != nil && longitude != nil && meters != nil {
+      try? setMapRegion(
+        latitude: latitude!,
+        longitude: longitude!,
+        meters: meters!
+      )
+    }
 
     addGestureRecognizer(
       UITapGestureRecognizer(

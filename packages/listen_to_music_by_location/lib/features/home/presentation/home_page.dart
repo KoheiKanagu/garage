@@ -28,10 +28,9 @@ class HomePage extends HookConsumerWidget {
             child: UiKitView(
               viewType: 'my_map_platform_view',
               creationParams: {
-                'latitude': 37.42796133580664,
-                'longitude': -122.085749655962,
-                // 'latitude': 37.334900,
-                // 'longitude': -122.009020,
+                'latitude': 37.334900,
+                'longitude': -122.009020,
+                'meters': 500,
               },
               creationParamsCodec: StandardMessageCodec(),
             ),
