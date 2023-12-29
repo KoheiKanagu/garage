@@ -1,4 +1,4 @@
 class CollectionPath {
-  static const kFeedback = 'feedback_v1';
-  static const kUser = 'user_v1';
+  static const kFeedbacks = 'feedbacks_v1';
+  static const kUsers = 'users_v1';
 }

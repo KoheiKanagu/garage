@@ -39,6 +39,7 @@ export 'features/user/domain/user.dart';
 export 'main_core.dart';
 export 'utils/budoux.dart';
 export 'utils/failed_run_app.dart';
+export 'utils/geo_point_converter.dart';
 export 'utils/media_query_preview.dart';
 export 'utils/my_navigator_observer.dart';
 export 'utils/provider_logger.dart';

@@ -6,4 +6,15 @@
       deleted: false,
     },
   },
+  geomusics_v1: {
+    $documentId: {
+      createdAt: "Timestamp", // FieldValue.serverTimestamp
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
+      deleted: false,
+      geoPoint: {
+        latitude: 0,
+        longitude: 0,
+      },
+    },
+  },
 }

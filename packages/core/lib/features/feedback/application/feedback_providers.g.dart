@@ -27,7 +27,7 @@ final feedbackDeviceInfoProvider =
 typedef FeedbackDeviceInfoRef
     = AutoDisposeFutureProviderRef<FeedbackDeviceInfo>;
 String _$feedbackCollectionReferenceHash() =>
-    r'c50f657af048830e0166541032576cd735df2cb8';
+    r'69636b249f6f079d3b8e3c4cde298e6c7d83c6bc';
 
 /// See also [feedbackCollectionReference].
 @ProviderFor(feedbackCollectionReference)

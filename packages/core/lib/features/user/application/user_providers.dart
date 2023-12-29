@@ -11,7 +11,7 @@ CollectionReference<User> userCollectionReference(
 ) =>
     ref
         .watch(firebaseFirestoreProvider)
-        .collection(CollectionPath.kUser)
+        .collection(CollectionPath.kUsers)
         .withConverter(
           fromFirestore: User.fromFirestore,
           toFirestore: User.toFirestore,
