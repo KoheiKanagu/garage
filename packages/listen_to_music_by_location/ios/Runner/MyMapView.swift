@@ -22,6 +22,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate, MyHo
     let longitude = arguments["longitude"] as? Double
     let meters = arguments["meters"] as? Double
 
+    // 未指定の場合はlocaleからいい感じの場所が設定される？
     if latitude != nil && longitude != nil && meters != nil {
       try? setMapRegion(
         latitude: latitude!,
