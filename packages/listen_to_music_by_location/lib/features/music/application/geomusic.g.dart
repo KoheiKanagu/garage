@@ -18,6 +18,7 @@ _$GeomusicImpl _$$GeomusicImplFromJson(Map<String, dynamic> json) =>
               'geoPoint', (v) => const GeoPointConverter().fromJson(v)),
           distance: $checkedConvert('distance', (v) => (v as num).toDouble()),
           musicId: $checkedConvert('musicId', (v) => v as String),
+          createdBy: $checkedConvert('createdBy', (v) => v as String),
           createdAt: $checkedConvert(
               'createdAt', (v) => const TimestampConverter().fromJson(v)),
           updatedAt: $checkedConvert(
@@ -33,6 +34,7 @@ Map<String, dynamic> _$$GeomusicImplToJson(_$GeomusicImpl instance) =>
       'geoPoint': const GeoPointConverter().toJson(instance.geoPoint),
       'distance': instance.distance,
       'musicId': instance.musicId,
+      'createdBy': instance.createdBy,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
       'deleted': instance.deleted,

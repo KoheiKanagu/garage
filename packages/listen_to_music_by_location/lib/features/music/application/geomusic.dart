@@ -11,6 +11,7 @@ class Geomusic with _$Geomusic {
     @GeoPointConverter() required GeoPoint geoPoint,
     required double distance,
     required String musicId,
+    required String createdBy,
     @TimestampConverter() Timestamp? createdAt,
     @TimestampConverter() Timestamp? updatedAt,
     @Default(false) bool deleted,

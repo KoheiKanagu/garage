@@ -24,6 +24,7 @@ mixin _$Geomusic {
   GeoPoint get geoPoint => throw _privateConstructorUsedError;
   double get distance => throw _privateConstructorUsedError;
   String get musicId => throw _privateConstructorUsedError;
+  String get createdBy => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get createdAt => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -45,6 +46,7 @@ abstract class $GeomusicCopyWith<$Res> {
       {@GeoPointConverter() GeoPoint geoPoint,
       double distance,
       String musicId,
+      String createdBy,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt,
       bool deleted});
@@ -66,6 +68,7 @@ class _$GeomusicCopyWithImpl<$Res, $Val extends Geomusic>
     Object? geoPoint = null,
     Object? distance = null,
     Object? musicId = null,
+    Object? createdBy = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? deleted = null,
@@ -82,6 +85,10 @@ class _$GeomusicCopyWithImpl<$Res, $Val extends Geomusic>
       musicId: null == musicId
           ? _value.musicId
           : musicId // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdBy: null == createdBy
+          ? _value.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: freezed == createdAt
           ? _value.createdAt
@@ -111,6 +118,7 @@ abstract class _$$GeomusicImplCopyWith<$Res>
       {@GeoPointConverter() GeoPoint geoPoint,
       double distance,
       String musicId,
+      String createdBy,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt,
       bool deleted});
@@ -130,6 +138,7 @@ class __$$GeomusicImplCopyWithImpl<$Res>
     Object? geoPoint = null,
     Object? distance = null,
     Object? musicId = null,
+    Object? createdBy = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? deleted = null,
@@ -146,6 +155,10 @@ class __$$GeomusicImplCopyWithImpl<$Res>
       musicId: null == musicId
           ? _value.musicId
           : musicId // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdBy: null == createdBy
+          ? _value.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: freezed == createdAt
           ? _value.createdAt
@@ -170,6 +183,7 @@ class _$GeomusicImpl implements _Geomusic {
       {@GeoPointConverter() required this.geoPoint,
       required this.distance,
       required this.musicId,
+      required this.createdBy,
       @TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt,
       this.deleted = false});
@@ -185,6 +199,8 @@ class _$GeomusicImpl implements _Geomusic {
   @override
   final String musicId;
   @override
+  final String createdBy;
+  @override
   @TimestampConverter()
   final Timestamp? createdAt;
   @override
@@ -196,7 +212,7 @@ class _$GeomusicImpl implements _Geomusic {
 
   @override
   String toString() {
-    return 'Geomusic(geoPoint: $geoPoint, distance: $distance, musicId: $musicId, createdAt: $createdAt, updatedAt: $updatedAt, deleted: $deleted)';
+    return 'Geomusic(geoPoint: $geoPoint, distance: $distance, musicId: $musicId, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, deleted: $deleted)';
   }
 
   @override
@@ -209,6 +225,8 @@ class _$GeomusicImpl implements _Geomusic {
             (identical(other.distance, distance) ||
                 other.distance == distance) &&
             (identical(other.musicId, musicId) || other.musicId == musicId) &&
+            (identical(other.createdBy, createdBy) ||
+                other.createdBy == createdBy) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -218,8 +236,8 @@ class _$GeomusicImpl implements _Geomusic {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, geoPoint, distance, musicId, createdAt, updatedAt, deleted);
+  int get hashCode => Object.hash(runtimeType, geoPoint, distance, musicId,
+      createdBy, createdAt, updatedAt, deleted);
 
   @JsonKey(ignore: true)
   @override
@@ -240,6 +258,7 @@ abstract class _Geomusic implements Geomusic {
       {@GeoPointConverter() required final GeoPoint geoPoint,
       required final double distance,
       required final String musicId,
+      required final String createdBy,
       @TimestampConverter() final Timestamp? createdAt,
       @TimestampConverter() final Timestamp? updatedAt,
       final bool deleted}) = _$GeomusicImpl;
@@ -254,6 +273,8 @@ abstract class _Geomusic implements Geomusic {
   double get distance;
   @override
   String get musicId;
+  @override
+  String get createdBy;
   @override
   @TimestampConverter()
   Timestamp? get createdAt;
