@@ -26,18 +26,18 @@ List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty
   return <Object?>[error.code, error.message, error.details];
 }
 
-class MyHostApi {
-  /// Constructor for [MyHostApi].  The [binaryMessenger] named argument is
+class MyMapHostApi {
+  /// Constructor for [MyMapHostApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  MyHostApi({BinaryMessenger? binaryMessenger})
+  MyMapHostApi({BinaryMessenger? binaryMessenger})
       : __pigeon_binaryMessenger = binaryMessenger;
   final BinaryMessenger? __pigeon_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = StandardMessageCodec();
 
   Future<void> setMapRegion({required double latitude, required double longitude, required double meters,}) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyHostApi.setMapRegion';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.setMapRegion';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -59,7 +59,7 @@ class MyHostApi {
   }
 
   Future<void> addAnnotation({required String identifier, required double latitude, required double longitude, required String title, required double circleDistance,}) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyHostApi.addAnnotation';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.addAnnotation';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -81,7 +81,7 @@ class MyHostApi {
   }
 
   Future<void> removeAnnotation({required String identifier}) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyHostApi.removeAnnotation';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.removeAnnotation';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -89,6 +89,93 @@ class MyHostApi {
     );
     final List<Object?>? __pigeon_replyList =
         await __pigeon_channel.send(<Object?>[identifier]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+}
+
+class MyMusicHostApi {
+  /// Constructor for [MyMusicHostApi].  The [binaryMessenger] named argument is
+  /// available for dependency injection.  If it is left null, the default
+  /// BinaryMessenger will be used which routes to the host platform.
+  MyMusicHostApi({BinaryMessenger? binaryMessenger})
+      : __pigeon_binaryMessenger = binaryMessenger;
+  final BinaryMessenger? __pigeon_binaryMessenger;
+
+  static const MessageCodec<Object?> pigeonChannelCodec = StandardMessageCodec();
+
+  Future<String> requestPermission() async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.requestPermission';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as String?)!;
+    }
+  }
+
+  Future<String> currentPermissionStatus() async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.currentPermissionStatus';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as String?)!;
+    }
+  }
+
+  Future<void> play({required String id}) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.play';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[id]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {

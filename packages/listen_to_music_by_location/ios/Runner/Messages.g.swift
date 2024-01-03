@@ -42,19 +42,20 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   if value is NSNull { return nil }
   return value as! T?
 }
+
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
-protocol MyHostApi {
+protocol MyMapHostApi {
   func setMapRegion(latitude: Double, longitude: Double, meters: Double) throws
   func addAnnotation(identifier: String, latitude: Double, longitude: Double, title: String, circleDistance: Double) throws
   func removeAnnotation(identifier: String) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
-class MyHostApiSetup {
-  /// The codec used by MyHostApi.
-  /// Sets up an instance of `MyHostApi` to handle messages through the `binaryMessenger`.
-  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MyHostApi?) {
-    let setMapRegionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyHostApi.setMapRegion", binaryMessenger: binaryMessenger)
+class MyMapHostApiSetup {
+  /// The codec used by MyMapHostApi.
+  /// Sets up an instance of `MyMapHostApi` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MyMapHostApi?) {
+    let setMapRegionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.setMapRegion", binaryMessenger: binaryMessenger)
     if let api = api {
       setMapRegionChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -71,7 +72,7 @@ class MyHostApiSetup {
     } else {
       setMapRegionChannel.setMessageHandler(nil)
     }
-    let addAnnotationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyHostApi.addAnnotation", binaryMessenger: binaryMessenger)
+    let addAnnotationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.addAnnotation", binaryMessenger: binaryMessenger)
     if let api = api {
       addAnnotationChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -90,7 +91,7 @@ class MyHostApiSetup {
     } else {
       addAnnotationChannel.setMessageHandler(nil)
     }
-    let removeAnnotationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyHostApi.removeAnnotation", binaryMessenger: binaryMessenger)
+    let removeAnnotationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.removeAnnotation", binaryMessenger: binaryMessenger)
     if let api = api {
       removeAnnotationChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -104,6 +105,63 @@ class MyHostApiSetup {
       }
     } else {
       removeAnnotationChannel.setMessageHandler(nil)
+    }
+  }
+}
+/// Generated protocol from Pigeon that represents a handler of messages from Flutter.
+protocol MyMusicHostApi {
+  func requestPermission(completion: @escaping (Result<String, Error>) -> Void)
+  func currentPermissionStatus() throws -> String
+  func play(id: String) throws
+}
+
+/// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
+class MyMusicHostApiSetup {
+  /// The codec used by MyMusicHostApi.
+  /// Sets up an instance of `MyMusicHostApi` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MyMusicHostApi?) {
+    let requestPermissionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.requestPermission", binaryMessenger: binaryMessenger)
+    if let api = api {
+      requestPermissionChannel.setMessageHandler { _, reply in
+        api.requestPermission() { result in
+          switch result {
+            case .success(let res):
+              reply(wrapResult(res))
+            case .failure(let error):
+              reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      requestPermissionChannel.setMessageHandler(nil)
+    }
+    let currentPermissionStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.currentPermissionStatus", binaryMessenger: binaryMessenger)
+    if let api = api {
+      currentPermissionStatusChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.currentPermissionStatus()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      currentPermissionStatusChannel.setMessageHandler(nil)
+    }
+    let playChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.play", binaryMessenger: binaryMessenger)
+    if let api = api {
+      playChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let idArg = args[0] as! String
+        do {
+          try api.play(id: idArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      playChannel.setMessageHandler(nil)
     }
   }
 }

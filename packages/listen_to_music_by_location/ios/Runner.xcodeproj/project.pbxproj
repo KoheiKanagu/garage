@@ -16,6 +16,7 @@
 		7DA113D02B3D4875004F5048 /* MyMapViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113CF2B3D4875004F5048 /* MyMapViewPreview.swift */; };
 		7DA113D22B3DAE47004F5048 /* Messages.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113D12B3DAE47004F5048 /* Messages.g.swift */; };
 		7DA113D42B3DB661004F5048 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113D32B3DB661004F5048 /* Error.swift */; };
+		7DE7EFD22B456AE400086749 /* MyMusicHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */; };
 		7DFB891C2AFBBB3B00C81093 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 7DFB891B2AFBBB3B00C81093 /* Localizable.xcstrings */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -78,6 +79,7 @@
 		7DA113CF2B3D4875004F5048 /* MyMapViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMapViewPreview.swift; sourceTree = "<group>"; };
 		7DA113D12B3DAE47004F5048 /* Messages.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.g.swift; sourceTree = "<group>"; };
 		7DA113D32B3DB661004F5048 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMusicHostApiImpl.swift; sourceTree = "<group>"; };
 		7DFB89192AFBBAF100C81093 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		7DFB891A2AFBBAF200C81093 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		7DFB891B2AFBBB3B00C81093 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				7DA113D12B3DAE47004F5048 /* Messages.g.swift */,
 				7DA113D32B3DB661004F5048 /* Error.swift */,
 				7D2E3D132B3CF56D00BFA823 /* MyMapView.swift */,
+				7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */,
 				7DA113CF2B3D4875004F5048 /* MyMapViewPreview.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 			);
@@ -469,6 +472,7 @@
 			files = (
 				7DA113D22B3DAE47004F5048 /* Messages.g.swift in Sources */,
 				7DA113D42B3DB661004F5048 /* Error.swift in Sources */,
+				7DE7EFD22B456AE400086749 /* MyMusicHostApiImpl.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				7DA113D02B3D4875004F5048 /* MyMapViewPreview.swift in Sources */,

@@ -4,8 +4,6 @@ import UIKit
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
 
-  private var myHostApi: MyMapView?
-
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -24,6 +22,12 @@ import UIKit
     )?.register(
       myViewFactory,
       withId: "my_map_platform_view"
+    )
+
+    let myMusicHostApiImpl = MyMusicHostApiImpl()
+    MyMusicHostApiSetup.setUp(
+      binaryMessenger: controller.binaryMessenger,
+      api: myMusicHostApiImpl
     )
 
     return super.application(
@@ -54,7 +58,7 @@ class MyMapFlutterPlatformViewFactory: NSObject, FlutterPlatformViewFactory {
       )
     )
 
-    MyHostApiSetup.setUp(
+    MyMapHostApiSetup.setUp(
       binaryMessenger: controller.binaryMessenger,
       api: myMapView
     )

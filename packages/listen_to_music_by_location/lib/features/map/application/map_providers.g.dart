@@ -9,7 +9,7 @@ part of 'map_providers.dart';
 // **************************************************************************
 
 String _$myFlutterApiControllerHash() =>
-    r'2de9e3ee7fdc31b9dcd25866b9fcf2baa913fd3c';
+    r'5bac441f725d0d5518588830c619813f9897950b';
 
 /// See also [myFlutterApiController].
 @ProviderFor(myFlutterApiController)
@@ -26,19 +26,19 @@ final myFlutterApiControllerProvider =
 
 typedef MyFlutterApiControllerRef
     = AutoDisposeProviderRef<MyFlutterApiController>;
-String _$myHostApiHash() => r'72de4cea9a851e2bd3cb6120c703ca7e99eb371b';
+String _$myMapHostApiHash() => r'941dafd592e47b2c741783678d78c40e2f32462a';
 
-/// See also [myHostApi].
-@ProviderFor(myHostApi)
-final myHostApiProvider = AutoDisposeProvider<MyHostApi>.internal(
-  myHostApi,
-  name: r'myHostApiProvider',
+/// See also [myMapHostApi].
+@ProviderFor(myMapHostApi)
+final myMapHostApiProvider = AutoDisposeProvider<MyMapHostApi>.internal(
+  myMapHostApi,
+  name: r'myMapHostApiProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$myHostApiHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$myMapHostApiHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef MyHostApiRef = AutoDisposeProviderRef<MyHostApi>;
+typedef MyMapHostApiRef = AutoDisposeProviderRef<MyMapHostApi>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

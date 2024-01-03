@@ -8,7 +8,7 @@ MyFlutterApiController myFlutterApiController(
   MyFlutterApiControllerRef ref,
 ) {
   final controller = MyFlutterApiController(
-    myHostApi: ref.watch(myHostApiProvider),
+    myMapHostApi: ref.watch(myMapHostApiProvider),
   );
   MyFlutterApi.setup(controller);
 
@@ -17,14 +17,14 @@ MyFlutterApiController myFlutterApiController(
 
 class MyFlutterApiController implements MyFlutterApi {
   const MyFlutterApiController({
-    required this.myHostApi,
+    required this.myMapHostApi,
   });
 
-  final MyHostApi myHostApi;
+  final MyMapHostApi myMapHostApi;
 
   @override
   void onLongPressedMap(double latitude, double longitude) {
-    myHostApi.addAnnotation(
+    myMapHostApi.addAnnotation(
       identifier: 'identifier',
       latitude: latitude,
       longitude: longitude,
@@ -40,7 +40,7 @@ class MyFlutterApiController implements MyFlutterApi {
 }
 
 @riverpod
-MyHostApi myHostApi(
-  MyHostApiRef ref,
+MyMapHostApi myMapHostApi(
+  MyMapHostApiRef ref,
 ) =>
-    MyHostApi();
+    MyMapHostApi();

@@ -8,7 +8,7 @@ import 'package:pigeon/pigeon.dart';
   ),
 )
 @HostApi()
-abstract class MyHostApi {
+abstract class MyMapHostApi {
   void setMapRegion({
     required double latitude,
     required double longitude,
@@ -25,6 +25,18 @@ abstract class MyHostApi {
 
   void removeAnnotation({
     required String identifier,
+  });
+}
+
+@HostApi()
+abstract class MyMusicHostApi {
+  @async
+  String requestPermission();
+
+  String currentPermissionStatus();
+
+  void play({
+    required String id,
   });
 }
 

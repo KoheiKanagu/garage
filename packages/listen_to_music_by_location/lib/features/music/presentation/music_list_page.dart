@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:listen_to_music_by_location/features/music/application/geomusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 
 class MusicListPage extends HookConsumerWidget {
@@ -43,6 +44,31 @@ class MusicListPage extends HookConsumerWidget {
             onValueChanged: (value) {
               current.value = value ?? DistanceRange.medium;
             },
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final status =
+                  await ref.read(myMusicHostApiProvider).requestPermission();
+              print(status);
+            },
+            child: const Text('permission'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final status = await ref
+                  .read(myMusicHostApiProvider)
+                  .currentPermissionStatus();
+              print(status);
+            },
+            child: const Text('status'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              await ref.read(myMusicHostApiProvider).play(
+                    id: '1713102666',
+                  );
+            },
+            child: const Text('play'),
           ),
         ],
       ),
