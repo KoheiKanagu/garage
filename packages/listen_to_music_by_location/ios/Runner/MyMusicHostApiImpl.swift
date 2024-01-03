@@ -19,7 +19,42 @@ class MyMusicHostApiImpl: MyMusicHostApi {
     return MusicAuthorization.currentStatus.rawValue
   }
 
-  func play(id: String) throws {
+  func songDetails(
+    id: String,
+    artworkSize: Int64,
+    completion: @escaping (
+      Result<SongDetails, Error>
+    ) -> Void
+  ) {
+    Task {
+      let request = MusicCatalogResourceRequest<Song>(
+        matching: \.id,
+        equalTo: MusicItemID(id)
+      )
+
+      let response = try await request.response()
+      if let item = response.items.first {
+        completion(
+          .success(
+            SongDetails(
+              id: item.id.rawValue,
+              title: item.title,
+              artistName: item.artistName,
+              artworkUrl: item.artwork?.url(
+                width: Int(artworkSize),
+                height: Int(artworkSize)
+              )?.absoluteString,
+              songUrl: item.url?.absoluteString
+            )
+          )
+        )
+      }
+    }
+  }
+
+  func play(
+    id: String
+  ) throws {
     Task {
       let request = MusicCatalogResourceRequest<Song>(
         matching: \.id,

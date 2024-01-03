@@ -26,6 +26,47 @@ List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty
   return <Object?>[error.code, error.message, error.details];
 }
 
+class SongDetails {
+  SongDetails({
+    required this.id,
+    required this.title,
+    required this.artistName,
+    this.artworkUrl,
+    this.songUrl,
+  });
+
+  String id;
+
+  String title;
+
+  String artistName;
+
+  String? artworkUrl;
+
+  String? songUrl;
+
+  Object encode() {
+    return <Object?>[
+      id,
+      title,
+      artistName,
+      artworkUrl,
+      songUrl,
+    ];
+  }
+
+  static SongDetails decode(Object result) {
+    result as List<Object?>;
+    return SongDetails(
+      id: result[0]! as String,
+      title: result[1]! as String,
+      artistName: result[2]! as String,
+      artworkUrl: result[3] as String?,
+      songUrl: result[4] as String?,
+    );
+  }
+}
+
 class MyMapHostApi {
   /// Constructor for [MyMapHostApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
@@ -103,6 +144,29 @@ class MyMapHostApi {
   }
 }
 
+class _MyMusicHostApiCodec extends StandardMessageCodec {
+  const _MyMusicHostApiCodec();
+  @override
+  void writeValue(WriteBuffer buffer, Object? value) {
+    if (value is SongDetails) {
+      buffer.putUint8(128);
+      writeValue(buffer, value.encode());
+    } else {
+      super.writeValue(buffer, value);
+    }
+  }
+
+  @override
+  Object? readValueOfType(int type, ReadBuffer buffer) {
+    switch (type) {
+      case 128: 
+        return SongDetails.decode(readValue(buffer)!);
+      default:
+        return super.readValueOfType(type, buffer);
+    }
+  }
+}
+
 class MyMusicHostApi {
   /// Constructor for [MyMusicHostApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
@@ -111,8 +175,10 @@ class MyMusicHostApi {
       : __pigeon_binaryMessenger = binaryMessenger;
   final BinaryMessenger? __pigeon_binaryMessenger;
 
-  static const MessageCodec<Object?> pigeonChannelCodec = StandardMessageCodec();
+  static const MessageCodec<Object?> pigeonChannelCodec = _MyMusicHostApiCodec();
 
+  /// Status
+  /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   Future<String> requestPermission() async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.requestPermission';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
@@ -140,6 +206,8 @@ class MyMusicHostApi {
     }
   }
 
+  /// Status
+  /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   Future<String> currentPermissionStatus() async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.currentPermissionStatus';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
@@ -186,6 +254,33 @@ class MyMusicHostApi {
       );
     } else {
       return;
+    }
+  }
+
+  Future<SongDetails> songDetails({required String id, int artworkSize = 512}) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.songDetails';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[id, artworkSize]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as SongDetails?)!;
     }
   }
 }

@@ -63,11 +63,7 @@ class MusicListPage extends HookConsumerWidget {
             child: const Text('status'),
           ),
           ElevatedButton(
-            onPressed: () async {
-              await ref.read(myMusicHostApiProvider).play(
-                    id: '1713102666',
-                  );
-            },
+            onPressed: () async {},
             child: const Text('play'),
           ),
         ],

@@ -30,14 +30,40 @@ abstract class MyMapHostApi {
 
 @HostApi()
 abstract class MyMusicHostApi {
+  /// Status
+  /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   @async
   String requestPermission();
 
+  /// Status
+  /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   String currentPermissionStatus();
 
   void play({
     required String id,
   });
+
+  @async
+  SongDetails songDetails({
+    required String id,
+    int artworkSize = 512,
+  });
+}
+
+class SongDetails {
+  SongDetails({
+    required this.id,
+    required this.title,
+    required this.artistName,
+    required this.artworkUrl,
+    required this.songUrl,
+  });
+
+  final String id;
+  final String title;
+  final String artistName;
+  final String? artworkUrl;
+  final String? songUrl;
 }
 
 @FlutterApi()

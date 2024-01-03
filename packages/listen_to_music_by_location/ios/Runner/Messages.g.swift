@@ -43,6 +43,40 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   return value as! T?
 }
 
+/// Generated class from Pigeon that represents data sent in messages.
+struct SongDetails {
+  var id: String
+  var title: String
+  var artistName: String
+  var artworkUrl: String? = nil
+  var songUrl: String? = nil
+
+  static func fromList(_ list: [Any?]) -> SongDetails? {
+    let id = list[0] as! String
+    let title = list[1] as! String
+    let artistName = list[2] as! String
+    let artworkUrl: String? = nilOrValue(list[3])
+    let songUrl: String? = nilOrValue(list[4])
+
+    return SongDetails(
+      id: id,
+      title: title,
+      artistName: artistName,
+      artworkUrl: artworkUrl,
+      songUrl: songUrl
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      id,
+      title,
+      artistName,
+      artworkUrl,
+      songUrl,
+    ]
+  }
+}
+
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol MyMapHostApi {
   func setMapRegion(latitude: Double, longitude: Double, meters: Double) throws
@@ -108,19 +142,63 @@ class MyMapHostApiSetup {
     }
   }
 }
+private class MyMusicHostApiCodecReader: FlutterStandardReader {
+  override func readValue(ofType type: UInt8) -> Any? {
+    switch type {
+      case 128:
+        return SongDetails.fromList(self.readValue() as! [Any?])
+      default:
+        return super.readValue(ofType: type)
+    }
+  }
+}
+
+private class MyMusicHostApiCodecWriter: FlutterStandardWriter {
+  override func writeValue(_ value: Any) {
+    if let value = value as? SongDetails {
+      super.writeByte(128)
+      super.writeValue(value.toList())
+    } else {
+      super.writeValue(value)
+    }
+  }
+}
+
+private class MyMusicHostApiCodecReaderWriter: FlutterStandardReaderWriter {
+  override func reader(with data: Data) -> FlutterStandardReader {
+    return MyMusicHostApiCodecReader(data: data)
+  }
+
+  override func writer(with data: NSMutableData) -> FlutterStandardWriter {
+    return MyMusicHostApiCodecWriter(data: data)
+  }
+}
+
+class MyMusicHostApiCodec: FlutterStandardMessageCodec {
+  static let shared = MyMusicHostApiCodec(readerWriter: MyMusicHostApiCodecReaderWriter())
+}
+
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol MyMusicHostApi {
+  /// Status
+  /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   func requestPermission(completion: @escaping (Result<String, Error>) -> Void)
+  /// Status
+  /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   func currentPermissionStatus() throws -> String
   func play(id: String) throws
+  func songDetails(id: String, artworkSize: Int64, completion: @escaping (Result<SongDetails, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
 class MyMusicHostApiSetup {
   /// The codec used by MyMusicHostApi.
+  static var codec: FlutterStandardMessageCodec { MyMusicHostApiCodec.shared }
   /// Sets up an instance of `MyMusicHostApi` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MyMusicHostApi?) {
-    let requestPermissionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.requestPermission", binaryMessenger: binaryMessenger)
+    /// Status
+    /// https://developer.apple.com/documentation/musickit/musicauthorization/status
+    let requestPermissionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.requestPermission", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       requestPermissionChannel.setMessageHandler { _, reply in
         api.requestPermission() { result in
@@ -135,7 +213,9 @@ class MyMusicHostApiSetup {
     } else {
       requestPermissionChannel.setMessageHandler(nil)
     }
-    let currentPermissionStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.currentPermissionStatus", binaryMessenger: binaryMessenger)
+    /// Status
+    /// https://developer.apple.com/documentation/musickit/musicauthorization/status
+    let currentPermissionStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.currentPermissionStatus", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       currentPermissionStatusChannel.setMessageHandler { _, reply in
         do {
@@ -148,7 +228,7 @@ class MyMusicHostApiSetup {
     } else {
       currentPermissionStatusChannel.setMessageHandler(nil)
     }
-    let playChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.play", binaryMessenger: binaryMessenger)
+    let playChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.play", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       playChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -162,6 +242,24 @@ class MyMusicHostApiSetup {
       }
     } else {
       playChannel.setMessageHandler(nil)
+    }
+    let songDetailsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.songDetails", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      songDetailsChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let idArg = args[0] as! String
+        let artworkSizeArg = args[1] is Int64 ? args[1] as! Int64 : Int64(args[1] as! Int32)
+        api.songDetails(id: idArg, artworkSize: artworkSizeArg) { result in
+          switch result {
+            case .success(let res):
+              reply(wrapResult(res))
+            case .failure(let error):
+              reply(wrapError(error))
+          }
+        }
+      }
+    } else {
+      songDetailsChannel.setMessageHandler(nil)
     }
   }
 }
