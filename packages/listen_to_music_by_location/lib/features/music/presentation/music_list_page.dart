@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/music/application/geomusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class MusicListPage extends HookConsumerWidget {
   const MusicListPage({
@@ -63,7 +64,20 @@ class MusicListPage extends HookConsumerWidget {
             child: const Text('status'),
           ),
           ElevatedButton(
-            onPressed: () async {},
+            onPressed: () async {
+              final result = await ref.read(myMusicHostApiProvider).songDetails(
+                    id: '1713102666',
+                  );
+              print(result.id);
+              print(result.title);
+              print(result.artistName);
+              print(result.artworkUrl);
+              print(result.songUrl);
+
+              await launchUrlString(
+                result.songUrl ?? '',
+              );
+            },
             child: const Text('play'),
           ),
         ],

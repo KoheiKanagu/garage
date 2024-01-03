@@ -13,7 +13,6 @@
 		434614CB3D6FB0DB06579513 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44B8553EAE84C8706914C867 /* Pods_Runner.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		7D2E3D142B3CF56D00BFA823 /* MyMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E3D132B3CF56D00BFA823 /* MyMapView.swift */; };
-		7DA113D02B3D4875004F5048 /* MyMapViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113CF2B3D4875004F5048 /* MyMapViewPreview.swift */; };
 		7DA113D22B3DAE47004F5048 /* Messages.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113D12B3DAE47004F5048 /* Messages.g.swift */; };
 		7DA113D42B3DB661004F5048 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113D32B3DB661004F5048 /* Error.swift */; };
 		7DE7EFD22B456AE400086749 /* MyMusicHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */; };
@@ -76,7 +75,6 @@
 		7D6AEE732B06E891009A9944 /* Profile-dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Profile-dev.xcconfig"; path = "Flutter/Profile-dev.xcconfig"; sourceTree = "<group>"; };
 		7D6AEE742B06E891009A9944 /* Debug-dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Debug-dev.xcconfig"; path = "Flutter/Debug-dev.xcconfig"; sourceTree = "<group>"; };
 		7D6AEE752B06E891009A9944 /* Profile-prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Profile-prod.xcconfig"; path = "Flutter/Profile-prod.xcconfig"; sourceTree = "<group>"; };
-		7DA113CF2B3D4875004F5048 /* MyMapViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMapViewPreview.swift; sourceTree = "<group>"; };
 		7DA113D12B3DAE47004F5048 /* Messages.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.g.swift; sourceTree = "<group>"; };
 		7DA113D32B3DB661004F5048 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMusicHostApiImpl.swift; sourceTree = "<group>"; };
@@ -187,7 +185,6 @@
 				7DA113D32B3DB661004F5048 /* Error.swift */,
 				7D2E3D132B3CF56D00BFA823 /* MyMapView.swift */,
 				7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */,
-				7DA113CF2B3D4875004F5048 /* MyMapViewPreview.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 			);
 			path = Runner;
@@ -475,7 +472,6 @@
 				7DE7EFD22B456AE400086749 /* MyMusicHostApiImpl.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
-				7DA113D02B3D4875004F5048 /* MyMapViewPreview.swift in Sources */,
 				7D2E3D142B3CF56D00BFA823 /* MyMapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
