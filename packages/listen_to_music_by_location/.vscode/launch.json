@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "LocaMusic dev",
+      "name": "dev",
       "request": "launch",
       "type": "dart",
       "args": [
@@ -12,7 +12,17 @@
       "program": "lib/main_dev.dart"
     },
     {
-      "name": "LocaMusic prod",
+      "name": "attach",
+      "request": "attach",
+      "type": "dart",
+      "args": [
+        "--flavor",
+        "dev",
+      ],
+      "program": "lib/main_dev.dart"
+    },
+    {
+      "name": "prod",
       "request": "launch",
       "type": "dart",
       "args": [
