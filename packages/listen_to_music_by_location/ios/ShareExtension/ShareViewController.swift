@@ -41,8 +41,7 @@ class ShareViewController: UIHostingController<ShareView> {
       // Bundle Identifierを見てschemeを切り替える
       guard let url = data as? NSURL,
         let base64EncodedUrl = url.absoluteString?.data(using: .utf8)?.base64EncodedString(),
-        let bundleIdentifier = Bundle.main.bundleIdentifier,
-        let urlScheme = bundleIdentifier.hasSuffix(".dev") ? "loca-music-dev" : "loca-music",
+        let urlScheme = Bundle.main.bundleIdentifier == "dev.kingu.listenToMusicByLocation.dev.ShareExtension" ? "loca-music-dev" : "loca-music",
         let openAppUrl = NSURL(string: "\(urlScheme)://\(base64EncodedUrl)")
       else { return false }
       return UIApplication.sharedApplication().openURL(url: openAppUrl)
