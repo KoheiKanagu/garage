@@ -80,5 +80,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleDisplayName</key>
+	<string>場所で音楽</string>
 </dict>
 </plist>

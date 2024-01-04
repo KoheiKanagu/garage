@@ -1,0 +1,40 @@
+{
+  "sourceLanguage" : "ja",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LocaMusic"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "場所で音楽"
+          }
+        }
+      }
+    },
+    "NSAppleMusicUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Used to play music at a specific location"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "特定の場所で音楽を再生するために利用します"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
