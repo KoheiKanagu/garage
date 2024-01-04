@@ -1,4 +1,4 @@
-// reference: https://shinagawa.app/posts/ios_share_extension/
+// reference: [iOS の Share Extensionで Safari からアプリを開く](https://shinagawa.app/posts/ios_share_extension/)
 
 import SwiftUI
 import UniformTypeIdentifiers
