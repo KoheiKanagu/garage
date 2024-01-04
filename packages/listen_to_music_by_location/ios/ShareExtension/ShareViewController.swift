@@ -1,30 +1,54 @@
-//
-//  ShareViewController.swift
-//  ShareExtension
-//
-//  Created by kingu on 2024/01/04.
-//
+// reference: https://shinagawa.app/posts/ios_share_extension/
 
-import UIKit
-import Social
+import SwiftUI
+import UniformTypeIdentifiers
 
-class ShareViewController: SLComposeServiceViewController {
+class ShareViewController: UIHostingController<ShareView> {
+  enum ShareError: Error {
+    case cancel
+  }
 
-    override func isContentValid() -> Bool {
-        // Do validation of contentText and/or NSExtensionContext attachments here
-        return true
+  required init?(coder: NSCoder) {
+    super.init(coder: coder, rootView: ShareView())
+  }
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    Task {
+      _ = await openAppWithUrl()
     }
+  }
 
-    override func didSelectPost() {
-        // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
-    
-        // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
-        self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    extensionContext?.completeRequest(returningItems: nil)
+  }
+
+  private func openAppWithUrl() async -> Bool {
+    guard let item = extensionContext?.inputItems.first as? NSExtensionItem,
+      let itemProvider = item.attachments?.first
+    else { return false }
+    guard itemProvider.hasItemConformingToTypeIdentifier(UTType.url.identifier) else {
+      return false
     }
+    do {
+      let data = try await itemProvider.loadItem(
+        forTypeIdentifier: UTType.url.identifier,
+        options: nil
+      )
 
-    override func configurationItems() -> [Any]! {
-        // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-        return []
+      // URLをbase64エンコードし、Custom URL Schemeのホスト部に指定してopenURLでアプリを開く
+      // Bundle Identifierを見てschemeを切り替える
+      guard let url = data as? NSURL,
+        let base64EncodedUrl = url.absoluteString?.data(using: .utf8)?.base64EncodedString(),
+        let bundleIdentifier = Bundle.main.bundleIdentifier,
+        let urlScheme = bundleIdentifier.hasSuffix(".dev") ? "loca-music-dev" : "loca-music",
+        let openAppUrl = NSURL(string: "\(urlScheme)://\(base64EncodedUrl)")
+      else { return false }
+      return UIApplication.sharedApplication().openURL(url: openAppUrl)
+    } catch let error {
+      print(error)
+      return false
     }
-
+  }
 }
