@@ -6,8 +6,6 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>場所で音楽</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -33,7 +31,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.682848709439-9c11vs8n5k5rb1a82vh5bjrqso6rhi2j</string>
+				<string>$(GOOGLE_SERVICE_REVERSED_CLIENT_ID)</string>
 			</array>
 		</dict>
 		<dict>
@@ -41,7 +39,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.468490578657-k1rn1ffero4rjsho60ue39k2ol2rd6gd</string>
+				<string>$(FIREBASE_ENCODED_APP_ID)</string>
 			</array>
 		</dict>
 		<dict>
@@ -49,15 +47,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>app-1-682848709439-ios-3361e1e37cb0d30884c18a</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>app-1-468490578657-ios-af5af82afe08d9df82e5a0</string>
+				<string>$(MY_CUSTOM_URL_SCHEME)</string>
 			</array>
 		</dict>
 	</array>

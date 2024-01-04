@@ -1,2 +1,9 @@
 #include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug-dev.xcconfig"
 #include "Generated.xcconfig"
+
+GOOGLE_SERVICE_REVERSED_CLIENT_ID="com.googleusercontent.apps.682848709439-9c11vs8n5k5rb1a82vh5bjrqso6rhi2j"
+FIREBASE_ENCODED_APP_ID="app-1-682848709439-ios-3361e1e37cb0d30884c18a"
+
+MY_CUSTOM_URL_SCHEME="loca-music-dev"
+
+APP_NAME="dev場所で音楽"
