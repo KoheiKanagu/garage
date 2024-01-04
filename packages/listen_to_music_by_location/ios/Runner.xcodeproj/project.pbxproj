@@ -15,9 +15,9 @@
 		7D2E3D142B3CF56D00BFA823 /* MyMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E3D132B3CF56D00BFA823 /* MyMapView.swift */; };
 		7DA113D22B3DAE47004F5048 /* Messages.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113D12B3DAE47004F5048 /* Messages.g.swift */; };
 		7DA113D42B3DB661004F5048 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113D32B3DB661004F5048 /* Error.swift */; };
+		7DAC95E42B4710B900B1BC2D /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7DF8A0762B46F34600C482C3 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7DE7EFD22B456AE400086749 /* MyMusicHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */; };
 		7DF8A0792B46F34600C482C3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF8A0782B46F34600C482C3 /* ShareViewController.swift */; };
-		7DF8A0802B46F34600C482C3 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7DF8A0762B46F34600C482C3 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7DF8A08B2B46F39600C482C3 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF8A08A2B46F39600C482C3 /* ShareView.swift */; };
 		7DF8A08D2B46F3A400C482C3 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF8A08C2B46F3A400C482C3 /* UIApplication+.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
@@ -34,7 +34,14 @@
 			remoteGlobalIDString = 97C146ED1CF9000F007C117D;
 			remoteInfo = Runner;
 		};
-		7DF8A07E2B46F34600C482C3 /* PBXContainerItemProxy */ = {
+		7DAC95E12B47104600B1BC2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DF8A0752B46F34600C482C3;
+			remoteInfo = ShareExtension;
+		};
+		7DAC95E52B4710B900B1BC2D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
 			proxyType = 1;
@@ -44,13 +51,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7D2F84D42B45BDD40066D69D /* Embed Foundation Extensions */ = {
+		7DAC95E32B47104600B1BC2D /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				7DF8A0802B46F34600C482C3 /* ShareExtension.appex in Embed Foundation Extensions */,
+				7DAC95E42B4710B900B1BC2D /* ShareExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,7 +318,7 @@
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
-				7D2F84D42B45BDD40066D69D /* Embed Foundation Extensions */,
+				7DAC95E32B47104600B1BC2D /* Embed Foundation Extensions */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				55C2EAADDE18126C11D1DE1E /* [CP] Embed Pods Frameworks */,
@@ -321,7 +328,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				7DF8A07F2B46F34600C482C3 /* PBXTargetDependency */,
+				7DAC95E22B47104600B1BC2D /* PBXTargetDependency */,
+				7DAC95E62B4710B900B1BC2D /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -572,10 +580,15 @@
 			target = 97C146ED1CF9000F007C117D /* Runner */;
 			targetProxy = 331C8085294A63A400263BE5 /* PBXContainerItemProxy */;
 		};
-		7DF8A07F2B46F34600C482C3 /* PBXTargetDependency */ = {
+		7DAC95E22B47104600B1BC2D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7DF8A0752B46F34600C482C3 /* ShareExtension */;
-			targetProxy = 7DF8A07E2B46F34600C482C3 /* PBXContainerItemProxy */;
+			targetProxy = 7DAC95E12B47104600B1BC2D /* PBXContainerItemProxy */;
+		};
+		7DAC95E62B4710B900B1BC2D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DF8A0752B46F34600C482C3 /* ShareExtension */;
+			targetProxy = 7DAC95E52B4710B900B1BC2D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
