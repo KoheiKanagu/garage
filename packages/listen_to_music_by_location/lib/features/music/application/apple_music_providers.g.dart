@@ -26,7 +26,7 @@ final appLinksAllUriLinkProvider =
 
 typedef AppLinksAllUriLinkRef = AutoDisposeProviderRef<Raw<Stream<Uri>>>;
 String _$appleMusicAppLinksHash() =>
-    r'409787223f7e1a98f252431be31c37cd749a43bb';
+    r'65366468331567a3bee7c2544d7436ff2509297a';
 
 /// See also [appleMusicAppLinks].
 @ProviderFor(appleMusicAppLinks)
@@ -42,7 +42,7 @@ final appleMusicAppLinksProvider = AutoDisposeStreamProvider<Uri>.internal(
 
 typedef AppleMusicAppLinksRef = AutoDisposeStreamProviderRef<Uri>;
 String _$appleMusicAppLinkSongDetailsHash() =>
-    r'7dbb82a3ad4bcbd82040acc11be2c36e4c4ebae5';
+    r'6c51d5f55c12be8e886ad50fdbb79363c8408cd2';
 
 /// See also [appleMusicAppLinkSongDetails].
 @ProviderFor(appleMusicAppLinkSongDetails)
