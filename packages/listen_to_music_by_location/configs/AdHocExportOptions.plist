@@ -20,6 +20,8 @@
 	<dict>
 		<key>dev.kingu.listenToMusicByLocation.dev</key>
 		<string>dev.kingu.listenToMusicByLocation.dev Ad Hoc</string>
+		<key>dev.kingu.listenToMusicByLocation.dev.ShareExtension</key>
+		<string>dev.kingu.listenToMusicByLocation.dev.ShareExtension Ad Hoc</string>
 	</dict>
 	<key>signingCertificate</key>
 	<string>Apple Distribution: Kohei Kanagu (4XBP3H82S7)</string>
