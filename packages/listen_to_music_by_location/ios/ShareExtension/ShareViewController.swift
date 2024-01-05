@@ -27,13 +27,14 @@ class ShareViewController: UIHostingController<ShareView> {
   }
 
   private func openAppWithUrl() async -> Bool {
-    guard let item = extensionContext?.inputItems.first as? NSExtensionItem,
-      let itemProvider = item.attachments?.first
-    else {
-      return false
-    }
-
-    guard itemProvider.hasItemConformingToTypeIdentifier(UTType.url.identifier)
+    // typesに com.apple.group-activities.activity が含まれる場合があるのでURLだけを取得
+    guard
+      let inputItem = extensionContext?.inputItems.first as? NSExtensionItem,
+      let itemProvider = inputItem.attachments?.first(
+        where: {
+          $0.hasItemConformingToTypeIdentifier(UTType.url.identifier)
+        }
+      )
     else {
       return false
     }
