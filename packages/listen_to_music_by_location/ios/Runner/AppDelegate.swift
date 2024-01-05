@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import app_links
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -29,6 +30,10 @@ import UIKit
       binaryMessenger: controller.binaryMessenger,
       api: myMusicHostApiImpl
     )
+
+    if let url = AppLinks.shared.getLink(launchOptions: launchOptions) {
+      AppLinks.shared.handleLink(url: url)
+    }
 
     return super.application(
       application,
