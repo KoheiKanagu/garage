@@ -9,7 +9,7 @@ part of 'map_providers.dart';
 // **************************************************************************
 
 String _$myFlutterApiControllerHash() =>
-    r'5bac441f725d0d5518588830c619813f9897950b';
+    r'c3e0ccf6b289311756cbc9778607c6d250770d0b';
 
 /// See also [myFlutterApiController].
 @ProviderFor(myFlutterApiController)

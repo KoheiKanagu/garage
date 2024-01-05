@@ -6,6 +6,8 @@ import 'package:core/features/onboarding/application/sign_in_route.dart'
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:listen_to_music_by_location/features/geofence_select/application/geofence_select_route.dart'
+    as geofence_select_route;
 import 'package:listen_to_music_by_location/features/home/application/home_route.dart'
     as home_route;
 import 'package:listen_to_music_by_location/features/onboarding/application/onboarding_route.dart'
@@ -23,6 +25,7 @@ Future<Raw<GoRouter>> myGoRouter(MyGoRouterRef ref) async {
     routes: [
       ...onboarding_route.$appRoutes,
       ...home_route.$appRoutes,
+      ...geofence_select_route.$appRoutes,
 
       // from core
       ...sign_in_route.$appRoutes,

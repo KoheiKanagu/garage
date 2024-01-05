@@ -45,14 +45,16 @@ class ShareViewController: UIHostingController<ShareView> {
         options: nil
       )
 
-      // URLをbase64エンコードし、Custom URL Schemeのホスト部に指定してopenURLでアプリを開く
+      // URLをエンコードして渡す
       // Bundle Identifierを見てschemeを切り替える
       guard let url = data as? NSURL,
-        let base64EncodedUrl = url.absoluteString?.data(using: .utf8)?.base64EncodedString(),
+        let encodedUrl = url.absoluteString?.addingPercentEncoding(
+          withAllowedCharacters: .urlHostAllowed
+        ),
         let urlScheme =
           Bundle.main.bundleIdentifier == "dev.kingu.listenToMusicByLocation.dev.ShareExtension"
           ? "loca-music-dev" : "loca-music",
-        let openAppUrl = NSURL(string: "\(urlScheme)://\(base64EncodedUrl)")
+        let openAppUrl = NSURL(string: "\(urlScheme)://shared/\(encodedUrl)")
       else {
         return false
       }
