@@ -21,7 +21,7 @@
 		<key>dev.kingu.listenToMusicByLocation</key>
 		<string>dev.kingu.listenToMusicByLocation App Store</string>
 		<key>dev.kingu.listenToMusicByLocation.ShareExtension</key>
-		<string>dev.kingu.listenToMusicByLocation.ShareExtension App Store</string>
+		<string>listenToMusicByLocation.ShareExtension App Store</string>
 	</dict>
 	<key>signingCertificate</key>
 	<string>Apple Distribution: Kohei Kanagu (4XBP3H82S7)</string>

@@ -654,6 +654,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ld_classic";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -795,6 +796,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ld_classic";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -896,6 +898,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ld_classic";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -998,6 +1001,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ld_classic";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1129,7 +1133,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.kingu.listenToMusicByLocation.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "listenToMusicByLocation ShareExtension Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "listenToMusicByLocation.ShareExtension Development";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1218,7 +1222,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.kingu.listenToMusicByLocation.dev.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "listenToMusicByLocation dev ShareExtension Develop";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "listenToMusicByLocation.dev.ShareExtension Develop";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1300,7 +1304,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.kingu.listenToMusicByLocation.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "listenToMusicByLocation ShareExtension Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "listenToMusicByLocation.ShareExtension Development";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1382,7 +1386,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.kingu.listenToMusicByLocation.dev.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "listenToMusicByLocation dev ShareExtension Develop";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "listenToMusicByLocation.dev.ShareExtension Develop";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1464,7 +1468,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.kingu.listenToMusicByLocation.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "listenToMusicByLocation ShareExtension Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "listenToMusicByLocation.ShareExtension Development";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1546,7 +1550,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.kingu.listenToMusicByLocation.dev.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "listenToMusicByLocation dev ShareExtension Develop";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "listenToMusicByLocation.dev.ShareExtension Develop";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1611,6 +1615,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ld_classic";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1660,6 +1665,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ld_classic";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
