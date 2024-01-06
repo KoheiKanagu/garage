@@ -1,10 +1,11 @@
 import Flutter
 import UIKit
 import app_links
+import CoreLocation
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
-
+    
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -14,9 +15,13 @@ import app_links
     )
 
     let controller = window?.rootViewController as! FlutterViewController
+      let myFlutterApi = MyFlutterApi(
+        binaryMessenger: controller.binaryMessenger
+      )
 
     let myViewFactory = MyMapFlutterPlatformViewFactory(
-      controller: controller
+      controller: controller,
+      myFlutterApi: myFlutterApi
     )
     registrar(
       forPlugin: "MyMapView"
@@ -25,11 +30,16 @@ import app_links
       withId: "my_map_platform_view"
     )
 
-    let myMusicHostApiImpl = MyMusicHostApiImpl()
     MyMusicHostApiSetup.setUp(
       binaryMessenger: controller.binaryMessenger,
-      api: myMusicHostApiImpl
+      api: MyMusicHostApiImpl()
     )
+      MyLocationHostApiSetup.setUp(
+        binaryMessenger: controller.binaryMessenger,
+        api: MyLocationHostApiImpl(
+            myFlutterApi: myFlutterApi
+        )
+      )
 
     if let url = AppLinks.shared.getLink(launchOptions: launchOptions) {
       AppLinks.shared.handleLink(url: url)
@@ -45,10 +55,13 @@ import app_links
 class MyMapFlutterPlatformViewFactory: NSObject, FlutterPlatformViewFactory {
 
   let controller: FlutterViewController
+    
+    let myFlutterApi: MyFlutterApi
 
-  init(controller: FlutterViewController) {
-    self.controller = controller
-  }
+    init(controller: FlutterViewController, myFlutterApi: MyFlutterApi) {
+        self.controller = controller
+        self.myFlutterApi = myFlutterApi
+    }
 
   func create(
     withFrame frame: CGRect,
@@ -58,9 +71,7 @@ class MyMapFlutterPlatformViewFactory: NSObject, FlutterPlatformViewFactory {
 
     let myMapView = MyMapView(
       args: args,
-      flutterApi: MyFlutterApi(
-        binaryMessenger: controller.binaryMessenger
-      )
+      flutterApi: myFlutterApi
     )
 
     MyMapHostApiSetup.setUp(

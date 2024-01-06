@@ -17,6 +17,7 @@
 		7DA113D22B3DAE47004F5048 /* Messages.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113D12B3DAE47004F5048 /* Messages.g.swift */; };
 		7DA113D42B3DB661004F5048 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113D32B3DB661004F5048 /* Error.swift */; };
 		7DAC95E42B4710B900B1BC2D /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7DF8A0762B46F34600C482C3 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7DD384FE2B495AC6000B69FC /* MyLocationHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD384FD2B495AC6000B69FC /* MyLocationHostApiImpl.swift */; };
 		7DE7EFD22B456AE400086749 /* MyMusicHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */; };
 		7DF8A0792B46F34600C482C3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF8A0782B46F34600C482C3 /* ShareViewController.swift */; };
 		7DF8A08B2B46F39600C482C3 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF8A08A2B46F39600C482C3 /* ShareView.swift */; };
@@ -101,6 +102,7 @@
 		7D6AEE752B06E891009A9944 /* Profile-prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Profile-prod.xcconfig"; path = "Flutter/Profile-prod.xcconfig"; sourceTree = "<group>"; };
 		7DA113D12B3DAE47004F5048 /* Messages.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.g.swift; sourceTree = "<group>"; };
 		7DA113D32B3DB661004F5048 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		7DD384FD2B495AC6000B69FC /* MyLocationHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLocationHostApiImpl.swift; sourceTree = "<group>"; };
 		7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMusicHostApiImpl.swift; sourceTree = "<group>"; };
 		7DF8A06B2B46E96800C482C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7DF8A06F2B46EB6C00C482C3 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				7DA113D32B3DB661004F5048 /* Error.swift */,
 				7D2E3D132B3CF56D00BFA823 /* MyMapView.swift */,
 				7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */,
+				7DD384FD2B495AC6000B69FC /* MyLocationHostApiImpl.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 			);
 			path = Runner;
@@ -555,6 +558,7 @@
 				7DA113D42B3DB661004F5048 /* Error.swift in Sources */,
 				7DE7EFD22B456AE400086749 /* MyMusicHostApiImpl.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
+				7DD384FE2B495AC6000B69FC /* MyLocationHostApiImpl.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				7D2E3D142B3CF56D00BFA823 /* MyMapView.swift in Sources */,
 			);

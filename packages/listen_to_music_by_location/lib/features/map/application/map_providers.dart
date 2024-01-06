@@ -37,6 +37,16 @@ class MyFlutterApiController implements MyFlutterApi {
   void onTapCircle(String identifier) {
     print(identifier);
   }
+
+  @override
+  void didChangeAuthorization(AuthorizationStatus status) {
+    // TODO: implement didChangeAuthorization
+  }
+
+  @override
+  void didDetermineState(Region region, RegionState state) {
+    // TODO: implement didDetermineState
+  }
 }
 
 @riverpod

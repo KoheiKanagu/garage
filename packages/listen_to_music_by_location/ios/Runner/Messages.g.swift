@@ -43,6 +43,20 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   return value as! T?
 }
 
+enum RegionState: Int {
+  case unknown = 0
+  case inside = 1
+  case outside = 2
+}
+
+enum AuthorizationStatus: Int {
+  case notDetermined = 0
+  case restricted = 1
+  case denied = 2
+  case authorizedAlways = 3
+  case authorizedWhenInUse = 4
+}
+
 /// Generated class from Pigeon that represents data sent in messages.
 struct SongDetails {
   var id: String
@@ -73,6 +87,39 @@ struct SongDetails {
       artistName,
       artworkUrl,
       songUrl,
+    ]
+  }
+}
+
+/// https://developer.apple.com/documentation/corelocation/clcircularregion
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct Region {
+  var identifier: String
+  var latitude: Double
+  var longitude: Double
+  /// meters
+  var radius: Double
+
+  static func fromList(_ list: [Any?]) -> Region? {
+    let identifier = list[0] as! String
+    let latitude = list[1] as! Double
+    let longitude = list[2] as! Double
+    let radius = list[3] as! Double
+
+    return Region(
+      identifier: identifier,
+      latitude: latitude,
+      longitude: longitude,
+      radius: radius
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      identifier,
+      latitude,
+      longitude,
+      radius,
     ]
   }
 }
@@ -263,19 +310,206 @@ class MyMusicHostApiSetup {
     }
   }
 }
+private class MyLocationHostApiCodecReader: FlutterStandardReader {
+  override func readValue(ofType type: UInt8) -> Any? {
+    switch type {
+      case 128:
+        return Region.fromList(self.readValue() as! [Any?])
+      case 129:
+        return Region.fromList(self.readValue() as! [Any?])
+      default:
+        return super.readValue(ofType: type)
+    }
+  }
+}
+
+private class MyLocationHostApiCodecWriter: FlutterStandardWriter {
+  override func writeValue(_ value: Any) {
+    if let value = value as? Region {
+      super.writeByte(128)
+      super.writeValue(value.toList())
+    } else if let value = value as? Region {
+      super.writeByte(129)
+      super.writeValue(value.toList())
+    } else {
+      super.writeValue(value)
+    }
+  }
+}
+
+private class MyLocationHostApiCodecReaderWriter: FlutterStandardReaderWriter {
+  override func reader(with data: Data) -> FlutterStandardReader {
+    return MyLocationHostApiCodecReader(data: data)
+  }
+
+  override func writer(with data: NSMutableData) -> FlutterStandardWriter {
+    return MyLocationHostApiCodecWriter(data: data)
+  }
+}
+
+class MyLocationHostApiCodec: FlutterStandardMessageCodec {
+  static let shared = MyLocationHostApiCodec(readerWriter: MyLocationHostApiCodecReaderWriter())
+}
+
+/// Generated protocol from Pigeon that represents a handler of messages from Flutter.
+protocol MyLocationHostApi {
+  /// https://developer.apple.com/documentation/corelocation/clauthorizationstatus
+  func requestPermission() throws
+  /// Status
+  /// https://developer.apple.com/documentation/corelocation/clauthorizationstatus
+  func currentPermissionStatus() throws -> AuthorizationStatus
+  /// CLRegion.identifier
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423790-monitoredregions
+  func monitoredRegions() throws -> [Region]
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423656-startmonitoring
+  func startMonitoring(region: Region) throws
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423840-stopmonitoring
+  func stopMonitoring(region: Region) throws
+}
+
+/// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
+class MyLocationHostApiSetup {
+  /// The codec used by MyLocationHostApi.
+  static var codec: FlutterStandardMessageCodec { MyLocationHostApiCodec.shared }
+  /// Sets up an instance of `MyLocationHostApi` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MyLocationHostApi?) {
+    /// https://developer.apple.com/documentation/corelocation/clauthorizationstatus
+    let requestPermissionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.requestPermission", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      requestPermissionChannel.setMessageHandler { _, reply in
+        do {
+          try api.requestPermission()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      requestPermissionChannel.setMessageHandler(nil)
+    }
+    /// Status
+    /// https://developer.apple.com/documentation/corelocation/clauthorizationstatus
+    let currentPermissionStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.currentPermissionStatus", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      currentPermissionStatusChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.currentPermissionStatus()
+          reply(wrapResult(result.rawValue))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      currentPermissionStatusChannel.setMessageHandler(nil)
+    }
+    /// CLRegion.identifier
+    /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423790-monitoredregions
+    let monitoredRegionsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.monitoredRegions", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      monitoredRegionsChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.monitoredRegions()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      monitoredRegionsChannel.setMessageHandler(nil)
+    }
+    /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423656-startmonitoring
+    let startMonitoringChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.startMonitoring", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      startMonitoringChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let regionArg = args[0] as! Region
+        do {
+          try api.startMonitoring(region: regionArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      startMonitoringChannel.setMessageHandler(nil)
+    }
+    /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423840-stopmonitoring
+    let stopMonitoringChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.stopMonitoring", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      stopMonitoringChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let regionArg = args[0] as! Region
+        do {
+          try api.stopMonitoring(region: regionArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      stopMonitoringChannel.setMessageHandler(nil)
+    }
+  }
+}
+private class MyFlutterApiCodecReader: FlutterStandardReader {
+  override func readValue(ofType type: UInt8) -> Any? {
+    switch type {
+      case 128:
+        return Region.fromList(self.readValue() as! [Any?])
+      default:
+        return super.readValue(ofType: type)
+    }
+  }
+}
+
+private class MyFlutterApiCodecWriter: FlutterStandardWriter {
+  override func writeValue(_ value: Any) {
+    if let value = value as? Region {
+      super.writeByte(128)
+      super.writeValue(value.toList())
+    } else {
+      super.writeValue(value)
+    }
+  }
+}
+
+private class MyFlutterApiCodecReaderWriter: FlutterStandardReaderWriter {
+  override func reader(with data: Data) -> FlutterStandardReader {
+    return MyFlutterApiCodecReader(data: data)
+  }
+
+  override func writer(with data: NSMutableData) -> FlutterStandardWriter {
+    return MyFlutterApiCodecWriter(data: data)
+  }
+}
+
+class MyFlutterApiCodec: FlutterStandardMessageCodec {
+  static let shared = MyFlutterApiCodec(readerWriter: MyFlutterApiCodecReaderWriter())
+}
+
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol MyFlutterApiProtocol {
+  /// on tap MKCircle
   func onTapCircle(identifier identifierArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void)
+  /// on long pressed MKMapView
   func onLongPressedMap(latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void)
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/3563956-locationmanagerdidchangeauthoriz
+  func didChangeAuthorization(status statusArg: AuthorizationStatus, completion: @escaping (Result<Void, FlutterError>) -> Void)
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
+  func didDetermineState(region regionArg: Region, state stateArg: RegionState, completion: @escaping (Result<Void, FlutterError>) -> Void)
 }
 class MyFlutterApi: MyFlutterApiProtocol {
   private let binaryMessenger: FlutterBinaryMessenger
   init(binaryMessenger: FlutterBinaryMessenger){
     self.binaryMessenger = binaryMessenger
   }
+  var codec: FlutterStandardMessageCodec {
+    return MyFlutterApiCodec.shared
+  }
+  /// on tap MKCircle
   func onTapCircle(identifier identifierArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void) {
     let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.onTapCircle"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([identifierArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName:channelName)))
@@ -291,10 +525,49 @@ class MyFlutterApi: MyFlutterApiProtocol {
       }
     }
   }
+  /// on long pressed MKMapView
   func onLongPressedMap(latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void) {
     let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.onLongPressedMap"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([latitudeArg, longitudeArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName:channelName)))
+        return
+      }
+      if (listResponse.count > 1) {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/3563956-locationmanagerdidchangeauthoriz
+  func didChangeAuthorization(status statusArg: AuthorizationStatus, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didChangeAuthorization"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([statusArg.rawValue] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName:channelName)))
+        return
+      }
+      if (listResponse.count > 1) {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
+  func didDetermineState(region regionArg: Region, state stateArg: RegionState, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([regionArg, stateArg.rawValue] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName:channelName)))
         return

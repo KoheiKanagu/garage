@@ -45,12 +45,12 @@ class ShareViewController: UIHostingController<ShareView> {
         options: nil
       )
 
-      // URLをエンコードして渡す
-      // Bundle Identifierを見てschemeを切り替える
       guard let url = data as? NSURL,
+        // URLはエスケープして渡す
         let encodedUrl = url.absoluteString?.addingPercentEncoding(
           withAllowedCharacters: .urlHostAllowed
         ),
+        // Bundle Identifierを見てschemeを切り替える
         let urlScheme =
           Bundle.main.bundleIdentifier == "dev.kingu.listenToMusicByLocation.dev.ShareExtension"
           ? "loca-music-dev" : "loca-music",
