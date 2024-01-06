@@ -3,7 +3,6 @@ import MapKit
 
 class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate, MyMapHostApi {
 
-  var arguments: [String: Any?] = [:]
   var myFlutterApi: MyFlutterApi?
 
   convenience init(
@@ -13,21 +12,22 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate, MyMa
     self.init(
       frame: CGRect.zero
     )
+
     delegate = self
+    showsUserLocation = true
+      
     myFlutterApi = flutterApi
 
-    arguments = args as? [String: Any?] ?? [:]
-
-    let latitude = arguments["latitude"] as? Double
-    let longitude = arguments["longitude"] as? Double
-    let meters = arguments["meters"] as? Double
-
-    // 未指定の場合はlocaleからいい感じの場所が設定される？
-    if latitude != nil && longitude != nil && meters != nil {
+    if let arguments = args as? [String: Any?],
+      let latitude = arguments["latitude"] as? Double,
+      let longitude = arguments["longitude"] as? Double,
+      let meters = arguments["meters"] as? Double
+    {
+      // 未指定の場合はlocaleからいい感じの場所が設定される？
       try? setMapRegion(
-        latitude: latitude!,
-        longitude: longitude!,
-        meters: meters!
+        latitude: latitude,
+        longitude: longitude,
+        meters: meters
       )
     }
 

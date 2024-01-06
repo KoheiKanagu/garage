@@ -375,16 +375,17 @@ class MyLocationHostApi {
 
   static const MessageCodec<Object?> pigeonChannelCodec = _MyLocationHostApiCodec();
 
-  /// https://developer.apple.com/documentation/corelocation/clauthorizationstatus
-  Future<void> requestPermission() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.requestPermission';
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620562-requestwheninuseauthorization
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620551-requestalwaysauthorization
+  Future<void> requestAuthorization({required bool always}) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.requestAuthorization';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
     );
     final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(null) as List<Object?>?;
+        await __pigeon_channel.send(<Object?>[always]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {
@@ -535,11 +536,15 @@ abstract class MyFlutterApi {
   /// on long pressed MKMapView
   void onLongPressedMap(double latitude, double longitude);
 
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
+  void didDetermineState(Region region, RegionState state);
+
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/3563956-locationmanagerdidchangeauthoriz
   void didChangeAuthorization(AuthorizationStatus status);
 
-  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
-  void didDetermineState(Region region, RegionState state);
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423842-locationmanager
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423720-locationmanager
+  void didStartMonitoring(Region region, String? error);
 
   static void setup(MyFlutterApi? api, {BinaryMessenger? binaryMessenger}) {
     {
@@ -597,6 +602,34 @@ abstract class MyFlutterApi {
     }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final Region? arg_region = (args[0] as Region?);
+          assert(arg_region != null,
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState was null, expected non-null Region.');
+          final RegionState? arg_state = args[1] == null ? null : RegionState.values[args[1]! as int];
+          assert(arg_state != null,
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState was null, expected non-null RegionState.');
+          try {
+            api.didDetermineState(arg_region!, arg_state!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didChangeAuthorization', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -622,23 +655,21 @@ abstract class MyFlutterApi {
     }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState', pigeonChannelCodec,
+          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didStartMonitoring', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState was null.');
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didStartMonitoring was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final Region? arg_region = (args[0] as Region?);
           assert(arg_region != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState was null, expected non-null Region.');
-          final RegionState? arg_state = args[1] == null ? null : RegionState.values[args[1]! as int];
-          assert(arg_state != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState was null, expected non-null RegionState.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didStartMonitoring was null, expected non-null Region.');
+          final String? arg_error = (args[1] as String?);
           try {
-            api.didDetermineState(arg_region!, arg_state!);
+            api.didStartMonitoring(arg_region!, arg_error);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

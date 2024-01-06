@@ -14,8 +14,21 @@ class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDeleg
     locationManager.delegate = self
   }
 
-  func requestPermission() throws {
-    locationManager.requestAlwaysAuthorization()
+  func requestAuthorization(always: Bool) throws {
+    if always {
+      locationManager.requestAlwaysAuthorization()
+    } else {
+      locationManager.requestWhenInUseAuthorization()
+    }
+  }
+
+  func locationManagerDidChangeAuthorization(
+    _ manager: CLLocationManager
+  ) {
+    myFlutterApi.didChangeAuthorization(
+      status: manager.authorizationStatus.authorizationStatus,
+      completion: { _ in }
+    )
   }
 
   func currentPermissionStatus() throws -> AuthorizationStatus {
@@ -25,12 +38,15 @@ class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDeleg
   func monitoredRegions() throws -> [Region] {
     return locationManager.monitoredRegions.compactMap {
       $0 as? CLCircularRegion
-    }.map {
-      $0.region
-    }
+    }.map { $0.region }
   }
 
-  func startMonitoring(region: Region) throws {
+  func startMonitoring(
+    region: Region,
+    completion: @escaping (
+      Result<Void, Error>
+    ) -> Void
+  ) {
     let reg = region.cLCircularRegion
     reg.notifyOnEntry = true
     reg.notifyOnExit = true
@@ -44,11 +60,29 @@ class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDeleg
     )
   }
 
-  func locationManagerDidChangeAuthorization(
-    _ manager: CLLocationManager
+  func locationManager(
+    _ manager: CLLocationManager,
+    didStartMonitoringFor region: CLRegion
   ) {
-    myFlutterApi.didChangeAuthorization(
-      status: manager.authorizationStatus.authorizationStatus,
+    guard let e = region as? CLCircularRegion else { return }
+ 
+    myFlutterApi.didStartMonitoring(
+      region: e.region,
+      error: nil,
+      completion: { _ in }
+    )
+  }
+
+  func locationManager(
+    _ manager: CLLocationManager,
+    monitoringDidFailFor region: CLRegion?,
+    withError error: Error
+  ) {
+    guard let e = region as? CLCircularRegion else { return }
+
+    myFlutterApi.didStartMonitoring(
+      region: e.region,
+      error: error.localizedDescription,
       completion: { _ in }
     )
   }
@@ -58,13 +92,13 @@ class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDeleg
     didDetermineState state: CLRegionState,
     for region: CLRegion
   ) {
-    if let e = region as? CLCircularRegion {
-      myFlutterApi.didDetermineState(
-        region: e.region,
-        state: state.regionState,
-        completion: { _ in }
-      )
-    }
+    guard let e = region as? CLCircularRegion else { return }
+
+    myFlutterApi.didDetermineState(
+      region: e.region,
+      state: state.regionState,
+      completion: { _ in }
+    )
   }
 }
 

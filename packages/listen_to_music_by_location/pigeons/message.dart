@@ -68,8 +68,11 @@ class SongDetails {
 
 @HostApi()
 abstract class MyLocationHostApi {
-  /// https://developer.apple.com/documentation/corelocation/clauthorizationstatus
-  void requestPermission();
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620562-requestwheninuseauthorization
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620551-requestalwaysauthorization
+  void requestAuthorization({
+    required bool always,
+  });
 
   /// Status
   /// https://developer.apple.com/documentation/corelocation/clauthorizationstatus
@@ -80,6 +83,7 @@ abstract class MyLocationHostApi {
   List<Region> monitoredRegions();
 
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423656-startmonitoring
+  @async
   void startMonitoring({
     required Region region,
   });
@@ -120,15 +124,22 @@ abstract class MyFlutterApi {
     double longitude,
   );
 
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
+  void didDetermineState(
+    Region region,
+    RegionState state,
+  );
+
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/3563956-locationmanagerdidchangeauthoriz
   void didChangeAuthorization(
     AuthorizationStatus status,
   );
 
-  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
-  void didDetermineState(
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423842-locationmanager
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423720-locationmanager
+  void didStartMonitoring(
     Region region,
-    RegionState state,
+    String? error,
   );
 }
 
