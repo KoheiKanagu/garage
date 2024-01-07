@@ -1,11 +1,11 @@
+import CoreLocation
 import Flutter
 import UIKit
 import app_links
-import CoreLocation
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
-    
+
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -15,9 +15,9 @@ import CoreLocation
     )
 
     let controller = window?.rootViewController as! FlutterViewController
-      let myFlutterApi = MyFlutterApi(
-        binaryMessenger: controller.binaryMessenger
-      )
+    let myFlutterApi = MyFlutterApi(
+      binaryMessenger: controller.binaryMessenger
+    )
 
     let myViewFactory = MyMapFlutterPlatformViewFactory(
       controller: controller,
@@ -34,12 +34,12 @@ import CoreLocation
       binaryMessenger: controller.binaryMessenger,
       api: MyMusicHostApiImpl()
     )
-      MyLocationHostApiSetup.setUp(
-        binaryMessenger: controller.binaryMessenger,
-        api: MyLocationHostApiImpl(
-            myFlutterApi: myFlutterApi
-        )
+    MyLocationHostApiSetup.setUp(
+      binaryMessenger: controller.binaryMessenger,
+      api: MyLocationHostApiImpl(
+        myFlutterApi: myFlutterApi
       )
+    )
 
     if let url = AppLinks.shared.getLink(launchOptions: launchOptions) {
       AppLinks.shared.handleLink(url: url)
@@ -55,13 +55,13 @@ import CoreLocation
 class MyMapFlutterPlatformViewFactory: NSObject, FlutterPlatformViewFactory {
 
   let controller: FlutterViewController
-    
-    let myFlutterApi: MyFlutterApi
 
-    init(controller: FlutterViewController, myFlutterApi: MyFlutterApi) {
-        self.controller = controller
-        self.myFlutterApi = myFlutterApi
-    }
+  let myFlutterApi: MyFlutterApi
+
+  init(controller: FlutterViewController, myFlutterApi: MyFlutterApi) {
+    self.controller = controller
+    self.myFlutterApi = myFlutterApi
+  }
 
   func create(
     withFrame frame: CGRect,

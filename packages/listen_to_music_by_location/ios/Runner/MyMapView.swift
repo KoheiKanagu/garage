@@ -15,7 +15,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate, MyMa
 
     delegate = self
     showsUserLocation = true
-      
+
     myFlutterApi = flutterApi
 
     if let arguments = args as? [String: Any?],

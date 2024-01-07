@@ -65,7 +65,7 @@ class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDeleg
     didStartMonitoringFor region: CLRegion
   ) {
     guard let e = region as? CLCircularRegion else { return }
- 
+
     myFlutterApi.didStartMonitoring(
       region: e.region,
       error: nil,
