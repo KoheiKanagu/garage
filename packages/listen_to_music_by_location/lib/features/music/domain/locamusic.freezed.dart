@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'geomusic.dart';
+part of 'locamusic.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,17 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Geomusic _$GeomusicFromJson(Map<String, dynamic> json) {
-  return _Geomusic.fromJson(json);
+Locamusic _$LocamusicFromJson(Map<String, dynamic> json) {
+  return _Locamusic.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Geomusic {
+mixin _$Locamusic {
   @GeoPointConverter()
   GeoPoint get geoPoint => throw _privateConstructorUsedError;
   double get distance => throw _privateConstructorUsedError;
-  String get musicId => throw _privateConstructorUsedError;
   String get createdBy => throw _privateConstructorUsedError;
+  String? get musicId => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get createdAt => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -33,29 +33,29 @@ mixin _$Geomusic {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $GeomusicCopyWith<Geomusic> get copyWith =>
+  $LocamusicCopyWith<Locamusic> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $GeomusicCopyWith<$Res> {
-  factory $GeomusicCopyWith(Geomusic value, $Res Function(Geomusic) then) =
-      _$GeomusicCopyWithImpl<$Res, Geomusic>;
+abstract class $LocamusicCopyWith<$Res> {
+  factory $LocamusicCopyWith(Locamusic value, $Res Function(Locamusic) then) =
+      _$LocamusicCopyWithImpl<$Res, Locamusic>;
   @useResult
   $Res call(
       {@GeoPointConverter() GeoPoint geoPoint,
       double distance,
-      String musicId,
       String createdBy,
+      String? musicId,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt,
       bool deleted});
 }
 
 /// @nodoc
-class _$GeomusicCopyWithImpl<$Res, $Val extends Geomusic>
-    implements $GeomusicCopyWith<$Res> {
-  _$GeomusicCopyWithImpl(this._value, this._then);
+class _$LocamusicCopyWithImpl<$Res, $Val extends Locamusic>
+    implements $LocamusicCopyWith<$Res> {
+  _$LocamusicCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -67,8 +67,8 @@ class _$GeomusicCopyWithImpl<$Res, $Val extends Geomusic>
   $Res call({
     Object? geoPoint = null,
     Object? distance = null,
-    Object? musicId = null,
     Object? createdBy = null,
+    Object? musicId = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? deleted = null,
@@ -82,14 +82,14 @@ class _$GeomusicCopyWithImpl<$Res, $Val extends Geomusic>
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
               as double,
-      musicId: null == musicId
-          ? _value.musicId
-          : musicId // ignore: cast_nullable_to_non_nullable
-              as String,
       createdBy: null == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as String,
+      musicId: freezed == musicId
+          ? _value.musicId
+          : musicId // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -107,29 +107,29 @@ class _$GeomusicCopyWithImpl<$Res, $Val extends Geomusic>
 }
 
 /// @nodoc
-abstract class _$$GeomusicImplCopyWith<$Res>
-    implements $GeomusicCopyWith<$Res> {
-  factory _$$GeomusicImplCopyWith(
-          _$GeomusicImpl value, $Res Function(_$GeomusicImpl) then) =
-      __$$GeomusicImplCopyWithImpl<$Res>;
+abstract class _$$LocamusicImplCopyWith<$Res>
+    implements $LocamusicCopyWith<$Res> {
+  factory _$$LocamusicImplCopyWith(
+          _$LocamusicImpl value, $Res Function(_$LocamusicImpl) then) =
+      __$$LocamusicImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {@GeoPointConverter() GeoPoint geoPoint,
       double distance,
-      String musicId,
       String createdBy,
+      String? musicId,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt,
       bool deleted});
 }
 
 /// @nodoc
-class __$$GeomusicImplCopyWithImpl<$Res>
-    extends _$GeomusicCopyWithImpl<$Res, _$GeomusicImpl>
-    implements _$$GeomusicImplCopyWith<$Res> {
-  __$$GeomusicImplCopyWithImpl(
-      _$GeomusicImpl _value, $Res Function(_$GeomusicImpl) _then)
+class __$$LocamusicImplCopyWithImpl<$Res>
+    extends _$LocamusicCopyWithImpl<$Res, _$LocamusicImpl>
+    implements _$$LocamusicImplCopyWith<$Res> {
+  __$$LocamusicImplCopyWithImpl(
+      _$LocamusicImpl _value, $Res Function(_$LocamusicImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -137,13 +137,13 @@ class __$$GeomusicImplCopyWithImpl<$Res>
   $Res call({
     Object? geoPoint = null,
     Object? distance = null,
-    Object? musicId = null,
     Object? createdBy = null,
+    Object? musicId = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? deleted = null,
   }) {
-    return _then(_$GeomusicImpl(
+    return _then(_$LocamusicImpl(
       geoPoint: null == geoPoint
           ? _value.geoPoint
           : geoPoint // ignore: cast_nullable_to_non_nullable
@@ -152,14 +152,14 @@ class __$$GeomusicImplCopyWithImpl<$Res>
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
               as double,
-      musicId: null == musicId
-          ? _value.musicId
-          : musicId // ignore: cast_nullable_to_non_nullable
-              as String,
       createdBy: null == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as String,
+      musicId: freezed == musicId
+          ? _value.musicId
+          : musicId // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -178,18 +178,18 @@ class __$$GeomusicImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$GeomusicImpl implements _Geomusic {
-  const _$GeomusicImpl(
+class _$LocamusicImpl implements _Locamusic {
+  const _$LocamusicImpl(
       {@GeoPointConverter() required this.geoPoint,
       required this.distance,
-      required this.musicId,
       required this.createdBy,
+      this.musicId,
       @TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt,
       this.deleted = false});
 
-  factory _$GeomusicImpl.fromJson(Map<String, dynamic> json) =>
-      _$$GeomusicImplFromJson(json);
+  factory _$LocamusicImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LocamusicImplFromJson(json);
 
   @override
   @GeoPointConverter()
@@ -197,9 +197,9 @@ class _$GeomusicImpl implements _Geomusic {
   @override
   final double distance;
   @override
-  final String musicId;
-  @override
   final String createdBy;
+  @override
+  final String? musicId;
   @override
   @TimestampConverter()
   final Timestamp? createdAt;
@@ -212,21 +212,21 @@ class _$GeomusicImpl implements _Geomusic {
 
   @override
   String toString() {
-    return 'Geomusic(geoPoint: $geoPoint, distance: $distance, musicId: $musicId, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, deleted: $deleted)';
+    return 'Locamusic(geoPoint: $geoPoint, distance: $distance, createdBy: $createdBy, musicId: $musicId, createdAt: $createdAt, updatedAt: $updatedAt, deleted: $deleted)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GeomusicImpl &&
+            other is _$LocamusicImpl &&
             (identical(other.geoPoint, geoPoint) ||
                 other.geoPoint == geoPoint) &&
             (identical(other.distance, distance) ||
                 other.distance == distance) &&
-            (identical(other.musicId, musicId) || other.musicId == musicId) &&
             (identical(other.createdBy, createdBy) ||
                 other.createdBy == createdBy) &&
+            (identical(other.musicId, musicId) || other.musicId == musicId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -236,35 +236,35 @@ class _$GeomusicImpl implements _Geomusic {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, geoPoint, distance, musicId,
-      createdBy, createdAt, updatedAt, deleted);
+  int get hashCode => Object.hash(runtimeType, geoPoint, distance, createdBy,
+      musicId, createdAt, updatedAt, deleted);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$GeomusicImplCopyWith<_$GeomusicImpl> get copyWith =>
-      __$$GeomusicImplCopyWithImpl<_$GeomusicImpl>(this, _$identity);
+  _$$LocamusicImplCopyWith<_$LocamusicImpl> get copyWith =>
+      __$$LocamusicImplCopyWithImpl<_$LocamusicImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$GeomusicImplToJson(
+    return _$$LocamusicImplToJson(
       this,
     );
   }
 }
 
-abstract class _Geomusic implements Geomusic {
-  const factory _Geomusic(
+abstract class _Locamusic implements Locamusic {
+  const factory _Locamusic(
       {@GeoPointConverter() required final GeoPoint geoPoint,
       required final double distance,
-      required final String musicId,
       required final String createdBy,
+      final String? musicId,
       @TimestampConverter() final Timestamp? createdAt,
       @TimestampConverter() final Timestamp? updatedAt,
-      final bool deleted}) = _$GeomusicImpl;
+      final bool deleted}) = _$LocamusicImpl;
 
-  factory _Geomusic.fromJson(Map<String, dynamic> json) =
-      _$GeomusicImpl.fromJson;
+  factory _Locamusic.fromJson(Map<String, dynamic> json) =
+      _$LocamusicImpl.fromJson;
 
   @override
   @GeoPointConverter()
@@ -272,9 +272,9 @@ abstract class _Geomusic implements Geomusic {
   @override
   double get distance;
   @override
-  String get musicId;
-  @override
   String get createdBy;
+  @override
+  String? get musicId;
   @override
   @TimestampConverter()
   Timestamp? get createdAt;
@@ -285,6 +285,6 @@ abstract class _Geomusic implements Geomusic {
   bool get deleted;
   @override
   @JsonKey(ignore: true)
-  _$$GeomusicImplCopyWith<_$GeomusicImpl> get copyWith =>
+  _$$LocamusicImplCopyWith<_$LocamusicImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,3 +1,3 @@
 class CollectionPath {
-  static const kGeomusics = 'geomusics_v1';
+  static const kLocamusics = 'locamusics_v1';
 }

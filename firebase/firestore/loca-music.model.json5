@@ -6,7 +6,7 @@
       deleted: false,
     },
   },
-  geomusics_v1: {
+  locamusics_v1: {
     $documentId: {
       createdAt: "Timestamp", // FieldValue.serverTimestamp
       updatedAt: "Timestamp", // FieldValue.serverTimestamp
@@ -16,6 +16,9 @@
         longitude: 0,
       },
       createdBy: "uid",
+
+      // nullable
+      musicId: "musicId", // Apple Music ID
     },
   },
 }

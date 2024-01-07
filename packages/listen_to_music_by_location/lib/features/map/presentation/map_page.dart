@@ -13,25 +13,22 @@ class MapPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(
       () {
-        ref.read(myLocationHostApiProvider).requestLocation();
+        Future(
+          () async {
+            // 初期位置を取得してカメラズーム
+            await ref.read(myLocationHostApiProvider).requestLocation();
+            final value =
+                await ref.read(myFlutterApiDidUpdateLocationsProvider.future);
+            await ref.read(myMapHostApiProvider).setMapRegion(
+                  latitude: value.latitude,
+                  longitude: value.longitude,
+                  meters: DistanceRange.large.meters,
+                );
+          },
+        );
         return null;
       },
-    );
-
-    ref.listen(
-      myFlutterApiDidUpdateLocationsProvider,
-      (_, next) {
-        final value = next.asData?.value;
-        if (value == null) {
-          return;
-        }
-
-        ref.read(myMapHostApiProvider).setMapRegion(
-              latitude: value.latitude,
-              longitude: value.longitude,
-              meters: DistanceRange.large.meters,
-            );
-      },
+      [context],
     );
 
     return const UiKitView(

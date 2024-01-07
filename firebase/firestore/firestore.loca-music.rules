@@ -16,7 +16,7 @@ service cloud.firestore {
         ;
     }
 
-    match /geomusics_v1/{documentId} {
+    match /locamusics_v1/{documentId} {
 
       // 自分が作成したものであること
       // 削除されていないこと
