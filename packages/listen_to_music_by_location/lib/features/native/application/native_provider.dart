@@ -120,3 +120,9 @@ MyLocationHostApi myLocationHostApi(
   MyLocationHostApiRef ref,
 ) =>
     MyLocationHostApi();
+
+@riverpod
+MyMusicHostApi myMusicHostApi(
+  MyMusicHostApiRef ref,
+) =>
+    MyMusicHostApi();

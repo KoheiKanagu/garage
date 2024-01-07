@@ -1,5 +1,5 @@
 import 'package:app_links/app_links.dart';
-import 'package:listen_to_music_by_location/features/music/application/geomusic_providers.dart';
+import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

@@ -26,20 +26,5 @@ final geomusicCollectionReferenceProvider =
 
 typedef GeomusicCollectionReferenceRef
     = AutoDisposeProviderRef<CollectionReference<Geomusic>>;
-String _$myMusicHostApiHash() => r'beed1a60c63ede18982cb648a79c4f1b733476d3';
-
-/// See also [myMusicHostApi].
-@ProviderFor(myMusicHostApi)
-final myMusicHostApiProvider = AutoDisposeProvider<MyMusicHostApi>.internal(
-  myMusicHostApi,
-  name: r'myMusicHostApiProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$myMusicHostApiHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef MyMusicHostApiRef = AutoDisposeProviderRef<MyMusicHostApi>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

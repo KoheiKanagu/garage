@@ -18,9 +18,3 @@ CollectionReference<Geomusic> geomusicCollectionReference(
           fromFirestore: Geomusic.fromFirestore,
           toFirestore: Geomusic.toFirestore,
         );
-
-@riverpod
-MyMusicHostApi myMusicHostApi(
-  MyMusicHostApiRef ref,
-) =>
-    MyMusicHostApi();
