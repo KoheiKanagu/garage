@@ -14,6 +14,7 @@ MyFlutterApiController myFlutterApiController(
     didChangeAuthorizationStream: StreamController.broadcast(),
     didDetermineStateStream: StreamController.broadcast(),
     didStartMonitoringStream: StreamController.broadcast(),
+    didUpdateLocationsStream: StreamController.broadcast(),
   );
   MyFlutterApi.setup(controller);
 
@@ -31,23 +32,33 @@ Stream<AuthorizationStatus> myFlutterApiDidChangeAuthorization(
 
 @riverpod
 Stream<
-    (
+    ({
       Region region,
       RegionState state,
-    )> myFlutterApiDidDetermineState(
+    })> myFlutterApiDidDetermineState(
   MyFlutterApiDidDetermineStateRef ref,
 ) =>
     ref.watch(myFlutterApiControllerProvider).didDetermineStateStream.stream;
 
 @riverpod
 Stream<
-    (
+    ({
       Region region,
       String? error,
-    )> myFlutterApiDidStartMonitoring(
+    })> myFlutterApiDidStartMonitoring(
   MyFlutterApiDidStartMonitoringRef ref,
 ) =>
     ref.watch(myFlutterApiControllerProvider).didStartMonitoringStream.stream;
+
+@riverpod
+Stream<
+    ({
+      double latitude,
+      double longitude,
+    })> myFlutterApiDidUpdateLocations(
+  MyFlutterApiDidUpdateLocationsRef ref,
+) =>
+    ref.watch(myFlutterApiControllerProvider).didUpdateLocationsStream.stream;
 
 class MyFlutterApiController implements MyFlutterApi {
   const MyFlutterApiController({
@@ -55,6 +66,7 @@ class MyFlutterApiController implements MyFlutterApi {
     required this.didChangeAuthorizationStream,
     required this.didDetermineStateStream,
     required this.didStartMonitoringStream,
+    required this.didUpdateLocationsStream,
   });
 
   final MyMapHostApi myMapHostApi;
@@ -62,16 +74,22 @@ class MyFlutterApiController implements MyFlutterApi {
   final StreamController<AuthorizationStatus> didChangeAuthorizationStream;
 
   final StreamController<
-      (
+      ({
         Region region,
         RegionState state,
-      )> didDetermineStateStream;
+      })> didDetermineStateStream;
 
   final StreamController<
-      (
+      ({
         Region region,
         String? error,
-      )> didStartMonitoringStream;
+      })> didStartMonitoringStream;
+
+  final StreamController<
+      ({
+        double latitude,
+        double longitude,
+      })> didUpdateLocationsStream;
 
   @override
   void onLongPressedMap(double latitude, double longitude) {
@@ -97,20 +115,31 @@ class MyFlutterApiController implements MyFlutterApi {
   @override
   void didDetermineState(Region region, RegionState state) {
     didDetermineStateStream.add(
-      (region, state),
+      (
+        region: region,
+        state: state,
+      ),
     );
   }
 
   @override
   void didStartMonitoring(Region region, String? error) {
     didStartMonitoringStream.add(
-      (region, error),
+      (
+        region: region,
+        error: error,
+      ),
     );
   }
 
   @override
   void didUpdateLocations(double latitude, double longitude) {
-    // TODO: implement didUpdateLocations
+    didUpdateLocationsStream.add(
+      (
+        latitude: latitude,
+        longitude: longitude,
+      ),
+    );
   }
 }
 

@@ -92,6 +92,9 @@ abstract class MyLocationHostApi {
   void stopMonitoring({
     required Region region,
   });
+
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620548-requestlocation
+  void requestLocation();
 }
 
 /// https://developer.apple.com/documentation/corelocation/clcircularregion

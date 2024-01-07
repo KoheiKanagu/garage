@@ -9,7 +9,7 @@ part of 'native_provider.dart';
 // **************************************************************************
 
 String _$myFlutterApiControllerHash() =>
-    r'd6ddb53c7f19a63870c0745f9beb577ed8fe5c33';
+    r'f30088ee00d682928c997f1221ac93cc66890e9f';
 
 /// See also [myFlutterApiController].
 @ProviderFor(myFlutterApiController)
@@ -45,12 +45,12 @@ final myFlutterApiDidChangeAuthorizationProvider =
 typedef MyFlutterApiDidChangeAuthorizationRef
     = AutoDisposeStreamProviderRef<AuthorizationStatus>;
 String _$myFlutterApiDidDetermineStateHash() =>
-    r'594a70009d404465c4f5517bcbbeb849415ea156';
+    r'3cf50b103c4973515b6575e342fe3432628e75ba';
 
 /// See also [myFlutterApiDidDetermineState].
 @ProviderFor(myFlutterApiDidDetermineState)
 final myFlutterApiDidDetermineStateProvider =
-    AutoDisposeStreamProvider<(Region region, RegionState state)>.internal(
+    AutoDisposeStreamProvider<({Region region, RegionState state})>.internal(
   myFlutterApiDidDetermineState,
   name: r'myFlutterApiDidDetermineStateProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -61,14 +61,14 @@ final myFlutterApiDidDetermineStateProvider =
 );
 
 typedef MyFlutterApiDidDetermineStateRef
-    = AutoDisposeStreamProviderRef<(Region region, RegionState state)>;
+    = AutoDisposeStreamProviderRef<({Region region, RegionState state})>;
 String _$myFlutterApiDidStartMonitoringHash() =>
-    r'2f89e7ca00a55b49fe5c5910ea67e9055cc3f779';
+    r'2b0104b4562ae3c8479128e18f4d096642951a24';
 
 /// See also [myFlutterApiDidStartMonitoring].
 @ProviderFor(myFlutterApiDidStartMonitoring)
 final myFlutterApiDidStartMonitoringProvider =
-    AutoDisposeStreamProvider<(Region region, String? error)>.internal(
+    AutoDisposeStreamProvider<({Region region, String? error})>.internal(
   myFlutterApiDidStartMonitoring,
   name: r'myFlutterApiDidStartMonitoringProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -79,7 +79,25 @@ final myFlutterApiDidStartMonitoringProvider =
 );
 
 typedef MyFlutterApiDidStartMonitoringRef
-    = AutoDisposeStreamProviderRef<(Region region, String? error)>;
+    = AutoDisposeStreamProviderRef<({Region region, String? error})>;
+String _$myFlutterApiDidUpdateLocationsHash() =>
+    r'bd9e50b58d179cadb108627c5402556a9a1965da';
+
+/// See also [myFlutterApiDidUpdateLocations].
+@ProviderFor(myFlutterApiDidUpdateLocations)
+final myFlutterApiDidUpdateLocationsProvider =
+    AutoDisposeStreamProvider<({double latitude, double longitude})>.internal(
+  myFlutterApiDidUpdateLocations,
+  name: r'myFlutterApiDidUpdateLocationsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$myFlutterApiDidUpdateLocationsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef MyFlutterApiDidUpdateLocationsRef
+    = AutoDisposeStreamProviderRef<({double latitude, double longitude})>;
 String _$myMapHostApiHash() => r'941dafd592e47b2c741783678d78c40e2f32462a';
 
 /// See also [myMapHostApi].

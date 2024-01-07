@@ -113,6 +113,15 @@ class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDeleg
       completion: { _ in }
     )
   }
+
+  func locationManager(
+    _ manager: CLLocationManager,
+    didFailWithError error: Error
+  ) {}
+
+  func requestLocation() throws {
+    locationManager.requestLocation()
+  }
 }
 
 extension Region {

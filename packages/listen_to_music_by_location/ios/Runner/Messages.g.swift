@@ -366,6 +366,8 @@ protocol MyLocationHostApi {
   func startMonitoring(region: Region, completion: @escaping (Result<Void, Error>) -> Void)
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423840-stopmonitoring
   func stopMonitoring(region: Region) throws
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620548-requestlocation
+  func requestLocation() throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -454,6 +456,20 @@ class MyLocationHostApiSetup {
       }
     } else {
       stopMonitoringChannel.setMessageHandler(nil)
+    }
+    /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620548-requestlocation
+    let requestLocationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.requestLocation", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      requestLocationChannel.setMessageHandler { _, reply in
+        do {
+          try api.requestLocation()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      requestLocationChannel.setMessageHandler(nil)
     }
   }
 }
