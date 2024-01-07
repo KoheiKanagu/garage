@@ -546,6 +546,9 @@ abstract class MyFlutterApi {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423720-locationmanager
   void didStartMonitoring(Region region, String? error);
 
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
+  void didUpdateLocations(double latitude, double longitude);
+
   static void setup(MyFlutterApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
@@ -670,6 +673,34 @@ abstract class MyFlutterApi {
           final String? arg_error = (args[1] as String?);
           try {
             api.didStartMonitoring(arg_region!, arg_error);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didUpdateLocations', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didUpdateLocations was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final double? arg_latitude = (args[0] as double?);
+          assert(arg_latitude != null,
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didUpdateLocations was null, expected non-null double.');
+          final double? arg_longitude = (args[1] as double?);
+          assert(arg_longitude != null,
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didUpdateLocations was null, expected non-null double.');
+          try {
+            api.didUpdateLocations(arg_latitude!, arg_longitude!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

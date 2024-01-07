@@ -107,6 +107,11 @@ class MyFlutterApiController implements MyFlutterApi {
       (region, error),
     );
   }
+
+  @override
+  void didUpdateLocations(double latitude, double longitude) {
+    // TODO: implement didUpdateLocations
+  }
 }
 
 @riverpod

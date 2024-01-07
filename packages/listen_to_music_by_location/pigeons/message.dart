@@ -141,6 +141,12 @@ abstract class MyFlutterApi {
     Region region,
     String? error,
   );
+
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
+  void didUpdateLocations(
+    double latitude,
+    double longitude,
+  );
 }
 
 enum RegionState {

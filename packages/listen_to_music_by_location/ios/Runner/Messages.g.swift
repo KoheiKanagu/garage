@@ -506,6 +506,8 @@ protocol MyFlutterApiProtocol {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423842-locationmanager
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423720-locationmanager
   func didStartMonitoring(region regionArg: Region, error errorArg: String?, completion: @escaping (Result<Void, FlutterError>) -> Void)
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
+  func didUpdateLocations(latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void)
 }
 class MyFlutterApi: MyFlutterApiProtocol {
   private let binaryMessenger: FlutterBinaryMessenger
@@ -597,6 +599,25 @@ class MyFlutterApi: MyFlutterApiProtocol {
     let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didStartMonitoring"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([regionArg, errorArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName:channelName)))
+        return
+      }
+      if (listResponse.count > 1) {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
+  func didUpdateLocations(latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didUpdateLocations"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([latitudeArg, longitudeArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName:channelName)))
         return

@@ -100,6 +100,19 @@ class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDeleg
       completion: { _ in }
     )
   }
+
+  func locationManager(
+    _ manager: CLLocationManager,
+    didUpdateLocations locations: [CLLocation]
+  ) {
+    guard let coordinate = locations.last?.coordinate else { return }
+
+    myFlutterApi.didUpdateLocations(
+      latitude: coordinate.latitude,
+      longitude: coordinate.longitude,
+      completion: { _ in }
+    )
+  }
 }
 
 extension Region {
