@@ -40,6 +40,47 @@ enum AuthorizationStatus {
   authorizedWhenInUse,
 }
 
+class CircleAnnotation {
+  CircleAnnotation({
+    required this.identifier,
+    required this.latitude,
+    required this.longitude,
+    required this.title,
+    required this.circleDistance,
+  });
+
+  String identifier;
+
+  double latitude;
+
+  double longitude;
+
+  String title;
+
+  double circleDistance;
+
+  Object encode() {
+    return <Object?>[
+      identifier,
+      latitude,
+      longitude,
+      title,
+      circleDistance,
+    ];
+  }
+
+  static CircleAnnotation decode(Object result) {
+    result as List<Object?>;
+    return CircleAnnotation(
+      identifier: result[0]! as String,
+      latitude: result[1]! as double,
+      longitude: result[2]! as double,
+      title: result[3]! as String,
+      circleDistance: result[4]! as double,
+    );
+  }
+}
+
 class SongDetails {
   SongDetails({
     required this.id,
@@ -119,6 +160,29 @@ class Region {
   }
 }
 
+class _MyMapHostApiCodec extends StandardMessageCodec {
+  const _MyMapHostApiCodec();
+  @override
+  void writeValue(WriteBuffer buffer, Object? value) {
+    if (value is CircleAnnotation) {
+      buffer.putUint8(128);
+      writeValue(buffer, value.encode());
+    } else {
+      super.writeValue(buffer, value);
+    }
+  }
+
+  @override
+  Object? readValueOfType(int type, ReadBuffer buffer) {
+    switch (type) {
+      case 128: 
+        return CircleAnnotation.decode(readValue(buffer)!);
+      default:
+        return super.readValueOfType(type, buffer);
+    }
+  }
+}
+
 class MyMapHostApi {
   /// Constructor for [MyMapHostApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
@@ -127,7 +191,7 @@ class MyMapHostApi {
       : __pigeon_binaryMessenger = binaryMessenger;
   final BinaryMessenger? __pigeon_binaryMessenger;
 
-  static const MessageCodec<Object?> pigeonChannelCodec = StandardMessageCodec();
+  static const MessageCodec<Object?> pigeonChannelCodec = _MyMapHostApiCodec();
 
   Future<void> setMapRegion({required double latitude, required double longitude, required double meters,}) async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.setMapRegion';
@@ -151,15 +215,15 @@ class MyMapHostApi {
     }
   }
 
-  Future<void> addAnnotation({required String identifier, required double latitude, required double longitude, required String title, required double circleDistance,}) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.addAnnotation';
+  Future<void> addAnnotations(List<CircleAnnotation?> annotations) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.addAnnotations';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
     );
     final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(<Object?>[identifier, latitude, longitude, title, circleDistance]) as List<Object?>?;
+        await __pigeon_channel.send(<Object?>[annotations]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {
@@ -173,15 +237,15 @@ class MyMapHostApi {
     }
   }
 
-  Future<void> removeAnnotation({required String identifier}) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.removeAnnotation';
+  Future<void> removeAnnotations(List<String?> identifiers) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.removeAnnotations';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
       binaryMessenger: __pigeon_binaryMessenger,
     );
     final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(<Object?>[identifier]) as List<Object?>?;
+        await __pigeon_channel.send(<Object?>[identifiers]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {
@@ -192,6 +256,33 @@ class MyMapHostApi {
       );
     } else {
       return;
+    }
+  }
+
+  Future<List<String?>> getAnnotations() async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.getAnnotations';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as List<Object?>?)!.cast<String?>();
     }
   }
 }

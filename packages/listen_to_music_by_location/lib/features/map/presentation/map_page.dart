@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:listen_to_music_by_location/features/map/application/map_providers.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 
@@ -30,6 +31,32 @@ class MapPage extends HookConsumerWidget {
       },
       [context],
     );
+
+    ref.listen(
+      mapDrawAnnotationsProvider,
+      (_, __) {},
+    );
+
+    // ref.listen(
+    //   locamusicWithSongDetailsProvider.future,
+    //   (_, next) async {
+
+    //     final values = await next;
+
+    //     final annotations = values
+    //         .map(
+    //           (e) => CircleAnnotation(
+    //             identifier: e.documentId,
+    //             latitude: e.locamusic.geoPoint.latitude,
+    //             longitude: e.locamusic.geoPoint.longitude,
+    //             title: e.songDetails?.title ?? i18n.unset,
+    //             circleDistance: e.locamusic.distance,
+    //           ),
+    //         )
+    //         .toList();
+    //     await ref.read(myMapHostApiProvider).addAnnotations(annotations);
+    //   },
+    // );
 
     return const UiKitView(
       viewType: 'my_map_platform_view',

@@ -58,6 +58,40 @@ enum AuthorizationStatus: Int {
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
+struct CircleAnnotation {
+  var identifier: String
+  var latitude: Double
+  var longitude: Double
+  var title: String
+  var circleDistance: Double
+
+  static func fromList(_ list: [Any?]) -> CircleAnnotation? {
+    let identifier = list[0] as! String
+    let latitude = list[1] as! Double
+    let longitude = list[2] as! Double
+    let title = list[3] as! String
+    let circleDistance = list[4] as! Double
+
+    return CircleAnnotation(
+      identifier: identifier,
+      latitude: latitude,
+      longitude: longitude,
+      title: title,
+      circleDistance: circleDistance
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      identifier,
+      latitude,
+      longitude,
+      title,
+      circleDistance,
+    ]
+  }
+}
+
+/// Generated class from Pigeon that represents data sent in messages.
 struct SongDetails {
   var id: String
   var title: String
@@ -124,19 +158,57 @@ struct Region {
   }
 }
 
+private class MyMapHostApiCodecReader: FlutterStandardReader {
+  override func readValue(ofType type: UInt8) -> Any? {
+    switch type {
+      case 128:
+        return CircleAnnotation.fromList(self.readValue() as! [Any?])
+      default:
+        return super.readValue(ofType: type)
+    }
+  }
+}
+
+private class MyMapHostApiCodecWriter: FlutterStandardWriter {
+  override func writeValue(_ value: Any) {
+    if let value = value as? CircleAnnotation {
+      super.writeByte(128)
+      super.writeValue(value.toList())
+    } else {
+      super.writeValue(value)
+    }
+  }
+}
+
+private class MyMapHostApiCodecReaderWriter: FlutterStandardReaderWriter {
+  override func reader(with data: Data) -> FlutterStandardReader {
+    return MyMapHostApiCodecReader(data: data)
+  }
+
+  override func writer(with data: NSMutableData) -> FlutterStandardWriter {
+    return MyMapHostApiCodecWriter(data: data)
+  }
+}
+
+class MyMapHostApiCodec: FlutterStandardMessageCodec {
+  static let shared = MyMapHostApiCodec(readerWriter: MyMapHostApiCodecReaderWriter())
+}
+
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol MyMapHostApi {
   func setMapRegion(latitude: Double, longitude: Double, meters: Double) throws
-  func addAnnotation(identifier: String, latitude: Double, longitude: Double, title: String, circleDistance: Double) throws
-  func removeAnnotation(identifier: String) throws
+  func addAnnotations(annotations: [CircleAnnotation]) throws
+  func removeAnnotations(identifiers: [String]) throws
+  func getAnnotations() throws -> [String]
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
 class MyMapHostApiSetup {
   /// The codec used by MyMapHostApi.
+  static var codec: FlutterStandardMessageCodec { MyMapHostApiCodec.shared }
   /// Sets up an instance of `MyMapHostApi` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MyMapHostApi?) {
-    let setMapRegionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.setMapRegion", binaryMessenger: binaryMessenger)
+    let setMapRegionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.setMapRegion", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       setMapRegionChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -153,39 +225,48 @@ class MyMapHostApiSetup {
     } else {
       setMapRegionChannel.setMessageHandler(nil)
     }
-    let addAnnotationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.addAnnotation", binaryMessenger: binaryMessenger)
+    let addAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.addAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
-      addAnnotationChannel.setMessageHandler { message, reply in
+      addAnnotationsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
-        let identifierArg = args[0] as! String
-        let latitudeArg = args[1] as! Double
-        let longitudeArg = args[2] as! Double
-        let titleArg = args[3] as! String
-        let circleDistanceArg = args[4] as! Double
+        let annotationsArg = args[0] as! [CircleAnnotation]
         do {
-          try api.addAnnotation(identifier: identifierArg, latitude: latitudeArg, longitude: longitudeArg, title: titleArg, circleDistance: circleDistanceArg)
+          try api.addAnnotations(annotations: annotationsArg)
           reply(wrapResult(nil))
         } catch {
           reply(wrapError(error))
         }
       }
     } else {
-      addAnnotationChannel.setMessageHandler(nil)
+      addAnnotationsChannel.setMessageHandler(nil)
     }
-    let removeAnnotationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.removeAnnotation", binaryMessenger: binaryMessenger)
+    let removeAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.removeAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
-      removeAnnotationChannel.setMessageHandler { message, reply in
+      removeAnnotationsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
-        let identifierArg = args[0] as! String
+        let identifiersArg = args[0] as! [String]
         do {
-          try api.removeAnnotation(identifier: identifierArg)
+          try api.removeAnnotations(identifiers: identifiersArg)
           reply(wrapResult(nil))
         } catch {
           reply(wrapError(error))
         }
       }
     } else {
-      removeAnnotationChannel.setMessageHandler(nil)
+      removeAnnotationsChannel.setMessageHandler(nil)
+    }
+    let getAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.getAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getAnnotationsChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.getAnnotations()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      getAnnotationsChannel.setMessageHandler(nil)
     }
   }
 }

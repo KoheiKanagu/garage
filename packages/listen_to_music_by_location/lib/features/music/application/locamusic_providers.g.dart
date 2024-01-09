@@ -26,6 +26,47 @@ final locamusicCollectionReferenceProvider =
 
 typedef LocamusicCollectionReferenceRef
     = AutoDisposeProviderRef<CollectionReference<Locamusic>>;
+String _$locamusicQuerySnapshotHash() =>
+    r'd0d73d038d23a5592f17190f536b2a9ebdfc598a';
+
+/// See also [locamusicQuerySnapshot].
+@ProviderFor(locamusicQuerySnapshot)
+final locamusicQuerySnapshotProvider =
+    AutoDisposeStreamProvider<QuerySnapshot<Locamusic>>.internal(
+  locamusicQuerySnapshot,
+  name: r'locamusicQuerySnapshotProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$locamusicQuerySnapshotHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef LocamusicQuerySnapshotRef
+    = AutoDisposeStreamProviderRef<QuerySnapshot<Locamusic>>;
+String _$locamusicWithSongDetailsHash() =>
+    r'c5b63cd71dbaced85a4625fbafc40e26fbcc5d2c';
+
+/// See also [locamusicWithSongDetails].
+@ProviderFor(locamusicWithSongDetails)
+final locamusicWithSongDetailsProvider = AutoDisposeFutureProvider<
+    List<
+        ({
+          String documentId,
+          Locamusic locamusic,
+          SongDetails? songDetails
+        })>>.internal(
+  locamusicWithSongDetails,
+  name: r'locamusicWithSongDetailsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$locamusicWithSongDetailsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef LocamusicWithSongDetailsRef = AutoDisposeFutureProviderRef<
+    List<({String documentId, Locamusic locamusic, SongDetails? songDetails})>>;
 String _$locamusicAddHash() => r'c1524cd38ca3fc8a265372d10ff6e2b5b5ec1379';
 
 /// Copied from Dart SDK

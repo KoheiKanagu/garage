@@ -9,7 +9,7 @@ part of 'native_provider.dart';
 // **************************************************************************
 
 String _$myFlutterApiControllerHash() =>
-    r'f30088ee00d682928c997f1221ac93cc66890e9f';
+    r'cb180ece3e5de84c12bc49840c2d6c0c4b0c6554';
 
 /// See also [myFlutterApiController].
 @ProviderFor(myFlutterApiController)

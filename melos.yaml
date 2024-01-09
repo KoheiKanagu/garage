@@ -222,6 +222,12 @@ scripts:
     packageFilters:
       dependsOn: pigeon
 
+  slang:
+    exec: |
+      dart run slang
+    packageFilters:
+      dependsOn: slang
+
   clean:
     exec: |
       flutter clean

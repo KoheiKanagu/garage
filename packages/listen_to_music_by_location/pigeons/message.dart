@@ -15,17 +15,31 @@ abstract class MyMapHostApi {
     required double meters,
   });
 
-  void addAnnotation({
-    required String identifier,
-    required double latitude,
-    required double longitude,
-    required String title,
-    required double circleDistance,
+  void addAnnotations(
+    List<CircleAnnotation> annotations,
+  );
+
+  void removeAnnotations(
+    List<String> identifiers,
+  );
+
+  List<String> getAnnotations();
+}
+
+class CircleAnnotation {
+  const CircleAnnotation({
+    required this.identifier,
+    required this.latitude,
+    required this.longitude,
+    required this.title,
+    required this.circleDistance,
   });
 
-  void removeAnnotation({
-    required String identifier,
-  });
+  final String identifier;
+  final double latitude;
+  final double longitude;
+  final String title;
+  final double circleDistance;
 }
 
 @HostApi()
@@ -51,7 +65,7 @@ abstract class MyMusicHostApi {
 }
 
 class SongDetails {
-  SongDetails({
+  const SongDetails({
     required this.id,
     required this.title,
     required this.artistName,

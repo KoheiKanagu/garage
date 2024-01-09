@@ -8,7 +8,7 @@ part of 'map_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mapOnLongPressedHash() => r'b3f20159969ea5a02d335987babeb1c3c2a3acd7';
+String _$mapOnLongPressedHash() => r'3dc9d316b7cd7fbdfadf3b3e968d55c416034850';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -36,7 +36,7 @@ class _SystemHash {
 const mapOnLongPressedProvider = MapOnLongPressedFamily();
 
 /// See also [mapOnLongPressed].
-class MapOnLongPressedFamily extends Family<AsyncValue<void>> {
+class MapOnLongPressedFamily extends Family<void> {
   /// See also [mapOnLongPressed].
   const MapOnLongPressedFamily();
 
@@ -77,7 +77,7 @@ class MapOnLongPressedFamily extends Family<AsyncValue<void>> {
 }
 
 /// See also [mapOnLongPressed].
-class MapOnLongPressedProvider extends AutoDisposeFutureProvider<void> {
+class MapOnLongPressedProvider extends AutoDisposeProvider<void> {
   /// See also [mapOnLongPressed].
   MapOnLongPressedProvider({
     required double latitude,
@@ -117,7 +117,7 @@ class MapOnLongPressedProvider extends AutoDisposeFutureProvider<void> {
 
   @override
   Override overrideWith(
-    FutureOr<void> Function(MapOnLongPressedRef provider) create,
+    void Function(MapOnLongPressedRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -135,7 +135,7 @@ class MapOnLongPressedProvider extends AutoDisposeFutureProvider<void> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<void> createElement() {
+  AutoDisposeProviderElement<void> createElement() {
     return _MapOnLongPressedProviderElement(this);
   }
 
@@ -156,7 +156,7 @@ class MapOnLongPressedProvider extends AutoDisposeFutureProvider<void> {
   }
 }
 
-mixin MapOnLongPressedRef on AutoDisposeFutureProviderRef<void> {
+mixin MapOnLongPressedRef on AutoDisposeProviderRef<void> {
   /// The parameter `latitude` of this provider.
   double get latitude;
 
@@ -164,8 +164,8 @@ mixin MapOnLongPressedRef on AutoDisposeFutureProviderRef<void> {
   double get longitude;
 }
 
-class _MapOnLongPressedProviderElement
-    extends AutoDisposeFutureProviderElement<void> with MapOnLongPressedRef {
+class _MapOnLongPressedProviderElement extends AutoDisposeProviderElement<void>
+    with MapOnLongPressedRef {
   _MapOnLongPressedProviderElement(super.provider);
 
   @override
@@ -301,5 +301,22 @@ class _MapOnTapCircleProviderElement
   @override
   String get identifier => (origin as MapOnTapCircleProvider).identifier;
 }
+
+String _$mapDrawAnnotationsHash() =>
+    r'b24387e7db6c29562ac53ebdd7517cffb0daf07e';
+
+/// See also [mapDrawAnnotations].
+@ProviderFor(mapDrawAnnotations)
+final mapDrawAnnotationsProvider = AutoDisposeFutureProvider<void>.internal(
+  mapDrawAnnotations,
+  name: r'mapDrawAnnotationsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$mapDrawAnnotationsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef MapDrawAnnotationsRef = AutoDisposeFutureProviderRef<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

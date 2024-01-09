@@ -3,6 +3,8 @@ import 'package:core/core.dart';
 import 'package:listen_to_music_by_location/constants/collection_path.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/music/domain/locamusic.dart';
+import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
+import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'locamusic_providers.g.dart';
@@ -18,6 +20,63 @@ CollectionReference<Locamusic> locamusicCollectionReference(
           fromFirestore: Locamusic.fromFirestore,
           toFirestore: Locamusic.toFirestore,
         );
+
+@riverpod
+Stream<QuerySnapshot<Locamusic>> locamusicQuerySnapshot(
+  LocamusicQuerySnapshotRef ref,
+) async* {
+  final uid = await ref.watch(firebaseUserUidProvider.future);
+  if (uid == null) {
+    yield* const Stream.empty();
+  }
+
+  yield* ref
+      .watch(locamusicCollectionReferenceProvider)
+      .where('createdBy', isEqualTo: uid)
+      .where('deleted', isEqualTo: false)
+      .snapshots();
+}
+
+@riverpod
+Future<
+    List<
+        ({
+          String documentId,
+          Locamusic locamusic,
+          SongDetails? songDetails,
+        })>> locamusicWithSongDetails(
+  LocamusicWithSongDetailsRef ref,
+) async {
+  final snapshot = await ref.watch(locamusicQuerySnapshotProvider.future);
+
+  return Future.wait(
+    // 音楽の情報取得が全て完了するまで待つことになる
+    snapshot.docs.map(
+      (e) async {
+        final documentId = e.id;
+
+        final locamusic = e.data();
+        final musicId = locamusic.musicId;
+
+        SongDetails? songDetails;
+
+        // 音楽が設定されている場合は詳細を取得
+        if (musicId != null) {
+          songDetails = await ref.read(myMusicHostApiProvider).songDetails(
+                id: musicId,
+              );
+        }
+
+        // 音楽未設定の場合はsongDetailsはnullで、Futureもすぐに返る
+        return (
+          documentId: documentId,
+          locamusic: locamusic,
+          songDetails: songDetails,
+        );
+      },
+    ),
+  );
+}
 
 @riverpod
 Future<void> locamusicAdd(

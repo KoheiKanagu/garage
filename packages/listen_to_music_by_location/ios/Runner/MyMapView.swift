@@ -104,7 +104,6 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate, MyMa
     _ mapView: MKMapView,
     rendererFor overlay: MKOverlay
   ) -> MKOverlayRenderer {
-
     // 円のスタイル
     if let circle = overlay as? MyMKCircle {
       let renderer = MKCircleRenderer(
@@ -138,49 +137,57 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate, MyMa
     )
   }
 
-  func addAnnotation(
-    identifier: String,
-    latitude: Double,
-    longitude: Double,
-    title: String,
-    circleDistance: Double
+  func addAnnotations(
+    annotations: [CircleAnnotation]
   ) throws {
-    // アノテーションを作る
-    let annotation = MyMKPointAnnotation()
-    annotation.coordinate = CLLocationCoordinate2D(
-      latitude: latitude,
-      longitude: longitude
+    // ピンを立てる
+    addAnnotations(
+      annotations.map { e in
+        let annotation = MyMKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(
+          latitude: e.latitude,
+          longitude: e.longitude
+        )
+        annotation.title = e.title
+        annotation.identifier = e.identifier
+        return annotation
+      }
     )
-    annotation.title = title
-    annotation.identifier = identifier
-    addAnnotation(annotation)
-
-    // 円を追加
-    let circle = MyMKCircle(
-      center: annotation.coordinate,
-      radius: CLLocationDistance(
-        circleDistance
-      )
+    // 円を描く
+    addOverlays(
+      annotations.map { e in
+        let circle = MyMKCircle(
+          center: CLLocationCoordinate2D(
+            latitude: e.latitude,
+            longitude: e.longitude
+          ),
+          radius: CLLocationDistance(e.circleDistance)
+        )
+        circle.identifier = e.identifier
+        return circle
+      }
     )
-    circle.identifier = identifier
-    addOverlay(circle)
   }
 
-  func removeAnnotation(
-    identifier: String
+  func removeAnnotations(
+    identifiers: [String]
   ) throws {
+    // ピンを削除
+    removeAnnotations(
+      annotations.compactMap { $0 as? MyMKPointAnnotation }
+        .filter { identifiers.contains($0.identifier) }
+    )
 
-    for case let annotation as MyMKPointAnnotation in annotations {
-      if annotation.identifier == identifier {
-        removeAnnotation(annotation)
-      }
-    }
+    // 円を削除
+    removeOverlays(
+      overlays.compactMap { $0 as? MyMKCircle }
+        .filter { identifiers.contains($0.identifier) }
+    )
+  }
 
-    for case let circle as MyMKCircle in overlays {
-      if circle.identifier == identifier {
-        removeOverlay(circle)
-      }
-    }
+  func getAnnotations() throws -> [String] {
+    return annotations.compactMap { $0 as? MyMKPointAnnotation }
+      .map { $0.identifier }
   }
 
 }
