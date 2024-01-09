@@ -16,6 +16,7 @@
         "cloud_firestore",
         "cloud_functions"
       ],
+      "matchFileNames": ["packages/**"],
       "groupName": "firebase",
       "addLabels": ["dart"]
     },
@@ -26,38 +27,51 @@
         "json_annotation",
         "json_serializable"
       ],
+      "matchFileNames": ["packages/**"],
       "groupName": "freezed",
       "addLabels": ["dart"]
     },
     {
       "matchPackagePatterns": ["hooks_riverpod", "riverpod_*"],
+      "matchFileNames": ["packages/**"],
       "groupName": "riverpod",
       "addLabels": ["dart"]
     },
     {
       "matchPackagePatterns": ["go_router", "go_router_builder"],
+      "matchFileNames": ["packages/**"],
       "groupName": "go_router",
       "addLabels": ["dart"]
     },
     {
       "matchPackagePatterns": ["_info_plus$"],
+      "matchFileNames": ["packages/**"],
       "groupName": "info_plus",
       "addLabels": ["dart"]
     },
     {
       "matchPackagePatterns": ["@typescript-eslint/*", "eslint*"],
+      "matchFileNames": ["firebase/**"],
       "groupName": "eslint",
       "addLabels": ["javascript"]
     },
     {
       "matchPackagePatterns": ["@swc/jest", "@types/jest", "jest"],
+      "matchFileNames": ["firebase/**"],
       "groupName": "jest",
       "addLabels": ["javascript"]
     },
     {
       "matchPackagePatterns": ["slang", "slang_*"],
+      "matchFileNames": ["packages/**"],
       "groupName": "slang",
       "addLabels": ["dart"]
+    },
+    {
+      "matchPackagePatterns": ["@firebase/*", "firebase-*"],
+      "matchFileNames": ["firebase/**"],
+      "groupName": "firebase",
+      "addLabels": ["javascript"]
     }
   ]
 }
