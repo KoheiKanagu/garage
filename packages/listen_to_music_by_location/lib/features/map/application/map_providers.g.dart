@@ -303,7 +303,7 @@ class _MapOnTapCircleProviderElement
 }
 
 String _$mapDrawAnnotationsHash() =>
-    r'b24387e7db6c29562ac53ebdd7517cffb0daf07e';
+    r'1167e3732d9390829d8d290d921b2489f9c5c849';
 
 /// See also [mapDrawAnnotations].
 @ProviderFor(mapDrawAnnotations)
@@ -318,5 +318,23 @@ final mapDrawAnnotationsProvider = AutoDisposeFutureProvider<void>.internal(
 );
 
 typedef MapDrawAnnotationsRef = AutoDisposeFutureProviderRef<void>;
+String _$mapAdjustCameraHash() => r'a47c729e6823ecba161a40799910623d36a6580d';
+
+/// Annotationが存在するなら全てのAnnotationが表示できるようにズームする
+/// Annotationが存在しないなら現在地にズームする
+///
+/// Copied from [mapAdjustCamera].
+@ProviderFor(mapAdjustCamera)
+final mapAdjustCameraProvider = AutoDisposeFutureProvider<void>.internal(
+  mapAdjustCamera,
+  name: r'mapAdjustCameraProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$mapAdjustCameraHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef MapAdjustCameraRef = AutoDisposeFutureProviderRef<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

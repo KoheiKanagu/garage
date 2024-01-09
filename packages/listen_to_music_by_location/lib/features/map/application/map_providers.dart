@@ -55,3 +55,29 @@ Future<void> mapDrawAnnotations(
       .toList();
   await ref.read(myMapHostApiProvider).addAnnotations(annotations);
 }
+
+/// Annotationが存在するなら全てのAnnotationが表示できるようにズームする
+/// Annotationが存在しないなら現在地にズームする
+@riverpod
+Future<void> mapAdjustCamera(
+  MapAdjustCameraRef ref,
+) async {
+  final isEmptyAnnotations = await ref
+      .watch(locamusicQuerySnapshotProvider.future)
+      .then((value) => value.docs.isEmpty);
+  if (isEmptyAnnotations) {
+    // 初期位置を取得してカメラズーム
+    await ref.read(myLocationHostApiProvider).requestLocation();
+    final value = await ref.read(myFlutterApiDidUpdateLocationsProvider.future);
+    await ref.read(myMapHostApiProvider).setMapRegion(
+          latitude: value.latitude,
+          longitude: value.longitude,
+          meters: DistanceRange.large.meters,
+        );
+    return;
+  }
+
+  // Annotationsの用意ができたら表示
+  await ref.watch(mapDrawAnnotationsProvider.future);
+  await ref.watch(myMapHostApiProvider).showAnnotations();
+}

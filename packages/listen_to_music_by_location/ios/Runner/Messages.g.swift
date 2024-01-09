@@ -199,7 +199,10 @@ protocol MyMapHostApi {
   func setMapRegion(latitude: Double, longitude: Double, meters: Double) throws
   func addAnnotations(annotations: [CircleAnnotation]) throws
   func removeAnnotations(identifiers: [String]) throws
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   func getAnnotations() throws -> [String]
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
+  func showAnnotations() throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -255,6 +258,7 @@ class MyMapHostApiSetup {
     } else {
       removeAnnotationsChannel.setMessageHandler(nil)
     }
+    /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
     let getAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.getAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       getAnnotationsChannel.setMessageHandler { _, reply in
@@ -267,6 +271,20 @@ class MyMapHostApiSetup {
       }
     } else {
       getAnnotationsChannel.setMessageHandler(nil)
+    }
+    /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
+    let showAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.showAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      showAnnotationsChannel.setMessageHandler { _, reply in
+        do {
+          try api.showAnnotations()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      showAnnotationsChannel.setMessageHandler(nil)
     }
   }
 }

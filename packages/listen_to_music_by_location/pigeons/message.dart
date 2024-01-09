@@ -23,7 +23,11 @@ abstract class MyMapHostApi {
     List<String> identifiers,
   );
 
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   List<String> getAnnotations();
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
+  void showAnnotations();
 }
 
 class CircleAnnotation {

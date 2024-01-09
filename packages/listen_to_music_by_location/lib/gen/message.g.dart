@@ -175,7 +175,7 @@ class _MyMapHostApiCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128:
+      case 128: 
         return CircleAnnotation.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -259,6 +259,7 @@ class MyMapHostApi {
     }
   }
 
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   Future<List<String?>> getAnnotations() async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.getAnnotations';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
@@ -285,6 +286,29 @@ class MyMapHostApi {
       return (__pigeon_replyList[0] as List<Object?>?)!.cast<String?>();
     }
   }
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
+  Future<void> showAnnotations() async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.showAnnotations';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
 }
 
 class _MyMusicHostApiCodec extends StandardMessageCodec {
@@ -302,7 +326,7 @@ class _MyMusicHostApiCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128:
+      case 128: 
         return SongDetails.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -446,9 +470,9 @@ class _MyLocationHostApiCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128:
+      case 128: 
         return Region.decode(readValue(buffer)!);
-      case 129:
+      case 129: 
         return Region.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -633,7 +657,7 @@ class _MyFlutterApiCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128:
+      case 128: 
         return Region.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);

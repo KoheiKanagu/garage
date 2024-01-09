@@ -190,6 +190,13 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate, MyMa
       .map { $0.identifier }
   }
 
+  func showAnnotations() throws {
+    showAnnotations(
+      annotations,
+      animated: true
+    )
+  }
+
 }
 
 class MyMKCircle: MKCircle {
