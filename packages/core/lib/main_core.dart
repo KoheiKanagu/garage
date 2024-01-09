@@ -1,5 +1,5 @@
 import 'package:core/core.dart';
-import 'package:core/i18n/strings.g.dart';
+import 'package:core/gen/strings.g.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';

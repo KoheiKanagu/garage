@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
-import 'package:listen_to_music_by_location/i18n/strings.g.dart';
+import 'package:listen_to_music_by_location/gen/strings.g.dart';
 import 'package:listen_to_music_by_location/routing/my_go_router.dart';
 
 class MyApp extends HookConsumerWidget {

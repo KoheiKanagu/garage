@@ -2,7 +2,7 @@
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
-import 'package:core/i18n/strings.g.dart';
+import 'package:core/gen/strings.g.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fa;
 import 'package:firebase_ui_oauth/firebase_ui_oauth.dart';
 import 'package:firebase_ui_oauth_apple/firebase_ui_oauth_apple.dart';

@@ -175,7 +175,7 @@ class _MyMapHostApiCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128: 
+      case 128:
         return CircleAnnotation.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -302,7 +302,7 @@ class _MyMusicHostApiCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128: 
+      case 128:
         return SongDetails.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -446,9 +446,9 @@ class _MyLocationHostApiCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128: 
+      case 128:
         return Region.decode(readValue(buffer)!);
-      case 129: 
+      case 129:
         return Region.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -633,7 +633,7 @@ class _MyFlutterApiCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128: 
+      case 128:
         return Region.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);

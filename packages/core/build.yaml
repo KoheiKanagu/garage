@@ -33,3 +33,4 @@ targets:
           flat_map: false
           timestamp: false
           statistics: false
+          output_directory: lib/gen
