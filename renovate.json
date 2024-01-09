@@ -9,12 +9,6 @@
   "enabledManagers": ["github-actions", "pub", "npm"],
   "ignoreDeps": ["dart", "flutter"],
   "labels": ["dependencies"],
-  "force": {
-    "constraints": {
-      "dart": "3.3.0-174.3.beta",
-      "flutter": "3.18.0-0.2.pre"
-    }
-  },
   "packageRules": [
     {
       "matchPackagePatterns": [
@@ -22,7 +16,8 @@
         "cloud_firestore",
         "cloud_functions"
       ],
-      "groupName": "firebase"
+      "groupName": "firebase",
+      "addLabels": ["dart"]
     },
     {
       "matchPackagePatterns": [
@@ -31,31 +26,38 @@
         "json_annotation",
         "json_serializable"
       ],
-      "groupName": "freezed"
+      "groupName": "freezed",
+      "addLabels": ["dart"]
     },
     {
       "matchPackagePatterns": ["hooks_riverpod", "riverpod_*"],
-      "groupName": "riverpod"
+      "groupName": "riverpod",
+      "addLabels": ["dart"]
     },
     {
       "matchPackagePatterns": ["go_router", "go_router_builder"],
-      "groupName": "go_router"
+      "groupName": "go_router",
+      "addLabels": ["dart"]
     },
     {
       "matchPackagePatterns": ["_info_plus$"],
-      "groupName": "info_plus"
+      "groupName": "info_plus",
+      "addLabels": ["dart"]
     },
     {
       "matchPackagePatterns": ["@typescript-eslint/*", "eslint*"],
-      "groupName": "eslint"
+      "groupName": "eslint",
+      "addLabels": ["javascript"]
     },
     {
       "matchPackagePatterns": ["@swc/jest", "@types/jest", "jest"],
-      "groupName": "jest"
+      "groupName": "jest",
+      "addLabels": ["javascript"]
     },
     {
       "matchPackagePatterns": ["slang", "slang_*"],
-      "groupName": "slang"
+      "groupName": "slang",
+      "addLabels": ["dart"]
     }
   ]
 }
