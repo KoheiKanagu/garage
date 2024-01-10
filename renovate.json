@@ -17,7 +17,7 @@
         "cloud_functions"
       ],
       "matchFileNames": ["packages/**"],
-      "groupName": "firebase",
+      "groupName": "firebase-dart",
       "addLabels": ["dart"]
     },
     {
@@ -70,7 +70,7 @@
     {
       "matchPackagePatterns": ["@firebase/*", "firebase-*"],
       "matchFileNames": ["firebase/**"],
-      "groupName": "firebase",
+      "groupName": "firebase-js",
       "addLabels": ["javascript"]
     }
   ]
