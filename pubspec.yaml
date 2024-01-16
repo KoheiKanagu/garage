@@ -5,7 +5,7 @@ environment:
 
 dev_dependencies:
   collection: ^1.18.0
-  custom_lint: ^0.5.7
+  custom_lint: ^0.5.8
   grinder: ^0.9.5
   melos: ^4.0.0
   riverpod_lint: ^2.3.7
