@@ -229,3 +229,14 @@ scripts:
       flutter clean
     packageFilters:
       flutter: true
+
+  firestore:indexes:
+    run: |
+      DATABASES=$(firebase firestore:databases:list --json | jq -r '.result[].name' | awk -F'/' '{print $4}')
+
+      for e in $DATABASES; do
+          # (default) => default
+          DATABASE="${e//[(|)]/}"
+
+          firebase firestore:indexes --database "$e" >firebase/firestore/firestore."$DATABASE".indexes.json
+      done
