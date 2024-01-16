@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:listen_to_music_by_location/constants/collection_path.dart';
+import 'package:listen_to_music_by_location/exceptions/locamusic_creation_limit_exception.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/music/domain/locamusic.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
@@ -8,6 +9,9 @@ import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'locamusic_providers.g.dart';
+
+// 一度に作成できるLocamusicの最大数
+const int kMaxCreateLocamusicCount = 5;
 
 @riverpod
 CollectionReference<Locamusic> locamusicCollectionReference(
@@ -22,19 +26,26 @@ CollectionReference<Locamusic> locamusicCollectionReference(
         );
 
 @riverpod
+Future<Query<Locamusic>> locamusicQuery(
+  LocamusicQueryRef ref,
+) async {
+  final uid = await ref.watch(firebaseUserUidProvider.future);
+  if (uid == null) {
+    throw Exception('uid is null');
+  }
+
+  return ref
+      .watch(locamusicCollectionReferenceProvider)
+      .where('createdBy', isEqualTo: uid)
+      .where('deleted', isEqualTo: false);
+}
+
+@riverpod
 Stream<QuerySnapshot<Locamusic>> locamusicQuerySnapshot(
   LocamusicQuerySnapshotRef ref,
 ) async* {
-  final uid = await ref.watch(firebaseUserUidProvider.future);
-  if (uid == null) {
-    yield* const Stream.empty();
-  }
-
-  yield* ref
-      .watch(locamusicCollectionReferenceProvider)
-      .where('createdBy', isEqualTo: uid)
-      .where('deleted', isEqualTo: false)
-      .snapshots();
+  final query = await ref.watch(locamusicQueryProvider.future);
+  yield* query.snapshots();
 }
 
 @riverpod
@@ -89,11 +100,17 @@ Future<void> locamusicAdd(
     throw Exception('uid is null');
   }
 
-  await ref.read(locamusicCollectionReferenceProvider).add(
-        Locamusic(
-          geoPoint: geoPoint,
-          distance: distanceRange.meters,
-          createdBy: uid,
-        ),
-      );
+  final query = await ref.watch(locamusicQueryProvider.future);
+  final agg = await query.count().get();
+  if (agg.count <= 5) {
+    await ref.watch(locamusicCollectionReferenceProvider).add(
+          Locamusic(
+            geoPoint: geoPoint,
+            distance: distanceRange.meters,
+            createdBy: uid,
+          ),
+        );
+  } else {
+    throw LocamusicCreationLimitException();
+  }
 }

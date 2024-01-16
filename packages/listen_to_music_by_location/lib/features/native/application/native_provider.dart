@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:listen_to_music_by_location/features/map/application/map_providers.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,21 +15,8 @@ MyFlutterApiController myFlutterApiController(
     didDetermineStateStream: StreamController.broadcast(),
     didStartMonitoringStream: StreamController.broadcast(),
     didUpdateLocationsStream: StreamController.broadcast(),
-    onLongPressedMapCallback: (latitude, longitude) {
-      ref.read(
-        mapOnLongPressedProvider(
-          latitude: latitude,
-          longitude: longitude,
-        ),
-      );
-    },
-    onTapCircleCallback: (identifier) {
-      ref.read(
-        mapOnTapCircleProvider(
-          identifier: identifier,
-        ),
-      );
-    },
+    onLongPressedMapStream: StreamController.broadcast(),
+    onTapCircleStream: StreamController.broadcast(),
   );
 
   MyFlutterApi.setup(controller);
@@ -77,6 +63,22 @@ Stream<
 ) =>
     ref.watch(myFlutterApiControllerProvider).didUpdateLocationsStream.stream;
 
+@riverpod
+Stream<
+    ({
+      double latitude,
+      double longitude,
+    })> myFlutterApiOnLongPressedMap(
+  MyFlutterApiOnLongPressedMapRef ref,
+) =>
+    ref.watch(myFlutterApiControllerProvider).onLongPressedMapStream.stream;
+
+@riverpod
+Stream<String> myFlutterApiOnTapCircle(
+  MyFlutterApiOnTapCircleRef ref,
+) =>
+    ref.watch(myFlutterApiControllerProvider).onTapCircleStream.stream;
+
 class MyFlutterApiController implements MyFlutterApi {
   const MyFlutterApiController({
     required this.myMapHostApi,
@@ -84,8 +86,8 @@ class MyFlutterApiController implements MyFlutterApi {
     required this.didDetermineStateStream,
     required this.didStartMonitoringStream,
     required this.didUpdateLocationsStream,
-    required this.onLongPressedMapCallback,
-    required this.onTapCircleCallback,
+    required this.onLongPressedMapStream,
+    required this.onTapCircleStream,
   });
 
   final MyMapHostApi myMapHostApi;
@@ -110,18 +112,27 @@ class MyFlutterApiController implements MyFlutterApi {
         double longitude,
       })> didUpdateLocationsStream;
 
-  final void Function(double, double) onLongPressedMapCallback;
+  final StreamController<
+      ({
+        double latitude,
+        double longitude,
+      })> onLongPressedMapStream;
 
-  final void Function(String) onTapCircleCallback;
+  final StreamController<String> onTapCircleStream;
 
   @override
   void onLongPressedMap(double latitude, double longitude) {
-    onLongPressedMapCallback(latitude, longitude);
+    onLongPressedMapStream.add(
+      (
+        latitude: latitude,
+        longitude: longitude,
+      ),
+    );
   }
 
   @override
   void onTapCircle(String identifier) {
-    onTapCircleCallback(identifier);
+    onTapCircleStream.add(identifier);
   }
 
   @override

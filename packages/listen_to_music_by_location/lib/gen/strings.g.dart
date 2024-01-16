@@ -136,4 +136,26 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	String get unset => '未設定';
+	late final _StringsLocamusicJa locamusic = _StringsLocamusicJa._(_root);
+}
+
+// Path: locamusic
+class _StringsLocamusicJa {
+	_StringsLocamusicJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final _StringsLocamusicCreateJa create = _StringsLocamusicCreateJa._(_root);
+}
+
+// Path: locamusic.create
+class _StringsLocamusicCreateJa {
+	_StringsLocamusicCreateJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get limit_error => '作成できませんでした';
+	String limit_error_message({required Object n}) => '${n}個まで作成できます';
 }

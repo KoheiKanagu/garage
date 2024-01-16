@@ -9,7 +9,7 @@ part of 'native_provider.dart';
 // **************************************************************************
 
 String _$myFlutterApiControllerHash() =>
-    r'cb180ece3e5de84c12bc49840c2d6c0c4b0c6554';
+    r'79611c03d11b2b2dcacdae9357cd639e4aeef0d4';
 
 /// See also [myFlutterApiController].
 @ProviderFor(myFlutterApiController)
@@ -98,6 +98,41 @@ final myFlutterApiDidUpdateLocationsProvider =
 
 typedef MyFlutterApiDidUpdateLocationsRef
     = AutoDisposeStreamProviderRef<({double latitude, double longitude})>;
+String _$myFlutterApiOnLongPressedMapHash() =>
+    r'9e42b4357eed0a9fa39cf449a423cd7ae144987a';
+
+/// See also [myFlutterApiOnLongPressedMap].
+@ProviderFor(myFlutterApiOnLongPressedMap)
+final myFlutterApiOnLongPressedMapProvider =
+    AutoDisposeStreamProvider<({double latitude, double longitude})>.internal(
+  myFlutterApiOnLongPressedMap,
+  name: r'myFlutterApiOnLongPressedMapProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$myFlutterApiOnLongPressedMapHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef MyFlutterApiOnLongPressedMapRef
+    = AutoDisposeStreamProviderRef<({double latitude, double longitude})>;
+String _$myFlutterApiOnTapCircleHash() =>
+    r'022f1e649361f068afac19105f681747b1eb6e27';
+
+/// See also [myFlutterApiOnTapCircle].
+@ProviderFor(myFlutterApiOnTapCircle)
+final myFlutterApiOnTapCircleProvider =
+    AutoDisposeStreamProvider<String>.internal(
+  myFlutterApiOnTapCircle,
+  name: r'myFlutterApiOnTapCircleProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$myFlutterApiOnTapCircleHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef MyFlutterApiOnTapCircleRef = AutoDisposeStreamProviderRef<String>;
 String _$myMapHostApiHash() => r'941dafd592e47b2c741783678d78c40e2f32462a';
 
 /// See also [myMapHostApi].

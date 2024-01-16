@@ -1,3 +1,9 @@
 {
-  "unset": "未設定"
+  "unset": "未設定",
+  "locamusic": {
+    "create": {
+      "limit_error": "作成できませんでした",
+      "limit_error_message": "${n}個まで作成できます"
+    }
+  }
 }
