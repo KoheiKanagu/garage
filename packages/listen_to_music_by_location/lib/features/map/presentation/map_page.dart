@@ -1,6 +1,8 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/exceptions/locamusic_creation_limit_exception.dart';
@@ -33,8 +35,9 @@ class MapPage extends HookConsumerWidget {
       ..listen(
         myFlutterApiOnLongPressedMapProvider.future,
         (_, next) async {
-          final value = await next;
+          final indicator = showMyProgressIndicator();
 
+          final value = await next;
           try {
             await ref.read(
               locamusicAddProvider(
@@ -52,6 +55,8 @@ class MapPage extends HookConsumerWidget {
                 ),
               );
             }
+          } finally {
+            indicator.dismiss();
           }
         },
       )
@@ -60,12 +65,16 @@ class MapPage extends HookConsumerWidget {
         (_, next) async {
           final value = await next;
 
-          //TODO
+          // TODO(KoheiKanagu): 円をタップした挙動
         },
       );
 
     return const UiKitView(
       viewType: 'my_map_platform_view',
+      creationParams: {
+        'layoutMarginsBottom': 50,
+      },
+      creationParamsCodec: StandardMessageCodec(),
     );
   }
 }

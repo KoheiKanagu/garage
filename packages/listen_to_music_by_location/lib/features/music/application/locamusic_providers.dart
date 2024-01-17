@@ -37,7 +37,8 @@ Future<Query<Locamusic>> locamusicQuery(
   return ref
       .watch(locamusicCollectionReferenceProvider)
       .where('createdBy', isEqualTo: uid)
-      .where('deleted', isEqualTo: false);
+      .where('deleted', isEqualTo: false)
+      .orderBy('createdAt', descending: true);
 }
 
 @riverpod
@@ -45,6 +46,7 @@ Stream<QuerySnapshot<Locamusic>> locamusicQuerySnapshot(
   LocamusicQuerySnapshotRef ref,
 ) async* {
   final query = await ref.watch(locamusicQueryProvider.future);
+  logger.d('locamusicQuerySnapshot: ${query.parameters}');
   yield* query.snapshots();
 }
 
@@ -102,7 +104,7 @@ Future<void> locamusicAdd(
 
   final query = await ref.watch(locamusicQueryProvider.future);
   final agg = await query.count().get();
-  if (agg.count <= 5) {
+  if (agg.count < 5) {
     await ref.watch(locamusicCollectionReferenceProvider).add(
           Locamusic(
             geoPoint: geoPoint,

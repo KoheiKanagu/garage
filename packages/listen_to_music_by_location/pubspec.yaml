@@ -80,6 +80,7 @@ flutter:
   uses-material-design: true
   assets:
     - packages/budoux_dart/models/ja.json
+    - assets/images/
 # flutter_native_splash:
 #   color: "#FAFDFD" # lightColorScheme.background
 #   image: "assets/splash_icon.png"

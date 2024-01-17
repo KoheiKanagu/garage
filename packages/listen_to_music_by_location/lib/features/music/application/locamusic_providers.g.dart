@@ -26,7 +26,7 @@ final locamusicCollectionReferenceProvider =
 
 typedef LocamusicCollectionReferenceRef
     = AutoDisposeProviderRef<CollectionReference<Locamusic>>;
-String _$locamusicQueryHash() => r'87a91c6cfde5b680b3179a91b185839cbb66d47a';
+String _$locamusicQueryHash() => r'87cf3673e9793531d031df51d870c451de5de007';
 
 /// See also [locamusicQuery].
 @ProviderFor(locamusicQuery)
@@ -43,7 +43,7 @@ final locamusicQueryProvider =
 
 typedef LocamusicQueryRef = AutoDisposeFutureProviderRef<Query<Locamusic>>;
 String _$locamusicQuerySnapshotHash() =>
-    r'2eb2713c1177eb22e8c413f10e84769e25947155';
+    r'da4695d8b05775bada0b1418604c5515afdf767f';
 
 /// See also [locamusicQuerySnapshot].
 @ProviderFor(locamusicQuerySnapshot)
@@ -83,7 +83,7 @@ final locamusicWithSongDetailsProvider = AutoDisposeFutureProvider<
 
 typedef LocamusicWithSongDetailsRef = AutoDisposeFutureProviderRef<
     List<({String documentId, Locamusic locamusic, SongDetails? songDetails})>>;
-String _$locamusicAddHash() => r'b3540676db2a9bce40133f9ac393b3f3e5898a17';
+String _$locamusicAddHash() => r'508453275584199fd29fe9fc9fd05f8d63a6c5a9';
 
 /// Copied from Dart SDK
 class _SystemHash {

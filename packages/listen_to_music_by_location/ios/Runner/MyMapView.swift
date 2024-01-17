@@ -16,6 +16,13 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate, MyMa
     delegate = self
     showsUserLocation = true
 
+    // Map上のAppleロゴの場所を移動
+    if let arguments = args as? [String: Any?],
+      let bottom = arguments["layoutMarginsBottom"] as? CGFloat
+    {
+      layoutMargins.bottom += bottom
+    }
+
     myFlutterApi = flutterApi
 
     if let arguments = args as? [String: Any?],

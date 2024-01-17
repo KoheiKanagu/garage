@@ -1,12 +1,10 @@
-import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/geofence_select/application/geofence_select_route.dart';
 import 'package:listen_to_music_by_location/features/map/presentation/map_page.dart';
 import 'package:listen_to_music_by_location/features/music/application/apple_music_providers.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_list_page.dart';
+import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({
@@ -15,8 +13,6 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentIndex = useState(0);
-
     ref.listen(
       appleMusicAppLinksProvider,
       (_, next) {
@@ -29,39 +25,30 @@ class HomePage extends HookConsumerWidget {
       },
     );
 
-    return Scaffold(
-      floatingActionButton: FloatingActionButton.small(
-        onPressed: () {
-          const ConfigurePageRoute().push<void>(context);
-        },
-        child: const Icon(
-          Icons.settings,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
-      body: IndexedStack(
-        index: currentIndex.value,
-        children: const [
-          MapPage(),
-          MusicListPage(),
-        ],
-      ),
-      bottomNavigationBar: CupertinoTabBar(
-        currentIndex: currentIndex.value,
-        onTap: (value) => currentIndex.value = value,
-        items: const [
+    // TODO(KoheiKanagu): アイコンのpaddingが狭いので調整する
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.map_rounded,
-            ),
+            icon: const Icon(CupertinoIcons.map_pin_ellipse),
+            label: i18n.map,
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.library_music_rounded,
-            ),
+            icon: const Icon(CupertinoIcons.music_albums_fill),
+            label: i18n.locamusic.name,
           ),
         ],
       ),
+      tabBuilder: (context, index) {
+        switch (index) {
+          case 0:
+            return const MapPage();
+          case 1:
+            return const MusicListPage();
+          default:
+            throw UnimplementedError();
+        }
+      },
     );
   }
 }

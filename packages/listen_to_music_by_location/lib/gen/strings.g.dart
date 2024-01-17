@@ -137,6 +137,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	// Translations
 	String get unset => '未設定';
 	late final _StringsLocamusicJa locamusic = _StringsLocamusicJa._(_root);
+	String get map => '地図';
 }
 
 // Path: locamusic
@@ -147,6 +148,7 @@ class _StringsLocamusicJa {
 
 	// Translations
 	late final _StringsLocamusicCreateJa create = _StringsLocamusicCreateJa._(_root);
+	String get name => '場所で音楽';
 }
 
 // Path: locamusic.create

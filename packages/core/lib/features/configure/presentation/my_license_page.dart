@@ -11,8 +11,8 @@ class MyLicensePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return LicensePage(
       applicationName: ref.read(packageInfoAppNameProvider),
-      applicationLegalese: '©️ 2023 kingu.dev',
-      applicationVersion: ref.read(packageInfoVersionProvider),
+      applicationLegalese: '©️ 2024 kingu.dev',
+      applicationVersion: 'Version ${ref.read(packageInfoVersionProvider)}',
       applicationIcon: Padding(
         padding: const EdgeInsets.all(12),
         child: ClipRRect(
