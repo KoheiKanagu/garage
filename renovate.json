@@ -4,6 +4,7 @@
   "schedule": ["before 4am on Monday"],
   "timezone": "Asia/Tokyo",
   "prHourlyLimit": 0,
+  "prConcurrentLimit": 0,
   "rangeStrategy": "bump",
   "semanticCommits": "enabled",
   "enabledManagers": ["github-actions", "pub", "npm"],
