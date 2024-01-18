@@ -20,10 +20,21 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [appIcon];
 }
 
+class $AssetsSiGen {
+  const $AssetsSiGen();
+
+  /// File path: assets/si/apple_music_badge.si
+  String get appleMusicBadge => 'assets/si/apple_music_badge.si';
+
+  /// List of all assets
+  List<String> get values => [appleMusicBadge];
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsSiGen si = $AssetsSiGen();
 }
 
 class AssetGenImage {

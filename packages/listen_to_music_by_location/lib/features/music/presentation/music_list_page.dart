@@ -16,7 +16,7 @@ class MusicListPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.systemGroupedBackground,
-      child: ref.watch(locamusicWithSongDetailsProvider).maybeWhen(
+      child: ref.watch(locamusicsWithSongDetailsProvider).maybeWhen(
             orElse: () => const Center(
               child: CircularProgressIndicator.adaptive(),
             ),

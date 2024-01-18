@@ -17,7 +17,7 @@ sdkPath: .fvm/versions/beta
 scripts:
   analyze:
     run: |
-      melos run build_runner:build --no-select
+      melos run generate
       melos exec -- "dart fix --apply lib"
       melos exec -- "find lib test -name '*.dart' -not -path 'lib/gen/*' -exec dart format --set-exit-if-changed {} \;"
       melos exec -- "dart analyze --fatal-infos ."
@@ -66,10 +66,7 @@ scripts:
 
   build_runner:build:
     run: |
-      flutter pub get
       flutter pub run build_runner build --delete-conflicting-outputs
-      (cd MELOS_ROOT_PATH && grind update-coverage-test --package=MELOS_PACKAGE_NAME)
-      (cd MELOS_ROOT_PATH && grind update-core-export)
     exec:
       concurrency: 1
       orderDependents: true
@@ -79,7 +76,6 @@ scripts:
 
   build_runner:watch:
     exec: |
-      flutter pub get
       flutter pub run build_runner watch --delete-conflicting-outputs
     packageFilters:
       flutter: true
@@ -230,13 +226,12 @@ scripts:
     packageFilters:
       flutter: true
 
-  firestore:indexes:
+  generate:
     run: |
-      DATABASES=$(firebase firestore:databases:list --json | jq -r '.result[].name' | awk -F'/' '{print $4}')
-
-      for e in $DATABASES; do
-          # (default) => default
-          DATABASE="${e//[(|)]/}"
-
-          firebase firestore:indexes --database "$e" >firebase/firestore/firestore."$DATABASE".indexes.json
-      done
+      melos run build_runner:build --no-select && \
+      melos run pigeon && \
+      melos run slang && \
+      grind update-coverage-test && \
+      grind update-core-export && \
+      grind update-ci && \
+      grind update-firestore-indexes

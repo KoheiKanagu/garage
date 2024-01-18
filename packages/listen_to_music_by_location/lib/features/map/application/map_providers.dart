@@ -11,7 +11,7 @@ part 'map_providers.g.dart';
 Future<void> mapDrawAnnotations(
   MapDrawAnnotationsRef ref,
 ) async {
-  final values = await ref.watch(locamusicWithSongDetailsProvider.future);
+  final values = await ref.watch(locamusicsWithSongDetailsProvider.future);
 
   // 既存のアノテーションを削除
   final existAnnotations =

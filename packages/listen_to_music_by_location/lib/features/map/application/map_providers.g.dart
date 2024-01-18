@@ -9,7 +9,7 @@ part of 'map_providers.dart';
 // **************************************************************************
 
 String _$mapDrawAnnotationsHash() =>
-    r'1167e3732d9390829d8d290d921b2489f9c5c849';
+    r'3ff1f4a4b4cb0db004b715b45e34e9181a4d1577';
 
 /// See also [mapDrawAnnotations].
 @ProviderFor(mapDrawAnnotations)

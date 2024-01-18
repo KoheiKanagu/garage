@@ -51,14 +51,65 @@ Stream<QuerySnapshot<Locamusic>> locamusicQuerySnapshot(
 }
 
 @riverpod
+Stream<Locamusic> locamusicSnapshot(
+  LocamusicSnapshotRef ref, {
+  required String documentId,
+}) =>
+    ref
+        .watch(locamusicCollectionReferenceProvider)
+        .doc(documentId)
+        .snapshots()
+        .where((event) => event.data() != null)
+        .map((event) => event.data()!);
+
+@riverpod
+Stream<
+    ({
+      Locamusic locamusic,
+      SongDetails? songDetails,
+    })> locamusicWithSongDetails(
+  LocamusicWithSongDetailsRef ref, {
+  required String documentId,
+}) async* {
+  final locamusic = await ref.watch(
+    locamusicSnapshotProvider(documentId: documentId).future,
+  );
+  final musicId = locamusic.musicId;
+
+  if (musicId == null) {
+    yield (
+      locamusic: locamusic,
+      songDetails: null,
+    );
+    return;
+  }
+
+  final songDetails = await ref.watch(
+    locamusicSongDetailsProvider(musicId: musicId).future,
+  );
+
+  yield (
+    locamusic: locamusic,
+    songDetails: songDetails,
+  );
+}
+
+@riverpod
+Future<SongDetails> locamusicSongDetails(
+  LocamusicSongDetailsRef ref, {
+  required String musicId,
+}) =>
+    ref.watch(myMusicHostApiProvider).songDetails(id: musicId);
+
+@riverpod
 Future<
     List<
         ({
           String documentId,
           Locamusic locamusic,
           SongDetails? songDetails,
-        })>> locamusicWithSongDetails(
-  LocamusicWithSongDetailsRef ref,
+        })>> locamusicsWithSongDetails(
+  LocamusicsWithSongDetailsRef ref,
 ) async {
   final snapshot = await ref.watch(locamusicQuerySnapshotProvider.future);
 
@@ -75,9 +126,9 @@ Future<
 
         // 音楽が設定されている場合は詳細を取得
         if (musicId != null) {
-          songDetails = await ref.read(myMusicHostApiProvider).songDetails(
-                id: musicId,
-              );
+          songDetails = await ref.read(
+            locamusicSongDetailsProvider(musicId: musicId).future,
+          );
         }
 
         // 音楽未設定の場合はsongDetailsはnullで、Futureもすぐに返る

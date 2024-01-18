@@ -5,7 +5,10 @@
       "limit_error": "作成できませんでした",
       "limit_error_message": "${n}個まで作成できます"
     },
-    "name": "場所で音楽"
+    "name": "場所で音楽",
+    "details": {
+      "title": "場所と音楽"
+    }
   },
   "map": "地図"
 }

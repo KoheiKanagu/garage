@@ -45,10 +45,5 @@ class MusicAwaitingPage extends HookConsumerWidget {
         ),
       ),
     );
-
-    // return Scaffold(
-    //   appBar: AppBar(),
-    //   body: Container(),
-    // );
   }
 }

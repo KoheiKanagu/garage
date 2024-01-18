@@ -149,6 +149,7 @@ class _StringsLocamusicJa {
 	// Translations
 	late final _StringsLocamusicCreateJa create = _StringsLocamusicCreateJa._(_root);
 	String get name => '場所で音楽';
+	late final _StringsLocamusicDetailsJa details = _StringsLocamusicDetailsJa._(_root);
 }
 
 // Path: locamusic.create
@@ -160,4 +161,14 @@ class _StringsLocamusicCreateJa {
 	// Translations
 	String get limit_error => '作成できませんでした';
 	String limit_error_message({required Object n}) => '${n}個まで作成できます';
+}
+
+// Path: locamusic.details
+class _StringsLocamusicDetailsJa {
+	_StringsLocamusicDetailsJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => '場所と音楽';
 }
