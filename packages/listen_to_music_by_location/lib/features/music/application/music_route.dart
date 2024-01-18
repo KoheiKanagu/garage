@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:listen_to_music_by_location/features/music/presentation/awaiting_music_page.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/locamusic_detail_page.dart';
-import 'package:listen_to_music_by_location/features/music/presentation/music_awaiting_page.dart';
 
 part 'music_route.g.dart';
 
 @TypedGoRoute<LocamusicDetailPageRoute>(
   path: LocamusicDetailPageRoute.path,
   routes: [
-    TypedGoRoute<MusicAwaitingPageRoute>(
-      path: MusicAwaitingPageRoute.path,
+    TypedGoRoute<AwaitingMusicPageRoute>(
+      path: AwaitingMusicPageRoute.path,
     ),
   ],
 )
@@ -32,8 +32,8 @@ class LocamusicDetailPageRoute extends GoRouteData {
   }
 }
 
-class MusicAwaitingPageRoute extends GoRouteData {
-  const MusicAwaitingPageRoute(
+class AwaitingMusicPageRoute extends GoRouteData {
+  const AwaitingMusicPageRoute(
     this.documentId,
   );
 
@@ -44,7 +44,7 @@ class MusicAwaitingPageRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return CupertinoPage(
-      child: MusicAwaitingPage(
+      child: AwaitingMusicPage(
         documentId: documentId,
       ),
       fullscreenDialog: true,

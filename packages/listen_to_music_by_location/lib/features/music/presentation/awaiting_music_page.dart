@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/music/application/apple_music_providers.dart';
 
-class MusicAwaitingPage extends HookConsumerWidget {
-  const MusicAwaitingPage({
+class AwaitingMusicPage extends HookConsumerWidget {
+  const AwaitingMusicPage({
     required this.documentId,
     super.key,
   });
@@ -28,6 +28,10 @@ class MusicAwaitingPage extends HookConsumerWidget {
     final songDetails = ref.watch(appleMusicAppLinkSongDetailsProvider);
 
     return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        previousPageTitle: 'Locamusic',
+        middle: Text('Select Music'),
+      ),
       child: songDetails.maybeWhen(
         data: (data) {
           return Column(

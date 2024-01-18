@@ -49,8 +49,8 @@ class MapPage extends HookConsumerWidget {
             if (context.mounted) {
               await showOkAlertDialog(
                 context: context,
-                title: i18n.locamusic.create.limit_error,
-                message: i18n.locamusic.create.limit_error_message(
+                title: i18n.locamusic.create_limit_error,
+                message: i18n.locamusic.create_limit_error_message(
                   n: kMaxCreateLocamusicCount,
                 ),
               );

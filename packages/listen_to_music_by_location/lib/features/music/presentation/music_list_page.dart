@@ -23,7 +23,7 @@ class MusicListPage extends HookConsumerWidget {
             data: (data) => CustomScrollView(
               slivers: [
                 CupertinoSliverNavigationBar(
-                  largeTitle: Text(i18n.locamusic.name),
+                  largeTitle: Text(i18n.app_name),
                   trailing: CupertinoButton(
                     child: const Icon(
                       CupertinoIcons.settings,
@@ -38,7 +38,7 @@ class MusicListPage extends HookConsumerWidget {
                     children: data
                         .map<Widget>(
                           (e) => MusicListTile(
-                            title: e.songDetails?.title ?? i18n.unset,
+                            title: e.songDetails?.title ?? i18n.tap_to_set,
                             artworkUrl: e.songDetails?.artworkUrl,
                             onTap: () {
                               LocamusicDetailPageRoute(e.documentId)

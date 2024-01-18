@@ -1,14 +1,13 @@
 {
   "unset": "未設定",
   "locamusic": {
-    "create": {
-      "limit_error": "作成できませんでした",
-      "limit_error_message": "${n}個まで作成できます"
-    },
-    "name": "場所で音楽",
-    "details": {
-      "title": "場所と音楽"
-    }
+    "create_limit_error": "作成できませんでした",
+    "create_limit_error_message": "${n}個まで作成できます",
+    "select_music": "曲を選択",
+    "change_music": "曲を変更",
+    "title": "場所と音楽"
   },
-  "map": "地図"
+  "app_name": "場所で音楽",
+  "map": "地図",
+  "tap_to_set": "タップして設定"
 }

@@ -11,7 +11,7 @@ import 'package:listen_to_music_by_location/features/music/application/music_rou
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/music/domain/locamusic.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/locamusic_detail_page.dart';
-import 'package:listen_to_music_by_location/features/music/presentation/music_awaiting_page.dart';
+import 'package:listen_to_music_by_location/features/music/presentation/awaiting_music_page.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_list_page.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_list_tile.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';

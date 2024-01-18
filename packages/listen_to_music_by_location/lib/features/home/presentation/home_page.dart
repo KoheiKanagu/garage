@@ -21,7 +21,7 @@ class HomePage extends HookConsumerWidget {
           ),
           BottomNavigationBarItem(
             icon: const Icon(CupertinoIcons.music_albums_fill),
-            label: i18n.locamusic.name,
+            label: i18n.app_name,
           ),
         ],
       ),

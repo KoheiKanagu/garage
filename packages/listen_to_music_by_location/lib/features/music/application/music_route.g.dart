@@ -18,7 +18,7 @@ RouteBase get $locamusicDetailPageRoute => GoRouteData.$route(
       routes: [
         GoRouteData.$route(
           path: 'awaiting',
-          factory: $MusicAwaitingPageRouteExtension._fromState,
+          factory: $AwaitingMusicPageRouteExtension._fromState,
         ),
       ],
     );
@@ -43,9 +43,9 @@ extension $LocamusicDetailPageRouteExtension on LocamusicDetailPageRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $MusicAwaitingPageRouteExtension on MusicAwaitingPageRoute {
-  static MusicAwaitingPageRoute _fromState(GoRouterState state) =>
-      MusicAwaitingPageRoute(
+extension $AwaitingMusicPageRouteExtension on AwaitingMusicPageRoute {
+  static AwaitingMusicPageRoute _fromState(GoRouterState state) =>
+      AwaitingMusicPageRoute(
         state.pathParameters['documentId']!,
       );
 

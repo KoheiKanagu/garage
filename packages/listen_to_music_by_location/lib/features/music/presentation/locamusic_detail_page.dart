@@ -1,8 +1,8 @@
-import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
+import 'package:listen_to_music_by_location/features/music/presentation/locamusic_detail_page_header.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
 class LocamusicDetailPage extends HookConsumerWidget {
@@ -24,30 +24,30 @@ class LocamusicDetailPage extends HookConsumerWidget {
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.systemGroupedBackground,
       navigationBar: CupertinoNavigationBar(
-        previousPageTitle: i18n.locamusic.name,
-        middle: Text(i18n.locamusic.details.title),
+        previousPageTitle: i18n.app_name,
+        middle: Text(i18n.locamusic.title),
       ),
-      child: ListView(
-        children: [
-          CupertinoListSection.insetGrouped(
-            children: [
-              CupertinoListTile.notched(
-                title: const Text('音楽を設定する'),
-                trailing: const Icon(CupertinoIcons.chevron_forward),
-                onTap: () {
-                  // const MusicSearchPageRoute().push<void>(context);
-                },
-              ),
-              CupertinoListTile.notched(
-                title: const Text('音楽を再生する'),
-                trailing: const Icon(CupertinoIcons.chevron_forward),
-                onTap: () {
-                  // const MusicPlayPageRoute().push<void>(context);
-                },
-              ),
-            ],
-          ),
-        ],
+      child: data.maybeWhen(
+        orElse: CircularProgressIndicator.adaptive,
+        data: (data) => ListView(
+          children: [
+            CupertinoListSection.insetGrouped(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    children: [
+                      LocamusicDetailPageHeader(
+                        documentId: documentId,
+                        songDetails: data.songDetails,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

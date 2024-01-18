@@ -137,7 +137,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	// Translations
 	String get unset => '未設定';
 	late final _StringsLocamusicJa locamusic = _StringsLocamusicJa._(_root);
+	String get app_name => '場所で音楽';
 	String get map => '地図';
+	String get tap_to_set => 'タップして設定';
 }
 
 // Path: locamusic
@@ -147,28 +149,9 @@ class _StringsLocamusicJa {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final _StringsLocamusicCreateJa create = _StringsLocamusicCreateJa._(_root);
-	String get name => '場所で音楽';
-	late final _StringsLocamusicDetailsJa details = _StringsLocamusicDetailsJa._(_root);
-}
-
-// Path: locamusic.create
-class _StringsLocamusicCreateJa {
-	_StringsLocamusicCreateJa._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get limit_error => '作成できませんでした';
-	String limit_error_message({required Object n}) => '${n}個まで作成できます';
-}
-
-// Path: locamusic.details
-class _StringsLocamusicDetailsJa {
-	_StringsLocamusicDetailsJa._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
+	String get create_limit_error => '作成できませんでした';
+	String create_limit_error_message({required Object n}) => '${n}個まで作成できます';
+	String get select_music => '曲を選択';
+	String get change_music => '曲を変更';
 	String get title => '場所と音楽';
 }

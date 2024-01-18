@@ -1,6 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:listen_to_music_by_location/features/music/presentation/music_artwork_widget.dart';
 
 class MusicListTile extends StatelessWidget {
   const MusicListTile({
@@ -18,59 +17,18 @@ class MusicListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const leadingSize = 96.0;
-
-    final leadingBoxDecoration = BoxDecoration(
-      borderRadius: BorderRadius.circular(8),
-      color: Theme.of(context).colorScheme.surface,
-      border: Border.all(
-        color: Theme.of(context).colorScheme.secondaryContainer,
-      ),
-    );
-
-    final leadingErrorWidget = Container(
-      width: leadingSize,
-      height: leadingSize,
-      decoration: leadingBoxDecoration,
-      child: const Center(
-        child: Icon(Icons.question_mark_rounded),
-      ),
-    );
-
     return CupertinoListTile.notched(
       title: Text(
         title,
         maxLines: 3,
       ),
       trailing: const CupertinoListTileChevron(),
-      leadingSize: 96,
+      leadingSize: MusicArtworkWidget.kDefaultSize,
       leading: Padding(
         padding: const EdgeInsets.all(4),
-        // https://github.com/Baseflow/flutter_cached_network_image/issues/821
-        // の問題があるのでチェック
-        child: (artworkUrl ?? '').isEmpty
-            ? leadingErrorWidget
-            : CachedNetworkImage(
-                imageUrl: artworkUrl!,
-                placeholder: (context, url) => Container(
-                  width: leadingSize,
-                  height: leadingSize,
-                  decoration: leadingBoxDecoration,
-                  child: const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  ),
-                ),
-                errorWidget: (context, url, error) => leadingErrorWidget,
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: leadingBoxDecoration.copyWith(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                fit: BoxFit.contain,
-              ),
+        child: MusicArtworkWidget(
+          artworkUrl: artworkUrl,
+        ),
       ),
       onTap: onTap,
     );
