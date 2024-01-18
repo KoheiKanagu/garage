@@ -227,11 +227,13 @@ scripts:
       flutter: true
 
   generate:
+    description: |
+      Generate files.
     run: |
+      grind update-ci && \
       melos run build_runner:build --no-select && \
       melos run pigeon && \
       melos run slang && \
       grind update-coverage-test && \
       grind update-core-export && \
-      grind update-ci && \
       grind update-firestore-indexes
