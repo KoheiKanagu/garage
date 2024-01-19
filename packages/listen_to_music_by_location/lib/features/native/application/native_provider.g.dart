@@ -9,7 +9,7 @@ part of 'native_provider.dart';
 // **************************************************************************
 
 String _$myFlutterApiControllerHash() =>
-    r'dcfc0d26b807511420c5d68f43002e0556f21b81';
+    r'abf30a866c2b98c550aeb07c8b32e8dd8616bb1b';
 
 /// See also [myFlutterApiController].
 @ProviderFor(myFlutterApiController)
@@ -98,13 +98,31 @@ final myFlutterApiDidUpdateLocationsProvider =
 
 typedef MyFlutterApiDidUpdateLocationsRef
     = AutoDisposeStreamProviderRef<({double latitude, double longitude})>;
+String _$myFlutterApiMapViewDelegateControllerHash() =>
+    r'4887f49396cfac46d0d01dd3c38e4b5223455e6c';
+
+/// See also [myFlutterApiMapViewDelegateController].
+@ProviderFor(myFlutterApiMapViewDelegateController)
+final myFlutterApiMapViewDelegateControllerProvider =
+    AutoDisposeProvider<MyFlutterApiMapViewDelegateController>.internal(
+  myFlutterApiMapViewDelegateController,
+  name: r'myFlutterApiMapViewDelegateControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$myFlutterApiMapViewDelegateControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef MyFlutterApiMapViewDelegateControllerRef
+    = AutoDisposeProviderRef<MyFlutterApiMapViewDelegateController>;
 String _$myFlutterApiOnLongPressedMapHash() =>
-    r'9e42b4357eed0a9fa39cf449a423cd7ae144987a';
+    r'de9d7ac4922b1ea0deb4e733f721326b2c26a971';
 
 /// See also [myFlutterApiOnLongPressedMap].
 @ProviderFor(myFlutterApiOnLongPressedMap)
-final myFlutterApiOnLongPressedMapProvider =
-    AutoDisposeStreamProvider<({double latitude, double longitude})>.internal(
+final myFlutterApiOnLongPressedMapProvider = AutoDisposeStreamProvider<
+    ({MyMapViewType viewType, double latitude, double longitude})>.internal(
   myFlutterApiOnLongPressedMap,
   name: r'myFlutterApiOnLongPressedMapProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -114,15 +132,15 @@ final myFlutterApiOnLongPressedMapProvider =
   allTransitiveDependencies: null,
 );
 
-typedef MyFlutterApiOnLongPressedMapRef
-    = AutoDisposeStreamProviderRef<({double latitude, double longitude})>;
+typedef MyFlutterApiOnLongPressedMapRef = AutoDisposeStreamProviderRef<
+    ({MyMapViewType viewType, double latitude, double longitude})>;
 String _$myFlutterApiOnTapCircleHash() =>
-    r'022f1e649361f068afac19105f681747b1eb6e27';
+    r'4ab48e4cef59a2ce3175f522e893f117541daac3';
 
 /// See also [myFlutterApiOnTapCircle].
 @ProviderFor(myFlutterApiOnTapCircle)
-final myFlutterApiOnTapCircleProvider =
-    AutoDisposeStreamProvider<String>.internal(
+final myFlutterApiOnTapCircleProvider = AutoDisposeStreamProvider<
+    ({MyMapViewType viewType, String identifier})>.internal(
   myFlutterApiOnTapCircle,
   name: r'myFlutterApiOnTapCircleProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -132,7 +150,26 @@ final myFlutterApiOnTapCircleProvider =
   allTransitiveDependencies: null,
 );
 
-typedef MyFlutterApiOnTapCircleRef = AutoDisposeStreamProviderRef<String>;
+typedef MyFlutterApiOnTapCircleRef = AutoDisposeStreamProviderRef<
+    ({MyMapViewType viewType, String identifier})>;
+String _$myFlutterApiMapViewDidFinishLoadingMapHash() =>
+    r'a8586c9d13920075874fc6105a124cf166ac074a';
+
+/// See also [myFlutterApiMapViewDidFinishLoadingMap].
+@ProviderFor(myFlutterApiMapViewDidFinishLoadingMap)
+final myFlutterApiMapViewDidFinishLoadingMapProvider =
+    AutoDisposeStreamProvider<MyMapViewType>.internal(
+  myFlutterApiMapViewDidFinishLoadingMap,
+  name: r'myFlutterApiMapViewDidFinishLoadingMapProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$myFlutterApiMapViewDidFinishLoadingMapHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef MyFlutterApiMapViewDidFinishLoadingMapRef
+    = AutoDisposeStreamProviderRef<MyMapViewType>;
 String _$myMapHostApiHash() => r'941dafd592e47b2c741783678d78c40e2f32462a';
 
 /// See also [myMapHostApi].

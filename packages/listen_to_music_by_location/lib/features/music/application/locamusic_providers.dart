@@ -11,7 +11,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'locamusic_providers.g.dart';
 
 // 一度に作成できるLocamusicの最大数
-const int kMaxCreateLocamusicCount = 5;
+const int kMaxCreateLocamusicCount = 500;
 
 @riverpod
 CollectionReference<Locamusic> locamusicCollectionReference(

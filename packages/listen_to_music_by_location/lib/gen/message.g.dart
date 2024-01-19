@@ -40,6 +40,12 @@ enum AuthorizationStatus {
   authorizedWhenInUse,
 }
 
+/// どのMapViewから呼ばれたかを判別するために利用する
+enum MyMapViewType {
+  interactive,
+  nonInteractive,
+}
+
 class CircleAnnotation {
   CircleAnnotation({
     required this.identifier,
@@ -821,12 +827,6 @@ class _MyFlutterApiCodec extends StandardMessageCodec {
 abstract class MyFlutterApi {
   static const MessageCodec<Object?> pigeonChannelCodec = _MyFlutterApiCodec();
 
-  /// on tap MKCircle
-  void onTapCircle(String identifier);
-
-  /// on long pressed MKMapView
-  void onLongPressedMap(double latitude, double longitude);
-
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
   void didDetermineState(Region region, RegionState state);
 
@@ -841,59 +841,6 @@ abstract class MyFlutterApi {
   void didUpdateLocations(double latitude, double longitude);
 
   static void setup(MyFlutterApi? api, {BinaryMessenger? binaryMessenger}) {
-    {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.onTapCircle', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
-      if (api == null) {
-        __pigeon_channel.setMessageHandler(null);
-      } else {
-        __pigeon_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.onTapCircle was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final String? arg_identifier = (args[0] as String?);
-          assert(arg_identifier != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.onTapCircle was null, expected non-null String.');
-          try {
-            api.onTapCircle(arg_identifier!);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.onLongPressedMap', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
-      if (api == null) {
-        __pigeon_channel.setMessageHandler(null);
-      } else {
-        __pigeon_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.onLongPressedMap was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final double? arg_latitude = (args[0] as double?);
-          assert(arg_latitude != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.onLongPressedMap was null, expected non-null double.');
-          final double? arg_longitude = (args[1] as double?);
-          assert(arg_longitude != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.onLongPressedMap was null, expected non-null double.');
-          try {
-            api.onLongPressedMap(arg_latitude!, arg_longitude!);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
-      }
-    }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState', pigeonChannelCodec,
@@ -992,6 +939,106 @@ abstract class MyFlutterApi {
               'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didUpdateLocations was null, expected non-null double.');
           try {
             api.didUpdateLocations(arg_latitude!, arg_longitude!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+  }
+}
+
+abstract class MyFlutterApiMapViewDelegate {
+  static const MessageCodec<Object?> pigeonChannelCodec = StandardMessageCodec();
+
+  /// on tap MKCircle
+  void onTapCircle(MyMapViewType viewType, String identifier);
+
+  /// on long pressed MKMapView
+  void onLongPressedMap(MyMapViewType viewType, double latitude, double longitude);
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapviewdelegate/1452291-mapviewdidfinishloadingmap
+  void mapViewDidFinishLoadingMap(MyMapViewType viewType);
+
+  static void setup(MyFlutterApiMapViewDelegate? api, {BinaryMessenger? binaryMessenger}) {
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onTapCircle', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onTapCircle was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final MyMapViewType? arg_viewType = args[0] == null ? null : MyMapViewType.values[args[0]! as int];
+          assert(arg_viewType != null,
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onTapCircle was null, expected non-null MyMapViewType.');
+          final String? arg_identifier = (args[1] as String?);
+          assert(arg_identifier != null,
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onTapCircle was null, expected non-null String.');
+          try {
+            api.onTapCircle(arg_viewType!, arg_identifier!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onLongPressedMap', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onLongPressedMap was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final MyMapViewType? arg_viewType = args[0] == null ? null : MyMapViewType.values[args[0]! as int];
+          assert(arg_viewType != null,
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onLongPressedMap was null, expected non-null MyMapViewType.');
+          final double? arg_latitude = (args[1] as double?);
+          assert(arg_latitude != null,
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onLongPressedMap was null, expected non-null double.');
+          final double? arg_longitude = (args[2] as double?);
+          assert(arg_longitude != null,
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onLongPressedMap was null, expected non-null double.');
+          try {
+            api.onLongPressedMap(arg_viewType!, arg_latitude!, arg_longitude!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          }          catch (e) {
+            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.mapViewDidFinishLoadingMap', pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        __pigeon_channel.setMessageHandler(null);
+      } else {
+        __pigeon_channel.setMessageHandler((Object? message) async {
+          assert(message != null,
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.mapViewDidFinishLoadingMap was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final MyMapViewType? arg_viewType = args[0] == null ? null : MyMapViewType.values[args[0]! as int];
+          assert(arg_viewType != null,
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.mapViewDidFinishLoadingMap was null, expected non-null MyMapViewType.');
+          try {
+            api.mapViewDidFinishLoadingMap(arg_viewType!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

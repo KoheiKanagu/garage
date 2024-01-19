@@ -57,6 +57,12 @@ enum AuthorizationStatus: Int {
   case authorizedWhenInUse = 4
 }
 
+/// どのMapViewから呼ばれたかを判別するために利用する
+enum MyMapViewType: Int {
+  case interactive = 0
+  case nonInteractive = 1
+}
+
 /// Generated class from Pigeon that represents data sent in messages.
 struct CircleAnnotation {
   var identifier: String
@@ -743,10 +749,6 @@ class MyFlutterApiCodec: FlutterStandardMessageCodec {
 
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol MyFlutterApiProtocol {
-  /// on tap MKCircle
-  func onTapCircle(identifier identifierArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void)
-  /// on long pressed MKMapView
-  func onLongPressedMap(latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void)
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
   func didDetermineState(region regionArg: Region, state stateArg: RegionState, completion: @escaping (Result<Void, FlutterError>) -> Void)
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/3563956-locationmanagerdidchangeauthoriz
@@ -764,44 +766,6 @@ class MyFlutterApi: MyFlutterApiProtocol {
   }
   var codec: FlutterStandardMessageCodec {
     return MyFlutterApiCodec.shared
-  }
-  /// on tap MKCircle
-  func onTapCircle(identifier identifierArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.onTapCircle"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([identifierArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName:channelName)))
-        return
-      }
-      if (listResponse.count > 1) {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterError(code: code, message: message, details: details)));
-      } else {
-        completion(.success(Void()))
-      }
-    }
-  }
-  /// on long pressed MKMapView
-  func onLongPressedMap(latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.onLongPressedMap"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([latitudeArg, longitudeArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName:channelName)))
-        return
-      }
-      if (listResponse.count > 1) {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterError(code: code, message: message, details: details)));
-      } else {
-        completion(.success(Void()))
-      }
-    }
   }
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
   func didDetermineState(region regionArg: Region, state stateArg: RegionState, completion: @escaping (Result<Void, FlutterError>) -> Void) {
@@ -866,6 +830,78 @@ class MyFlutterApi: MyFlutterApiProtocol {
     let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didUpdateLocations"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([latitudeArg, longitudeArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName:channelName)))
+        return
+      }
+      if (listResponse.count > 1) {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+}
+/// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
+protocol MyFlutterApiMapViewDelegateProtocol {
+  /// on tap MKCircle
+  func onTapCircle(viewType viewTypeArg: MyMapViewType, identifier identifierArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void)
+  /// on long pressed MKMapView
+  func onLongPressedMap(viewType viewTypeArg: MyMapViewType, latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void)
+  /// https://developer.apple.com/documentation/mapkit/mkmapviewdelegate/1452291-mapviewdidfinishloadingmap
+  func mapViewDidFinishLoadingMap(viewType viewTypeArg: MyMapViewType, completion: @escaping (Result<Void, FlutterError>) -> Void)
+}
+class MyFlutterApiMapViewDelegate: MyFlutterApiMapViewDelegateProtocol {
+  private let binaryMessenger: FlutterBinaryMessenger
+  init(binaryMessenger: FlutterBinaryMessenger){
+    self.binaryMessenger = binaryMessenger
+  }
+  /// on tap MKCircle
+  func onTapCircle(viewType viewTypeArg: MyMapViewType, identifier identifierArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onTapCircle"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
+    channel.sendMessage([viewTypeArg.rawValue, identifierArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName:channelName)))
+        return
+      }
+      if (listResponse.count > 1) {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  /// on long pressed MKMapView
+  func onLongPressedMap(viewType viewTypeArg: MyMapViewType, latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onLongPressedMap"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
+    channel.sendMessage([viewTypeArg.rawValue, latitudeArg, longitudeArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName:channelName)))
+        return
+      }
+      if (listResponse.count > 1) {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
+      } else {
+        completion(.success(Void()))
+      }
+    }
+  }
+  /// https://developer.apple.com/documentation/mapkit/mkmapviewdelegate/1452291-mapviewdidfinishloadingmap
+  func mapViewDidFinishLoadingMap(viewType viewTypeArg: MyMapViewType, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.mapViewDidFinishLoadingMap"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
+    channel.sendMessage([viewTypeArg.rawValue] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName:channelName)))
         return

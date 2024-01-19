@@ -2,7 +2,6 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/exceptions/locamusic_creation_limit_exception.dart';
 import 'package:listen_to_music_by_location/features/map/application/map_providers.dart';
@@ -10,6 +9,7 @@ import 'package:listen_to_music_by_location/features/music/application/locamusic
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 import 'package:listen_to_music_by_location/features/native/presentation/my_map_view.dart';
+import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
 class MapPage extends HookConsumerWidget {
@@ -19,18 +19,17 @@ class MapPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    useEffect(
-      () {
-        ref.read(mapAdjustCameraProvider);
-        return null;
-      },
-      [context],
-    );
-
     ref
       ..listen(
-        mapDrawAnnotationsProvider,
-        (_, __) {},
+        myFlutterApiMapViewDidFinishLoadingMapProvider.future,
+        (_, next) async {
+          final type = await next;
+          if (type == MyMapViewType.interactive) {
+            ref
+              ..read(mapAdjustCameraProvider)
+              ..read(mapDrawAnnotationsProvider);
+          }
+        },
       )
       ..listen(
         myFlutterApiOnLongPressedMapProvider.future,
@@ -69,6 +68,8 @@ class MapPage extends HookConsumerWidget {
         },
       );
 
-    return const MyMapView();
+    return const MyMapView(
+      myMapViewType: MyMapViewType.interactive,
+    );
   }
 }

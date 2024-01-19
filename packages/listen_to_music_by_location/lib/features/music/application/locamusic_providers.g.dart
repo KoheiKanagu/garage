@@ -503,7 +503,7 @@ final locamusicsWithSongDetailsProvider = AutoDisposeFutureProvider<
 
 typedef LocamusicsWithSongDetailsRef = AutoDisposeFutureProviderRef<
     List<({String documentId, Locamusic locamusic, SongDetails? songDetails})>>;
-String _$locamusicAddHash() => r'508453275584199fd29fe9fc9fd05f8d63a6c5a9';
+String _$locamusicAddHash() => r'56f1b0da375d09cc73cdaf3494f3264f898c7977';
 
 /// See also [locamusicAdd].
 @ProviderFor(locamusicAdd)

@@ -15,31 +15,21 @@ import app_links
     )
 
     let controller = window?.rootViewController as! FlutterViewController
-    let myFlutterApi = MyFlutterApi(
-      binaryMessenger: controller.binaryMessenger
-    )
 
-    registrar(
-      forPlugin: "MyMapView"
-    )?.register(
-      MyMapFlutterPlatformViewFactory(
-        controller: controller,
-        myFlutterApi: myFlutterApi,
-        isInteractive: true
-      ),
-      withId: "my_map_platform_view"
-    )
-
-    registrar(
-      forPlugin: "MyNonInteractiveMapView"
-    )?.register(
-      MyMapFlutterPlatformViewFactory(
-        controller: controller,
-        myFlutterApi: myFlutterApi,
-        isInteractive: false
-      ),
-      withId: "my_non_interactive_map_platform_view"
-    )
+    for e in [
+      MyMapViewType.interactive,
+      MyMapViewType.nonInteractive,
+    ] {
+      registrar(
+        forPlugin: "\(e)"
+      )?.register(
+        MyMapFlutterPlatformViewFactory(
+          myMapViewType: e,
+          flutterBinaryMessenger: controller.binaryMessenger
+        ),
+        withId: "\(e)"
+      )
+    }
 
     MyMusicHostApiSetup.setUp(
       binaryMessenger: controller.binaryMessenger,
@@ -48,7 +38,9 @@ import app_links
     MyLocationHostApiSetup.setUp(
       binaryMessenger: controller.binaryMessenger,
       api: MyLocationHostApiImpl(
-        myFlutterApi: myFlutterApi
+        myFlutterApi: MyFlutterApi(
+          binaryMessenger: controller.binaryMessenger
+        )
       )
     )
 
@@ -65,20 +57,16 @@ import app_links
 
 class MyMapFlutterPlatformViewFactory: NSObject, FlutterPlatformViewFactory {
 
-  let controller: FlutterViewController
+  let myMapViewType: MyMapViewType
 
-  let myFlutterApi: MyFlutterApi
-
-  let isInteractive: Bool
+  let flutterBinaryMessenger: FlutterBinaryMessenger
 
   init(
-    controller: FlutterViewController,
-    myFlutterApi: MyFlutterApi,
-    isInteractive: Bool
+    myMapViewType: MyMapViewType,
+    flutterBinaryMessenger: FlutterBinaryMessenger
   ) {
-    self.controller = controller
-    self.myFlutterApi = myFlutterApi
-    self.isInteractive = isInteractive
+    self.myMapViewType = myMapViewType
+    self.flutterBinaryMessenger = flutterBinaryMessenger
   }
 
   func create(
@@ -87,31 +75,31 @@ class MyMapFlutterPlatformViewFactory: NSObject, FlutterPlatformViewFactory {
     arguments args: Any?
   ) -> FlutterPlatformView {
 
-    var myMapView: MyMapView
-
-    if isInteractive {
-      myMapView = MyMapView(
-        args: args,
-        flutterApi: myFlutterApi
+    let myMapView = MyMapView(
+      args: args,
+      myMapViewType: myMapViewType,
+      myFlutterApiMapViewDelegate: MyFlutterApiMapViewDelegate(
+        binaryMessenger: flutterBinaryMessenger
       )
+    )
+
+    switch myMapViewType {
+    case .interactive:
       MyMapHostApiSetup.setUp(
-        binaryMessenger: controller.binaryMessenger,
+        binaryMessenger: flutterBinaryMessenger,
         api: MyMapHostApiImpl(
           myMapView: myMapView
         )
       )
-    } else {
-      myMapView = MyMapView(
-        args: args,
-        flutterApi: nil
-      )
+    case .nonInteractive:
       MyNonInteractiveMapHostApiSetup.setUp(
-        binaryMessenger: controller.binaryMessenger,
+        binaryMessenger: flutterBinaryMessenger,
         api: MyNonInteractiveMapHostApiImpl(
           myMapView: myMapView
         )
       )
     }
+
     return MyMapFlutterPlatformView(
       myMapView: myMapView
     )

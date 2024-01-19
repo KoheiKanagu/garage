@@ -10,14 +10,10 @@ MyFlutterApiController myFlutterApiController(
   MyFlutterApiControllerRef ref,
 ) {
   final controller = MyFlutterApiController(
-    myMapHostApi: ref.watch(myMapHostApiProvider),
-    myNonInteractiveMapHostApi: ref.watch(myNonInteractiveMapHostApiProvider),
     didChangeAuthorizationStream: StreamController.broadcast(),
     didDetermineStateStream: StreamController.broadcast(),
     didStartMonitoringStream: StreamController.broadcast(),
     didUpdateLocationsStream: StreamController.broadcast(),
-    onLongPressedMapStream: StreamController.broadcast(),
-    onTapCircleStream: StreamController.broadcast(),
   );
 
   MyFlutterApi.setup(controller);
@@ -64,37 +60,13 @@ Stream<
 ) =>
     ref.watch(myFlutterApiControllerProvider).didUpdateLocationsStream.stream;
 
-@riverpod
-Stream<
-    ({
-      double latitude,
-      double longitude,
-    })> myFlutterApiOnLongPressedMap(
-  MyFlutterApiOnLongPressedMapRef ref,
-) =>
-    ref.watch(myFlutterApiControllerProvider).onLongPressedMapStream.stream;
-
-@riverpod
-Stream<String> myFlutterApiOnTapCircle(
-  MyFlutterApiOnTapCircleRef ref,
-) =>
-    ref.watch(myFlutterApiControllerProvider).onTapCircleStream.stream;
-
 class MyFlutterApiController implements MyFlutterApi {
   const MyFlutterApiController({
-    required this.myMapHostApi,
-    required this.myNonInteractiveMapHostApi,
     required this.didChangeAuthorizationStream,
     required this.didDetermineStateStream,
     required this.didStartMonitoringStream,
     required this.didUpdateLocationsStream,
-    required this.onLongPressedMapStream,
-    required this.onTapCircleStream,
   });
-
-  final MyMapHostApi myMapHostApi;
-
-  final MyNonInteractiveMapHostApi myNonInteractiveMapHostApi;
 
   final StreamController<AuthorizationStatus> didChangeAuthorizationStream;
 
@@ -115,29 +87,6 @@ class MyFlutterApiController implements MyFlutterApi {
         double latitude,
         double longitude,
       })> didUpdateLocationsStream;
-
-  final StreamController<
-      ({
-        double latitude,
-        double longitude,
-      })> onLongPressedMapStream;
-
-  final StreamController<String> onTapCircleStream;
-
-  @override
-  void onLongPressedMap(double latitude, double longitude) {
-    onLongPressedMapStream.add(
-      (
-        latitude: latitude,
-        longitude: longitude,
-      ),
-    );
-  }
-
-  @override
-  void onTapCircle(String identifier) {
-    onTapCircleStream.add(identifier);
-  }
 
   @override
   void didChangeAuthorization(AuthorizationStatus status) {
@@ -172,6 +121,114 @@ class MyFlutterApiController implements MyFlutterApi {
         longitude: longitude,
       ),
     );
+  }
+}
+
+@riverpod
+MyFlutterApiMapViewDelegateController myFlutterApiMapViewDelegateController(
+  MyFlutterApiMapViewDelegateControllerRef ref,
+) {
+  final controller = MyFlutterApiMapViewDelegateController(
+    onLongPressedMapStream: StreamController.broadcast(),
+    onTapCircleStream: StreamController.broadcast(),
+    mapViewDidFinishLoadingMapStream: StreamController.broadcast(),
+  );
+
+  MyFlutterApiMapViewDelegate.setup(controller);
+
+  return controller;
+}
+
+@riverpod
+Stream<
+    ({
+      MyMapViewType viewType,
+      double latitude,
+      double longitude,
+    })> myFlutterApiOnLongPressedMap(
+  MyFlutterApiOnLongPressedMapRef ref,
+) =>
+    ref
+        .watch(myFlutterApiMapViewDelegateControllerProvider)
+        .onLongPressedMapStream
+        .stream;
+
+@riverpod
+Stream<
+    ({
+      MyMapViewType viewType,
+      String identifier,
+    })> myFlutterApiOnTapCircle(
+  MyFlutterApiOnTapCircleRef ref,
+) =>
+    ref
+        .watch(myFlutterApiMapViewDelegateControllerProvider)
+        .onTapCircleStream
+        .stream;
+
+@riverpod
+Stream<MyMapViewType> myFlutterApiMapViewDidFinishLoadingMap(
+  MyFlutterApiMapViewDidFinishLoadingMapRef ref,
+) =>
+    ref
+        .watch(myFlutterApiMapViewDelegateControllerProvider)
+        .mapViewDidFinishLoadingMapStream
+        .stream;
+
+class MyFlutterApiMapViewDelegateController
+    implements MyFlutterApiMapViewDelegate {
+  MyFlutterApiMapViewDelegateController({
+    required this.onLongPressedMapStream,
+    required this.onTapCircleStream,
+    required this.mapViewDidFinishLoadingMapStream,
+  });
+
+  final StreamController<
+      ({
+        MyMapViewType viewType,
+        double latitude,
+        double longitude,
+      })> onLongPressedMapStream;
+
+  final StreamController<
+      ({
+        MyMapViewType viewType,
+        String identifier,
+      })> onTapCircleStream;
+
+  final StreamController<MyMapViewType> mapViewDidFinishLoadingMapStream;
+
+  @override
+  void onLongPressedMap(
+    MyMapViewType viewType,
+    double latitude,
+    double longitude,
+  ) {
+    onLongPressedMapStream.add(
+      (
+        viewType: viewType,
+        latitude: latitude,
+        longitude: longitude,
+      ),
+    );
+  }
+
+  @override
+  void onTapCircle(
+    MyMapViewType viewType,
+    String identifier,
+  ) {
+    onTapCircleStream.add(
+      (
+        viewType: viewType,
+        identifier: identifier,
+      ),
+    );
+  }
+
+  @override
+  void mapViewDidFinishLoadingMap(MyMapViewType viewType) {
+    mapViewDidFinishLoadingMapStream.add(viewType);
   }
 }
 

@@ -24,6 +24,41 @@ class LocamusicDetailPage extends HookConsumerWidget {
       ),
     );
 
+    /// Mapの読み込みが完了したらAnnotationの追加とカメラを調整する
+    ref.listen(
+      myFlutterApiMapViewDidFinishLoadingMapProvider.future,
+      (_, next) async {
+        final type = await next;
+        if (type == MyMapViewType.nonInteractive) {
+          final result = await ref.read(
+            locamusicWithSongDetailsProvider(
+              documentId: documentId,
+            ).future,
+          );
+
+          final locamusic = result.locamusic;
+          final songDetails = result.songDetails;
+
+          await ref.read(myNonInteractiveMapHostApiProvider).setMapRegion(
+                latitude: locamusic.geoPoint.latitude,
+                longitude: locamusic.geoPoint.longitude,
+                meters: locamusic.distance * 2.5,
+              );
+          await ref.read(myNonInteractiveMapHostApiProvider).addAnnotations(
+            [
+              CircleAnnotation(
+                identifier: documentId,
+                latitude: locamusic.geoPoint.latitude,
+                longitude: locamusic.geoPoint.longitude,
+                title: songDetails?.title ?? i18n.unset,
+                circleDistance: locamusic.distance,
+              ),
+            ],
+          );
+        }
+      },
+    );
+
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.systemGroupedBackground,
       navigationBar: CupertinoNavigationBar(
@@ -45,43 +80,14 @@ class LocamusicDetailPage extends HookConsumerWidget {
                         songDetails: data.songDetails,
                       ),
                       const Divider(),
-                      AbsorbPointer(
+                      const AbsorbPointer(
                         child: SizedBox(
                           height: 200,
                           child: MyMapView(
                             layoutMarginsBottom: 0,
-                            latitude: data.locamusic.geoPoint.latitude,
-                            longitude: data.locamusic.geoPoint.longitude,
-                            meters: data.locamusic.distance + 50,
+                            myMapViewType: MyMapViewType.nonInteractive,
                           ),
                         ),
-                      ),
-                      AbsorbPointer(
-                        child: SizedBox(
-                          height: 200,
-                          child: MyMapView(
-                            layoutMarginsBottom: 0,
-                            latitude: data.locamusic.geoPoint.latitude,
-                            longitude: data.locamusic.geoPoint.longitude,
-                            meters: data.locamusic.distance + 50,
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          ref.read(myMapHostApiProvider).addAnnotations(
-                            [
-                              CircleAnnotation(
-                                identifier: documentId,
-                                latitude: data.locamusic.geoPoint.latitude,
-                                longitude: data.locamusic.geoPoint.longitude,
-                                title: data.songDetails?.title ?? i18n.unset,
-                                circleDistance: data.locamusic.distance,
-                              ),
-                            ],
-                          );
-                        },
-                        child: const Text('hoge'),
                       ),
                     ],
                   ),

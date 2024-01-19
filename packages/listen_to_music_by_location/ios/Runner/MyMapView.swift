@@ -3,11 +3,14 @@ import MapKit
 
 class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
-  var myFlutterApi: MyFlutterApi?
+  var myMapViewType: MyMapViewType?
+
+  var myFlutterApiMapViewDelegate: MyFlutterApiMapViewDelegate?
 
   convenience init(
     args: Any?,
-    flutterApi: MyFlutterApi?
+    myMapViewType: MyMapViewType?,
+    myFlutterApiMapViewDelegate: MyFlutterApiMapViewDelegate?
   ) {
     self.init(
       frame: CGRect.zero
@@ -16,14 +19,15 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
     delegate = self
     showsUserLocation = true
 
+    self.myMapViewType = myMapViewType
+    self.myFlutterApiMapViewDelegate = myFlutterApiMapViewDelegate
+
     // Map上のAppleロゴの場所を移動
     if let arguments = args as? [String: Any?],
       let bottom = arguments["layoutMarginsBottom"] as? CGFloat
     {
       layoutMargins.bottom += bottom
     }
-
-    myFlutterApi = flutterApi
 
     if let arguments = args as? [String: Any?],
       let latitude = arguments["latitude"] as? Double,
@@ -57,6 +61,13 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
     )
   }
 
+  func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+    myFlutterApiMapViewDelegate?.mapViewDidFinishLoadingMap(
+      viewType: myMapViewType!,
+      completion: { _ in }
+    )
+  }
+
   @objc func onTap(
     _ sender: UITapGestureRecognizer
   ) {
@@ -78,7 +89,8 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       )
 
       if renderer.path.contains(point) {
-        myFlutterApi?.onTapCircle(
+        myFlutterApiMapViewDelegate?.onTapCircle(
+          viewType: myMapViewType!,
           identifier: circle.identifier,
           completion: { _ in }
         )
@@ -100,7 +112,8 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       toCoordinateFrom: self
     )
 
-    myFlutterApi?.onLongPressedMap(
+    myFlutterApiMapViewDelegate?.onLongPressedMap(
+      viewType: myMapViewType!,
       latitude: coordinate.latitude,
       longitude: coordinate.longitude,
       completion: { _ in }

@@ -159,17 +159,6 @@ class Region {
 
 @FlutterApi()
 abstract class MyFlutterApi {
-  /// on tap MKCircle
-  void onTapCircle(
-    String identifier,
-  );
-
-  /// on long pressed MKMapView
-  void onLongPressedMap(
-    double latitude,
-    double longitude,
-  );
-
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
   void didDetermineState(
     Region region,
@@ -207,5 +196,33 @@ enum AuthorizationStatus {
   denied,
   authorizedAlways,
   authorizedWhenInUse,
+  ;
+}
+
+@FlutterApi()
+abstract class MyFlutterApiMapViewDelegate {
+  /// on tap MKCircle
+  void onTapCircle(
+    MyMapViewType viewType,
+    String identifier,
+  );
+
+  /// on long pressed MKMapView
+  void onLongPressedMap(
+    MyMapViewType viewType,
+    double latitude,
+    double longitude,
+  );
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapviewdelegate/1452291-mapviewdidfinishloadingmap
+  void mapViewDidFinishLoadingMap(
+    MyMapViewType viewType,
+  );
+}
+
+/// どのMapViewから呼ばれたかを判別するために利用する
+enum MyMapViewType {
+  interactive,
+  nonInteractive,
   ;
 }
