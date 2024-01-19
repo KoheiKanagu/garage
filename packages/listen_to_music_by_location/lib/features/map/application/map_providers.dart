@@ -77,11 +77,20 @@ Future<void> mapAdjustCamera(
     // 初期位置を取得してカメラズーム
     await ref.read(myLocationHostApiProvider).requestLocation();
     final value = await ref.read(myFlutterApiDidUpdateLocationsProvider.future);
-    await ref.read(myMapHostApiProvider).setMapRegion(
-          latitude: value.latitude,
-          longitude: value.longitude,
-          meters: DistanceRange.large.meters,
-        );
+
+    await switch (myMapViewType) {
+      MyMapViewType.interactive => ref.watch(myMapHostApiProvider).setMapRegion(
+            latitude: value.latitude,
+            longitude: value.longitude,
+            meters: DistanceRange.large.meters,
+          ),
+      MyMapViewType.nonInteractive =>
+        ref.watch(myNonInteractiveMapHostApiProvider).setMapRegion(
+              latitude: value.latitude,
+              longitude: value.longitude,
+              meters: DistanceRange.large.meters,
+            ),
+    };
     return;
   }
 
@@ -92,5 +101,10 @@ Future<void> mapAdjustCamera(
       myMapViewType: myMapViewType,
     ).future,
   );
-  await ref.watch(myMapHostApiProvider).showAnnotations();
+  await switch (myMapViewType) {
+    MyMapViewType.interactive =>
+      ref.watch(myMapHostApiProvider).showAnnotations(),
+    MyMapViewType.nonInteractive =>
+      ref.watch(myNonInteractiveMapHostApiProvider).showAnnotations(),
+  };
 }
