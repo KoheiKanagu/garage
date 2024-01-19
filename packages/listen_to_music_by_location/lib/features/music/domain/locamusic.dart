@@ -29,3 +29,8 @@ class Locamusic with _$Locamusic {
             data.toJson(),
           );
 }
+
+typedef LocamusicWithDocumentId = ({
+  String documentId,
+  Locamusic locamusic,
+});

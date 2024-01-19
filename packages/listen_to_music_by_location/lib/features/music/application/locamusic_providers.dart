@@ -11,6 +11,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'locamusic_providers.g.dart';
 
 // 一度に作成できるLocamusicの最大数
+// TODO
 const int kMaxCreateLocamusicCount = 500;
 
 @riverpod
@@ -42,17 +43,26 @@ Future<Query<Locamusic>> locamusicQuery(
 }
 
 @riverpod
-Stream<QuerySnapshot<Locamusic>> locamusicQuerySnapshot(
-  LocamusicQuerySnapshotRef ref,
+Stream<List<LocamusicWithDocumentId>> locamusics(
+  LocamusicsRef ref,
 ) async* {
   final query = await ref.watch(locamusicQueryProvider.future);
   logger.d('locamusicQuerySnapshot: ${query.parameters}');
-  yield* query.snapshots();
+  yield* query.snapshots().map(
+        (event) => event.docs
+            .map(
+              (e) => (
+                documentId: e.id,
+                locamusic: e.data(),
+              ),
+            )
+            .toList(),
+      );
 }
 
 @riverpod
-Stream<Locamusic> locamusicSnapshot(
-  LocamusicSnapshotRef ref, {
+Stream<Locamusic> locamusic(
+  LocamusicRef ref, {
   required String documentId,
 }) =>
     ref
@@ -63,84 +73,11 @@ Stream<Locamusic> locamusicSnapshot(
         .map((event) => event.data()!);
 
 @riverpod
-Stream<
-    ({
-      Locamusic locamusic,
-      SongDetails? songDetails,
-    })> locamusicWithSongDetails(
-  LocamusicWithSongDetailsRef ref, {
-  required String documentId,
-}) async* {
-  final locamusic = await ref.watch(
-    locamusicSnapshotProvider(documentId: documentId).future,
-  );
-  final musicId = locamusic.musicId;
-
-  if (musicId == null) {
-    yield (
-      locamusic: locamusic,
-      songDetails: null,
-    );
-    return;
-  }
-
-  final songDetails = await ref.watch(
-    locamusicSongDetailsProvider(musicId: musicId).future,
-  );
-
-  yield (
-    locamusic: locamusic,
-    songDetails: songDetails,
-  );
-}
-
-@riverpod
 Future<SongDetails> locamusicSongDetails(
   LocamusicSongDetailsRef ref, {
   required String musicId,
 }) =>
     ref.watch(myMusicHostApiProvider).songDetails(id: musicId);
-
-@riverpod
-Future<
-    List<
-        ({
-          String documentId,
-          Locamusic locamusic,
-          SongDetails? songDetails,
-        })>> locamusicsWithSongDetails(
-  LocamusicsWithSongDetailsRef ref,
-) async {
-  final snapshot = await ref.watch(locamusicQuerySnapshotProvider.future);
-
-  return Future.wait(
-    // 音楽の情報取得が全て完了するまで待つことになる
-    snapshot.docs.map(
-      (e) async {
-        final documentId = e.id;
-
-        final locamusic = e.data();
-        final musicId = locamusic.musicId;
-
-        SongDetails? songDetails;
-
-        // 音楽が設定されている場合は詳細を取得
-        if (musicId != null) {
-          songDetails = await ref.read(
-            locamusicSongDetailsProvider(musicId: musicId).future,
-          );
-        }
-
-        // 音楽未設定の場合はsongDetailsはnullで、Futureもすぐに返る
-        return (
-          documentId: documentId,
-          locamusic: locamusic,
-          songDetails: songDetails,
-        );
-      },
-    ),
-  );
-}
 
 @riverpod
 Future<void> locamusicAdd(
@@ -166,4 +103,29 @@ Future<void> locamusicAdd(
   } else {
     throw LocamusicCreationLimitException();
   }
+}
+
+@riverpod
+Future<void> locamusicUpdate(
+  LocamusicUpdateRef ref, {
+  required String documentId,
+  required Locamusic locamusic,
+}) async {
+  await ref.watch(locamusicCollectionReferenceProvider).doc(documentId).set(
+        locamusic,
+        SetOptions(merge: true),
+      );
+}
+
+@riverpod
+Future<void> locamusicDelete(
+  LocamusicDeleteRef ref, {
+  required String documentId,
+}) {
+  return ref.watch(locamusicCollectionReferenceProvider).doc(documentId).update(
+    {
+      'updatedAt': FieldValue.serverTimestamp(),
+      'deleted': true,
+    },
+  );
 }

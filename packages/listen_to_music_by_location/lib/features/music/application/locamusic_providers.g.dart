@@ -42,25 +42,23 @@ final locamusicQueryProvider =
 );
 
 typedef LocamusicQueryRef = AutoDisposeFutureProviderRef<Query<Locamusic>>;
-String _$locamusicQuerySnapshotHash() =>
-    r'da4695d8b05775bada0b1418604c5515afdf767f';
+String _$locamusicsHash() => r'872dd10c59c18cb290692092f8e53e0e56d04d7e';
 
-/// See also [locamusicQuerySnapshot].
-@ProviderFor(locamusicQuerySnapshot)
-final locamusicQuerySnapshotProvider =
-    AutoDisposeStreamProvider<QuerySnapshot<Locamusic>>.internal(
-  locamusicQuerySnapshot,
-  name: r'locamusicQuerySnapshotProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$locamusicQuerySnapshotHash,
+/// See also [locamusics].
+@ProviderFor(locamusics)
+final locamusicsProvider =
+    AutoDisposeStreamProvider<List<LocamusicWithDocumentId>>.internal(
+  locamusics,
+  name: r'locamusicsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$locamusicsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef LocamusicQuerySnapshotRef
-    = AutoDisposeStreamProviderRef<QuerySnapshot<Locamusic>>;
-String _$locamusicSnapshotHash() => r'f3c97969f81e893a7944553b1c94472370f7208f';
+typedef LocamusicsRef
+    = AutoDisposeStreamProviderRef<List<LocamusicWithDocumentId>>;
+String _$locamusicHash() => r'892b147596e71949d40ecaeded654968e51583a0';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -83,27 +81,27 @@ class _SystemHash {
   }
 }
 
-/// See also [locamusicSnapshot].
-@ProviderFor(locamusicSnapshot)
-const locamusicSnapshotProvider = LocamusicSnapshotFamily();
+/// See also [locamusic].
+@ProviderFor(locamusic)
+const locamusicProvider = LocamusicFamily();
 
-/// See also [locamusicSnapshot].
-class LocamusicSnapshotFamily extends Family<AsyncValue<Locamusic>> {
-  /// See also [locamusicSnapshot].
-  const LocamusicSnapshotFamily();
+/// See also [locamusic].
+class LocamusicFamily extends Family<AsyncValue<Locamusic>> {
+  /// See also [locamusic].
+  const LocamusicFamily();
 
-  /// See also [locamusicSnapshot].
-  LocamusicSnapshotProvider call({
+  /// See also [locamusic].
+  LocamusicProvider call({
     required String documentId,
   }) {
-    return LocamusicSnapshotProvider(
+    return LocamusicProvider(
       documentId: documentId,
     );
   }
 
   @override
-  LocamusicSnapshotProvider getProviderOverride(
-    covariant LocamusicSnapshotProvider provider,
+  LocamusicProvider getProviderOverride(
+    covariant LocamusicProvider provider,
   ) {
     return call(
       documentId: provider.documentId,
@@ -122,32 +120,31 @@ class LocamusicSnapshotFamily extends Family<AsyncValue<Locamusic>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'locamusicSnapshotProvider';
+  String? get name => r'locamusicProvider';
 }
 
-/// See also [locamusicSnapshot].
-class LocamusicSnapshotProvider extends AutoDisposeStreamProvider<Locamusic> {
-  /// See also [locamusicSnapshot].
-  LocamusicSnapshotProvider({
+/// See also [locamusic].
+class LocamusicProvider extends AutoDisposeStreamProvider<Locamusic> {
+  /// See also [locamusic].
+  LocamusicProvider({
     required String documentId,
   }) : this._internal(
-          (ref) => locamusicSnapshot(
-            ref as LocamusicSnapshotRef,
+          (ref) => locamusic(
+            ref as LocamusicRef,
             documentId: documentId,
           ),
-          from: locamusicSnapshotProvider,
-          name: r'locamusicSnapshotProvider',
+          from: locamusicProvider,
+          name: r'locamusicProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$locamusicSnapshotHash,
-          dependencies: LocamusicSnapshotFamily._dependencies,
-          allTransitiveDependencies:
-              LocamusicSnapshotFamily._allTransitiveDependencies,
+                  : _$locamusicHash,
+          dependencies: LocamusicFamily._dependencies,
+          allTransitiveDependencies: LocamusicFamily._allTransitiveDependencies,
           documentId: documentId,
         );
 
-  LocamusicSnapshotProvider._internal(
+  LocamusicProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -161,12 +158,12 @@ class LocamusicSnapshotProvider extends AutoDisposeStreamProvider<Locamusic> {
 
   @override
   Override overrideWith(
-    Stream<Locamusic> Function(LocamusicSnapshotRef provider) create,
+    Stream<Locamusic> Function(LocamusicRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: LocamusicSnapshotProvider._internal(
-        (ref) => create(ref as LocamusicSnapshotRef),
+      override: LocamusicProvider._internal(
+        (ref) => create(ref as LocamusicRef),
         from: from,
         name: null,
         dependencies: null,
@@ -179,12 +176,12 @@ class LocamusicSnapshotProvider extends AutoDisposeStreamProvider<Locamusic> {
 
   @override
   AutoDisposeStreamProviderElement<Locamusic> createElement() {
-    return _LocamusicSnapshotProviderElement(this);
+    return _LocamusicProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is LocamusicSnapshotProvider && other.documentId == documentId;
+    return other is LocamusicProvider && other.documentId == documentId;
   }
 
   @override
@@ -196,157 +193,17 @@ class LocamusicSnapshotProvider extends AutoDisposeStreamProvider<Locamusic> {
   }
 }
 
-mixin LocamusicSnapshotRef on AutoDisposeStreamProviderRef<Locamusic> {
+mixin LocamusicRef on AutoDisposeStreamProviderRef<Locamusic> {
   /// The parameter `documentId` of this provider.
   String get documentId;
 }
 
-class _LocamusicSnapshotProviderElement
-    extends AutoDisposeStreamProviderElement<Locamusic>
-    with LocamusicSnapshotRef {
-  _LocamusicSnapshotProviderElement(super.provider);
+class _LocamusicProviderElement
+    extends AutoDisposeStreamProviderElement<Locamusic> with LocamusicRef {
+  _LocamusicProviderElement(super.provider);
 
   @override
-  String get documentId => (origin as LocamusicSnapshotProvider).documentId;
-}
-
-String _$locamusicWithSongDetailsHash() =>
-    r'a6223c6fd22f32ab26977cb01f7841d8b5296846';
-
-/// See also [locamusicWithSongDetails].
-@ProviderFor(locamusicWithSongDetails)
-const locamusicWithSongDetailsProvider = LocamusicWithSongDetailsFamily();
-
-/// See also [locamusicWithSongDetails].
-class LocamusicWithSongDetailsFamily extends Family<
-    AsyncValue<({Locamusic locamusic, SongDetails? songDetails})>> {
-  /// See also [locamusicWithSongDetails].
-  const LocamusicWithSongDetailsFamily();
-
-  /// See also [locamusicWithSongDetails].
-  LocamusicWithSongDetailsProvider call({
-    required String documentId,
-  }) {
-    return LocamusicWithSongDetailsProvider(
-      documentId: documentId,
-    );
-  }
-
-  @override
-  LocamusicWithSongDetailsProvider getProviderOverride(
-    covariant LocamusicWithSongDetailsProvider provider,
-  ) {
-    return call(
-      documentId: provider.documentId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'locamusicWithSongDetailsProvider';
-}
-
-/// See also [locamusicWithSongDetails].
-class LocamusicWithSongDetailsProvider extends AutoDisposeStreamProvider<
-    ({Locamusic locamusic, SongDetails? songDetails})> {
-  /// See also [locamusicWithSongDetails].
-  LocamusicWithSongDetailsProvider({
-    required String documentId,
-  }) : this._internal(
-          (ref) => locamusicWithSongDetails(
-            ref as LocamusicWithSongDetailsRef,
-            documentId: documentId,
-          ),
-          from: locamusicWithSongDetailsProvider,
-          name: r'locamusicWithSongDetailsProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$locamusicWithSongDetailsHash,
-          dependencies: LocamusicWithSongDetailsFamily._dependencies,
-          allTransitiveDependencies:
-              LocamusicWithSongDetailsFamily._allTransitiveDependencies,
-          documentId: documentId,
-        );
-
-  LocamusicWithSongDetailsProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.documentId,
-  }) : super.internal();
-
-  final String documentId;
-
-  @override
-  Override overrideWith(
-    Stream<({Locamusic locamusic, SongDetails? songDetails})> Function(
-            LocamusicWithSongDetailsRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: LocamusicWithSongDetailsProvider._internal(
-        (ref) => create(ref as LocamusicWithSongDetailsRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        documentId: documentId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeStreamProviderElement<
-      ({Locamusic locamusic, SongDetails? songDetails})> createElement() {
-    return _LocamusicWithSongDetailsProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is LocamusicWithSongDetailsProvider &&
-        other.documentId == documentId;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, documentId.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin LocamusicWithSongDetailsRef on AutoDisposeStreamProviderRef<
-    ({Locamusic locamusic, SongDetails? songDetails})> {
-  /// The parameter `documentId` of this provider.
-  String get documentId;
-}
-
-class _LocamusicWithSongDetailsProviderElement
-    extends AutoDisposeStreamProviderElement<
-        ({Locamusic locamusic, SongDetails? songDetails})>
-    with LocamusicWithSongDetailsRef {
-  _LocamusicWithSongDetailsProviderElement(super.provider);
-
-  @override
-  String get documentId =>
-      (origin as LocamusicWithSongDetailsProvider).documentId;
+  String get documentId => (origin as LocamusicProvider).documentId;
 }
 
 String _$locamusicSongDetailsHash() =>
@@ -480,29 +337,6 @@ class _LocamusicSongDetailsProviderElement
   String get musicId => (origin as LocamusicSongDetailsProvider).musicId;
 }
 
-String _$locamusicsWithSongDetailsHash() =>
-    r'a0dc4c20217e6105f79f846359e509788cb9077f';
-
-/// See also [locamusicsWithSongDetails].
-@ProviderFor(locamusicsWithSongDetails)
-final locamusicsWithSongDetailsProvider = AutoDisposeFutureProvider<
-    List<
-        ({
-          String documentId,
-          Locamusic locamusic,
-          SongDetails? songDetails
-        })>>.internal(
-  locamusicsWithSongDetails,
-  name: r'locamusicsWithSongDetailsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$locamusicsWithSongDetailsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef LocamusicsWithSongDetailsRef = AutoDisposeFutureProviderRef<
-    List<({String documentId, Locamusic locamusic, SongDetails? songDetails})>>;
 String _$locamusicAddHash() => r'56f1b0da375d09cc73cdaf3494f3264f898c7977';
 
 /// See also [locamusicAdd].
@@ -647,6 +481,279 @@ class _LocamusicAddProviderElement
   @override
   DistanceRange get distanceRange =>
       (origin as LocamusicAddProvider).distanceRange;
+}
+
+String _$locamusicUpdateHash() => r'dd768d0514febb89682336fa0bc6d25c27168aef';
+
+/// See also [locamusicUpdate].
+@ProviderFor(locamusicUpdate)
+const locamusicUpdateProvider = LocamusicUpdateFamily();
+
+/// See also [locamusicUpdate].
+class LocamusicUpdateFamily extends Family<AsyncValue<void>> {
+  /// See also [locamusicUpdate].
+  const LocamusicUpdateFamily();
+
+  /// See also [locamusicUpdate].
+  LocamusicUpdateProvider call({
+    required String documentId,
+    required Locamusic locamusic,
+  }) {
+    return LocamusicUpdateProvider(
+      documentId: documentId,
+      locamusic: locamusic,
+    );
+  }
+
+  @override
+  LocamusicUpdateProvider getProviderOverride(
+    covariant LocamusicUpdateProvider provider,
+  ) {
+    return call(
+      documentId: provider.documentId,
+      locamusic: provider.locamusic,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'locamusicUpdateProvider';
+}
+
+/// See also [locamusicUpdate].
+class LocamusicUpdateProvider extends AutoDisposeFutureProvider<void> {
+  /// See also [locamusicUpdate].
+  LocamusicUpdateProvider({
+    required String documentId,
+    required Locamusic locamusic,
+  }) : this._internal(
+          (ref) => locamusicUpdate(
+            ref as LocamusicUpdateRef,
+            documentId: documentId,
+            locamusic: locamusic,
+          ),
+          from: locamusicUpdateProvider,
+          name: r'locamusicUpdateProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$locamusicUpdateHash,
+          dependencies: LocamusicUpdateFamily._dependencies,
+          allTransitiveDependencies:
+              LocamusicUpdateFamily._allTransitiveDependencies,
+          documentId: documentId,
+          locamusic: locamusic,
+        );
+
+  LocamusicUpdateProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.documentId,
+    required this.locamusic,
+  }) : super.internal();
+
+  final String documentId;
+  final Locamusic locamusic;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(LocamusicUpdateRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: LocamusicUpdateProvider._internal(
+        (ref) => create(ref as LocamusicUpdateRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        documentId: documentId,
+        locamusic: locamusic,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _LocamusicUpdateProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LocamusicUpdateProvider &&
+        other.documentId == documentId &&
+        other.locamusic == locamusic;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, documentId.hashCode);
+    hash = _SystemHash.combine(hash, locamusic.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin LocamusicUpdateRef on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `documentId` of this provider.
+  String get documentId;
+
+  /// The parameter `locamusic` of this provider.
+  Locamusic get locamusic;
+}
+
+class _LocamusicUpdateProviderElement
+    extends AutoDisposeFutureProviderElement<void> with LocamusicUpdateRef {
+  _LocamusicUpdateProviderElement(super.provider);
+
+  @override
+  String get documentId => (origin as LocamusicUpdateProvider).documentId;
+  @override
+  Locamusic get locamusic => (origin as LocamusicUpdateProvider).locamusic;
+}
+
+String _$locamusicDeleteHash() => r'b7107b72a40ea6f983faaea6344a72802885f68c';
+
+/// See also [locamusicDelete].
+@ProviderFor(locamusicDelete)
+const locamusicDeleteProvider = LocamusicDeleteFamily();
+
+/// See also [locamusicDelete].
+class LocamusicDeleteFamily extends Family<AsyncValue<void>> {
+  /// See also [locamusicDelete].
+  const LocamusicDeleteFamily();
+
+  /// See also [locamusicDelete].
+  LocamusicDeleteProvider call({
+    required String documentId,
+  }) {
+    return LocamusicDeleteProvider(
+      documentId: documentId,
+    );
+  }
+
+  @override
+  LocamusicDeleteProvider getProviderOverride(
+    covariant LocamusicDeleteProvider provider,
+  ) {
+    return call(
+      documentId: provider.documentId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'locamusicDeleteProvider';
+}
+
+/// See also [locamusicDelete].
+class LocamusicDeleteProvider extends AutoDisposeFutureProvider<void> {
+  /// See also [locamusicDelete].
+  LocamusicDeleteProvider({
+    required String documentId,
+  }) : this._internal(
+          (ref) => locamusicDelete(
+            ref as LocamusicDeleteRef,
+            documentId: documentId,
+          ),
+          from: locamusicDeleteProvider,
+          name: r'locamusicDeleteProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$locamusicDeleteHash,
+          dependencies: LocamusicDeleteFamily._dependencies,
+          allTransitiveDependencies:
+              LocamusicDeleteFamily._allTransitiveDependencies,
+          documentId: documentId,
+        );
+
+  LocamusicDeleteProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.documentId,
+  }) : super.internal();
+
+  final String documentId;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(LocamusicDeleteRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: LocamusicDeleteProvider._internal(
+        (ref) => create(ref as LocamusicDeleteRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        documentId: documentId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _LocamusicDeleteProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LocamusicDeleteProvider && other.documentId == documentId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, documentId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin LocamusicDeleteRef on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `documentId` of this provider.
+  String get documentId;
+}
+
+class _LocamusicDeleteProviderElement
+    extends AutoDisposeFutureProviderElement<void> with LocamusicDeleteRef {
+  _LocamusicDeleteProviderElement(super.provider);
+
+  @override
+  String get documentId => (origin as LocamusicDeleteProvider).documentId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

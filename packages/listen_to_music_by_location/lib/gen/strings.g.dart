@@ -154,4 +154,9 @@ class _StringsLocamusicJa {
 	String get select_music => '曲を選択';
 	String get change_music => '曲を変更';
 	String get title => '場所と音楽';
+	String get small => '小';
+	String get medium => '中';
+	String get large => '大';
+	String get delete => '削除';
+	String get delete_confirm => '削除しますか？';
 }

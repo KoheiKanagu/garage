@@ -2,6 +2,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/exceptions/locamusic_creation_limit_exception.dart';
 import 'package:listen_to_music_by_location/features/map/application/map_providers.dart';
@@ -19,18 +20,22 @@ class MapPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final locamusics = ref.watch(locamusicsProvider).asData?.value;
+
+    useEffect(
+      () {
+        ref.read(
+          mapAdjustCameraProvider(
+            locamusics: locamusics ?? [],
+            myMapViewType: MyMapViewType.interactive,
+          ),
+        );
+        return null;
+      },
+      [locamusics],
+    );
+
     ref
-      ..listen(
-        myFlutterApiMapViewDidFinishLoadingMapProvider.future,
-        (_, next) async {
-          final type = await next;
-          if (type == MyMapViewType.interactive) {
-            ref
-              ..read(mapAdjustCameraProvider)
-              ..read(mapDrawAnnotationsProvider);
-          }
-        },
-      )
       ..listen(
         myFlutterApiOnLongPressedMapProvider.future,
         (_, next) async {
