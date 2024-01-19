@@ -11,6 +11,7 @@ MyFlutterApiController myFlutterApiController(
 ) {
   final controller = MyFlutterApiController(
     myMapHostApi: ref.watch(myMapHostApiProvider),
+    myNonInteractiveMapHostApi: ref.watch(myNonInteractiveMapHostApiProvider),
     didChangeAuthorizationStream: StreamController.broadcast(),
     didDetermineStateStream: StreamController.broadcast(),
     didStartMonitoringStream: StreamController.broadcast(),
@@ -82,6 +83,7 @@ Stream<String> myFlutterApiOnTapCircle(
 class MyFlutterApiController implements MyFlutterApi {
   const MyFlutterApiController({
     required this.myMapHostApi,
+    required this.myNonInteractiveMapHostApi,
     required this.didChangeAuthorizationStream,
     required this.didDetermineStateStream,
     required this.didStartMonitoringStream,
@@ -91,6 +93,8 @@ class MyFlutterApiController implements MyFlutterApi {
   });
 
   final MyMapHostApi myMapHostApi;
+
+  final MyNonInteractiveMapHostApi myNonInteractiveMapHostApi;
 
   final StreamController<AuthorizationStatus> didChangeAuthorizationStream;
 
@@ -176,6 +180,12 @@ MyMapHostApi myMapHostApi(
   MyMapHostApiRef ref,
 ) =>
     MyMapHostApi();
+
+@riverpod
+MyNonInteractiveMapHostApi myNonInteractiveMapHostApi(
+  MyNonInteractiveMapHostApiRef ref,
+) =>
+    MyNonInteractiveMapHostApi();
 
 @riverpod
 MyLocationHostApi myLocationHostApi(

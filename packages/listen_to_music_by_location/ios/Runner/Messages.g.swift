@@ -288,6 +288,139 @@ class MyMapHostApiSetup {
     }
   }
 }
+private class MyNonInteractiveMapHostApiCodecReader: FlutterStandardReader {
+  override func readValue(ofType type: UInt8) -> Any? {
+    switch type {
+      case 128:
+        return CircleAnnotation.fromList(self.readValue() as! [Any?])
+      default:
+        return super.readValue(ofType: type)
+    }
+  }
+}
+
+private class MyNonInteractiveMapHostApiCodecWriter: FlutterStandardWriter {
+  override func writeValue(_ value: Any) {
+    if let value = value as? CircleAnnotation {
+      super.writeByte(128)
+      super.writeValue(value.toList())
+    } else {
+      super.writeValue(value)
+    }
+  }
+}
+
+private class MyNonInteractiveMapHostApiCodecReaderWriter: FlutterStandardReaderWriter {
+  override func reader(with data: Data) -> FlutterStandardReader {
+    return MyNonInteractiveMapHostApiCodecReader(data: data)
+  }
+
+  override func writer(with data: NSMutableData) -> FlutterStandardWriter {
+    return MyNonInteractiveMapHostApiCodecWriter(data: data)
+  }
+}
+
+class MyNonInteractiveMapHostApiCodec: FlutterStandardMessageCodec {
+  static let shared = MyNonInteractiveMapHostApiCodec(readerWriter: MyNonInteractiveMapHostApiCodecReaderWriter())
+}
+
+/// pigeonでは複数インスタンスを作成できないので、個別にしている
+/// https://github.com/flutter/flutter/issues/66710
+///
+/// Generated protocol from Pigeon that represents a handler of messages from Flutter.
+protocol MyNonInteractiveMapHostApi {
+  func setMapRegion(latitude: Double, longitude: Double, meters: Double) throws
+  func addAnnotations(annotations: [CircleAnnotation]) throws
+  func removeAnnotations(identifiers: [String]) throws
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
+  func getAnnotations() throws -> [String]
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
+  func showAnnotations() throws
+}
+
+/// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
+class MyNonInteractiveMapHostApiSetup {
+  /// The codec used by MyNonInteractiveMapHostApi.
+  static var codec: FlutterStandardMessageCodec { MyNonInteractiveMapHostApiCodec.shared }
+  /// Sets up an instance of `MyNonInteractiveMapHostApi` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MyNonInteractiveMapHostApi?) {
+    let setMapRegionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.setMapRegion", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      setMapRegionChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let latitudeArg = args[0] as! Double
+        let longitudeArg = args[1] as! Double
+        let metersArg = args[2] as! Double
+        do {
+          try api.setMapRegion(latitude: latitudeArg, longitude: longitudeArg, meters: metersArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      setMapRegionChannel.setMessageHandler(nil)
+    }
+    let addAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.addAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      addAnnotationsChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let annotationsArg = args[0] as! [CircleAnnotation]
+        do {
+          try api.addAnnotations(annotations: annotationsArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      addAnnotationsChannel.setMessageHandler(nil)
+    }
+    let removeAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.removeAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      removeAnnotationsChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let identifiersArg = args[0] as! [String]
+        do {
+          try api.removeAnnotations(identifiers: identifiersArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      removeAnnotationsChannel.setMessageHandler(nil)
+    }
+    /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
+    let getAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.getAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      getAnnotationsChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.getAnnotations()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      getAnnotationsChannel.setMessageHandler(nil)
+    }
+    /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
+    let showAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.showAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      showAnnotationsChannel.setMessageHandler { _, reply in
+        do {
+          try api.showAnnotations()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      showAnnotationsChannel.setMessageHandler(nil)
+    }
+  }
+}
 private class MyMusicHostApiCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {

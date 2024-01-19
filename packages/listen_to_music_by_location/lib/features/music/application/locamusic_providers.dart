@@ -155,7 +155,7 @@ Future<void> locamusicAdd(
 
   final query = await ref.watch(locamusicQueryProvider.future);
   final agg = await query.count().get();
-  if (agg.count < 5) {
+  if (agg.count < kMaxCreateLocamusicCount) {
     await ref.watch(locamusicCollectionReferenceProvider).add(
           Locamusic(
             geoPoint: geoPoint,

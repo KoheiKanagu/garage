@@ -30,6 +30,31 @@ abstract class MyMapHostApi {
   void showAnnotations();
 }
 
+/// pigeonでは複数インスタンスを作成できないので、個別にしている
+/// https://github.com/flutter/flutter/issues/66710
+@HostApi()
+abstract class MyNonInteractiveMapHostApi {
+  void setMapRegion({
+    required double latitude,
+    required double longitude,
+    required double meters,
+  });
+
+  void addAnnotations(
+    List<CircleAnnotation> annotations,
+  );
+
+  void removeAnnotations(
+    List<String> identifiers,
+  );
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
+  List<String> getAnnotations();
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
+  void showAnnotations();
+}
+
 class CircleAnnotation {
   const CircleAnnotation({
     required this.identifier,

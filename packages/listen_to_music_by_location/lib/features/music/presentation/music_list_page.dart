@@ -20,36 +20,39 @@ class MusicListPage extends HookConsumerWidget {
             orElse: () => const Center(
               child: CircularProgressIndicator.adaptive(),
             ),
-            data: (data) => CustomScrollView(
-              slivers: [
-                CupertinoSliverNavigationBar(
-                  largeTitle: Text(i18n.app_name),
-                  trailing: CupertinoButton(
-                    child: const Icon(
-                      CupertinoIcons.settings,
+            data: (data) => SafeArea(
+              child: CustomScrollView(
+                slivers: [
+                  CupertinoSliverNavigationBar(
+                    largeTitle: Text(i18n.app_name),
+                    trailing: CupertinoButton(
+                      child: const Icon(
+                        CupertinoIcons.settings,
+                      ),
+                      onPressed: () {
+                        const ConfigurePageRoute().push<void>(context);
+                      },
                     ),
-                    onPressed: () {
-                      const ConfigurePageRoute().push<void>(context);
-                    },
                   ),
-                ),
-                SliverFillRemaining(
-                  child: CupertinoListSection.insetGrouped(
-                    children: data
-                        .map<Widget>(
-                          (e) => MusicListTile(
-                            title: e.songDetails?.title ?? i18n.tap_to_set,
-                            artworkUrl: e.songDetails?.artworkUrl,
-                            onTap: () {
-                              LocamusicDetailPageRoute(e.documentId)
-                                  .push<void>(context);
-                            },
-                          ),
-                        )
-                        .toList(),
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: CupertinoListSection.insetGrouped(
+                      children: data
+                          .map<Widget>(
+                            (e) => MusicListTile(
+                              title: e.songDetails?.title ?? i18n.tap_to_set,
+                              artworkUrl: e.songDetails?.artworkUrl,
+                              onTap: () {
+                                LocamusicDetailPageRoute(e.documentId)
+                                    .push<void>(context);
+                              },
+                            ),
+                          )
+                          .toList(),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
     );

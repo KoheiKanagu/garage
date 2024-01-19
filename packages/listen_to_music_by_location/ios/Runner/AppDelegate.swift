@@ -19,15 +19,26 @@ import app_links
       binaryMessenger: controller.binaryMessenger
     )
 
-    let myViewFactory = MyMapFlutterPlatformViewFactory(
-      controller: controller,
-      myFlutterApi: myFlutterApi
-    )
     registrar(
       forPlugin: "MyMapView"
     )?.register(
-      myViewFactory,
+      MyMapFlutterPlatformViewFactory(
+        controller: controller,
+        myFlutterApi: myFlutterApi,
+        isInteractive: true
+      ),
       withId: "my_map_platform_view"
+    )
+
+    registrar(
+      forPlugin: "MyNonInteractiveMapView"
+    )?.register(
+      MyMapFlutterPlatformViewFactory(
+        controller: controller,
+        myFlutterApi: myFlutterApi,
+        isInteractive: false
+      ),
+      withId: "my_non_interactive_map_platform_view"
     )
 
     MyMusicHostApiSetup.setUp(
@@ -58,9 +69,16 @@ class MyMapFlutterPlatformViewFactory: NSObject, FlutterPlatformViewFactory {
 
   let myFlutterApi: MyFlutterApi
 
-  init(controller: FlutterViewController, myFlutterApi: MyFlutterApi) {
+  let isInteractive: Bool
+
+  init(
+    controller: FlutterViewController,
+    myFlutterApi: MyFlutterApi,
+    isInteractive: Bool
+  ) {
     self.controller = controller
     self.myFlutterApi = myFlutterApi
+    self.isInteractive = isInteractive
   }
 
   func create(
@@ -69,16 +87,31 @@ class MyMapFlutterPlatformViewFactory: NSObject, FlutterPlatformViewFactory {
     arguments args: Any?
   ) -> FlutterPlatformView {
 
-    let myMapView = MyMapView(
-      args: args,
-      flutterApi: myFlutterApi
-    )
+    var myMapView: MyMapView
 
-    MyMapHostApiSetup.setUp(
-      binaryMessenger: controller.binaryMessenger,
-      api: myMapView
-    )
-
+    if isInteractive {
+      myMapView = MyMapView(
+        args: args,
+        flutterApi: myFlutterApi
+      )
+      MyMapHostApiSetup.setUp(
+        binaryMessenger: controller.binaryMessenger,
+        api: MyMapHostApiImpl(
+          myMapView: myMapView
+        )
+      )
+    } else {
+      myMapView = MyMapView(
+        args: args,
+        flutterApi: nil
+      )
+      MyNonInteractiveMapHostApiSetup.setUp(
+        binaryMessenger: controller.binaryMessenger,
+        api: MyNonInteractiveMapHostApiImpl(
+          myMapView: myMapView
+        )
+      )
+    }
     return MyMapFlutterPlatformView(
       myMapView: myMapView
     )

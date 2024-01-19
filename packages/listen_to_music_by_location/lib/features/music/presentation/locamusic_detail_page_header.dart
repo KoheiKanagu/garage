@@ -21,7 +21,7 @@ class LocamusicDetailPageHeader extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (songDetails == null) {
+    if (songDetails != null) {
       return SizedBox(
         width: double.infinity,
         child: CupertinoButton.filled(

@@ -9,7 +9,7 @@ part of 'native_provider.dart';
 // **************************************************************************
 
 String _$myFlutterApiControllerHash() =>
-    r'79611c03d11b2b2dcacdae9357cd639e4aeef0d4';
+    r'dcfc0d26b807511420c5d68f43002e0556f21b81';
 
 /// See also [myFlutterApiController].
 @ProviderFor(myFlutterApiController)
@@ -147,6 +147,24 @@ final myMapHostApiProvider = AutoDisposeProvider<MyMapHostApi>.internal(
 );
 
 typedef MyMapHostApiRef = AutoDisposeProviderRef<MyMapHostApi>;
+String _$myNonInteractiveMapHostApiHash() =>
+    r'26842ba327fe95aa9dd4ed227651eac2c9b1646f';
+
+/// See also [myNonInteractiveMapHostApi].
+@ProviderFor(myNonInteractiveMapHostApi)
+final myNonInteractiveMapHostApiProvider =
+    AutoDisposeProvider<MyNonInteractiveMapHostApi>.internal(
+  myNonInteractiveMapHostApi,
+  name: r'myNonInteractiveMapHostApiProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$myNonInteractiveMapHostApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef MyNonInteractiveMapHostApiRef
+    = AutoDisposeProviderRef<MyNonInteractiveMapHostApi>;
 String _$myLocationHostApiHash() => r'42c3bf1e7a499ee9ded150a4c26af879b4ecac02';
 
 /// See also [myLocationHostApi].

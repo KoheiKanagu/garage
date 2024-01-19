@@ -1,7 +1,7 @@
 import Flutter
 import MapKit
 
-class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate, MyMapHostApi {
+class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
   var myFlutterApi: MyFlutterApi?
 

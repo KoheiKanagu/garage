@@ -311,6 +311,159 @@ class MyMapHostApi {
   }
 }
 
+class _MyNonInteractiveMapHostApiCodec extends StandardMessageCodec {
+  const _MyNonInteractiveMapHostApiCodec();
+  @override
+  void writeValue(WriteBuffer buffer, Object? value) {
+    if (value is CircleAnnotation) {
+      buffer.putUint8(128);
+      writeValue(buffer, value.encode());
+    } else {
+      super.writeValue(buffer, value);
+    }
+  }
+
+  @override
+  Object? readValueOfType(int type, ReadBuffer buffer) {
+    switch (type) {
+      case 128: 
+        return CircleAnnotation.decode(readValue(buffer)!);
+      default:
+        return super.readValueOfType(type, buffer);
+    }
+  }
+}
+
+/// pigeonでは複数インスタンスを作成できないので、個別にしている
+/// https://github.com/flutter/flutter/issues/66710
+class MyNonInteractiveMapHostApi {
+  /// Constructor for [MyNonInteractiveMapHostApi].  The [binaryMessenger] named argument is
+  /// available for dependency injection.  If it is left null, the default
+  /// BinaryMessenger will be used which routes to the host platform.
+  MyNonInteractiveMapHostApi({BinaryMessenger? binaryMessenger})
+      : __pigeon_binaryMessenger = binaryMessenger;
+  final BinaryMessenger? __pigeon_binaryMessenger;
+
+  static const MessageCodec<Object?> pigeonChannelCodec = _MyNonInteractiveMapHostApiCodec();
+
+  Future<void> setMapRegion({required double latitude, required double longitude, required double meters,}) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.setMapRegion';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[latitude, longitude, meters]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  Future<void> addAnnotations(List<CircleAnnotation?> annotations) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.addAnnotations';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[annotations]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  Future<void> removeAnnotations(List<String?> identifiers) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.removeAnnotations';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[identifiers]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
+  Future<List<String?>> getAnnotations() async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.getAnnotations';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else if (__pigeon_replyList[0] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (__pigeon_replyList[0] as List<Object?>?)!.cast<String?>();
+    }
+  }
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
+  Future<void> showAnnotations() async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.showAnnotations';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+}
+
 class _MyMusicHostApiCodec extends StandardMessageCodec {
   const _MyMusicHostApiCodec();
   @override
