@@ -177,7 +177,7 @@ class _MapDrawAnnotationsProviderElement
       (origin as MapDrawAnnotationsProvider).myMapViewType;
 }
 
-String _$mapAdjustCameraHash() => r'c772fcf05ed0e693bcc90d6676c71226efcd98bc';
+String _$mapAdjustCameraHash() => r'37b48083f154a938b685337e77b46afac098138d';
 
 /// Annotationが存在するなら全てのAnnotationが表示できるようにズームする
 /// Annotationが存在しないなら現在地にズームする
@@ -340,6 +340,167 @@ class _MapAdjustCameraProviderElement
   @override
   MyMapViewType get myMapViewType =>
       (origin as MapAdjustCameraProvider).myMapViewType;
+}
+
+String _$mapSetAnnotationRegionHash() =>
+    r'14de4c8d54d590f25bd13680d27268e21f3549fc';
+
+/// Annotationを描画してカメラをズームする
+///
+/// Copied from [mapSetAnnotationRegion].
+@ProviderFor(mapSetAnnotationRegion)
+const mapSetAnnotationRegionProvider = MapSetAnnotationRegionFamily();
+
+/// Annotationを描画してカメラをズームする
+///
+/// Copied from [mapSetAnnotationRegion].
+class MapSetAnnotationRegionFamily extends Family<AsyncValue<void>> {
+  /// Annotationを描画してカメラをズームする
+  ///
+  /// Copied from [mapSetAnnotationRegion].
+  const MapSetAnnotationRegionFamily();
+
+  /// Annotationを描画してカメラをズームする
+  ///
+  /// Copied from [mapSetAnnotationRegion].
+  MapSetAnnotationRegionProvider call({
+    required ({String documentId, Locamusic locamusic}) locamusic,
+    required MyMapViewType myMapViewType,
+  }) {
+    return MapSetAnnotationRegionProvider(
+      locamusic: locamusic,
+      myMapViewType: myMapViewType,
+    );
+  }
+
+  @override
+  MapSetAnnotationRegionProvider getProviderOverride(
+    covariant MapSetAnnotationRegionProvider provider,
+  ) {
+    return call(
+      locamusic: provider.locamusic,
+      myMapViewType: provider.myMapViewType,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'mapSetAnnotationRegionProvider';
+}
+
+/// Annotationを描画してカメラをズームする
+///
+/// Copied from [mapSetAnnotationRegion].
+class MapSetAnnotationRegionProvider extends AutoDisposeFutureProvider<void> {
+  /// Annotationを描画してカメラをズームする
+  ///
+  /// Copied from [mapSetAnnotationRegion].
+  MapSetAnnotationRegionProvider({
+    required ({String documentId, Locamusic locamusic}) locamusic,
+    required MyMapViewType myMapViewType,
+  }) : this._internal(
+          (ref) => mapSetAnnotationRegion(
+            ref as MapSetAnnotationRegionRef,
+            locamusic: locamusic,
+            myMapViewType: myMapViewType,
+          ),
+          from: mapSetAnnotationRegionProvider,
+          name: r'mapSetAnnotationRegionProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$mapSetAnnotationRegionHash,
+          dependencies: MapSetAnnotationRegionFamily._dependencies,
+          allTransitiveDependencies:
+              MapSetAnnotationRegionFamily._allTransitiveDependencies,
+          locamusic: locamusic,
+          myMapViewType: myMapViewType,
+        );
+
+  MapSetAnnotationRegionProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.locamusic,
+    required this.myMapViewType,
+  }) : super.internal();
+
+  final ({String documentId, Locamusic locamusic}) locamusic;
+  final MyMapViewType myMapViewType;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(MapSetAnnotationRegionRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: MapSetAnnotationRegionProvider._internal(
+        (ref) => create(ref as MapSetAnnotationRegionRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        locamusic: locamusic,
+        myMapViewType: myMapViewType,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _MapSetAnnotationRegionProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is MapSetAnnotationRegionProvider &&
+        other.locamusic == locamusic &&
+        other.myMapViewType == myMapViewType;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, locamusic.hashCode);
+    hash = _SystemHash.combine(hash, myMapViewType.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin MapSetAnnotationRegionRef on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `locamusic` of this provider.
+  ({String documentId, Locamusic locamusic}) get locamusic;
+
+  /// The parameter `myMapViewType` of this provider.
+  MyMapViewType get myMapViewType;
+}
+
+class _MapSetAnnotationRegionProviderElement
+    extends AutoDisposeFutureProviderElement<void>
+    with MapSetAnnotationRegionRef {
+  _MapSetAnnotationRegionProviderElement(super.provider);
+
+  @override
+  ({String documentId, Locamusic locamusic}) get locamusic =>
+      (origin as MapSetAnnotationRegionProvider).locamusic;
+  @override
+  MyMapViewType get myMapViewType =>
+      (origin as MapSetAnnotationRegionProvider).myMapViewType;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

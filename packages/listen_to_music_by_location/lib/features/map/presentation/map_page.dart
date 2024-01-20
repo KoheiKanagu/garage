@@ -20,7 +20,7 @@ class MapPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locamusics = ref.watch(locamusicsProvider).asData?.value;
+    final locamusics = ref.watch(locamusicDocumentsProvider).asData?.value;
 
     useEffect(
       () {

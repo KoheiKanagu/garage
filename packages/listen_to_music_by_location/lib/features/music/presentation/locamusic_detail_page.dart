@@ -9,6 +9,7 @@ import 'package:listen_to_music_by_location/features/map/application/map_provide
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/distance_range_segmented_control.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/locamusic_detail_page_header.dart';
+import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 import 'package:listen_to_music_by_location/features/native/presentation/my_map_view.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
@@ -25,7 +26,7 @@ class LocamusicDetailPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final locamusic = ref
         .watch(
-          locamusicProvider(
+          locamusicDocumentProvider(
             documentId: documentId,
           ),
         )
@@ -42,20 +43,28 @@ class LocamusicDetailPage extends HookConsumerWidget {
 
     useEffect(
       () {
-        if (locamusic == null) {
-          return null;
-        }
+        Future(
+          () async {
+            await ref.read(
+              myFlutterApiMapViewDidFinishLoadingMapProvider
+                  .selectAsync((data) => data == MyMapViewType.nonInteractive),
+            );
 
-        ref.read(
-          mapAdjustCameraProvider(
-            locamusics: [
-              (
-                documentId: documentId,
-                locamusic: locamusic,
+            if (locamusic == null) {
+              return null;
+            }
+
+            /// カメラ位置を調整
+            ref.read(
+              mapSetAnnotationRegionProvider(
+                locamusic: (
+                  documentId: documentId,
+                  locamusic: locamusic,
+                ),
+                myMapViewType: MyMapViewType.nonInteractive,
               ),
-            ].toList(),
-            myMapViewType: MyMapViewType.nonInteractive,
-          ),
+            );
+          },
         );
 
         return null;

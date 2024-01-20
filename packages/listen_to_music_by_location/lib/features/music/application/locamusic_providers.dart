@@ -43,11 +43,11 @@ Future<Query<Locamusic>> locamusicQuery(
 }
 
 @riverpod
-Stream<List<LocamusicWithDocumentId>> locamusics(
-  LocamusicsRef ref,
+Stream<List<LocamusicWithDocumentId>> locamusicDocuments(
+  LocamusicDocumentsRef ref,
 ) async* {
   final query = await ref.watch(locamusicQueryProvider.future);
-  logger.d('locamusicQuerySnapshot: ${query.parameters}');
+  logger.d('locamusicQueryProvider: ${query.parameters}');
   yield* query.snapshots().map(
         (event) => event.docs
             .map(
@@ -61,8 +61,8 @@ Stream<List<LocamusicWithDocumentId>> locamusics(
 }
 
 @riverpod
-Stream<Locamusic> locamusic(
-  LocamusicRef ref, {
+Stream<Locamusic> locamusicDocument(
+  LocamusicDocumentRef ref, {
   required String documentId,
 }) =>
     ref

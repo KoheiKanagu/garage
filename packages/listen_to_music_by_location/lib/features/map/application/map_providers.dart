@@ -108,3 +108,32 @@ Future<void> mapAdjustCamera(
       ref.watch(myNonInteractiveMapHostApiProvider).showAnnotations(),
   };
 }
+
+/// Annotationを描画してカメラをズームする
+@riverpod
+Future<void> mapSetAnnotationRegion(
+  MapSetAnnotationRegionRef ref, {
+  required LocamusicWithDocumentId locamusic,
+  required MyMapViewType myMapViewType,
+}) async {
+  await ref.watch(
+    mapDrawAnnotationsProvider(
+      locamusics: [locamusic].toList(),
+      myMapViewType: myMapViewType,
+    ).future,
+  );
+
+  await switch (myMapViewType) {
+    MyMapViewType.interactive => ref.watch(myMapHostApiProvider).setMapRegion(
+          latitude: locamusic.locamusic.geoPoint.latitude,
+          longitude: locamusic.locamusic.geoPoint.longitude,
+          meters: locamusic.locamusic.distance * 2.5,
+        ),
+    MyMapViewType.nonInteractive =>
+      ref.watch(myNonInteractiveMapHostApiProvider).setMapRegion(
+            latitude: locamusic.locamusic.geoPoint.latitude,
+            longitude: locamusic.locamusic.geoPoint.longitude,
+            meters: locamusic.locamusic.distance * 2.5,
+          ),
+  };
+}

@@ -42,23 +42,25 @@ final locamusicQueryProvider =
 );
 
 typedef LocamusicQueryRef = AutoDisposeFutureProviderRef<Query<Locamusic>>;
-String _$locamusicsHash() => r'872dd10c59c18cb290692092f8e53e0e56d04d7e';
+String _$locamusicDocumentsHash() =>
+    r'b3bf4e2c5dd7cbe58e38a4d8db1bc545baa1f53f';
 
-/// See also [locamusics].
-@ProviderFor(locamusics)
-final locamusicsProvider =
+/// See also [locamusicDocuments].
+@ProviderFor(locamusicDocuments)
+final locamusicDocumentsProvider =
     AutoDisposeStreamProvider<List<LocamusicWithDocumentId>>.internal(
-  locamusics,
-  name: r'locamusicsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$locamusicsHash,
+  locamusicDocuments,
+  name: r'locamusicDocumentsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$locamusicDocumentsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef LocamusicsRef
+typedef LocamusicDocumentsRef
     = AutoDisposeStreamProviderRef<List<LocamusicWithDocumentId>>;
-String _$locamusicHash() => r'892b147596e71949d40ecaeded654968e51583a0';
+String _$locamusicDocumentHash() => r'e5a7d4d691e8f8d6fa167793e6a83d08dc914bdc';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -81,27 +83,27 @@ class _SystemHash {
   }
 }
 
-/// See also [locamusic].
-@ProviderFor(locamusic)
-const locamusicProvider = LocamusicFamily();
+/// See also [locamusicDocument].
+@ProviderFor(locamusicDocument)
+const locamusicDocumentProvider = LocamusicDocumentFamily();
 
-/// See also [locamusic].
-class LocamusicFamily extends Family<AsyncValue<Locamusic>> {
-  /// See also [locamusic].
-  const LocamusicFamily();
+/// See also [locamusicDocument].
+class LocamusicDocumentFamily extends Family<AsyncValue<Locamusic>> {
+  /// See also [locamusicDocument].
+  const LocamusicDocumentFamily();
 
-  /// See also [locamusic].
-  LocamusicProvider call({
+  /// See also [locamusicDocument].
+  LocamusicDocumentProvider call({
     required String documentId,
   }) {
-    return LocamusicProvider(
+    return LocamusicDocumentProvider(
       documentId: documentId,
     );
   }
 
   @override
-  LocamusicProvider getProviderOverride(
-    covariant LocamusicProvider provider,
+  LocamusicDocumentProvider getProviderOverride(
+    covariant LocamusicDocumentProvider provider,
   ) {
     return call(
       documentId: provider.documentId,
@@ -120,31 +122,32 @@ class LocamusicFamily extends Family<AsyncValue<Locamusic>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'locamusicProvider';
+  String? get name => r'locamusicDocumentProvider';
 }
 
-/// See also [locamusic].
-class LocamusicProvider extends AutoDisposeStreamProvider<Locamusic> {
-  /// See also [locamusic].
-  LocamusicProvider({
+/// See also [locamusicDocument].
+class LocamusicDocumentProvider extends AutoDisposeStreamProvider<Locamusic> {
+  /// See also [locamusicDocument].
+  LocamusicDocumentProvider({
     required String documentId,
   }) : this._internal(
-          (ref) => locamusic(
-            ref as LocamusicRef,
+          (ref) => locamusicDocument(
+            ref as LocamusicDocumentRef,
             documentId: documentId,
           ),
-          from: locamusicProvider,
-          name: r'locamusicProvider',
+          from: locamusicDocumentProvider,
+          name: r'locamusicDocumentProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$locamusicHash,
-          dependencies: LocamusicFamily._dependencies,
-          allTransitiveDependencies: LocamusicFamily._allTransitiveDependencies,
+                  : _$locamusicDocumentHash,
+          dependencies: LocamusicDocumentFamily._dependencies,
+          allTransitiveDependencies:
+              LocamusicDocumentFamily._allTransitiveDependencies,
           documentId: documentId,
         );
 
-  LocamusicProvider._internal(
+  LocamusicDocumentProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -158,12 +161,12 @@ class LocamusicProvider extends AutoDisposeStreamProvider<Locamusic> {
 
   @override
   Override overrideWith(
-    Stream<Locamusic> Function(LocamusicRef provider) create,
+    Stream<Locamusic> Function(LocamusicDocumentRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: LocamusicProvider._internal(
-        (ref) => create(ref as LocamusicRef),
+      override: LocamusicDocumentProvider._internal(
+        (ref) => create(ref as LocamusicDocumentRef),
         from: from,
         name: null,
         dependencies: null,
@@ -176,12 +179,12 @@ class LocamusicProvider extends AutoDisposeStreamProvider<Locamusic> {
 
   @override
   AutoDisposeStreamProviderElement<Locamusic> createElement() {
-    return _LocamusicProviderElement(this);
+    return _LocamusicDocumentProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is LocamusicProvider && other.documentId == documentId;
+    return other is LocamusicDocumentProvider && other.documentId == documentId;
   }
 
   @override
@@ -193,17 +196,18 @@ class LocamusicProvider extends AutoDisposeStreamProvider<Locamusic> {
   }
 }
 
-mixin LocamusicRef on AutoDisposeStreamProviderRef<Locamusic> {
+mixin LocamusicDocumentRef on AutoDisposeStreamProviderRef<Locamusic> {
   /// The parameter `documentId` of this provider.
   String get documentId;
 }
 
-class _LocamusicProviderElement
-    extends AutoDisposeStreamProviderElement<Locamusic> with LocamusicRef {
-  _LocamusicProviderElement(super.provider);
+class _LocamusicDocumentProviderElement
+    extends AutoDisposeStreamProviderElement<Locamusic>
+    with LocamusicDocumentRef {
+  _LocamusicDocumentProviderElement(super.provider);
 
   @override
-  String get documentId => (origin as LocamusicProvider).documentId;
+  String get documentId => (origin as LocamusicDocumentProvider).documentId;
 }
 
 String _$locamusicSongDetailsHash() =>
