@@ -24,12 +24,12 @@ final _mapViewDelegateProvider = AutoDisposeProvider<_MapViewDelegate>.internal(
 
 typedef _MapViewDelegateRef = AutoDisposeProviderRef<_MapViewDelegate>;
 String _$mapPageMapViewOnLongPressedMapHash() =>
-    r'4435b755ed59df79f658bf7d22489ac7f15eaae8';
+    r'ff7beffb4fcb31811d672c87011a21a6d8a495e2';
 
 /// See also [mapPageMapViewOnLongPressedMap].
 @ProviderFor(mapPageMapViewOnLongPressedMap)
 final mapPageMapViewOnLongPressedMapProvider = AutoDisposeStreamProvider<
-    ({MyMapViewType viewType, double latitude, double longitude})>.internal(
+    ({MapViewType viewType, double latitude, double longitude})>.internal(
   mapPageMapViewOnLongPressedMap,
   name: r'mapPageMapViewOnLongPressedMapProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -40,14 +40,14 @@ final mapPageMapViewOnLongPressedMapProvider = AutoDisposeStreamProvider<
 );
 
 typedef MapPageMapViewOnLongPressedMapRef = AutoDisposeStreamProviderRef<
-    ({MyMapViewType viewType, double latitude, double longitude})>;
+    ({MapViewType viewType, double latitude, double longitude})>;
 String _$mapPageMapViewOnTapCircleHash() =>
-    r'316e98455e2a71d43a6e9aa56de127c4f6cea4af';
+    r'dd3defb9f3c5c560c8067f367c36ca8f793c08f1';
 
 /// See also [mapPageMapViewOnTapCircle].
 @ProviderFor(mapPageMapViewOnTapCircle)
 final mapPageMapViewOnTapCircleProvider = AutoDisposeStreamProvider<
-    ({MyMapViewType viewType, String identifier})>.internal(
+    ({MapViewType viewType, String identifier})>.internal(
   mapPageMapViewOnTapCircle,
   name: r'mapPageMapViewOnTapCircleProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -57,15 +57,15 @@ final mapPageMapViewOnTapCircleProvider = AutoDisposeStreamProvider<
   allTransitiveDependencies: null,
 );
 
-typedef MapPageMapViewOnTapCircleRef = AutoDisposeStreamProviderRef<
-    ({MyMapViewType viewType, String identifier})>;
+typedef MapPageMapViewOnTapCircleRef
+    = AutoDisposeStreamProviderRef<({MapViewType viewType, String identifier})>;
 String _$mapPageMapViewMapViewDidFinishLoadingMapHash() =>
-    r'ae4f537a85b9fa1c16e7e5d4716c02b7436e6e36';
+    r'cd117e0100390ea1cbefa56bc5cd7f4f24cb28d2';
 
 /// See also [mapPageMapViewMapViewDidFinishLoadingMap].
 @ProviderFor(mapPageMapViewMapViewDidFinishLoadingMap)
 final mapPageMapViewMapViewDidFinishLoadingMapProvider =
-    AutoDisposeStreamProvider<MyMapViewType>.internal(
+    AutoDisposeStreamProvider<MapViewType>.internal(
   mapPageMapViewMapViewDidFinishLoadingMap,
   name: r'mapPageMapViewMapViewDidFinishLoadingMapProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -76,6 +76,6 @@ final mapPageMapViewMapViewDidFinishLoadingMapProvider =
 );
 
 typedef MapPageMapViewMapViewDidFinishLoadingMapRef
-    = AutoDisposeStreamProviderRef<MyMapViewType>;
+    = AutoDisposeStreamProviderRef<MapViewType>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

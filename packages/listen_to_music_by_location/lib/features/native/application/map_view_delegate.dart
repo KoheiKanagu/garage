@@ -29,22 +29,22 @@ class _MapViewDelegate implements MapViewDelegate {
 
   final StreamController<
       ({
-        MyMapViewType viewType,
+        MapViewType viewType,
         double latitude,
         double longitude,
       })> onLongPressedMapStream;
 
   final StreamController<
       ({
-        MyMapViewType viewType,
+        MapViewType viewType,
         String identifier,
       })> onTapCircleStream;
 
-  final StreamController<MyMapViewType> mapViewDidFinishLoadingMapStream;
+  final StreamController<MapViewType> mapViewDidFinishLoadingMapStream;
 
   @override
   void onLongPressedMap(
-    MyMapViewType viewType,
+    MapViewType viewType,
     double latitude,
     double longitude,
   ) {
@@ -59,7 +59,7 @@ class _MapViewDelegate implements MapViewDelegate {
 
   @override
   void onTapCircle(
-    MyMapViewType viewType,
+    MapViewType viewType,
     String identifier,
   ) {
     onTapCircleStream.add(
@@ -71,7 +71,7 @@ class _MapViewDelegate implements MapViewDelegate {
   }
 
   @override
-  void mapViewDidFinishLoadingMap(MyMapViewType viewType) {
+  void mapViewDidFinishLoadingMap(MapViewType viewType) {
     mapViewDidFinishLoadingMapStream.add(viewType);
   }
 }
@@ -79,7 +79,7 @@ class _MapViewDelegate implements MapViewDelegate {
 @riverpod
 Stream<
     ({
-      MyMapViewType viewType,
+      MapViewType viewType,
       double latitude,
       double longitude,
     })> mapPageMapViewOnLongPressedMap(
@@ -90,7 +90,7 @@ Stream<
 @riverpod
 Stream<
     ({
-      MyMapViewType viewType,
+      MapViewType viewType,
       String identifier,
     })> mapPageMapViewOnTapCircle(
   MapPageMapViewOnTapCircleRef ref,
@@ -98,7 +98,7 @@ Stream<
     ref.watch(_mapViewDelegateProvider).onTapCircleStream.stream;
 
 @riverpod
-Stream<MyMapViewType> mapPageMapViewMapViewDidFinishLoadingMap(
+Stream<MapViewType> mapPageMapViewMapViewDidFinishLoadingMap(
   MapPageMapViewMapViewDidFinishLoadingMapRef ref,
 ) =>
     ref.watch(_mapViewDelegateProvider).mapViewDidFinishLoadingMapStream.stream;

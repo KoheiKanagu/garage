@@ -3,13 +3,13 @@ import MapKit
 
 class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
-  var myMapViewType: MyMapViewType?
+  var mapViewType: MapViewType?
 
   var mapViewDelegate: MapViewDelegate?
 
   convenience init(
     args: Any?,
-    myMapViewType: MyMapViewType?,
+    mapViewType: MapViewType?,
     mapViewDelegate: MapViewDelegate?
   ) {
     self.init(
@@ -19,7 +19,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
     delegate = self
     showsUserLocation = true
 
-    self.myMapViewType = myMapViewType
+    self.mapViewType = mapViewType
     self.mapViewDelegate = mapViewDelegate
 
     // Map上のAppleロゴの場所を移動
@@ -62,7 +62,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
   }
 
   func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-    guard let e = myMapViewType else { return }
+    guard let e = mapViewType else { return }
     mapViewDelegate?.mapViewDidFinishLoadingMap(
       viewType: e,
       completion: { _ in }
@@ -90,7 +90,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       )
 
       if renderer.path.contains(point) {
-        guard let e = myMapViewType else { return }
+        guard let e = mapViewType else { return }
         mapViewDelegate?.onTapCircle(
           viewType: e,
           identifier: circle.identifier,
@@ -114,7 +114,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       toCoordinateFrom: self
     )
 
-    guard let e = myMapViewType else { return }
+    guard let e = mapViewType else { return }
     mapViewDelegate?.onLongPressedMap(
       viewType: e,
       latitude: coordinate.latitude,
@@ -215,6 +215,11 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       overlays.compactMap { $0 as? MyMKCircle }
         .filter { identifiers.contains($0.identifier) }
     )
+  }
+
+  func removeAnnotationAll() {
+    removeAnnotations(annotations)
+    removeOverlays(overlays)
   }
 
   func getAnnotations() -> [String] {

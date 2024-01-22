@@ -4,7 +4,7 @@ import 'package:listen_to_music_by_location/gen/message.g.dart';
 
 class MyMapView extends StatelessWidget {
   const MyMapView({
-    required this.myMapViewType,
+    required this.mapViewType,
     super.key,
     this.layoutMarginsBottom = 50,
     this.latitude,
@@ -12,7 +12,7 @@ class MyMapView extends StatelessWidget {
     this.meters,
   });
 
-  final MyMapViewType myMapViewType;
+  final MapViewType mapViewType;
 
   final double layoutMarginsBottom;
 
@@ -23,7 +23,7 @@ class MyMapView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UiKitView(
-      viewType: myMapViewType.name,
+      viewType: mapViewType.name,
       creationParams: {
         'layoutMarginsBottom': layoutMarginsBottom,
         'latitude': latitude,

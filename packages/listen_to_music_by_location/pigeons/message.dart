@@ -37,6 +37,9 @@ abstract class MapPageMapView {
     List<String> identifiers,
   );
 
+  /// remove all annotations and overlays
+  void removeAnnotationAll();
+
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   List<String> getAnnotations();
 
@@ -71,6 +74,9 @@ abstract class LocamusicDetailPageMapView {
   void removeAnnotationOverlays(
     List<String> identifiers,
   );
+
+  /// remove all annotations and overlays
+  void removeAnnotationAll();
 
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   List<String> getAnnotations();
@@ -227,25 +233,25 @@ enum AuthorizationStatus {
 abstract class MapViewDelegate {
   /// on tap MKCircle
   void onTapCircle(
-    MyMapViewType viewType,
+    MapViewType viewType,
     String identifier,
   );
 
   /// on long pressed MKMapView
   void onLongPressedMap(
-    MyMapViewType viewType,
+    MapViewType viewType,
     double latitude,
     double longitude,
   );
 
   /// https://developer.apple.com/documentation/mapkit/mkmapviewdelegate/1452291-mapviewdidfinishloadingmap
   void mapViewDidFinishLoadingMap(
-    MyMapViewType viewType,
+    MapViewType viewType,
   );
 }
 
 /// どのMapViewから呼ばれたかを判別するために利用する
-enum MyMapViewType {
+enum MapViewType {
   // for map_page.dart
   mapPage,
   // for locamusic_detail_page.dart

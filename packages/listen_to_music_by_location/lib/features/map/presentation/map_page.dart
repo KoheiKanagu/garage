@@ -27,7 +27,7 @@ class MapPage extends HookConsumerWidget {
         ref.read(
           mapAdjustCameraProvider(
             locamusics: locamusics ?? [],
-            myMapViewType: MyMapViewType.mapPage,
+            mapViewType: MapViewType.mapPage,
           ),
         );
         return null;
@@ -74,7 +74,7 @@ class MapPage extends HookConsumerWidget {
       );
 
     return const MyMapView(
-      myMapViewType: MyMapViewType.mapPage,
+      mapViewType: MapViewType.mapPage,
     );
   }
 }

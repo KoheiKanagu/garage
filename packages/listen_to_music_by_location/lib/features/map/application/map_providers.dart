@@ -13,19 +13,14 @@ part 'map_providers.g.dart';
 Future<void> mapDrawAnnotations(
   MapDrawAnnotationsRef ref, {
   required List<LocamusicWithDocumentId> locamusics,
-  required MyMapViewType myMapViewType,
+  required MapViewType mapViewType,
 }) async {
   // 既存のAnnotationを削除
-  await switch (myMapViewType) {
-    MyMapViewType.mapPage =>
-      ref.watch(mapPageMapViewProvider).removeAnnotations(
-            await ref.watch(mapPageMapViewProvider).getAnnotations(),
-          ),
-    MyMapViewType.locamusicDetailPage => ref
-        .watch(locamusicDetailPageMapViewProvider)
-        .removeAnnotations(
-          await ref.watch(locamusicDetailPageMapViewProvider).getAnnotations(),
-        ),
+  await switch (mapViewType) {
+    MapViewType.mapPage =>
+      ref.watch(mapPageMapViewProvider).removeAnnotationAll(),
+    MapViewType.locamusicDetailPage =>
+      ref.watch(locamusicDetailPageMapViewProvider).removeAnnotationAll(),
   };
 
   // Annotationを追加
@@ -54,10 +49,10 @@ Future<void> mapDrawAnnotations(
       ),
     ];
 
-    await switch (myMapViewType) {
-      MyMapViewType.mapPage =>
+    await switch (mapViewType) {
+      MapViewType.mapPage =>
         ref.read(mapPageMapViewProvider).addAnnotations(annotations),
-      MyMapViewType.locamusicDetailPage => ref
+      MapViewType.locamusicDetailPage => ref
           .read(locamusicDetailPageMapViewProvider)
           .addAnnotations(annotations),
     };
@@ -70,7 +65,7 @@ Future<void> mapDrawAnnotations(
 Future<void> mapAdjustCamera(
   MapAdjustCameraRef ref, {
   required List<LocamusicWithDocumentId> locamusics,
-  required MyMapViewType myMapViewType,
+  required MapViewType mapViewType,
 }) async {
   if (locamusics.isEmpty) {
     // 初期位置を取得してカメラズーム
@@ -78,13 +73,13 @@ Future<void> mapAdjustCamera(
     final value =
         await ref.read(locationManagerDidUpdateLocationsProvider.future);
 
-    await switch (myMapViewType) {
-      MyMapViewType.mapPage => ref.watch(mapPageMapViewProvider).setMapRegion(
+    await switch (mapViewType) {
+      MapViewType.mapPage => ref.watch(mapPageMapViewProvider).setMapRegion(
             latitude: value.latitude,
             longitude: value.longitude,
             meters: DistanceRange.large.meters,
           ),
-      MyMapViewType.locamusicDetailPage =>
+      MapViewType.locamusicDetailPage =>
         ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
               latitude: value.latitude,
               longitude: value.longitude,
@@ -98,13 +93,12 @@ Future<void> mapAdjustCamera(
   await ref.watch(
     mapDrawAnnotationsProvider(
       locamusics: locamusics,
-      myMapViewType: myMapViewType,
+      mapViewType: mapViewType,
     ).future,
   );
-  await switch (myMapViewType) {
-    MyMapViewType.mapPage =>
-      ref.watch(mapPageMapViewProvider).showAnnotations(),
-    MyMapViewType.locamusicDetailPage =>
+  await switch (mapViewType) {
+    MapViewType.mapPage => ref.watch(mapPageMapViewProvider).showAnnotations(),
+    MapViewType.locamusicDetailPage =>
       ref.watch(locamusicDetailPageMapViewProvider).showAnnotations(),
   };
 }
@@ -114,22 +108,22 @@ Future<void> mapAdjustCamera(
 Future<void> mapSetAnnotationRegion(
   MapSetAnnotationRegionRef ref, {
   required LocamusicWithDocumentId locamusic,
-  required MyMapViewType myMapViewType,
+  required MapViewType mapViewType,
 }) async {
   await ref.watch(
     mapDrawAnnotationsProvider(
       locamusics: [locamusic].toList(),
-      myMapViewType: myMapViewType,
+      mapViewType: mapViewType,
     ).future,
   );
 
-  await switch (myMapViewType) {
-    MyMapViewType.mapPage => ref.watch(mapPageMapViewProvider).setMapRegion(
+  await switch (mapViewType) {
+    MapViewType.mapPage => ref.watch(mapPageMapViewProvider).setMapRegion(
           latitude: locamusic.locamusic.geoPoint.latitude,
           longitude: locamusic.locamusic.geoPoint.longitude,
           meters: locamusic.locamusic.distance * 2.5,
         ),
-    MyMapViewType.locamusicDetailPage =>
+    MapViewType.locamusicDetailPage =>
       ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
             latitude: locamusic.locamusic.geoPoint.latitude,
             longitude: locamusic.locamusic.geoPoint.longitude,

@@ -41,7 +41,7 @@ enum AuthorizationStatus {
 }
 
 /// どのMapViewから呼ばれたかを判別するために利用する
-enum MyMapViewType {
+enum MapViewType {
   mapPage,
   locamusicDetailPage,
 }
@@ -313,6 +313,29 @@ class MapPageMapView {
     }
   }
 
+  /// remove all annotations and overlays
+  Future<void> removeAnnotationAll() async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.removeAnnotationAll';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   Future<List<String?>> getAnnotations() async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.getAnnotations';
@@ -499,6 +522,29 @@ class LocamusicDetailPageMapView {
     );
     final List<Object?>? __pigeon_replyList =
         await __pigeon_channel.send(<Object?>[identifiers]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  /// remove all annotations and overlays
+  Future<void> removeAnnotationAll() async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.removeAnnotationAll';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {
@@ -1049,13 +1095,13 @@ abstract class MapViewDelegate {
   static const MessageCodec<Object?> pigeonChannelCodec = StandardMessageCodec();
 
   /// on tap MKCircle
-  void onTapCircle(MyMapViewType viewType, String identifier);
+  void onTapCircle(MapViewType viewType, String identifier);
 
   /// on long pressed MKMapView
-  void onLongPressedMap(MyMapViewType viewType, double latitude, double longitude);
+  void onLongPressedMap(MapViewType viewType, double latitude, double longitude);
 
   /// https://developer.apple.com/documentation/mapkit/mkmapviewdelegate/1452291-mapviewdidfinishloadingmap
-  void mapViewDidFinishLoadingMap(MyMapViewType viewType);
+  void mapViewDidFinishLoadingMap(MapViewType viewType);
 
   static void setup(MapViewDelegate? api, {BinaryMessenger? binaryMessenger}) {
     {
@@ -1069,9 +1115,9 @@ abstract class MapViewDelegate {
           assert(message != null,
           'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onTapCircle was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final MyMapViewType? arg_viewType = args[0] == null ? null : MyMapViewType.values[args[0]! as int];
+          final MapViewType? arg_viewType = args[0] == null ? null : MapViewType.values[args[0]! as int];
           assert(arg_viewType != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onTapCircle was null, expected non-null MyMapViewType.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onTapCircle was null, expected non-null MapViewType.');
           final String? arg_identifier = (args[1] as String?);
           assert(arg_identifier != null,
               'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onTapCircle was null, expected non-null String.');
@@ -1097,9 +1143,9 @@ abstract class MapViewDelegate {
           assert(message != null,
           'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onLongPressedMap was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final MyMapViewType? arg_viewType = args[0] == null ? null : MyMapViewType.values[args[0]! as int];
+          final MapViewType? arg_viewType = args[0] == null ? null : MapViewType.values[args[0]! as int];
           assert(arg_viewType != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onLongPressedMap was null, expected non-null MyMapViewType.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onLongPressedMap was null, expected non-null MapViewType.');
           final double? arg_latitude = (args[1] as double?);
           assert(arg_latitude != null,
               'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onLongPressedMap was null, expected non-null double.');
@@ -1128,9 +1174,9 @@ abstract class MapViewDelegate {
           assert(message != null,
           'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.mapViewDidFinishLoadingMap was null.');
           final List<Object?> args = (message as List<Object?>?)!;
-          final MyMapViewType? arg_viewType = args[0] == null ? null : MyMapViewType.values[args[0]! as int];
+          final MapViewType? arg_viewType = args[0] == null ? null : MapViewType.values[args[0]! as int];
           assert(arg_viewType != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.mapViewDidFinishLoadingMap was null, expected non-null MyMapViewType.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.mapViewDidFinishLoadingMap was null, expected non-null MapViewType.');
           try {
             api.mapViewDidFinishLoadingMap(arg_viewType!);
             return wrapResponse(empty: true);

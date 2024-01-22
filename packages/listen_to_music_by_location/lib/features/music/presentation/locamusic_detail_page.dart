@@ -47,7 +47,7 @@ class LocamusicDetailPage extends HookConsumerWidget {
           () async {
             await ref.read(
               mapPageMapViewMapViewDidFinishLoadingMapProvider.selectAsync(
-                (data) => data == MyMapViewType.locamusicDetailPage,
+                (data) => data == MapViewType.locamusicDetailPage,
               ),
             );
 
@@ -62,7 +62,7 @@ class LocamusicDetailPage extends HookConsumerWidget {
                   documentId: documentId,
                   locamusic: locamusic,
                 ),
-                myMapViewType: MyMapViewType.locamusicDetailPage,
+                mapViewType: MapViewType.locamusicDetailPage,
               ),
             );
           },
@@ -129,8 +129,7 @@ class LocamusicDetailPage extends HookConsumerWidget {
                               height: 200,
                               child: MyMapView(
                                 layoutMarginsBottom: 0,
-                                myMapViewType:
-                                    MyMapViewType.locamusicDetailPage,
+                                mapViewType: MapViewType.locamusicDetailPage,
                               ),
                             ),
                           ),

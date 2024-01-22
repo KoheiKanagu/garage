@@ -9,7 +9,7 @@ part of 'map_providers.dart';
 // **************************************************************************
 
 String _$mapDrawAnnotationsHash() =>
-    r'8ed3e021f56dfa7ee4ff3d3823c0897014692390';
+    r'6c1094c920ec45feba813c3049a01f776d2a30d1';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -44,11 +44,11 @@ class MapDrawAnnotationsFamily extends Family<AsyncValue<void>> {
   /// See also [mapDrawAnnotations].
   MapDrawAnnotationsProvider call({
     required List<({String documentId, Locamusic locamusic})> locamusics,
-    required MyMapViewType myMapViewType,
+    required MapViewType mapViewType,
   }) {
     return MapDrawAnnotationsProvider(
       locamusics: locamusics,
-      myMapViewType: myMapViewType,
+      mapViewType: mapViewType,
     );
   }
 
@@ -58,7 +58,7 @@ class MapDrawAnnotationsFamily extends Family<AsyncValue<void>> {
   ) {
     return call(
       locamusics: provider.locamusics,
-      myMapViewType: provider.myMapViewType,
+      mapViewType: provider.mapViewType,
     );
   }
 
@@ -82,12 +82,12 @@ class MapDrawAnnotationsProvider extends AutoDisposeFutureProvider<void> {
   /// See also [mapDrawAnnotations].
   MapDrawAnnotationsProvider({
     required List<({String documentId, Locamusic locamusic})> locamusics,
-    required MyMapViewType myMapViewType,
+    required MapViewType mapViewType,
   }) : this._internal(
           (ref) => mapDrawAnnotations(
             ref as MapDrawAnnotationsRef,
             locamusics: locamusics,
-            myMapViewType: myMapViewType,
+            mapViewType: mapViewType,
           ),
           from: mapDrawAnnotationsProvider,
           name: r'mapDrawAnnotationsProvider',
@@ -99,7 +99,7 @@ class MapDrawAnnotationsProvider extends AutoDisposeFutureProvider<void> {
           allTransitiveDependencies:
               MapDrawAnnotationsFamily._allTransitiveDependencies,
           locamusics: locamusics,
-          myMapViewType: myMapViewType,
+          mapViewType: mapViewType,
         );
 
   MapDrawAnnotationsProvider._internal(
@@ -110,11 +110,11 @@ class MapDrawAnnotationsProvider extends AutoDisposeFutureProvider<void> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.locamusics,
-    required this.myMapViewType,
+    required this.mapViewType,
   }) : super.internal();
 
   final List<({String documentId, Locamusic locamusic})> locamusics;
-  final MyMapViewType myMapViewType;
+  final MapViewType mapViewType;
 
   @override
   Override overrideWith(
@@ -130,7 +130,7 @@ class MapDrawAnnotationsProvider extends AutoDisposeFutureProvider<void> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         locamusics: locamusics,
-        myMapViewType: myMapViewType,
+        mapViewType: mapViewType,
       ),
     );
   }
@@ -144,14 +144,14 @@ class MapDrawAnnotationsProvider extends AutoDisposeFutureProvider<void> {
   bool operator ==(Object other) {
     return other is MapDrawAnnotationsProvider &&
         other.locamusics == locamusics &&
-        other.myMapViewType == myMapViewType;
+        other.mapViewType == mapViewType;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, locamusics.hashCode);
-    hash = _SystemHash.combine(hash, myMapViewType.hashCode);
+    hash = _SystemHash.combine(hash, mapViewType.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -161,8 +161,8 @@ mixin MapDrawAnnotationsRef on AutoDisposeFutureProviderRef<void> {
   /// The parameter `locamusics` of this provider.
   List<({String documentId, Locamusic locamusic})> get locamusics;
 
-  /// The parameter `myMapViewType` of this provider.
-  MyMapViewType get myMapViewType;
+  /// The parameter `mapViewType` of this provider.
+  MapViewType get mapViewType;
 }
 
 class _MapDrawAnnotationsProviderElement
@@ -173,11 +173,11 @@ class _MapDrawAnnotationsProviderElement
   List<({String documentId, Locamusic locamusic})> get locamusics =>
       (origin as MapDrawAnnotationsProvider).locamusics;
   @override
-  MyMapViewType get myMapViewType =>
-      (origin as MapDrawAnnotationsProvider).myMapViewType;
+  MapViewType get mapViewType =>
+      (origin as MapDrawAnnotationsProvider).mapViewType;
 }
 
-String _$mapAdjustCameraHash() => r'b44c5f2cd787211cfa911a5ba30948ddf3ccf626';
+String _$mapAdjustCameraHash() => r'56ce2f8389be208bdb5b76cccb304a1663f65609';
 
 /// Annotationが存在するなら全てのAnnotationが表示できるようにズームする
 /// Annotationが存在しないなら現在地にズームする
@@ -203,11 +203,11 @@ class MapAdjustCameraFamily extends Family<AsyncValue<void>> {
   /// Copied from [mapAdjustCamera].
   MapAdjustCameraProvider call({
     required List<({String documentId, Locamusic locamusic})> locamusics,
-    required MyMapViewType myMapViewType,
+    required MapViewType mapViewType,
   }) {
     return MapAdjustCameraProvider(
       locamusics: locamusics,
-      myMapViewType: myMapViewType,
+      mapViewType: mapViewType,
     );
   }
 
@@ -217,7 +217,7 @@ class MapAdjustCameraFamily extends Family<AsyncValue<void>> {
   ) {
     return call(
       locamusics: provider.locamusics,
-      myMapViewType: provider.myMapViewType,
+      mapViewType: provider.mapViewType,
     );
   }
 
@@ -247,12 +247,12 @@ class MapAdjustCameraProvider extends AutoDisposeFutureProvider<void> {
   /// Copied from [mapAdjustCamera].
   MapAdjustCameraProvider({
     required List<({String documentId, Locamusic locamusic})> locamusics,
-    required MyMapViewType myMapViewType,
+    required MapViewType mapViewType,
   }) : this._internal(
           (ref) => mapAdjustCamera(
             ref as MapAdjustCameraRef,
             locamusics: locamusics,
-            myMapViewType: myMapViewType,
+            mapViewType: mapViewType,
           ),
           from: mapAdjustCameraProvider,
           name: r'mapAdjustCameraProvider',
@@ -264,7 +264,7 @@ class MapAdjustCameraProvider extends AutoDisposeFutureProvider<void> {
           allTransitiveDependencies:
               MapAdjustCameraFamily._allTransitiveDependencies,
           locamusics: locamusics,
-          myMapViewType: myMapViewType,
+          mapViewType: mapViewType,
         );
 
   MapAdjustCameraProvider._internal(
@@ -275,11 +275,11 @@ class MapAdjustCameraProvider extends AutoDisposeFutureProvider<void> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.locamusics,
-    required this.myMapViewType,
+    required this.mapViewType,
   }) : super.internal();
 
   final List<({String documentId, Locamusic locamusic})> locamusics;
-  final MyMapViewType myMapViewType;
+  final MapViewType mapViewType;
 
   @override
   Override overrideWith(
@@ -295,7 +295,7 @@ class MapAdjustCameraProvider extends AutoDisposeFutureProvider<void> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         locamusics: locamusics,
-        myMapViewType: myMapViewType,
+        mapViewType: mapViewType,
       ),
     );
   }
@@ -309,14 +309,14 @@ class MapAdjustCameraProvider extends AutoDisposeFutureProvider<void> {
   bool operator ==(Object other) {
     return other is MapAdjustCameraProvider &&
         other.locamusics == locamusics &&
-        other.myMapViewType == myMapViewType;
+        other.mapViewType == mapViewType;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, locamusics.hashCode);
-    hash = _SystemHash.combine(hash, myMapViewType.hashCode);
+    hash = _SystemHash.combine(hash, mapViewType.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -326,8 +326,8 @@ mixin MapAdjustCameraRef on AutoDisposeFutureProviderRef<void> {
   /// The parameter `locamusics` of this provider.
   List<({String documentId, Locamusic locamusic})> get locamusics;
 
-  /// The parameter `myMapViewType` of this provider.
-  MyMapViewType get myMapViewType;
+  /// The parameter `mapViewType` of this provider.
+  MapViewType get mapViewType;
 }
 
 class _MapAdjustCameraProviderElement
@@ -338,12 +338,12 @@ class _MapAdjustCameraProviderElement
   List<({String documentId, Locamusic locamusic})> get locamusics =>
       (origin as MapAdjustCameraProvider).locamusics;
   @override
-  MyMapViewType get myMapViewType =>
-      (origin as MapAdjustCameraProvider).myMapViewType;
+  MapViewType get mapViewType =>
+      (origin as MapAdjustCameraProvider).mapViewType;
 }
 
 String _$mapSetAnnotationRegionHash() =>
-    r'fcfa8074e4730ea12e5ccaf796599b658feba0bb';
+    r'00036b77d74b61691049245a2ec4c137abf57956';
 
 /// Annotationを描画してカメラをズームする
 ///
@@ -365,11 +365,11 @@ class MapSetAnnotationRegionFamily extends Family<AsyncValue<void>> {
   /// Copied from [mapSetAnnotationRegion].
   MapSetAnnotationRegionProvider call({
     required ({String documentId, Locamusic locamusic}) locamusic,
-    required MyMapViewType myMapViewType,
+    required MapViewType mapViewType,
   }) {
     return MapSetAnnotationRegionProvider(
       locamusic: locamusic,
-      myMapViewType: myMapViewType,
+      mapViewType: mapViewType,
     );
   }
 
@@ -379,7 +379,7 @@ class MapSetAnnotationRegionFamily extends Family<AsyncValue<void>> {
   ) {
     return call(
       locamusic: provider.locamusic,
-      myMapViewType: provider.myMapViewType,
+      mapViewType: provider.mapViewType,
     );
   }
 
@@ -407,12 +407,12 @@ class MapSetAnnotationRegionProvider extends AutoDisposeFutureProvider<void> {
   /// Copied from [mapSetAnnotationRegion].
   MapSetAnnotationRegionProvider({
     required ({String documentId, Locamusic locamusic}) locamusic,
-    required MyMapViewType myMapViewType,
+    required MapViewType mapViewType,
   }) : this._internal(
           (ref) => mapSetAnnotationRegion(
             ref as MapSetAnnotationRegionRef,
             locamusic: locamusic,
-            myMapViewType: myMapViewType,
+            mapViewType: mapViewType,
           ),
           from: mapSetAnnotationRegionProvider,
           name: r'mapSetAnnotationRegionProvider',
@@ -424,7 +424,7 @@ class MapSetAnnotationRegionProvider extends AutoDisposeFutureProvider<void> {
           allTransitiveDependencies:
               MapSetAnnotationRegionFamily._allTransitiveDependencies,
           locamusic: locamusic,
-          myMapViewType: myMapViewType,
+          mapViewType: mapViewType,
         );
 
   MapSetAnnotationRegionProvider._internal(
@@ -435,11 +435,11 @@ class MapSetAnnotationRegionProvider extends AutoDisposeFutureProvider<void> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.locamusic,
-    required this.myMapViewType,
+    required this.mapViewType,
   }) : super.internal();
 
   final ({String documentId, Locamusic locamusic}) locamusic;
-  final MyMapViewType myMapViewType;
+  final MapViewType mapViewType;
 
   @override
   Override overrideWith(
@@ -455,7 +455,7 @@ class MapSetAnnotationRegionProvider extends AutoDisposeFutureProvider<void> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         locamusic: locamusic,
-        myMapViewType: myMapViewType,
+        mapViewType: mapViewType,
       ),
     );
   }
@@ -469,14 +469,14 @@ class MapSetAnnotationRegionProvider extends AutoDisposeFutureProvider<void> {
   bool operator ==(Object other) {
     return other is MapSetAnnotationRegionProvider &&
         other.locamusic == locamusic &&
-        other.myMapViewType == myMapViewType;
+        other.mapViewType == mapViewType;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, locamusic.hashCode);
-    hash = _SystemHash.combine(hash, myMapViewType.hashCode);
+    hash = _SystemHash.combine(hash, mapViewType.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -486,8 +486,8 @@ mixin MapSetAnnotationRegionRef on AutoDisposeFutureProviderRef<void> {
   /// The parameter `locamusic` of this provider.
   ({String documentId, Locamusic locamusic}) get locamusic;
 
-  /// The parameter `myMapViewType` of this provider.
-  MyMapViewType get myMapViewType;
+  /// The parameter `mapViewType` of this provider.
+  MapViewType get mapViewType;
 }
 
 class _MapSetAnnotationRegionProviderElement
@@ -499,8 +499,8 @@ class _MapSetAnnotationRegionProviderElement
   ({String documentId, Locamusic locamusic}) get locamusic =>
       (origin as MapSetAnnotationRegionProvider).locamusic;
   @override
-  MyMapViewType get myMapViewType =>
-      (origin as MapSetAnnotationRegionProvider).myMapViewType;
+  MapViewType get mapViewType =>
+      (origin as MapSetAnnotationRegionProvider).mapViewType;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

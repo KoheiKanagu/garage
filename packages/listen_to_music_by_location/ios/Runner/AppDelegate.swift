@@ -17,14 +17,14 @@ import app_links
     let controller = window?.rootViewController as! FlutterViewController
 
     for e in [
-      MyMapViewType.mapPage,
-      MyMapViewType.locamusicDetailPage,
+      MapViewType.mapPage,
+      MapViewType.locamusicDetailPage,
     ] {
       registrar(
         forPlugin: "\(e)"
       )?.register(
         MyMapFlutterPlatformViewFactory(
-          myMapViewType: e,
+          mapViewType: e,
           flutterBinaryMessenger: controller.binaryMessenger
         ),
         withId: "\(e)"
@@ -57,15 +57,15 @@ import app_links
 
 class MyMapFlutterPlatformViewFactory: NSObject, FlutterPlatformViewFactory {
 
-  let myMapViewType: MyMapViewType
+  let mapViewType: MapViewType
 
   let flutterBinaryMessenger: FlutterBinaryMessenger
 
   init(
-    myMapViewType: MyMapViewType,
+    mapViewType: MapViewType,
     flutterBinaryMessenger: FlutterBinaryMessenger
   ) {
-    self.myMapViewType = myMapViewType
+    self.mapViewType = mapViewType
     self.flutterBinaryMessenger = flutterBinaryMessenger
   }
 
@@ -77,13 +77,13 @@ class MyMapFlutterPlatformViewFactory: NSObject, FlutterPlatformViewFactory {
 
     let myMapView = MyMapView(
       args: args,
-      myMapViewType: myMapViewType,
+      mapViewType: mapViewType,
       mapViewDelegate: MapViewDelegate(
         binaryMessenger: flutterBinaryMessenger
       )
     )
 
-    switch myMapViewType {
+    switch mapViewType {
     case .mapPage:
       MapPageMapViewSetup.setUp(
         binaryMessenger: flutterBinaryMessenger,
