@@ -9,7 +9,7 @@ part 'apple_music_providers.g.dart';
 Raw<Stream<Uri>> appLinksAllUriLink(
   AppLinksAllUriLinkRef ref,
 ) =>
-    AppLinks().allUriLinkStream;
+    AppLinks().uriLinkStream;
 
 @riverpod
 Stream<Uri> appleMusicAppLinks(

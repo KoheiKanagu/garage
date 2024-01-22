@@ -159,4 +159,9 @@ class _StringsLocamusicJa {
 	String get large => '大';
 	String get delete => '削除';
 	String get delete_confirm => '削除しますか？';
+	String get open_apple_music => 'Apple Musicを開く';
+	String get awaiting_music_share => '曲の共有を待っています';
+	String get how_to_share_step_1 => 'お気に入りの曲を探して「・・・」をタップしてください';
+	String get how_to_share_step_2 => '「曲を共有」をタップしてください';
+	String get how_to_share_step_3 => '「場所で音楽」をタップして共有します';
 }

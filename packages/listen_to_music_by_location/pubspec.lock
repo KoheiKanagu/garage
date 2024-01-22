@@ -1618,7 +1618,7 @@ packages:
     source: hosted
     version: "3.28.0"
   smooth_page_indicator:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: smooth_page_indicator
       sha256: "725bc638d5e79df0c84658e1291449996943f93bacbc2cec49963dbbab48d8ae"

@@ -1,10 +1,10 @@
+import 'package:core/common_widgets/my_smooth_page_indicator.dart';
 import 'package:core/features/onboarding/application/sign_in_route.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingPageBase extends HookConsumerWidget {
   const OnboardingPageBase({
@@ -16,10 +16,7 @@ class OnboardingPageBase extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentPageIndex = useState(0);
-    final controller = usePageController(
-      initialPage: currentPageIndex.value,
-    );
+    final controller = usePageController();
 
     return Scaffold(
       body: Column(
@@ -31,24 +28,7 @@ class OnboardingPageBase extends HookConsumerWidget {
             ),
           ),
           const Gap(12),
-          SmoothPageIndicator(
-            controller: controller,
-            count: children.length,
-            onDotClicked: (index) {
-              controller.animateToPage(
-                index,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              );
-            },
-            effect: WormEffect(
-              type: WormType.thinUnderground,
-              dotWidth: 8,
-              dotHeight: 8,
-              activeDotColor: Theme.of(context).colorScheme.primary,
-              dotColor: Theme.of(context).colorScheme.onSurface,
-            ),
-          ),
+          MySmoothPageIndicator(controller),
           const Gap(24),
         ],
       ),

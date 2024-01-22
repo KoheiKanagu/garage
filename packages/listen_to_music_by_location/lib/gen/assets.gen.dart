@@ -16,6 +16,8 @@ class $AssetsImagesGen {
   AssetGenImage get appIcon =>
       const AssetGenImage('assets/images/app_icon.webp');
 
+  $AssetsImagesHowToGen get howTo => const $AssetsImagesHowToGen();
+
   /// List of all assets
   List<AssetGenImage> get values => [appIcon];
 }
@@ -28,6 +30,25 @@ class $AssetsSiGen {
 
   /// List of all assets
   List<String> get values => [appleMusicBadge];
+}
+
+class $AssetsImagesHowToGen {
+  const $AssetsImagesHowToGen();
+
+  /// File path: assets/images/how_to/step1.webp
+  AssetGenImage get step1 =>
+      const AssetGenImage('assets/images/how_to/step1.webp');
+
+  /// File path: assets/images/how_to/step2.webp
+  AssetGenImage get step2 =>
+      const AssetGenImage('assets/images/how_to/step2.webp');
+
+  /// File path: assets/images/how_to/step3.webp
+  AssetGenImage get step3 =>
+      const AssetGenImage('assets/images/how_to/step3.webp');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [step1, step2, step3];
 }
 
 class Assets {

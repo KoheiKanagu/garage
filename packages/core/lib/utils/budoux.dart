@@ -34,5 +34,6 @@ extension StringExtension on String {
           e,
           style: style,
         ),
+        alignment: alignment,
       );
 }

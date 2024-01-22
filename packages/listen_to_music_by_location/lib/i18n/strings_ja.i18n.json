@@ -10,7 +10,12 @@
     "medium": "中",
     "large": "大",
     "delete": "削除",
-    "delete_confirm": "削除しますか？"
+    "delete_confirm": "削除しますか？",
+    "open_apple_music": "Apple Musicを開く",
+    "awaiting_music_share": "曲の共有を待っています",
+    "how_to_share_step_1": "お気に入りの曲を探して「・・・」をタップしてください",
+    "how_to_share_step_2": "「曲を共有」をタップしてください",
+    "how_to_share_step_3": "「場所で音楽」をタップして共有します"
   },
   "app_name": "場所で音楽",
   "map": "地図",
