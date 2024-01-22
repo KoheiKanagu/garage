@@ -9,7 +9,7 @@ part of 'map_providers.dart';
 // **************************************************************************
 
 String _$mapDrawAnnotationsHash() =>
-    r'6c1094c920ec45feba813c3049a01f776d2a30d1';
+    r'e3d0bbcc0fea982fe5165eb4f966d23ee03f7f57';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -177,46 +177,32 @@ class _MapDrawAnnotationsProviderElement
       (origin as MapDrawAnnotationsProvider).mapViewType;
 }
 
-String _$mapAdjustCameraHash() => r'56ce2f8389be208bdb5b76cccb304a1663f65609';
+String _$mapSetUserLocationRegionHash() =>
+    r'4a4abcad0a680a95a43a5bdd8c027b1b60cfe632';
 
-/// Annotationが存在するなら全てのAnnotationが表示できるようにズームする
-/// Annotationが存在しないなら現在地にズームする
-///
-/// Copied from [mapAdjustCamera].
-@ProviderFor(mapAdjustCamera)
-const mapAdjustCameraProvider = MapAdjustCameraFamily();
+/// See also [mapSetUserLocationRegion].
+@ProviderFor(mapSetUserLocationRegion)
+const mapSetUserLocationRegionProvider = MapSetUserLocationRegionFamily();
 
-/// Annotationが存在するなら全てのAnnotationが表示できるようにズームする
-/// Annotationが存在しないなら現在地にズームする
-///
-/// Copied from [mapAdjustCamera].
-class MapAdjustCameraFamily extends Family<AsyncValue<void>> {
-  /// Annotationが存在するなら全てのAnnotationが表示できるようにズームする
-  /// Annotationが存在しないなら現在地にズームする
-  ///
-  /// Copied from [mapAdjustCamera].
-  const MapAdjustCameraFamily();
+/// See also [mapSetUserLocationRegion].
+class MapSetUserLocationRegionFamily extends Family<AsyncValue<void>> {
+  /// See also [mapSetUserLocationRegion].
+  const MapSetUserLocationRegionFamily();
 
-  /// Annotationが存在するなら全てのAnnotationが表示できるようにズームする
-  /// Annotationが存在しないなら現在地にズームする
-  ///
-  /// Copied from [mapAdjustCamera].
-  MapAdjustCameraProvider call({
-    required List<({String documentId, Locamusic locamusic})> locamusics,
+  /// See also [mapSetUserLocationRegion].
+  MapSetUserLocationRegionProvider call({
     required MapViewType mapViewType,
   }) {
-    return MapAdjustCameraProvider(
-      locamusics: locamusics,
+    return MapSetUserLocationRegionProvider(
       mapViewType: mapViewType,
     );
   }
 
   @override
-  MapAdjustCameraProvider getProviderOverride(
-    covariant MapAdjustCameraProvider provider,
+  MapSetUserLocationRegionProvider getProviderOverride(
+    covariant MapSetUserLocationRegionProvider provider,
   ) {
     return call(
-      locamusics: provider.locamusics,
       mapViewType: provider.mapViewType,
     );
   }
@@ -233,68 +219,56 @@ class MapAdjustCameraFamily extends Family<AsyncValue<void>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'mapAdjustCameraProvider';
+  String? get name => r'mapSetUserLocationRegionProvider';
 }
 
-/// Annotationが存在するなら全てのAnnotationが表示できるようにズームする
-/// Annotationが存在しないなら現在地にズームする
-///
-/// Copied from [mapAdjustCamera].
-class MapAdjustCameraProvider extends AutoDisposeFutureProvider<void> {
-  /// Annotationが存在するなら全てのAnnotationが表示できるようにズームする
-  /// Annotationが存在しないなら現在地にズームする
-  ///
-  /// Copied from [mapAdjustCamera].
-  MapAdjustCameraProvider({
-    required List<({String documentId, Locamusic locamusic})> locamusics,
+/// See also [mapSetUserLocationRegion].
+class MapSetUserLocationRegionProvider extends AutoDisposeFutureProvider<void> {
+  /// See also [mapSetUserLocationRegion].
+  MapSetUserLocationRegionProvider({
     required MapViewType mapViewType,
   }) : this._internal(
-          (ref) => mapAdjustCamera(
-            ref as MapAdjustCameraRef,
-            locamusics: locamusics,
+          (ref) => mapSetUserLocationRegion(
+            ref as MapSetUserLocationRegionRef,
             mapViewType: mapViewType,
           ),
-          from: mapAdjustCameraProvider,
-          name: r'mapAdjustCameraProvider',
+          from: mapSetUserLocationRegionProvider,
+          name: r'mapSetUserLocationRegionProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$mapAdjustCameraHash,
-          dependencies: MapAdjustCameraFamily._dependencies,
+                  : _$mapSetUserLocationRegionHash,
+          dependencies: MapSetUserLocationRegionFamily._dependencies,
           allTransitiveDependencies:
-              MapAdjustCameraFamily._allTransitiveDependencies,
-          locamusics: locamusics,
+              MapSetUserLocationRegionFamily._allTransitiveDependencies,
           mapViewType: mapViewType,
         );
 
-  MapAdjustCameraProvider._internal(
+  MapSetUserLocationRegionProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.locamusics,
     required this.mapViewType,
   }) : super.internal();
 
-  final List<({String documentId, Locamusic locamusic})> locamusics;
   final MapViewType mapViewType;
 
   @override
   Override overrideWith(
-    FutureOr<void> Function(MapAdjustCameraRef provider) create,
+    FutureOr<void> Function(MapSetUserLocationRegionRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: MapAdjustCameraProvider._internal(
-        (ref) => create(ref as MapAdjustCameraRef),
+      override: MapSetUserLocationRegionProvider._internal(
+        (ref) => create(ref as MapSetUserLocationRegionRef),
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        locamusics: locamusics,
         mapViewType: mapViewType,
       ),
     );
@@ -302,44 +276,37 @@ class MapAdjustCameraProvider extends AutoDisposeFutureProvider<void> {
 
   @override
   AutoDisposeFutureProviderElement<void> createElement() {
-    return _MapAdjustCameraProviderElement(this);
+    return _MapSetUserLocationRegionProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is MapAdjustCameraProvider &&
-        other.locamusics == locamusics &&
+    return other is MapSetUserLocationRegionProvider &&
         other.mapViewType == mapViewType;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, locamusics.hashCode);
     hash = _SystemHash.combine(hash, mapViewType.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin MapAdjustCameraRef on AutoDisposeFutureProviderRef<void> {
-  /// The parameter `locamusics` of this provider.
-  List<({String documentId, Locamusic locamusic})> get locamusics;
-
+mixin MapSetUserLocationRegionRef on AutoDisposeFutureProviderRef<void> {
   /// The parameter `mapViewType` of this provider.
   MapViewType get mapViewType;
 }
 
-class _MapAdjustCameraProviderElement
-    extends AutoDisposeFutureProviderElement<void> with MapAdjustCameraRef {
-  _MapAdjustCameraProviderElement(super.provider);
+class _MapSetUserLocationRegionProviderElement
+    extends AutoDisposeFutureProviderElement<void>
+    with MapSetUserLocationRegionRef {
+  _MapSetUserLocationRegionProviderElement(super.provider);
 
   @override
-  List<({String documentId, Locamusic locamusic})> get locamusics =>
-      (origin as MapAdjustCameraProvider).locamusics;
-  @override
   MapViewType get mapViewType =>
-      (origin as MapAdjustCameraProvider).mapViewType;
+      (origin as MapSetUserLocationRegionProvider).mapViewType;
 }
 
 String _$mapSetAnnotationRegionHash() =>

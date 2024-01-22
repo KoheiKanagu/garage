@@ -81,47 +81,28 @@ Future<void> mapDrawAnnotations(
   }
 }
 
-/// Annotationが存在するなら全てのAnnotationが表示できるようにズームする
-/// Annotationが存在しないなら現在地にズームする
 @riverpod
-Future<void> mapAdjustCamera(
-  MapAdjustCameraRef ref, {
-  required List<LocamusicWithDocumentId> locamusics,
+Future<void> mapSetUserLocationRegion(
+  MapSetUserLocationRegionRef ref, {
   required MapViewType mapViewType,
 }) async {
-  if (locamusics.isEmpty) {
-    // 初期位置を取得してカメラズーム
-    await ref.read(locationManagerProvider).requestLocation();
-    final value =
-        await ref.read(locationManagerDidUpdateLocationsProvider.future);
+  // 初期位置を取得してカメラズーム
+  await ref.read(locationManagerProvider).requestLocation();
+  final value =
+      await ref.read(locationManagerDidUpdateLocationsProvider.future);
 
-    await switch (mapViewType) {
-      MapViewType.mapPage => ref.watch(mapPageMapViewProvider).setMapRegion(
+  await switch (mapViewType) {
+    MapViewType.mapPage => ref.watch(mapPageMapViewProvider).setMapRegion(
+          latitude: value.latitude,
+          longitude: value.longitude,
+          meters: DistanceRange.large.meters,
+        ),
+    MapViewType.locamusicDetailPage =>
+      ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
             latitude: value.latitude,
             longitude: value.longitude,
             meters: DistanceRange.large.meters,
           ),
-      MapViewType.locamusicDetailPage =>
-        ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
-              latitude: value.latitude,
-              longitude: value.longitude,
-              meters: DistanceRange.large.meters,
-            ),
-    };
-    return;
-  }
-
-  // Annotationsの用意ができたら表示
-  await ref.watch(
-    mapDrawAnnotationsProvider(
-      locamusics: locamusics,
-      mapViewType: mapViewType,
-    ).future,
-  );
-  await switch (mapViewType) {
-    MapViewType.mapPage => ref.watch(mapPageMapViewProvider).showAnnotations(),
-    MapViewType.locamusicDetailPage =>
-      ref.watch(locamusicDetailPageMapViewProvider).showAnnotations(),
   };
 }
 

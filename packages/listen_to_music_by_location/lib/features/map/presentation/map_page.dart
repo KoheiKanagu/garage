@@ -9,6 +9,7 @@ import 'package:listen_to_music_by_location/features/map/application/map_provide
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/native/application/map_view_delegate.dart';
+import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 import 'package:listen_to_music_by_location/features/native/presentation/my_map_view.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
@@ -20,36 +21,71 @@ class MapPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locamusics = ref.watch(locamusicDocumentsProvider).asData?.value;
+    final locamusics =
+        ref.watch(locamusicDocumentsProvider).asData?.value ?? [];
 
     final didFinishMapViewType = ref
         .watch(mapPageMapViewMapViewDidFinishLoadingMapProvider)
         .asData
         ?.value;
 
-    if (didFinishMapViewType == MapViewType.mapPage) {
-      // MapViewが読み込まれたらAnnotationを描画
-      useEffect(
-        () {
+    final didInitialShowAnnotations = useState(false);
+
+    useEffect(
+      () {
+        // MapViewの初期化待ち
+        if (didFinishMapViewType != MapViewType.mapPage) {
+          return null;
+        }
+
+        // Locamusicがない場合は現在地を表示
+        if (locamusics.isEmpty) {
           ref.read(
-            mapAdjustCameraProvider(
-              locamusics: locamusics ?? [],
+            mapSetUserLocationRegionProvider(
               mapViewType: MapViewType.mapPage,
             ),
           );
           return null;
-        },
-        [didFinishMapViewType],
-      );
-    }
+        }
+
+        Future(
+          () async {
+            // Locamusicがある場合はAnnotationを描画
+            await ref.read(
+              mapDrawAnnotationsProvider(
+                locamusics: locamusics,
+                mapViewType: MapViewType.mapPage,
+              ).future,
+            );
+
+            // 初回のみAnnotationの場所にカメラを移動
+            if (!didInitialShowAnnotations.value) {
+              await ref.read(mapPageMapViewProvider).showAnnotations();
+              didInitialShowAnnotations.value = true;
+            }
+          },
+        );
+
+        return null;
+      },
+      [
+        didFinishMapViewType,
+        locamusics,
+        didInitialShowAnnotations,
+      ],
+    );
 
     ref
       ..listen(
-        mapPageMapViewOnLongPressedMapProvider.future,
+        mapPageMapViewOnLongPressedMapProvider,
         (_, next) async {
+          final value = next.asData?.value;
+          if (value == null) {
+            return;
+          }
+
           final indicator = showMyProgressIndicator();
 
-          final value = await next;
           try {
             await ref.read(
               locamusicAddProvider(
@@ -73,9 +109,12 @@ class MapPage extends HookConsumerWidget {
         },
       )
       ..listen(
-        mapPageMapViewOnTapCircleProvider.future,
+        mapPageMapViewOnTapCircleProvider,
         (_, next) async {
-          final value = next;
+          final value = next.asData?.value;
+          if (value == null) {
+            return;
+          }
 
           // TODO(KoheiKanagu): 円をタップした挙動
         },

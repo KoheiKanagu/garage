@@ -67,11 +67,11 @@ class LocamusicDetailPage extends HookConsumerWidget {
       navigationBar: CupertinoNavigationBar(
         previousPageTitle: i18n.app_name,
         middle: Text(i18n.locamusic.title),
-        // locamusicがまだ取得できていない時は削除ボタンを表示しない
-        trailing: locamusic == null
-            ? null
-            : CupertinoButton(
-                onPressed: () async {
+        trailing: CupertinoButton(
+          // locamusicがまだ取得できていない時は削除ボタンdisable
+          onPressed: locamusic == null
+              ? null
+              : () async {
                   final result = await showOkCancelAlertDialog(
                     context: context,
                     title: i18n.locamusic.delete_confirm,
@@ -82,18 +82,14 @@ class LocamusicDetailPage extends HookConsumerWidget {
 
                   if (result == OkCancelResult.ok) {
                     if (context.mounted) {
-                      GoRouter.of(context).pop();
+                      GoRouter.of(context).pop(
+                        LocamusicDetailPageResponse.deleteLocamusic,
+                      );
                     }
-
-                    await ref.read(
-                      locamusicDeleteProvider(
-                        documentId: documentId,
-                      ).future,
-                    );
                   }
                 },
-                child: const Icon(CupertinoIcons.delete),
-              ),
+          child: const Icon(CupertinoIcons.delete),
+        ),
       ),
       child: locamusic == null
           ? const Center(child: CircularProgressIndicator())
@@ -142,4 +138,9 @@ class LocamusicDetailPage extends HookConsumerWidget {
             ),
     );
   }
+}
+
+enum LocamusicDetailPageResponse {
+  deleteLocamusic,
+  ;
 }
