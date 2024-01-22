@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -39,21 +41,9 @@ class MusicListPage extends HookConsumerWidget {
                 child: CupertinoListSection.insetGrouped(
                   children: locamusics.map<Widget>(
                     (e) {
-                      Future<void> onTap() async {
-                        final response =
-                            await LocamusicDetailPageRoute(e.documentId)
-                                .push<LocamusicDetailPageResponse?>(context);
-
-                        if (response ==
-                            LocamusicDetailPageResponse.deleteLocamusic) {
-                          // LocamusicDetailPageで削除すると、deleteフラグが立ってしまい、
-                          // [cloud_firestore/permission-denied] になるのでここで削除する
-                          await ref.read(
-                            locamusicDeleteProvider(
-                              documentId: e.documentId,
-                            ).future,
-                          );
-                        }
+                      void onTap() {
+                        LocamusicDetailPageRoute(e.documentId)
+                            .push<void>(context);
                       }
 
                       final musicId = e.locamusic.musicId;

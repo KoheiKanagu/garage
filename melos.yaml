@@ -230,7 +230,7 @@ scripts:
     description: |
       Generate files.
     run: |
-      grind update-ci && \
+      grind update-si && \
       melos run build_runner:build --no-select && \
       melos run pigeon && \
       melos run slang && \

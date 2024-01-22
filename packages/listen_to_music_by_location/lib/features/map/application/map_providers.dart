@@ -108,31 +108,32 @@ Future<void> mapSetUserLocationRegion(
 
 /// Annotationを描画してカメラをズームする
 @riverpod
-Future<void> mapSetAnnotationRegion(
+void mapSetAnnotationRegion(
   MapSetAnnotationRegionRef ref, {
   required LocamusicWithDocumentId locamusic,
   required MapViewType mapViewType,
-}) async {
-  await ref.watch(
+}) {
+  ref.watch(
     mapDrawAnnotationsProvider(
       locamusics: [locamusic].toList(),
       mapViewType: mapViewType,
-    ).future,
+    ),
   );
 
-  await switch (mapViewType) {
-    MapViewType.mapPage => ref.watch(mapPageMapViewProvider).setMapRegion(
-          latitude: locamusic.locamusic.geoPoint.latitude,
-          longitude: locamusic.locamusic.geoPoint.longitude,
-          // MKCircleが十分に表示されるように描画範囲を広げる
-          meters: locamusic.locamusic.distance * 2.5,
-        ),
-    MapViewType.locamusicDetailPage =>
+  switch (mapViewType) {
+    case MapViewType.mapPage:
+      ref.watch(mapPageMapViewProvider).setMapRegion(
+            latitude: locamusic.locamusic.geoPoint.latitude,
+            longitude: locamusic.locamusic.geoPoint.longitude,
+            // MKCircleが十分に表示されるように描画範囲を広げる
+            meters: locamusic.locamusic.distance * 2.5,
+          );
+    case MapViewType.locamusicDetailPage:
       ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
             latitude: locamusic.locamusic.geoPoint.latitude,
             longitude: locamusic.locamusic.geoPoint.longitude,
             // MKCircleが十分に表示されるように描画範囲を広げる
             meters: locamusic.locamusic.distance * 2.5,
-          ),
-  };
+          );
+  }
 }

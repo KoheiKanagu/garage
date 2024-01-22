@@ -7,7 +7,7 @@ import 'utils.dart';
 @Task(
   'Update si files',
 )
-Future<void> updateCi() async {
+Future<void> updateSi() async {
   final packages = await runMelosList();
 
   for (final e in packages) {

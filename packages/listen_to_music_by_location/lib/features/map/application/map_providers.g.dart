@@ -310,7 +310,7 @@ class _MapSetUserLocationRegionProviderElement
 }
 
 String _$mapSetAnnotationRegionHash() =>
-    r'00036b77d74b61691049245a2ec4c137abf57956';
+    r'64fd1989cd926e0571f9a328e7f3fb5224fa26f9';
 
 /// Annotationを描画してカメラをズームする
 ///
@@ -321,7 +321,7 @@ const mapSetAnnotationRegionProvider = MapSetAnnotationRegionFamily();
 /// Annotationを描画してカメラをズームする
 ///
 /// Copied from [mapSetAnnotationRegion].
-class MapSetAnnotationRegionFamily extends Family<AsyncValue<void>> {
+class MapSetAnnotationRegionFamily extends Family<void> {
   /// Annotationを描画してカメラをズームする
   ///
   /// Copied from [mapSetAnnotationRegion].
@@ -368,7 +368,7 @@ class MapSetAnnotationRegionFamily extends Family<AsyncValue<void>> {
 /// Annotationを描画してカメラをズームする
 ///
 /// Copied from [mapSetAnnotationRegion].
-class MapSetAnnotationRegionProvider extends AutoDisposeFutureProvider<void> {
+class MapSetAnnotationRegionProvider extends AutoDisposeProvider<void> {
   /// Annotationを描画してカメラをズームする
   ///
   /// Copied from [mapSetAnnotationRegion].
@@ -410,7 +410,7 @@ class MapSetAnnotationRegionProvider extends AutoDisposeFutureProvider<void> {
 
   @override
   Override overrideWith(
-    FutureOr<void> Function(MapSetAnnotationRegionRef provider) create,
+    void Function(MapSetAnnotationRegionRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -428,7 +428,7 @@ class MapSetAnnotationRegionProvider extends AutoDisposeFutureProvider<void> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<void> createElement() {
+  AutoDisposeProviderElement<void> createElement() {
     return _MapSetAnnotationRegionProviderElement(this);
   }
 
@@ -449,7 +449,7 @@ class MapSetAnnotationRegionProvider extends AutoDisposeFutureProvider<void> {
   }
 }
 
-mixin MapSetAnnotationRegionRef on AutoDisposeFutureProviderRef<void> {
+mixin MapSetAnnotationRegionRef on AutoDisposeProviderRef<void> {
   /// The parameter `locamusic` of this provider.
   ({String documentId, Locamusic locamusic}) get locamusic;
 
@@ -458,8 +458,7 @@ mixin MapSetAnnotationRegionRef on AutoDisposeFutureProviderRef<void> {
 }
 
 class _MapSetAnnotationRegionProviderElement
-    extends AutoDisposeFutureProviderElement<void>
-    with MapSetAnnotationRegionRef {
+    extends AutoDisposeProviderElement<void> with MapSetAnnotationRegionRef {
   _MapSetAnnotationRegionProviderElement(super.provider);
 
   @override

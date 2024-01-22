@@ -33,12 +33,15 @@ class LocamusicDetailPage extends HookConsumerWidget {
         .value;
 
     final didFinishMapViewType = ref
-        .watch(mapPageMapViewMapViewDidFinishLoadingMapProvider)
+        .watch(
+          mapPageMapViewMapViewDidFinishLoadingMapProvider(
+            whereViewType: MapViewType.locamusicDetailPage,
+          ),
+        )
         .asData
         ?.value;
 
-    if (didFinishMapViewType == MapViewType.locamusicDetailPage &&
-        locamusic != null) {
+    if (locamusic != null && didFinishMapViewType != null) {
       // MapViewが読み込まれたらAnnotationを描画
       useEffect(
         () {
@@ -81,10 +84,14 @@ class LocamusicDetailPage extends HookConsumerWidget {
                   );
 
                   if (result == OkCancelResult.ok) {
+                    await ref.read(
+                      locamusicDeleteProvider(
+                        documentId: documentId,
+                      ).future,
+                    );
+
                     if (context.mounted) {
-                      GoRouter.of(context).pop(
-                        LocamusicDetailPageResponse.deleteLocamusic,
-                      );
+                      GoRouter.of(context).pop();
                     }
                   }
                 },
@@ -138,9 +145,4 @@ class LocamusicDetailPage extends HookConsumerWidget {
             ),
     );
   }
-}
-
-enum LocamusicDetailPageResponse {
-  deleteLocamusic,
-  ;
 }

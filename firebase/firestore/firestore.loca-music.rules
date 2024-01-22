@@ -22,8 +22,7 @@ service cloud.firestore {
       // 削除されていないこと
       allow get, list: if
         isSignedIn() &&
-        resource.data.createdBy == request.auth.uid &&
-        resource.data.deleted == false
+        resource.data.createdBy == request.auth.uid
         ;
 
       // 自分が作成したものであること
@@ -38,8 +37,7 @@ service cloud.firestore {
       // 削除されていないこと
       allow update: if
         isSignedIn() &&
-        resource.data.createdBy == request.auth.uid &&
-        resource.data.deleted == false
+        resource.data.createdBy == request.auth.uid
       ;
     }
 

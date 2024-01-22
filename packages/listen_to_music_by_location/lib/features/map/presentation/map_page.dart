@@ -25,7 +25,11 @@ class MapPage extends HookConsumerWidget {
         ref.watch(locamusicDocumentsProvider).asData?.value ?? [];
 
     final didFinishMapViewType = ref
-        .watch(mapPageMapViewMapViewDidFinishLoadingMapProvider)
+        .watch(
+          mapPageMapViewMapViewDidFinishLoadingMapProvider(
+            whereViewType: MapViewType.mapPage,
+          ),
+        )
         .asData
         ?.value;
 
@@ -34,7 +38,7 @@ class MapPage extends HookConsumerWidget {
     useEffect(
       () {
         // MapViewの初期化待ち
-        if (didFinishMapViewType != MapViewType.mapPage) {
+        if (didFinishMapViewType == null) {
           return null;
         }
 
@@ -77,7 +81,9 @@ class MapPage extends HookConsumerWidget {
 
     ref
       ..listen(
-        mapPageMapViewOnLongPressedMapProvider,
+        mapPageMapViewOnLongPressedMapProvider(
+          whereViewType: MapViewType.mapPage,
+        ),
         (_, next) async {
           final value = next.asData?.value;
           if (value == null) {
@@ -109,7 +115,9 @@ class MapPage extends HookConsumerWidget {
         },
       )
       ..listen(
-        mapPageMapViewOnTapCircleProvider,
+        mapPageMapViewOnTapCircleProvider(
+          whereViewType: MapViewType.mapPage,
+        ),
         (_, next) async {
           final value = next.asData?.value;
           if (value == null) {
