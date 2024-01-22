@@ -2,25 +2,40 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/application/music_route.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/apple_music_badge.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_artwork_widget.dart';
-import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
 class LocamusicDetailPageHeader extends HookConsumerWidget {
   const LocamusicDetailPageHeader({
     required this.documentId,
-    required this.songDetails,
     super.key,
   });
 
   final String documentId;
 
-  final SongDetails? songDetails;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final musicId = ref
+        .watch(
+          locamusicDocumentProvider(
+            documentId: documentId,
+          ),
+        )
+        .asData
+        ?.value
+        .musicId;
+
+    final songDetails = musicId == null
+        ? null
+        : ref
+            .watch(
+              locamusicSongDetailsProvider(musicId: musicId),
+            )
+            .value;
+
     if (songDetails == null) {
       return SizedBox(
         width: double.infinity,
@@ -38,7 +53,7 @@ class LocamusicDetailPageHeader extends HookConsumerWidget {
         Row(
           children: [
             MusicArtworkWidget(
-              artworkUrl: songDetails?.artworkUrl,
+              artworkUrl: songDetails.artworkUrl,
             ),
             const Gap(12),
             Expanded(
@@ -46,7 +61,7 @@ class LocamusicDetailPageHeader extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    songDetails?.title ?? 'title',
+                    songDetails.title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -54,7 +69,7 @@ class LocamusicDetailPageHeader extends HookConsumerWidget {
                         ),
                   ),
                   Text(
-                    songDetails?.artistName ?? 'artistName',
+                    songDetails.artistName,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleMedium,

@@ -3,13 +3,12 @@
 // See also: https://pub.dev/packages/pigeon
 
 import Foundation
-
 #if os(iOS)
-  import Flutter
+import Flutter
 #elseif os(macOS)
-  import FlutterMacOS
+import FlutterMacOS
 #else
-  #error("Unsupported platform.")
+#error("Unsupported platform.")
 #endif
 
 private func wrapResult(_ result: Any?) -> [Any?] {
@@ -21,20 +20,18 @@ private func wrapError(_ error: Any) -> [Any?] {
     return [
       flutterError.code,
       flutterError.message,
-      flutterError.details,
+      flutterError.details
     ]
   }
   return [
     "\(error)",
     "\(type(of: error))",
-    "Stacktrace: \(Thread.callStackSymbols)",
+    "Stacktrace: \(Thread.callStackSymbols)"
   ]
 }
 
 private func createConnectionError(withChannelName channelName: String) -> FlutterError {
-  return FlutterError(
-    code: "channel-error", message: "Unable to establish connection on channel: '\(channelName)'.",
-    details: "")
+  return FlutterError(code: "channel-error", message: "Unable to establish connection on channel: '\(channelName)'.", details: "")
 }
 
 private func isNullish(_ value: Any?) -> Bool {
@@ -170,10 +167,10 @@ struct Region {
 private class MapPageMapViewCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
-    case 128:
-      return CircleAnnotation.fromList(self.readValue() as! [Any?])
-    default:
-      return super.readValue(ofType: type)
+      case 128:
+        return CircleAnnotation.fromList(self.readValue() as! [Any?])
+      default:
+        return super.readValue(ofType: type)
     }
   }
 }
@@ -214,8 +211,6 @@ protocol MapPageMapView {
   func removeAnnotations(identifiers: [String]) throws
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452719-removeoverlays
   func removeAnnotationOverlays(identifiers: [String]) throws
-  /// remove all annotations and overlays
-  func removeAnnotationAll() throws
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   func getAnnotations() throws -> [String]
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
@@ -228,9 +223,7 @@ class MapPageMapViewSetup {
   static var codec: FlutterStandardMessageCodec { MapPageMapViewCodec.shared }
   /// Sets up an instance of `MapPageMapView` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MapPageMapView?) {
-    let setMapRegionChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.setMapRegion",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let setMapRegionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.setMapRegion", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       setMapRegionChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -248,9 +241,7 @@ class MapPageMapViewSetup {
       setMapRegionChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1451889-addannotations
-    let addAnnotationsChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.addAnnotations",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let addAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.addAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       addAnnotationsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -266,9 +257,7 @@ class MapPageMapViewSetup {
       addAnnotationsChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452518-addoverlays
-    let addAnnotationOverlaysChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.addAnnotationOverlays",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let addAnnotationOverlaysChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.addAnnotationOverlays", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       addAnnotationOverlaysChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -284,9 +273,7 @@ class MapPageMapViewSetup {
       addAnnotationOverlaysChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452130-removeannotations
-    let removeAnnotationsChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.removeAnnotations",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let removeAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.removeAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       removeAnnotationsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -302,10 +289,7 @@ class MapPageMapViewSetup {
       removeAnnotationsChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452719-removeoverlays
-    let removeAnnotationOverlaysChannel = FlutterBasicMessageChannel(
-      name:
-        "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.removeAnnotationOverlays",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let removeAnnotationOverlaysChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.removeAnnotationOverlays", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       removeAnnotationOverlaysChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -320,26 +304,8 @@ class MapPageMapViewSetup {
     } else {
       removeAnnotationOverlaysChannel.setMessageHandler(nil)
     }
-    /// remove all annotations and overlays
-    let removeAnnotationAllChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.removeAnnotationAll",
-      binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      removeAnnotationAllChannel.setMessageHandler { _, reply in
-        do {
-          try api.removeAnnotationAll()
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      removeAnnotationAllChannel.setMessageHandler(nil)
-    }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
-    let getAnnotationsChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.getAnnotations",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let getAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.getAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       getAnnotationsChannel.setMessageHandler { _, reply in
         do {
@@ -353,9 +319,7 @@ class MapPageMapViewSetup {
       getAnnotationsChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
-    let showAnnotationsChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.showAnnotations",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let showAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.showAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       showAnnotationsChannel.setMessageHandler { _, reply in
         do {
@@ -373,10 +337,10 @@ class MapPageMapViewSetup {
 private class LocamusicDetailPageMapViewCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
-    case 128:
-      return CircleAnnotation.fromList(self.readValue() as! [Any?])
-    default:
-      return super.readValue(ofType: type)
+      case 128:
+        return CircleAnnotation.fromList(self.readValue() as! [Any?])
+      default:
+        return super.readValue(ofType: type)
     }
   }
 }
@@ -403,8 +367,7 @@ private class LocamusicDetailPageMapViewCodecReaderWriter: FlutterStandardReader
 }
 
 class LocamusicDetailPageMapViewCodec: FlutterStandardMessageCodec {
-  static let shared = LocamusicDetailPageMapViewCodec(
-    readerWriter: LocamusicDetailPageMapViewCodecReaderWriter())
+  static let shared = LocamusicDetailPageMapViewCodec(readerWriter: LocamusicDetailPageMapViewCodecReaderWriter())
 }
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
@@ -418,8 +381,6 @@ protocol LocamusicDetailPageMapView {
   func removeAnnotations(identifiers: [String]) throws
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452719-removeoverlays
   func removeAnnotationOverlays(identifiers: [String]) throws
-  /// remove all annotations and overlays
-  func removeAnnotationAll() throws
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   func getAnnotations() throws -> [String]
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
@@ -432,10 +393,7 @@ class LocamusicDetailPageMapViewSetup {
   static var codec: FlutterStandardMessageCodec { LocamusicDetailPageMapViewCodec.shared }
   /// Sets up an instance of `LocamusicDetailPageMapView` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: LocamusicDetailPageMapView?) {
-    let setMapRegionChannel = FlutterBasicMessageChannel(
-      name:
-        "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.setMapRegion",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let setMapRegionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.setMapRegion", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       setMapRegionChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -453,10 +411,7 @@ class LocamusicDetailPageMapViewSetup {
       setMapRegionChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1451889-addannotations
-    let addAnnotationsChannel = FlutterBasicMessageChannel(
-      name:
-        "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.addAnnotations",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let addAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.addAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       addAnnotationsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -472,10 +427,7 @@ class LocamusicDetailPageMapViewSetup {
       addAnnotationsChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452518-addoverlays
-    let addAnnotationOverlaysChannel = FlutterBasicMessageChannel(
-      name:
-        "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.addAnnotationOverlays",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let addAnnotationOverlaysChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.addAnnotationOverlays", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       addAnnotationOverlaysChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -491,10 +443,7 @@ class LocamusicDetailPageMapViewSetup {
       addAnnotationOverlaysChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452130-removeannotations
-    let removeAnnotationsChannel = FlutterBasicMessageChannel(
-      name:
-        "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.removeAnnotations",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let removeAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.removeAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       removeAnnotationsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -510,10 +459,7 @@ class LocamusicDetailPageMapViewSetup {
       removeAnnotationsChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452719-removeoverlays
-    let removeAnnotationOverlaysChannel = FlutterBasicMessageChannel(
-      name:
-        "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.removeAnnotationOverlays",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let removeAnnotationOverlaysChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.removeAnnotationOverlays", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       removeAnnotationOverlaysChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -528,28 +474,8 @@ class LocamusicDetailPageMapViewSetup {
     } else {
       removeAnnotationOverlaysChannel.setMessageHandler(nil)
     }
-    /// remove all annotations and overlays
-    let removeAnnotationAllChannel = FlutterBasicMessageChannel(
-      name:
-        "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.removeAnnotationAll",
-      binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      removeAnnotationAllChannel.setMessageHandler { _, reply in
-        do {
-          try api.removeAnnotationAll()
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      removeAnnotationAllChannel.setMessageHandler(nil)
-    }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
-    let getAnnotationsChannel = FlutterBasicMessageChannel(
-      name:
-        "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.getAnnotations",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let getAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.getAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       getAnnotationsChannel.setMessageHandler { _, reply in
         do {
@@ -563,10 +489,7 @@ class LocamusicDetailPageMapViewSetup {
       getAnnotationsChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
-    let showAnnotationsChannel = FlutterBasicMessageChannel(
-      name:
-        "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.showAnnotations",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let showAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.showAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       showAnnotationsChannel.setMessageHandler { _, reply in
         do {
@@ -584,10 +507,10 @@ class LocamusicDetailPageMapViewSetup {
 private class MusicKitCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
-    case 128:
-      return SongDetails.fromList(self.readValue() as! [Any?])
-    default:
-      return super.readValue(ofType: type)
+      case 128:
+        return SongDetails.fromList(self.readValue() as! [Any?])
+      default:
+        return super.readValue(ofType: type)
     }
   }
 }
@@ -626,8 +549,7 @@ protocol MusicKit {
   /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   func currentPermissionStatus() throws -> String
   func play(id: String) throws
-  func songDetails(
-    id: String, artworkSize: Int64, completion: @escaping (Result<SongDetails, Error>) -> Void)
+  func songDetails(id: String, artworkSize: Int64, completion: @escaping (Result<SongDetails, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -638,17 +560,15 @@ class MusicKitSetup {
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MusicKit?) {
     /// Status
     /// https://developer.apple.com/documentation/musickit/musicauthorization/status
-    let requestPermissionChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.requestPermission",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let requestPermissionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.requestPermission", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       requestPermissionChannel.setMessageHandler { _, reply in
-        api.requestPermission { result in
+        api.requestPermission() { result in
           switch result {
-          case .success(let res):
-            reply(wrapResult(res))
-          case .failure(let error):
-            reply(wrapError(error))
+            case .success(let res):
+              reply(wrapResult(res))
+            case .failure(let error):
+              reply(wrapError(error))
           }
         }
       }
@@ -657,9 +577,7 @@ class MusicKitSetup {
     }
     /// Status
     /// https://developer.apple.com/documentation/musickit/musicauthorization/status
-    let currentPermissionStatusChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.currentPermissionStatus",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let currentPermissionStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.currentPermissionStatus", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       currentPermissionStatusChannel.setMessageHandler { _, reply in
         do {
@@ -672,9 +590,7 @@ class MusicKitSetup {
     } else {
       currentPermissionStatusChannel.setMessageHandler(nil)
     }
-    let playChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.play",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let playChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.play", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       playChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -689,9 +605,7 @@ class MusicKitSetup {
     } else {
       playChannel.setMessageHandler(nil)
     }
-    let songDetailsChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.songDetails",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let songDetailsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.songDetails", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       songDetailsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -699,10 +613,10 @@ class MusicKitSetup {
         let artworkSizeArg = args[1] is Int64 ? args[1] as! Int64 : Int64(args[1] as! Int32)
         api.songDetails(id: idArg, artworkSize: artworkSizeArg) { result in
           switch result {
-          case .success(let res):
-            reply(wrapResult(res))
-          case .failure(let error):
-            reply(wrapError(error))
+            case .success(let res):
+              reply(wrapResult(res))
+            case .failure(let error):
+              reply(wrapError(error))
           }
         }
       }
@@ -714,12 +628,12 @@ class MusicKitSetup {
 private class LocationManagerCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
-    case 128:
-      return Region.fromList(self.readValue() as! [Any?])
-    case 129:
-      return Region.fromList(self.readValue() as! [Any?])
-    default:
-      return super.readValue(ofType: type)
+      case 128:
+        return Region.fromList(self.readValue() as! [Any?])
+      case 129:
+        return Region.fromList(self.readValue() as! [Any?])
+      default:
+        return super.readValue(ofType: type)
     }
   }
 }
@@ -779,9 +693,7 @@ class LocationManagerSetup {
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: LocationManager?) {
     /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620562-requestwheninuseauthorization
     /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620551-requestalwaysauthorization
-    let requestAuthorizationChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.requestAuthorization",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let requestAuthorizationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.requestAuthorization", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       requestAuthorizationChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -798,10 +710,7 @@ class LocationManagerSetup {
     }
     /// Status
     /// https://developer.apple.com/documentation/corelocation/clauthorizationstatus
-    let currentPermissionStatusChannel = FlutterBasicMessageChannel(
-      name:
-        "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.currentPermissionStatus",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let currentPermissionStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.currentPermissionStatus", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       currentPermissionStatusChannel.setMessageHandler { _, reply in
         do {
@@ -816,9 +725,7 @@ class LocationManagerSetup {
     }
     /// CLRegion.identifier
     /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423790-monitoredregions
-    let monitoredRegionsChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.monitoredRegions",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let monitoredRegionsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.monitoredRegions", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       monitoredRegionsChannel.setMessageHandler { _, reply in
         do {
@@ -832,19 +739,17 @@ class LocationManagerSetup {
       monitoredRegionsChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423656-startmonitoring
-    let startMonitoringChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.startMonitoring",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let startMonitoringChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.startMonitoring", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       startMonitoringChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
         let regionArg = args[0] as! Region
         api.startMonitoring(region: regionArg) { result in
           switch result {
-          case .success:
-            reply(wrapResult(nil))
-          case .failure(let error):
-            reply(wrapError(error))
+            case .success:
+              reply(wrapResult(nil))
+            case .failure(let error):
+              reply(wrapError(error))
           }
         }
       }
@@ -852,9 +757,7 @@ class LocationManagerSetup {
       startMonitoringChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423840-stopmonitoring
-    let stopMonitoringChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.stopMonitoring",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let stopMonitoringChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.stopMonitoring", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       stopMonitoringChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -870,9 +773,7 @@ class LocationManagerSetup {
       stopMonitoringChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620548-requestlocation
-    let requestLocationChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.requestLocation",
-      binaryMessenger: binaryMessenger, codec: codec)
+    let requestLocationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.requestLocation", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       requestLocationChannel.setMessageHandler { _, reply in
         do {
@@ -890,10 +791,10 @@ class LocationManagerSetup {
 private class LocationManagerDelegateCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
-    case 128:
-      return Region.fromList(self.readValue() as! [Any?])
-    default:
-      return super.readValue(ofType: type)
+      case 128:
+        return Region.fromList(self.readValue() as! [Any?])
+      default:
+        return super.readValue(ofType: type)
     }
   }
 }
@@ -920,81 +821,62 @@ private class LocationManagerDelegateCodecReaderWriter: FlutterStandardReaderWri
 }
 
 class LocationManagerDelegateCodec: FlutterStandardMessageCodec {
-  static let shared = LocationManagerDelegateCodec(
-    readerWriter: LocationManagerDelegateCodecReaderWriter())
+  static let shared = LocationManagerDelegateCodec(readerWriter: LocationManagerDelegateCodecReaderWriter())
 }
 
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol LocationManagerDelegateProtocol {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
-  func didDetermineState(
-    region regionArg: Region, state stateArg: RegionState,
-    completion: @escaping (Result<Void, FlutterError>) -> Void)
+  func didDetermineState(region regionArg: Region, state stateArg: RegionState, completion: @escaping (Result<Void, FlutterError>) -> Void)
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/3563956-locationmanagerdidchangeauthoriz
-  func didChangeAuthorization(
-    status statusArg: AuthorizationStatus,
-    completion: @escaping (Result<Void, FlutterError>) -> Void)
+  func didChangeAuthorization(status statusArg: AuthorizationStatus, completion: @escaping (Result<Void, FlutterError>) -> Void)
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423842-locationmanager
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423720-locationmanager
-  func didStartMonitoring(
-    region regionArg: Region, error errorArg: String?,
-    completion: @escaping (Result<Void, FlutterError>) -> Void)
+  func didStartMonitoring(region regionArg: Region, error errorArg: String?, completion: @escaping (Result<Void, FlutterError>) -> Void)
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
-  func didUpdateLocations(
-    latitude latitudeArg: Double, longitude longitudeArg: Double,
-    completion: @escaping (Result<Void, FlutterError>) -> Void)
+  func didUpdateLocations(latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void)
 }
 class LocationManagerDelegate: LocationManagerDelegateProtocol {
   private let binaryMessenger: FlutterBinaryMessenger
-  init(binaryMessenger: FlutterBinaryMessenger) {
+  init(binaryMessenger: FlutterBinaryMessenger){
     self.binaryMessenger = binaryMessenger
   }
   var codec: FlutterStandardMessageCodec {
     return LocationManagerDelegateCodec.shared
   }
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
-  func didDetermineState(
-    region regionArg: Region, state stateArg: RegionState,
-    completion: @escaping (Result<Void, FlutterError>) -> Void
-  ) {
-    let channelName: String =
-      "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didDetermineState"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+  func didDetermineState(region regionArg: Region, state stateArg: RegionState, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didDetermineState"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([regionArg, stateArg.rawValue] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
+        completion(.failure(createConnectionError(withChannelName:channelName)))
         return
       }
-      if listResponse.count > 1 {
+      if (listResponse.count > 1) {
         let code: String = listResponse[0] as! String
         let message: String? = nilOrValue(listResponse[1])
         let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterError(code: code, message: message, details: details)))
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
       } else {
         completion(.success(Void()))
       }
     }
   }
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/3563956-locationmanagerdidchangeauthoriz
-  func didChangeAuthorization(
-    status statusArg: AuthorizationStatus,
-    completion: @escaping (Result<Void, FlutterError>) -> Void
-  ) {
-    let channelName: String =
-      "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didChangeAuthorization"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+  func didChangeAuthorization(status statusArg: AuthorizationStatus, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didChangeAuthorization"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([statusArg.rawValue] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
+        completion(.failure(createConnectionError(withChannelName:channelName)))
         return
       }
-      if listResponse.count > 1 {
+      if (listResponse.count > 1) {
         let code: String = listResponse[0] as! String
         let message: String? = nilOrValue(listResponse[1])
         let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterError(code: code, message: message, details: details)))
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
       } else {
         completion(.success(Void()))
       }
@@ -1002,48 +884,38 @@ class LocationManagerDelegate: LocationManagerDelegateProtocol {
   }
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423842-locationmanager
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423720-locationmanager
-  func didStartMonitoring(
-    region regionArg: Region, error errorArg: String?,
-    completion: @escaping (Result<Void, FlutterError>) -> Void
-  ) {
-    let channelName: String =
-      "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didStartMonitoring"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+  func didStartMonitoring(region regionArg: Region, error errorArg: String?, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didStartMonitoring"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([regionArg, errorArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
+        completion(.failure(createConnectionError(withChannelName:channelName)))
         return
       }
-      if listResponse.count > 1 {
+      if (listResponse.count > 1) {
         let code: String = listResponse[0] as! String
         let message: String? = nilOrValue(listResponse[1])
         let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterError(code: code, message: message, details: details)))
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
       } else {
         completion(.success(Void()))
       }
     }
   }
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
-  func didUpdateLocations(
-    latitude latitudeArg: Double, longitude longitudeArg: Double,
-    completion: @escaping (Result<Void, FlutterError>) -> Void
-  ) {
-    let channelName: String =
-      "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didUpdateLocations"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+  func didUpdateLocations(latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didUpdateLocations"
+    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([latitudeArg, longitudeArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
+        completion(.failure(createConnectionError(withChannelName:channelName)))
         return
       }
-      if listResponse.count > 1 {
+      if (listResponse.count > 1) {
         let code: String = listResponse[0] as! String
         let message: String? = nilOrValue(listResponse[1])
         let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterError(code: code, message: message, details: details)))
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
       } else {
         completion(.success(Void()))
       }
@@ -1053,85 +925,69 @@ class LocationManagerDelegate: LocationManagerDelegateProtocol {
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol MapViewDelegateProtocol {
   /// on tap MKCircle
-  func onTapCircle(
-    viewType viewTypeArg: MapViewType, identifier identifierArg: String,
-    completion: @escaping (Result<Void, FlutterError>) -> Void)
+  func onTapCircle(viewType viewTypeArg: MapViewType, identifier identifierArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void)
   /// on long pressed MKMapView
-  func onLongPressedMap(
-    viewType viewTypeArg: MapViewType, latitude latitudeArg: Double, longitude longitudeArg: Double,
-    completion: @escaping (Result<Void, FlutterError>) -> Void)
+  func onLongPressedMap(viewType viewTypeArg: MapViewType, latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void)
   /// https://developer.apple.com/documentation/mapkit/mkmapviewdelegate/1452291-mapviewdidfinishloadingmap
-  func mapViewDidFinishLoadingMap(
-    viewType viewTypeArg: MapViewType, completion: @escaping (Result<Void, FlutterError>) -> Void)
+  func mapViewDidFinishLoadingMap(viewType viewTypeArg: MapViewType, completion: @escaping (Result<Void, FlutterError>) -> Void)
 }
 class MapViewDelegate: MapViewDelegateProtocol {
   private let binaryMessenger: FlutterBinaryMessenger
-  init(binaryMessenger: FlutterBinaryMessenger) {
+  init(binaryMessenger: FlutterBinaryMessenger){
     self.binaryMessenger = binaryMessenger
   }
   /// on tap MKCircle
-  func onTapCircle(
-    viewType viewTypeArg: MapViewType, identifier identifierArg: String,
-    completion: @escaping (Result<Void, FlutterError>) -> Void
-  ) {
-    let channelName: String =
-      "dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onTapCircle"
+  func onTapCircle(viewType viewTypeArg: MapViewType, identifier identifierArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onTapCircle"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
     channel.sendMessage([viewTypeArg.rawValue, identifierArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
+        completion(.failure(createConnectionError(withChannelName:channelName)))
         return
       }
-      if listResponse.count > 1 {
+      if (listResponse.count > 1) {
         let code: String = listResponse[0] as! String
         let message: String? = nilOrValue(listResponse[1])
         let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterError(code: code, message: message, details: details)))
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
       } else {
         completion(.success(Void()))
       }
     }
   }
   /// on long pressed MKMapView
-  func onLongPressedMap(
-    viewType viewTypeArg: MapViewType, latitude latitudeArg: Double, longitude longitudeArg: Double,
-    completion: @escaping (Result<Void, FlutterError>) -> Void
-  ) {
-    let channelName: String =
-      "dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onLongPressedMap"
+  func onLongPressedMap(viewType viewTypeArg: MapViewType, latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onLongPressedMap"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
     channel.sendMessage([viewTypeArg.rawValue, latitudeArg, longitudeArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
+        completion(.failure(createConnectionError(withChannelName:channelName)))
         return
       }
-      if listResponse.count > 1 {
+      if (listResponse.count > 1) {
         let code: String = listResponse[0] as! String
         let message: String? = nilOrValue(listResponse[1])
         let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterError(code: code, message: message, details: details)))
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
       } else {
         completion(.success(Void()))
       }
     }
   }
   /// https://developer.apple.com/documentation/mapkit/mkmapviewdelegate/1452291-mapviewdidfinishloadingmap
-  func mapViewDidFinishLoadingMap(
-    viewType viewTypeArg: MapViewType, completion: @escaping (Result<Void, FlutterError>) -> Void
-  ) {
-    let channelName: String =
-      "dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.mapViewDidFinishLoadingMap"
+  func mapViewDidFinishLoadingMap(viewType viewTypeArg: MapViewType, completion: @escaping (Result<Void, FlutterError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.mapViewDidFinishLoadingMap"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
     channel.sendMessage([viewTypeArg.rawValue] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
+        completion(.failure(createConnectionError(withChannelName:channelName)))
         return
       }
-      if listResponse.count > 1 {
+      if (listResponse.count > 1) {
         let code: String = listResponse[0] as! String
         let message: String? = nilOrValue(listResponse[1])
         let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterError(code: code, message: message, details: details)))
+        completion(.failure(FlutterError(code: code, message: message, details: details)));
       } else {
         completion(.success(Void()))
       }

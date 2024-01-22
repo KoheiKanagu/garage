@@ -37,9 +37,6 @@ abstract class MapPageMapView {
     List<String> identifiers,
   );
 
-  /// remove all annotations and overlays
-  void removeAnnotationAll();
-
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   List<String> getAnnotations();
 
@@ -74,9 +71,6 @@ abstract class LocamusicDetailPageMapView {
   void removeAnnotationOverlays(
     List<String> identifiers,
   );
-
-  /// remove all annotations and overlays
-  void removeAnnotationAll();
 
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   List<String> getAnnotations();

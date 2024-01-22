@@ -31,50 +31,36 @@ class LocamusicDetailPage extends HookConsumerWidget {
           ),
         )
         .value;
-    final musicId = locamusic?.musicId;
 
-    final songDetails = musicId == null
-        ? null
-        : ref
-            .watch(
-              locamusicSongDetailsProvider(musicId: musicId),
-            )
-            .value;
+    final didFinishMapViewType = ref
+        .watch(mapPageMapViewMapViewDidFinishLoadingMapProvider)
+        .asData
+        ?.value;
 
-    useEffect(
-      () {
-        Future(
-          () async {
-            await ref.read(
-              mapPageMapViewMapViewDidFinishLoadingMapProvider.selectAsync(
-                (data) => data == MapViewType.locamusicDetailPage,
+    if (didFinishMapViewType == MapViewType.locamusicDetailPage &&
+        locamusic != null) {
+      // MapViewが読み込まれたらAnnotationを描画
+      useEffect(
+        () {
+          /// カメラ位置も調整
+          ref.read(
+            mapSetAnnotationRegionProvider(
+              locamusic: (
+                documentId: documentId,
+                locamusic: locamusic,
               ),
-            );
+              mapViewType: MapViewType.locamusicDetailPage,
+            ),
+          );
 
-            if (locamusic == null) {
-              return null;
-            }
-
-            /// カメラ位置を調整
-            ref.read(
-              mapSetAnnotationRegionProvider(
-                locamusic: (
-                  documentId: documentId,
-                  locamusic: locamusic,
-                ),
-                mapViewType: MapViewType.locamusicDetailPage,
-              ),
-            );
-          },
-        );
-
-        return null;
-      },
-      [
-        locamusic,
-        songDetails,
-      ],
-    );
+          return null;
+        },
+        [
+          didFinishMapViewType,
+          locamusic,
+        ],
+      );
+    }
 
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.systemGroupedBackground,
@@ -121,7 +107,6 @@ class LocamusicDetailPage extends HookConsumerWidget {
                         children: [
                           LocamusicDetailPageHeader(
                             documentId: documentId,
-                            songDetails: songDetails,
                           ),
                           const Divider(),
                           const AbsorbPointer(

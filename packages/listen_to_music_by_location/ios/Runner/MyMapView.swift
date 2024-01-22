@@ -217,11 +217,6 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
     )
   }
 
-  func removeAnnotationAll() {
-    removeAnnotations(annotations)
-    removeOverlays(overlays)
-  }
-
   func getAnnotations() -> [String] {
     return annotations.compactMap { $0 as? MyMKPointAnnotation }
       .map { $0.identifier }

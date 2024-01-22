@@ -35,10 +35,6 @@ class MapPageMapViewImpl: MapPageMapView {
     )
   }
 
-  func removeAnnotationAll() throws {
-    myMapView.removeAnnotationAll()
-  }
-
   func removeAnnotationOverlays(identifiers: [String]) throws {
     myMapView.removeAnnotationOverlays(
       identifiers: identifiers

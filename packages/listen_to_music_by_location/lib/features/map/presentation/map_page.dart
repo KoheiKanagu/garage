@@ -22,18 +22,26 @@ class MapPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final locamusics = ref.watch(locamusicDocumentsProvider).asData?.value;
 
-    useEffect(
-      () {
-        ref.read(
-          mapAdjustCameraProvider(
-            locamusics: locamusics ?? [],
-            mapViewType: MapViewType.mapPage,
-          ),
-        );
-        return null;
-      },
-      [locamusics],
-    );
+    final didFinishMapViewType = ref
+        .watch(mapPageMapViewMapViewDidFinishLoadingMapProvider)
+        .asData
+        ?.value;
+
+    if (didFinishMapViewType == MapViewType.mapPage) {
+      // MapViewが読み込まれたらAnnotationを描画
+      useEffect(
+        () {
+          ref.read(
+            mapAdjustCameraProvider(
+              locamusics: locamusics ?? [],
+              mapViewType: MapViewType.mapPage,
+            ),
+          );
+          return null;
+        },
+        [didFinishMapViewType],
+      );
+    }
 
     ref
       ..listen(

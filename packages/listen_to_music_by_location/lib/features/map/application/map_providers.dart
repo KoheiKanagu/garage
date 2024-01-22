@@ -16,12 +16,25 @@ Future<void> mapDrawAnnotations(
   required MapViewType mapViewType,
 }) async {
   // 既存のAnnotationを削除
-  await switch (mapViewType) {
-    MapViewType.mapPage =>
-      ref.watch(mapPageMapViewProvider).removeAnnotationAll(),
-    MapViewType.locamusicDetailPage =>
-      ref.watch(locamusicDetailPageMapViewProvider).removeAnnotationAll(),
-  };
+  final annotations = await ref.read(mapPageMapViewProvider).getAnnotations();
+  await Future.wait(
+    switch (mapViewType) {
+      MapViewType.mapPage => [
+          ref.read(mapPageMapViewProvider).removeAnnotations(annotations),
+          ref
+              .read(mapPageMapViewProvider)
+              .removeAnnotationOverlays(annotations),
+        ],
+      MapViewType.locamusicDetailPage => [
+          ref
+              .watch(locamusicDetailPageMapViewProvider)
+              .removeAnnotations(annotations),
+          ref
+              .watch(locamusicDetailPageMapViewProvider)
+              .removeAnnotationOverlays(annotations),
+        ],
+    },
+  );
 
   // Annotationを追加
   // 曲が設定されている場合は曲情報を取得してタイトルに設定
@@ -49,13 +62,22 @@ Future<void> mapDrawAnnotations(
       ),
     ];
 
-    await switch (mapViewType) {
-      MapViewType.mapPage =>
-        ref.read(mapPageMapViewProvider).addAnnotations(annotations),
-      MapViewType.locamusicDetailPage => ref
-          .read(locamusicDetailPageMapViewProvider)
-          .addAnnotations(annotations),
-    };
+    await Future.wait(
+      switch (mapViewType) {
+        MapViewType.mapPage => [
+            ref.read(mapPageMapViewProvider).addAnnotations(annotations),
+            ref.read(mapPageMapViewProvider).addAnnotationOverlays(annotations),
+          ],
+        MapViewType.locamusicDetailPage => [
+            ref
+                .read(locamusicDetailPageMapViewProvider)
+                .addAnnotations(annotations),
+            ref
+                .read(locamusicDetailPageMapViewProvider)
+                .addAnnotationOverlays(annotations),
+          ],
+      },
+    );
   }
 }
 
@@ -121,12 +143,14 @@ Future<void> mapSetAnnotationRegion(
     MapViewType.mapPage => ref.watch(mapPageMapViewProvider).setMapRegion(
           latitude: locamusic.locamusic.geoPoint.latitude,
           longitude: locamusic.locamusic.geoPoint.longitude,
+          // MKCircleが十分に表示されるように描画範囲を広げる
           meters: locamusic.locamusic.distance * 2.5,
         ),
     MapViewType.locamusicDetailPage =>
       ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
             latitude: locamusic.locamusic.geoPoint.latitude,
             longitude: locamusic.locamusic.geoPoint.longitude,
+            // MKCircleが十分に表示されるように描画範囲を広げる
             meters: locamusic.locamusic.distance * 2.5,
           ),
   };
