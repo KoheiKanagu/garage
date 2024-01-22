@@ -1,6 +1,7 @@
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/music/domain/locamusic.dart';
+import 'package:listen_to_music_by_location/features/native/application/my_location_manager_delegate.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
@@ -15,18 +16,16 @@ Future<void> mapDrawAnnotations(
   required MyMapViewType myMapViewType,
 }) async {
   // 既存のAnnotationを削除
-  final existAnnotations = await switch (myMapViewType) {
-    MyMapViewType.interactive =>
-      ref.watch(myMapHostApiProvider).getAnnotations(),
-    MyMapViewType.nonInteractive =>
-      ref.watch(myNonInteractiveMapHostApiProvider).getAnnotations(),
-  };
   await switch (myMapViewType) {
-    MyMapViewType.interactive =>
-      ref.watch(myMapHostApiProvider).removeAnnotations(existAnnotations),
-    MyMapViewType.nonInteractive => ref
-        .watch(myNonInteractiveMapHostApiProvider)
-        .removeAnnotations(existAnnotations),
+    MyMapViewType.mapPage =>
+      ref.watch(mapPageMapViewProvider).removeAnnotations(
+            await ref.watch(mapPageMapViewProvider).getAnnotations(),
+          ),
+    MyMapViewType.locamusicDetailPage => ref
+        .watch(locamusicDetailPageMapViewProvider)
+        .removeAnnotations(
+          await ref.watch(locamusicDetailPageMapViewProvider).getAnnotations(),
+        ),
   };
 
   // Annotationを追加
@@ -56,10 +55,10 @@ Future<void> mapDrawAnnotations(
     ];
 
     await switch (myMapViewType) {
-      MyMapViewType.interactive =>
-        ref.read(myMapHostApiProvider).addAnnotations(annotations),
-      MyMapViewType.nonInteractive => ref
-          .read(myNonInteractiveMapHostApiProvider)
+      MyMapViewType.mapPage =>
+        ref.read(mapPageMapViewProvider).addAnnotations(annotations),
+      MyMapViewType.locamusicDetailPage => ref
+          .read(locamusicDetailPageMapViewProvider)
           .addAnnotations(annotations),
     };
   }
@@ -75,17 +74,18 @@ Future<void> mapAdjustCamera(
 }) async {
   if (locamusics.isEmpty) {
     // 初期位置を取得してカメラズーム
-    await ref.read(myLocationHostApiProvider).requestLocation();
-    final value = await ref.read(myFlutterApiDidUpdateLocationsProvider.future);
+    await ref.read(locationManagerProvider).requestLocation();
+    final value =
+        await ref.read(locationManagerDidUpdateLocationsProvider.future);
 
     await switch (myMapViewType) {
-      MyMapViewType.interactive => ref.watch(myMapHostApiProvider).setMapRegion(
+      MyMapViewType.mapPage => ref.watch(mapPageMapViewProvider).setMapRegion(
             latitude: value.latitude,
             longitude: value.longitude,
             meters: DistanceRange.large.meters,
           ),
-      MyMapViewType.nonInteractive =>
-        ref.watch(myNonInteractiveMapHostApiProvider).setMapRegion(
+      MyMapViewType.locamusicDetailPage =>
+        ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
               latitude: value.latitude,
               longitude: value.longitude,
               meters: DistanceRange.large.meters,
@@ -102,10 +102,10 @@ Future<void> mapAdjustCamera(
     ).future,
   );
   await switch (myMapViewType) {
-    MyMapViewType.interactive =>
-      ref.watch(myMapHostApiProvider).showAnnotations(),
-    MyMapViewType.nonInteractive =>
-      ref.watch(myNonInteractiveMapHostApiProvider).showAnnotations(),
+    MyMapViewType.mapPage =>
+      ref.watch(mapPageMapViewProvider).showAnnotations(),
+    MyMapViewType.locamusicDetailPage =>
+      ref.watch(locamusicDetailPageMapViewProvider).showAnnotations(),
   };
 }
 
@@ -124,13 +124,13 @@ Future<void> mapSetAnnotationRegion(
   );
 
   await switch (myMapViewType) {
-    MyMapViewType.interactive => ref.watch(myMapHostApiProvider).setMapRegion(
+    MyMapViewType.mapPage => ref.watch(mapPageMapViewProvider).setMapRegion(
           latitude: locamusic.locamusic.geoPoint.latitude,
           longitude: locamusic.locamusic.geoPoint.longitude,
           meters: locamusic.locamusic.distance * 2.5,
         ),
-    MyMapViewType.nonInteractive =>
-      ref.watch(myNonInteractiveMapHostApiProvider).setMapRegion(
+    MyMapViewType.locamusicDetailPage =>
+      ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
             latitude: locamusic.locamusic.geoPoint.latitude,
             longitude: locamusic.locamusic.geoPoint.longitude,
             meters: locamusic.locamusic.distance * 2.5,

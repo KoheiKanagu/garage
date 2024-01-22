@@ -77,7 +77,7 @@ Future<SongDetails> locamusicSongDetails(
   LocamusicSongDetailsRef ref, {
   required String musicId,
 }) =>
-    ref.watch(myMusicHostApiProvider).songDetails(id: musicId);
+    ref.watch(musicKitProvider).songDetails(id: musicId);
 
 @riverpod
 Future<void> locamusicAdd(

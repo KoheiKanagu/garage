@@ -9,7 +9,7 @@ part of 'map_providers.dart';
 // **************************************************************************
 
 String _$mapDrawAnnotationsHash() =>
-    r'64b73c4782fbc589a52ac18e168d47c029d7e0c7';
+    r'8ed3e021f56dfa7ee4ff3d3823c0897014692390';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -177,7 +177,7 @@ class _MapDrawAnnotationsProviderElement
       (origin as MapDrawAnnotationsProvider).myMapViewType;
 }
 
-String _$mapAdjustCameraHash() => r'37b48083f154a938b685337e77b46afac098138d';
+String _$mapAdjustCameraHash() => r'b44c5f2cd787211cfa911a5ba30948ddf3ccf626';
 
 /// Annotationが存在するなら全てのAnnotationが表示できるようにズームする
 /// Annotationが存在しないなら現在地にズームする
@@ -343,7 +343,7 @@ class _MapAdjustCameraProviderElement
 }
 
 String _$mapSetAnnotationRegionHash() =>
-    r'14de4c8d54d590f25bd13680d27268e21f3549fc';
+    r'fcfa8074e4730ea12e5ccaf796599b658feba0bb';
 
 /// Annotationを描画してカメラをズームする
 ///

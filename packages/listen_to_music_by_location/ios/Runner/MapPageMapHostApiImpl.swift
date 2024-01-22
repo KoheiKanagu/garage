@@ -1,4 +1,4 @@
-class MyNonInteractiveMapHostApiImpl: MyNonInteractiveMapHostApi {
+class MapPageMapViewImpl: MapPageMapView {
   let myMapView: MyMapView
 
   init(myMapView: MyMapView) {
@@ -10,7 +10,7 @@ class MyNonInteractiveMapHostApiImpl: MyNonInteractiveMapHostApi {
     longitude: Double,
     meters: Double
   ) throws {
-    try myMapView.setMapRegion(
+    myMapView.setMapRegion(
       latitude: latitude,
       longitude: longitude,
       meters: meters
@@ -18,22 +18,34 @@ class MyNonInteractiveMapHostApiImpl: MyNonInteractiveMapHostApi {
   }
 
   func addAnnotations(annotations: [CircleAnnotation]) throws {
-    try myMapView.addAnnotations(
+    myMapView.addAnnotations(
+      annotations: annotations
+    )
+  }
+
+  func addAnnotationOverlays(annotations: [CircleAnnotation]) throws {
+    myMapView.addAnnotationOverlays(
       annotations: annotations
     )
   }
 
   func removeAnnotations(identifiers: [String]) throws {
-    try myMapView.removeAnnotations(
+    myMapView.removeAnnotations(
+      identifiers: identifiers
+    )
+  }
+
+  func removeAnnotationOverlays(identifiers: [String]) throws {
+    myMapView.removeAnnotationOverlays(
       identifiers: identifiers
     )
   }
 
   func getAnnotations() throws -> [String] {
-    try myMapView.getAnnotations()
+    myMapView.getAnnotations()
   }
 
   func showAnnotations() throws {
-    try myMapView.showAnnotations()
+    myMapView.showAnnotations()
   }
 }

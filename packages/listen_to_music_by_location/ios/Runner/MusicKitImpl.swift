@@ -1,6 +1,6 @@
 import MusicKit
 
-class MyMusicHostApiImpl: MyMusicHostApi {
+class MusicKitImpl: MusicKit {
 
   func requestPermission(
     completion: @escaping (

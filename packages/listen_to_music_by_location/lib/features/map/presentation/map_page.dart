@@ -8,7 +8,7 @@ import 'package:listen_to_music_by_location/exceptions/locamusic_creation_limit_
 import 'package:listen_to_music_by_location/features/map/application/map_providers.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
-import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
+import 'package:listen_to_music_by_location/features/native/application/map_view_delegate.dart';
 import 'package:listen_to_music_by_location/features/native/presentation/my_map_view.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
@@ -27,7 +27,7 @@ class MapPage extends HookConsumerWidget {
         ref.read(
           mapAdjustCameraProvider(
             locamusics: locamusics ?? [],
-            myMapViewType: MyMapViewType.interactive,
+            myMapViewType: MyMapViewType.mapPage,
           ),
         );
         return null;
@@ -37,7 +37,7 @@ class MapPage extends HookConsumerWidget {
 
     ref
       ..listen(
-        myFlutterApiOnLongPressedMapProvider.future,
+        mapPageMapViewOnLongPressedMapProvider.future,
         (_, next) async {
           final indicator = showMyProgressIndicator();
 
@@ -65,16 +65,16 @@ class MapPage extends HookConsumerWidget {
         },
       )
       ..listen(
-        myFlutterApiOnTapCircleProvider.future,
+        mapPageMapViewOnTapCircleProvider.future,
         (_, next) async {
-          final value = await next;
+          final value = next;
 
           // TODO(KoheiKanagu): 円をタップした挙動
         },
       );
 
     return const MyMapView(
-      myMapViewType: MyMapViewType.interactive,
+      myMapViewType: MyMapViewType.mapPage,
     );
   }
 }

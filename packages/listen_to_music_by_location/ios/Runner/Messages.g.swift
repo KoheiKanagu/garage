@@ -59,8 +59,8 @@ enum AuthorizationStatus: Int {
 
 /// どのMapViewから呼ばれたかを判別するために利用する
 enum MyMapViewType: Int {
-  case interactive = 0
-  case nonInteractive = 1
+  case mapPage = 0
+  case locamusicDetailPage = 1
 }
 
 /// Generated class from Pigeon that represents data sent in messages.
@@ -164,7 +164,7 @@ struct Region {
   }
 }
 
-private class MyMapHostApiCodecReader: FlutterStandardReader {
+private class MapPageMapViewCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
       case 128:
@@ -175,7 +175,7 @@ private class MyMapHostApiCodecReader: FlutterStandardReader {
   }
 }
 
-private class MyMapHostApiCodecWriter: FlutterStandardWriter {
+private class MapPageMapViewCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
     if let value = value as? CircleAnnotation {
       super.writeByte(128)
@@ -186,25 +186,31 @@ private class MyMapHostApiCodecWriter: FlutterStandardWriter {
   }
 }
 
-private class MyMapHostApiCodecReaderWriter: FlutterStandardReaderWriter {
+private class MapPageMapViewCodecReaderWriter: FlutterStandardReaderWriter {
   override func reader(with data: Data) -> FlutterStandardReader {
-    return MyMapHostApiCodecReader(data: data)
+    return MapPageMapViewCodecReader(data: data)
   }
 
   override func writer(with data: NSMutableData) -> FlutterStandardWriter {
-    return MyMapHostApiCodecWriter(data: data)
+    return MapPageMapViewCodecWriter(data: data)
   }
 }
 
-class MyMapHostApiCodec: FlutterStandardMessageCodec {
-  static let shared = MyMapHostApiCodec(readerWriter: MyMapHostApiCodecReaderWriter())
+class MapPageMapViewCodec: FlutterStandardMessageCodec {
+  static let shared = MapPageMapViewCodec(readerWriter: MapPageMapViewCodecReaderWriter())
 }
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
-protocol MyMapHostApi {
+protocol MapPageMapView {
   func setMapRegion(latitude: Double, longitude: Double, meters: Double) throws
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1451889-addannotations
   func addAnnotations(annotations: [CircleAnnotation]) throws
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452518-addoverlays
+  func addAnnotationOverlays(annotations: [CircleAnnotation]) throws
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452130-removeannotations
   func removeAnnotations(identifiers: [String]) throws
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452719-removeoverlays
+  func removeAnnotationOverlays(identifiers: [String]) throws
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   func getAnnotations() throws -> [String]
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
@@ -212,12 +218,12 @@ protocol MyMapHostApi {
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
-class MyMapHostApiSetup {
-  /// The codec used by MyMapHostApi.
-  static var codec: FlutterStandardMessageCodec { MyMapHostApiCodec.shared }
-  /// Sets up an instance of `MyMapHostApi` to handle messages through the `binaryMessenger`.
-  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MyMapHostApi?) {
-    let setMapRegionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.setMapRegion", binaryMessenger: binaryMessenger, codec: codec)
+class MapPageMapViewSetup {
+  /// The codec used by MapPageMapView.
+  static var codec: FlutterStandardMessageCodec { MapPageMapViewCodec.shared }
+  /// Sets up an instance of `MapPageMapView` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MapPageMapView?) {
+    let setMapRegionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.setMapRegion", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       setMapRegionChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -234,7 +240,8 @@ class MyMapHostApiSetup {
     } else {
       setMapRegionChannel.setMessageHandler(nil)
     }
-    let addAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.addAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    /// https://developer.apple.com/documentation/mapkit/mkmapview/1451889-addannotations
+    let addAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.addAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       addAnnotationsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -249,7 +256,24 @@ class MyMapHostApiSetup {
     } else {
       addAnnotationsChannel.setMessageHandler(nil)
     }
-    let removeAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.removeAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    /// https://developer.apple.com/documentation/mapkit/mkmapview/1452518-addoverlays
+    let addAnnotationOverlaysChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.addAnnotationOverlays", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      addAnnotationOverlaysChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let annotationsArg = args[0] as! [CircleAnnotation]
+        do {
+          try api.addAnnotationOverlays(annotations: annotationsArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      addAnnotationOverlaysChannel.setMessageHandler(nil)
+    }
+    /// https://developer.apple.com/documentation/mapkit/mkmapview/1452130-removeannotations
+    let removeAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.removeAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       removeAnnotationsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -264,8 +288,24 @@ class MyMapHostApiSetup {
     } else {
       removeAnnotationsChannel.setMessageHandler(nil)
     }
+    /// https://developer.apple.com/documentation/mapkit/mkmapview/1452719-removeoverlays
+    let removeAnnotationOverlaysChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.removeAnnotationOverlays", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      removeAnnotationOverlaysChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let identifiersArg = args[0] as! [String]
+        do {
+          try api.removeAnnotationOverlays(identifiers: identifiersArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      removeAnnotationOverlaysChannel.setMessageHandler(nil)
+    }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
-    let getAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.getAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    let getAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.getAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       getAnnotationsChannel.setMessageHandler { _, reply in
         do {
@@ -279,7 +319,7 @@ class MyMapHostApiSetup {
       getAnnotationsChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
-    let showAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.showAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    let showAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.showAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       showAnnotationsChannel.setMessageHandler { _, reply in
         do {
@@ -294,7 +334,7 @@ class MyMapHostApiSetup {
     }
   }
 }
-private class MyNonInteractiveMapHostApiCodecReader: FlutterStandardReader {
+private class LocamusicDetailPageMapViewCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
       case 128:
@@ -305,7 +345,7 @@ private class MyNonInteractiveMapHostApiCodecReader: FlutterStandardReader {
   }
 }
 
-private class MyNonInteractiveMapHostApiCodecWriter: FlutterStandardWriter {
+private class LocamusicDetailPageMapViewCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
     if let value = value as? CircleAnnotation {
       super.writeByte(128)
@@ -316,28 +356,31 @@ private class MyNonInteractiveMapHostApiCodecWriter: FlutterStandardWriter {
   }
 }
 
-private class MyNonInteractiveMapHostApiCodecReaderWriter: FlutterStandardReaderWriter {
+private class LocamusicDetailPageMapViewCodecReaderWriter: FlutterStandardReaderWriter {
   override func reader(with data: Data) -> FlutterStandardReader {
-    return MyNonInteractiveMapHostApiCodecReader(data: data)
+    return LocamusicDetailPageMapViewCodecReader(data: data)
   }
 
   override func writer(with data: NSMutableData) -> FlutterStandardWriter {
-    return MyNonInteractiveMapHostApiCodecWriter(data: data)
+    return LocamusicDetailPageMapViewCodecWriter(data: data)
   }
 }
 
-class MyNonInteractiveMapHostApiCodec: FlutterStandardMessageCodec {
-  static let shared = MyNonInteractiveMapHostApiCodec(readerWriter: MyNonInteractiveMapHostApiCodecReaderWriter())
+class LocamusicDetailPageMapViewCodec: FlutterStandardMessageCodec {
+  static let shared = LocamusicDetailPageMapViewCodec(readerWriter: LocamusicDetailPageMapViewCodecReaderWriter())
 }
 
-/// pigeonでは複数インスタンスを作成できないので、個別にしている
-/// https://github.com/flutter/flutter/issues/66710
-///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
-protocol MyNonInteractiveMapHostApi {
+protocol LocamusicDetailPageMapView {
   func setMapRegion(latitude: Double, longitude: Double, meters: Double) throws
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1451889-addannotations
   func addAnnotations(annotations: [CircleAnnotation]) throws
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452518-addoverlays
+  func addAnnotationOverlays(annotations: [CircleAnnotation]) throws
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452130-removeannotations
   func removeAnnotations(identifiers: [String]) throws
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452719-removeoverlays
+  func removeAnnotationOverlays(identifiers: [String]) throws
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   func getAnnotations() throws -> [String]
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
@@ -345,12 +388,12 @@ protocol MyNonInteractiveMapHostApi {
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
-class MyNonInteractiveMapHostApiSetup {
-  /// The codec used by MyNonInteractiveMapHostApi.
-  static var codec: FlutterStandardMessageCodec { MyNonInteractiveMapHostApiCodec.shared }
-  /// Sets up an instance of `MyNonInteractiveMapHostApi` to handle messages through the `binaryMessenger`.
-  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MyNonInteractiveMapHostApi?) {
-    let setMapRegionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.setMapRegion", binaryMessenger: binaryMessenger, codec: codec)
+class LocamusicDetailPageMapViewSetup {
+  /// The codec used by LocamusicDetailPageMapView.
+  static var codec: FlutterStandardMessageCodec { LocamusicDetailPageMapViewCodec.shared }
+  /// Sets up an instance of `LocamusicDetailPageMapView` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: LocamusicDetailPageMapView?) {
+    let setMapRegionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.setMapRegion", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       setMapRegionChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -367,7 +410,8 @@ class MyNonInteractiveMapHostApiSetup {
     } else {
       setMapRegionChannel.setMessageHandler(nil)
     }
-    let addAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.addAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    /// https://developer.apple.com/documentation/mapkit/mkmapview/1451889-addannotations
+    let addAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.addAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       addAnnotationsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -382,7 +426,24 @@ class MyNonInteractiveMapHostApiSetup {
     } else {
       addAnnotationsChannel.setMessageHandler(nil)
     }
-    let removeAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.removeAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    /// https://developer.apple.com/documentation/mapkit/mkmapview/1452518-addoverlays
+    let addAnnotationOverlaysChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.addAnnotationOverlays", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      addAnnotationOverlaysChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let annotationsArg = args[0] as! [CircleAnnotation]
+        do {
+          try api.addAnnotationOverlays(annotations: annotationsArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      addAnnotationOverlaysChannel.setMessageHandler(nil)
+    }
+    /// https://developer.apple.com/documentation/mapkit/mkmapview/1452130-removeannotations
+    let removeAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.removeAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       removeAnnotationsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -397,8 +458,24 @@ class MyNonInteractiveMapHostApiSetup {
     } else {
       removeAnnotationsChannel.setMessageHandler(nil)
     }
+    /// https://developer.apple.com/documentation/mapkit/mkmapview/1452719-removeoverlays
+    let removeAnnotationOverlaysChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.removeAnnotationOverlays", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      removeAnnotationOverlaysChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let identifiersArg = args[0] as! [String]
+        do {
+          try api.removeAnnotationOverlays(identifiers: identifiersArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      removeAnnotationOverlaysChannel.setMessageHandler(nil)
+    }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
-    let getAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.getAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    let getAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.getAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       getAnnotationsChannel.setMessageHandler { _, reply in
         do {
@@ -412,7 +489,7 @@ class MyNonInteractiveMapHostApiSetup {
       getAnnotationsChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
-    let showAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.showAnnotations", binaryMessenger: binaryMessenger, codec: codec)
+    let showAnnotationsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.showAnnotations", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       showAnnotationsChannel.setMessageHandler { _, reply in
         do {
@@ -427,7 +504,7 @@ class MyNonInteractiveMapHostApiSetup {
     }
   }
 }
-private class MyMusicHostApiCodecReader: FlutterStandardReader {
+private class MusicKitCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
       case 128:
@@ -438,7 +515,7 @@ private class MyMusicHostApiCodecReader: FlutterStandardReader {
   }
 }
 
-private class MyMusicHostApiCodecWriter: FlutterStandardWriter {
+private class MusicKitCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
     if let value = value as? SongDetails {
       super.writeByte(128)
@@ -449,22 +526,22 @@ private class MyMusicHostApiCodecWriter: FlutterStandardWriter {
   }
 }
 
-private class MyMusicHostApiCodecReaderWriter: FlutterStandardReaderWriter {
+private class MusicKitCodecReaderWriter: FlutterStandardReaderWriter {
   override func reader(with data: Data) -> FlutterStandardReader {
-    return MyMusicHostApiCodecReader(data: data)
+    return MusicKitCodecReader(data: data)
   }
 
   override func writer(with data: NSMutableData) -> FlutterStandardWriter {
-    return MyMusicHostApiCodecWriter(data: data)
+    return MusicKitCodecWriter(data: data)
   }
 }
 
-class MyMusicHostApiCodec: FlutterStandardMessageCodec {
-  static let shared = MyMusicHostApiCodec(readerWriter: MyMusicHostApiCodecReaderWriter())
+class MusicKitCodec: FlutterStandardMessageCodec {
+  static let shared = MusicKitCodec(readerWriter: MusicKitCodecReaderWriter())
 }
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
-protocol MyMusicHostApi {
+protocol MusicKit {
   /// Status
   /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   func requestPermission(completion: @escaping (Result<String, Error>) -> Void)
@@ -476,14 +553,14 @@ protocol MyMusicHostApi {
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
-class MyMusicHostApiSetup {
-  /// The codec used by MyMusicHostApi.
-  static var codec: FlutterStandardMessageCodec { MyMusicHostApiCodec.shared }
-  /// Sets up an instance of `MyMusicHostApi` to handle messages through the `binaryMessenger`.
-  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MyMusicHostApi?) {
+class MusicKitSetup {
+  /// The codec used by MusicKit.
+  static var codec: FlutterStandardMessageCodec { MusicKitCodec.shared }
+  /// Sets up an instance of `MusicKit` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MusicKit?) {
     /// Status
     /// https://developer.apple.com/documentation/musickit/musicauthorization/status
-    let requestPermissionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.requestPermission", binaryMessenger: binaryMessenger, codec: codec)
+    let requestPermissionChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.requestPermission", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       requestPermissionChannel.setMessageHandler { _, reply in
         api.requestPermission() { result in
@@ -500,7 +577,7 @@ class MyMusicHostApiSetup {
     }
     /// Status
     /// https://developer.apple.com/documentation/musickit/musicauthorization/status
-    let currentPermissionStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.currentPermissionStatus", binaryMessenger: binaryMessenger, codec: codec)
+    let currentPermissionStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.currentPermissionStatus", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       currentPermissionStatusChannel.setMessageHandler { _, reply in
         do {
@@ -513,7 +590,7 @@ class MyMusicHostApiSetup {
     } else {
       currentPermissionStatusChannel.setMessageHandler(nil)
     }
-    let playChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.play", binaryMessenger: binaryMessenger, codec: codec)
+    let playChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.play", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       playChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -528,7 +605,7 @@ class MyMusicHostApiSetup {
     } else {
       playChannel.setMessageHandler(nil)
     }
-    let songDetailsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.songDetails", binaryMessenger: binaryMessenger, codec: codec)
+    let songDetailsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.songDetails", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       songDetailsChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -548,7 +625,7 @@ class MyMusicHostApiSetup {
     }
   }
 }
-private class MyLocationHostApiCodecReader: FlutterStandardReader {
+private class LocationManagerCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
       case 128:
@@ -561,7 +638,7 @@ private class MyLocationHostApiCodecReader: FlutterStandardReader {
   }
 }
 
-private class MyLocationHostApiCodecWriter: FlutterStandardWriter {
+private class LocationManagerCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
     if let value = value as? Region {
       super.writeByte(128)
@@ -575,22 +652,22 @@ private class MyLocationHostApiCodecWriter: FlutterStandardWriter {
   }
 }
 
-private class MyLocationHostApiCodecReaderWriter: FlutterStandardReaderWriter {
+private class LocationManagerCodecReaderWriter: FlutterStandardReaderWriter {
   override func reader(with data: Data) -> FlutterStandardReader {
-    return MyLocationHostApiCodecReader(data: data)
+    return LocationManagerCodecReader(data: data)
   }
 
   override func writer(with data: NSMutableData) -> FlutterStandardWriter {
-    return MyLocationHostApiCodecWriter(data: data)
+    return LocationManagerCodecWriter(data: data)
   }
 }
 
-class MyLocationHostApiCodec: FlutterStandardMessageCodec {
-  static let shared = MyLocationHostApiCodec(readerWriter: MyLocationHostApiCodecReaderWriter())
+class LocationManagerCodec: FlutterStandardMessageCodec {
+  static let shared = LocationManagerCodec(readerWriter: LocationManagerCodecReaderWriter())
 }
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
-protocol MyLocationHostApi {
+protocol LocationManager {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620562-requestwheninuseauthorization
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620551-requestalwaysauthorization
   func requestAuthorization(always: Bool) throws
@@ -609,14 +686,14 @@ protocol MyLocationHostApi {
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
-class MyLocationHostApiSetup {
-  /// The codec used by MyLocationHostApi.
-  static var codec: FlutterStandardMessageCodec { MyLocationHostApiCodec.shared }
-  /// Sets up an instance of `MyLocationHostApi` to handle messages through the `binaryMessenger`.
-  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: MyLocationHostApi?) {
+class LocationManagerSetup {
+  /// The codec used by LocationManager.
+  static var codec: FlutterStandardMessageCodec { LocationManagerCodec.shared }
+  /// Sets up an instance of `LocationManager` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: LocationManager?) {
     /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620562-requestwheninuseauthorization
     /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620551-requestalwaysauthorization
-    let requestAuthorizationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.requestAuthorization", binaryMessenger: binaryMessenger, codec: codec)
+    let requestAuthorizationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.requestAuthorization", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       requestAuthorizationChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -633,7 +710,7 @@ class MyLocationHostApiSetup {
     }
     /// Status
     /// https://developer.apple.com/documentation/corelocation/clauthorizationstatus
-    let currentPermissionStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.currentPermissionStatus", binaryMessenger: binaryMessenger, codec: codec)
+    let currentPermissionStatusChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.currentPermissionStatus", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       currentPermissionStatusChannel.setMessageHandler { _, reply in
         do {
@@ -648,7 +725,7 @@ class MyLocationHostApiSetup {
     }
     /// CLRegion.identifier
     /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423790-monitoredregions
-    let monitoredRegionsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.monitoredRegions", binaryMessenger: binaryMessenger, codec: codec)
+    let monitoredRegionsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.monitoredRegions", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       monitoredRegionsChannel.setMessageHandler { _, reply in
         do {
@@ -662,7 +739,7 @@ class MyLocationHostApiSetup {
       monitoredRegionsChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423656-startmonitoring
-    let startMonitoringChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.startMonitoring", binaryMessenger: binaryMessenger, codec: codec)
+    let startMonitoringChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.startMonitoring", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       startMonitoringChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -680,7 +757,7 @@ class MyLocationHostApiSetup {
       startMonitoringChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423840-stopmonitoring
-    let stopMonitoringChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.stopMonitoring", binaryMessenger: binaryMessenger, codec: codec)
+    let stopMonitoringChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.stopMonitoring", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       stopMonitoringChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -696,7 +773,7 @@ class MyLocationHostApiSetup {
       stopMonitoringChannel.setMessageHandler(nil)
     }
     /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620548-requestlocation
-    let requestLocationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.requestLocation", binaryMessenger: binaryMessenger, codec: codec)
+    let requestLocationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.requestLocation", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       requestLocationChannel.setMessageHandler { _, reply in
         do {
@@ -711,7 +788,7 @@ class MyLocationHostApiSetup {
     }
   }
 }
-private class MyFlutterApiCodecReader: FlutterStandardReader {
+private class LocationManagerDelegateCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
       case 128:
@@ -722,7 +799,7 @@ private class MyFlutterApiCodecReader: FlutterStandardReader {
   }
 }
 
-private class MyFlutterApiCodecWriter: FlutterStandardWriter {
+private class LocationManagerDelegateCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
     if let value = value as? Region {
       super.writeByte(128)
@@ -733,22 +810,22 @@ private class MyFlutterApiCodecWriter: FlutterStandardWriter {
   }
 }
 
-private class MyFlutterApiCodecReaderWriter: FlutterStandardReaderWriter {
+private class LocationManagerDelegateCodecReaderWriter: FlutterStandardReaderWriter {
   override func reader(with data: Data) -> FlutterStandardReader {
-    return MyFlutterApiCodecReader(data: data)
+    return LocationManagerDelegateCodecReader(data: data)
   }
 
   override func writer(with data: NSMutableData) -> FlutterStandardWriter {
-    return MyFlutterApiCodecWriter(data: data)
+    return LocationManagerDelegateCodecWriter(data: data)
   }
 }
 
-class MyFlutterApiCodec: FlutterStandardMessageCodec {
-  static let shared = MyFlutterApiCodec(readerWriter: MyFlutterApiCodecReaderWriter())
+class LocationManagerDelegateCodec: FlutterStandardMessageCodec {
+  static let shared = LocationManagerDelegateCodec(readerWriter: LocationManagerDelegateCodecReaderWriter())
 }
 
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
-protocol MyFlutterApiProtocol {
+protocol LocationManagerDelegateProtocol {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
   func didDetermineState(region regionArg: Region, state stateArg: RegionState, completion: @escaping (Result<Void, FlutterError>) -> Void)
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/3563956-locationmanagerdidchangeauthoriz
@@ -759,17 +836,17 @@ protocol MyFlutterApiProtocol {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
   func didUpdateLocations(latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void)
 }
-class MyFlutterApi: MyFlutterApiProtocol {
+class LocationManagerDelegate: LocationManagerDelegateProtocol {
   private let binaryMessenger: FlutterBinaryMessenger
   init(binaryMessenger: FlutterBinaryMessenger){
     self.binaryMessenger = binaryMessenger
   }
   var codec: FlutterStandardMessageCodec {
-    return MyFlutterApiCodec.shared
+    return LocationManagerDelegateCodec.shared
   }
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
   func didDetermineState(region regionArg: Region, state stateArg: RegionState, completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState"
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didDetermineState"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([regionArg, stateArg.rawValue] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
@@ -788,7 +865,7 @@ class MyFlutterApi: MyFlutterApiProtocol {
   }
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/3563956-locationmanagerdidchangeauthoriz
   func didChangeAuthorization(status statusArg: AuthorizationStatus, completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didChangeAuthorization"
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didChangeAuthorization"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([statusArg.rawValue] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
@@ -808,7 +885,7 @@ class MyFlutterApi: MyFlutterApiProtocol {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423842-locationmanager
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423720-locationmanager
   func didStartMonitoring(region regionArg: Region, error errorArg: String?, completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didStartMonitoring"
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didStartMonitoring"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([regionArg, errorArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
@@ -827,7 +904,7 @@ class MyFlutterApi: MyFlutterApiProtocol {
   }
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
   func didUpdateLocations(latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didUpdateLocations"
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didUpdateLocations"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([latitudeArg, longitudeArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
@@ -846,7 +923,7 @@ class MyFlutterApi: MyFlutterApiProtocol {
   }
 }
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
-protocol MyFlutterApiMapViewDelegateProtocol {
+protocol MapViewDelegateProtocol {
   /// on tap MKCircle
   func onTapCircle(viewType viewTypeArg: MyMapViewType, identifier identifierArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void)
   /// on long pressed MKMapView
@@ -854,14 +931,14 @@ protocol MyFlutterApiMapViewDelegateProtocol {
   /// https://developer.apple.com/documentation/mapkit/mkmapviewdelegate/1452291-mapviewdidfinishloadingmap
   func mapViewDidFinishLoadingMap(viewType viewTypeArg: MyMapViewType, completion: @escaping (Result<Void, FlutterError>) -> Void)
 }
-class MyFlutterApiMapViewDelegate: MyFlutterApiMapViewDelegateProtocol {
+class MapViewDelegate: MapViewDelegateProtocol {
   private let binaryMessenger: FlutterBinaryMessenger
   init(binaryMessenger: FlutterBinaryMessenger){
     self.binaryMessenger = binaryMessenger
   }
   /// on tap MKCircle
   func onTapCircle(viewType viewTypeArg: MyMapViewType, identifier identifierArg: String, completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onTapCircle"
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onTapCircle"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
     channel.sendMessage([viewTypeArg.rawValue, identifierArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
@@ -880,7 +957,7 @@ class MyFlutterApiMapViewDelegate: MyFlutterApiMapViewDelegateProtocol {
   }
   /// on long pressed MKMapView
   func onLongPressedMap(viewType viewTypeArg: MyMapViewType, latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onLongPressedMap"
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onLongPressedMap"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
     channel.sendMessage([viewTypeArg.rawValue, latitudeArg, longitudeArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
@@ -899,7 +976,7 @@ class MyFlutterApiMapViewDelegate: MyFlutterApiMapViewDelegateProtocol {
   }
   /// https://developer.apple.com/documentation/mapkit/mkmapviewdelegate/1452291-mapviewdidfinishloadingmap
   func mapViewDidFinishLoadingMap(viewType viewTypeArg: MyMapViewType, completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.mapViewDidFinishLoadingMap"
+    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.mapViewDidFinishLoadingMap"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
     channel.sendMessage([viewTypeArg.rawValue] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {

@@ -40,7 +40,7 @@ Future<SongDetails> appleMusicAppLinkSongDetails(
     throw ArgumentError('id is empty');
   }
 
-  return ref.watch(myMusicHostApiProvider).songDetails(
+  return ref.watch(musicKitProvider).songDetails(
         id: id,
       );
 }

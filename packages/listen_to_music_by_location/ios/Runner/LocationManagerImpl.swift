@@ -1,13 +1,13 @@
 import CoreLocation
 
-class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDelegate {
+class LocationManagerImpl: NSObject, LocationManager, CLLocationManagerDelegate {
 
   private let locationManager = CLLocationManager()
 
-  let myFlutterApi: MyFlutterApi
+  let locationManagerDelegate: LocationManagerDelegate
 
-  init(myFlutterApi: MyFlutterApi) {
-    self.myFlutterApi = myFlutterApi
+  init(locationManagerDelegate: LocationManagerDelegate) {
+    self.locationManagerDelegate = locationManagerDelegate
 
     super.init()
 
@@ -25,7 +25,7 @@ class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDeleg
   func locationManagerDidChangeAuthorization(
     _ manager: CLLocationManager
   ) {
-    myFlutterApi.didChangeAuthorization(
+    locationManagerDelegate.didChangeAuthorization(
       status: manager.authorizationStatus.authorizationStatus,
       completion: { _ in }
     )
@@ -66,7 +66,7 @@ class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDeleg
   ) {
     guard let e = region as? CLCircularRegion else { return }
 
-    myFlutterApi.didStartMonitoring(
+    locationManagerDelegate.didStartMonitoring(
       region: e.region,
       error: nil,
       completion: { _ in }
@@ -80,7 +80,7 @@ class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDeleg
   ) {
     guard let e = region as? CLCircularRegion else { return }
 
-    myFlutterApi.didStartMonitoring(
+    locationManagerDelegate.didStartMonitoring(
       region: e.region,
       error: error.localizedDescription,
       completion: { _ in }
@@ -94,7 +94,7 @@ class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDeleg
   ) {
     guard let e = region as? CLCircularRegion else { return }
 
-    myFlutterApi.didDetermineState(
+    locationManagerDelegate.didDetermineState(
       region: e.region,
       state: state.regionState,
       completion: { _ in }
@@ -107,7 +107,7 @@ class MyLocationHostApiImpl: NSObject, MyLocationHostApi, CLLocationManagerDeleg
   ) {
     guard let coordinate = locations.last?.coordinate else { return }
 
-    myFlutterApi.didUpdateLocations(
+    locationManagerDelegate.didUpdateLocations(
       latitude: coordinate.latitude,
       longitude: coordinate.longitude,
       completion: { _ in }

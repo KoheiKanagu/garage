@@ -1,3 +1,5 @@
+// ignore_for_file: one_member_abstracts
+
 import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
@@ -8,18 +10,30 @@ import 'package:pigeon/pigeon.dart';
   ),
 )
 @HostApi()
-abstract class MyMapHostApi {
+abstract class MapPageMapView {
   void setMapRegion({
     required double latitude,
     required double longitude,
     required double meters,
   });
 
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1451889-addannotations
   void addAnnotations(
     List<CircleAnnotation> annotations,
   );
 
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452518-addoverlays
+  void addAnnotationOverlays(
+    List<CircleAnnotation> annotations,
+  );
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452130-removeannotations
   void removeAnnotations(
+    List<String> identifiers,
+  );
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452719-removeoverlays
+  void removeAnnotationOverlays(
     List<String> identifiers,
   );
 
@@ -30,21 +44,31 @@ abstract class MyMapHostApi {
   void showAnnotations();
 }
 
-/// pigeonでは複数インスタンスを作成できないので、個別にしている
-/// https://github.com/flutter/flutter/issues/66710
 @HostApi()
-abstract class MyNonInteractiveMapHostApi {
+abstract class LocamusicDetailPageMapView {
   void setMapRegion({
     required double latitude,
     required double longitude,
     required double meters,
   });
 
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1451889-addannotations
   void addAnnotations(
     List<CircleAnnotation> annotations,
   );
 
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452518-addoverlays
+  void addAnnotationOverlays(
+    List<CircleAnnotation> annotations,
+  );
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452130-removeannotations
   void removeAnnotations(
+    List<String> identifiers,
+  );
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452719-removeoverlays
+  void removeAnnotationOverlays(
     List<String> identifiers,
   );
 
@@ -72,7 +96,7 @@ class CircleAnnotation {
 }
 
 @HostApi()
-abstract class MyMusicHostApi {
+abstract class MusicKit {
   /// Status
   /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   @async
@@ -110,7 +134,7 @@ class SongDetails {
 }
 
 @HostApi()
-abstract class MyLocationHostApi {
+abstract class LocationManager {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620562-requestwheninuseauthorization
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620551-requestalwaysauthorization
   void requestAuthorization({
@@ -158,7 +182,7 @@ class Region {
 }
 
 @FlutterApi()
-abstract class MyFlutterApi {
+abstract class LocationManagerDelegate {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
   void didDetermineState(
     Region region,
@@ -200,7 +224,7 @@ enum AuthorizationStatus {
 }
 
 @FlutterApi()
-abstract class MyFlutterApiMapViewDelegate {
+abstract class MapViewDelegate {
   /// on tap MKCircle
   void onTapCircle(
     MyMapViewType viewType,
@@ -222,7 +246,9 @@ abstract class MyFlutterApiMapViewDelegate {
 
 /// どのMapViewから呼ばれたかを判別するために利用する
 enum MyMapViewType {
-  interactive,
-  nonInteractive,
+  // for map_page.dart
+  mapPage,
+  // for locamusic_detail_page.dart
+  locamusicDetailPage,
   ;
 }

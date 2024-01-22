@@ -42,8 +42,8 @@ enum AuthorizationStatus {
 
 /// どのMapViewから呼ばれたかを判別するために利用する
 enum MyMapViewType {
-  interactive,
-  nonInteractive,
+  mapPage,
+  locamusicDetailPage,
 }
 
 class CircleAnnotation {
@@ -166,8 +166,8 @@ class Region {
   }
 }
 
-class _MyMapHostApiCodec extends StandardMessageCodec {
-  const _MyMapHostApiCodec();
+class _MapPageMapViewCodec extends StandardMessageCodec {
+  const _MapPageMapViewCodec();
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
     if (value is CircleAnnotation) {
@@ -189,18 +189,18 @@ class _MyMapHostApiCodec extends StandardMessageCodec {
   }
 }
 
-class MyMapHostApi {
-  /// Constructor for [MyMapHostApi].  The [binaryMessenger] named argument is
+class MapPageMapView {
+  /// Constructor for [MapPageMapView].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  MyMapHostApi({BinaryMessenger? binaryMessenger})
+  MapPageMapView({BinaryMessenger? binaryMessenger})
       : __pigeon_binaryMessenger = binaryMessenger;
   final BinaryMessenger? __pigeon_binaryMessenger;
 
-  static const MessageCodec<Object?> pigeonChannelCodec = _MyMapHostApiCodec();
+  static const MessageCodec<Object?> pigeonChannelCodec = _MapPageMapViewCodec();
 
   Future<void> setMapRegion({required double latitude, required double longitude, required double meters,}) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.setMapRegion';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.setMapRegion';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -221,8 +221,9 @@ class MyMapHostApi {
     }
   }
 
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1451889-addannotations
   Future<void> addAnnotations(List<CircleAnnotation?> annotations) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.addAnnotations';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.addAnnotations';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -243,8 +244,55 @@ class MyMapHostApi {
     }
   }
 
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452518-addoverlays
+  Future<void> addAnnotationOverlays(List<CircleAnnotation?> annotations) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.addAnnotationOverlays';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[annotations]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452130-removeannotations
   Future<void> removeAnnotations(List<String?> identifiers) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.removeAnnotations';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.removeAnnotations';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[identifiers]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452719-removeoverlays
+  Future<void> removeAnnotationOverlays(List<String?> identifiers) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.removeAnnotationOverlays';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -267,7 +315,7 @@ class MyMapHostApi {
 
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   Future<List<String?>> getAnnotations() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.getAnnotations';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.getAnnotations';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -295,7 +343,7 @@ class MyMapHostApi {
 
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
   Future<void> showAnnotations() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMapHostApi.showAnnotations';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MapPageMapView.showAnnotations';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -317,8 +365,8 @@ class MyMapHostApi {
   }
 }
 
-class _MyNonInteractiveMapHostApiCodec extends StandardMessageCodec {
-  const _MyNonInteractiveMapHostApiCodec();
+class _LocamusicDetailPageMapViewCodec extends StandardMessageCodec {
+  const _LocamusicDetailPageMapViewCodec();
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
     if (value is CircleAnnotation) {
@@ -340,20 +388,18 @@ class _MyNonInteractiveMapHostApiCodec extends StandardMessageCodec {
   }
 }
 
-/// pigeonでは複数インスタンスを作成できないので、個別にしている
-/// https://github.com/flutter/flutter/issues/66710
-class MyNonInteractiveMapHostApi {
-  /// Constructor for [MyNonInteractiveMapHostApi].  The [binaryMessenger] named argument is
+class LocamusicDetailPageMapView {
+  /// Constructor for [LocamusicDetailPageMapView].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  MyNonInteractiveMapHostApi({BinaryMessenger? binaryMessenger})
+  LocamusicDetailPageMapView({BinaryMessenger? binaryMessenger})
       : __pigeon_binaryMessenger = binaryMessenger;
   final BinaryMessenger? __pigeon_binaryMessenger;
 
-  static const MessageCodec<Object?> pigeonChannelCodec = _MyNonInteractiveMapHostApiCodec();
+  static const MessageCodec<Object?> pigeonChannelCodec = _LocamusicDetailPageMapViewCodec();
 
   Future<void> setMapRegion({required double latitude, required double longitude, required double meters,}) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.setMapRegion';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.setMapRegion';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -374,8 +420,9 @@ class MyNonInteractiveMapHostApi {
     }
   }
 
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1451889-addannotations
   Future<void> addAnnotations(List<CircleAnnotation?> annotations) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.addAnnotations';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.addAnnotations';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -396,8 +443,55 @@ class MyNonInteractiveMapHostApi {
     }
   }
 
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452518-addoverlays
+  Future<void> addAnnotationOverlays(List<CircleAnnotation?> annotations) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.addAnnotationOverlays';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[annotations]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452130-removeannotations
   Future<void> removeAnnotations(List<String?> identifiers) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.removeAnnotations';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.removeAnnotations';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(<Object?>[identifiers]) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
+
+  /// https://developer.apple.com/documentation/mapkit/mkmapview/1452719-removeoverlays
+  Future<void> removeAnnotationOverlays(List<String?> identifiers) async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.removeAnnotationOverlays';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -420,7 +514,7 @@ class MyNonInteractiveMapHostApi {
 
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452593-annotations
   Future<List<String?>> getAnnotations() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.getAnnotations';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.getAnnotations';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -448,7 +542,7 @@ class MyNonInteractiveMapHostApi {
 
   /// https://developer.apple.com/documentation/mapkit/mkmapview/1452309-showannotations
   Future<void> showAnnotations() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyNonInteractiveMapHostApi.showAnnotations';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocamusicDetailPageMapView.showAnnotations';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -470,8 +564,8 @@ class MyNonInteractiveMapHostApi {
   }
 }
 
-class _MyMusicHostApiCodec extends StandardMessageCodec {
-  const _MyMusicHostApiCodec();
+class _MusicKitCodec extends StandardMessageCodec {
+  const _MusicKitCodec();
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
     if (value is SongDetails) {
@@ -493,20 +587,20 @@ class _MyMusicHostApiCodec extends StandardMessageCodec {
   }
 }
 
-class MyMusicHostApi {
-  /// Constructor for [MyMusicHostApi].  The [binaryMessenger] named argument is
+class MusicKit {
+  /// Constructor for [MusicKit].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  MyMusicHostApi({BinaryMessenger? binaryMessenger})
+  MusicKit({BinaryMessenger? binaryMessenger})
       : __pigeon_binaryMessenger = binaryMessenger;
   final BinaryMessenger? __pigeon_binaryMessenger;
 
-  static const MessageCodec<Object?> pigeonChannelCodec = _MyMusicHostApiCodec();
+  static const MessageCodec<Object?> pigeonChannelCodec = _MusicKitCodec();
 
   /// Status
   /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   Future<String> requestPermission() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.requestPermission';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MusicKit.requestPermission';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -535,7 +629,7 @@ class MyMusicHostApi {
   /// Status
   /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   Future<String> currentPermissionStatus() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.currentPermissionStatus';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MusicKit.currentPermissionStatus';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -562,7 +656,7 @@ class MyMusicHostApi {
   }
 
   Future<void> play({required String id}) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.play';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MusicKit.play';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -584,7 +678,7 @@ class MyMusicHostApi {
   }
 
   Future<SongDetails> songDetails({required String id, int artworkSize = 512}) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyMusicHostApi.songDetails';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MusicKit.songDetails';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -611,8 +705,8 @@ class MyMusicHostApi {
   }
 }
 
-class _MyLocationHostApiCodec extends StandardMessageCodec {
-  const _MyLocationHostApiCodec();
+class _LocationManagerCodec extends StandardMessageCodec {
+  const _LocationManagerCodec();
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
     if (value is Region) {
@@ -639,20 +733,20 @@ class _MyLocationHostApiCodec extends StandardMessageCodec {
   }
 }
 
-class MyLocationHostApi {
-  /// Constructor for [MyLocationHostApi].  The [binaryMessenger] named argument is
+class LocationManager {
+  /// Constructor for [LocationManager].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  MyLocationHostApi({BinaryMessenger? binaryMessenger})
+  LocationManager({BinaryMessenger? binaryMessenger})
       : __pigeon_binaryMessenger = binaryMessenger;
   final BinaryMessenger? __pigeon_binaryMessenger;
 
-  static const MessageCodec<Object?> pigeonChannelCodec = _MyLocationHostApiCodec();
+  static const MessageCodec<Object?> pigeonChannelCodec = _LocationManagerCodec();
 
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620562-requestwheninuseauthorization
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620551-requestalwaysauthorization
   Future<void> requestAuthorization({required bool always}) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.requestAuthorization';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocationManager.requestAuthorization';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -676,7 +770,7 @@ class MyLocationHostApi {
   /// Status
   /// https://developer.apple.com/documentation/corelocation/clauthorizationstatus
   Future<AuthorizationStatus> currentPermissionStatus() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.currentPermissionStatus';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocationManager.currentPermissionStatus';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -705,7 +799,7 @@ class MyLocationHostApi {
   /// CLRegion.identifier
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423790-monitoredregions
   Future<List<Region?>> monitoredRegions() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.monitoredRegions';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocationManager.monitoredRegions';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -733,7 +827,7 @@ class MyLocationHostApi {
 
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423656-startmonitoring
   Future<void> startMonitoring({required Region region}) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.startMonitoring';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocationManager.startMonitoring';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -756,7 +850,7 @@ class MyLocationHostApi {
 
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423840-stopmonitoring
   Future<void> stopMonitoring({required Region region}) async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.stopMonitoring';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocationManager.stopMonitoring';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -779,7 +873,7 @@ class MyLocationHostApi {
 
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620548-requestlocation
   Future<void> requestLocation() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MyLocationHostApi.requestLocation';
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocationManager.requestLocation';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -801,8 +895,8 @@ class MyLocationHostApi {
   }
 }
 
-class _MyFlutterApiCodec extends StandardMessageCodec {
-  const _MyFlutterApiCodec();
+class _LocationManagerDelegateCodec extends StandardMessageCodec {
+  const _LocationManagerDelegateCodec();
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
     if (value is Region) {
@@ -824,8 +918,8 @@ class _MyFlutterApiCodec extends StandardMessageCodec {
   }
 }
 
-abstract class MyFlutterApi {
-  static const MessageCodec<Object?> pigeonChannelCodec = _MyFlutterApiCodec();
+abstract class LocationManagerDelegate {
+  static const MessageCodec<Object?> pigeonChannelCodec = _LocationManagerDelegateCodec();
 
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423570-locationmanager
   void didDetermineState(Region region, RegionState state);
@@ -840,24 +934,24 @@ abstract class MyFlutterApi {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
   void didUpdateLocations(double latitude, double longitude);
 
-  static void setup(MyFlutterApi? api, {BinaryMessenger? binaryMessenger}) {
+  static void setup(LocationManagerDelegate? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState', pigeonChannelCodec,
+          'dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didDetermineState', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState was null.');
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didDetermineState was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final Region? arg_region = (args[0] as Region?);
           assert(arg_region != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState was null, expected non-null Region.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didDetermineState was null, expected non-null Region.');
           final RegionState? arg_state = args[1] == null ? null : RegionState.values[args[1]! as int];
           assert(arg_state != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didDetermineState was null, expected non-null RegionState.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didDetermineState was null, expected non-null RegionState.');
           try {
             api.didDetermineState(arg_region!, arg_state!);
             return wrapResponse(empty: true);
@@ -871,18 +965,18 @@ abstract class MyFlutterApi {
     }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didChangeAuthorization', pigeonChannelCodec,
+          'dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didChangeAuthorization', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didChangeAuthorization was null.');
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didChangeAuthorization was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final AuthorizationStatus? arg_status = args[0] == null ? null : AuthorizationStatus.values[args[0]! as int];
           assert(arg_status != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didChangeAuthorization was null, expected non-null AuthorizationStatus.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didChangeAuthorization was null, expected non-null AuthorizationStatus.');
           try {
             api.didChangeAuthorization(arg_status!);
             return wrapResponse(empty: true);
@@ -896,18 +990,18 @@ abstract class MyFlutterApi {
     }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didStartMonitoring', pigeonChannelCodec,
+          'dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didStartMonitoring', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didStartMonitoring was null.');
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didStartMonitoring was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final Region? arg_region = (args[0] as Region?);
           assert(arg_region != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didStartMonitoring was null, expected non-null Region.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didStartMonitoring was null, expected non-null Region.');
           final String? arg_error = (args[1] as String?);
           try {
             api.didStartMonitoring(arg_region!, arg_error);
@@ -922,21 +1016,21 @@ abstract class MyFlutterApi {
     }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didUpdateLocations', pigeonChannelCodec,
+          'dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didUpdateLocations', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didUpdateLocations was null.');
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didUpdateLocations was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final double? arg_latitude = (args[0] as double?);
           assert(arg_latitude != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didUpdateLocations was null, expected non-null double.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didUpdateLocations was null, expected non-null double.');
           final double? arg_longitude = (args[1] as double?);
           assert(arg_longitude != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApi.didUpdateLocations was null, expected non-null double.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didUpdateLocations was null, expected non-null double.');
           try {
             api.didUpdateLocations(arg_latitude!, arg_longitude!);
             return wrapResponse(empty: true);
@@ -951,7 +1045,7 @@ abstract class MyFlutterApi {
   }
 }
 
-abstract class MyFlutterApiMapViewDelegate {
+abstract class MapViewDelegate {
   static const MessageCodec<Object?> pigeonChannelCodec = StandardMessageCodec();
 
   /// on tap MKCircle
@@ -963,24 +1057,24 @@ abstract class MyFlutterApiMapViewDelegate {
   /// https://developer.apple.com/documentation/mapkit/mkmapviewdelegate/1452291-mapviewdidfinishloadingmap
   void mapViewDidFinishLoadingMap(MyMapViewType viewType);
 
-  static void setup(MyFlutterApiMapViewDelegate? api, {BinaryMessenger? binaryMessenger}) {
+  static void setup(MapViewDelegate? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onTapCircle', pigeonChannelCodec,
+          'dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onTapCircle', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onTapCircle was null.');
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onTapCircle was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final MyMapViewType? arg_viewType = args[0] == null ? null : MyMapViewType.values[args[0]! as int];
           assert(arg_viewType != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onTapCircle was null, expected non-null MyMapViewType.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onTapCircle was null, expected non-null MyMapViewType.');
           final String? arg_identifier = (args[1] as String?);
           assert(arg_identifier != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onTapCircle was null, expected non-null String.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onTapCircle was null, expected non-null String.');
           try {
             api.onTapCircle(arg_viewType!, arg_identifier!);
             return wrapResponse(empty: true);
@@ -994,24 +1088,24 @@ abstract class MyFlutterApiMapViewDelegate {
     }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onLongPressedMap', pigeonChannelCodec,
+          'dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onLongPressedMap', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onLongPressedMap was null.');
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onLongPressedMap was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final MyMapViewType? arg_viewType = args[0] == null ? null : MyMapViewType.values[args[0]! as int];
           assert(arg_viewType != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onLongPressedMap was null, expected non-null MyMapViewType.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onLongPressedMap was null, expected non-null MyMapViewType.');
           final double? arg_latitude = (args[1] as double?);
           assert(arg_latitude != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onLongPressedMap was null, expected non-null double.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onLongPressedMap was null, expected non-null double.');
           final double? arg_longitude = (args[2] as double?);
           assert(arg_longitude != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.onLongPressedMap was null, expected non-null double.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.onLongPressedMap was null, expected non-null double.');
           try {
             api.onLongPressedMap(arg_viewType!, arg_latitude!, arg_longitude!);
             return wrapResponse(empty: true);
@@ -1025,18 +1119,18 @@ abstract class MyFlutterApiMapViewDelegate {
     }
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.mapViewDidFinishLoadingMap', pigeonChannelCodec,
+          'dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.mapViewDidFinishLoadingMap', pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         __pigeon_channel.setMessageHandler(null);
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.mapViewDidFinishLoadingMap was null.');
+          'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.mapViewDidFinishLoadingMap was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final MyMapViewType? arg_viewType = args[0] == null ? null : MyMapViewType.values[args[0]! as int];
           assert(arg_viewType != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MyFlutterApiMapViewDelegate.mapViewDidFinishLoadingMap was null, expected non-null MyMapViewType.');
+              'Argument for dev.flutter.pigeon.listen_to_music_by_location.MapViewDelegate.mapViewDidFinishLoadingMap was null, expected non-null MyMapViewType.');
           try {
             api.mapViewDidFinishLoadingMap(arg_viewType!);
             return wrapResponse(empty: true);

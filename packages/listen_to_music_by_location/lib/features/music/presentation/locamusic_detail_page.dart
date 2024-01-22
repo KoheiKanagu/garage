@@ -9,7 +9,7 @@ import 'package:listen_to_music_by_location/features/map/application/map_provide
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/distance_range_segmented_control.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/locamusic_detail_page_header.dart';
-import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
+import 'package:listen_to_music_by_location/features/native/application/map_view_delegate.dart';
 import 'package:listen_to_music_by_location/features/native/presentation/my_map_view.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
@@ -46,8 +46,9 @@ class LocamusicDetailPage extends HookConsumerWidget {
         Future(
           () async {
             await ref.read(
-              myFlutterApiMapViewDidFinishLoadingMapProvider
-                  .selectAsync((data) => data == MyMapViewType.nonInteractive),
+              mapPageMapViewMapViewDidFinishLoadingMapProvider.selectAsync(
+                (data) => data == MyMapViewType.locamusicDetailPage,
+              ),
             );
 
             if (locamusic == null) {
@@ -61,7 +62,7 @@ class LocamusicDetailPage extends HookConsumerWidget {
                   documentId: documentId,
                   locamusic: locamusic,
                 ),
-                myMapViewType: MyMapViewType.nonInteractive,
+                myMapViewType: MyMapViewType.locamusicDetailPage,
               ),
             );
           },
@@ -128,7 +129,8 @@ class LocamusicDetailPage extends HookConsumerWidget {
                               height: 200,
                               child: MyMapView(
                                 layoutMarginsBottom: 0,
-                                myMapViewType: MyMapViewType.nonInteractive,
+                                myMapViewType:
+                                    MyMapViewType.locamusicDetailPage,
                               ),
                             ),
                           ),

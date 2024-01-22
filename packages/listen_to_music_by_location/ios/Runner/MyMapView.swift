@@ -5,12 +5,12 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
   var myMapViewType: MyMapViewType?
 
-  var myFlutterApiMapViewDelegate: MyFlutterApiMapViewDelegate?
+  var mapViewDelegate: MapViewDelegate?
 
   convenience init(
     args: Any?,
     myMapViewType: MyMapViewType?,
-    myFlutterApiMapViewDelegate: MyFlutterApiMapViewDelegate?
+    mapViewDelegate: MapViewDelegate?
   ) {
     self.init(
       frame: CGRect.zero
@@ -20,7 +20,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
     showsUserLocation = true
 
     self.myMapViewType = myMapViewType
-    self.myFlutterApiMapViewDelegate = myFlutterApiMapViewDelegate
+    self.mapViewDelegate = mapViewDelegate
 
     // Map上のAppleロゴの場所を移動
     if let arguments = args as? [String: Any?],
@@ -35,7 +35,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       let meters = arguments["meters"] as? Double
     {
       // 未指定の場合はlocaleからいい感じの場所が設定される？
-      try? setMapRegion(
+      setMapRegion(
         latitude: latitude,
         longitude: longitude,
         meters: meters
@@ -62,8 +62,9 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
   }
 
   func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-    myFlutterApiMapViewDelegate?.mapViewDidFinishLoadingMap(
-      viewType: myMapViewType!,
+    guard let e = myMapViewType else { return }
+    mapViewDelegate?.mapViewDidFinishLoadingMap(
+      viewType: e,
       completion: { _ in }
     )
   }
@@ -89,8 +90,9 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       )
 
       if renderer.path.contains(point) {
-        myFlutterApiMapViewDelegate?.onTapCircle(
-          viewType: myMapViewType!,
+        guard let e = myMapViewType else { return }
+        mapViewDelegate?.onTapCircle(
+          viewType: e,
           identifier: circle.identifier,
           completion: { _ in }
         )
@@ -112,8 +114,9 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       toCoordinateFrom: self
     )
 
-    myFlutterApiMapViewDelegate?.onLongPressedMap(
-      viewType: myMapViewType!,
+    guard let e = myMapViewType else { return }
+    mapViewDelegate?.onLongPressedMap(
+      viewType: e,
       latitude: coordinate.latitude,
       longitude: coordinate.longitude,
       completion: { _ in }
@@ -142,7 +145,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
     latitude: Double,
     longitude: Double,
     meters: Double
-  ) throws {
+  ) {
     // カメラの位置
     setRegion(
       MKCoordinateRegion(
@@ -159,7 +162,7 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
   func addAnnotations(
     annotations: [CircleAnnotation]
-  ) throws {
+  ) {
     // ピンを立てる
     addAnnotations(
       annotations.map { e in
@@ -173,6 +176,11 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
         return annotation
       }
     )
+  }
+
+  func addAnnotationOverlays(
+    annotations: [CircleAnnotation]
+  ) {
     // 円を描く
     addOverlays(
       annotations.map { e in
@@ -191,13 +199,17 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
   func removeAnnotations(
     identifiers: [String]
-  ) throws {
+  ) {
     // ピンを削除
     removeAnnotations(
       annotations.compactMap { $0 as? MyMKPointAnnotation }
         .filter { identifiers.contains($0.identifier) }
     )
+  }
 
+  func removeAnnotationOverlays(
+    identifiers: [String]
+  ) {
     // 円を削除
     removeOverlays(
       overlays.compactMap { $0 as? MyMKCircle }
@@ -205,12 +217,12 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
     )
   }
 
-  func getAnnotations() throws -> [String] {
+  func getAnnotations() -> [String] {
     return annotations.compactMap { $0 as? MyMKPointAnnotation }
       .map { $0.identifier }
   }
 
-  func showAnnotations() throws {
+  func showAnnotations() {
     showAnnotations(
       annotations,
       animated: true

@@ -17,8 +17,8 @@ import app_links
     let controller = window?.rootViewController as! FlutterViewController
 
     for e in [
-      MyMapViewType.interactive,
-      MyMapViewType.nonInteractive,
+      MyMapViewType.mapPage,
+      MyMapViewType.locamusicDetailPage,
     ] {
       registrar(
         forPlugin: "\(e)"
@@ -31,14 +31,14 @@ import app_links
       )
     }
 
-    MyMusicHostApiSetup.setUp(
+    MusicKitSetup.setUp(
       binaryMessenger: controller.binaryMessenger,
-      api: MyMusicHostApiImpl()
+      api: MusicKitImpl()
     )
-    MyLocationHostApiSetup.setUp(
+    LocationManagerSetup.setUp(
       binaryMessenger: controller.binaryMessenger,
-      api: MyLocationHostApiImpl(
-        myFlutterApi: MyFlutterApi(
+      api: LocationManagerImpl(
+        locationManagerDelegate: LocationManagerDelegate(
           binaryMessenger: controller.binaryMessenger
         )
       )
@@ -78,23 +78,23 @@ class MyMapFlutterPlatformViewFactory: NSObject, FlutterPlatformViewFactory {
     let myMapView = MyMapView(
       args: args,
       myMapViewType: myMapViewType,
-      myFlutterApiMapViewDelegate: MyFlutterApiMapViewDelegate(
+      mapViewDelegate: MapViewDelegate(
         binaryMessenger: flutterBinaryMessenger
       )
     )
 
     switch myMapViewType {
-    case .interactive:
-      MyMapHostApiSetup.setUp(
+    case .mapPage:
+      MapPageMapViewSetup.setUp(
         binaryMessenger: flutterBinaryMessenger,
-        api: MyMapHostApiImpl(
+        api: MapPageMapViewImpl(
           myMapView: myMapView
         )
       )
-    case .nonInteractive:
-      MyNonInteractiveMapHostApiSetup.setUp(
+    case .locamusicDetailPage:
+      LocamusicDetailPageMapViewSetup.setUp(
         binaryMessenger: flutterBinaryMessenger,
-        api: MyNonInteractiveMapHostApiImpl(
+        api: LocamusicDetailPageMapViewImpl(
           myMapView: myMapView
         )
       )

@@ -14,13 +14,13 @@
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		7D2236DF2B47CD4E008A379D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D2236DD2B47CD4E008A379D /* MainInterface.storyboard */; };
 		7D2E3D142B3CF56D00BFA823 /* MyMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E3D132B3CF56D00BFA823 /* MyMapView.swift */; };
-		7D621DAE2B5A434B00BB0E78 /* MyMapHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D621DAD2B5A434B00BB0E78 /* MyMapHostApiImpl.swift */; };
-		7D621DB02B5A443A00BB0E78 /* MyNonInteractiveMapHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D621DAF2B5A443A00BB0E78 /* MyNonInteractiveMapHostApiImpl.swift */; };
+		7D621DAE2B5A434B00BB0E78 /* MapPageMapHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D621DAD2B5A434B00BB0E78 /* MapPageMapHostApiImpl.swift */; };
+		7D621DB02B5A443A00BB0E78 /* LocamusicDetailPageMapViewImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D621DAF2B5A443A00BB0E78 /* LocamusicDetailPageMapViewImpl.swift */; };
 		7DA113D22B3DAE47004F5048 /* Messages.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113D12B3DAE47004F5048 /* Messages.g.swift */; };
 		7DA113D42B3DB661004F5048 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113D32B3DB661004F5048 /* Error.swift */; };
 		7DAC95E42B4710B900B1BC2D /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7DF8A0762B46F34600C482C3 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		7DD384FE2B495AC6000B69FC /* MyLocationHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD384FD2B495AC6000B69FC /* MyLocationHostApiImpl.swift */; };
-		7DE7EFD22B456AE400086749 /* MyMusicHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */; };
+		7DD384FE2B495AC6000B69FC /* LocationManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD384FD2B495AC6000B69FC /* LocationManagerImpl.swift */; };
+		7DE7EFD22B456AE400086749 /* MusicKitImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7EFD12B456AE400086749 /* MusicKitImpl.swift */; };
 		7DF8A0792B46F34600C482C3 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF8A0782B46F34600C482C3 /* ShareViewController.swift */; };
 		7DF8A08B2B46F39600C482C3 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF8A08A2B46F39600C482C3 /* ShareView.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
@@ -96,8 +96,8 @@
 		7D2E3D132B3CF56D00BFA823 /* MyMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMapView.swift; sourceTree = "<group>"; };
 		7D2F84BF2B45BDD30066D69D /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		7D3CD1CB2AF930C50093A03A /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
-		7D621DAD2B5A434B00BB0E78 /* MyMapHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMapHostApiImpl.swift; sourceTree = "<group>"; };
-		7D621DAF2B5A443A00BB0E78 /* MyNonInteractiveMapHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNonInteractiveMapHostApiImpl.swift; sourceTree = "<group>"; };
+		7D621DAD2B5A434B00BB0E78 /* MapPageMapHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPageMapHostApiImpl.swift; sourceTree = "<group>"; };
+		7D621DAF2B5A443A00BB0E78 /* LocamusicDetailPageMapViewImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocamusicDetailPageMapViewImpl.swift; sourceTree = "<group>"; };
 		7D6AEE702B06E891009A9944 /* Release-prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Release-prod.xcconfig"; path = "Flutter/Release-prod.xcconfig"; sourceTree = "<group>"; };
 		7D6AEE712B06E891009A9944 /* Release-dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Release-dev.xcconfig"; path = "Flutter/Release-dev.xcconfig"; sourceTree = "<group>"; };
 		7D6AEE722B06E891009A9944 /* Debug-prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Debug-prod.xcconfig"; path = "Flutter/Debug-prod.xcconfig"; sourceTree = "<group>"; };
@@ -106,8 +106,8 @@
 		7D6AEE752B06E891009A9944 /* Profile-prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Profile-prod.xcconfig"; path = "Flutter/Profile-prod.xcconfig"; sourceTree = "<group>"; };
 		7DA113D12B3DAE47004F5048 /* Messages.g.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.g.swift; sourceTree = "<group>"; };
 		7DA113D32B3DB661004F5048 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		7DD384FD2B495AC6000B69FC /* MyLocationHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLocationHostApiImpl.swift; sourceTree = "<group>"; };
-		7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMusicHostApiImpl.swift; sourceTree = "<group>"; };
+		7DD384FD2B495AC6000B69FC /* LocationManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerImpl.swift; sourceTree = "<group>"; };
+		7DE7EFD12B456AE400086749 /* MusicKitImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicKitImpl.swift; sourceTree = "<group>"; };
 		7DF8A06B2B46E96800C482C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7DF8A06F2B46EB6C00C482C3 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		7DF8A0762B46F34600C482C3 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,13 +236,13 @@
 				7DF8A06B2B46E96800C482C3 /* Info.plist */,
 				7DF8A06F2B46EB6C00C482C3 /* InfoPlist.xcstrings */,
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
-				7D621DAD2B5A434B00BB0E78 /* MyMapHostApiImpl.swift */,
-				7D621DAF2B5A443A00BB0E78 /* MyNonInteractiveMapHostApiImpl.swift */,
+				7D621DAD2B5A434B00BB0E78 /* MapPageMapHostApiImpl.swift */,
+				7D621DAF2B5A443A00BB0E78 /* LocamusicDetailPageMapViewImpl.swift */,
 				7DA113D12B3DAE47004F5048 /* Messages.g.swift */,
 				7DA113D32B3DB661004F5048 /* Error.swift */,
 				7D2E3D132B3CF56D00BFA823 /* MyMapView.swift */,
-				7DE7EFD12B456AE400086749 /* MyMusicHostApiImpl.swift */,
-				7DD384FD2B495AC6000B69FC /* MyLocationHostApiImpl.swift */,
+				7DE7EFD12B456AE400086749 /* MusicKitImpl.swift */,
+				7DD384FD2B495AC6000B69FC /* LocationManagerImpl.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 			);
 			path = Runner;
@@ -562,13 +562,13 @@
 			files = (
 				7DA113D22B3DAE47004F5048 /* Messages.g.swift in Sources */,
 				7DA113D42B3DB661004F5048 /* Error.swift in Sources */,
-				7D621DB02B5A443A00BB0E78 /* MyNonInteractiveMapHostApiImpl.swift in Sources */,
-				7DE7EFD22B456AE400086749 /* MyMusicHostApiImpl.swift in Sources */,
+				7D621DB02B5A443A00BB0E78 /* LocamusicDetailPageMapViewImpl.swift in Sources */,
+				7DE7EFD22B456AE400086749 /* MusicKitImpl.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
-				7DD384FE2B495AC6000B69FC /* MyLocationHostApiImpl.swift in Sources */,
+				7DD384FE2B495AC6000B69FC /* LocationManagerImpl.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				7D2E3D142B3CF56D00BFA823 /* MyMapView.swift in Sources */,
-				7D621DAE2B5A434B00BB0E78 /* MyMapHostApiImpl.swift in Sources */,
+				7D621DAE2B5A434B00BB0E78 /* MapPageMapHostApiImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -211,7 +211,7 @@ class _LocamusicDocumentProviderElement
 }
 
 String _$locamusicSongDetailsHash() =>
-    r'08bead629d22b03f9f049099a2917bec8bf6148b';
+    r'03d79a5130e31f08954500bc5be3574067ca6457';
 
 /// See also [locamusicSongDetails].
 @ProviderFor(locamusicSongDetails)
