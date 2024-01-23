@@ -17,4 +17,14 @@ enum DistanceRange {
         DistanceRange.medium => i18n.locamusic.medium,
         DistanceRange.large => i18n.locamusic.large,
       };
+
+  static DistanceRange fromMeters(double meters) {
+    if (meters <= DistanceRange.small.meters) {
+      return DistanceRange.small;
+    } else if (meters <= DistanceRange.medium.meters) {
+      return DistanceRange.medium;
+    } else {
+      return DistanceRange.large;
+    }
+  }
 }

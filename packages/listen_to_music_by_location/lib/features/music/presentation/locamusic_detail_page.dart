@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/map/application/map_providers.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
+import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/distance_range_segmented_control.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/locamusic_detail_page_header.dart';
 import 'package:listen_to_music_by_location/features/native/application/map_view_delegate.dart';
@@ -119,6 +120,9 @@ class LocamusicDetailPage extends HookConsumerWidget {
                           ),
                           const Gap(12),
                           DistanceRangeSegmentedControl(
+                            initialValue: DistanceRange.fromMeters(
+                              locamusic.distance,
+                            ),
                             onChanged: (value) {
                               final newValue = locamusic.copyWith(
                                 distance: value.meters,

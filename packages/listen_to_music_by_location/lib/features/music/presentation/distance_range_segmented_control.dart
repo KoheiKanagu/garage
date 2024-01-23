@@ -7,14 +7,17 @@ import 'package:listen_to_music_by_location/features/music/domain/distance_range
 class DistanceRangeSegmentedControl extends HookConsumerWidget {
   const DistanceRangeSegmentedControl({
     required this.onChanged,
+    required this.initialValue,
     super.key,
   });
+
+  final DistanceRange initialValue;
 
   final ValueChanged<DistanceRange> onChanged;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selected = useState(DistanceRange.medium);
+    final selected = useState(initialValue);
 
     return SizedBox(
       width: double.infinity,
