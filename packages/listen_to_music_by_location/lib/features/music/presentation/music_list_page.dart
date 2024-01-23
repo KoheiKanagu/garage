@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/application/music_route.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_list_tile.dart';
-import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
 class MusicListPage extends HookConsumerWidget {

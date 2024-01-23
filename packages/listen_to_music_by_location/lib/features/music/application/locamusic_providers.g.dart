@@ -60,7 +60,7 @@ final locamusicDocumentsProvider =
 
 typedef LocamusicDocumentsRef
     = AutoDisposeStreamProviderRef<List<LocamusicWithDocumentId>>;
-String _$locamusicDocumentHash() => r'c9b607d4743d3c00699f14f3a264f1d41b1e5539';
+String _$locamusicDocumentHash() => r'fc10d220acc2f18ca750bd948dec3b85af32e65e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -761,7 +761,7 @@ class _LocamusicDeleteProviderElement
 }
 
 String _$locamusicRegionRegisterHash() =>
-    r'd44c6c162d57139d253a2dd77cefc45380fafe1c';
+    r'26755e6ba8f5e1e9476faa4f161a3670f055eb7e';
 
 /// Locamusicのドキュメントの変更を監視し、Regionを登録する
 ///
