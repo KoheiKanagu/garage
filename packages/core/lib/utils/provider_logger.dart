@@ -154,3 +154,21 @@ final logger = Roggle.crashlytics(
     },
   ),
 );
+
+extension RoggleExtension on Roggle {
+  void dProvider(String name, Object? message) {
+    logger.d('[$name]: $message');
+  }
+
+  void eProvider(String name, Object? message) {
+    logger.e('[$name]: $message');
+  }
+
+  void wProvider(String name, Object? message) {
+    logger.w('[$name]: $message');
+  }
+
+  void iProvider(String name, Object? message) {
+    logger.i('[$name]: $message');
+  }
+}

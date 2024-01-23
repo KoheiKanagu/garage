@@ -106,13 +106,13 @@ abstract class MusicKit {
   /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   String currentPermissionStatus();
 
-  void play({
-    required String id,
-  });
+  void play(
+    String id,
+  );
 
   @async
-  SongDetails songDetails({
-    required String id,
+  SongDetails songDetails(
+    String id, {
     int artworkSize = 512,
   });
 }
@@ -151,14 +151,14 @@ abstract class LocationManager {
 
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423656-startmonitoring
   @async
-  void startMonitoring({
-    required Region region,
-  });
+  void startMonitoring(
+    Region region,
+  );
 
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423840-stopmonitoring
-  void stopMonitoring({
-    required Region region,
-  });
+  void stopMonitoring(
+    Region region,
+  );
 
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620548-requestlocation
   void requestLocation();
@@ -173,7 +173,9 @@ class Region {
     required this.radius,
   });
 
+  /// Locamusic documentId
   final String identifier;
+
   final double latitude;
   final double longitude;
 

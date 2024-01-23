@@ -135,6 +135,7 @@ struct SongDetails {
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 struct Region {
+  /// Locamusic documentId
   var identifier: String
   var latitude: Double
   var longitude: Double

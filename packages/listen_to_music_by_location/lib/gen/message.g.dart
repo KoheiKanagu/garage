@@ -137,6 +137,7 @@ class Region {
     required this.radius,
   });
 
+  /// Locamusic documentId
   String identifier;
 
   double latitude;
@@ -655,7 +656,7 @@ class MusicKit {
     }
   }
 
-  Future<void> play({required String id}) async {
+  Future<void> play(String id) async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MusicKit.play';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -677,7 +678,7 @@ class MusicKit {
     }
   }
 
-  Future<SongDetails> songDetails({required String id, int artworkSize = 512}) async {
+  Future<SongDetails> songDetails(String id, {int artworkSize = 512}) async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MusicKit.songDetails';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -826,7 +827,7 @@ class LocationManager {
   }
 
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423656-startmonitoring
-  Future<void> startMonitoring({required Region region}) async {
+  Future<void> startMonitoring(Region region) async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocationManager.startMonitoring';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -849,7 +850,7 @@ class LocationManager {
   }
 
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423840-stopmonitoring
-  Future<void> stopMonitoring({required Region region}) async {
+  Future<void> stopMonitoring(Region region) async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocationManager.stopMonitoring';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,

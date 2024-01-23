@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:listen_to_music_by_location/constants/collection_path.dart';
 import 'package:listen_to_music_by_location/exceptions/locamusic_creation_limit_exception.dart';
@@ -77,7 +78,7 @@ Future<SongDetails> locamusicSongDetails(
   LocamusicSongDetailsRef ref,
   String musicId,
 ) =>
-    ref.watch(musicKitProvider).songDetails(id: musicId);
+    ref.watch(musicKitProvider).songDetails(musicId);
 
 @riverpod
 Future<void> locamusicAdd(
@@ -127,5 +128,51 @@ Future<void> locamusicDelete(
       'updatedAt': FieldValue.serverTimestamp(),
       'deleted': true,
     },
+  );
+}
+
+/// Locamusicのドキュメントの変更を監視し、Regionを登録する
+@riverpod
+Future<void> locamusicRegionRegister(
+  LocamusicRegionRegisterRef ref,
+) async {
+  final docs = await ref.watch(locamusicDocumentsProvider.future);
+  logger.dProvider(
+    'locamusicRegionRegister',
+    'updated locamusic ${docs.map((e) => e.documentId)}',
+  );
+
+  // 既存のRegionを全て削除
+  final monitoredRegions =
+      (await ref.watch(locationManagerProvider).monitoredRegions())
+          .whereNotNull();
+
+  logger.dProvider(
+    'locamusicRegionRegister',
+    'will stop regions ${monitoredRegions.map((e) => e.identifier)}',
+  );
+  await Future.wait(
+    monitoredRegions.map(
+      ref.watch(locationManagerProvider).stopMonitoring,
+    ),
+  );
+
+  // Regionを新しく登録
+  final regions = docs.map(
+    (e) => Region(
+      identifier: e.documentId,
+      latitude: e.locamusic.geoPoint.latitude,
+      longitude: e.locamusic.geoPoint.longitude,
+      radius: e.locamusic.distance,
+    ),
+  );
+  logger.dProvider(
+    'locamusicRegionRegister',
+    'will start regions: ${regions.map((e) => e.identifier)}',
+  );
+  await Future.wait(
+    regions.map(
+      ref.watch(locationManagerProvider).startMonitoring,
+    ),
   );
 }

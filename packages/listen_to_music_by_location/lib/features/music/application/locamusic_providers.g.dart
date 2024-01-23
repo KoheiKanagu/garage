@@ -60,7 +60,7 @@ final locamusicDocumentsProvider =
 
 typedef LocamusicDocumentsRef
     = AutoDisposeStreamProviderRef<List<LocamusicWithDocumentId>>;
-String _$locamusicDocumentHash() => r'fc10d220acc2f18ca750bd948dec3b85af32e65e';
+String _$locamusicDocumentHash() => r'c9b607d4743d3c00699f14f3a264f1d41b1e5539';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -211,7 +211,7 @@ class _LocamusicDocumentProviderElement
 }
 
 String _$locamusicSongDetailsHash() =>
-    r'80555ff678dfe11b074d0155403354862f9da1fc';
+    r'a3bed751b1964eb2c06754e3913d2f47d9ecb1ef';
 
 /// See also [locamusicSongDetails].
 @ProviderFor(locamusicSongDetails)
@@ -759,5 +759,25 @@ class _LocamusicDeleteProviderElement
   @override
   String get documentId => (origin as LocamusicDeleteProvider).documentId;
 }
+
+String _$locamusicRegionRegisterHash() =>
+    r'd44c6c162d57139d253a2dd77cefc45380fafe1c';
+
+/// Locamusicのドキュメントの変更を監視し、Regionを登録する
+///
+/// Copied from [locamusicRegionRegister].
+@ProviderFor(locamusicRegionRegister)
+final locamusicRegionRegisterProvider =
+    AutoDisposeFutureProvider<void>.internal(
+  locamusicRegionRegister,
+  name: r'locamusicRegionRegisterProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$locamusicRegionRegisterHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef LocamusicRegionRegisterRef = AutoDisposeFutureProviderRef<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
