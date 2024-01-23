@@ -7,6 +7,7 @@ import 'package:listen_to_music_by_location/features/music/application/music_rou
 import 'package:listen_to_music_by_location/features/music/presentation/apple_music_badge.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_artwork_widget.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class LocamusicDetailPageHeader extends HookConsumerWidget {
   const LocamusicDetailPageHeader({
@@ -50,8 +51,11 @@ class LocamusicDetailPageHeader extends HookConsumerWidget {
       children: [
         Row(
           children: [
-            MusicArtworkWidget(
-              artworkUrl: songDetails.artworkUrl,
+            SizedBox.square(
+              dimension: MusicArtworkWidget.kDefaultSize,
+              child: MusicArtworkWidget(
+                artworkUrl: songDetails.artworkUrl,
+              ),
             ),
             const Gap(12),
             Expanded(
@@ -81,7 +85,16 @@ class LocamusicDetailPageHeader extends HookConsumerWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const AppleMusicBadge(),
+            AppleMusicBadge(
+              onTap: () {
+                if (songDetails.songUrl != null) {
+                  launchUrlString(
+                    songDetails.songUrl!,
+                    mode: LaunchMode.externalApplication,
+                  );
+                }
+              },
+            ),
             CupertinoButton(
               child: Text(
                 i18n.locamusic.change_music,

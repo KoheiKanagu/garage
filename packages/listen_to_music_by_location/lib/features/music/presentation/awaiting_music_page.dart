@@ -79,7 +79,10 @@ class AwaitingMusicPage extends HookConsumerWidget {
             CupertinoButton.filled(
               child: Text(i18n.locamusic.open_apple_music),
               onPressed: () {
-                launchUrlString('https://music.apple.com/listen-now');
+                launchUrlString(
+                  'https://music.apple.com/listen-now',
+                  mode: LaunchMode.externalApplication,
+                );
               },
             ),
           ],

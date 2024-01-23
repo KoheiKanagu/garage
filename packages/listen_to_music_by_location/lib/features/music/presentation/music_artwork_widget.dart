@@ -22,8 +22,9 @@ class MusicArtworkWidget extends StatelessWidget {
     );
 
     final widget = Container(
-      constraints: BoxConstraints.loose(
-        const Size.square(kDefaultSize),
+      constraints: const BoxConstraints(
+        minHeight: kDefaultSize,
+        minWidth: kDefaultSize,
       ),
       decoration: decoration,
       child: Center(
@@ -42,8 +43,9 @@ class MusicArtworkWidget extends StatelessWidget {
             imageUrl: artworkUrl!,
             placeholder: (context, url) => Container(
               decoration: decoration,
-              constraints: BoxConstraints.loose(
-                const Size.square(kDefaultSize),
+              constraints: const BoxConstraints(
+                minHeight: kDefaultSize,
+                minWidth: kDefaultSize,
               ),
               child: const Center(
                 child: CircularProgressIndicator.adaptive(),
@@ -58,7 +60,6 @@ class MusicArtworkWidget extends StatelessWidget {
                 ),
               ),
             ),
-            fit: BoxFit.contain,
           );
   }
 }
