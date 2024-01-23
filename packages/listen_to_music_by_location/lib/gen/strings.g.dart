@@ -140,6 +140,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get app_name => '場所で音楽';
 	String get map => '地図';
 	String get tap_to_set => 'タップして設定';
+	String get error_dialog_title => 'エラー';
+	String get error_dialog_message => '何らかのエラーが発生しました。もう一度お試しください';
 }
 
 // Path: locamusic
@@ -149,7 +151,7 @@ class _StringsLocamusicJa {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get create_limit_error => '作成できませんでした';
+	String get create_limit_error => '範囲を作成できませんでした';
 	String create_limit_error_message({required Object n}) => '${n}個まで作成できます';
 	String get select_music => '曲を選択';
 	String get change_music => '曲を変更';
@@ -164,4 +166,6 @@ class _StringsLocamusicJa {
 	String get how_to_share_step_1 => 'お気に入りの曲を探して「・・・」をタップしてください';
 	String get how_to_share_step_2 => '「曲を共有」をタップしてください';
 	String get how_to_share_step_3 => '「場所で音楽」をタップして共有します';
+	String get range_select_title => '音楽の再生を始める範囲';
+	String get range_notice => '設定した範囲に入ってから数十秒後に音楽が再生されるので、広めに設定することをオススメします';
 }

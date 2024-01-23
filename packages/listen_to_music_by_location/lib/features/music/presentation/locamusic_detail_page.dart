@@ -1,8 +1,8 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/map/application/map_providers.dart';
@@ -59,7 +59,10 @@ class LocamusicDetailPage extends HookConsumerWidget {
         },
         [
           didFinishMapViewType,
-          locamusic,
+          // updatedAt が FieldValue.serverTimestamp なので、余計にuseEffectが実行されるのを防ぐため
+          // mapSetAnnotationRegionProvider に必要な値のみを指定する
+          locamusic.geoPoint,
+          locamusic.distance,
         ],
       );
     }
@@ -67,7 +70,6 @@ class LocamusicDetailPage extends HookConsumerWidget {
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.systemGroupedBackground,
       navigationBar: CupertinoNavigationBar(
-        previousPageTitle: i18n.app_name,
         middle: Text(i18n.locamusic.title),
         trailing: CupertinoButton(
           // locamusicがまだ取得できていない時は削除ボタンdisable
@@ -103,23 +105,37 @@ class LocamusicDetailPage extends HookConsumerWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(12),
-                      child: Column(
-                        children: [
-                          LocamusicDetailPageHeader(
-                            documentId: documentId,
-                          ),
-                          const Divider(),
-                          const AbsorbPointer(
-                            child: SizedBox(
-                              height: 200,
-                              child: MyMapView(
-                                layoutMarginsBottom: 0,
-                                mapViewType: MapViewType.locamusicDetailPage,
-                              ),
+                      child: LocamusicDetailPageHeader(
+                        documentId: documentId,
+                      ),
+                    ),
+                  ],
+                ),
+                CupertinoListSection.insetGrouped(
+                  header: Text(
+                    i18n.locamusic.range_select_title,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  footer: i18n.locamusic.range_notice.wrapBudouXText(
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  children: [
+                    Column(
+                      children: [
+                        const AbsorbPointer(
+                          child: SizedBox(
+                            height: 200,
+                            child: MyMapView(
+                              layoutMarginsBottom: 0,
+                              mapViewType: MapViewType.locamusicDetailPage,
                             ),
                           ),
-                          const Gap(12),
-                          DistanceRangeSegmentedControl(
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: DistanceRangeSegmentedControl(
                             initialValue: DistanceRange.fromMeters(
                               locamusic.distance,
                             ),
@@ -136,8 +152,8 @@ class LocamusicDetailPage extends HookConsumerWidget {
                               );
                             },
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

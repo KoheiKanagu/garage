@@ -341,18 +341,34 @@ class _LocamusicSongDetailsProviderElement
   String get musicId => (origin as LocamusicSongDetailsProvider).musicId;
 }
 
-String _$locamusicAddHash() => r'56f1b0da375d09cc73cdaf3494f3264f898c7977';
+String _$locamusicAddHash() => r'aeb6142296497d3de168292871dce3beac6558a4';
 
-/// See also [locamusicAdd].
+/// [CollectionPath.kLocamusics]に[Locamusic]を追加する
+///
+/// 追加に成功した場合はDocumentIdを返す
+///
+/// Copied from [locamusicAdd].
 @ProviderFor(locamusicAdd)
 const locamusicAddProvider = LocamusicAddFamily();
 
-/// See also [locamusicAdd].
-class LocamusicAddFamily extends Family<AsyncValue<void>> {
-  /// See also [locamusicAdd].
+/// [CollectionPath.kLocamusics]に[Locamusic]を追加する
+///
+/// 追加に成功した場合はDocumentIdを返す
+///
+/// Copied from [locamusicAdd].
+class LocamusicAddFamily extends Family<AsyncValue<String>> {
+  /// [CollectionPath.kLocamusics]に[Locamusic]を追加する
+  ///
+  /// 追加に成功した場合はDocumentIdを返す
+  ///
+  /// Copied from [locamusicAdd].
   const LocamusicAddFamily();
 
-  /// See also [locamusicAdd].
+  /// [CollectionPath.kLocamusics]に[Locamusic]を追加する
+  ///
+  /// 追加に成功した場合はDocumentIdを返す
+  ///
+  /// Copied from [locamusicAdd].
   LocamusicAddProvider call({
     required GeoPoint geoPoint,
     required DistanceRange distanceRange,
@@ -388,9 +404,17 @@ class LocamusicAddFamily extends Family<AsyncValue<void>> {
   String? get name => r'locamusicAddProvider';
 }
 
-/// See also [locamusicAdd].
-class LocamusicAddProvider extends AutoDisposeFutureProvider<void> {
-  /// See also [locamusicAdd].
+/// [CollectionPath.kLocamusics]に[Locamusic]を追加する
+///
+/// 追加に成功した場合はDocumentIdを返す
+///
+/// Copied from [locamusicAdd].
+class LocamusicAddProvider extends AutoDisposeFutureProvider<String> {
+  /// [CollectionPath.kLocamusics]に[Locamusic]を追加する
+  ///
+  /// 追加に成功した場合はDocumentIdを返す
+  ///
+  /// Copied from [locamusicAdd].
   LocamusicAddProvider({
     required GeoPoint geoPoint,
     required DistanceRange distanceRange,
@@ -429,7 +453,7 @@ class LocamusicAddProvider extends AutoDisposeFutureProvider<void> {
 
   @override
   Override overrideWith(
-    FutureOr<void> Function(LocamusicAddRef provider) create,
+    FutureOr<String> Function(LocamusicAddRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -447,7 +471,7 @@ class LocamusicAddProvider extends AutoDisposeFutureProvider<void> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<void> createElement() {
+  AutoDisposeFutureProviderElement<String> createElement() {
     return _LocamusicAddProviderElement(this);
   }
 
@@ -468,7 +492,7 @@ class LocamusicAddProvider extends AutoDisposeFutureProvider<void> {
   }
 }
 
-mixin LocamusicAddRef on AutoDisposeFutureProviderRef<void> {
+mixin LocamusicAddRef on AutoDisposeFutureProviderRef<String> {
   /// The parameter `geoPoint` of this provider.
   GeoPoint get geoPoint;
 
@@ -477,7 +501,7 @@ mixin LocamusicAddRef on AutoDisposeFutureProviderRef<void> {
 }
 
 class _LocamusicAddProviderElement
-    extends AutoDisposeFutureProviderElement<void> with LocamusicAddRef {
+    extends AutoDisposeFutureProviderElement<String> with LocamusicAddRef {
   _LocamusicAddProviderElement(super.provider);
 
   @override

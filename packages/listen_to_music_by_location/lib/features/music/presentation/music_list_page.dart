@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/application/music_route.dart';
@@ -17,65 +18,70 @@ class MusicListPage extends HookConsumerWidget {
         ref.watch(locamusicDocumentsProvider).asData?.value ?? [];
 
     return CupertinoPageScaffold(
-      backgroundColor: CupertinoColors.systemGroupedBackground,
+      backgroundColor: CupertinoTheme.of(context).barBackgroundColor,
       child: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            CupertinoSliverNavigationBar(
-              largeTitle: Text(i18n.app_name),
-              trailing: CupertinoButton(
-                child: const Icon(
-                  CupertinoIcons.settings,
+        child: Container(
+          color: Theme.of(context).appBarTheme.backgroundColor,
+          child: CustomScrollView(
+            slivers: [
+              CupertinoSliverNavigationBar(
+                backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+                stretch: true,
+                largeTitle: Text(i18n.app_name),
+                trailing: CupertinoButton(
+                  child: const Icon(
+                    CupertinoIcons.settings,
+                  ),
+                  onPressed: () {
+                    const ConfigurePageRoute().push<void>(context);
+                  },
                 ),
-                onPressed: () {
-                  const ConfigurePageRoute().push<void>(context);
-                },
               ),
-            ),
-            if (locamusics.isNotEmpty)
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: CupertinoListSection.insetGrouped(
-                  children: locamusics.map<Widget>(
-                    (e) {
-                      void onTap() {
-                        LocamusicDetailPageRoute(e.documentId)
-                            .push<void>(context);
-                      }
+              if (locamusics.isNotEmpty)
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: CupertinoListSection.insetGrouped(
+                    children: locamusics.map<Widget>(
+                      (e) {
+                        void onTap() {
+                          LocamusicDetailPageRoute(e.documentId)
+                              .push<void>(context);
+                        }
 
-                      final musicId = e.locamusic.musicId;
-                      // 曲が設定されていない場合はデフォルト表示
-                      if (musicId == null) {
-                        return MusicListTile(
-                          title: i18n.tap_to_set,
-                          artworkUrl: null,
-                          onTap: onTap,
-                        );
-                      }
-
-                      return ref
-                          .watch(
-                            locamusicSongDetailsProvider(musicId),
-                          )
-                          .maybeWhen(
-                            // 読み込み中の場合は...を表示
-                            orElse: () => MusicListTile(
-                              title: '...',
-                              artworkUrl: null,
-                              onTap: onTap,
-                            ),
-                            // データ取得できたらタイトルを表示
-                            data: (data) => MusicListTile(
-                              title: data.title,
-                              artworkUrl: data.artworkUrl,
-                              onTap: onTap,
-                            ),
+                        final musicId = e.locamusic.musicId;
+                        // 曲が設定されていない場合はデフォルト表示
+                        if (musicId == null) {
+                          return MusicListTile(
+                            title: i18n.tap_to_set,
+                            artworkUrl: null,
+                            onTap: onTap,
                           );
-                    },
-                  ).toList(),
+                        }
+
+                        return ref
+                            .watch(
+                              locamusicSongDetailsProvider(musicId),
+                            )
+                            .maybeWhen(
+                              // 読み込み中の場合は...を表示
+                              orElse: () => MusicListTile(
+                                title: '...',
+                                artworkUrl: null,
+                                onTap: onTap,
+                              ),
+                              // データ取得できたらタイトルを表示
+                              data: (data) => MusicListTile(
+                                title: data.title,
+                                artworkUrl: data.artworkUrl,
+                                onTap: onTap,
+                              ),
+                            );
+                      },
+                    ).toList(),
+                  ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

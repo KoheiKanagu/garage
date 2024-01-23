@@ -95,8 +95,9 @@ class MapPage extends HookConsumerWidget {
 
           final indicator = showMyProgressIndicator();
 
+          String? documentId;
           try {
-            await ref.read(
+            documentId = await ref.read(
               locamusicAddProvider(
                 geoPoint: GeoPoint(value.latitude, value.longitude),
                 distanceRange: DistanceRange.medium,
@@ -112,17 +113,33 @@ class MapPage extends HookConsumerWidget {
                 ),
               );
             }
+          } on Exception catch (_) {
+            if (context.mounted) {
+              await showOkAlertDialog(
+                context: context,
+                title: i18n.error_dialog_title,
+                message: i18n.error_dialog_message,
+              );
+            }
           } finally {
             indicator.dismiss();
+          }
+
+          // locamusic作成に成功した場合は設定画面に遷移
+          if (documentId != null && context.mounted) {
+            await LocamusicDetailPageRoute(documentId).push<void>(context);
           }
         },
       )
       ..listen(
         mapPageMapViewOnTapCircleProvider(
           whereViewType: MapViewType.mapPage,
-        ).future,
+        ),
         (_, next) async {
-          final value = await next;
+          final value = next.asData?.value;
+          if (value == null) {
+            return;
+          }
 
           if (context.mounted) {
             // 重複したCircleをタップした場合、連続して画面遷移しないように

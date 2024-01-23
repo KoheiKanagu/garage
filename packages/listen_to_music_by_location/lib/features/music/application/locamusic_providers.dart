@@ -80,8 +80,11 @@ Future<SongDetails> locamusicSongDetails(
 ) =>
     ref.watch(musicKitProvider).songDetails(musicId);
 
+/// [CollectionPath.kLocamusics]に[Locamusic]を追加する
+///
+/// 追加に成功した場合はDocumentIdを返す
 @riverpod
-Future<void> locamusicAdd(
+Future<String> locamusicAdd(
   LocamusicAddRef ref, {
   required GeoPoint geoPoint,
   required DistanceRange distanceRange,
@@ -94,13 +97,16 @@ Future<void> locamusicAdd(
   final query = await ref.watch(locamusicQueryProvider.future);
   final agg = await query.count().get();
   if (agg.count < kMaxCreateLocamusicCount) {
-    await ref.watch(locamusicCollectionReferenceProvider).add(
+    return ref
+        .watch(locamusicCollectionReferenceProvider)
+        .add(
           Locamusic(
             geoPoint: geoPoint,
             distance: distanceRange.meters,
             createdBy: uid,
           ),
-        );
+        )
+        .then((value) => value.id);
   } else {
     throw LocamusicCreationLimitException();
   }
@@ -137,6 +143,19 @@ Future<void> locamusicRegionRegister(
   LocamusicRegionRegisterRef ref,
 ) async {
   final docs = await ref.watch(locamusicDocumentsProvider.future);
+
+  // updatedAtはFieldValue.serverTimestampなので、一旦nullになるがすぐに更新されるため、
+  // 無駄にRegionを登録しないように、いずれかのupdatedAtがnullの場合はスキップする
+  final isUpdatedAtNull =
+      docs.any((element) => element.locamusic.updatedAt == null);
+  if (isUpdatedAtNull) {
+    logger.dProvider(
+      'locamusicRegionRegister',
+      'any updatedAt is null. skip register region.',
+    );
+    return;
+  }
+
   logger.dProvider(
     'locamusicRegionRegister',
     'updated locamusic ${docs.map((e) => e.documentId)}',

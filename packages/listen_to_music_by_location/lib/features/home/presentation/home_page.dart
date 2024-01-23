@@ -1,4 +1,3 @@
-import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/map/presentation/map_page.dart';
@@ -15,12 +14,7 @@ class HomePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(
       locamusicRegionRegisterProvider,
-      (_, next) {
-        logger.iProvider(
-          'locamusicRegionRegister',
-          'listen $next',
-        );
-      },
+      (_, __) {},
     );
 
     // TODO(KoheiKanagu): アイコンのpaddingが狭いので調整する
