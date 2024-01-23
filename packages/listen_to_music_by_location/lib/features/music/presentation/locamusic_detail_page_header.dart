@@ -18,25 +18,23 @@ class LocamusicDetailPageHeader extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final musicId = ref
+    final locamusic = ref
         .watch(
-          locamusicDocumentProvider(
-            documentId: documentId,
-          ),
+          locamusicDocumentProvider(documentId),
         )
         .asData
-        ?.value
-        .musicId;
+        ?.value;
+    final musicId = locamusic?.musicId;
 
     final songDetails = musicId == null
         ? null
         : ref
             .watch(
-              locamusicSongDetailsProvider(musicId: musicId),
+              locamusicSongDetailsProvider(musicId),
             )
             .value;
 
-    if (songDetails == null) {
+    if (locamusic == null || songDetails == null) {
       return SizedBox(
         width: double.infinity,
         child: CupertinoButton.filled(

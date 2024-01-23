@@ -1,22 +1,20 @@
 import 'package:app_links/app_links.dart';
-import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
-import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'apple_music_providers.g.dart';
 
 @riverpod
-Raw<Stream<Uri>> appLinksAllUriLink(
-  AppLinksAllUriLinkRef ref,
+Raw<Stream<Uri>> appLinksUriLink(
+  AppLinksUriLinkRef ref,
 ) =>
     AppLinks().uriLinkStream;
 
 @riverpod
-Stream<Uri> appleMusicAppLinks(
-  AppleMusicAppLinksRef ref,
+Stream<String> appLinksMusicId(
+  AppLinksMusicIdRef ref,
 ) =>
     ref
-        .watch(appLinksAllUriLinkProvider)
+        .watch(appLinksUriLinkProvider)
         .where(
           (event) => event.host == 'shared',
         )
@@ -28,19 +26,6 @@ Stream<Uri> appleMusicAppLinks(
         .where(
           (event) => event?.host == 'music.apple.com',
         )
-        .cast<Uri>();
-
-@riverpod
-Future<SongDetails> appleMusicAppLinkSongDetails(
-  AppleMusicAppLinkSongDetailsRef ref,
-) async {
-  final uri = await ref.watch(appleMusicAppLinksProvider.future);
-  final id = uri.queryParameters['i'] ?? '';
-  if (id.isEmpty) {
-    throw ArgumentError('id is empty');
-  }
-
-  return ref.watch(musicKitProvider).songDetails(
-        id: id,
-      );
-}
+        .map((event) => event?.queryParameters['i'])
+        .where((event) => event != null)
+        .cast<String>();

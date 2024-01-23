@@ -62,9 +62,9 @@ Stream<List<LocamusicWithDocumentId>> locamusicDocuments(
 
 @riverpod
 Stream<Locamusic> locamusicDocument(
-  LocamusicDocumentRef ref, {
-  required String documentId,
-}) =>
+  LocamusicDocumentRef ref,
+  String documentId,
+) =>
     ref
         .watch(locamusicCollectionReferenceProvider)
         .doc(documentId)
@@ -74,9 +74,9 @@ Stream<Locamusic> locamusicDocument(
 
 @riverpod
 Future<SongDetails> locamusicSongDetails(
-  LocamusicSongDetailsRef ref, {
-  required String musicId,
-}) =>
+  LocamusicSongDetailsRef ref,
+  String musicId,
+) =>
     ref.watch(musicKitProvider).songDetails(id: musicId);
 
 @riverpod
@@ -107,8 +107,8 @@ Future<void> locamusicAdd(
 
 @riverpod
 Future<void> locamusicUpdate(
-  LocamusicUpdateRef ref, {
-  required String documentId,
+  LocamusicUpdateRef ref,
+  String documentId, {
   required Locamusic locamusic,
 }) async {
   await ref.watch(locamusicCollectionReferenceProvider).doc(documentId).set(
@@ -119,9 +119,9 @@ Future<void> locamusicUpdate(
 
 @riverpod
 Future<void> locamusicDelete(
-  LocamusicDeleteRef ref, {
-  required String documentId,
-}) {
+  LocamusicDeleteRef ref,
+  String documentId,
+) {
   return ref.watch(locamusicCollectionReferenceProvider).doc(documentId).update(
     {
       'updatedAt': FieldValue.serverTimestamp(),

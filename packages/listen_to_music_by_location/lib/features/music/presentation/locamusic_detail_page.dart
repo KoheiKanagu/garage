@@ -26,9 +26,7 @@ class LocamusicDetailPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final locamusic = ref
         .watch(
-          locamusicDocumentProvider(
-            documentId: documentId,
-          ),
+          locamusicDocumentProvider(documentId),
         )
         .value;
 
@@ -85,9 +83,7 @@ class LocamusicDetailPage extends HookConsumerWidget {
 
                   if (result == OkCancelResult.ok) {
                     await ref.read(
-                      locamusicDeleteProvider(
-                        documentId: documentId,
-                      ).future,
+                      locamusicDeleteProvider(documentId).future,
                     );
 
                     if (context.mounted) {
@@ -130,7 +126,7 @@ class LocamusicDetailPage extends HookConsumerWidget {
 
                               ref.read(
                                 locamusicUpdateProvider(
-                                  documentId: documentId,
+                                  documentId,
                                   locamusic: newValue,
                                 ),
                               );

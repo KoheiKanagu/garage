@@ -44,9 +44,7 @@ Future<void> mapDrawAnnotations(
 
     if (musicId != null) {
       songDetails = await ref.watch(
-        locamusicSongDetailsProvider(
-          musicId: musicId,
-        ).future,
+        locamusicSongDetailsProvider(musicId).future,
       );
     } else {
       songDetails = null;

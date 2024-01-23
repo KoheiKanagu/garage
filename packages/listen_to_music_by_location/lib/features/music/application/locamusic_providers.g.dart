@@ -60,7 +60,7 @@ final locamusicDocumentsProvider =
 
 typedef LocamusicDocumentsRef
     = AutoDisposeStreamProviderRef<List<LocamusicWithDocumentId>>;
-String _$locamusicDocumentHash() => r'e5a7d4d691e8f8d6fa167793e6a83d08dc914bdc';
+String _$locamusicDocumentHash() => r'fc10d220acc2f18ca750bd948dec3b85af32e65e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -93,11 +93,11 @@ class LocamusicDocumentFamily extends Family<AsyncValue<Locamusic>> {
   const LocamusicDocumentFamily();
 
   /// See also [locamusicDocument].
-  LocamusicDocumentProvider call({
-    required String documentId,
-  }) {
+  LocamusicDocumentProvider call(
+    String documentId,
+  ) {
     return LocamusicDocumentProvider(
-      documentId: documentId,
+      documentId,
     );
   }
 
@@ -106,7 +106,7 @@ class LocamusicDocumentFamily extends Family<AsyncValue<Locamusic>> {
     covariant LocamusicDocumentProvider provider,
   ) {
     return call(
-      documentId: provider.documentId,
+      provider.documentId,
     );
   }
 
@@ -128,12 +128,12 @@ class LocamusicDocumentFamily extends Family<AsyncValue<Locamusic>> {
 /// See also [locamusicDocument].
 class LocamusicDocumentProvider extends AutoDisposeStreamProvider<Locamusic> {
   /// See also [locamusicDocument].
-  LocamusicDocumentProvider({
-    required String documentId,
-  }) : this._internal(
+  LocamusicDocumentProvider(
+    String documentId,
+  ) : this._internal(
           (ref) => locamusicDocument(
             ref as LocamusicDocumentRef,
-            documentId: documentId,
+            documentId,
           ),
           from: locamusicDocumentProvider,
           name: r'locamusicDocumentProvider',
@@ -211,7 +211,7 @@ class _LocamusicDocumentProviderElement
 }
 
 String _$locamusicSongDetailsHash() =>
-    r'03d79a5130e31f08954500bc5be3574067ca6457';
+    r'80555ff678dfe11b074d0155403354862f9da1fc';
 
 /// See also [locamusicSongDetails].
 @ProviderFor(locamusicSongDetails)
@@ -223,11 +223,11 @@ class LocamusicSongDetailsFamily extends Family<AsyncValue<SongDetails>> {
   const LocamusicSongDetailsFamily();
 
   /// See also [locamusicSongDetails].
-  LocamusicSongDetailsProvider call({
-    required String musicId,
-  }) {
+  LocamusicSongDetailsProvider call(
+    String musicId,
+  ) {
     return LocamusicSongDetailsProvider(
-      musicId: musicId,
+      musicId,
     );
   }
 
@@ -236,7 +236,7 @@ class LocamusicSongDetailsFamily extends Family<AsyncValue<SongDetails>> {
     covariant LocamusicSongDetailsProvider provider,
   ) {
     return call(
-      musicId: provider.musicId,
+      provider.musicId,
     );
   }
 
@@ -259,12 +259,12 @@ class LocamusicSongDetailsFamily extends Family<AsyncValue<SongDetails>> {
 class LocamusicSongDetailsProvider
     extends AutoDisposeFutureProvider<SongDetails> {
   /// See also [locamusicSongDetails].
-  LocamusicSongDetailsProvider({
-    required String musicId,
-  }) : this._internal(
+  LocamusicSongDetailsProvider(
+    String musicId,
+  ) : this._internal(
           (ref) => locamusicSongDetails(
             ref as LocamusicSongDetailsRef,
-            musicId: musicId,
+            musicId,
           ),
           from: locamusicSongDetailsProvider,
           name: r'locamusicSongDetailsProvider',
@@ -487,7 +487,7 @@ class _LocamusicAddProviderElement
       (origin as LocamusicAddProvider).distanceRange;
 }
 
-String _$locamusicUpdateHash() => r'dd768d0514febb89682336fa0bc6d25c27168aef';
+String _$locamusicUpdateHash() => r'ce95eead374e572da1a832e498b208649229acea';
 
 /// See also [locamusicUpdate].
 @ProviderFor(locamusicUpdate)
@@ -499,12 +499,12 @@ class LocamusicUpdateFamily extends Family<AsyncValue<void>> {
   const LocamusicUpdateFamily();
 
   /// See also [locamusicUpdate].
-  LocamusicUpdateProvider call({
-    required String documentId,
+  LocamusicUpdateProvider call(
+    String documentId, {
     required Locamusic locamusic,
   }) {
     return LocamusicUpdateProvider(
-      documentId: documentId,
+      documentId,
       locamusic: locamusic,
     );
   }
@@ -514,7 +514,7 @@ class LocamusicUpdateFamily extends Family<AsyncValue<void>> {
     covariant LocamusicUpdateProvider provider,
   ) {
     return call(
-      documentId: provider.documentId,
+      provider.documentId,
       locamusic: provider.locamusic,
     );
   }
@@ -537,13 +537,13 @@ class LocamusicUpdateFamily extends Family<AsyncValue<void>> {
 /// See also [locamusicUpdate].
 class LocamusicUpdateProvider extends AutoDisposeFutureProvider<void> {
   /// See also [locamusicUpdate].
-  LocamusicUpdateProvider({
-    required String documentId,
+  LocamusicUpdateProvider(
+    String documentId, {
     required Locamusic locamusic,
   }) : this._internal(
           (ref) => locamusicUpdate(
             ref as LocamusicUpdateRef,
-            documentId: documentId,
+            documentId,
             locamusic: locamusic,
           ),
           from: locamusicUpdateProvider,
@@ -632,7 +632,7 @@ class _LocamusicUpdateProviderElement
   Locamusic get locamusic => (origin as LocamusicUpdateProvider).locamusic;
 }
 
-String _$locamusicDeleteHash() => r'b7107b72a40ea6f983faaea6344a72802885f68c';
+String _$locamusicDeleteHash() => r'ebdfb317284033ebd0c9e899f1055a2b513fcaeb';
 
 /// See also [locamusicDelete].
 @ProviderFor(locamusicDelete)
@@ -644,11 +644,11 @@ class LocamusicDeleteFamily extends Family<AsyncValue<void>> {
   const LocamusicDeleteFamily();
 
   /// See also [locamusicDelete].
-  LocamusicDeleteProvider call({
-    required String documentId,
-  }) {
+  LocamusicDeleteProvider call(
+    String documentId,
+  ) {
     return LocamusicDeleteProvider(
-      documentId: documentId,
+      documentId,
     );
   }
 
@@ -657,7 +657,7 @@ class LocamusicDeleteFamily extends Family<AsyncValue<void>> {
     covariant LocamusicDeleteProvider provider,
   ) {
     return call(
-      documentId: provider.documentId,
+      provider.documentId,
     );
   }
 
@@ -679,12 +679,12 @@ class LocamusicDeleteFamily extends Family<AsyncValue<void>> {
 /// See also [locamusicDelete].
 class LocamusicDeleteProvider extends AutoDisposeFutureProvider<void> {
   /// See also [locamusicDelete].
-  LocamusicDeleteProvider({
-    required String documentId,
-  }) : this._internal(
+  LocamusicDeleteProvider(
+    String documentId,
+  ) : this._internal(
           (ref) => locamusicDelete(
             ref as LocamusicDeleteRef,
-            documentId: documentId,
+            documentId,
           ),
           from: locamusicDeleteProvider,
           name: r'locamusicDeleteProvider',

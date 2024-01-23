@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/application/music_route.dart';
-import 'package:listen_to_music_by_location/features/music/presentation/locamusic_detail_page.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_list_tile.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
@@ -58,9 +55,7 @@ class MusicListPage extends HookConsumerWidget {
 
                       return ref
                           .watch(
-                            locamusicSongDetailsProvider(
-                              musicId: musicId,
-                            ),
+                            locamusicSongDetailsProvider(musicId),
                           )
                           .maybeWhen(
                             // 読み込み中の場合は...を表示

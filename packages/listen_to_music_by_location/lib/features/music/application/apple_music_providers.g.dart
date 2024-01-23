@@ -8,56 +8,35 @@ part of 'apple_music_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appLinksAllUriLinkHash() =>
-    r'4bea7e0c4e24f434c69dd1cd20897bf107693d58';
+String _$appLinksUriLinkHash() => r'688f37cd82cfaabfd52cdd23892397ea6a41cf48';
 
-/// See also [appLinksAllUriLink].
-@ProviderFor(appLinksAllUriLink)
-final appLinksAllUriLinkProvider =
-    AutoDisposeProvider<Raw<Stream<Uri>>>.internal(
-  appLinksAllUriLink,
-  name: r'appLinksAllUriLinkProvider',
+/// See also [appLinksUriLink].
+@ProviderFor(appLinksUriLink)
+final appLinksUriLinkProvider = AutoDisposeProvider<Raw<Stream<Uri>>>.internal(
+  appLinksUriLink,
+  name: r'appLinksUriLinkProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$appLinksAllUriLinkHash,
+      : _$appLinksUriLinkHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef AppLinksAllUriLinkRef = AutoDisposeProviderRef<Raw<Stream<Uri>>>;
-String _$appleMusicAppLinksHash() =>
-    r'65366468331567a3bee7c2544d7436ff2509297a';
+typedef AppLinksUriLinkRef = AutoDisposeProviderRef<Raw<Stream<Uri>>>;
+String _$appLinksMusicIdHash() => r'1b9852d3d2d7be83f91a01a8d0ba4998279d7f63';
 
-/// See also [appleMusicAppLinks].
-@ProviderFor(appleMusicAppLinks)
-final appleMusicAppLinksProvider = AutoDisposeStreamProvider<Uri>.internal(
-  appleMusicAppLinks,
-  name: r'appleMusicAppLinksProvider',
+/// See also [appLinksMusicId].
+@ProviderFor(appLinksMusicId)
+final appLinksMusicIdProvider = AutoDisposeStreamProvider<String>.internal(
+  appLinksMusicId,
+  name: r'appLinksMusicIdProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$appleMusicAppLinksHash,
+      : _$appLinksMusicIdHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef AppleMusicAppLinksRef = AutoDisposeStreamProviderRef<Uri>;
-String _$appleMusicAppLinkSongDetailsHash() =>
-    r'7e90bb66fe0012d18dfe8588a98883ebef59e3cb';
-
-/// See also [appleMusicAppLinkSongDetails].
-@ProviderFor(appleMusicAppLinkSongDetails)
-final appleMusicAppLinkSongDetailsProvider =
-    AutoDisposeFutureProvider<SongDetails>.internal(
-  appleMusicAppLinkSongDetails,
-  name: r'appleMusicAppLinkSongDetailsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$appleMusicAppLinkSongDetailsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef AppleMusicAppLinkSongDetailsRef
-    = AutoDisposeFutureProviderRef<SongDetails>;
+typedef AppLinksMusicIdRef = AutoDisposeStreamProviderRef<String>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
