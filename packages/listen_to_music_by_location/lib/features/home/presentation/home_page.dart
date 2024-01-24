@@ -17,7 +17,6 @@ class HomePage extends HookConsumerWidget {
       (_, __) {},
     );
 
-    // TODO(KoheiKanagu): アイコンのpaddingが狭いので調整する
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         items: [
