@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -14,6 +15,8 @@ class SignInPage extends HookConsumerWidget {
     const padding = EdgeInsets.symmetric(
       horizontal: 16,
     );
+
+    final progressAnonymousStart = useState(false);
 
     return Scaffold(
       appBar: AppBar(),
@@ -49,16 +52,29 @@ class SignInPage extends HookConsumerWidget {
             Padding(
               padding: padding,
               child: FilledButton(
-                onPressed: () async {
-                  await ref.read(firebaseSignInProvider.future);
-                },
-                child: Text(
-                  i18n.onboarding.anonymous_start,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        fontWeight: FontWeight.bold,
+                onPressed: progressAnonymousStart.value
+                    ? null
+                    : () async {
+                        if (progressAnonymousStart.value) {
+                          return;
+                        }
+
+                        progressAnonymousStart.value = true;
+                        await ref.read(firebaseSignInProvider.future);
+                        progressAnonymousStart.value = false;
+                      },
+                child: progressAnonymousStart.value
+                    ? CircularProgressIndicator.adaptive(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
+                      )
+                    : Text(
+                        i18n.onboarding.anonymous_start,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
-                ),
               ),
             ),
           ],

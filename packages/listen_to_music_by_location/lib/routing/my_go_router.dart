@@ -18,7 +18,20 @@ part 'my_go_router.g.dart';
 
 @riverpod
 Future<Raw<GoRouter>> myGoRouter(MyGoRouterRef ref) async {
-  final signIn = await ref.watch(firebaseUserIsSignedInProvider.future);
+  final listenable = ValueNotifier<bool?>(null);
+
+  ref
+    ..listen(
+      firebaseUserIsSignedInProvider.future,
+      (_, next) async {
+        listenable.value = await next;
+      },
+    )
+    ..onDispose(
+      listenable.dispose,
+    );
+
+  final initialLocation = const onboarding_route.OnboardingPageRoute().location;
 
   return GoRouter(
     navigatorKey: rootNavigatorStateKey,
@@ -48,6 +61,32 @@ Future<Raw<GoRouter>> myGoRouter(MyGoRouterRef ref) async {
 
       return const FailedRunApp();
     },
+    refreshListenable: listenable,
+    redirect: (context, state) async {
+      // 未サインインで到達できるroute
+      final unauthorizedRoute = [
+        initialLocation,
+        const sign_in_route.SignInPageRoute().location,
+      ];
+
+      final signedIn = await ref.read(firebaseUserIsSignedInProvider.future);
+      if (signedIn) {
+        // 未サインインからサインイン済みになった場合はホーム画面に遷移
+        if (unauthorizedRoute.any((element) => element == state.fullPath)) {
+          return const home_route.HomePageRoute().location;
+        }
+
+        // サインイン済みの場合は何もしない
+        return null;
+      }
+
+      // 未サインイン状態でも遷移できるページの場合は何もしない
+      if (unauthorizedRoute.any((element) => element == state.fullPath)) {
+        return null;
+      }
+
+      return initialLocation;
+    },
     observers: [
       MyNavigatorObserver(
         ref.watch(firebaseCrashlyticsProvider),
@@ -57,8 +96,9 @@ Future<Raw<GoRouter>> myGoRouter(MyGoRouterRef ref) async {
       ),
     ],
     debugLogDiagnostics: kDebugMode,
-    initialLocation: signIn
-        ? const home_route.HomePageRoute().location
-        : const onboarding_route.OnboardingPageRoute().location,
+    initialLocation: initialLocation,
+    // initialLocation: isSignedIn
+    //     ? const home_route.HomePageRoute().location
+    //     : const onboarding_route.OnboardingPageRoute().location,
   );
 }
