@@ -1,4 +1,3 @@
-import 'package:core/common_widgets/my_smooth_page_indicator.dart';
 import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

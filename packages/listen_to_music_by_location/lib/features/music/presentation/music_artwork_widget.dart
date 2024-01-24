@@ -9,7 +9,7 @@ class MusicArtworkWidget extends StatelessWidget {
 
   final String? artworkUrl;
 
-  static const kDefaultSize = 96.0;
+  static const kDefaultSize = 64.0;
 
   @override
   Widget build(BuildContext context) {

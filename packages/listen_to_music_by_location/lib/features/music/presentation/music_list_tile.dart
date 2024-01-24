@@ -17,20 +17,22 @@ class MusicListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoListTile.notched(
-      title: Text(
-        title,
-        maxLines: 3,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 8,
       ),
-      trailing: const CupertinoListTileChevron(),
-      leadingSize: MusicArtworkWidget.kDefaultSize,
-      leading: Padding(
-        padding: const EdgeInsets.all(4),
-        child: MusicArtworkWidget(
+      child: CupertinoListTile(
+        title: Text(
+          title,
+          maxLines: 3,
+        ),
+        trailing: const CupertinoListTileChevron(),
+        leadingSize: MusicArtworkWidget.kDefaultSize,
+        leading: MusicArtworkWidget(
           artworkUrl: artworkUrl,
         ),
+        onTap: onTap,
       ),
-      onTap: onTap,
     );
   }
 }

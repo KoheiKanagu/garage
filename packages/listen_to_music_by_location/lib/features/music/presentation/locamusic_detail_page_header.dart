@@ -49,39 +49,46 @@ class LocamusicDetailPageHeader extends HookConsumerWidget {
 
     return Column(
       children: [
-        Row(
-          children: [
-            SizedBox.square(
-              dimension: MusicArtworkWidget.kDefaultSize,
-              child: MusicArtworkWidget(
-                artworkUrl: songDetails.artworkUrl,
-              ),
+        SizedBox.square(
+          dimension: 256,
+          child: Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: CupertinoColors.black.withOpacity(0.2),
+                  blurRadius: 16,
+                  offset: const Offset(0, 8),
+                ),
+              ],
             ),
-            const Gap(12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    songDetails.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+            child: MusicArtworkWidget(
+              artworkUrl: songDetails.artworkUrl,
+            ),
+          ),
+        ),
+        const Gap(20),
+        Column(
+          children: [
+            Text(
+              songDetails.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text(
-                    songDetails.artistName,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ],
-              ),
+            ),
+            const Gap(8),
+            Text(
+              songDetails.artistName,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
         ),
-        const Gap(12),
+        const Gap(8),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

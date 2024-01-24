@@ -1,9 +1,9 @@
 import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/application/music_route.dart';
+import 'package:listen_to_music_by_location/features/music/presentation/music_artwork_widget.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_list_tile.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
@@ -18,14 +18,17 @@ class MusicListPage extends HookConsumerWidget {
         ref.watch(locamusicDocumentsProvider).asData?.value ?? [];
 
     return CupertinoPageScaffold(
-      backgroundColor: CupertinoTheme.of(context).barBackgroundColor,
+      backgroundColor:
+          CupertinoTheme.of(context).barBackgroundColor.withOpacity(1),
       child: SafeArea(
-        child: Container(
-          color: Theme.of(context).appBarTheme.backgroundColor,
+        child: ColoredBox(
+          color: CupertinoColors.systemGroupedBackground,
           child: CustomScrollView(
             slivers: [
               CupertinoSliverNavigationBar(
-                backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+                backgroundColor: CupertinoTheme.of(context)
+                    .barBackgroundColor
+                    .withOpacity(1),
                 stretch: true,
                 largeTitle: Text(i18n.app_name),
                 trailing: CupertinoButton(
@@ -40,7 +43,9 @@ class MusicListPage extends HookConsumerWidget {
               if (locamusics.isNotEmpty)
                 SliverFillRemaining(
                   hasScrollBody: false,
-                  child: CupertinoListSection.insetGrouped(
+                  child: CupertinoListSection(
+                    additionalDividerMargin:
+                        MusicArtworkWidget.kDefaultSize + 16,
                     children: locamusics.map<Widget>(
                       (e) {
                         void onTap() {
