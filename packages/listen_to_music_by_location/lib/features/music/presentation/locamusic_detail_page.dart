@@ -71,6 +71,7 @@ class LocamusicDetailPage extends HookConsumerWidget {
       backgroundColor: CupertinoColors.systemGroupedBackground,
       navigationBar: CupertinoNavigationBar(
         trailing: CupertinoButton(
+          padding: EdgeInsets.zero,
           // locamusicがまだ取得できていない時は削除ボタンdisable
           onPressed: locamusic == null
               ? null

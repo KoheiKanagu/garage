@@ -32,6 +32,7 @@ class MusicListPage extends HookConsumerWidget {
                 stretch: true,
                 largeTitle: Text(i18n.app_name),
                 trailing: CupertinoButton(
+                  padding: EdgeInsets.zero,
                   child: const Icon(
                     CupertinoIcons.settings,
                   ),
