@@ -218,7 +218,7 @@ class _StringsOnboardingJa {
 	// Translations
 	String get start => 'はじめる';
 	String get social_account_sign_in => 'ソーシャルアカウントでサインイン';
-	String get social_account_sign_in_description => 'これまでに、このアプリにソーシャルアカウントを接続したことがある場合は、こちらからサインインしてください';
+	String get social_account_sign_in_description => 'このアプリにソーシャルアカウントを接続したことがある場合はこちらからサインインできます';
 	TextSpan ack_term({required InlineSpanBuilder termOfService, required InlineSpanBuilder privacyPolicy}) => TextSpan(children: [
 		const TextSpan(text: '本アプリの利用開始をもって'),
 		termOfService('利用規約'),
