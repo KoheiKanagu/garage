@@ -17,7 +17,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'my_go_router.g.dart';
 
 @riverpod
-Future<Raw<GoRouter>> myGoRouter(MyGoRouterRef ref) async {
+Raw<GoRouter> myGoRouter(MyGoRouterRef ref) {
   final listenable = ValueNotifier<bool?>(null);
 
   ref
@@ -71,7 +71,7 @@ Future<Raw<GoRouter>> myGoRouter(MyGoRouterRef ref) async {
 
       final signedIn = await ref.read(firebaseUserIsSignedInProvider.future);
       if (signedIn) {
-        // 未サインインからサインイン済みになった場合はホーム画面に遷移
+        // サインイン済みなのに、未サインインRouteの場合はホーム画面に遷移
         if (unauthorizedRoute.any((element) => element == state.fullPath)) {
           return const home_route.HomePageRoute().location;
         }
@@ -97,8 +97,5 @@ Future<Raw<GoRouter>> myGoRouter(MyGoRouterRef ref) async {
     ],
     debugLogDiagnostics: kDebugMode,
     initialLocation: initialLocation,
-    // initialLocation: isSignedIn
-    //     ? const home_route.HomePageRoute().location
-    //     : const onboarding_route.OnboardingPageRoute().location,
   );
 }
