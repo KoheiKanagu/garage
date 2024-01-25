@@ -36,13 +36,13 @@ class MyApp extends HookConsumerWidget {
         ],
         theme: ThemeData.from(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.red,
+            seedColor: const Color(0xFFFA233B),
           ),
         ),
         // TODO: darkTheme
         darkTheme: ThemeData.from(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.red,
+            seedColor: const Color(0xFFFA233B),
             brightness: Brightness.dark,
           ),
         ),

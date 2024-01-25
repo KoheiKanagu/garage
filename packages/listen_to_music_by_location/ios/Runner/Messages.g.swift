@@ -43,6 +43,13 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   return value as! T?
 }
 
+enum MusicAuthorizationStatus: Int {
+  case notDetermined = 0
+  case denied = 1
+  case restricted = 2
+  case authorized = 3
+}
+
 enum RegionState: Int {
   case unknown = 0
   case inside = 1
@@ -545,10 +552,10 @@ class MusicKitCodec: FlutterStandardMessageCodec {
 protocol MusicKit {
   /// Status
   /// https://developer.apple.com/documentation/musickit/musicauthorization/status
-  func requestPermission(completion: @escaping (Result<String, Error>) -> Void)
+  func requestPermission(completion: @escaping (Result<MusicAuthorizationStatus, Error>) -> Void)
   /// Status
   /// https://developer.apple.com/documentation/musickit/musicauthorization/status
-  func currentPermissionStatus() throws -> String
+  func currentPermissionStatus() throws -> MusicAuthorizationStatus
   func play(id: String) throws
   func songDetails(id: String, artworkSize: Int64, completion: @escaping (Result<SongDetails, Error>) -> Void)
 }
@@ -567,7 +574,7 @@ class MusicKitSetup {
         api.requestPermission() { result in
           switch result {
             case .success(let res):
-              reply(wrapResult(res))
+              reply(wrapResult(res.rawValue))
             case .failure(let error):
               reply(wrapError(error))
           }
@@ -583,7 +590,7 @@ class MusicKitSetup {
       currentPermissionStatusChannel.setMessageHandler { _, reply in
         do {
           let result = try api.currentPermissionStatus()
-          reply(wrapResult(result))
+          reply(wrapResult(result.rawValue))
         } catch {
           reply(wrapError(error))
         }
@@ -992,6 +999,33 @@ class MapViewDelegate: MapViewDelegateProtocol {
       } else {
         completion(.success(Void()))
       }
+    }
+  }
+}
+/// Generated protocol from Pigeon that represents a handler of messages from Flutter.
+protocol OpenSettings {
+  /// https://developer.apple.com/documentation/uikit/uiapplication/1623042-opensettingsurlstring
+  func openSettings() throws
+}
+
+/// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
+class OpenSettingsSetup {
+  /// The codec used by OpenSettings.
+  /// Sets up an instance of `OpenSettings` to handle messages through the `binaryMessenger`.
+  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: OpenSettings?) {
+    /// https://developer.apple.com/documentation/uikit/uiapplication/1623042-opensettingsurlstring
+    let openSettingsChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.OpenSettings.openSettings", binaryMessenger: binaryMessenger)
+    if let api = api {
+      openSettingsChannel.setMessageHandler { _, reply in
+        do {
+          try api.openSettings()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      openSettingsChannel.setMessageHandler(nil)
     }
   }
 }

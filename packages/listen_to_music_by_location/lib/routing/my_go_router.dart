@@ -12,6 +12,8 @@ import 'package:listen_to_music_by_location/features/music/application/music_rou
     as music_route;
 import 'package:listen_to_music_by_location/features/onboarding/application/onboarding_route.dart'
     as onboarding_route;
+import 'package:listen_to_music_by_location/features/permission/application/permission_route.dart'
+    as permission_route;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'my_go_router.g.dart';
@@ -39,6 +41,7 @@ Raw<GoRouter> myGoRouter(MyGoRouterRef ref) {
       ...onboarding_route.$appRoutes,
       ...home_route.$appRoutes,
       ...music_route.$appRoutes,
+      ...permission_route.$appRoutes,
 
       // from core
       ...sign_in_route.$appRoutes,
@@ -63,6 +66,8 @@ Raw<GoRouter> myGoRouter(MyGoRouterRef ref) {
     },
     refreshListenable: listenable,
     redirect: (context, state) async {
+      // return null;
+
       // 未サインインで到達できるroute
       final unauthorizedRoute = [
         initialLocation,

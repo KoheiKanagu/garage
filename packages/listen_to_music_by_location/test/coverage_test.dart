@@ -20,9 +20,9 @@ import 'package:listen_to_music_by_location/features/music/presentation/music_ar
 import 'package:listen_to_music_by_location/features/music/presentation/music_list_page.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_list_tile.dart';
 import 'package:listen_to_music_by_location/features/native/application/map_view_delegate.dart';
-import 'package:listen_to_music_by_location/features/native/application/my_location_manager_delegate.dart';
+import 'package:listen_to_music_by_location/features/native/application/location_manager_delegate.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
-import 'package:listen_to_music_by_location/features/native/presentation/my_map_view.dart';
+import 'package:listen_to_music_by_location/features/native/presentation/map_view.dart';
 import 'package:listen_to_music_by_location/features/onboarding/application/onboarding_route.dart';
 import 'package:listen_to_music_by_location/features/onboarding/presentation/onboarding_page.dart';
 

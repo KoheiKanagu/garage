@@ -4,19 +4,19 @@ class MusicKitImpl: MusicKit {
 
   func requestPermission(
     completion: @escaping (
-      Result<String, Error>
+      Result<MusicAuthorizationStatus, Error>
     ) -> Void
   ) {
     Task {
       let result = await MusicAuthorization.request()
       completion(
-        .success(result.rawValue)
+        .success(result.musicAuthorizationStatus)
       )
     }
   }
 
-  func currentPermissionStatus() throws -> String {
-    return MusicAuthorization.currentStatus.rawValue
+  func currentPermissionStatus() throws -> MusicAuthorizationStatus {
+    return MusicAuthorization.currentStatus.musicAuthorizationStatus
   }
 
   func songDetails(
@@ -70,6 +70,23 @@ class MusicKitImpl: MusicKit {
 
       try await SystemMusicPlayer.shared.skipToNextEntry()
       try await SystemMusicPlayer.shared.play()
+    }
+  }
+}
+
+extension MusicAuthorization.Status {
+  var musicAuthorizationStatus: MusicAuthorizationStatus {
+    switch self {
+    case .notDetermined:
+      return .notDetermined
+    case .denied:
+      return .denied
+    case .restricted:
+      return .restricted
+    case .authorized:
+      return .authorized
+    @unknown default:
+      return .notDetermined
     }
   }
 }

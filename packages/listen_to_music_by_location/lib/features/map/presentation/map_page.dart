@@ -13,7 +13,7 @@ import 'package:listen_to_music_by_location/features/music/application/music_rou
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/native/application/map_view_delegate.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
-import 'package:listen_to_music_by_location/features/native/presentation/my_map_view.dart';
+import 'package:listen_to_music_by_location/features/native/presentation/map_view.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
@@ -84,6 +84,7 @@ class MapPage extends HookConsumerWidget {
 
     ref
       ..listen(
+        // マップを長押しした場合の処理
         mapPageMapViewOnLongPressedMapProvider(
           whereViewType: MapViewType.mapPage,
         ),
@@ -132,6 +133,7 @@ class MapPage extends HookConsumerWidget {
         },
       )
       ..listen(
+        // Circleをタップした場合の処理
         mapPageMapViewOnTapCircleProvider(
           whereViewType: MapViewType.mapPage,
         ),
@@ -152,7 +154,7 @@ class MapPage extends HookConsumerWidget {
         },
       );
 
-    return const MyMapView(
+    return const MapView(
       mapViewType: MapViewType.mapPage,
     );
   }

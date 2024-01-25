@@ -142,6 +142,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get tap_to_set => 'タップして設定';
 	String get error_dialog_title => 'エラー';
 	String get error_dialog_message => '何らかのエラーが発生しました。もう一度お試しください';
+	late final _StringsPermissionJa permission = _StringsPermissionJa._(_root);
 }
 
 // Path: locamusic
@@ -167,4 +168,26 @@ class _StringsLocamusicJa {
 	String get how_to_share_step_3 => '「場所で音楽」をタップして共有します';
 	String get range_select_title => '音楽の再生を始める範囲';
 	String get range_notice => '設定した範囲に入ってから数十秒後に音楽が再生されるので、広めに設定することをオススメします';
+}
+
+// Path: permission
+class _StringsPermissionJa {
+	_StringsPermissionJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => '権限の確認';
+	String get error_banner_label => '権限の確認が必要です';
+	String get location => '位置情報';
+	String get location_details => '現在位置を基にして音楽を再生するため、現在位置の利用を許可する必要があります';
+	String get request_permission => '利用を許可する';
+	String get request_ok => '許可されています';
+	String get music_library => 'メディアライブラリ';
+	String get music_library_details => '音楽を再生するため、メディアライブラリの利用を許可する必要があります';
+	String get denied_location_permission => '位置情報が利用できません';
+	String get denied_location_permission_message => '設定から位置情報の利用を許可してください';
+	String get settings => '設定';
+	String get request_authorized_when_in_use => '"アプリの使用中は許可"を選択してください';
+	String get request_authorized_always => '"常に許可"に変更を選択してください';
 }

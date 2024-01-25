@@ -22,5 +22,22 @@
   "map": "地図",
   "tap_to_set": "タップして設定",
   "error_dialog_title": "エラー",
-  "error_dialog_message": "何らかのエラーが発生しました。もう一度お試しください"
+  "error_dialog_message": "何らかのエラーが発生しました。もう一度お試しください",
+  "permission": {
+    "title": "権限の確認",
+    "error_banner_label": "権限の確認が必要です",
+    "location": "位置情報",
+    "location_details": "現在位置を基にして音楽を再生するため、現在位置の利用を許可する必要があります",
+    "request_permission": "利用を許可する",
+    "request_ok": "許可されています",
+
+    "music_library": "メディアライブラリ",
+    "music_library_details": "音楽を再生するため、メディアライブラリの利用を許可する必要があります",
+
+    "denied_location_permission": "位置情報が利用できません",
+    "denied_location_permission_message": "設定から位置情報の利用を許可してください",
+    "settings": "設定",
+    "request_authorized_when_in_use": "\"アプリの使用中は許可\"を選択してください",
+    "request_authorized_always": "\"常に許可\"に変更を選択してください"
+  }
 }

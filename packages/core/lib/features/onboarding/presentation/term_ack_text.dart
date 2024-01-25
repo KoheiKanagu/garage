@@ -28,22 +28,20 @@ class TermAckText extends HookConsumerWidget {
               }
             },
         ),
-        privacyPolicy: (text) {
-          return TextSpan(
-            text: text,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () async {
-                final uri =
-                    await ref.read(configurePrivacyPolicyUriProvider.future);
-                if (uri != null) {
-                  await launchUrl(uri);
-                }
-              },
-          );
-        },
+        privacyPolicy: (text) => TextSpan(
+          text: text,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+          recognizer: TapGestureRecognizer()
+            ..onTap = () async {
+              final uri =
+                  await ref.read(configurePrivacyPolicyUriProvider.future);
+              if (uri != null) {
+                await launchUrl(uri);
+              }
+            },
+        ),
       ),
     );
   }

@@ -26,6 +26,13 @@ List<Object?> wrapResponse({Object? result, PlatformException? error, bool empty
   return <Object?>[error.code, error.message, error.details];
 }
 
+enum MusicAuthorizationStatus {
+  notDetermined,
+  denied,
+  restricted,
+  authorized,
+}
+
 enum RegionState {
   unknown,
   inside,
@@ -600,7 +607,7 @@ class MusicKit {
 
   /// Status
   /// https://developer.apple.com/documentation/musickit/musicauthorization/status
-  Future<String> requestPermission() async {
+  Future<MusicAuthorizationStatus> requestPermission() async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MusicKit.requestPermission';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -623,13 +630,13 @@ class MusicKit {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (__pigeon_replyList[0] as String?)!;
+      return MusicAuthorizationStatus.values[__pigeon_replyList[0]! as int];
     }
   }
 
   /// Status
   /// https://developer.apple.com/documentation/musickit/musicauthorization/status
-  Future<String> currentPermissionStatus() async {
+  Future<MusicAuthorizationStatus> currentPermissionStatus() async {
     const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.MusicKit.currentPermissionStatus';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -652,7 +659,7 @@ class MusicKit {
         message: 'Host platform returned null value for non-null return value.',
       );
     } else {
-      return (__pigeon_replyList[0] as String?)!;
+      return MusicAuthorizationStatus.values[__pigeon_replyList[0]! as int];
     }
   }
 
@@ -1142,6 +1149,40 @@ abstract class MapViewDelegate {
           }
         });
       }
+    }
+  }
+}
+
+class OpenSettings {
+  /// Constructor for [OpenSettings].  The [binaryMessenger] named argument is
+  /// available for dependency injection.  If it is left null, the default
+  /// BinaryMessenger will be used which routes to the host platform.
+  OpenSettings({BinaryMessenger? binaryMessenger})
+      : __pigeon_binaryMessenger = binaryMessenger;
+  final BinaryMessenger? __pigeon_binaryMessenger;
+
+  static const MessageCodec<Object?> pigeonChannelCodec = StandardMessageCodec();
+
+  /// https://developer.apple.com/documentation/uikit/uiapplication/1623042-opensettingsurlstring
+  Future<void> openSettings() async {
+    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.OpenSettings.openSettings';
+    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
+      __pigeon_channelName,
+      pigeonChannelCodec,
+      binaryMessenger: __pigeon_binaryMessenger,
+    );
+    final List<Object?>? __pigeon_replyList =
+        await __pigeon_channel.send(null) as List<Object?>?;
+    if (__pigeon_replyList == null) {
+      throw _createConnectionError(__pigeon_channelName);
+    } else if (__pigeon_replyList.length > 1) {
+      throw PlatformException(
+        code: __pigeon_replyList[0]! as String,
+        message: __pigeon_replyList[1] as String?,
+        details: __pigeon_replyList[2],
+      );
+    } else {
+      return;
     }
   }
 }

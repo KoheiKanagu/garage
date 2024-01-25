@@ -47,7 +47,6 @@ dependencies:
   jovial_svg: ^1.1.20
   json_annotation: ^4.8.1
   package_info_plus: ^5.0.1
-  permission_handler: ^11.1.0
   quick_actions: ^1.0.6
   riverpod_annotation: ^2.3.3
   roggle: ^0.4.2+1

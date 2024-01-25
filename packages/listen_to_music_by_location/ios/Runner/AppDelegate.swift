@@ -43,6 +43,10 @@ import app_links
         )
       )
     )
+    OpenSettingsSetup.setUp(
+      binaryMessenger: controller.binaryMessenger,
+      api: OpenSettingsImpl()
+    )
 
     if let url = AppLinks.shared.getLink(launchOptions: launchOptions) {
       AppLinks.shared.handleLink(url: url)

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 
-class MyMapView extends StatelessWidget {
-  const MyMapView({
+class MapView extends StatelessWidget {
+  const MapView({
     required this.mapViewType,
     super.key,
     // CupertinoTabBarに隠れないようにするための余白

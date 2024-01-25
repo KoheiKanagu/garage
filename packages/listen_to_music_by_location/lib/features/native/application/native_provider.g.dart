@@ -56,6 +56,26 @@ final locationManagerProvider = AutoDisposeProvider<LocationManager>.internal(
 );
 
 typedef LocationManagerRef = AutoDisposeProviderRef<LocationManager>;
+String _$locationManagerCurrentPermissionStatusStreamHash() =>
+    r'f9f3ca7c4b439fac3f2fab61b0236e78abdb609d';
+
+/// 位置情報の権限をStreamで取得する
+///
+/// Copied from [locationManagerCurrentPermissionStatusStream].
+@ProviderFor(locationManagerCurrentPermissionStatusStream)
+final locationManagerCurrentPermissionStatusStreamProvider =
+    AutoDisposeStreamProvider<AuthorizationStatus>.internal(
+  locationManagerCurrentPermissionStatusStream,
+  name: r'locationManagerCurrentPermissionStatusStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$locationManagerCurrentPermissionStatusStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef LocationManagerCurrentPermissionStatusStreamRef
+    = AutoDisposeStreamProviderRef<AuthorizationStatus>;
 String _$musicKitHash() => r'9449b67aae689ce5e335dbd6cf570548fd65c545';
 
 /// See also [musicKit].
@@ -70,5 +90,19 @@ final musicKitProvider = AutoDisposeProvider<MusicKit>.internal(
 );
 
 typedef MusicKitRef = AutoDisposeProviderRef<MusicKit>;
+String _$openSettingsHash() => r'25f1f7cd9cd2aaef752c4ad44314855715436143';
+
+/// See also [openSettings].
+@ProviderFor(openSettings)
+final openSettingsProvider = AutoDisposeProvider<OpenSettings>.internal(
+  openSettings,
+  name: r'openSettingsProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$openSettingsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef OpenSettingsRef = AutoDisposeProviderRef<OpenSettings>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

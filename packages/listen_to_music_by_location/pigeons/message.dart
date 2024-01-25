@@ -100,11 +100,11 @@ abstract class MusicKit {
   /// Status
   /// https://developer.apple.com/documentation/musickit/musicauthorization/status
   @async
-  String requestPermission();
+  MusicAuthorizationStatus requestPermission();
 
   /// Status
   /// https://developer.apple.com/documentation/musickit/musicauthorization/status
-  String currentPermissionStatus();
+  MusicAuthorizationStatus currentPermissionStatus();
 
   void play(
     String id,
@@ -115,6 +115,14 @@ abstract class MusicKit {
     String id, {
     int artworkSize = 512,
   });
+}
+
+enum MusicAuthorizationStatus {
+  notDetermined,
+  denied,
+  restricted,
+  authorized,
+  ;
 }
 
 class SongDetails {
@@ -253,4 +261,10 @@ enum MapViewType {
   // for locamusic_detail_page.dart
   locamusicDetailPage,
   ;
+}
+
+@HostApi()
+abstract class OpenSettings {
+  /// https://developer.apple.com/documentation/uikit/uiapplication/1623042-opensettingsurlstring
+  void openSettings();
 }

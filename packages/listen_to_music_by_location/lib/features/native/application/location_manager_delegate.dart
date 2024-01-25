@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'my_location_manager_delegate.g.dart';
+part 'location_manager_delegate.g.dart';
 
 @riverpod
 _LocationManagerDelegate _locationManagerDelegate(
