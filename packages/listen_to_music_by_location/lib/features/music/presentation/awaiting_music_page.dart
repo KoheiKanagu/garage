@@ -72,8 +72,6 @@ class AwaitingMusicPage extends HookConsumerWidget {
             Expanded(
               child: AwaitingMusicHowToSharePageView(controller),
             ),
-            const Gap(12),
-            MySmoothPageIndicator(controller),
             const Gap(24),
             CupertinoButton.filled(
               child: Text(i18n.locamusic.open_apple_music),

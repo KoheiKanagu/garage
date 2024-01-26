@@ -19,11 +19,10 @@ class MusicListPage extends HookConsumerWidget {
         ref.watch(locamusicDocumentsProvider).asData?.value ?? [];
 
     return CupertinoPageScaffold(
+      backgroundColor: CupertinoColors.systemGroupedBackground,
       child: CustomScrollView(
         slivers: [
           CupertinoSliverNavigationBar(
-            backgroundColor:
-                CupertinoTheme.of(context).barBackgroundColor.withOpacity(1),
             stretch: true,
             largeTitle: Text(i18n.app_name),
             trailing: CupertinoButton(

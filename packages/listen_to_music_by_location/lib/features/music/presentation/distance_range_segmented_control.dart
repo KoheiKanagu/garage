@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,12 +30,15 @@ class DistanceRangeSegmentedControl extends HookConsumerWidget {
               ),
               child: Text(
                 e.label,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: selected.value == e
-                          ? Theme.of(context).colorScheme.onPrimary
-                          : Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: selected.value == e
+                    ? CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: CupertinoTheme.of(context)
+                              .primaryContrastingColor,
+                        )
+                    : CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
               ),
             ),
         },
@@ -46,8 +48,7 @@ class DistanceRangeSegmentedControl extends HookConsumerWidget {
           selected.value = value ?? DistanceRange.medium;
           onChanged(selected.value);
         },
-        thumbColor: Theme.of(context).colorScheme.primary,
-        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+        thumbColor: CupertinoTheme.of(context).primaryColor,
       ),
     );
   }

@@ -3,10 +3,12 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
+import 'package:core/utils/inherited_theme_detector.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fa;
 import 'package:firebase_ui_oauth/firebase_ui_oauth.dart';
 import 'package:firebase_ui_oauth_apple/firebase_ui_oauth_apple.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -54,10 +56,14 @@ class MyOAuthProviderButton extends HookConsumerWidget {
     }
 
     Widget loadingIndicator(OAuthProvider provider) {
-      final brightness = Theme.of(context).colorScheme.brightness;
+      final brightness = switch (InheritedThemeDetector.of(context)) {
+        InheritedThemeType.material => Theme.of(context).colorScheme.brightness,
+        InheritedThemeType.cupertino => CupertinoTheme.of(context).brightness,
+      };
 
       return CircularProgressIndicator.adaptive(
-        backgroundColor: provider.style.color.getValue(brightness),
+        backgroundColor:
+            provider.style.color.getValue(brightness ?? Brightness.light),
       );
     }
 

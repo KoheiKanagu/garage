@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MusicArtworkWidget extends StatelessWidget {
@@ -15,9 +16,9 @@ class MusicArtworkWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final decoration = BoxDecoration(
       borderRadius: BorderRadius.circular(8),
-      color: Theme.of(context).colorScheme.surface,
+      color: CupertinoTheme.of(context).barBackgroundColor,
       border: Border.all(
-        color: Theme.of(context).colorScheme.secondaryContainer,
+        color: CupertinoColors.systemGrey5.resolveFrom(context),
       ),
     );
 
@@ -27,11 +28,8 @@ class MusicArtworkWidget extends StatelessWidget {
         minWidth: kDefaultSize,
       ),
       decoration: decoration,
-      child: Center(
-        child: Icon(
-          Icons.question_mark_rounded,
-          color: Theme.of(context).colorScheme.secondaryContainer,
-        ),
+      child: const Center(
+        child: Icon(Icons.question_mark_rounded),
       ),
     );
 

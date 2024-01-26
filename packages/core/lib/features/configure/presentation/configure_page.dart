@@ -2,6 +2,8 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
+import 'package:core/utils/inherited_theme_detector.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,72 +20,113 @@ class ConfigurePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(i18n.configure.title),
+    final children1 = [
+      ConfigureListTile(
+        title: i18n.configure.user_info,
+        onTap: () {
+          const UserInfoPageRoute().push<void>(context);
+        },
+        leadingIcon: Icons.person,
       ),
-      body: ListView(
-        children: [
-          ConfigureListTile(
-            title: i18n.configure.user_info,
-            onTap: () {
-              const UserInfoPageRoute().push<void>(context);
-            },
-            leadingIcon: Icons.person_outline_rounded,
-            trailingIcon: Icons.adaptive.arrow_forward_rounded,
+      ...additionalItems.whereNot((e) => e.forDebug).map(
+            (e) => ConfigureListTile(
+              title: e.text,
+              onTap: e.onTap,
+              trailingIcon: e.trailingIcon,
+              leadingIcon: e.leadingIcon,
+            ),
           ),
-          ...additionalItems.whereNot((e) => e.forDebug).map(
-                (e) => ConfigureListTile(
-                  title: e.text,
-                  onTap: e.onTap,
-                  trailingIcon: e.trailingIcon,
-                  leadingIcon: e.leadingIcon,
-                ),
+    ];
+
+    final children2 = [
+      ConfigureListTile(
+        title: i18n.configure.feedback,
+        leadingIcon: Icons.feedback,
+        leadingIconColor: switch (InheritedThemeDetector.of(context)) {
+          InheritedThemeType.material => Colors.purple,
+          InheritedThemeType.cupertino => CupertinoColors.systemPurple,
+        },
+        onTap: () {
+          showMyBetterFeedback(
+            context,
+            ref,
+            from: FeedbackFrom.configure,
+          );
+        },
+      ),
+      ConfigureListTile(
+        title: i18n.configure.review_app,
+        leadingIcon: Icons.star,
+        leadingIconColor: switch (InheritedThemeDetector.of(context)) {
+          InheritedThemeType.material => Colors.orange,
+          InheritedThemeType.cupertino => CupertinoColors.activeOrange,
+        },
+        onTap: () {
+          InAppReview.instance.openStoreListing(
+            appStoreId: kAppStoreId,
+          );
+        },
+      ),
+      ConfigureListTile(
+        title: i18n.configure.about_this_app,
+        leadingIcon: Icons.info,
+        leadingIconColor: switch (InheritedThemeDetector.of(context)) {
+          InheritedThemeType.material => Colors.blue,
+          InheritedThemeType.cupertino => CupertinoColors.activeBlue,
+        },
+        onTap: () {
+          const AboutThisAppPageRoute().push<void>(context);
+        },
+      ),
+    ];
+
+    final children3 = [
+      if (kDebugMode)
+        ...additionalItems.where((e) => e.forDebug).map(
+              (e) => ConfigureListTile(
+                title: '[debug] ${e.text}',
+                onTap: e.onTap,
+                leadingIcon: Icons.bug_report,
               ),
-          if (kDebugMode)
-            ...additionalItems.where((e) => e.forDebug).map(
-                  (e) => ConfigureListTile(
-                    title: '[debug] ${e.text}',
-                    onTap: e.onTap,
-                    trailingIcon: e.trailingIcon,
-                    leadingIcon: e.leadingIcon,
-                  ),
-                ),
-          const _DebugListTiles(),
-          const Divider(),
-          ConfigureListTile(
-            title: i18n.configure.feedback,
-            leadingIcon: Icons.feedback_outlined,
-            trailingIcon: Icons.adaptive.arrow_forward_rounded,
-            onTap: () {
-              showMyBetterFeedback(
-                context,
-                ref,
-                from: FeedbackFrom.configure,
-              );
-            },
+            ),
+      const _DebugListTiles(),
+    ];
+
+    return switch (InheritedThemeDetector.of(context)) {
+      InheritedThemeType.material => Scaffold(
+          appBar: AppBar(
+            title: Text(i18n.configure.title),
           ),
-          ConfigureListTile(
-            title: i18n.configure.review_app,
-            leadingIcon: Icons.star_outline_rounded,
-            trailingIcon: Icons.adaptive.arrow_forward_rounded,
-            onTap: () {
-              InAppReview.instance.openStoreListing(
-                appStoreId: kAppStoreId,
-              );
-            },
+          body: ListView(
+            children: [
+              ...children1,
+              const Divider(),
+              ...children2,
+              const Divider(),
+              ...children3,
+            ],
           ),
-          ConfigureListTile(
-            title: i18n.configure.about_this_app,
-            leadingIcon: Icons.info_outline_rounded,
-            trailingIcon: Icons.adaptive.arrow_forward_rounded,
-            onTap: () {
-              const AboutThisAppPageRoute().push<void>(context);
-            },
+        ),
+      InheritedThemeType.cupertino => CupertinoPageScaffold(
+          backgroundColor: CupertinoColors.systemGroupedBackground,
+          navigationBar: CupertinoNavigationBar(
+            middle: Text(i18n.configure.title),
           ),
-        ],
-      ),
-    );
+          child: ListView(
+            children: [
+              CupertinoListSection.insetGrouped(
+                children: children1,
+              ),
+              CupertinoListSection.insetGrouped(
+                children: children2,
+              ),
+              CupertinoListSection.insetGrouped(
+                children: children3,
+              ),
+            ],
+          ),
+        ),
+    };
   }
 }
 
@@ -111,8 +154,7 @@ class _DebugListTiles extends HookConsumerWidget {
               logger.d('SignOut');
             }
           },
-          leadingIcon: Icons.logout,
-          trailingIcon: Icons.warning_rounded,
+          leadingIcon: Icons.bug_report,
         ),
         ConfigureListTile(
           title: '[debug] clear SharedPreferences',
@@ -127,16 +169,14 @@ class _DebugListTiles extends HookConsumerWidget {
               logger.d('clear SharedPreferences');
             }
           },
-          leadingIcon: Icons.clear_all,
-          trailingIcon: Icons.warning_rounded,
+          leadingIcon: Icons.bug_report,
         ),
         ConfigureListTile(
           title: '[debug] go /',
           onTap: () {
             GoRouter.of(context).go('/');
           },
-          leadingIcon: Icons.start_rounded,
-          trailingIcon: Icons.warning_rounded,
+          leadingIcon: Icons.bug_report,
         ),
       ],
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class HomePageBanner extends StatelessWidget {
@@ -26,7 +25,9 @@ class HomePageBanner extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+                color: CupertinoTheme.of(context)
+                    .barBackgroundColor
+                    .withOpacity(0.4),
                 blurRadius: 8,
                 offset: const Offset(0, 4),
               ),
@@ -41,13 +42,7 @@ class HomePageBanner extends StatelessWidget {
                   leading!,
                   const Gap(8),
                 ],
-                Text(
-                  label,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
+                Text(label),
               ],
             ),
           ),

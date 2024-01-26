@@ -112,14 +112,12 @@ class LocamusicDetailPage extends HookConsumerWidget {
                   ],
                 ),
                 CupertinoListSection.insetGrouped(
-                  header: Text(
-                    i18n.locamusic.range_select_title,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
+                  header: Text(i18n.locamusic.range_select_title),
                   footer: i18n.locamusic.range_notice.wrapBudouXText(
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style:
+                        CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                              fontSize: 13,
+                            ),
                   ),
                   children: [
                     Column(

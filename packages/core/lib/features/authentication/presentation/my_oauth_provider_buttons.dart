@@ -10,37 +10,32 @@ class MyOauthProviderButtons extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-      ),
-      child: switch (ref.watch(firebaseUserLinkedProvidersProvider)) {
-        AsyncData(:final value) => Column(
-            children: [
-              MyOAuthProviderButton(
-                type: MyOAuthProviderType.apple,
-                action: value?.contains(AppleAuthProvider.PROVIDER_ID) ?? false
-                    ? MyOAuthProviderButtonAction.unlink
-                    : MyOAuthProviderButtonAction.signInOrLink,
-              ),
-              MyOAuthProviderButton(
-                type: MyOAuthProviderType.google,
-                action: value?.contains(GoogleAuthProvider.PROVIDER_ID) ?? false
-                    ? MyOAuthProviderButtonAction.unlink
-                    : MyOAuthProviderButtonAction.signInOrLink,
-              ),
-              MyOAuthProviderButton(
-                type: MyOAuthProviderType.github,
-                action: value?.contains(GithubAuthProvider.PROVIDER_ID) ?? false
-                    ? MyOAuthProviderButtonAction.unlink
-                    : MyOAuthProviderButtonAction.signInOrLink,
-              ),
-            ],
-          ),
-        _ => const Center(
-            child: CircularProgressIndicator.adaptive(),
-          ),
-      },
-    );
+    return switch (ref.watch(firebaseUserLinkedProvidersProvider)) {
+      AsyncData(:final value) => Column(
+          children: [
+            MyOAuthProviderButton(
+              type: MyOAuthProviderType.apple,
+              action: value?.contains(AppleAuthProvider.PROVIDER_ID) ?? false
+                  ? MyOAuthProviderButtonAction.unlink
+                  : MyOAuthProviderButtonAction.signInOrLink,
+            ),
+            MyOAuthProviderButton(
+              type: MyOAuthProviderType.google,
+              action: value?.contains(GoogleAuthProvider.PROVIDER_ID) ?? false
+                  ? MyOAuthProviderButtonAction.unlink
+                  : MyOAuthProviderButtonAction.signInOrLink,
+            ),
+            MyOAuthProviderButton(
+              type: MyOAuthProviderType.github,
+              action: value?.contains(GithubAuthProvider.PROVIDER_ID) ?? false
+                  ? MyOAuthProviderButtonAction.unlink
+                  : MyOAuthProviderButtonAction.signInOrLink,
+            ),
+          ],
+        ),
+      _ => const Center(
+          child: CircularProgressIndicator.adaptive(),
+        ),
+    };
   }
 }

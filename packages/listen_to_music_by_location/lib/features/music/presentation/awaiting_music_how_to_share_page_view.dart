@@ -1,5 +1,5 @@
 import 'package:core/core.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/gen/assets.gen.dart';
@@ -15,50 +15,68 @@ class AwaitingMusicHowToSharePageView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Widget buildColumn(Image image, String text) => Column(
-          children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSurface
-                        .withOpacity(0.2),
-                  ),
-                ),
-                padding: const EdgeInsets.all(12),
-                child: image,
-              ),
-            ),
-            const Gap(24),
-            text.wrapBudouXText(
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-              alignment: WrapAlignment.center,
-            ),
-            const Gap(12),
-          ],
-        );
+    final children = [
+      _buildColumn(
+        image: Assets.images.howTo.step1.image(),
+        text: i18n.locamusic.how_to_share_step_1,
+        context: context,
+      ),
+      _buildColumn(
+        image: Assets.images.howTo.step2.image(),
+        text: i18n.locamusic.how_to_share_step_2,
+        context: context,
+      ),
+      _buildColumn(
+        image: Assets.images.howTo.step3.image(),
+        text: i18n.locamusic.how_to_share_step_3,
+        context: context,
+      ),
+    ];
 
-    return PageView(
-      controller: controller,
+    return Column(
       children: [
-        buildColumn(
-          Assets.images.howTo.step1.image(),
-          i18n.locamusic.how_to_share_step_1,
+        Expanded(
+          child: PageView(
+            controller: controller,
+            children: children,
+          ),
         ),
-        buildColumn(
-          Assets.images.howTo.step2.image(),
-          i18n.locamusic.how_to_share_step_2,
-        ),
-        buildColumn(
-          Assets.images.howTo.step3.image(),
-          i18n.locamusic.how_to_share_step_3,
+        const Gap(12),
+        MySmoothPageIndicator(
+          controller: controller,
+          count: children.length,
         ),
       ],
     );
   }
+
+  Widget _buildColumn({
+    required Image image,
+    required String text,
+    required BuildContext context,
+  }) =>
+      Column(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: CupertinoColors.systemGrey5.resolveFrom(context),
+                ),
+              ),
+              padding: const EdgeInsets.all(12),
+              child: image,
+            ),
+          ),
+          const Gap(24),
+          text.wrapBudouXText(
+            style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+            alignment: WrapAlignment.center,
+          ),
+          const Gap(12),
+        ],
+      );
 }

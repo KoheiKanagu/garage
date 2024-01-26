@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
@@ -74,8 +73,9 @@ class LocamusicDetailPageHeader extends HookConsumerWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
                     fontWeight: FontWeight.bold,
+                    fontSize: 22,
                   ),
             ),
             const Gap(8),
@@ -84,7 +84,6 @@ class LocamusicDetailPageHeader extends HookConsumerWidget {
               maxLines: 2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
         ),
@@ -103,10 +102,7 @@ class LocamusicDetailPageHeader extends HookConsumerWidget {
               },
             ),
             CupertinoButton(
-              child: Text(
-                i18n.locamusic.change_music,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
+              child: Text(i18n.locamusic.change_music),
               onPressed: () {
                 AwaitingMusicPageRoute(documentId).push<void>(context);
               },

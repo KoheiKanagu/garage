@@ -3,7 +3,9 @@ import 'package:core/features/configure/presentation/about_this_app_page.dart';
 import 'package:core/features/configure/presentation/configure_page.dart';
 import 'package:core/features/configure/presentation/my_license_page.dart';
 import 'package:core/features/configure/presentation/user_info_page.dart';
-import 'package:flutter/widgets.dart';
+import 'package:core/utils/inherited_theme_detector.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 part 'configure_route.g.dart';
@@ -21,10 +23,19 @@ class ConfigurePageRoute extends GoRouteData {
   final List<ConfigureItem> $extra;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return ConfigurePage(
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    final child = ConfigurePage(
       additionalItems: $extra,
     );
+
+    return switch (InheritedThemeDetector.of(context)) {
+      InheritedThemeType.material => MaterialPage(
+          child: child,
+        ),
+      InheritedThemeType.cupertino => CupertinoPage(
+          child: child,
+        )
+    };
   }
 }
 
@@ -42,8 +53,17 @@ class AboutThisAppPageRoute extends GoRouteData {
   static const path = '/about_this_app';
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const AboutThisAppPage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    const child = AboutThisAppPage();
+
+    return switch (InheritedThemeDetector.of(context)) {
+      InheritedThemeType.material => const MaterialPage(
+          child: child,
+        ),
+      InheritedThemeType.cupertino => const CupertinoPage(
+          child: child,
+        )
+    };
   }
 }
 
@@ -53,8 +73,17 @@ class MyLicensePageRoute extends GoRouteData {
   static const path = 'license';
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const MyLicensePage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    const child = MyLicensePage();
+
+    return switch (InheritedThemeDetector.of(context)) {
+      InheritedThemeType.material => const MaterialPage(
+          child: child,
+        ),
+      InheritedThemeType.cupertino => const CupertinoPage(
+          child: child,
+        )
+    };
   }
 }
 
@@ -67,7 +96,16 @@ class UserInfoPageRoute extends GoRouteData {
   static const path = '/user_info';
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const UserInfoPage();
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    const child = UserInfoPage();
+
+    return switch (InheritedThemeDetector.of(context)) {
+      InheritedThemeType.material => const MaterialPage(
+          child: child,
+        ),
+      InheritedThemeType.cupertino => const CupertinoPage(
+          child: child,
+        )
+    };
   }
 }

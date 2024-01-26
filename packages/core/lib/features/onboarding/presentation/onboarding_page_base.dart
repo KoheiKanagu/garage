@@ -28,7 +28,10 @@ class OnboardingPageBase extends HookConsumerWidget {
             ),
           ),
           const Gap(12),
-          MySmoothPageIndicator(controller),
+          MySmoothPageIndicator(
+            controller: controller,
+            count: children.length,
+          ),
           const Gap(24),
         ],
       ),

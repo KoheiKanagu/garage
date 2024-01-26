@@ -5,6 +5,7 @@ import 'package:listen_to_music_by_location/features/home/presentation/home_page
 import 'package:listen_to_music_by_location/features/map/presentation/map_page.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_list_page.dart';
+import 'package:listen_to_music_by_location/features/permission/application/permission_providers.dart';
 import 'package:listen_to_music_by_location/features/permission/application/permission_route.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
@@ -20,8 +21,12 @@ class HomePage extends HookConsumerWidget {
       (_, __) {},
     );
 
+    final permissionError =
+        ref.watch(permissionRequestIsNeedProvider).asData?.value ?? false;
+
     return Scaffold(
       floatingActionButton: Padding(
+        // TabBarと被らないようにpaddingを設定
         padding: const EdgeInsets.only(
           bottom: 76,
           left: 12,
@@ -30,16 +35,17 @@ class HomePage extends HookConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            HomePageBanner(
-              leading: const Icon(
-                CupertinoIcons.exclamationmark_triangle_fill,
-                color: CupertinoColors.systemYellow,
+            if (permissionError)
+              HomePageBanner(
+                leading: const Icon(
+                  CupertinoIcons.exclamationmark_triangle_fill,
+                  color: CupertinoColors.systemYellow,
+                ),
+                label: i18n.permission.error_banner_label,
+                onPressed: () {
+                  const PermissionPageRoute().push<void>(context);
+                },
               ),
-              label: i18n.permission.error_banner_label,
-              onPressed: () {
-                const PermissionPageRoute().push<void>(context);
-              },
-            ),
           ],
         ),
       ),
