@@ -10,7 +10,7 @@
     "large": "大",
     "delete": "削除",
     "delete_confirm": "削除しますか？",
-    "open_apple_music": "Apple Musicを開く",
+    "open_apple_music": "Apple Music を開く",
     "awaiting_music_share": "曲の共有を待っています",
     "how_to_share_step_1": "お気に入りの曲を探して「・・・」をタップしてください",
     "how_to_share_step_2": "「曲を共有」をタップしてください",
@@ -36,10 +36,10 @@
     "denied_location_permission_message": "設定から位置情報の利用を許可してください",
 
     "apple_music": "Apple Music",
-    "apple_music_details": "音楽を再生するため、Apple Musicへのアクセスを許可する必要があります",
+    "apple_music_details": "音楽を再生するため、Apple Music へのアクセスを許可する必要があります",
     "request_apple_music_permission": "アクセスを許可する",
-    "denied_apple_music_permission": "Apple Musicにアクセスできません",
-    "denied_apple_music_permission_message": "設定からApple Musicへのアクセスを許可してください",
+    "denied_apple_music_permission": "Apple Music にアクセスできません",
+    "denied_apple_music_permission_message": "設定から Apple Music へのアクセスを許可してください",
 
     "settings": "設定",
     "permission_ok": "許可されています"

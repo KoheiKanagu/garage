@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
@@ -16,8 +16,12 @@ class MyApp extends HookConsumerWidget {
     final router = ref.watch(myGoRouterProvider);
 
     return MyBetterFeedback(
-      child: MaterialApp.router(
-        builder: (context, child) => MediaQueryPreview(context, child)
+      child: CupertinoApp.router(
+        builder: (context, child) => MediaQueryPreview(
+          context,
+          child,
+          cupertino: true,
+        )
             // .disableDynamicIsland()
             // .textScale05()
             .textScale10()
@@ -25,7 +29,6 @@ class MyApp extends HookConsumerWidget {
             // .textScale20()
             // .android()
             .build(),
-        scaffoldMessengerKey: rootScaffoldMessengerKey,
         supportedLocales: AppLocaleUtils.supportedLocales,
         localizationsDelegates: [
           GlobalCupertinoLocalizations.delegate,
@@ -33,16 +36,10 @@ class MyApp extends HookConsumerWidget {
           GlobalWidgetsLocalizations.delegate,
           FirebaseUILocalizations.delegate,
         ],
-        theme: ThemeData.from(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFFFA233B),
-          ),
-        ),
-        // TODO: darkTheme
-        darkTheme: ThemeData.from(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFFFA233B),
-            brightness: Brightness.dark,
+        theme: const CupertinoThemeData(
+          primaryColor: CupertinoDynamicColor.withBrightness(
+            color: Color(0xFFFA233B),
+            darkColor: Color(0xFFFB5C74),
           ),
         ),
         routerConfig: router,

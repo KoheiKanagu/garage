@@ -14,36 +14,34 @@ class PermissionPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CupertinoPageScaffold(
-      child: ColoredBox(
-        color: CupertinoColors.systemGroupedBackground,
-        child: CustomScrollView(
-          slivers: [
-            CupertinoSliverNavigationBar(
-              leading: CupertinoButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  GoRouter.of(context).pop();
-                },
-                child: Text(MaterialLocalizations.of(context).closeButtonLabel),
-              ),
-              largeTitle: Text(
-                i18n.permission.title,
+      backgroundColor: CupertinoColors.systemGroupedBackground,
+      child: CustomScrollView(
+        slivers: [
+          CupertinoSliverNavigationBar(
+            leading: CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () {
+                GoRouter.of(context).pop();
+              },
+              child: Text(MaterialLocalizations.of(context).closeButtonLabel),
+            ),
+            largeTitle: Text(
+              i18n.permission.title,
+            ),
+          ),
+          const SliverFillRemaining(
+            hasScrollBody: false,
+            child: SafeArea(
+              top: false,
+              child: Column(
+                children: [
+                  LocationPermissionTile(),
+                  MusicPermissionTile(),
+                ],
               ),
             ),
-            const SliverFillRemaining(
-              hasScrollBody: false,
-              child: SafeArea(
-                top: false,
-                child: Column(
-                  children: [
-                    LocationPermissionTile(),
-                    MusicPermissionTile(),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

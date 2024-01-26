@@ -161,7 +161,7 @@ class _StringsLocamusicJa {
 	String get large => '大';
 	String get delete => '削除';
 	String get delete_confirm => '削除しますか？';
-	String get open_apple_music => 'Apple Musicを開く';
+	String get open_apple_music => 'Apple Music を開く';
 	String get awaiting_music_share => '曲の共有を待っています';
 	String get how_to_share_step_1 => 'お気に入りの曲を探して「・・・」をタップしてください';
 	String get how_to_share_step_2 => '「曲を共有」をタップしてください';
@@ -187,10 +187,10 @@ class _StringsPermissionJa {
 	String get denied_location_permission => '位置情報が利用できません';
 	String get denied_location_permission_message => '設定から位置情報の利用を許可してください';
 	String get apple_music => 'Apple Music';
-	String get apple_music_details => '音楽を再生するため、Apple Musicへのアクセスを許可する必要があります';
+	String get apple_music_details => '音楽を再生するため、Apple Music へのアクセスを許可する必要があります';
 	String get request_apple_music_permission => 'アクセスを許可する';
-	String get denied_apple_music_permission => 'Apple Musicにアクセスできません';
-	String get denied_apple_music_permission_message => '設定からApple Musicへのアクセスを許可してください';
+	String get denied_apple_music_permission => 'Apple Music にアクセスできません';
+	String get denied_apple_music_permission_message => '設定から Apple Music へのアクセスを許可してください';
 	String get settings => '設定';
 	String get permission_ok => '許可されています';
 }

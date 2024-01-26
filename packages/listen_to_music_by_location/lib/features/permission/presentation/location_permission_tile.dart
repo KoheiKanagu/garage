@@ -1,9 +1,8 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
+import 'package:listen_to_music_by_location/features/permission/presentation/permission_tile_base.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
@@ -19,13 +18,9 @@ class LocationPermissionTile extends HookConsumerWidget {
         .asData
         ?.value;
 
-    return CupertinoListSection.insetGrouped(
-      header: Text(
-        i18n.permission.location,
-      ),
-      footer: i18n.permission.location_details.wrapBudouXText(
-        style: Theme.of(context).textTheme.bodySmall,
-      ),
+    return PermissionTileBase(
+      headerLabel: i18n.permission.location,
+      footerLabel: i18n.permission.location_details,
       children: [
         CupertinoListTile.notched(
           leading: const Icon(

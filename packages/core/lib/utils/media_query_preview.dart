@@ -1,17 +1,21 @@
 // ignore_for_file: avoid_returning_this
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MediaQueryPreview {
   MediaQueryPreview(
     this.context,
-    this.child,
-  );
+    this.child, {
+    this.cupertino = false,
+  });
 
   final BuildContext context;
 
   final Widget? child;
+
+  final bool cupertino;
 
   EdgeInsets? _padding;
 
@@ -64,12 +68,17 @@ class MediaQueryPreview {
             _textScaleFactor ?? 1,
           ),
         ),
-        child: Theme(
-          data: Theme.of(context).copyWith(
-            platform: _targetPlatform ?? Theme.of(context).platform,
-          ),
-          child: child!,
-        ),
+        child: cupertino
+            ? CupertinoTheme(
+                data: CupertinoTheme.of(context),
+                child: child!,
+              )
+            : Theme(
+                data: Theme.of(context).copyWith(
+                  platform: _targetPlatform ?? Theme.of(context).platform,
+                ),
+                child: child!,
+              ),
       ),
     );
   }
