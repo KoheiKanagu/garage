@@ -57,7 +57,7 @@ final locationManagerProvider = AutoDisposeProvider<LocationManager>.internal(
 
 typedef LocationManagerRef = AutoDisposeProviderRef<LocationManager>;
 String _$locationManagerCurrentPermissionStatusStreamHash() =>
-    r'f9f3ca7c4b439fac3f2fab61b0236e78abdb609d';
+    r'cef0d252f4c894a9b92462b6cf8c88e33f4ba4a1';
 
 /// 位置情報の権限をStreamで取得する
 ///
@@ -90,6 +90,24 @@ final musicKitProvider = AutoDisposeProvider<MusicKit>.internal(
 );
 
 typedef MusicKitRef = AutoDisposeProviderRef<MusicKit>;
+String _$musicKitCurrentPermissionStatusHash() =>
+    r'ca6c37446c5f039051e2ce0c12e44587b50d5d49';
+
+/// See also [musicKitCurrentPermissionStatus].
+@ProviderFor(musicKitCurrentPermissionStatus)
+final musicKitCurrentPermissionStatusProvider =
+    AutoDisposeFutureProvider<MusicAuthorizationStatus>.internal(
+  musicKitCurrentPermissionStatus,
+  name: r'musicKitCurrentPermissionStatusProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$musicKitCurrentPermissionStatusHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef MusicKitCurrentPermissionStatusRef
+    = AutoDisposeFutureProviderRef<MusicAuthorizationStatus>;
 String _$openSettingsHash() => r'25f1f7cd9cd2aaef752c4ad44314855715436143';
 
 /// See also [openSettings].

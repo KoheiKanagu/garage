@@ -56,19 +56,24 @@ class MusicKitImpl: MusicKit {
     id: String
   ) throws {
     Task {
-      let request = MusicCatalogResourceRequest<Song>(
+      let response = try await MusicCatalogResourceRequest<Song>(
         matching: \.id,
         equalTo: MusicItemID(id)
-      )
+      ).response()
 
-      let response = try await request.response()
-
-      try await SystemMusicPlayer.shared.queue.insert(
-        response.items,
-        position: .afterCurrentEntry
-      )
-
-      try await SystemMusicPlayer.shared.skipToNextEntry()
+      // キューに値が入っている場合はinsertする
+      if SystemMusicPlayer.shared.queue.currentEntry != nil {
+        try await SystemMusicPlayer.shared.queue.insert(
+          response.items,
+          position: .afterCurrentEntry
+        )
+        try await SystemMusicPlayer.shared.skipToNextEntry()
+      } else {
+        // 何も再生しておらず、キューが空の場合はキューを初期化
+        SystemMusicPlayer.shared.queue = .init(
+          for: response.items
+        )
+      }
       try await SystemMusicPlayer.shared.play()
     }
   }

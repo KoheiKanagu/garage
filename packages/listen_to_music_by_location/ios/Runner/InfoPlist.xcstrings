@@ -24,13 +24,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Used to play music at a specific location"
+            "value" : "Used to play music"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "特定の場所で音楽を再生するために利用します"
+            "value" : "音楽を再生するために利用します"
           }
         }
       }
@@ -40,14 +40,14 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Uses location information to detect where music is played"
+            "state" : "translated",
+            "value" : "Uses location information to determine the location for playing music"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "音楽を再生する場所を検出するために位置情報を利用します"
+            "value" : "音楽を再生する場所を特定するために位置情報を利用します"
           }
         }
       }
@@ -57,14 +57,14 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Uses location information to detect where music is played"
+            "state" : "translated",
+            "value" : "Uses location information to determine the location for playing music"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "音楽を再生する場所を検出するために位置情報を利用します"
+            "value" : "音楽を再生する場所を特定するために位置情報を利用します"
           }
         }
       }

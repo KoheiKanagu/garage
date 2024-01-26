@@ -44,6 +44,12 @@ MusicKit musicKit(
 ) =>
     MusicKit();
 
+@riverpod
+Future<MusicAuthorizationStatus> musicKitCurrentPermissionStatus(
+  MusicKitCurrentPermissionStatusRef ref,
+) {
+  return ref.watch(musicKitProvider).requestPermission();
+}
 
 @riverpod
 OpenSettings openSettings(

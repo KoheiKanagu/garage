@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:listen_to_music_by_location/features/configure/application/my_configure_route.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/application/music_route.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_artwork_widget.dart';
@@ -37,7 +38,7 @@ class MusicListPage extends HookConsumerWidget {
                     CupertinoIcons.settings,
                   ),
                   onPressed: () {
-                    const ConfigurePageRoute().push<void>(context);
+                    MyConfigureRoute(context).push<void>(context);
                   },
                 ),
               ),

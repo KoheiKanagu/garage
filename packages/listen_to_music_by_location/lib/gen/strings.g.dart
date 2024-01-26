@@ -180,14 +180,17 @@ class _StringsPermissionJa {
 	String get title => '権限の確認';
 	String get error_banner_label => '権限の確認が必要です';
 	String get location => '位置情報';
-	String get location_details => '現在位置を基にして音楽を再生するため、現在位置の利用を許可する必要があります';
-	String get request_permission => '利用を許可する';
-	String get request_ok => '許可されています';
-	String get music_library => 'メディアライブラリ';
-	String get music_library_details => '音楽を再生するため、メディアライブラリの利用を許可する必要があります';
-	String get denied_location_permission => '位置情報が利用できません';
-	String get denied_location_permission_message => '設定から位置情報の利用を許可してください';
-	String get settings => '設定';
+	String get location_details => '現在位置を基にして音楽を再生するため、位置情報の使用を許可する必要があります';
+	String get request_location_permission => '使用を許可する';
 	String get request_authorized_when_in_use => '"アプリの使用中は許可"を選択してください';
 	String get request_authorized_always => '"常に許可"に変更を選択してください';
+	String get denied_location_permission => '位置情報が利用できません';
+	String get denied_location_permission_message => '設定から位置情報の利用を許可してください';
+	String get apple_music => 'Apple Music';
+	String get apple_music_details => '音楽を再生するため、Apple Musicへのアクセスを許可する必要があります';
+	String get request_apple_music_permission => 'アクセスを許可する';
+	String get denied_apple_music_permission => 'Apple Musicにアクセスできません';
+	String get denied_apple_music_permission_message => '設定からApple Musicへのアクセスを許可してください';
+	String get settings => '設定';
+	String get permission_ok => '許可されています';
 }

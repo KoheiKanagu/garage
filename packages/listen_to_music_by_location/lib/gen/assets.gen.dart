@@ -28,8 +28,11 @@ class $AssetsSiGen {
   /// File path: assets/si/apple_music_badge.si
   String get appleMusicBadge => 'assets/si/apple_music_badge.si';
 
+  /// File path: assets/si/apple_music_icon.si
+  String get appleMusicIcon => 'assets/si/apple_music_icon.si';
+
   /// List of all assets
-  List<String> get values => [appleMusicBadge];
+  List<String> get values => [appleMusicBadge, appleMusicIcon];
 }
 
 class $AssetsImagesHowToGen {

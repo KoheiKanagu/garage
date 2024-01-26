@@ -1,7 +1,7 @@
 import 'package:app_links/app_links.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'apple_music_providers.g.dart';
+part 'app_links_providers.g.dart';
 
 @riverpod
 Raw<Stream<Uri>> appLinksUriLink(

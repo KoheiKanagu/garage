@@ -62,7 +62,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>特定の場所で音楽を再生するために利用します</string>
+	<string>音楽を再生するために利用します</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
@@ -85,8 +85,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>音楽を再生する場所を検出するために位置情報を利用します</string>
+	<string>音楽を再生する場所を特定するために位置情報を利用します</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>音楽を再生する場所を検出するために位置情報を利用します</string>
+	<string>音楽を再生する場所を特定するために位置情報を利用します</string>
 </dict>
 </plist>

@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:listen_to_music_by_location/features/music/application/apple_music_providers.dart';
+import 'package:listen_to_music_by_location/features/music/application/app_links_providers.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/awaiting_music_how_to_share_page_view.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
