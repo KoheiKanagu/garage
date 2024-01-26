@@ -17,8 +17,6 @@ class MediaQueryPreview {
 
   double? _textScaleFactor;
 
-  Brightness? _brightness;
-
   TargetPlatform? _targetPlatform;
 
   MediaQueryPreview disableDynamicIsland() {
@@ -46,11 +44,6 @@ class MediaQueryPreview {
     return this;
   }
 
-  MediaQueryPreview darkMode() {
-    _brightness = Brightness.dark;
-    return this;
-  }
-
   MediaQueryPreview android() {
     _targetPlatform = TargetPlatform.android;
     return this;
@@ -70,7 +63,6 @@ class MediaQueryPreview {
           textScaler: TextScaler.linear(
             _textScaleFactor ?? 1,
           ),
-          platformBrightness: _brightness ?? Brightness.light,
         ),
         child: Theme(
           data: Theme.of(context).copyWith(
