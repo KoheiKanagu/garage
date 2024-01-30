@@ -229,7 +229,7 @@ final feedbackDataStateProvider =
 
 typedef FeedbackDataStateRef = AutoDisposeFutureProviderRef<FeedbackData>;
 String _$feedbackDataControllerHash() =>
-    r'6f74763e62c6b038c14f06bfd3e5fbbb59fbea57';
+    r'e8ace355f291bbc951f44ccbea36e1831a7248d0';
 
 /// See also [FeedbackDataController].
 @ProviderFor(FeedbackDataController)

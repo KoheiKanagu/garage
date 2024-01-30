@@ -51,9 +51,9 @@ Map<String, dynamic> _$$FeedbackDataImplToJson(_$FeedbackDataImpl instance) =>
     };
 
 const _$FeedbackTypeEnumMap = {
+  FeedbackType.impression: 'impression',
   FeedbackType.bugReport: 'bugReport',
   FeedbackType.featureRequest: 'featureRequest',
-  FeedbackType.impression: 'impression',
   FeedbackType.other: 'other',
 };
 

@@ -1,6 +1,4 @@
 import 'package:core/core.dart';
-import 'package:core/features/feedback/presentation/my_feedback_submit_button.dart';
-import 'package:core/features/feedback/presentation/my_feedback_type_picker_field.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
