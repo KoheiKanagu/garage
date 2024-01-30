@@ -17,12 +17,11 @@ sdkPath: .fvm/versions/beta
 scripts:
   analyze:
     run: |
-      melos run generate
-      melos exec -- "dart fix --apply lib"
-      melos exec -- "find lib test -name '*.dart' -not -path 'lib/gen/*' -exec dart format --set-exit-if-changed {} \;"
-      melos exec -- "dart analyze --fatal-infos ."
-      melos exec -- "dart run custom_lint"
-
+      melos run generate && \
+      melos exec -- "dart fix --apply lib" && \
+      melos exec -- "find lib test -name '*.dart' -not -path 'lib/gen/*' -exec dart format --set-exit-if-changed {} \;" && \
+      melos exec -- "dart analyze --fatal-infos ." && \
+      melos exec -- "dart run custom_lint" && \
       git diff --exit-code
 
   pub:get:
