@@ -45,14 +45,9 @@ class MapPage extends HookConsumerWidget {
           return null;
         }
 
-        // Locamusicがない場合は現在地を表示
+        // Locamusicがない場合は何もしない
         if (locamusics.isEmpty) {
-          ref.read(
-            mapSetUserLocationRegionProvider(
-              mapViewType: MapViewType.mapPage,
-            ),
-          );
-          return null;
+          return;
         }
 
         Future(

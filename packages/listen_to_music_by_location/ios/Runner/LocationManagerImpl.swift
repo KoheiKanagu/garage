@@ -103,19 +103,6 @@ class LocationManagerImpl: NSObject, LocationManager, CLLocationManagerDelegate 
 
   func locationManager(
     _ manager: CLLocationManager,
-    didUpdateLocations locations: [CLLocation]
-  ) {
-    guard let coordinate = locations.last?.coordinate else { return }
-
-    locationManagerDelegate.didUpdateLocations(
-      latitude: coordinate.latitude,
-      longitude: coordinate.longitude,
-      completion: { _ in }
-    )
-  }
-
-  func locationManager(
-    _ manager: CLLocationManager,
     didFailWithError error: Error
   ) {}
 

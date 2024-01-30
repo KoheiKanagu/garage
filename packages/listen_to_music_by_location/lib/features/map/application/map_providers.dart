@@ -1,7 +1,5 @@
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
-import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/music/domain/locamusic.dart';
-import 'package:listen_to_music_by_location/features/native/application/location_manager_delegate.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
@@ -77,31 +75,6 @@ Future<void> mapDrawAnnotations(
       },
     );
   }
-}
-
-@riverpod
-Future<void> mapSetUserLocationRegion(
-  MapSetUserLocationRegionRef ref, {
-  required MapViewType mapViewType,
-}) async {
-  // 初期位置を取得してカメラズーム
-  await ref.read(locationManagerProvider).requestLocation();
-  final value =
-      await ref.read(locationManagerDidUpdateLocationsProvider.future);
-
-  await switch (mapViewType) {
-    MapViewType.mapPage => ref.watch(mapPageMapViewProvider).setMapRegion(
-          latitude: value.latitude,
-          longitude: value.longitude,
-          meters: DistanceRange.large.meters,
-        ),
-    MapViewType.locamusicDetailPage =>
-      ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
-            latitude: value.latitude,
-            longitude: value.longitude,
-            meters: DistanceRange.large.meters,
-          ),
-  };
 }
 
 /// Annotationを描画してカメラをズームする

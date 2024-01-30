@@ -689,8 +689,6 @@ protocol LocationManager {
   func startMonitoring(region: Region, completion: @escaping (Result<Void, Error>) -> Void)
   /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1423840-stopmonitoring
   func stopMonitoring(region: Region) throws
-  /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620548-requestlocation
-  func requestLocation() throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -780,20 +778,6 @@ class LocationManagerSetup {
     } else {
       stopMonitoringChannel.setMessageHandler(nil)
     }
-    /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620548-requestlocation
-    let requestLocationChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.LocationManager.requestLocation", binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      requestLocationChannel.setMessageHandler { _, reply in
-        do {
-          try api.requestLocation()
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      requestLocationChannel.setMessageHandler(nil)
-    }
   }
 }
 private class LocationManagerDelegateCodecReader: FlutterStandardReader {
@@ -841,8 +825,6 @@ protocol LocationManagerDelegateProtocol {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423842-locationmanager
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423720-locationmanager
   func didStartMonitoring(region regionArg: Region, error errorArg: String?, completion: @escaping (Result<Void, FlutterError>) -> Void)
-  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
-  func didUpdateLocations(latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void)
 }
 class LocationManagerDelegate: LocationManagerDelegateProtocol {
   private let binaryMessenger: FlutterBinaryMessenger
@@ -896,25 +878,6 @@ class LocationManagerDelegate: LocationManagerDelegateProtocol {
     let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didStartMonitoring"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([regionArg, errorArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName:channelName)))
-        return
-      }
-      if (listResponse.count > 1) {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(FlutterError(code: code, message: message, details: details)));
-      } else {
-        completion(.success(Void()))
-      }
-    }
-  }
-  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
-  func didUpdateLocations(latitude latitudeArg: Double, longitude longitudeArg: Double, completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didUpdateLocations"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([latitudeArg, longitudeArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName:channelName)))
         return

@@ -167,9 +167,6 @@ abstract class LocationManager {
   void stopMonitoring(
     Region region,
   );
-
-  /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620548-requestlocation
-  void requestLocation();
 }
 
 /// https://developer.apple.com/documentation/corelocation/clcircularregion
@@ -209,12 +206,6 @@ abstract class LocationManagerDelegate {
   void didStartMonitoring(
     Region region,
     String? error,
-  );
-
-  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
-  void didUpdateLocations(
-    double latitude,
-    double longitude,
   );
 }
 

@@ -13,7 +13,6 @@ _LocationManagerDelegate _locationManagerDelegate(
     didChangeAuthorizationStream: StreamController.broadcast(),
     didDetermineStateStream: StreamController.broadcast(),
     didStartMonitoringStream: StreamController.broadcast(),
-    didUpdateLocationsStream: StreamController.broadcast(),
   );
 
   LocationManagerDelegate.setup(controller);
@@ -26,7 +25,6 @@ class _LocationManagerDelegate implements LocationManagerDelegate {
     required this.didChangeAuthorizationStream,
     required this.didDetermineStateStream,
     required this.didStartMonitoringStream,
-    required this.didUpdateLocationsStream,
   });
 
   final StreamController<AuthorizationStatus> didChangeAuthorizationStream;
@@ -42,12 +40,6 @@ class _LocationManagerDelegate implements LocationManagerDelegate {
         Region region,
         String? error,
       })> didStartMonitoringStream;
-
-  final StreamController<
-      ({
-        double latitude,
-        double longitude,
-      })> didUpdateLocationsStream;
 
   @override
   void didChangeAuthorization(AuthorizationStatus status) {
@@ -70,16 +62,6 @@ class _LocationManagerDelegate implements LocationManagerDelegate {
       (
         region: region,
         error: error,
-      ),
-    );
-  }
-
-  @override
-  void didUpdateLocations(double latitude, double longitude) {
-    didUpdateLocationsStream.add(
-      (
-        latitude: latitude,
-        longitude: longitude,
       ),
     );
   }
@@ -113,13 +95,3 @@ Stream<
   LocationManagerDidStartMonitoringRef ref,
 ) =>
     ref.watch(_locationManagerDelegateProvider).didStartMonitoringStream.stream;
-
-@riverpod
-Stream<
-    ({
-      double latitude,
-      double longitude,
-    })> locationManagerDidUpdateLocations(
-  LocationManagerDidUpdateLocationsRef ref,
-) =>
-    ref.watch(_locationManagerDelegateProvider).didUpdateLocationsStream.stream;

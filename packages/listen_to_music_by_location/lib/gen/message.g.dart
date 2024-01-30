@@ -878,29 +878,6 @@ class LocationManager {
       return;
     }
   }
-
-  /// https://developer.apple.com/documentation/corelocation/cllocationmanager/1620548-requestlocation
-  Future<void> requestLocation() async {
-    const String __pigeon_channelName = 'dev.flutter.pigeon.listen_to_music_by_location.LocationManager.requestLocation';
-    final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-      __pigeon_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: __pigeon_binaryMessenger,
-    );
-    final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(null) as List<Object?>?;
-    if (__pigeon_replyList == null) {
-      throw _createConnectionError(__pigeon_channelName);
-    } else if (__pigeon_replyList.length > 1) {
-      throw PlatformException(
-        code: __pigeon_replyList[0]! as String,
-        message: __pigeon_replyList[1] as String?,
-        details: __pigeon_replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
 }
 
 class _LocationManagerDelegateCodec extends StandardMessageCodec {
@@ -938,9 +915,6 @@ abstract class LocationManagerDelegate {
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423842-locationmanager
   /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423720-locationmanager
   void didStartMonitoring(Region region, String? error);
-
-  /// https://developer.apple.com/documentation/corelocation/cllocationmanagerdelegate/1423615-locationmanager
-  void didUpdateLocations(double latitude, double longitude);
 
   static void setup(LocationManagerDelegate? api, {BinaryMessenger? binaryMessenger}) {
     {
@@ -1013,34 +987,6 @@ abstract class LocationManagerDelegate {
           final String? arg_error = (args[1] as String?);
           try {
             api.didStartMonitoring(arg_region!, arg_error);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          }          catch (e) {
-            return wrapResponse(error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didUpdateLocations', pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
-      if (api == null) {
-        __pigeon_channel.setMessageHandler(null);
-      } else {
-        __pigeon_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-          'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didUpdateLocations was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final double? arg_latitude = (args[0] as double?);
-          assert(arg_latitude != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didUpdateLocations was null, expected non-null double.');
-          final double? arg_longitude = (args[1] as double?);
-          assert(arg_longitude != null,
-              'Argument for dev.flutter.pigeon.listen_to_music_by_location.LocationManagerDelegate.didUpdateLocations was null, expected non-null double.');
-          try {
-            api.didUpdateLocations(arg_latitude!, arg_longitude!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

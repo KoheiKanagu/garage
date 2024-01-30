@@ -9,7 +9,7 @@ part of 'location_manager_delegate.dart';
 // **************************************************************************
 
 String _$locationManagerDelegateHash() =>
-    r'8330ef811df4ce2594cd6f1aeaa2b5a061b6cf3d';
+    r'619eb56375bbd5862c9fb074f2b74cf1e421561c';
 
 /// See also [_locationManagerDelegate].
 @ProviderFor(_locationManagerDelegate)
@@ -80,23 +80,5 @@ final locationManagerDidStartMonitoringProvider =
 
 typedef LocationManagerDidStartMonitoringRef
     = AutoDisposeStreamProviderRef<({Region region, String? error})>;
-String _$locationManagerDidUpdateLocationsHash() =>
-    r'c4972647367321ad8442b7d6ad6bf9b6ec008196';
-
-/// See also [locationManagerDidUpdateLocations].
-@ProviderFor(locationManagerDidUpdateLocations)
-final locationManagerDidUpdateLocationsProvider =
-    AutoDisposeStreamProvider<({double latitude, double longitude})>.internal(
-  locationManagerDidUpdateLocations,
-  name: r'locationManagerDidUpdateLocationsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$locationManagerDidUpdateLocationsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef LocationManagerDidUpdateLocationsRef
-    = AutoDisposeStreamProviderRef<({double latitude, double longitude})>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
