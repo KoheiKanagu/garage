@@ -65,23 +65,38 @@ Future<void> feedbackSubmit(
 }
 
 @riverpod
+Future<FeedbackData> feedbackDataState(
+  FeedbackDataStateRef ref,
+) async {
+  final currentUser = await ref.watch(firebaseUserProvider.future);
+
+  return FeedbackData(
+    uid: currentUser?.uid,
+    email: null,
+    message: '',
+    deviceInfo: await ref.watch(feedbackDeviceInfoProvider.future),
+    type: FeedbackType.impression,
+  );
+}
+
+@riverpod
 class FeedbackDataController extends _$FeedbackDataController {
-  final formKey = GlobalKey<FormState>();
+  static final formKey = GlobalKey<FormState>();
 
   @override
-  Future<FeedbackData> build() async {
-    final currentUser = await ref.watch(firebaseUserProvider.future);
-
-    return FeedbackData(
-      uid: currentUser?.uid,
-      email: null,
-      message: '',
-      deviceInfo: await ref.watch(feedbackDeviceInfoProvider.future),
-      type: FeedbackType.impression,
-    );
+  Future<FeedbackData> build() {
+    return ref.watch(feedbackDataStateProvider.future);
   }
 
-  void updateEmail(String email) {
+  bool validateEmail(String? email) {
+    // 1024文字以上はエラー
+    if ((email ?? '').length > 1024) {
+      return false;
+    }
+    return true;
+  }
+
+  void updateEmail(String? email) {
     state = state.whenData(
       (value) => value.copyWith(
         email: email,
@@ -89,10 +104,22 @@ class FeedbackDataController extends _$FeedbackDataController {
     );
   }
 
-  void updateMessage(String message) {
+  bool validateMessage(String? message) {
+    // 空の場合はエラー
+    if (message?.trim().isEmpty ?? true) {
+      return false;
+    }
+    return true;
+  }
+
+  void updateMessage(String? message) {
+    if (!validateMessage(message)) {
+      return;
+    }
+
     state = state.whenData(
       (value) => value.copyWith(
-        message: message,
+        message: message!,
       ),
     );
   }
@@ -103,5 +130,12 @@ class FeedbackDataController extends _$FeedbackDataController {
         type: type,
       ),
     );
+  }
+
+  FeedbackData? commit() {
+    formKey.currentState?.save();
+    final validated = formKey.currentState?.validate() ?? false;
+
+    return validated ? state.asData?.value : null;
   }
 }

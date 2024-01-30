@@ -212,8 +212,24 @@ class _FeedbackSubmitProviderElement
       (origin as FeedbackSubmitProvider).feedbackFrom;
 }
 
+String _$feedbackDataStateHash() => r'535c01f1ef97641df4afd7783a5f9a071a028b80';
+
+/// See also [feedbackDataState].
+@ProviderFor(feedbackDataState)
+final feedbackDataStateProvider =
+    AutoDisposeFutureProvider<FeedbackData>.internal(
+  feedbackDataState,
+  name: r'feedbackDataStateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$feedbackDataStateHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FeedbackDataStateRef = AutoDisposeFutureProviderRef<FeedbackData>;
 String _$feedbackDataControllerHash() =>
-    r'0c819a06dcd81b396d13d0cb7d6c2e0bf9083df5';
+    r'6f74763e62c6b038c14f06bfd3e5fbbb59fbea57';
 
 /// See also [FeedbackDataController].
 @ProviderFor(FeedbackDataController)

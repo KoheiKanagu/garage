@@ -11,60 +11,55 @@ class MyFeedbackDeviceInfoField extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final data = ref.watch(feedbackDeviceInfoProvider).asData?.value;
+    if (data == null) {
+      return const SizedBox.shrink();
+    }
+
     final themeType = InheritedThemeDetector.of(context);
     return switch (themeType) {
       InheritedThemeType.material => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            i18n.feedback.device_info_collection_notice.wrapBudouXText(
+            Text(
+              i18n.feedback.device_info,
               style: Theme.of(context).textTheme.bodySmall,
             ),
-            ref.watch(feedbackDeviceInfoProvider).maybeWhen(
-                  orElse: () => const CircularProgressIndicator.adaptive(),
-                  data: (data) => Column(
-                    children: [
-                      ListTile(
-                        title: Text(i18n.feedback.os_version),
-                        trailing: Text(data.osVersion),
-                        dense: true,
-                      ),
-                      ListTile(
-                        title: Text(i18n.feedback.model_name),
-                        trailing: Text(data.modelName),
-                        dense: true,
-                      ),
-                      ListTile(
-                        title: Text(i18n.feedback.locale),
-                        trailing: Text(data.locale),
-                        dense: true,
-                      ),
-                    ],
-                  ),
-                ),
+            ListTile(
+              title: Text(i18n.feedback.os_version),
+              trailing: Text(data.osVersion),
+            ),
+            ListTile(
+              title: Text(i18n.feedback.model_name),
+              trailing: Text(data.modelName),
+            ),
+            ListTile(
+              title: Text(i18n.feedback.locale),
+              trailing: Text(data.locale),
+            ),
+            Text(
+              i18n.feedback.device_info_collection_notice,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
           ],
         ),
-      InheritedThemeType.cupertino => CupertinoListSection.insetGrouped(
-          header: i18n.feedback.device_info_collection_notice.wrapBudouXText(
-            style: CupertinoTheme.of(context).textTheme.textStyle,
-          ),
-          children: ref.watch(feedbackDeviceInfoProvider).maybeWhen(
-                orElse: () => [
-                  const CircularProgressIndicator.adaptive(),
-                ],
-                data: (data) => [
-                  CupertinoListTile.notched(
-                    title: Text(i18n.feedback.os_version),
-                    trailing: Text(data.osVersion),
-                  ),
-                  CupertinoListTile.notched(
-                    title: Text(i18n.feedback.model_name),
-                    trailing: Text(data.modelName),
-                  ),
-                  CupertinoListTile.notched(
-                    title: Text(i18n.feedback.locale),
-                    trailing: Text(data.locale),
-                  ),
-                ],
-              ),
+      InheritedThemeType.cupertino => CupertinoFormSection.insetGrouped(
+          header: Text(i18n.feedback.device_info),
+          footer: Text(i18n.feedback.device_info_collection_notice),
+          children: [
+            CupertinoListTile.notched(
+              title: Text(i18n.feedback.os_version),
+              trailing: Text(data.osVersion),
+            ),
+            CupertinoListTile.notched(
+              title: Text(i18n.feedback.model_name),
+              trailing: Text(data.modelName),
+            ),
+            CupertinoListTile.notched(
+              title: Text(i18n.feedback.locale),
+              trailing: Text(data.locale),
+            ),
+          ],
         ),
     };
   }

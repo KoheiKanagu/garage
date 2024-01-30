@@ -2,45 +2,50 @@ import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MyFeedbackMessageField extends HookConsumerWidget {
   const MyFeedbackMessageField({
-    required this.controller,
     super.key,
   });
 
-  final TextEditingController controller;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final data = ref.watch(feedbackDataControllerProvider).asData?.value;
+
+    final controller = useTextEditingController(
+      text: data?.message,
+    );
+
+    String? validator(String? value) =>
+        ref.read(feedbackDataControllerProvider.notifier).validateMessage(value)
+            ? null
+            : i18n.feedback.please_enter_your_feedback;
+
+    void onSaved(String? newValue) => ref
+        .read(feedbackDataControllerProvider.notifier)
+        .updateMessage(newValue);
+
     final themeType = InheritedThemeDetector.of(context);
     return switch (themeType) {
       InheritedThemeType.material => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            i18n.feedback.do_not_enter_personal_info.wrapBudouXText(
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            const Gap(8),
             TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                label: Text(i18n.feedback.do_not_enter_personal_info),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
               ),
               maxLength: 1000,
-              maxLines: 2,
+              maxLines: 5,
               minLines: 1,
               keyboardType: TextInputType.multiline,
               controller: controller,
-              validator: (value) {
-                if (value?.trim().isEmpty ?? true) {
-                  return i18n.feedback.please_enter_your_feedback;
-                }
-                return null;
-              },
+              validator: validator,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              onSaved: (newValue) => controller.text = newValue?.trim() ?? '',
+              onSaved: onSaved,
             ),
           ],
         ),
@@ -50,17 +55,12 @@ class MyFeedbackMessageField extends HookConsumerWidget {
             CupertinoTextFormFieldRow(
               maxLength: 1000,
               maxLines: 5,
-              minLines: 1,
+              minLines: 2,
               keyboardType: TextInputType.multiline,
               controller: controller,
-              validator: (value) {
-                if (value?.trim().isEmpty ?? true) {
-                  return i18n.feedback.please_enter_your_feedback;
-                }
-                return null;
-              },
+              validator: validator,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              onSaved: (newValue) => controller.text = newValue?.trim() ?? '',
+              onSaved: onSaved,
             ),
           ],
         ),

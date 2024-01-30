@@ -175,18 +175,21 @@ class _StringsFeedbackJa {
 
 	// Translations
 	String get do_not_enter_personal_info => '個人情報を含む内容は記入しないでください';
-	String get input_email_if_reply_is_needed => '返信をご希望の場合はメールアドレスをご記入ください';
-	String get input_email_if_reply_is_needed2 => 'なお、お問い合わせ内容によってはお返事できない場合もございますので、あらかじめご了承ください';
+	String get input_email_if_reply_is_needed => '返信をご希望の場合はメールアドレスをご記入ください。ご報告の内容によってはお返事できない場合もございますので、あらかじめご了承ください。';
 	String get email_address => 'メールアドレス';
-	String get device_info_collection_notice => '問題解決やアプリの改善に活用するため、ご利用の端末の情報が自動的に送信されます';
+	String get device_info => '端末の情報';
+	String get device_info_collection_notice => '問題解決やアプリの改善に活用するため、ご利用の端末の情報が自動的に送信されます。個人を特定できる情報は含まれません。';
 	String get os_version => 'OSとバージョン';
 	String get model_name => 'モデル名';
 	String get locale => '言語と地域';
 	String get submit => '送信';
 	String get confirm_sending_feedback => 'この内容で送信しますか？';
-	String get thank_you_for_your_feedback => 'ご意見ありがとうございました';
-	String get please_enter_your_feedback => 'ご意見をご記入ください';
+	String get thank_you_for_your_feedback => 'ご報告ありがとうございました';
+	String get please_enter_your_feedback => 'ご報告内容をご記入ください';
 	String get please_feedback => 'フィードバックにご協力ください';
+	String get too_long => '文字数が多すぎます';
+	String get feedback_type_header => 'どのようなご報告ですか？';
+	late final _StringsFeedbackTypeJa type = _StringsFeedbackTypeJa._(_root);
 }
 
 // Path: auth
@@ -228,4 +231,17 @@ class _StringsOnboardingJa {
 	]);
 	String get anonymous_start => 'サインインせずにはじめる';
 	String get or => 'または';
+}
+
+// Path: feedback.type
+class _StringsFeedbackTypeJa {
+	_StringsFeedbackTypeJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get bug_report => '不具合について';
+	String get feature_request => '機能追加について';
+	String get impression => 'ご意見・ご感想について';
+	String get other => 'その他';
 }
