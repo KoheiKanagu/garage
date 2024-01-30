@@ -211,5 +211,23 @@ class _FeedbackSubmitProviderElement
   FeedbackFrom get feedbackFrom =>
       (origin as FeedbackSubmitProvider).feedbackFrom;
 }
+
+String _$feedbackDataControllerHash() =>
+    r'0c819a06dcd81b396d13d0cb7d6c2e0bf9083df5';
+
+/// See also [FeedbackDataController].
+@ProviderFor(FeedbackDataController)
+final feedbackDataControllerProvider = AutoDisposeAsyncNotifierProvider<
+    FeedbackDataController, FeedbackData>.internal(
+  FeedbackDataController.new,
+  name: r'feedbackDataControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$feedbackDataControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$FeedbackDataController = AutoDisposeAsyncNotifier<FeedbackData>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

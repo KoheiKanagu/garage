@@ -27,7 +27,12 @@ import 'package:core/features/feedback/application/ja_feedback_localizations.dar
 import 'package:core/features/feedback/domain/feedback_data.dart';
 import 'package:core/features/feedback/domain/feedback_device_info.dart';
 import 'package:core/features/feedback/domain/feedback_from.dart';
+import 'package:core/features/feedback/domain/feedback_type.dart';
 import 'package:core/features/feedback/presentation/my_better_feedback.dart';
+import 'package:core/features/feedback/presentation/my_feedback_bug_report_check_box.dart';
+import 'package:core/features/feedback/presentation/my_feedback_device_info_field.dart';
+import 'package:core/features/feedback/presentation/my_feedback_email_field.dart';
+import 'package:core/features/feedback/presentation/my_feedback_message_field.dart';
 import 'package:core/features/feedback/presentation/my_feedback_sheet.dart';
 import 'package:core/features/firebase/application/firebase_providers.dart';
 import 'package:core/features/onboarding/application/sign_in_route.dart';
@@ -39,6 +44,7 @@ import 'package:core/features/user/domain/user.dart';
 import 'package:core/utils/budoux.dart';
 import 'package:core/utils/failed_run_app.dart';
 import 'package:core/utils/geo_point_converter.dart';
+import 'package:core/utils/inherited_theme_detector.dart';
 import 'package:core/utils/media_query_preview.dart';
 import 'package:core/utils/timestamp_converter.dart';
 

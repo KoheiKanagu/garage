@@ -9,9 +9,11 @@ part of 'permission_providers.dart';
 // **************************************************************************
 
 String _$permissionRequestIsNeedHash() =>
-    r'320447db5c0b7fb3943919fe6d512a5d0a860a22';
+    r'7724f918b6a1a3b56badeb506ab2afd818d3db3c';
 
-/// See also [permissionRequestIsNeed].
+/// 各種権限の確認が必要かどうかを返す
+///
+/// Copied from [permissionRequestIsNeed].
 @ProviderFor(permissionRequestIsNeed)
 final permissionRequestIsNeedProvider =
     AutoDisposeFutureProvider<bool>.internal(

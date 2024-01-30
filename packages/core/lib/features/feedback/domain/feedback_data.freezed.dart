@@ -24,6 +24,7 @@ mixin _$FeedbackData {
   String? get email => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   FeedbackDeviceInfo get deviceInfo => throw _privateConstructorUsedError;
+  FeedbackType get type => throw _privateConstructorUsedError;
   String get screenshotBase64 => throw _privateConstructorUsedError;
   FeedbackFrom get from => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -48,6 +49,7 @@ abstract class $FeedbackDataCopyWith<$Res> {
       String? email,
       String message,
       FeedbackDeviceInfo deviceInfo,
+      FeedbackType type,
       String screenshotBase64,
       FeedbackFrom from,
       @TimestampConverter() Timestamp? createdAt,
@@ -73,6 +75,7 @@ class _$FeedbackDataCopyWithImpl<$Res, $Val extends FeedbackData>
     Object? email = freezed,
     Object? message = null,
     Object? deviceInfo = null,
+    Object? type = null,
     Object? screenshotBase64 = null,
     Object? from = null,
     Object? createdAt = freezed,
@@ -95,6 +98,10 @@ class _$FeedbackDataCopyWithImpl<$Res, $Val extends FeedbackData>
           ? _value.deviceInfo
           : deviceInfo // ignore: cast_nullable_to_non_nullable
               as FeedbackDeviceInfo,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as FeedbackType,
       screenshotBase64: null == screenshotBase64
           ? _value.screenshotBase64
           : screenshotBase64 // ignore: cast_nullable_to_non_nullable
@@ -136,6 +143,7 @@ abstract class _$$FeedbackDataImplCopyWith<$Res>
       String? email,
       String message,
       FeedbackDeviceInfo deviceInfo,
+      FeedbackType type,
       String screenshotBase64,
       FeedbackFrom from,
       @TimestampConverter() Timestamp? createdAt,
@@ -160,6 +168,7 @@ class __$$FeedbackDataImplCopyWithImpl<$Res>
     Object? email = freezed,
     Object? message = null,
     Object? deviceInfo = null,
+    Object? type = null,
     Object? screenshotBase64 = null,
     Object? from = null,
     Object? createdAt = freezed,
@@ -182,6 +191,10 @@ class __$$FeedbackDataImplCopyWithImpl<$Res>
           ? _value.deviceInfo
           : deviceInfo // ignore: cast_nullable_to_non_nullable
               as FeedbackDeviceInfo,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as FeedbackType,
       screenshotBase64: null == screenshotBase64
           ? _value.screenshotBase64
           : screenshotBase64 // ignore: cast_nullable_to_non_nullable
@@ -210,6 +223,7 @@ class _$FeedbackDataImpl implements _FeedbackData {
       required this.email,
       required this.message,
       required this.deviceInfo,
+      required this.type,
       this.screenshotBase64 = '',
       this.from = FeedbackFrom.unknown,
       @TimestampConverter() this.createdAt,
@@ -227,6 +241,8 @@ class _$FeedbackDataImpl implements _FeedbackData {
   @override
   final FeedbackDeviceInfo deviceInfo;
   @override
+  final FeedbackType type;
+  @override
   @JsonKey()
   final String screenshotBase64;
   @override
@@ -241,7 +257,7 @@ class _$FeedbackDataImpl implements _FeedbackData {
 
   @override
   String toString() {
-    return 'FeedbackData(uid: $uid, email: $email, message: $message, deviceInfo: $deviceInfo, screenshotBase64: $screenshotBase64, from: $from, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'FeedbackData(uid: $uid, email: $email, message: $message, deviceInfo: $deviceInfo, type: $type, screenshotBase64: $screenshotBase64, from: $from, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -254,6 +270,7 @@ class _$FeedbackDataImpl implements _FeedbackData {
             (identical(other.message, message) || other.message == message) &&
             (identical(other.deviceInfo, deviceInfo) ||
                 other.deviceInfo == deviceInfo) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.screenshotBase64, screenshotBase64) ||
                 other.screenshotBase64 == screenshotBase64) &&
             (identical(other.from, from) || other.from == from) &&
@@ -266,7 +283,7 @@ class _$FeedbackDataImpl implements _FeedbackData {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, uid, email, message, deviceInfo,
-      screenshotBase64, from, createdAt, updatedAt);
+      type, screenshotBase64, from, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -288,6 +305,7 @@ abstract class _FeedbackData implements FeedbackData {
       required final String? email,
       required final String message,
       required final FeedbackDeviceInfo deviceInfo,
+      required final FeedbackType type,
       final String screenshotBase64,
       final FeedbackFrom from,
       @TimestampConverter() final Timestamp? createdAt,
@@ -304,6 +322,8 @@ abstract class _FeedbackData implements FeedbackData {
   String get message;
   @override
   FeedbackDeviceInfo get deviceInfo;
+  @override
+  FeedbackType get type;
   @override
   String get screenshotBase64;
   @override

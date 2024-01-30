@@ -1,6 +1,5 @@
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
-import 'package:core/utils/inherited_theme_detector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

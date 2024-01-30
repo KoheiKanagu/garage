@@ -1,7 +1,7 @@
 {
   "configure": {
     "title": "設定",
-    "feedback": "フィードバックを送る",
+    "feedback": "ご意見・不具合の報告",
     "about_this_app": "このアプリについて",
     "terms_of_service": "利用規約",
     "privacy_policy": "プライバシーポリシー",
@@ -28,7 +28,7 @@
     "model_name": "モデル名",
     "locale": "言語と地域",
     "submit": "送信",
-    "confirm_sending_feedback": "フィードバックを送信しますか？",
+    "confirm_sending_feedback": "この内容で送信しますか？",
     "thank_you_for_your_feedback": "ご意見ありがとうございました",
     "please_enter_your_feedback": "ご意見をご記入ください",
     "please_feedback": "フィードバックにご協力ください"

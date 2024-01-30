@@ -149,7 +149,7 @@ class _StringsConfigureJa {
 
 	// Translations
 	String get title => '設定';
-	String get feedback => 'フィードバックを送る';
+	String get feedback => 'ご意見・不具合の報告';
 	String get about_this_app => 'このアプリについて';
 	String get terms_of_service => '利用規約';
 	String get privacy_policy => 'プライバシーポリシー';
@@ -183,7 +183,7 @@ class _StringsFeedbackJa {
 	String get model_name => 'モデル名';
 	String get locale => '言語と地域';
 	String get submit => '送信';
-	String get confirm_sending_feedback => 'フィードバックを送信しますか？';
+	String get confirm_sending_feedback => 'この内容で送信しますか？';
 	String get thank_you_for_your_feedback => 'ご意見ありがとうございました';
 	String get please_enter_your_feedback => 'ご意見をご記入ください';
 	String get please_feedback => 'フィードバックにご協力ください';

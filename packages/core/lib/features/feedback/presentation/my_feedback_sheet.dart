@@ -20,130 +20,96 @@ class MyFeedbackSheet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final messageFieldController = useTextEditingController(
-      keys: ['messageFieldController'],
-    );
-    final emailFieldController = useTextEditingController(
-      keys: ['emailFieldController'],
-    );
-
     final formKey = useMemoized(
       GlobalKey<FormState>.new,
       ['formKey'],
     );
 
+    final emailFieldController = useTextEditingController(
+      keys: ['emailFieldController'],
+    );
+
+    final messageFieldController = useTextEditingController(
+      keys: ['messageFieldController'],
+    );
+
+    final themeType = InheritedThemeDetector.of(context);
+
+    Future<void> onSubmitPressed() async {
+      // validation error
+      formKey.currentState?.save();
+      if (!(formKey.currentState?.validate() ?? false)) {
+        return;
+      }
+
+      final result = await showOkCancelAlertDialog(
+        context: context,
+        message: i18n.feedback.confirm_sending_feedback,
+        okLabel: i18n.feedback.submit,
+      );
+
+      if (result == OkCancelResult.ok) {
+        final currentUser = await ref.read(firebaseUserProvider.future);
+        onSubmit(
+          FeedbackData(
+            uid: currentUser?.uid,
+            email: emailFieldController.text,
+            message: messageFieldController.text,
+            deviceInfo: await ref.read(feedbackDeviceInfoProvider.future),
+            type: FeedbackType.impression,
+          ),
+        );
+      }
+    }
+
     return Form(
       key: formKey,
-      child: ListView(
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        controller: scrollController,
-        padding: const EdgeInsets.all(16),
-        children: [
-          const FeedbackSheetDragHandle(),
-          const Gap(16),
-          i18n.feedback.do_not_enter_personal_info.wrapBudouXText(
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const Gap(8),
-          TextFormField(
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-            ),
-            maxLength: 1000,
-            maxLines: 2,
-            minLines: 1,
-            keyboardType: TextInputType.multiline,
-            controller: messageFieldController,
-            validator: (value) {
-              if (value?.trim().isEmpty ?? true) {
-                return i18n.feedback.please_enter_your_feedback;
-              }
-              return null;
-            },
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            onSaved: (newValue) =>
-                messageFieldController.text = newValue?.trim() ?? '',
-          ),
-          const Gap(16),
-          i18n.feedback.input_email_if_reply_is_needed.wrapBudouXText(
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const Gap(4),
-          i18n.feedback.input_email_if_reply_is_needed2.wrapBudouXText(
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const Gap(8),
-          TextFormField(
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              hintText: 'email@example.com',
-              counter: const SizedBox.shrink(),
-              labelText: i18n.feedback.email_address,
-            ),
-            maxLength: 256,
-            keyboardType: TextInputType.emailAddress,
-            controller: emailFieldController,
-            onSaved: (newValue) =>
-                emailFieldController.text = newValue?.trim() ?? '',
-          ),
-          const Gap(32),
-          i18n.feedback.device_info_collection_notice.wrapBudouXText(
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          ref.watch(feedbackDeviceInfoProvider).maybeWhen(
-                orElse: () => const CircularProgressIndicator.adaptive(),
-                data: (data) => Column(
-                  children: [
-                    ListTile(
-                      title: Text(i18n.feedback.os_version),
-                      trailing: Text(data.osVersion),
-                      dense: true,
-                    ),
-                    ListTile(
-                      title: Text(i18n.feedback.model_name),
-                      trailing: Text(data.modelName),
-                      dense: true,
-                    ),
-                    ListTile(
-                      title: Text(i18n.feedback.locale),
-                      trailing: Text(data.locale),
-                      dense: true,
-                    ),
-                  ],
-                ),
+      child: switch (themeType) {
+        InheritedThemeType.material => ListView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            controller: scrollController,
+            padding: const EdgeInsets.all(16),
+            children: [
+              const FeedbackSheetDragHandle(),
+              MyFeedbackMessageField(
+                controller: messageFieldController,
               ),
-          const Gap(32),
-          ElevatedButton(
-            onPressed: () async {
-              // validation error
-              formKey.currentState?.save();
-              if (!(formKey.currentState?.validate() ?? false)) {
-                return;
-              }
-
-              final result = await showOkCancelAlertDialog(
-                context: context,
-                message: i18n.feedback.confirm_sending_feedback,
-                okLabel: i18n.feedback.submit,
-              );
-
-              if (result == OkCancelResult.ok) {
-                final currentUser = await ref.read(firebaseUserProvider.future);
-                onSubmit(
-                  FeedbackData(
-                    uid: currentUser?.uid,
-                    email: emailFieldController.text,
-                    message: messageFieldController.text,
-                    deviceInfo:
-                        await ref.read(feedbackDeviceInfoProvider.future),
-                  ),
-                );
-              }
-            },
-            child: Text(i18n.feedback.submit),
+              const Gap(16),
+              MyFeedbackEmailField(
+                controller: emailFieldController,
+              ),
+              const Gap(16),
+              const MyFeedbackDeviceInfoField(),
+              const Gap(16),
+              ElevatedButton(
+                onPressed: onSubmitPressed,
+                child: Text(i18n.feedback.submit),
+              ),
+            ],
           ),
-        ],
-      ),
+        InheritedThemeType.cupertino => ListView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            controller: scrollController,
+            padding: const EdgeInsets.symmetric(
+              vertical: 16,
+            ),
+            children: [
+              const FeedbackSheetDragHandle(),
+              const MyFeedbackBugReportCheckBox(),
+              MyFeedbackMessageField(
+                controller: messageFieldController,
+              ),
+              MyFeedbackEmailField(
+                controller: emailFieldController,
+              ),
+              const MyFeedbackDeviceInfoField(),
+              // CupertinoButton.filled(
+              //   onPressed: onSubmitPressed,
+              //   child: Text(i18n.feedback.submit),
+              // ),
+            ],
+          ),
+      },
     );
   }
 }

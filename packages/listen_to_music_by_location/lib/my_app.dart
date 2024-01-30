@@ -15,7 +15,15 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(myGoRouterProvider);
 
+    const theme = CupertinoThemeData(
+      primaryColor: CupertinoDynamicColor.withBrightness(
+        color: Color(0xFFFA233B),
+        darkColor: Color(0xFFFB5C74),
+      ),
+    );
+
     return MyBetterFeedback(
+      cupertinoThemeData: theme,
       child: CupertinoApp.router(
         builder: (context, child) => MediaQueryPreview(
           context,
@@ -36,12 +44,7 @@ class MyApp extends HookConsumerWidget {
           GlobalWidgetsLocalizations.delegate,
           FirebaseUILocalizations.delegate,
         ],
-        theme: const CupertinoThemeData(
-          primaryColor: CupertinoDynamicColor.withBrightness(
-            color: Color(0xFFFA233B),
-            darkColor: Color(0xFFFB5C74),
-          ),
-        ),
+        theme: theme,
         routerConfig: router,
       ),
     );

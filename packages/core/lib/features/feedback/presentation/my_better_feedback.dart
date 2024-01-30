@@ -2,6 +2,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:feedback/feedback.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,9 +12,15 @@ class MyBetterFeedback extends StatelessWidget {
   const MyBetterFeedback({
     required this.child,
     super.key,
+    this.cupertinoThemeData,
+    this.materialThemeData,
   });
 
   final Widget child;
+
+  final CupertinoThemeData? cupertinoThemeData;
+
+  final ThemeData? materialThemeData;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +29,16 @@ class MyBetterFeedback extends StatelessWidget {
       localizationsDelegates: [
         CustomFeedbackLocalizationsDelegate(),
       ],
+      theme: FeedbackThemeData(
+        feedbackSheetColor:
+            CupertinoColors.systemGroupedBackground.resolveFrom(context),
+        dragHandleColor: CupertinoColors.systemGrey,
+      ),
       feedbackBuilder: (_, submit, scrollController) {
-        return MyFeedbackSheet(
+        final child = MyFeedbackSheet(
           onSubmit: (data) {
             submit(
-              'unused',
+              'unused this value',
               extras: {
                 'data': data,
               },
@@ -34,6 +46,22 @@ class MyBetterFeedback extends StatelessWidget {
           },
           scrollController: scrollController,
         );
+
+        if (cupertinoThemeData != null) {
+          return CupertinoTheme(
+            data: cupertinoThemeData!,
+            child: child,
+          );
+        }
+
+        if (materialThemeData != null) {
+          return Theme(
+            data: materialThemeData!,
+            child: child,
+          );
+        }
+
+        return child;
       },
       child: _Wrap(
         child: child,
