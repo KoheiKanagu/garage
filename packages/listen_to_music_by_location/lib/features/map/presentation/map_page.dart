@@ -45,11 +45,6 @@ class MapPage extends HookConsumerWidget {
           return null;
         }
 
-        // Locamusicがない場合は何もしない
-        if (locamusics.isEmpty) {
-          return;
-        }
-
         Future(
           () async {
             // Locamusicがある場合はAnnotationを描画
