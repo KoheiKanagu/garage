@@ -1,5 +1,6 @@
 import Flutter
 import MapKit
+import SwiftUI
 
 class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
@@ -132,9 +133,9 @@ class MyMapView: MKMapView, UIGestureRecognizerDelegate, MKMapViewDelegate {
       let renderer = MKCircleRenderer(
         circle: circle
       )
-      renderer.strokeColor = .blue
-      renderer.fillColor = .blue.withAlphaComponent(0.3)
-      renderer.lineWidth = 4
+      renderer.strokeColor = UIColor(Color.blue)
+      renderer.fillColor = UIColor(Color.blue).withAlphaComponent(0.3)
+      renderer.lineWidth = 3
       return renderer
     }
 
