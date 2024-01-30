@@ -51,6 +51,8 @@ class MusicPermissionTile extends HookConsumerWidget {
             switch (status) {
               case MusicAuthorizationStatus.notDetermined:
                 await ref.read(musicKitProvider).requestPermission();
+                // 現在の権限を取得させるためにinvalidate
+                ref.invalidate(musicKitCurrentPermissionStatusProvider);
 
               case MusicAuthorizationStatus.denied ||
                     MusicAuthorizationStatus.restricted:

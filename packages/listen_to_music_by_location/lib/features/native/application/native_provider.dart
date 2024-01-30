@@ -47,9 +47,8 @@ MusicKit musicKit(
 @riverpod
 Future<MusicAuthorizationStatus> musicKitCurrentPermissionStatus(
   MusicKitCurrentPermissionStatusRef ref,
-) {
-  return ref.watch(musicKitProvider).requestPermission();
-}
+) =>
+    ref.watch(musicKitProvider).currentPermissionStatus();
 
 @riverpod
 OpenSettings openSettings(
