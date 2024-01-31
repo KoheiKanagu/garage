@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:core/core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -124,7 +125,7 @@ final logger = Roggle.crashlytics(
         );
       }
 
-      if (kDebugMode) {
+      if (kAppEnvDev) {
         log(
           singlePrettyPrinter
               .log(
@@ -144,7 +145,7 @@ final logger = Roggle.crashlytics(
         FirebaseCrashlytics.instance.log(event.message);
       }
 
-      if (kDebugMode) {
+      if (kAppEnvDev) {
         log(
           singlePrettyPrinter
               .log(LogEvent(event.level, event.message))

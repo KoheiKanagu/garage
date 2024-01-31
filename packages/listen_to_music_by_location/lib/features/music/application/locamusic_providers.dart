@@ -146,8 +146,11 @@ Future<void> locamusicRegionRegister(
 
   // updatedAtはFieldValue.serverTimestampなので、一旦nullになるがすぐに更新されるため、
   // 無駄にRegionを登録しないように、いずれかのupdatedAtがnullの場合はスキップする
-  final isUpdatedAtNull =
-      docs.any((element) => element.locamusic.updatedAt == null);
+  final isUpdatedAtNull = docs.any(
+    (element) =>
+        element.locamusic.updatedAt == null ||
+        element.locamusic.createdAt == null,
+  );
   if (isUpdatedAtNull) {
     logger.dProvider(
       'locamusicRegionRegister',
@@ -165,7 +168,6 @@ Future<void> locamusicRegionRegister(
   final monitoredRegions =
       (await ref.watch(locationManagerProvider).monitoredRegions())
           .whereNotNull();
-
   logger.dProvider(
     'locamusicRegionRegister',
     'will stop regions ${monitoredRegions.map((e) => e.identifier)}',

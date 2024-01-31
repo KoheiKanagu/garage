@@ -23,8 +23,8 @@ final _mapViewDelegateProvider = AutoDisposeProvider<_MapViewDelegate>.internal(
 );
 
 typedef _MapViewDelegateRef = AutoDisposeProviderRef<_MapViewDelegate>;
-String _$mapPageMapViewOnLongPressedMapHash() =>
-    r'fa8bb8443a8c837e2a4cce9f73f6bcd227181864';
+String _$mapViewOnLongPressedMapHash() =>
+    r'058bb77997433852cbc9e5985192afae38bd94da';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -47,29 +47,28 @@ class _SystemHash {
   }
 }
 
-/// See also [mapPageMapViewOnLongPressedMap].
-@ProviderFor(mapPageMapViewOnLongPressedMap)
-const mapPageMapViewOnLongPressedMapProvider =
-    MapPageMapViewOnLongPressedMapFamily();
+/// See also [mapViewOnLongPressedMap].
+@ProviderFor(mapViewOnLongPressedMap)
+const mapViewOnLongPressedMapProvider = MapViewOnLongPressedMapFamily();
 
-/// See also [mapPageMapViewOnLongPressedMap].
-class MapPageMapViewOnLongPressedMapFamily extends Family<
+/// See also [mapViewOnLongPressedMap].
+class MapViewOnLongPressedMapFamily extends Family<
     AsyncValue<({MapViewType viewType, double latitude, double longitude})>> {
-  /// See also [mapPageMapViewOnLongPressedMap].
-  const MapPageMapViewOnLongPressedMapFamily();
+  /// See also [mapViewOnLongPressedMap].
+  const MapViewOnLongPressedMapFamily();
 
-  /// See also [mapPageMapViewOnLongPressedMap].
-  MapPageMapViewOnLongPressedMapProvider call({
+  /// See also [mapViewOnLongPressedMap].
+  MapViewOnLongPressedMapProvider call({
     required MapViewType whereViewType,
   }) {
-    return MapPageMapViewOnLongPressedMapProvider(
+    return MapViewOnLongPressedMapProvider(
       whereViewType: whereViewType,
     );
   }
 
   @override
-  MapPageMapViewOnLongPressedMapProvider getProviderOverride(
-    covariant MapPageMapViewOnLongPressedMapProvider provider,
+  MapViewOnLongPressedMapProvider getProviderOverride(
+    covariant MapViewOnLongPressedMapProvider provider,
   ) {
     return call(
       whereViewType: provider.whereViewType,
@@ -88,33 +87,33 @@ class MapPageMapViewOnLongPressedMapFamily extends Family<
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'mapPageMapViewOnLongPressedMapProvider';
+  String? get name => r'mapViewOnLongPressedMapProvider';
 }
 
-/// See also [mapPageMapViewOnLongPressedMap].
-class MapPageMapViewOnLongPressedMapProvider extends AutoDisposeStreamProvider<
+/// See also [mapViewOnLongPressedMap].
+class MapViewOnLongPressedMapProvider extends AutoDisposeStreamProvider<
     ({MapViewType viewType, double latitude, double longitude})> {
-  /// See also [mapPageMapViewOnLongPressedMap].
-  MapPageMapViewOnLongPressedMapProvider({
+  /// See also [mapViewOnLongPressedMap].
+  MapViewOnLongPressedMapProvider({
     required MapViewType whereViewType,
   }) : this._internal(
-          (ref) => mapPageMapViewOnLongPressedMap(
-            ref as MapPageMapViewOnLongPressedMapRef,
+          (ref) => mapViewOnLongPressedMap(
+            ref as MapViewOnLongPressedMapRef,
             whereViewType: whereViewType,
           ),
-          from: mapPageMapViewOnLongPressedMapProvider,
-          name: r'mapPageMapViewOnLongPressedMapProvider',
+          from: mapViewOnLongPressedMapProvider,
+          name: r'mapViewOnLongPressedMapProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$mapPageMapViewOnLongPressedMapHash,
-          dependencies: MapPageMapViewOnLongPressedMapFamily._dependencies,
+                  : _$mapViewOnLongPressedMapHash,
+          dependencies: MapViewOnLongPressedMapFamily._dependencies,
           allTransitiveDependencies:
-              MapPageMapViewOnLongPressedMapFamily._allTransitiveDependencies,
+              MapViewOnLongPressedMapFamily._allTransitiveDependencies,
           whereViewType: whereViewType,
         );
 
-  MapPageMapViewOnLongPressedMapProvider._internal(
+  MapViewOnLongPressedMapProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -129,13 +128,13 @@ class MapPageMapViewOnLongPressedMapProvider extends AutoDisposeStreamProvider<
   @override
   Override overrideWith(
     Stream<({MapViewType viewType, double latitude, double longitude})>
-            Function(MapPageMapViewOnLongPressedMapRef provider)
+            Function(MapViewOnLongPressedMapRef provider)
         create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: MapPageMapViewOnLongPressedMapProvider._internal(
-        (ref) => create(ref as MapPageMapViewOnLongPressedMapRef),
+      override: MapViewOnLongPressedMapProvider._internal(
+        (ref) => create(ref as MapViewOnLongPressedMapRef),
         from: from,
         name: null,
         dependencies: null,
@@ -150,12 +149,12 @@ class MapPageMapViewOnLongPressedMapProvider extends AutoDisposeStreamProvider<
   AutoDisposeStreamProviderElement<
           ({MapViewType viewType, double latitude, double longitude})>
       createElement() {
-    return _MapPageMapViewOnLongPressedMapProviderElement(this);
+    return _MapViewOnLongPressedMapProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is MapPageMapViewOnLongPressedMapProvider &&
+    return other is MapViewOnLongPressedMapProvider &&
         other.whereViewType == whereViewType;
   }
 
@@ -168,48 +167,48 @@ class MapPageMapViewOnLongPressedMapProvider extends AutoDisposeStreamProvider<
   }
 }
 
-mixin MapPageMapViewOnLongPressedMapRef on AutoDisposeStreamProviderRef<
+mixin MapViewOnLongPressedMapRef on AutoDisposeStreamProviderRef<
     ({MapViewType viewType, double latitude, double longitude})> {
   /// The parameter `whereViewType` of this provider.
   MapViewType get whereViewType;
 }
 
-class _MapPageMapViewOnLongPressedMapProviderElement
+class _MapViewOnLongPressedMapProviderElement
     extends AutoDisposeStreamProviderElement<
         ({MapViewType viewType, double latitude, double longitude})>
-    with MapPageMapViewOnLongPressedMapRef {
-  _MapPageMapViewOnLongPressedMapProviderElement(super.provider);
+    with MapViewOnLongPressedMapRef {
+  _MapViewOnLongPressedMapProviderElement(super.provider);
 
   @override
   MapViewType get whereViewType =>
-      (origin as MapPageMapViewOnLongPressedMapProvider).whereViewType;
+      (origin as MapViewOnLongPressedMapProvider).whereViewType;
 }
 
-String _$mapPageMapViewOnTapCircleHash() =>
-    r'2b2087653f6d921046c6f1b0f4648eb207cc0ede';
+String _$mapViewOnTapCircleHash() =>
+    r'3bbd2423919bb3c517204693b8bd1c7775e6a9b3';
 
-/// See also [mapPageMapViewOnTapCircle].
-@ProviderFor(mapPageMapViewOnTapCircle)
-const mapPageMapViewOnTapCircleProvider = MapPageMapViewOnTapCircleFamily();
+/// See also [mapViewOnTapCircle].
+@ProviderFor(mapViewOnTapCircle)
+const mapViewOnTapCircleProvider = MapViewOnTapCircleFamily();
 
-/// See also [mapPageMapViewOnTapCircle].
-class MapPageMapViewOnTapCircleFamily
+/// See also [mapViewOnTapCircle].
+class MapViewOnTapCircleFamily
     extends Family<AsyncValue<({MapViewType viewType, String identifier})>> {
-  /// See also [mapPageMapViewOnTapCircle].
-  const MapPageMapViewOnTapCircleFamily();
+  /// See also [mapViewOnTapCircle].
+  const MapViewOnTapCircleFamily();
 
-  /// See also [mapPageMapViewOnTapCircle].
-  MapPageMapViewOnTapCircleProvider call({
+  /// See also [mapViewOnTapCircle].
+  MapViewOnTapCircleProvider call({
     required MapViewType whereViewType,
   }) {
-    return MapPageMapViewOnTapCircleProvider(
+    return MapViewOnTapCircleProvider(
       whereViewType: whereViewType,
     );
   }
 
   @override
-  MapPageMapViewOnTapCircleProvider getProviderOverride(
-    covariant MapPageMapViewOnTapCircleProvider provider,
+  MapViewOnTapCircleProvider getProviderOverride(
+    covariant MapViewOnTapCircleProvider provider,
   ) {
     return call(
       whereViewType: provider.whereViewType,
@@ -228,33 +227,33 @@ class MapPageMapViewOnTapCircleFamily
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'mapPageMapViewOnTapCircleProvider';
+  String? get name => r'mapViewOnTapCircleProvider';
 }
 
-/// See also [mapPageMapViewOnTapCircle].
-class MapPageMapViewOnTapCircleProvider extends AutoDisposeStreamProvider<
+/// See also [mapViewOnTapCircle].
+class MapViewOnTapCircleProvider extends AutoDisposeStreamProvider<
     ({MapViewType viewType, String identifier})> {
-  /// See also [mapPageMapViewOnTapCircle].
-  MapPageMapViewOnTapCircleProvider({
+  /// See also [mapViewOnTapCircle].
+  MapViewOnTapCircleProvider({
     required MapViewType whereViewType,
   }) : this._internal(
-          (ref) => mapPageMapViewOnTapCircle(
-            ref as MapPageMapViewOnTapCircleRef,
+          (ref) => mapViewOnTapCircle(
+            ref as MapViewOnTapCircleRef,
             whereViewType: whereViewType,
           ),
-          from: mapPageMapViewOnTapCircleProvider,
-          name: r'mapPageMapViewOnTapCircleProvider',
+          from: mapViewOnTapCircleProvider,
+          name: r'mapViewOnTapCircleProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$mapPageMapViewOnTapCircleHash,
-          dependencies: MapPageMapViewOnTapCircleFamily._dependencies,
+                  : _$mapViewOnTapCircleHash,
+          dependencies: MapViewOnTapCircleFamily._dependencies,
           allTransitiveDependencies:
-              MapPageMapViewOnTapCircleFamily._allTransitiveDependencies,
+              MapViewOnTapCircleFamily._allTransitiveDependencies,
           whereViewType: whereViewType,
         );
 
-  MapPageMapViewOnTapCircleProvider._internal(
+  MapViewOnTapCircleProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -269,13 +268,13 @@ class MapPageMapViewOnTapCircleProvider extends AutoDisposeStreamProvider<
   @override
   Override overrideWith(
     Stream<({MapViewType viewType, String identifier})> Function(
-            MapPageMapViewOnTapCircleRef provider)
+            MapViewOnTapCircleRef provider)
         create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: MapPageMapViewOnTapCircleProvider._internal(
-        (ref) => create(ref as MapPageMapViewOnTapCircleRef),
+      override: MapViewOnTapCircleProvider._internal(
+        (ref) => create(ref as MapViewOnTapCircleRef),
         from: from,
         name: null,
         dependencies: null,
@@ -289,12 +288,12 @@ class MapPageMapViewOnTapCircleProvider extends AutoDisposeStreamProvider<
   @override
   AutoDisposeStreamProviderElement<({MapViewType viewType, String identifier})>
       createElement() {
-    return _MapPageMapViewOnTapCircleProviderElement(this);
+    return _MapViewOnTapCircleProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is MapPageMapViewOnTapCircleProvider &&
+    return other is MapViewOnTapCircleProvider &&
         other.whereViewType == whereViewType;
   }
 
@@ -307,162 +306,40 @@ class MapPageMapViewOnTapCircleProvider extends AutoDisposeStreamProvider<
   }
 }
 
-mixin MapPageMapViewOnTapCircleRef on AutoDisposeStreamProviderRef<
+mixin MapViewOnTapCircleRef on AutoDisposeStreamProviderRef<
     ({MapViewType viewType, String identifier})> {
   /// The parameter `whereViewType` of this provider.
   MapViewType get whereViewType;
 }
 
-class _MapPageMapViewOnTapCircleProviderElement
+class _MapViewOnTapCircleProviderElement
     extends AutoDisposeStreamProviderElement<
         ({MapViewType viewType, String identifier})>
-    with MapPageMapViewOnTapCircleRef {
-  _MapPageMapViewOnTapCircleProviderElement(super.provider);
+    with MapViewOnTapCircleRef {
+  _MapViewOnTapCircleProviderElement(super.provider);
 
   @override
   MapViewType get whereViewType =>
-      (origin as MapPageMapViewOnTapCircleProvider).whereViewType;
+      (origin as MapViewOnTapCircleProvider).whereViewType;
 }
 
-String _$mapPageMapViewMapViewDidFinishLoadingMapHash() =>
-    r'617e514de20338996e1988c9287b4ad5ee77b8ab';
+String _$mapViewDidFinishLoadingMapHash() =>
+    r'527155ef8dbc5ba776a9f5bc9c38c745a8ec0395';
 
-/// See also [mapPageMapViewMapViewDidFinishLoadingMap].
-@ProviderFor(mapPageMapViewMapViewDidFinishLoadingMap)
-const mapPageMapViewMapViewDidFinishLoadingMapProvider =
-    MapPageMapViewMapViewDidFinishLoadingMapFamily();
+/// See also [mapViewDidFinishLoadingMap].
+@ProviderFor(mapViewDidFinishLoadingMap)
+final mapViewDidFinishLoadingMapProvider =
+    AutoDisposeStreamProvider<MapViewType>.internal(
+  mapViewDidFinishLoadingMap,
+  name: r'mapViewDidFinishLoadingMapProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$mapViewDidFinishLoadingMapHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
-/// See also [mapPageMapViewMapViewDidFinishLoadingMap].
-class MapPageMapViewMapViewDidFinishLoadingMapFamily
-    extends Family<AsyncValue<MapViewType>> {
-  /// See also [mapPageMapViewMapViewDidFinishLoadingMap].
-  const MapPageMapViewMapViewDidFinishLoadingMapFamily();
-
-  /// See also [mapPageMapViewMapViewDidFinishLoadingMap].
-  MapPageMapViewMapViewDidFinishLoadingMapProvider call({
-    required MapViewType whereViewType,
-  }) {
-    return MapPageMapViewMapViewDidFinishLoadingMapProvider(
-      whereViewType: whereViewType,
-    );
-  }
-
-  @override
-  MapPageMapViewMapViewDidFinishLoadingMapProvider getProviderOverride(
-    covariant MapPageMapViewMapViewDidFinishLoadingMapProvider provider,
-  ) {
-    return call(
-      whereViewType: provider.whereViewType,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'mapPageMapViewMapViewDidFinishLoadingMapProvider';
-}
-
-/// See also [mapPageMapViewMapViewDidFinishLoadingMap].
-class MapPageMapViewMapViewDidFinishLoadingMapProvider
-    extends AutoDisposeStreamProvider<MapViewType> {
-  /// See also [mapPageMapViewMapViewDidFinishLoadingMap].
-  MapPageMapViewMapViewDidFinishLoadingMapProvider({
-    required MapViewType whereViewType,
-  }) : this._internal(
-          (ref) => mapPageMapViewMapViewDidFinishLoadingMap(
-            ref as MapPageMapViewMapViewDidFinishLoadingMapRef,
-            whereViewType: whereViewType,
-          ),
-          from: mapPageMapViewMapViewDidFinishLoadingMapProvider,
-          name: r'mapPageMapViewMapViewDidFinishLoadingMapProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$mapPageMapViewMapViewDidFinishLoadingMapHash,
-          dependencies:
-              MapPageMapViewMapViewDidFinishLoadingMapFamily._dependencies,
-          allTransitiveDependencies:
-              MapPageMapViewMapViewDidFinishLoadingMapFamily
-                  ._allTransitiveDependencies,
-          whereViewType: whereViewType,
-        );
-
-  MapPageMapViewMapViewDidFinishLoadingMapProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.whereViewType,
-  }) : super.internal();
-
-  final MapViewType whereViewType;
-
-  @override
-  Override overrideWith(
-    Stream<MapViewType> Function(
-            MapPageMapViewMapViewDidFinishLoadingMapRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: MapPageMapViewMapViewDidFinishLoadingMapProvider._internal(
-        (ref) => create(ref as MapPageMapViewMapViewDidFinishLoadingMapRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        whereViewType: whereViewType,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeStreamProviderElement<MapViewType> createElement() {
-    return _MapPageMapViewMapViewDidFinishLoadingMapProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is MapPageMapViewMapViewDidFinishLoadingMapProvider &&
-        other.whereViewType == whereViewType;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, whereViewType.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin MapPageMapViewMapViewDidFinishLoadingMapRef
-    on AutoDisposeStreamProviderRef<MapViewType> {
-  /// The parameter `whereViewType` of this provider.
-  MapViewType get whereViewType;
-}
-
-class _MapPageMapViewMapViewDidFinishLoadingMapProviderElement
-    extends AutoDisposeStreamProviderElement<MapViewType>
-    with MapPageMapViewMapViewDidFinishLoadingMapRef {
-  _MapPageMapViewMapViewDidFinishLoadingMapProviderElement(super.provider);
-
-  @override
-  MapViewType get whereViewType =>
-      (origin as MapPageMapViewMapViewDidFinishLoadingMapProvider)
-          .whereViewType;
-}
+typedef MapViewDidFinishLoadingMapRef
+    = AutoDisposeStreamProviderRef<MapViewType>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

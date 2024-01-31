@@ -82,8 +82,8 @@ Stream<
       MapViewType viewType,
       double latitude,
       double longitude,
-    })> mapPageMapViewOnLongPressedMap(
-  MapPageMapViewOnLongPressedMapRef ref, {
+    })> mapViewOnLongPressedMap(
+  MapViewOnLongPressedMapRef ref, {
   required MapViewType whereViewType,
 }) =>
     ref
@@ -97,8 +97,8 @@ Stream<
     ({
       MapViewType viewType,
       String identifier,
-    })> mapPageMapViewOnTapCircle(
-  MapPageMapViewOnTapCircleRef ref, {
+    })> mapViewOnTapCircle(
+  MapViewOnTapCircleRef ref, {
   required MapViewType whereViewType,
 }) =>
     ref.watch(_mapViewDelegateProvider).onTapCircleStream.stream.where(
@@ -106,12 +106,7 @@ Stream<
         );
 
 @riverpod
-Stream<MapViewType> mapPageMapViewMapViewDidFinishLoadingMap(
-  MapPageMapViewMapViewDidFinishLoadingMapRef ref, {
-  required MapViewType whereViewType,
-}) =>
-    ref
-        .watch(_mapViewDelegateProvider)
-        .mapViewDidFinishLoadingMapStream
-        .stream
-        .where((event) => event == whereViewType);
+Stream<MapViewType> mapViewDidFinishLoadingMap(
+  MapViewDidFinishLoadingMapRef ref,
+) =>
+    ref.watch(_mapViewDelegateProvider).mapViewDidFinishLoadingMapStream.stream;

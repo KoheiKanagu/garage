@@ -1,5 +1,8 @@
+import 'package:listen_to_music_by_location/features/map/presentation/map_page.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/domain/locamusic.dart';
+import 'package:listen_to_music_by_location/features/music/presentation/locamusic_detail_page.dart';
+import 'package:listen_to_music_by_location/features/native/application/map_view_delegate.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
@@ -79,32 +82,108 @@ Future<void> mapDrawAnnotations(
 
 /// Annotationを描画してカメラをズームする
 @riverpod
-void mapSetAnnotationRegion(
+Future<void> mapSetAnnotationRegion(
   MapSetAnnotationRegionRef ref, {
   required LocamusicWithDocumentId locamusic,
   required MapViewType mapViewType,
-}) {
-  ref.watch(
+}) async {
+  await ref.watch(
     mapDrawAnnotationsProvider(
       locamusics: [locamusic].toList(),
       mapViewType: mapViewType,
-    ),
+    ).future,
   );
 
   switch (mapViewType) {
     case MapViewType.mapPage:
-      ref.watch(mapPageMapViewProvider).setMapRegion(
+      await ref.watch(mapPageMapViewProvider).setMapRegion(
             latitude: locamusic.locamusic.geoPoint.latitude,
             longitude: locamusic.locamusic.geoPoint.longitude,
             // MKCircleが十分に表示されるように描画範囲を広げる
             meters: locamusic.locamusic.distance * 2.5,
           );
     case MapViewType.locamusicDetailPage:
-      ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
+      await ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
             latitude: locamusic.locamusic.geoPoint.latitude,
             longitude: locamusic.locamusic.geoPoint.longitude,
             // MKCircleが十分に表示されるように描画範囲を広げる
             meters: locamusic.locamusic.distance * 2.5,
           );
   }
+}
+
+/// [MapPage] のMapの初期化
+@riverpod
+Future<void> mapPageInitialize(
+  MapPageInitializeRef ref,
+) async {
+  // MapViewの初期化待ち
+  final initialized = await ref.watch(
+    mapViewDidFinishLoadingMapProvider.selectAsync(
+      (data) => data == MapViewType.mapPage,
+    ),
+  );
+  if (!initialized) {
+    return;
+  }
+
+  final locamusics = await ref.watch(locamusicDocumentsProvider.future);
+
+  // FieldValue.serverTimestamp なので一旦nullになるがすぐに更新されるため、
+  // 無駄にAnnotationを描画しないように、いずれかがnullの場合はスキップする
+  final anyNull = locamusics.any(
+    (element) =>
+        element.locamusic.updatedAt == null ||
+        element.locamusic.createdAt == null,
+  );
+  if (anyNull) {
+    return;
+  }
+
+  // Annotationを描画
+  await ref.read(
+    mapDrawAnnotationsProvider(
+      locamusics: locamusics,
+      mapViewType: MapViewType.mapPage,
+    ).future,
+  );
+}
+
+/// [LocamusicDetailPage] のMapの初期化
+@riverpod
+Future<void> mapLocamusicDetailPageInitialize(
+  MapLocamusicDetailPageInitializeRef ref,
+  String documentId,
+) async {
+  // MapViewの初期化待ち
+  final initialized = await ref.watch(
+    mapViewDidFinishLoadingMapProvider.selectAsync(
+      (data) => data == MapViewType.locamusicDetailPage,
+    ),
+  );
+  if (!initialized) {
+    return;
+  }
+
+  final locamusic = await ref.watch(
+    locamusicDocumentProvider(documentId).future,
+  );
+
+  // updatedAt は FieldValue.serverTimestamp なので一旦nullになるがすぐに更新される
+  // ここでは updatedAt がnullかどうかは関係ないので無視する
+  // 無視しないとAnnotationの描画がチラつく
+  if (locamusic.createdAt == null || locamusic.updatedAt == null) {
+    return;
+  }
+
+  // カメラ位置を調整
+  await ref.read(
+    mapSetAnnotationRegionProvider(
+      locamusic: (
+        documentId: documentId,
+        locamusic: locamusic,
+      ),
+      mapViewType: MapViewType.locamusicDetailPage,
+    ).future,
+  );
 }

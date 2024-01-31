@@ -24,58 +24,24 @@ class MapPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locamusics =
-        ref.watch(locamusicDocumentsProvider).asData?.value ?? [];
-
-    final didFinishMapViewType = ref
-        .watch(
-          mapPageMapViewMapViewDidFinishLoadingMapProvider(
-            whereViewType: MapViewType.mapPage,
-          ),
-        )
-        .asData
-        ?.value;
-
-    final didInitialShowAnnotations = useState(false);
-
-    useEffect(
-      () {
-        // MapViewの初期化待ち
-        if (didFinishMapViewType == null) {
-          return null;
-        }
-
-        Future(
-          () async {
-            // Locamusicがある場合はAnnotationを描画
-            await ref.read(
-              mapDrawAnnotationsProvider(
-                locamusics: locamusics,
-                mapViewType: MapViewType.mapPage,
-              ).future,
-            );
-
-            // 初回のみAnnotationの場所にカメラを移動
-            if (!didInitialShowAnnotations.value) {
-              await ref.read(mapPageMapViewProvider).showAnnotations();
-              didInitialShowAnnotations.value = true;
-            }
-          },
-        );
-
-        return null;
-      },
-      [
-        didFinishMapViewType,
-        locamusics,
-        didInitialShowAnnotations,
-      ],
-    );
+    final initialShowAnnotations = useState(false);
 
     ref
       ..listen(
+        mapPageInitializeProvider,
+        (_, __) async {
+          logger.d('on mapPageInitializeProvider');
+
+          // 初回のみAnnotationの場所にカメラを移動
+          if (!initialShowAnnotations.value) {
+            await ref.read(mapPageMapViewProvider).showAnnotations();
+            initialShowAnnotations.value = true;
+          }
+        },
+      )
+      ..listen(
         // マップを長押しした場合の処理
-        mapPageMapViewOnLongPressedMapProvider(
+        mapViewOnLongPressedMapProvider(
           whereViewType: MapViewType.mapPage,
         ),
         (_, next) async {
@@ -124,7 +90,7 @@ class MapPage extends HookConsumerWidget {
       )
       ..listen(
         // Circleをタップした場合の処理
-        mapPageMapViewOnTapCircleProvider(
+        mapViewOnTapCircleProvider(
           whereViewType: MapViewType.mapPage,
         ),
         (_, next) async {

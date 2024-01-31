@@ -91,7 +91,7 @@ final musicKitProvider = AutoDisposeProvider<MusicKit>.internal(
 
 typedef MusicKitRef = AutoDisposeProviderRef<MusicKit>;
 String _$musicKitCurrentPermissionStatusHash() =>
-    r'ca6c37446c5f039051e2ce0c12e44587b50d5d49';
+    r'cae32fff57d1c66eb67abd5f58174ff5763d5409';
 
 /// See also [musicKitCurrentPermissionStatus].
 @ProviderFor(musicKitCurrentPermissionStatus)

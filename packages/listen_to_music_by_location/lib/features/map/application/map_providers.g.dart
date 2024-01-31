@@ -178,7 +178,7 @@ class _MapDrawAnnotationsProviderElement
 }
 
 String _$mapSetAnnotationRegionHash() =>
-    r'64fd1989cd926e0571f9a328e7f3fb5224fa26f9';
+    r'042d5a58ba57d455c9ddb37edb6c7975bf34bea7';
 
 /// Annotationを描画してカメラをズームする
 ///
@@ -189,7 +189,7 @@ const mapSetAnnotationRegionProvider = MapSetAnnotationRegionFamily();
 /// Annotationを描画してカメラをズームする
 ///
 /// Copied from [mapSetAnnotationRegion].
-class MapSetAnnotationRegionFamily extends Family<void> {
+class MapSetAnnotationRegionFamily extends Family<AsyncValue<void>> {
   /// Annotationを描画してカメラをズームする
   ///
   /// Copied from [mapSetAnnotationRegion].
@@ -236,7 +236,7 @@ class MapSetAnnotationRegionFamily extends Family<void> {
 /// Annotationを描画してカメラをズームする
 ///
 /// Copied from [mapSetAnnotationRegion].
-class MapSetAnnotationRegionProvider extends AutoDisposeProvider<void> {
+class MapSetAnnotationRegionProvider extends AutoDisposeFutureProvider<void> {
   /// Annotationを描画してカメラをズームする
   ///
   /// Copied from [mapSetAnnotationRegion].
@@ -278,7 +278,7 @@ class MapSetAnnotationRegionProvider extends AutoDisposeProvider<void> {
 
   @override
   Override overrideWith(
-    void Function(MapSetAnnotationRegionRef provider) create,
+    FutureOr<void> Function(MapSetAnnotationRegionRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -296,7 +296,7 @@ class MapSetAnnotationRegionProvider extends AutoDisposeProvider<void> {
   }
 
   @override
-  AutoDisposeProviderElement<void> createElement() {
+  AutoDisposeFutureProviderElement<void> createElement() {
     return _MapSetAnnotationRegionProviderElement(this);
   }
 
@@ -317,7 +317,7 @@ class MapSetAnnotationRegionProvider extends AutoDisposeProvider<void> {
   }
 }
 
-mixin MapSetAnnotationRegionRef on AutoDisposeProviderRef<void> {
+mixin MapSetAnnotationRegionRef on AutoDisposeFutureProviderRef<void> {
   /// The parameter `locamusic` of this provider.
   ({String documentId, Locamusic locamusic}) get locamusic;
 
@@ -326,7 +326,8 @@ mixin MapSetAnnotationRegionRef on AutoDisposeProviderRef<void> {
 }
 
 class _MapSetAnnotationRegionProviderElement
-    extends AutoDisposeProviderElement<void> with MapSetAnnotationRegionRef {
+    extends AutoDisposeFutureProviderElement<void>
+    with MapSetAnnotationRegionRef {
   _MapSetAnnotationRegionProviderElement(super.provider);
 
   @override
@@ -335,6 +336,171 @@ class _MapSetAnnotationRegionProviderElement
   @override
   MapViewType get mapViewType =>
       (origin as MapSetAnnotationRegionProvider).mapViewType;
+}
+
+String _$mapPageInitializeHash() => r'8657c651b5b386cd87505c7cf77a7ec9a15f8e53';
+
+/// [MapPage] のMapの初期化
+///
+/// Copied from [mapPageInitialize].
+@ProviderFor(mapPageInitialize)
+final mapPageInitializeProvider = AutoDisposeFutureProvider<void>.internal(
+  mapPageInitialize,
+  name: r'mapPageInitializeProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$mapPageInitializeHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef MapPageInitializeRef = AutoDisposeFutureProviderRef<void>;
+String _$mapLocamusicDetailPageInitializeHash() =>
+    r'812b2a9b41f7fc915135a9f4ed55c2431340e326';
+
+/// [LocamusicDetailPage] のMapの初期化
+///
+/// Copied from [mapLocamusicDetailPageInitialize].
+@ProviderFor(mapLocamusicDetailPageInitialize)
+const mapLocamusicDetailPageInitializeProvider =
+    MapLocamusicDetailPageInitializeFamily();
+
+/// [LocamusicDetailPage] のMapの初期化
+///
+/// Copied from [mapLocamusicDetailPageInitialize].
+class MapLocamusicDetailPageInitializeFamily extends Family<AsyncValue<void>> {
+  /// [LocamusicDetailPage] のMapの初期化
+  ///
+  /// Copied from [mapLocamusicDetailPageInitialize].
+  const MapLocamusicDetailPageInitializeFamily();
+
+  /// [LocamusicDetailPage] のMapの初期化
+  ///
+  /// Copied from [mapLocamusicDetailPageInitialize].
+  MapLocamusicDetailPageInitializeProvider call(
+    String documentId,
+  ) {
+    return MapLocamusicDetailPageInitializeProvider(
+      documentId,
+    );
+  }
+
+  @override
+  MapLocamusicDetailPageInitializeProvider getProviderOverride(
+    covariant MapLocamusicDetailPageInitializeProvider provider,
+  ) {
+    return call(
+      provider.documentId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'mapLocamusicDetailPageInitializeProvider';
+}
+
+/// [LocamusicDetailPage] のMapの初期化
+///
+/// Copied from [mapLocamusicDetailPageInitialize].
+class MapLocamusicDetailPageInitializeProvider
+    extends AutoDisposeFutureProvider<void> {
+  /// [LocamusicDetailPage] のMapの初期化
+  ///
+  /// Copied from [mapLocamusicDetailPageInitialize].
+  MapLocamusicDetailPageInitializeProvider(
+    String documentId,
+  ) : this._internal(
+          (ref) => mapLocamusicDetailPageInitialize(
+            ref as MapLocamusicDetailPageInitializeRef,
+            documentId,
+          ),
+          from: mapLocamusicDetailPageInitializeProvider,
+          name: r'mapLocamusicDetailPageInitializeProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$mapLocamusicDetailPageInitializeHash,
+          dependencies: MapLocamusicDetailPageInitializeFamily._dependencies,
+          allTransitiveDependencies:
+              MapLocamusicDetailPageInitializeFamily._allTransitiveDependencies,
+          documentId: documentId,
+        );
+
+  MapLocamusicDetailPageInitializeProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.documentId,
+  }) : super.internal();
+
+  final String documentId;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(MapLocamusicDetailPageInitializeRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: MapLocamusicDetailPageInitializeProvider._internal(
+        (ref) => create(ref as MapLocamusicDetailPageInitializeRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        documentId: documentId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _MapLocamusicDetailPageInitializeProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is MapLocamusicDetailPageInitializeProvider &&
+        other.documentId == documentId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, documentId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin MapLocamusicDetailPageInitializeRef
+    on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `documentId` of this provider.
+  String get documentId;
+}
+
+class _MapLocamusicDetailPageInitializeProviderElement
+    extends AutoDisposeFutureProviderElement<void>
+    with MapLocamusicDetailPageInitializeRef {
+  _MapLocamusicDetailPageInitializeProviderElement(super.provider);
+
+  @override
+  String get documentId =>
+      (origin as MapLocamusicDetailPageInitializeProvider).documentId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
