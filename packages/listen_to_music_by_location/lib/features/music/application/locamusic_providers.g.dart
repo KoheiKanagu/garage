@@ -785,7 +785,7 @@ class _LocamusicDeleteProviderElement
 }
 
 String _$locamusicRegionRegisterHash() =>
-    r'af41f244703c18e710bce023239687ff6b71dc1d';
+    r'59f22ef6f6612def545fa45d952774bd87f8ba22';
 
 /// Locamusicのドキュメントの変更を監視し、Regionを登録する
 ///

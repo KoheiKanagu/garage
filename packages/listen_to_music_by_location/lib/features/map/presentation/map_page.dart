@@ -24,13 +24,31 @@ class MapPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final initialized = useState(false);
     final initialShowAnnotations = useState(false);
 
-    ref
-      ..listen(
-        mapPageInitializeProvider,
+    useEffect(
+      () {
+        Future(
+          () async {
+            // MapViewの初期化待ち
+            await ref.read(mapViewDidFinishLoadingMapProvider).firstWhere(
+                  (element) => element == MapViewType.mapPage,
+                );
+            initialized.value = true;
+          },
+        );
+        return null;
+      },
+      [context],
+    );
+
+    // Mapの初期化が完了次第、Annotationを描画
+    if (initialized.value) {
+      ref.listen(
+        mapPageHandlerProvider,
         (_, __) async {
-          logger.d('on mapPageInitializeProvider');
+          logger.d('on mapPageHandlerProvider');
 
           // 初回のみAnnotationの場所にカメラを移動
           if (!initialShowAnnotations.value) {
@@ -38,7 +56,10 @@ class MapPage extends HookConsumerWidget {
             initialShowAnnotations.value = true;
           }
         },
-      )
+      );
+    }
+
+    ref
       ..listen(
         // マップを長押しした場合の処理
         mapViewOnLongPressedMapProvider(

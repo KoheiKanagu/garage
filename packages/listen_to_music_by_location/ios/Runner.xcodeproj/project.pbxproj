@@ -14,7 +14,7 @@
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		7D2236DF2B47CD4E008A379D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D2236DD2B47CD4E008A379D /* MainInterface.storyboard */; };
 		7D2E3D142B3CF56D00BFA823 /* MyMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2E3D132B3CF56D00BFA823 /* MyMapView.swift */; };
-		7D621DAE2B5A434B00BB0E78 /* MapPageMapHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D621DAD2B5A434B00BB0E78 /* MapPageMapHostApiImpl.swift */; };
+		7D621DAE2B5A434B00BB0E78 /* MapPageMapViewImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D621DAD2B5A434B00BB0E78 /* MapPageMapViewImpl.swift */; };
 		7D621DB02B5A443A00BB0E78 /* LocamusicDetailPageMapViewImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D621DAF2B5A443A00BB0E78 /* LocamusicDetailPageMapViewImpl.swift */; };
 		7D6ED1AD2B6239BF0046480C /* OpenSettingsImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6ED1AC2B6239BF0046480C /* OpenSettingsImpl.swift */; };
 		7DA113D22B3DAE47004F5048 /* Messages.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA113D12B3DAE47004F5048 /* Messages.g.swift */; };
@@ -97,7 +97,7 @@
 		7D2E3D132B3CF56D00BFA823 /* MyMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMapView.swift; sourceTree = "<group>"; };
 		7D2F84BF2B45BDD30066D69D /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		7D3CD1CB2AF930C50093A03A /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
-		7D621DAD2B5A434B00BB0E78 /* MapPageMapHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPageMapHostApiImpl.swift; sourceTree = "<group>"; };
+		7D621DAD2B5A434B00BB0E78 /* MapPageMapViewImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPageMapViewImpl.swift; sourceTree = "<group>"; };
 		7D621DAF2B5A443A00BB0E78 /* LocamusicDetailPageMapViewImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocamusicDetailPageMapViewImpl.swift; sourceTree = "<group>"; };
 		7D6AEE702B06E891009A9944 /* Release-prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Release-prod.xcconfig"; path = "Flutter/Release-prod.xcconfig"; sourceTree = "<group>"; };
 		7D6AEE712B06E891009A9944 /* Release-dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Release-dev.xcconfig"; path = "Flutter/Release-dev.xcconfig"; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 				7DF8A06B2B46E96800C482C3 /* Info.plist */,
 				7DF8A06F2B46EB6C00C482C3 /* InfoPlist.xcstrings */,
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
-				7D621DAD2B5A434B00BB0E78 /* MapPageMapHostApiImpl.swift */,
+				7D621DAD2B5A434B00BB0E78 /* MapPageMapViewImpl.swift */,
 				7D621DAF2B5A443A00BB0E78 /* LocamusicDetailPageMapViewImpl.swift */,
 				7DA113D12B3DAE47004F5048 /* Messages.g.swift */,
 				7DA113D32B3DB661004F5048 /* Error.swift */,
@@ -572,7 +572,7 @@
 				7DD384FE2B495AC6000B69FC /* LocationManagerImpl.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				7D2E3D142B3CF56D00BFA823 /* MyMapView.swift in Sources */,
-				7D621DAE2B5A434B00BB0E78 /* MapPageMapHostApiImpl.swift in Sources */,
+				7D621DAE2B5A434B00BB0E78 /* MapPageMapViewImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

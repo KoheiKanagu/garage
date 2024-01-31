@@ -9,7 +9,7 @@ part of 'map_providers.dart';
 // **************************************************************************
 
 String _$mapDrawAnnotationsHash() =>
-    r'eb58701df5449735234f5978786940ea043159ef';
+    r'4066b6415fe55e9e29704ce40aac68fb6fe6d612';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -178,7 +178,7 @@ class _MapDrawAnnotationsProviderElement
 }
 
 String _$mapSetAnnotationRegionHash() =>
-    r'042d5a58ba57d455c9ddb37edb6c7975bf34bea7';
+    r'32d19fd3fea92dace11dff6ec529b4d22c48ff72';
 
 /// Annotationを描画してカメラをズームする
 ///
@@ -338,56 +338,56 @@ class _MapSetAnnotationRegionProviderElement
       (origin as MapSetAnnotationRegionProvider).mapViewType;
 }
 
-String _$mapPageInitializeHash() => r'8657c651b5b386cd87505c7cf77a7ec9a15f8e53';
+String _$mapPageHandlerHash() => r'bb70a02eba2a2994569e0753229f10031d7d734a';
 
-/// [MapPage] のMapの初期化
+/// [MapPage] のMapViewのハンドリング
 ///
-/// Copied from [mapPageInitialize].
-@ProviderFor(mapPageInitialize)
-final mapPageInitializeProvider = AutoDisposeFutureProvider<void>.internal(
-  mapPageInitialize,
-  name: r'mapPageInitializeProvider',
+/// Copied from [mapPageHandler].
+@ProviderFor(mapPageHandler)
+final mapPageHandlerProvider = AutoDisposeFutureProvider<void>.internal(
+  mapPageHandler,
+  name: r'mapPageHandlerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$mapPageInitializeHash,
+      : _$mapPageHandlerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef MapPageInitializeRef = AutoDisposeFutureProviderRef<void>;
-String _$mapLocamusicDetailPageInitializeHash() =>
-    r'812b2a9b41f7fc915135a9f4ed55c2431340e326';
+typedef MapPageHandlerRef = AutoDisposeFutureProviderRef<void>;
+String _$mapLocamusicDetailPageHandlerHash() =>
+    r'fa1974aab6624005f05b2df60f8a70e0bac5000c';
 
-/// [LocamusicDetailPage] のMapの初期化
+/// [LocamusicDetailPage] のMapViewのハンドリング
 ///
-/// Copied from [mapLocamusicDetailPageInitialize].
-@ProviderFor(mapLocamusicDetailPageInitialize)
-const mapLocamusicDetailPageInitializeProvider =
-    MapLocamusicDetailPageInitializeFamily();
+/// Copied from [mapLocamusicDetailPageHandler].
+@ProviderFor(mapLocamusicDetailPageHandler)
+const mapLocamusicDetailPageHandlerProvider =
+    MapLocamusicDetailPageHandlerFamily();
 
-/// [LocamusicDetailPage] のMapの初期化
+/// [LocamusicDetailPage] のMapViewのハンドリング
 ///
-/// Copied from [mapLocamusicDetailPageInitialize].
-class MapLocamusicDetailPageInitializeFamily extends Family<AsyncValue<void>> {
-  /// [LocamusicDetailPage] のMapの初期化
+/// Copied from [mapLocamusicDetailPageHandler].
+class MapLocamusicDetailPageHandlerFamily extends Family<AsyncValue<void>> {
+  /// [LocamusicDetailPage] のMapViewのハンドリング
   ///
-  /// Copied from [mapLocamusicDetailPageInitialize].
-  const MapLocamusicDetailPageInitializeFamily();
+  /// Copied from [mapLocamusicDetailPageHandler].
+  const MapLocamusicDetailPageHandlerFamily();
 
-  /// [LocamusicDetailPage] のMapの初期化
+  /// [LocamusicDetailPage] のMapViewのハンドリング
   ///
-  /// Copied from [mapLocamusicDetailPageInitialize].
-  MapLocamusicDetailPageInitializeProvider call(
+  /// Copied from [mapLocamusicDetailPageHandler].
+  MapLocamusicDetailPageHandlerProvider call(
     String documentId,
   ) {
-    return MapLocamusicDetailPageInitializeProvider(
+    return MapLocamusicDetailPageHandlerProvider(
       documentId,
     );
   }
 
   @override
-  MapLocamusicDetailPageInitializeProvider getProviderOverride(
-    covariant MapLocamusicDetailPageInitializeProvider provider,
+  MapLocamusicDetailPageHandlerProvider getProviderOverride(
+    covariant MapLocamusicDetailPageHandlerProvider provider,
   ) {
     return call(
       provider.documentId,
@@ -406,37 +406,37 @@ class MapLocamusicDetailPageInitializeFamily extends Family<AsyncValue<void>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'mapLocamusicDetailPageInitializeProvider';
+  String? get name => r'mapLocamusicDetailPageHandlerProvider';
 }
 
-/// [LocamusicDetailPage] のMapの初期化
+/// [LocamusicDetailPage] のMapViewのハンドリング
 ///
-/// Copied from [mapLocamusicDetailPageInitialize].
-class MapLocamusicDetailPageInitializeProvider
+/// Copied from [mapLocamusicDetailPageHandler].
+class MapLocamusicDetailPageHandlerProvider
     extends AutoDisposeFutureProvider<void> {
-  /// [LocamusicDetailPage] のMapの初期化
+  /// [LocamusicDetailPage] のMapViewのハンドリング
   ///
-  /// Copied from [mapLocamusicDetailPageInitialize].
-  MapLocamusicDetailPageInitializeProvider(
+  /// Copied from [mapLocamusicDetailPageHandler].
+  MapLocamusicDetailPageHandlerProvider(
     String documentId,
   ) : this._internal(
-          (ref) => mapLocamusicDetailPageInitialize(
-            ref as MapLocamusicDetailPageInitializeRef,
+          (ref) => mapLocamusicDetailPageHandler(
+            ref as MapLocamusicDetailPageHandlerRef,
             documentId,
           ),
-          from: mapLocamusicDetailPageInitializeProvider,
-          name: r'mapLocamusicDetailPageInitializeProvider',
+          from: mapLocamusicDetailPageHandlerProvider,
+          name: r'mapLocamusicDetailPageHandlerProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$mapLocamusicDetailPageInitializeHash,
-          dependencies: MapLocamusicDetailPageInitializeFamily._dependencies,
+                  : _$mapLocamusicDetailPageHandlerHash,
+          dependencies: MapLocamusicDetailPageHandlerFamily._dependencies,
           allTransitiveDependencies:
-              MapLocamusicDetailPageInitializeFamily._allTransitiveDependencies,
+              MapLocamusicDetailPageHandlerFamily._allTransitiveDependencies,
           documentId: documentId,
         );
 
-  MapLocamusicDetailPageInitializeProvider._internal(
+  MapLocamusicDetailPageHandlerProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -450,13 +450,12 @@ class MapLocamusicDetailPageInitializeProvider
 
   @override
   Override overrideWith(
-    FutureOr<void> Function(MapLocamusicDetailPageInitializeRef provider)
-        create,
+    FutureOr<void> Function(MapLocamusicDetailPageHandlerRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: MapLocamusicDetailPageInitializeProvider._internal(
-        (ref) => create(ref as MapLocamusicDetailPageInitializeRef),
+      override: MapLocamusicDetailPageHandlerProvider._internal(
+        (ref) => create(ref as MapLocamusicDetailPageHandlerRef),
         from: from,
         name: null,
         dependencies: null,
@@ -469,12 +468,12 @@ class MapLocamusicDetailPageInitializeProvider
 
   @override
   AutoDisposeFutureProviderElement<void> createElement() {
-    return _MapLocamusicDetailPageInitializeProviderElement(this);
+    return _MapLocamusicDetailPageHandlerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is MapLocamusicDetailPageInitializeProvider &&
+    return other is MapLocamusicDetailPageHandlerProvider &&
         other.documentId == documentId;
   }
 
@@ -487,20 +486,19 @@ class MapLocamusicDetailPageInitializeProvider
   }
 }
 
-mixin MapLocamusicDetailPageInitializeRef
-    on AutoDisposeFutureProviderRef<void> {
+mixin MapLocamusicDetailPageHandlerRef on AutoDisposeFutureProviderRef<void> {
   /// The parameter `documentId` of this provider.
   String get documentId;
 }
 
-class _MapLocamusicDetailPageInitializeProviderElement
+class _MapLocamusicDetailPageHandlerProviderElement
     extends AutoDisposeFutureProviderElement<void>
-    with MapLocamusicDetailPageInitializeRef {
-  _MapLocamusicDetailPageInitializeProviderElement(super.provider);
+    with MapLocamusicDetailPageHandlerRef {
+  _MapLocamusicDetailPageHandlerProviderElement(super.provider);
 
   @override
   String get documentId =>
-      (origin as MapLocamusicDetailPageInitializeProvider).documentId;
+      (origin as MapLocamusicDetailPageHandlerProvider).documentId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

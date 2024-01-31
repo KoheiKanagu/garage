@@ -324,12 +324,16 @@ class _MapViewOnTapCircleProviderElement
 }
 
 String _$mapViewDidFinishLoadingMapHash() =>
-    r'527155ef8dbc5ba776a9f5bc9c38c745a8ec0395';
+    r'2d16271604a7524a5e43c0bd358b9045c281e429';
 
-/// See also [mapViewDidFinishLoadingMap].
+/// MapViewのタイルが読み込まれるたびに呼ばれる
+///
+/// Providerだと値をキャッシュしてしまうので、RawでStreamを直接使えるようにしている
+///
+/// Copied from [mapViewDidFinishLoadingMap].
 @ProviderFor(mapViewDidFinishLoadingMap)
 final mapViewDidFinishLoadingMapProvider =
-    AutoDisposeStreamProvider<MapViewType>.internal(
+    AutoDisposeProvider<Raw<Stream<MapViewType>>>.internal(
   mapViewDidFinishLoadingMap,
   name: r'mapViewDidFinishLoadingMapProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -340,6 +344,6 @@ final mapViewDidFinishLoadingMapProvider =
 );
 
 typedef MapViewDidFinishLoadingMapRef
-    = AutoDisposeStreamProviderRef<MapViewType>;
+    = AutoDisposeProviderRef<Raw<Stream<MapViewType>>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -2,7 +2,6 @@ import 'package:listen_to_music_by_location/features/map/presentation/map_page.d
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/domain/locamusic.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/locamusic_detail_page.dart';
-import 'package:listen_to_music_by_location/features/native/application/map_view_delegate.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
@@ -95,7 +94,7 @@ Future<void> mapSetAnnotationRegion(
   required LocamusicWithDocumentId locamusic,
   required MapViewType mapViewType,
 }) async {
-  await ref.watch(
+  await ref.read(
     mapDrawAnnotationsProvider(
       locamusics: [locamusic].toList(),
       mapViewType: mapViewType,
@@ -104,14 +103,14 @@ Future<void> mapSetAnnotationRegion(
 
   switch (mapViewType) {
     case MapViewType.mapPage:
-      await ref.watch(mapPageMapViewProvider).setMapRegion(
+      await ref.read(mapPageMapViewProvider).setMapRegion(
             latitude: locamusic.locamusic.geoPoint.latitude,
             longitude: locamusic.locamusic.geoPoint.longitude,
             // MKCircleが十分に表示されるように描画範囲を広げる
             meters: locamusic.locamusic.distance * 2.5,
           );
     case MapViewType.locamusicDetailPage:
-      await ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
+      await ref.read(locamusicDetailPageMapViewProvider).setMapRegion(
             latitude: locamusic.locamusic.geoPoint.latitude,
             longitude: locamusic.locamusic.geoPoint.longitude,
             // MKCircleが十分に表示されるように描画範囲を広げる
@@ -120,21 +119,11 @@ Future<void> mapSetAnnotationRegion(
   }
 }
 
-/// [MapPage] のMapの初期化
+/// [MapPage] のMapViewのハンドリング
 @riverpod
-Future<void> mapPageInitialize(
-  MapPageInitializeRef ref,
+Future<void> mapPageHandler(
+  MapPageHandlerRef ref,
 ) async {
-  // MapViewの初期化待ち
-  final initialized = await ref.watch(
-    mapViewDidFinishLoadingMapProvider.selectAsync(
-      (data) => data == MapViewType.mapPage,
-    ),
-  );
-  if (!initialized) {
-    return;
-  }
-
   final locamusics = await ref.watch(locamusicDocumentsProvider.future);
 
   // FieldValue.serverTimestamp なので一旦nullになるがすぐに更新されるため、
@@ -157,22 +146,12 @@ Future<void> mapPageInitialize(
   );
 }
 
-/// [LocamusicDetailPage] のMapの初期化
+/// [LocamusicDetailPage] のMapViewのハンドリング
 @riverpod
-Future<void> mapLocamusicDetailPageInitialize(
-  MapLocamusicDetailPageInitializeRef ref,
+Future<void> mapLocamusicDetailPageHandler(
+  MapLocamusicDetailPageHandlerRef ref,
   String documentId,
 ) async {
-  // MapViewの初期化待ち
-  final initialized = await ref.watch(
-    mapViewDidFinishLoadingMapProvider.selectAsync(
-      (data) => data == MapViewType.locamusicDetailPage,
-    ),
-  );
-  if (!initialized) {
-    return;
-  }
-
   final locamusic = await ref.watch(
     locamusicDocumentProvider(documentId).future,
   );

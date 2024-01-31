@@ -2,6 +2,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/map/application/map_providers.dart';
@@ -9,6 +10,7 @@ import 'package:listen_to_music_by_location/features/music/application/locamusic
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/distance_range_segmented_control.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/locamusic_detail_page_header.dart';
+import 'package:listen_to_music_by_location/features/native/application/map_view_delegate.dart';
 import 'package:listen_to_music_by_location/features/native/presentation/map_view.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
@@ -23,10 +25,31 @@ class LocamusicDetailPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(
-      mapLocamusicDetailPageInitializeProvider(documentId).future,
-      (_, __) => logger.d('on mapLocamusicDetailPageInitializeProvider'),
+    final initialized = useState(false);
+
+    useEffect(
+      () {
+        Future(
+          () async {
+            // MapViewの初期化待ち
+            await ref.read(mapViewDidFinishLoadingMapProvider).firstWhere(
+                  (element) => element == MapViewType.locamusicDetailPage,
+                );
+            initialized.value = true;
+          },
+        );
+        return null;
+      },
+      [context],
     );
+
+    // Mapの初期化が完了次第、Annotationの描画とカメラの移動
+    if (initialized.value) {
+      ref.listen(
+        mapLocamusicDetailPageHandlerProvider(documentId),
+        (_, __) => logger.d('on mapLocamusicDetailPageHandlerProvider'),
+      );
+    }
 
     return ref
         .watch(

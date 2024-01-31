@@ -105,8 +105,11 @@ Stream<
           (event) => event.viewType == whereViewType,
         );
 
+/// MapViewのタイルが読み込まれるたびに呼ばれる
+///
+/// Providerだと値をキャッシュしてしまうので、RawでStreamを直接使えるようにしている
 @riverpod
-Stream<MapViewType> mapViewDidFinishLoadingMap(
+Raw<Stream<MapViewType>> mapViewDidFinishLoadingMap(
   MapViewDidFinishLoadingMapRef ref,
 ) =>
     ref.watch(_mapViewDelegateProvider).mapViewDidFinishLoadingMapStream.stream;
