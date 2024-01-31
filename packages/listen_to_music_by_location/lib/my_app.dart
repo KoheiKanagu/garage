@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/native/application/location_manager_delegate.dart';
+import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
 import 'package:listen_to_music_by_location/routing/my_go_router.dart';
 
@@ -20,10 +21,12 @@ class MyApp extends HookConsumerWidget {
       (_, next) async {
         final (:region, :state) = await next;
 
-        logger.i(
-          // ignore: lines_longer_than_80_chars
-          'on locationManagerDidDetermineStateProvider region: ${region.encode()}, state: $state',
-        );
+        if (state == RegionState.inside) {
+          logger.i(
+            // ignore: lines_longer_than_80_chars
+            'on inside locationManagerDidDetermineStateProvider region: ${region.encode()}, state: $state',
+          );
+        }
       },
     );
 
