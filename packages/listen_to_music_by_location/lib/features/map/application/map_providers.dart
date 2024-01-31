@@ -17,25 +17,33 @@ Future<void> mapDrawAnnotations(
   required MapViewType mapViewType,
 }) async {
   // 既存のAnnotationを削除
-  final annotations = await ref.read(mapPageMapViewProvider).getAnnotations();
-  await Future.wait(
-    switch (mapViewType) {
-      MapViewType.mapPage => [
-          ref.read(mapPageMapViewProvider).removeAnnotations(annotations),
-          ref
-              .read(mapPageMapViewProvider)
-              .removeAnnotationOverlays(annotations),
-        ],
-      MapViewType.locamusicDetailPage => [
-          ref
-              .watch(locamusicDetailPageMapViewProvider)
-              .removeAnnotations(annotations),
-          ref
-              .watch(locamusicDetailPageMapViewProvider)
-              .removeAnnotationOverlays(annotations),
-        ],
-    },
-  );
+  await switch (mapViewType) {
+    MapViewType.mapPage => Future.wait(
+        await ref.read(mapPageMapViewProvider).getAnnotations().then(
+              (value) => [
+                ref.read(mapPageMapViewProvider).removeAnnotations(value),
+                ref
+                    .read(mapPageMapViewProvider)
+                    .removeAnnotationOverlays(value),
+              ],
+            ),
+      ),
+    MapViewType.locamusicDetailPage => Future.wait(
+        await ref
+            .read(locamusicDetailPageMapViewProvider)
+            .getAnnotations()
+            .then(
+              (value) => [
+                ref
+                    .watch(locamusicDetailPageMapViewProvider)
+                    .removeAnnotations(value),
+                ref
+                    .watch(locamusicDetailPageMapViewProvider)
+                    .removeAnnotationOverlays(value),
+              ],
+            ),
+      ),
+  };
 
   // Annotationを追加
   // 曲が設定されている場合は曲情報を取得してタイトルに設定
