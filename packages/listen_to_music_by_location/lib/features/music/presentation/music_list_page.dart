@@ -57,24 +57,18 @@ class MusicListPage extends HookConsumerWidget {
                       );
                     }
 
-                    return ref
+                    final details = ref
                         .watch(
                           locamusicSongDetailsProvider(musicId),
                         )
-                        .maybeWhen(
-                          // 読み込み中の場合は...を表示
-                          orElse: () => MusicListTile(
-                            title: '...',
-                            artworkUrl: null,
-                            onTap: onTap,
-                          ),
-                          // データ取得できたらタイトルを表示
-                          data: (data) => MusicListTile(
-                            title: data.title,
-                            artworkUrl: data.artworkUrl,
-                            onTap: onTap,
-                          ),
-                        );
+                        .asData
+                        ?.value;
+
+                    return MusicListTile(
+                      title: details?.title,
+                      artworkUrl: details?.artworkUrl,
+                      onTap: onTap,
+                    );
                   },
                 ).toList(),
               ),

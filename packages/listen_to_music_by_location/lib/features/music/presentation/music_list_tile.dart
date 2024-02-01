@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_artwork_widget.dart';
 
 class MusicListTile extends StatelessWidget {
@@ -9,7 +10,7 @@ class MusicListTile extends StatelessWidget {
     super.key,
   });
 
-  final String title;
+  final String? title;
 
   final String? artworkUrl;
 
@@ -22,16 +23,20 @@ class MusicListTile extends StatelessWidget {
         vertical: 8,
       ),
       child: CupertinoListTile(
-        title: Text(
-          title,
-          maxLines: 3,
-        ),
-        trailing: const CupertinoListTileChevron(),
+        title: title == null
+            ? const Center(
+                child: CircularProgressIndicator.adaptive(),
+              )
+            : Text(
+                title!,
+                maxLines: 3,
+              ),
+        trailing: title == null ? null : const CupertinoListTileChevron(),
         leadingSize: MusicArtworkWidget.kDefaultSize,
         leading: MusicArtworkWidget(
           artworkUrl: artworkUrl,
         ),
-        onTap: onTap,
+        onTap: title == null ? null : onTap,
       ),
     );
   }
