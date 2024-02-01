@@ -5,6 +5,7 @@ import 'package:listen_to_music_by_location/constants/collection_path.dart';
 import 'package:listen_to_music_by_location/exceptions/locamusic_creation_limit_exception.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/music/domain/locamusic.dart';
+import 'package:listen_to_music_by_location/features/native/application/location_manager_delegate.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -139,8 +140,8 @@ Future<void> locamusicDelete(
 
 /// Locamusicのドキュメントの変更を監視し、Regionを登録する
 @riverpod
-Future<void> locamusicRegionRegister(
-  LocamusicRegionRegisterRef ref,
+Future<void> locamusicRegionHandler(
+  LocamusicRegionHandlerRef ref,
 ) async {
   final docs = await ref.watch(locamusicDocumentsProvider.future);
 
@@ -192,4 +193,39 @@ Future<void> locamusicRegionRegister(
       ref.watch(locationManagerProvider).startMonitoring,
     ),
   );
+}
+
+// ジオフェンスの状態を監視し、曲の再生を制御する
+@riverpod
+Future<void> locamusicHandler(
+  LocamusicHandlerRef ref,
+) async {
+  // ジオフェンスの状態
+  final (:region, :state) =
+      await ref.watch(locationManagerDidDetermineStateProvider.future);
+
+  // 領域に入った時
+  if (state == RegionState.inside) {
+    logger.info(
+      {
+        'state': state,
+        'region': region.encode(),
+      },
+    );
+
+    // identifierを使ってLocamusicのドキュメントを取得
+    final doc =
+        await ref.read(locamusicDocumentProvider(region.identifier).future);
+    if (doc.musicId != null) {
+      logger.info(
+        'play music: ${doc.musicId}',
+      );
+      // 曲を再生
+      await ref.read(musicKitProvider).play(doc.musicId!);
+    } else {
+      logger.info(
+        'musicId is null. skip play music.',
+      );
+    }
+  }
 }

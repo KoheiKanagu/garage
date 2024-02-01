@@ -43,7 +43,7 @@ final locamusicQueryProvider =
 
 typedef LocamusicQueryRef = AutoDisposeFutureProviderRef<Query<Locamusic>>;
 String _$locamusicDocumentsHash() =>
-    r'b3bf4e2c5dd7cbe58e38a4d8db1bc545baa1f53f';
+    r'aa0e6569dca856f586eec735d3f49bcc2815672a';
 
 /// See also [locamusicDocuments].
 @ProviderFor(locamusicDocuments)
@@ -341,7 +341,7 @@ class _LocamusicSongDetailsProviderElement
   String get musicId => (origin as LocamusicSongDetailsProvider).musicId;
 }
 
-String _$locamusicAddHash() => r'aeb6142296497d3de168292871dce3beac6558a4';
+String _$locamusicAddHash() => r'52e3066430e404a04e16662bbb0dce7bb94ea32c';
 
 /// [CollectionPath.kLocamusics]に[Locamusic]を追加する
 ///
@@ -784,24 +784,38 @@ class _LocamusicDeleteProviderElement
   String get documentId => (origin as LocamusicDeleteProvider).documentId;
 }
 
-String _$locamusicRegionRegisterHash() =>
-    r'59f22ef6f6612def545fa45d952774bd87f8ba22';
+String _$locamusicRegionHandlerHash() =>
+    r'ded1665fbcb459fcb8a247e7cc50b4f11afc164c';
 
 /// Locamusicのドキュメントの変更を監視し、Regionを登録する
 ///
-/// Copied from [locamusicRegionRegister].
-@ProviderFor(locamusicRegionRegister)
-final locamusicRegionRegisterProvider =
-    AutoDisposeFutureProvider<void>.internal(
-  locamusicRegionRegister,
-  name: r'locamusicRegionRegisterProvider',
+/// Copied from [locamusicRegionHandler].
+@ProviderFor(locamusicRegionHandler)
+final locamusicRegionHandlerProvider = AutoDisposeFutureProvider<void>.internal(
+  locamusicRegionHandler,
+  name: r'locamusicRegionHandlerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$locamusicRegionRegisterHash,
+      : _$locamusicRegionHandlerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef LocamusicRegionRegisterRef = AutoDisposeFutureProviderRef<void>;
+typedef LocamusicRegionHandlerRef = AutoDisposeFutureProviderRef<void>;
+String _$locamusicHandlerHash() => r'6c412eaf0f4312f67cd342533396a21fd0f5697d';
+
+/// See also [locamusicHandler].
+@ProviderFor(locamusicHandler)
+final locamusicHandlerProvider = AutoDisposeFutureProvider<void>.internal(
+  locamusicHandler,
+  name: r'locamusicHandlerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$locamusicHandlerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef LocamusicHandlerRef = AutoDisposeFutureProviderRef<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

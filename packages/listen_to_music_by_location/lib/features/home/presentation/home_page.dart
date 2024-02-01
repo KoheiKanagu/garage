@@ -16,10 +16,15 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(
-      locamusicRegionRegisterProvider,
-      (_, __) {},
-    );
+    ref
+      ..listen(
+        locamusicHandlerProvider,
+        (_, __) {},
+      )
+      ..listen(
+        locamusicRegionHandlerProvider,
+        (_, __) {},
+      );
 
     final permissionError =
         ref.watch(permissionRequestIsNeedProvider).asData?.value ?? false;
