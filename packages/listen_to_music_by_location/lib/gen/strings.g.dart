@@ -167,7 +167,7 @@ class _StringsLocamusicJa {
 	String get how_to_share_step_2 => '「曲を共有」をタップしてください';
 	String get how_to_share_step_3 => '「場所で音楽」をタップして共有します';
 	String get range_select_title => '音楽の再生を始める範囲';
-	String get range_notice => '設定した範囲に入ってから数十秒後に音楽が再生されるので、広めに設定することをオススメします';
+	String get range_notice => '設定した範囲に入ってから数十秒後に音楽が再生されるので、広めに設定することをオススメします。';
 }
 
 // Path: permission

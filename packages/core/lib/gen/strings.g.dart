@@ -160,8 +160,8 @@ class _StringsConfigureJa {
 	String get delete_complete => 'ユーザ情報を削除しました';
 	String get user_info => 'ユーザ情報';
 	String get link_account => 'アカウントを接続';
-	String get link_account_description => 'いずれかのアカウントを接続すると別のデバイスでも引き続きこれまでと同じデータが利用できます';
-	String get link_account_description2 => 'アカウントから取得した全ての情報はユーザ認証のためだけに使用され、他の目的に利用されることはありません';
+	String get link_account_description => 'いずれかのアカウントを接続すると別のデバイスでも引き続きこれまでと同じデータが利用できます。';
+	String get link_account_description2 => 'アカウントから取得した全ての情報はユーザ認証のためだけに使用され、他の目的に利用されることはありません。';
 	String get unlink_account => 'アカウントの接続を解除';
 	String get user_id => 'ユーザID';
 	String get user_id_description => 'ユーザIDは自動的に生成された一意の識別子です。あなたのデータを他のユーザーから区別するために使用されます';
