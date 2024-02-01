@@ -48,7 +48,7 @@ Stream<List<LocamusicWithDocumentId>> locamusicDocuments(
   LocamusicDocumentsRef ref,
 ) async* {
   final query = await ref.watch(locamusicQueryProvider.future);
-  logger.d('locamusicQueryProvider: ${query.parameters}');
+  logger.fine('locamusicQueryProvider: ${query.parameters}');
   yield* query.snapshots().map(
         (event) => event.docs
             .map(
@@ -152,15 +152,13 @@ Future<void> locamusicRegionRegister(
         element.locamusic.createdAt == null,
   );
   if (isUpdatedAtNull) {
-    logger.dProvider(
-      'locamusicRegionRegister',
+    logger.info(
       'any updatedAt is null. skip register region.',
     );
     return;
   }
 
-  logger.dProvider(
-    'locamusicRegionRegister',
+  logger.info(
     'updated locamusic ${docs.map((e) => e.documentId)}',
   );
 
@@ -168,8 +166,7 @@ Future<void> locamusicRegionRegister(
   final monitoredRegions =
       (await ref.watch(locationManagerProvider).monitoredRegions())
           .whereNotNull();
-  logger.dProvider(
-    'locamusicRegionRegister',
+  logger.info(
     'will stop regions ${monitoredRegions.map((e) => e.identifier)}',
   );
   await Future.wait(
@@ -187,8 +184,7 @@ Future<void> locamusicRegionRegister(
       radius: e.locamusic.distance,
     ),
   );
-  logger.dProvider(
-    'locamusicRegionRegister',
+  logger.info(
     'will start regions: ${regions.map((e) => e.identifier)}',
   );
   await Future.wait(

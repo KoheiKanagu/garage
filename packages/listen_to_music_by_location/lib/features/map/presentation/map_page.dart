@@ -48,7 +48,7 @@ class MapPage extends HookConsumerWidget {
       ref.listen(
         mapPageHandlerProvider,
         (_, __) async {
-          logger.d('on mapPageHandlerProvider');
+          logger.fine('on mapPageHandlerProvider');
 
           // 初回のみAnnotationの場所にカメラを移動
           if (!initialShowAnnotations.value) {

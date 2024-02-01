@@ -103,7 +103,7 @@ Future<ProviderContainer> _initialize() async {
       firebaseUserUidProvider,
       (_, next) async {
         final uid = next.value;
-        logger.i('listen firebaseUserUidProvider: $uid');
+        logger.info('listen firebaseUserUidProvider: $uid');
 
         await Future.wait(
           [

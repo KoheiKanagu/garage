@@ -49,9 +49,9 @@ dependencies:
   package_info_plus: ^5.0.1
   quick_actions: ^1.0.6
   riverpod_annotation: ^2.3.3
-  roggle: ^0.4.2+1
   share_plus: ^7.2.1
   shared_preferences: ^2.2.2
+  simple_logger: ^1.9.0+3
   slang: ^3.28.0
   slang_flutter: ^3.28.0
   smooth_page_indicator: ^1.1.0

@@ -50,6 +50,7 @@ export 'utils/failed_run_app.dart';
 export 'utils/geo_point_converter.dart';
 export 'utils/inherited_theme_detector.dart';
 export 'utils/media_query_preview.dart';
+export 'utils/my_logger.dart';
 export 'utils/my_navigator_observer.dart';
 export 'utils/provider_logger.dart';
 export 'utils/timestamp_converter.dart';

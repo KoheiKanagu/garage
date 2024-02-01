@@ -48,19 +48,15 @@ Raw<GoRouter> myGoRouter(MyGoRouterRef ref) {
       ...configure_route.$appRoutes,
     ],
     errorBuilder: (context, state) {
-      logger.e(
-        [
-          'router error',
-          'name: ${state.name}',
-          'fullPath: ${state.fullPath}',
-          'pathParameters: ${state.pathParameters}',
-          'queryParameters: ${state.uri.queryParameters}',
-          'location: ${state.uri}',
-          'queryParametersAll: ${state.uri.queryParametersAll}',
-        ],
-        error: state.error,
-        stackTrace: StackTrace.current,
-      );
+      logger.severe({
+        'error': state.error,
+        'name': state.name,
+        'fullPath': state.fullPath,
+        'pathParameters': state.pathParameters,
+        'queryParameters': state.uri.queryParameters,
+        'location': state.uri,
+        'queryParametersAll': state.uri.queryParametersAll,
+      });
 
       return const FailedRunApp();
     },

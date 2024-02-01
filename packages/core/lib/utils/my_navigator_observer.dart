@@ -39,19 +39,17 @@ class MyNavigatorObserver extends NavigatorObserver {
         '${previousRoute?.settings.name}: ${previousRoute?.settings.arguments}';
     final didPushString = didPush ? 'didPush' : 'didPop';
 
-    logger
-      ..d('route: $routeString')
-      ..d('route.settings.name: ${route.settings.name}')
-      ..d('route.settings.arguments: ${route.settings.arguments}');
-    firebaseCrashlytics.setCustomKey('route', routeString);
+    firebaseCrashlytics
+      ..setCustomKey('route', routeString)
+      ..setCustomKey('previousRoute', previousRouteString)
+      ..setCustomKey('navigate', didPushString);
 
-    logger
-      ..d('previousRoute: $previousRoute')
-      ..d('previousRoute.settings.name: ${previousRoute?.settings.name}')
-      ..d('previousRoute.settings.arguments: ${previousRoute?.settings.arguments}');
-    firebaseCrashlytics.setCustomKey('previousRoute', previousRouteString);
-
-    logger.d('navigate: $didPushString');
-    firebaseCrashlytics.setCustomKey('navigate', didPushString);
+    logger.finer(
+      {
+        'route': routeString,
+        'previousRoute': previousRouteString,
+        'navigate': didPushString,
+      },
+    );
   }
 }

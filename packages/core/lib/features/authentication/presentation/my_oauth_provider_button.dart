@@ -83,13 +83,13 @@ class MyOAuthProviderButton extends HookConsumerWidget {
       label: action.label(type),
       loadingIndicator: loadingIndicator(provider),
       onError: (exception) {
-        logger.e(
-          'onError [${provider.providerId}]',
-          error: exception,
-        );
+        logger.severe({
+          'onError': provider.providerId,
+          'exception': exception,
+        });
       },
       onCancelled: () {
-        logger.d('onCancelled [${provider.providerId}]');
+        logger.fine('onCancelled [${provider.providerId}]');
       },
     );
   }

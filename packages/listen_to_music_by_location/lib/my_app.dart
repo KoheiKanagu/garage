@@ -22,7 +22,7 @@ class MyApp extends HookConsumerWidget {
         final (:region, :state) = await next;
 
         if (state == RegionState.inside) {
-          logger.i(
+          logger.info(
             // ignore: lines_longer_than_80_chars
             'on inside locationManagerDidDetermineStateProvider region: ${region.encode()}, state: $state',
           );

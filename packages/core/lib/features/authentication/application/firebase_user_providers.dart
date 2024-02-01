@@ -47,19 +47,19 @@ Future<bool> firebaseUserIsSignedIn(
 /// サインインをした後、Userドキュメントが取得できるまで待つ
 @riverpod
 Future<void> firebaseSignIn(FirebaseSignInRef ref) async {
-  logger.d('signIn');
+  logger.fine('signIn');
 
   // 初期化が完了するまで待つ
   final current = await ref.read(firebaseAuthProvider).authStateChanges().first;
 
   final String uid;
   if (current == null) {
-    logger.i('not signed in');
+    logger.info('not signed in');
 
     final credential = await ref.read(firebaseAuthProvider).signInAnonymously();
     uid = credential.user?.uid ?? '';
   } else {
-    logger.i('already signed in');
+    logger.info('already signed in');
 
     uid = current.uid;
   }
@@ -68,13 +68,13 @@ Future<void> firebaseSignIn(FirebaseSignInRef ref) async {
     throw Exception('uid is empty');
   }
 
-  logger.d('await user document');
+  logger.fine('await user document');
 
   await ref.watch(userDocumentSnapshotProvider(uid).future).catchError(
         (_, __) => throw Exception('not found user document: $uid'),
       );
 
-  logger.d('success signIn');
+  logger.fine('success signIn');
 }
 
 /// SharedPreferencesとUser Documentの削除が完了するまで待った後、サインアウトする
@@ -86,17 +86,17 @@ Future<void> firebaseUserDelete(
         name: 'delete_all',
       );
 
-  logger.d('deleteUser');
+  logger.fine('deleteUser');
   await ref
       .read(firebaseFunctionsProvider)
       .httpsCallable('deleteUser')
       .call<void>();
 
-  logger.d('clear SharedPreferences');
+  logger.fine('clear SharedPreferences');
   await ref.read(sharedPreferencesClearProvider.future);
 
   await ref.read(firebaseAuthProvider).signOut();
-  logger.d('success signOut');
+  logger.fine('success signOut');
 }
 
 /// サインインしているアカウントのプロバイダーを取得する

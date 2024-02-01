@@ -150,7 +150,7 @@ class _DebugListTiles extends HookConsumerWidget {
 
             if (result == OkCancelResult.ok) {
               await ref.read(firebaseAuthProvider).signOut();
-              logger.d('SignOut');
+              logger.fine('SignOut');
             }
           },
           leadingIcon: Icons.bug_report,
@@ -165,7 +165,7 @@ class _DebugListTiles extends HookConsumerWidget {
 
             if (result == OkCancelResult.ok) {
               await ref.read(sharedPreferencesClearProvider.future);
-              logger.d('clear SharedPreferences');
+              logger.fine('clear SharedPreferences');
             }
           },
           leadingIcon: Icons.bug_report,

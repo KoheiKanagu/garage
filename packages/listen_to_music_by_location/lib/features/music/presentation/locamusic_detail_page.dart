@@ -47,7 +47,7 @@ class LocamusicDetailPage extends HookConsumerWidget {
     if (initialized.value) {
       ref.listen(
         mapLocamusicDetailPageHandlerProvider(documentId),
-        (_, __) => logger.d('on mapLocamusicDetailPageHandlerProvider'),
+        (_, __) => logger.fine('on mapLocamusicDetailPageHandlerProvider'),
       );
     }
 
