@@ -96,7 +96,7 @@ Future<String> locamusicAdd(
 
   final query = await ref.watch(locamusicQueryProvider.future);
   final agg = await query.count().get();
-  if (agg.count < kMaxCreateLocamusicCount) {
+  if ((agg.count ?? 0) < kMaxCreateLocamusicCount) {
     return ref
         .watch(locamusicCollectionReferenceProvider)
         .add(
