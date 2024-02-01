@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
@@ -12,80 +13,161 @@ class SignInPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const padding = EdgeInsets.symmetric(
-      horizontal: 16,
+    const ackWidget = SafeArea(
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: 16,
+          right: 16,
+          top: 16,
+        ),
+        child: TermAckText(),
+      ),
     );
 
-    final progressAnonymousStart = useState(false);
-
-    return Scaffold(
-      appBar: AppBar(),
-      body: SafeArea(
-        child: ListView(
-          children: [
-            ListTile(
-              title: i18n.onboarding.social_account_sign_in.wrapBudouXText(
-                style: Theme.of(context).textTheme.headlineSmall,
+    final themeType = InheritedThemeDetector.of(context);
+    return switch (themeType) {
+      InheritedThemeType.material => Scaffold(
+          appBar: AppBar(),
+          bottomNavigationBar: ackWidget,
+          body: ListView(
+            children: [
+              MyOauthProviderButtons(
+                header: i18n.onboarding.social_account_sign_in,
+                footers: [
+                  i18n.onboarding.social_account_sign_in_description,
+                ],
               ),
-              subtitle: i18n.onboarding.social_account_sign_in_description
-                  .wrapBudouXText(),
-            ),
-            const MyOauthProviderButtons(),
-            const Gap(16),
-            Row(
+              const _OrDivider(),
+              const Gap(16),
+              const _AnonymousStartButton(),
+            ],
+          ),
+        ),
+      InheritedThemeType.cupertino => CupertinoPageScaffold(
+          backgroundColor: CupertinoColors.systemGroupedBackground,
+          navigationBar: const CupertinoNavigationBar(),
+          child: Scaffold(
+            backgroundColor:
+                CupertinoColors.systemGroupedBackground.resolveFrom(context),
+            bottomNavigationBar: ackWidget,
+            body: ListView(
               children: [
-                const Expanded(
-                  child: Divider(),
+                MyOauthProviderButtons(
+                  header: i18n.onboarding.social_account_sign_in,
+                  footers: [
+                    i18n.onboarding.social_account_sign_in_description,
+                  ],
                 ),
-                const Gap(8),
-                Text(
-                  i18n.onboarding.or,
-                  textAlign: TextAlign.center,
-                ),
-                const Gap(8),
-                const Expanded(
-                  child: Divider(),
-                ),
+                const _OrDivider(),
+                const Gap(16),
+                const _AnonymousStartButton(),
               ],
             ),
-            const Gap(16),
-            Padding(
-              padding: padding,
-              child: FilledButton(
-                onPressed: progressAnonymousStart.value
-                    ? null
-                    : () async {
-                        if (progressAnonymousStart.value) {
-                          return;
-                        }
+          ),
+        ),
+    };
+  }
+}
 
-                        progressAnonymousStart.value = true;
-                        await ref.read(firebaseSignInProvider.future);
-                        progressAnonymousStart.value = false;
-                      },
-                child: progressAnonymousStart.value
-                    ? CircularProgressIndicator.adaptive(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.onPrimary,
-                      )
-                    : Text(
-                        i18n.onboarding.anonymous_start,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Theme.of(context).colorScheme.onPrimary,
+class _OrDivider extends StatelessWidget {
+  const _OrDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    final themeType = InheritedThemeDetector.of(context);
+    final color = switch (themeType) {
+      InheritedThemeType.material => Colors.grey,
+      InheritedThemeType.cupertino =>
+        CupertinoColors.systemGrey.resolveFrom(context),
+    };
+
+    final textStyle = switch (themeType) {
+      InheritedThemeType.material => Theme.of(context).textTheme.bodyMedium,
+      InheritedThemeType.cupertino =>
+        CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+              fontSize: 14,
+            ),
+    };
+
+    return Row(
+      children: [
+        Expanded(
+          child: Divider(
+            color: color,
+          ),
+        ),
+        const Gap(8),
+        Text(
+          i18n.onboarding.or,
+          textAlign: TextAlign.center,
+          style: textStyle,
+        ),
+        const Gap(8),
+        Expanded(
+          child: Divider(
+            color: color,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _AnonymousStartButton extends HookConsumerWidget {
+  const _AnonymousStartButton();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final progressAnonymousStart = useState(false);
+
+    Future<void> onPressedAnonymousStart() async {
+      if (progressAnonymousStart.value) {
+        return;
+      }
+
+      progressAnonymousStart.value = true;
+      await ref.read(firebaseSignInProvider.future);
+      progressAnonymousStart.value = false;
+    }
+
+    final themeType = InheritedThemeDetector.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+      ),
+      child: switch (themeType) {
+        InheritedThemeType.material => FilledButton(
+            onPressed: onPressedAnonymousStart,
+            child: progressAnonymousStart.value
+                ? CircularProgressIndicator.adaptive(
+                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                  )
+                : Text(
+                    i18n.onboarding.anonymous_start,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+          ),
+        InheritedThemeType.cupertino => CupertinoButton.filled(
+            onPressed: onPressedAnonymousStart,
+            child: progressAnonymousStart.value
+                ? CircularProgressIndicator.adaptive(
+                    backgroundColor:
+                        CupertinoTheme.of(context).primaryContrastingColor,
+                  )
+                : Text(
+                    i18n.onboarding.anonymous_start,
+                    style:
+                        CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                              color: CupertinoTheme.of(context)
+                                  .primaryContrastingColor,
                               fontWeight: FontWeight.bold,
                             ),
-                      ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: const SafeArea(
-        child: Padding(
-          padding: padding,
-          child: TermAckText(),
-        ),
-      ),
+                  ),
+          ),
+      },
     );
   }
 }

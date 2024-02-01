@@ -73,7 +73,13 @@ class UserInfoPage extends HookConsumerWidget {
             children: [
               ...children1,
               const Divider(),
-              const LinkProviderWidget(),
+              MyOauthProviderButtons(
+                header: i18n.configure.link_account,
+                footers: [
+                  i18n.configure.link_account_description,
+                  i18n.configure.link_account_description2,
+                ],
+              ),
               const Divider(),
               ...children2,
             ],
@@ -89,7 +95,13 @@ class UserInfoPage extends HookConsumerWidget {
               CupertinoListSection.insetGrouped(
                 children: children1,
               ),
-              const LinkProviderWidget(),
+              MyOauthProviderButtons(
+                header: i18n.configure.link_account,
+                footers: [
+                  i18n.configure.link_account_description,
+                  i18n.configure.link_account_description2,
+                ],
+              ),
               CupertinoListSection.insetGrouped(
                 children: children2,
               ),

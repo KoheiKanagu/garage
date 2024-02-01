@@ -8,7 +8,6 @@ export 'extensions/go_router_extension.dart';
 export 'features/authentication/application/firebase_user_providers.dart';
 export 'features/authentication/application/oauth/github_provider.dart';
 export 'features/authentication/application/oauth/oauth_providers.dart';
-export 'features/authentication/presentation/link_provider_widget.dart';
 export 'features/authentication/presentation/my_oauth_provider_button.dart';
 export 'features/authentication/presentation/my_oauth_provider_buttons.dart';
 export 'features/configure/application/configure_providers.dart';

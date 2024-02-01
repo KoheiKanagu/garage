@@ -57,8 +57,8 @@
   "onboarding": {
     "start": "はじめる",
     "social_account_sign_in": "ソーシャルアカウントでサインイン",
-    "social_account_sign_in_description": "このアプリにソーシャルアカウントを接続したことがある場合はこちらからサインインできます",
-    "ack_term(rich)": "本アプリの利用開始をもって${termOfService(利用規約)}と${privacyPolicy(プライバシーポリシー)}に同意したものとみなされます",
+    "social_account_sign_in_description": "このアプリにソーシャルアカウントを接続したことがある場合はこちらからサインインできます。",
+    "ack_term(rich)": "本アプリの利用開始をもって${termOfService(利用規約)}と${privacyPolicy(プライバシーポリシー)}に同意したものとみなされます。",
     "anonymous_start": "サインインせずにはじめる",
     "or": "または"
   }

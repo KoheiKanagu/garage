@@ -6,7 +6,6 @@ import 'package:core/extensions/go_router_extension.dart';
 import 'package:core/features/authentication/application/firebase_user_providers.dart';
 import 'package:core/features/authentication/application/oauth/github_provider.dart';
 import 'package:core/features/authentication/application/oauth/oauth_providers.dart';
-import 'package:core/features/authentication/presentation/link_provider_widget.dart';
 import 'package:core/features/authentication/presentation/my_oauth_provider_button.dart';
 import 'package:core/features/authentication/presentation/my_oauth_provider_buttons.dart';
 import 'package:core/features/configure/application/configure_providers.dart';

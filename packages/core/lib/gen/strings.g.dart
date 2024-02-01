@@ -221,13 +221,13 @@ class _StringsOnboardingJa {
 	// Translations
 	String get start => 'はじめる';
 	String get social_account_sign_in => 'ソーシャルアカウントでサインイン';
-	String get social_account_sign_in_description => 'このアプリにソーシャルアカウントを接続したことがある場合はこちらからサインインできます';
+	String get social_account_sign_in_description => 'このアプリにソーシャルアカウントを接続したことがある場合はこちらからサインインできます。';
 	TextSpan ack_term({required InlineSpanBuilder termOfService, required InlineSpanBuilder privacyPolicy}) => TextSpan(children: [
 		const TextSpan(text: '本アプリの利用開始をもって'),
 		termOfService('利用規約'),
 		const TextSpan(text: 'と'),
 		privacyPolicy('プライバシーポリシー'),
-		const TextSpan(text: 'に同意したものとみなされます'),
+		const TextSpan(text: 'に同意したものとみなされます。'),
 	]);
 	String get anonymous_start => 'サインインせずにはじめる';
 	String get or => 'または';
