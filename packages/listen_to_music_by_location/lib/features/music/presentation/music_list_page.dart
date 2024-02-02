@@ -46,37 +46,17 @@ class MusicListPage extends HookConsumerWidget {
                   : CupertinoListSection(
                       additionalDividerMargin:
                           MusicArtworkWidget.kDefaultSize + 16,
-                      children: data.map<Widget>(
-                        (e) {
-                          void onTap() {
-                            LocamusicDetailPageRoute(e.documentId)
-                                .push<void>(context);
-                          }
-
-                          final musicId = e.locamusic.musicId;
-                          // 曲が設定されていない場合はデフォルト表示
-                          if (musicId == null) {
-                            return MusicListTile(
-                              title: i18n.tap_to_set,
-                              artworkUrl: null,
-                              onTap: onTap,
-                            );
-                          }
-
-                          final details = ref
-                              .watch(
-                                locamusicSongDetailsProvider(musicId),
-                              )
-                              .asData
-                              ?.value;
-
-                          return MusicListTile(
-                            title: details?.title,
-                            artworkUrl: details?.artworkUrl,
-                            onTap: onTap,
-                          );
-                        },
-                      ).toList(),
+                      children: data
+                          .map<Widget>(
+                            (e) => MusicListTile(
+                              e.locamusic.musicId,
+                              onTap: () {
+                                LocamusicDetailPageRoute(e.documentId)
+                                    .push<void>(context);
+                              },
+                            ),
+                          )
+                          .toList(),
                     ),
             ),
           ),
