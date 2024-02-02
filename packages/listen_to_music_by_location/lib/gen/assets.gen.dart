@@ -17,6 +17,8 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/app_icon.webp');
 
   $AssetsImagesHowToGen get howTo => const $AssetsImagesHowToGen();
+  $AssetsImagesOnboardingGen get onboarding =>
+      const $AssetsImagesOnboardingGen();
 
   /// List of all assets
   List<AssetGenImage> get values => [appIcon];
@@ -52,6 +54,25 @@ class $AssetsImagesHowToGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [step1, step2, step3];
+}
+
+class $AssetsImagesOnboardingGen {
+  const $AssetsImagesOnboardingGen();
+
+  /// File path: assets/images/onboarding/screenshot_1.webp
+  AssetGenImage get screenshot1 =>
+      const AssetGenImage('assets/images/onboarding/screenshot_1.webp');
+
+  /// File path: assets/images/onboarding/screenshot_2.webp
+  AssetGenImage get screenshot2 =>
+      const AssetGenImage('assets/images/onboarding/screenshot_2.webp');
+
+  /// File path: assets/images/onboarding/screenshot_3.webp
+  AssetGenImage get screenshot3 =>
+      const AssetGenImage('assets/images/onboarding/screenshot_3.webp');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [screenshot1, screenshot2, screenshot3];
 }
 
 class Assets {

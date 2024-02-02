@@ -79,16 +79,57 @@ class ConfigurePage extends HookConsumerWidget {
       ),
     ];
 
-    final children3 = [
-      if (kDebugMode)
-        ...additionalItems.where((e) => e.forDebug).map(
-              (e) => ConfigureListTile(
-                title: '[debug] ${e.text}',
-                onTap: e.onTap,
-                leadingIcon: Icons.bug_report,
-              ),
+    final debugTiles = [
+      ...additionalItems.where((e) => e.forDebug).map(
+            (e) => _DebugListTile(
+              title: e.text,
+              onTap: e.onTap,
             ),
-      const _DebugListTiles(),
+          ),
+      _DebugListTile(
+        title: 'disableRouterRedirect',
+        onTap: () {
+          disableRouterRedirect = true;
+          showOkAlertDialog(
+            context: context,
+            title: 'disabled',
+          );
+        },
+      ),
+      _DebugListTile(
+        title: 'SignOut',
+        onTap: () async {
+          final result = await showOkCancelAlertDialog(
+            context: context,
+            title: 'SignOut?',
+          );
+
+          if (result == OkCancelResult.ok) {
+            await ref.read(firebaseAuthProvider).signOut();
+            logger.fine('SignOut');
+          }
+        },
+      ),
+      _DebugListTile(
+        title: 'clear SharedPreferences',
+        onTap: () async {
+          final result = await showOkCancelAlertDialog(
+            context: context,
+            title: 'clear SharedPreferences?',
+          );
+
+          if (result == OkCancelResult.ok) {
+            await ref.read(sharedPreferencesClearProvider.future);
+            logger.fine('clear SharedPreferences');
+          }
+        },
+      ),
+      _DebugListTile(
+        title: 'go /',
+        onTap: () {
+          GoRouter.of(context).go('/');
+        },
+      ),
     ];
 
     return switch (InheritedThemeDetector.of(context)) {
@@ -101,8 +142,10 @@ class ConfigurePage extends HookConsumerWidget {
               ...children1,
               const Divider(),
               ...children2,
-              const Divider(),
-              ...children3,
+              if (kDebugMode) ...[
+                const Divider(),
+                ...debugTiles,
+              ],
             ],
           ),
         ),
@@ -119,9 +162,10 @@ class ConfigurePage extends HookConsumerWidget {
               CupertinoListSection.insetGrouped(
                 children: children2,
               ),
-              CupertinoListSection.insetGrouped(
-                children: children3,
-              ),
+              if (kDebugMode)
+                CupertinoListSection.insetGrouped(
+                  children: debugTiles,
+                ),
             ],
           ),
         ),
@@ -129,55 +173,11 @@ class ConfigurePage extends HookConsumerWidget {
   }
 }
 
-class _DebugListTiles extends HookConsumerWidget {
-  const _DebugListTiles();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (!kDebugMode) {
-      return const SizedBox.shrink();
-    }
-
-    return Column(
-      children: [
-        ConfigureListTile(
-          title: '[debug] SignOut',
-          onTap: () async {
-            final result = await showOkCancelAlertDialog(
-              context: context,
-              title: 'SignOut?',
-            );
-
-            if (result == OkCancelResult.ok) {
-              await ref.read(firebaseAuthProvider).signOut();
-              logger.fine('SignOut');
-            }
-          },
+class _DebugListTile extends ConfigureListTile {
+  const _DebugListTile({
+    required super.title,
+    required super.onTap,
+  }) : super(
           leadingIcon: Icons.bug_report,
-        ),
-        ConfigureListTile(
-          title: '[debug] clear SharedPreferences',
-          onTap: () async {
-            final result = await showOkCancelAlertDialog(
-              context: context,
-              title: 'clear SharedPreferences?',
-            );
-
-            if (result == OkCancelResult.ok) {
-              await ref.read(sharedPreferencesClearProvider.future);
-              logger.fine('clear SharedPreferences');
-            }
-          },
-          leadingIcon: Icons.bug_report,
-        ),
-        ConfigureListTile(
-          title: '[debug] go /',
-          onTap: () {
-            GoRouter.of(context).go('/');
-          },
-          leadingIcon: Icons.bug_report,
-        ),
-      ],
-    );
-  }
+        );
 }

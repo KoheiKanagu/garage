@@ -79,13 +79,15 @@ Future<ProviderContainer> _initialize() async {
       container.read(firebaseAnalyticsProvider).setAnalyticsCollectionEnabled(
             kReleaseMode,
           ),
-      switch (kAppEnvDev) {
-        true => FirebaseAppCheck.instance.activate(
-            androidProvider: AndroidProvider.debug,
-            appleProvider: AppleProvider.debug,
-          ),
-        false => FirebaseAppCheck.instance.activate(),
-      },
+      if (kAppEnvDev)
+        FirebaseAppCheck.instance.activate(
+          androidProvider: AndroidProvider.debug,
+          appleProvider: AppleProvider.debug,
+        ),
+      if (kAppEnvProd)
+        FirebaseAppCheck.instance.activate(
+          appleProvider: AppleProvider.appAttest,
+        ),
       const QuickActions().setShortcutItems(
         [
           ShortcutItem(

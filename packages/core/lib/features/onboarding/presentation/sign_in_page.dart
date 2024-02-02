@@ -126,8 +126,12 @@ class _AnonymousStartButton extends HookConsumerWidget {
       }
 
       progressAnonymousStart.value = true;
-      await ref.read(firebaseSignInProvider.future);
-      progressAnonymousStart.value = false;
+      await ref.read(firebaseSignInProvider.future).catchError(
+            // 成功した場合はGoRouterでリダイレクトされるので、
+            // progressAnonymousStartはfalseにする必要はない。
+            // エラーになった場合は再試行する可能性があるので、falseにする。
+            (_) => progressAnonymousStart.value = false,
+          );
     }
 
     final themeType = InheritedThemeDetector.of(context);

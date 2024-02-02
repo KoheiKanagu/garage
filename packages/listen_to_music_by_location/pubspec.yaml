@@ -83,6 +83,7 @@ flutter:
     - packages/budoux_dart/models/ja.json
     - assets/images/
     - assets/images/how_to/
+    - assets/images/onboarding/
     - assets/si/
 # flutter_native_splash:
 #   color: "#FAFDFD" # lightColorScheme.background

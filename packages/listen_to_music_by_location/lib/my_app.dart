@@ -3,8 +3,15 @@ import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:listen_to_music_by_location/features/home/application/home_route.dart'
+    as home_route;
+import 'package:listen_to_music_by_location/features/music/application/music_route.dart'
+    as music_route;
+import 'package:listen_to_music_by_location/features/onboarding/application/onboarding_route.dart'
+    as onboarding_route;
+import 'package:listen_to_music_by_location/features/permission/application/permission_route.dart'
+    as permission_route;
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
-import 'package:listen_to_music_by_location/routing/my_go_router.dart';
 
 class MyApp extends HookConsumerWidget {
   const MyApp({
@@ -13,7 +20,17 @@ class MyApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(myGoRouterProvider);
+    final router = ref.watch(
+      myGoRouterProvider(
+        routes: [
+          ...onboarding_route.$appRoutes,
+          ...home_route.$appRoutes,
+          ...music_route.$appRoutes,
+          ...permission_route.$appRoutes,
+        ].toList(),
+        signedInLocation: const home_route.HomePageRoute().location,
+      ),
+    );
 
     const theme = CupertinoThemeData(
       primaryColor: CupertinoDynamicColor.withBrightness(

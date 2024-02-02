@@ -6,20 +6,18 @@ import 'package:core/features/onboarding/application/sign_in_route.dart'
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
-import 'package:listen_to_music_by_location/features/home/application/home_route.dart'
-    as home_route;
-import 'package:listen_to_music_by_location/features/music/application/music_route.dart'
-    as music_route;
-import 'package:listen_to_music_by_location/features/onboarding/application/onboarding_route.dart'
-    as onboarding_route;
-import 'package:listen_to_music_by_location/features/permission/application/permission_route.dart'
-    as permission_route;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'my_go_router.g.dart';
 
+var disableRouterRedirect = false;
+
 @riverpod
-Raw<GoRouter> myGoRouter(MyGoRouterRef ref) {
+Raw<GoRouter> myGoRouter(
+  MyGoRouterRef ref, {
+  required List<RouteBase> routes,
+  required String signedInLocation,
+}) {
   final listenable = ValueNotifier<bool?>(null);
 
   ref
@@ -33,17 +31,12 @@ Raw<GoRouter> myGoRouter(MyGoRouterRef ref) {
       listenable.dispose,
     );
 
-  final initialLocation = const onboarding_route.OnboardingPageRoute().location;
+  const initialLocation = '/';
 
   return GoRouter(
     navigatorKey: rootNavigatorStateKey,
     routes: [
-      ...onboarding_route.$appRoutes,
-      ...home_route.$appRoutes,
-      ...music_route.$appRoutes,
-      ...permission_route.$appRoutes,
-
-      // from core
+      ...routes,
       ...sign_in_route.$appRoutes,
       ...configure_route.$appRoutes,
     ],
@@ -62,7 +55,10 @@ Raw<GoRouter> myGoRouter(MyGoRouterRef ref) {
     },
     refreshListenable: listenable,
     redirect: (context, state) async {
-      // return null;
+      // デバッグビルドで特定の条件下でリダイレクトを無効に
+      if (disableRouterRedirect && kDebugMode) {
+        return null;
+      }
 
       // 未サインインで到達できるroute
       final unauthorizedRoute = [
@@ -74,7 +70,7 @@ Raw<GoRouter> myGoRouter(MyGoRouterRef ref) {
       if (signedIn) {
         // サインイン済みなのに、未サインインRouteの場合はホーム画面に遷移
         if (unauthorizedRoute.any((element) => element == state.fullPath)) {
-          return const home_route.HomePageRoute().location;
+          return signedInLocation;
         }
 
         // サインイン済みの場合は何もしない
