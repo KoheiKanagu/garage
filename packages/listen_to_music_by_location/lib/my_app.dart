@@ -13,6 +13,13 @@ import 'package:listen_to_music_by_location/features/permission/application/perm
     as permission_route;
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
+final _routes = [
+  ...onboarding_route.$appRoutes,
+  ...home_route.$appRoutes,
+  ...music_route.$appRoutes,
+  ...permission_route.$appRoutes,
+];
+
 class MyApp extends HookConsumerWidget {
   const MyApp({
     super.key,
@@ -22,12 +29,7 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(
       myGoRouterProvider(
-        routes: [
-          ...onboarding_route.$appRoutes,
-          ...home_route.$appRoutes,
-          ...music_route.$appRoutes,
-          ...permission_route.$appRoutes,
-        ].toList(),
+        routes: _routes,
         signedInLocation: const home_route.HomePageRoute().location,
       ),
     );
