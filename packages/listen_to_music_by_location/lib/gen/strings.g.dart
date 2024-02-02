@@ -168,6 +168,11 @@ class _StringsLocamusicJa {
 	String get how_to_share_step_3 => '「場所で音楽」をタップして共有します';
 	String get range_select_title => '音楽の再生を始める範囲';
 	String get range_notice => '設定した範囲に入ってから数十秒後に音楽が再生されるので、広めに設定することをオススメします。';
+	String get built_in_speaker_title => '内蔵スピーカー';
+	String get built_in_speaker_notice => 'イヤホンやヘッドホンなどを使用していない場合でも、内臓スピーカーで音楽を再生することを許可します。';
+	String get allow_play => '再生を許可';
+	String get built_in_speaker_on_warning_title => '内臓スピーカーでの再生を許可します';
+	String get built_in_speaker_on_warning_message => '周りの人に音楽が聞こえる可能性がありますので、ご注意ください。';
 }
 
 // Path: permission

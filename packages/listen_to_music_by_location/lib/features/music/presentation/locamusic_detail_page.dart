@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/map/application/map_providers.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
+import 'package:listen_to_music_by_location/features/music/domain/locamusic.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/distance_range_segmented_control.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/locamusic_detail_page_header.dart';
 import 'package:listen_to_music_by_location/features/native/application/map_view_delegate.dart';
@@ -101,53 +102,123 @@ class LocamusicDetailPage extends HookConsumerWidget {
                     ),
                   ],
                 ),
-                CupertinoListSection.insetGrouped(
-                  header: Text(i18n.locamusic.range_select_title),
-                  footer: i18n.locamusic.range_notice.wrapBudouXText(
-                    style:
-                        CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-                              fontSize: 13,
-                            ),
-                  ),
-                  children: [
-                    Column(
-                      children: [
-                        const AbsorbPointer(
-                          child: SizedBox(
-                            height: 200,
-                            child: MapView(
-                              layoutMarginsBottom: 0,
-                              mapViewType: MapViewType.locamusicDetailPage,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: DistanceRangeSegmentedControl(
-                            initialValue: DistanceRange.fromMeters(
-                              locamusic.distance,
-                            ),
-                            onChanged: (value) {
-                              final newValue = locamusic.copyWith(
-                                distance: value.meters,
-                              );
-
-                              ref.read(
-                                locamusicUpdateProvider(
-                                  documentId,
-                                  locamusic: newValue,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                _Range(locamusic, documentId),
+                _BuiltInSpeakerSwitch(locamusic, documentId),
               ],
             ),
           ),
         );
+  }
+}
+
+class _Range extends HookConsumerWidget {
+  const _Range(
+    this.locamusic,
+    this.documentId,
+  );
+
+  final Locamusic locamusic;
+
+  final String documentId;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return CupertinoListSection.insetGrouped(
+      header: Text(i18n.locamusic.range_select_title),
+      footer: Text(
+        i18n.locamusic.range_notice,
+        style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+              fontSize: 13,
+            ),
+      ),
+      children: [
+        Column(
+          children: [
+            const AbsorbPointer(
+              child: SizedBox(
+                height: 200,
+                child: MapView(
+                  layoutMarginsBottom: 0,
+                  mapViewType: MapViewType.locamusicDetailPage,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: DistanceRangeSegmentedControl(
+                initialValue: DistanceRange.fromMeters(
+                  locamusic.distance,
+                ),
+                onChanged: (value) {
+                  final newValue = locamusic.copyWith(
+                    distance: value.meters,
+                  );
+
+                  ref.read(
+                    locamusicUpdateProvider(
+                      documentId,
+                      locamusic: newValue,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _BuiltInSpeakerSwitch extends HookConsumerWidget {
+  const _BuiltInSpeakerSwitch(
+    this.locamusic,
+    this.documentId,
+  );
+
+  final Locamusic locamusic;
+
+  final String documentId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return CupertinoListSection.insetGrouped(
+      header: Text(i18n.locamusic.built_in_speaker_title),
+      footer: Text(
+        i18n.locamusic.built_in_speaker_notice,
+        style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+              fontSize: 13,
+            ),
+      ),
+      children: [
+        CupertinoListTile.notched(
+          title: Text(i18n.locamusic.allow_play),
+          trailing: CupertinoSwitch(
+            value: locamusic.allowBuiltInSpeaker,
+            onChanged: (value) async {
+              if (value) {
+                // オンにする時は注意を表示
+                final result = await showOkAlertDialog(
+                  context: context,
+                  title: i18n.locamusic.built_in_speaker_on_warning_title,
+                  message: i18n.locamusic.built_in_speaker_on_warning_message,
+                );
+                if (result != OkCancelResult.ok) {
+                  return;
+                }
+              }
+
+              await ref.read(
+                locamusicUpdateProvider(
+                  documentId,
+                  locamusic: locamusic.copyWith(
+                    allowBuiltInSpeaker: value,
+                  ),
+                ).future,
+              );
+            },
+          ),
+        ),
+      ],
+    );
   }
 }
