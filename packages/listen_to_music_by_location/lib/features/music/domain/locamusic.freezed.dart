@@ -24,12 +24,13 @@ mixin _$Locamusic {
   GeoPoint get geoPoint => throw _privateConstructorUsedError;
   double get distance => throw _privateConstructorUsedError;
   String get createdBy => throw _privateConstructorUsedError;
-  String? get musicId => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get createdAt => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get updatedAt => throw _privateConstructorUsedError;
   bool get deleted => throw _privateConstructorUsedError;
+  String? get musicId => throw _privateConstructorUsedError;
+  bool get allowBuiltInSpeaker => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,10 +47,11 @@ abstract class $LocamusicCopyWith<$Res> {
       {@GeoPointConverter() GeoPoint geoPoint,
       double distance,
       String createdBy,
-      String? musicId,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt,
-      bool deleted});
+      bool deleted,
+      String? musicId,
+      bool allowBuiltInSpeaker});
 }
 
 /// @nodoc
@@ -68,10 +70,11 @@ class _$LocamusicCopyWithImpl<$Res, $Val extends Locamusic>
     Object? geoPoint = null,
     Object? distance = null,
     Object? createdBy = null,
-    Object? musicId = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? deleted = null,
+    Object? musicId = freezed,
+    Object? allowBuiltInSpeaker = null,
   }) {
     return _then(_value.copyWith(
       geoPoint: null == geoPoint
@@ -86,10 +89,6 @@ class _$LocamusicCopyWithImpl<$Res, $Val extends Locamusic>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as String,
-      musicId: freezed == musicId
-          ? _value.musicId
-          : musicId // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -101,6 +100,14 @@ class _$LocamusicCopyWithImpl<$Res, $Val extends Locamusic>
       deleted: null == deleted
           ? _value.deleted
           : deleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      musicId: freezed == musicId
+          ? _value.musicId
+          : musicId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      allowBuiltInSpeaker: null == allowBuiltInSpeaker
+          ? _value.allowBuiltInSpeaker
+          : allowBuiltInSpeaker // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -118,10 +125,11 @@ abstract class _$$LocamusicImplCopyWith<$Res>
       {@GeoPointConverter() GeoPoint geoPoint,
       double distance,
       String createdBy,
-      String? musicId,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt,
-      bool deleted});
+      bool deleted,
+      String? musicId,
+      bool allowBuiltInSpeaker});
 }
 
 /// @nodoc
@@ -138,10 +146,11 @@ class __$$LocamusicImplCopyWithImpl<$Res>
     Object? geoPoint = null,
     Object? distance = null,
     Object? createdBy = null,
-    Object? musicId = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? deleted = null,
+    Object? musicId = freezed,
+    Object? allowBuiltInSpeaker = null,
   }) {
     return _then(_$LocamusicImpl(
       geoPoint: null == geoPoint
@@ -156,10 +165,6 @@ class __$$LocamusicImplCopyWithImpl<$Res>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as String,
-      musicId: freezed == musicId
-          ? _value.musicId
-          : musicId // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -172,6 +177,14 @@ class __$$LocamusicImplCopyWithImpl<$Res>
           ? _value.deleted
           : deleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      musicId: freezed == musicId
+          ? _value.musicId
+          : musicId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      allowBuiltInSpeaker: null == allowBuiltInSpeaker
+          ? _value.allowBuiltInSpeaker
+          : allowBuiltInSpeaker // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -183,10 +196,11 @@ class _$LocamusicImpl implements _Locamusic {
       {@GeoPointConverter() required this.geoPoint,
       required this.distance,
       required this.createdBy,
-      this.musicId,
       @TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt,
-      this.deleted = false});
+      this.deleted = false,
+      this.musicId,
+      this.allowBuiltInSpeaker = false});
 
   factory _$LocamusicImpl.fromJson(Map<String, dynamic> json) =>
       _$$LocamusicImplFromJson(json);
@@ -199,8 +213,6 @@ class _$LocamusicImpl implements _Locamusic {
   @override
   final String createdBy;
   @override
-  final String? musicId;
-  @override
   @TimestampConverter()
   final Timestamp? createdAt;
   @override
@@ -209,10 +221,15 @@ class _$LocamusicImpl implements _Locamusic {
   @override
   @JsonKey()
   final bool deleted;
+  @override
+  final String? musicId;
+  @override
+  @JsonKey()
+  final bool allowBuiltInSpeaker;
 
   @override
   String toString() {
-    return 'Locamusic(geoPoint: $geoPoint, distance: $distance, createdBy: $createdBy, musicId: $musicId, createdAt: $createdAt, updatedAt: $updatedAt, deleted: $deleted)';
+    return 'Locamusic(geoPoint: $geoPoint, distance: $distance, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, deleted: $deleted, musicId: $musicId, allowBuiltInSpeaker: $allowBuiltInSpeaker)';
   }
 
   @override
@@ -226,18 +243,20 @@ class _$LocamusicImpl implements _Locamusic {
                 other.distance == distance) &&
             (identical(other.createdBy, createdBy) ||
                 other.createdBy == createdBy) &&
-            (identical(other.musicId, musicId) || other.musicId == musicId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            (identical(other.deleted, deleted) || other.deleted == deleted));
+            (identical(other.deleted, deleted) || other.deleted == deleted) &&
+            (identical(other.musicId, musicId) || other.musicId == musicId) &&
+            (identical(other.allowBuiltInSpeaker, allowBuiltInSpeaker) ||
+                other.allowBuiltInSpeaker == allowBuiltInSpeaker));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, geoPoint, distance, createdBy,
-      musicId, createdAt, updatedAt, deleted);
+      createdAt, updatedAt, deleted, musicId, allowBuiltInSpeaker);
 
   @JsonKey(ignore: true)
   @override
@@ -258,10 +277,11 @@ abstract class _Locamusic implements Locamusic {
       {@GeoPointConverter() required final GeoPoint geoPoint,
       required final double distance,
       required final String createdBy,
-      final String? musicId,
       @TimestampConverter() final Timestamp? createdAt,
       @TimestampConverter() final Timestamp? updatedAt,
-      final bool deleted}) = _$LocamusicImpl;
+      final bool deleted,
+      final String? musicId,
+      final bool allowBuiltInSpeaker}) = _$LocamusicImpl;
 
   factory _Locamusic.fromJson(Map<String, dynamic> json) =
       _$LocamusicImpl.fromJson;
@@ -274,8 +294,6 @@ abstract class _Locamusic implements Locamusic {
   @override
   String get createdBy;
   @override
-  String? get musicId;
-  @override
   @TimestampConverter()
   Timestamp? get createdAt;
   @override
@@ -283,6 +301,10 @@ abstract class _Locamusic implements Locamusic {
   Timestamp? get updatedAt;
   @override
   bool get deleted;
+  @override
+  String? get musicId;
+  @override
+  bool get allowBuiltInSpeaker;
   @override
   @JsonKey(ignore: true)
   _$$LocamusicImplCopyWith<_$LocamusicImpl> get copyWith =>

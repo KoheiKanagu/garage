@@ -11,10 +11,11 @@ class Locamusic with _$Locamusic {
     @GeoPointConverter() required GeoPoint geoPoint,
     required double distance,
     required String createdBy,
-    String? musicId,
     @TimestampConverter() Timestamp? createdAt,
     @TimestampConverter() Timestamp? updatedAt,
     @Default(false) bool deleted,
+    String? musicId,
+    @Default(false) bool allowBuiltInSpeaker,
   }) = _Locamusic;
 
   factory Locamusic.fromJson(Json json) => _$LocamusicFromJson(json);

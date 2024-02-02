@@ -18,12 +18,14 @@ _$LocamusicImpl _$$LocamusicImplFromJson(Map<String, dynamic> json) =>
               'geoPoint', (v) => const GeoPointConverter().fromJson(v)),
           distance: $checkedConvert('distance', (v) => (v as num).toDouble()),
           createdBy: $checkedConvert('createdBy', (v) => v as String),
-          musicId: $checkedConvert('musicId', (v) => v as String?),
           createdAt: $checkedConvert(
               'createdAt', (v) => const TimestampConverter().fromJson(v)),
           updatedAt: $checkedConvert(
               'updatedAt', (v) => const TimestampConverter().fromJson(v)),
           deleted: $checkedConvert('deleted', (v) => v as bool? ?? false),
+          musicId: $checkedConvert('musicId', (v) => v as String?),
+          allowBuiltInSpeaker: $checkedConvert(
+              'allowBuiltInSpeaker', (v) => v as bool? ?? false),
         );
         return val;
       },
@@ -34,8 +36,9 @@ Map<String, dynamic> _$$LocamusicImplToJson(_$LocamusicImpl instance) =>
       'geoPoint': const GeoPointConverter().toJson(instance.geoPoint),
       'distance': instance.distance,
       'createdBy': instance.createdBy,
-      'musicId': instance.musicId,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
       'deleted': instance.deleted,
+      'musicId': instance.musicId,
+      'allowBuiltInSpeaker': instance.allowBuiltInSpeaker,
     };

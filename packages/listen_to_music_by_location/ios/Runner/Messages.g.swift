@@ -558,6 +558,10 @@ protocol MusicKit {
   func currentPermissionStatus() throws -> MusicAuthorizationStatus
   func play(id: String) throws
   func songDetails(id: String, artworkSize: Int64, completion: @escaping (Result<SongDetails, Error>) -> Void)
+  /// 音の出力先がビルトインスピーカーかどうか判定
+  ///
+  /// https://developer.apple.com/documentation/avfaudio/avaudiosession/port/1616561-builtinspeaker
+  func audioSessionBuiltInSpeaker() throws -> Bool
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -630,6 +634,22 @@ class MusicKitSetup {
       }
     } else {
       songDetailsChannel.setMessageHandler(nil)
+    }
+    /// 音の出力先がビルトインスピーカーかどうか判定
+    ///
+    /// https://developer.apple.com/documentation/avfaudio/avaudiosession/port/1616561-builtinspeaker
+    let audioSessionBuiltInSpeakerChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.listen_to_music_by_location.MusicKit.audioSessionBuiltInSpeaker", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      audioSessionBuiltInSpeakerChannel.setMessageHandler { _, reply in
+        do {
+          let result = try api.audioSessionBuiltInSpeaker()
+          reply(wrapResult(result))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      audioSessionBuiltInSpeakerChannel.setMessageHandler(nil)
     }
   }
 }

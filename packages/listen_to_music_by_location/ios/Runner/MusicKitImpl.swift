@@ -1,3 +1,4 @@
+import AVFAudio
 import MusicKit
 
 class MusicKitImpl: MusicKit {
@@ -76,6 +77,12 @@ class MusicKitImpl: MusicKit {
       }
       try await SystemMusicPlayer.shared.play()
     }
+  }
+
+  func audioSessionBuiltInSpeaker() throws -> Bool {
+    return AVAudioSession.sharedInstance().currentRoute.outputs.contains(where: {
+      $0.portType == AVAudioSession.Port.builtInSpeaker
+    })
   }
 }
 

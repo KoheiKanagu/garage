@@ -19,6 +19,8 @@
 
       // nullable
       musicId: "musicId", // Apple Music ID
+
+      allowBuiltInSpeaker: false, // ビルトインスピーカーでの再生を許可するか
     },
   },
 }

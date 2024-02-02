@@ -802,7 +802,7 @@ final locamusicRegionHandlerProvider = AutoDisposeFutureProvider<void>.internal(
 );
 
 typedef LocamusicRegionHandlerRef = AutoDisposeFutureProviderRef<void>;
-String _$locamusicHandlerHash() => r'4077aaec614c82feb5e7734bebeec75a592537de';
+String _$locamusicHandlerHash() => r'8a2015b244eb3296fffddf4917a628fab8eceea0';
 
 /// See also [locamusicHandler].
 @ProviderFor(locamusicHandler)

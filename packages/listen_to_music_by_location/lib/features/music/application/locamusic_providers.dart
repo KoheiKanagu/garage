@@ -215,16 +215,38 @@ Future<void> locamusicHandler(
     // identifierを使ってLocamusicのドキュメントを取得
     final doc =
         await ref.read(locamusicDocumentProvider(region.identifier).future);
-    if (doc.musicId != null) {
+
+    final builtInSpeaker =
+        await ref.read(musicKitProvider).audioSessionBuiltInSpeaker();
+    if (doc.musicId == null) {
+      logger.info(
+        'skip play music. musicId is null.',
+      );
+      return;
+    }
+
+    if (builtInSpeaker) {
+      if (doc.allowBuiltInSpeaker) {
+        // ビルトインスピーカーの場合で、再生の許可がある場合は再生
+        logger.info(
+          'play music: ${doc.musicId}',
+        );
+        // 曲を再生
+        await ref.read(musicKitProvider).play(doc.musicId!);
+      } else {
+        // 許可がないので再生しない
+        logger.info(
+          // ignore: lines_longer_than_80_chars
+          'skip play music. Currently using built-in speaker, but playback is not allowed.',
+        );
+      }
+    } else {
+      // ビルトインスピーカー以外、例えばヘッドフォンの場合は再生する
       logger.info(
         'play music: ${doc.musicId}',
       );
       // 曲を再生
       await ref.read(musicKitProvider).play(doc.musicId!);
-    } else {
-      logger.info(
-        'musicId is null. skip play music.',
-      );
     }
   }
 }

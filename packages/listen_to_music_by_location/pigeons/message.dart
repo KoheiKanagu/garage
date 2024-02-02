@@ -115,6 +115,11 @@ abstract class MusicKit {
     String id, {
     int artworkSize = 512,
   });
+
+  /// 音の出力先がビルトインスピーカーかどうか判定
+  ///
+  /// https://developer.apple.com/documentation/avfaudio/avaudiosession/port/1616561-builtinspeaker
+  bool audioSessionBuiltInSpeaker();
 }
 
 enum MusicAuthorizationStatus {
