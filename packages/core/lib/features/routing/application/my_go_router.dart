@@ -10,7 +10,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'my_go_router.g.dart';
 
-var disableRouterRedirect = false;
+bool disableRouterRedirect = false;
 
 @riverpod
 Raw<GoRouter> myGoRouter(
