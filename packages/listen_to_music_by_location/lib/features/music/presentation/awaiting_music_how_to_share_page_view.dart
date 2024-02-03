@@ -17,18 +17,43 @@ class AwaitingMusicHowToSharePageView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final children = [
       _buildColumn(
-        image: Assets.images.howTo.step1.image(),
+        image: switch (LocaleSettings.currentLocale) {
+          AppLocale.ja => Assets.images.howTo.step1Ja.image(),
+          AppLocale.en => Assets.images.howTo.step1En.image(),
+        },
         text: i18n.locamusic.how_to_share_step_1,
         context: context,
       ),
       _buildColumn(
-        image: Assets.images.howTo.step2.image(),
+        image: switch (LocaleSettings.currentLocale) {
+          AppLocale.ja => Assets.images.howTo.step2Ja.image(),
+          AppLocale.en => Assets.images.howTo.step2En.image(),
+        },
         text: i18n.locamusic.how_to_share_step_2,
         context: context,
       ),
       _buildColumn(
-        image: Assets.images.howTo.step3.image(),
+        image: switch (LocaleSettings.currentLocale) {
+          AppLocale.ja => Assets.images.howTo.step3Ja.image(),
+          AppLocale.en => Assets.images.howTo.step3En.image(),
+        },
         text: i18n.locamusic.how_to_share_step_3,
+        context: context,
+      ),
+      _buildColumn(
+        image: switch (LocaleSettings.currentLocale) {
+          AppLocale.ja => Assets.images.howTo.step4Ja.image(),
+          AppLocale.en => Assets.images.howTo.step4En.image(),
+        },
+        text: i18n.locamusic.how_to_share_step_4,
+        context: context,
+      ),
+      _buildColumn(
+        image: switch (LocaleSettings.currentLocale) {
+          AppLocale.ja => Assets.images.howTo.step5Ja.image(),
+          AppLocale.en => Assets.images.howTo.step5En.image(),
+        },
+        text: i18n.locamusic.how_to_share_step_5,
         context: context,
       ),
     ];

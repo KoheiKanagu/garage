@@ -167,6 +167,8 @@ class _StringsLocamusicJa {
 	String get how_to_share_step_1 => 'お気に入りの曲を探して「・・・」をタップしてください';
 	String get how_to_share_step_2 => '「曲を共有」をタップしてください';
 	String get how_to_share_step_3 => '「場所で音楽」をタップして共有します';
+	String get how_to_share_step_4 => 'もし「場所で音楽」が見つからない場合は「その他」をタップしてください';
+	String get how_to_share_step_5 => '「場所で音楽」をタップして共有します';
 	String get range_select_title => '音楽の再生を始める範囲';
 	String get range_notice => '設定した範囲に入ってから数十秒後に音楽が再生されるので、広めに設定することをオススメします。';
 	String get built_in_speaker_title => '内蔵スピーカー';
@@ -252,6 +254,8 @@ class _StringsLocamusicEn extends _StringsLocamusicJa {
 	@override String get how_to_share_step_1 => 'Find your favorite song and tap "..."';
 	@override String get how_to_share_step_2 => 'Tap "Share Song"';
 	@override String get how_to_share_step_3 => 'Tap "Locamusic" to share';
+	@override String get how_to_share_step_4 => 'If you can\'t find "Locamusic", tap "More"';
+	@override String get how_to_share_step_5 => 'Tap "Locamusic" to share';
 	@override String get range_select_title => 'Range to start playing music';
 	@override String get range_notice => 'Music will start playing a few seconds after entering the set range, so it is recommended to set it wider.';
 	@override String get built_in_speaker_title => 'Built-in Speaker';

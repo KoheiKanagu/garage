@@ -44,20 +44,59 @@ class $AssetsSiGen {
 class $AssetsImagesHowToGen {
   const $AssetsImagesHowToGen();
 
-  /// File path: assets/images/how_to/step1.webp
-  AssetGenImage get step1 =>
-      const AssetGenImage('assets/images/how_to/step1.webp');
+  /// File path: assets/images/how_to/step1_en.webp
+  AssetGenImage get step1En =>
+      const AssetGenImage('assets/images/how_to/step1_en.webp');
 
-  /// File path: assets/images/how_to/step2.webp
-  AssetGenImage get step2 =>
-      const AssetGenImage('assets/images/how_to/step2.webp');
+  /// File path: assets/images/how_to/step1_ja.webp
+  AssetGenImage get step1Ja =>
+      const AssetGenImage('assets/images/how_to/step1_ja.webp');
 
-  /// File path: assets/images/how_to/step3.webp
-  AssetGenImage get step3 =>
-      const AssetGenImage('assets/images/how_to/step3.webp');
+  /// File path: assets/images/how_to/step2_en.webp
+  AssetGenImage get step2En =>
+      const AssetGenImage('assets/images/how_to/step2_en.webp');
+
+  /// File path: assets/images/how_to/step2_ja.webp
+  AssetGenImage get step2Ja =>
+      const AssetGenImage('assets/images/how_to/step2_ja.webp');
+
+  /// File path: assets/images/how_to/step3_en.webp
+  AssetGenImage get step3En =>
+      const AssetGenImage('assets/images/how_to/step3_en.webp');
+
+  /// File path: assets/images/how_to/step3_ja.webp
+  AssetGenImage get step3Ja =>
+      const AssetGenImage('assets/images/how_to/step3_ja.webp');
+
+  /// File path: assets/images/how_to/step4_en.webp
+  AssetGenImage get step4En =>
+      const AssetGenImage('assets/images/how_to/step4_en.webp');
+
+  /// File path: assets/images/how_to/step4_ja.webp
+  AssetGenImage get step4Ja =>
+      const AssetGenImage('assets/images/how_to/step4_ja.webp');
+
+  /// File path: assets/images/how_to/step5_en.webp
+  AssetGenImage get step5En =>
+      const AssetGenImage('assets/images/how_to/step5_en.webp');
+
+  /// File path: assets/images/how_to/step5_ja.webp
+  AssetGenImage get step5Ja =>
+      const AssetGenImage('assets/images/how_to/step5_ja.webp');
 
   /// List of all assets
-  List<AssetGenImage> get values => [step1, step2, step3];
+  List<AssetGenImage> get values => [
+        step1En,
+        step1Ja,
+        step2En,
+        step2Ja,
+        step3En,
+        step3Ja,
+        step4En,
+        step4Ja,
+        step5En,
+        step5Ja
+      ];
 }
 
 class $AssetsImagesOnboardingGen {
