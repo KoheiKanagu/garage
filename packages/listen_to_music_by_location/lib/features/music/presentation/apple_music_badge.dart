@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 import 'package:listen_to_music_by_location/gen/assets.gen.dart';
+import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
 class AppleMusicBadge extends StatelessWidget {
   const AppleMusicBadge({
@@ -22,7 +23,10 @@ class AppleMusicBadge extends StatelessWidget {
         scale: height / 40,
         si: ScalableImageSource.fromSI(
           DefaultAssetBundle.of(context),
-          Assets.si.appleMusicBadge,
+          switch (LocaleSettings.currentLocale) {
+            AppLocale.ja => Assets.si.appleMusicBadgeJa,
+            AppLocale.en => Assets.si.appleMusicBadgeEn,
+          },
         ),
       ),
     );

@@ -27,14 +27,18 @@ class $AssetsImagesGen {
 class $AssetsSiGen {
   const $AssetsSiGen();
 
-  /// File path: assets/si/apple_music_badge.si
-  String get appleMusicBadge => 'assets/si/apple_music_badge.si';
+  /// File path: assets/si/apple_music_badge_en.si
+  String get appleMusicBadgeEn => 'assets/si/apple_music_badge_en.si';
+
+  /// File path: assets/si/apple_music_badge_ja.si
+  String get appleMusicBadgeJa => 'assets/si/apple_music_badge_ja.si';
 
   /// File path: assets/si/apple_music_icon.si
   String get appleMusicIcon => 'assets/si/apple_music_icon.si';
 
   /// List of all assets
-  List<String> get values => [appleMusicBadge, appleMusicIcon];
+  List<String> get values =>
+      [appleMusicBadgeEn, appleMusicBadgeJa, appleMusicIcon];
 }
 
 class $AssetsImagesHowToGen {

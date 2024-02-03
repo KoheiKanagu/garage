@@ -223,7 +223,7 @@ class _StringsEn extends Translations {
 	// Translations
 	@override String get unset => 'Not set';
 	@override late final _StringsLocamusicEn locamusic = _StringsLocamusicEn._(_root);
-	@override String get app_name => 'Play Music by Location';
+	@override String get app_name => 'Locamusic';
 	@override String get map => 'Map';
 	@override String get tap_to_set => 'Tap to set';
 	@override String get error_dialog_title => 'Error';

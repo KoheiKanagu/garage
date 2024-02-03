@@ -104,3 +104,18 @@ melos run clean --no-select
 melos run build:ipa:prod:upload
 melos run build:appbundle:prod:upload
 ```
+
+### dev 版のアプリ名変更 (iOS)
+
+scheme に suffix を定義
+
+```xcconfig
+CFBundleDisplayNameSuffix = dev
+```
+
+`Info.plist` に suffix を追加
+
+```plist
+<key>CFBundleDisplayName</key>
+<string>スーパーアプリ$(CFBundleDisplayNameSuffix)</string>
+```

@@ -23,7 +23,7 @@
     "built_in_speaker_on_warning_title": "Allow playing on built-in speaker",
     "built_in_speaker_on_warning_message": "Please be aware that the music may be audible to people around you."
   },
-  "app_name": "Play Music by Location",
+  "app_name": "Locamusic",
   "map": "Map",
   "tap_to_set": "Tap to set",
   "error_dialog_title": "Error",
