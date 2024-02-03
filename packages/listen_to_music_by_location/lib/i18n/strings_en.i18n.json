@@ -1,0 +1,52 @@
+{
+  "unset": "Not set",
+  "locamusic": {
+    "create_limit_error": "Failed to create range",
+    "create_limit_error_message": "You can create up to ${n} ranges",
+    "select_music": "Select music",
+    "change_music": "Change music",
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large",
+    "delete": "Delete",
+    "delete_confirm": "Are you sure you want to delete?",
+    "open_apple_music": "Open Apple Music",
+    "awaiting_music_share": "Waiting for music share",
+    "how_to_share_step_1": "Find your favorite song and tap \"...\"",
+    "how_to_share_step_2": "Tap \"Share Song\"",
+    "how_to_share_step_3": "Tap \"Locamusic\" to share",
+    "range_select_title": "Range to start playing music",
+    "range_notice": "Music will start playing a few seconds after entering the set range, so it is recommended to set it wider.",
+    "built_in_speaker_title": "Built-in Speaker",
+    "built_in_speaker_notice": "Allows playing music on the built-in speaker even if you are not using headphones or earphones.",
+    "allow_play": "Allow play",
+    "built_in_speaker_on_warning_title": "Allow playing on built-in speaker",
+    "built_in_speaker_on_warning_message": "Please be aware that the music may be audible to people around you."
+  },
+  "app_name": "Play Music by Location",
+  "map": "Map",
+  "tap_to_set": "Tap to set",
+  "error_dialog_title": "Error",
+  "error_dialog_message": "An error occurred. Please try again",
+  "permission": {
+    "title": "Permission Confirmation",
+    "error_banner_label": "Permission confirmation required",
+
+    "location": "Location",
+    "location_details": "To play music based on your current location, you need to allow the use of location information",
+    "request_location_permission": "Allow",
+    "request_authorized_when_in_use": "Select \"Allow While Using App\"",
+    "request_authorized_always": "Select \"Always Allow\"",
+    "denied_location_permission": "Location unavailable",
+    "denied_location_permission_message": "Please allow the use of location information in settings",
+
+    "apple_music": "Apple Music",
+    "apple_music_details": "To play music, you need to allow access to Apple Music",
+    "request_apple_music_permission": "Allow access",
+    "denied_apple_music_permission": "Unable to access Apple Music",
+    "denied_apple_music_permission_message": "Please allow access to Apple Music in settings",
+
+    "settings": "Settings",
+    "permission_ok": "Allowed"
+  }
+}

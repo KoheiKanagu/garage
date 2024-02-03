@@ -42,7 +42,9 @@ class HomePageBanner extends StatelessWidget {
                   leading!,
                   const Gap(8),
                 ],
-                Text(label),
+                Flexible(
+                  child: Text(label),
+                ),
               ],
             ),
           ),

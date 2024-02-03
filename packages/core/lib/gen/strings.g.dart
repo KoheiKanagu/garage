@@ -20,7 +20,8 @@ const AppLocale _baseLocale = AppLocale.ja;
 /// - Locale locale = AppLocale.ja.flutterLocale // get flutter locale from enum
 /// - if (LocaleSettings.currentLocale == AppLocale.ja) // locale check
 enum AppLocale with BaseAppLocale<AppLocale, Translations> {
-	ja(languageCode: 'ja', build: Translations.build);
+	ja(languageCode: 'ja', build: Translations.build),
+	en(languageCode: 'en', build: _StringsEn.build);
 
 	const AppLocale({required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
 
@@ -244,4 +245,135 @@ class _StringsFeedbackTypeJa {
 	String get feature_request => '機能追加について';
 	String get impression => 'ご意見・ご感想について';
 	String get other => 'その他';
+}
+
+// Path: <root>
+class _StringsEn extends Translations {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	_StringsEn.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = TranslationMetadata(
+		    locale: AppLocale.en,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ),
+		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+
+	/// Metadata for the translations of <en>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	@override late final _StringsEn _root = this; // ignore: unused_field
+
+	// Translations
+	@override late final _StringsConfigureEn configure = _StringsConfigureEn._(_root);
+	@override late final _StringsFeedbackEn feedback = _StringsFeedbackEn._(_root);
+	@override late final _StringsAuthEn auth = _StringsAuthEn._(_root);
+	@override late final _StringsOnboardingEn onboarding = _StringsOnboardingEn._(_root);
+}
+
+// Path: configure
+class _StringsConfigureEn extends _StringsConfigureJa {
+	_StringsConfigureEn._(_StringsEn root) : this._root = root, super._(root);
+
+	@override final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Settings';
+	@override String get feedback => 'Feedback';
+	@override String get about_this_app => 'About This App';
+	@override String get terms_of_service => 'Terms of Service';
+	@override String get privacy_policy => 'Privacy Policy';
+	@override String get license => 'License';
+	@override String get review_app => 'Review App';
+	@override String get delete_all => 'Delete All Data';
+	@override String get delete_all_description => 'User information will be deleted and all data will be inaccessible. This operation cannot be undone. Are you sure you want to delete?';
+	@override String get delete_complete => 'User information has been deleted';
+	@override String get user_info => 'User Information';
+	@override String get link_account => 'Link Account';
+	@override String get link_account_description => 'By linking an account, you can access the same data on other devices.';
+	@override String get link_account_description2 => 'All information obtained from the account will only be used for user authentication and will not be used for any other purpose.';
+	@override String get unlink_account => 'Unlink Account';
+	@override String get user_id => 'User ID';
+	@override String get user_id_description => 'The user ID is a automatically generated unique identifier used to distinguish your data from other users.';
+}
+
+// Path: feedback
+class _StringsFeedbackEn extends _StringsFeedbackJa {
+	_StringsFeedbackEn._(_StringsEn root) : this._root = root, super._(root);
+
+	@override final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get do_not_enter_personal_info => 'Do not enter personal information';
+	@override String get input_email_if_reply_is_needed => 'If you require a reply, please provide your email address. Please note that we may not be able to respond depending on the content of your report.';
+	@override String get email_address => 'Email Address';
+	@override String get device_info => 'Device Information';
+	@override String get device_info_collection_notice => 'To resolve issues and improve the app, information about your device will be automatically sent. No personally identifiable information will be included.';
+	@override String get os_version => 'OS and Version';
+	@override String get model_name => 'Model Name';
+	@override String get locale => 'Language and Region';
+	@override String get submit => 'Submit';
+	@override String get confirm_sending_feedback => 'Send with this content?';
+	@override String get thank_you_for_your_feedback => 'Thank you for your report';
+	@override String get please_enter_your_feedback => 'Please enter your report';
+	@override String get please_feedback => 'Please provide feedback';
+	@override String get too_long => 'Too many characters';
+	@override String get feedback_type_header => 'What type of report is this?';
+	@override late final _StringsFeedbackTypeEn type = _StringsFeedbackTypeEn._(_root);
+}
+
+// Path: auth
+class _StringsAuthEn extends _StringsAuthJa {
+	_StringsAuthEn._(_StringsEn root) : this._root = root, super._(root);
+
+	@override final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get sigh_in_with_apple => 'Sign in with Apple';
+	@override String get unlink_apple => 'Unlink Apple';
+	@override String get apple_id => 'Apple ID';
+	@override String get sigh_in_with_google => 'Sign in with Google';
+	@override String get unlink_google => 'Unlink Google';
+	@override String get google_account => 'Google Account';
+	@override String get sigh_in_with_github => 'Sign in with GitHub';
+	@override String get unlink_github => 'Unlink GitHub';
+	@override String get github_account => 'GitHub Account';
+	@override String unlink_confirm({required Object account}) => 'Unlink ${account}?';
+	@override String get unlink => 'Unlink';
+}
+
+// Path: onboarding
+class _StringsOnboardingEn extends _StringsOnboardingJa {
+	_StringsOnboardingEn._(_StringsEn root) : this._root = root, super._(root);
+
+	@override final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get start => 'Start';
+	@override String get social_account_sign_in => 'Sign in with Social Account';
+	@override String get social_account_sign_in_description => 'If you have linked a social account to this app, you can sign in from here.';
+	@override TextSpan ack_term({required InlineSpanBuilder termOfService, required InlineSpanBuilder privacyPolicy}) => TextSpan(children: [
+		const TextSpan(text: 'By starting to use this app, you are deemed to have agreed to the '),
+		termOfService('Terms of Service'),
+		const TextSpan(text: ' and '),
+		privacyPolicy('Privacy Policy'),
+		const TextSpan(text: '.'),
+	]);
+	@override String get anonymous_start => 'Start without signing in';
+	@override String get or => 'Or';
+}
+
+// Path: feedback.type
+class _StringsFeedbackTypeEn extends _StringsFeedbackTypeJa {
+	_StringsFeedbackTypeEn._(_StringsEn root) : this._root = root, super._(root);
+
+	@override final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get bug_report => 'Bug Report';
+	@override String get feature_request => 'Feature Request';
+	@override String get impression => 'Opinion';
+	@override String get other => 'Other';
 }

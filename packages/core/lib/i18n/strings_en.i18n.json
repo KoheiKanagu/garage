@@ -1,0 +1,65 @@
+{
+  "configure": {
+    "title": "Settings",
+    "feedback": "Feedback",
+    "about_this_app": "About This App",
+    "terms_of_service": "Terms of Service",
+    "privacy_policy": "Privacy Policy",
+    "license": "License",
+    "review_app": "Review App",
+    "delete_all": "Delete All Data",
+    "delete_all_description": "User information will be deleted and all data will be inaccessible. This operation cannot be undone. Are you sure you want to delete?",
+    "delete_complete": "User information has been deleted",
+    "user_info": "User Information",
+    "link_account": "Link Account",
+    "link_account_description": "By linking an account, you can access the same data on other devices.",
+    "link_account_description2": "All information obtained from the account will only be used for user authentication and will not be used for any other purpose.",
+    "unlink_account": "Unlink Account",
+    "user_id": "User ID",
+    "user_id_description": "The user ID is a automatically generated unique identifier used to distinguish your data from other users."
+  },
+  "feedback": {
+    "do_not_enter_personal_info": "Do not enter personal information",
+    "input_email_if_reply_is_needed": "If you require a reply, please provide your email address. Please note that we may not be able to respond depending on the content of your report.",
+    "email_address": "Email Address",
+    "device_info": "Device Information",
+    "device_info_collection_notice": "To resolve issues and improve the app, information about your device will be automatically sent. No personally identifiable information will be included.",
+    "os_version": "OS and Version",
+    "model_name": "Model Name",
+    "locale": "Language and Region",
+    "submit": "Submit",
+    "confirm_sending_feedback": "Send with this content?",
+    "thank_you_for_your_feedback": "Thank you for your report",
+    "please_enter_your_feedback": "Please enter your report",
+    "please_feedback": "Please provide feedback",
+    "too_long": "Too many characters",
+    "feedback_type_header": "What type of report is this?",
+    "type": {
+      "bug_report": "Bug Report",
+      "feature_request": "Feature Request",
+      "impression": "Opinion",
+      "other": "Other"
+    }
+  },
+  "auth": {
+    "sigh_in_with_apple": "Sign in with Apple",
+    "unlink_apple": "Unlink Apple",
+    "apple_id": "Apple ID",
+    "sigh_in_with_google": "Sign in with Google",
+    "unlink_google": "Unlink Google",
+    "google_account": "Google Account",
+    "sigh_in_with_github": "Sign in with GitHub",
+    "unlink_github": "Unlink GitHub",
+    "github_account": "GitHub Account",
+    "unlink_confirm": "Unlink $account?",
+    "unlink": "Unlink"
+  },
+  "onboarding": {
+    "start": "Start",
+    "social_account_sign_in": "Sign in with Social Account",
+    "social_account_sign_in_description": "If you have linked a social account to this app, you can sign in from here.",
+    "ack_term(rich)": "By starting to use this app, you are deemed to have agreed to the ${termOfService(Terms of Service)} and ${privacyPolicy(Privacy Policy)}.",
+    "anonymous_start": "Start without signing in",
+    "or": "Or"
+  }
+}

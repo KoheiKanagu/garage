@@ -20,7 +20,8 @@ const AppLocale _baseLocale = AppLocale.ja;
 /// - Locale locale = AppLocale.ja.flutterLocale // get flutter locale from enum
 /// - if (LocaleSettings.currentLocale == AppLocale.ja) // locale check
 enum AppLocale with BaseAppLocale<AppLocale, Translations> {
-	ja(languageCode: 'ja', build: Translations.build);
+	ja(languageCode: 'ja', build: Translations.build),
+	en(languageCode: 'en', build: _StringsEn.build);
 
 	const AppLocale({required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
 
@@ -198,4 +199,89 @@ class _StringsPermissionJa {
 	String get denied_apple_music_permission_message => '設定から Apple Music へのアクセスを許可してください';
 	String get settings => '設定';
 	String get permission_ok => '許可されています';
+}
+
+// Path: <root>
+class _StringsEn extends Translations {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	_StringsEn.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = TranslationMetadata(
+		    locale: AppLocale.en,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ),
+		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+
+	/// Metadata for the translations of <en>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	@override late final _StringsEn _root = this; // ignore: unused_field
+
+	// Translations
+	@override String get unset => 'Not set';
+	@override late final _StringsLocamusicEn locamusic = _StringsLocamusicEn._(_root);
+	@override String get app_name => 'Play Music by Location';
+	@override String get map => 'Map';
+	@override String get tap_to_set => 'Tap to set';
+	@override String get error_dialog_title => 'Error';
+	@override String get error_dialog_message => 'An error occurred. Please try again';
+	@override late final _StringsPermissionEn permission = _StringsPermissionEn._(_root);
+}
+
+// Path: locamusic
+class _StringsLocamusicEn extends _StringsLocamusicJa {
+	_StringsLocamusicEn._(_StringsEn root) : this._root = root, super._(root);
+
+	@override final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get create_limit_error => 'Failed to create range';
+	@override String create_limit_error_message({required Object n}) => 'You can create up to ${n} ranges';
+	@override String get select_music => 'Select music';
+	@override String get change_music => 'Change music';
+	@override String get small => 'Small';
+	@override String get medium => 'Medium';
+	@override String get large => 'Large';
+	@override String get delete => 'Delete';
+	@override String get delete_confirm => 'Are you sure you want to delete?';
+	@override String get open_apple_music => 'Open Apple Music';
+	@override String get awaiting_music_share => 'Waiting for music share';
+	@override String get how_to_share_step_1 => 'Find your favorite song and tap "..."';
+	@override String get how_to_share_step_2 => 'Tap "Share Song"';
+	@override String get how_to_share_step_3 => 'Tap "Locamusic" to share';
+	@override String get range_select_title => 'Range to start playing music';
+	@override String get range_notice => 'Music will start playing a few seconds after entering the set range, so it is recommended to set it wider.';
+	@override String get built_in_speaker_title => 'Built-in Speaker';
+	@override String get built_in_speaker_notice => 'Allows playing music on the built-in speaker even if you are not using headphones or earphones.';
+	@override String get allow_play => 'Allow play';
+	@override String get built_in_speaker_on_warning_title => 'Allow playing on built-in speaker';
+	@override String get built_in_speaker_on_warning_message => 'Please be aware that the music may be audible to people around you.';
+}
+
+// Path: permission
+class _StringsPermissionEn extends _StringsPermissionJa {
+	_StringsPermissionEn._(_StringsEn root) : this._root = root, super._(root);
+
+	@override final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Permission Confirmation';
+	@override String get error_banner_label => 'Permission confirmation required';
+	@override String get location => 'Location';
+	@override String get location_details => 'To play music based on your current location, you need to allow the use of location information';
+	@override String get request_location_permission => 'Allow';
+	@override String get request_authorized_when_in_use => 'Select "Allow While Using App"';
+	@override String get request_authorized_always => 'Select "Always Allow"';
+	@override String get denied_location_permission => 'Location unavailable';
+	@override String get denied_location_permission_message => 'Please allow the use of location information in settings';
+	@override String get apple_music => 'Apple Music';
+	@override String get apple_music_details => 'To play music, you need to allow access to Apple Music';
+	@override String get request_apple_music_permission => 'Allow access';
+	@override String get denied_apple_music_permission => 'Unable to access Apple Music';
+	@override String get denied_apple_music_permission_message => 'Please allow access to Apple Music in settings';
+	@override String get settings => 'Settings';
+	@override String get permission_ok => 'Allowed';
 }
