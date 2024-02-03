@@ -44,7 +44,7 @@ class AboutThisAppPage extends HookConsumerWidget {
         },
       ),
       ConfigureListTile(
-        title: i18n.configure.license,
+        title: i18n.configure.licenses,
         onTap: () {
           const MyLicensePageRoute().push<void>(context);
         },

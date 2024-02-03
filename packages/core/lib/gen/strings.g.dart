@@ -154,7 +154,7 @@ class _StringsConfigureJa {
 	String get about_this_app => 'このアプリについて';
 	String get terms_of_service => '利用規約';
 	String get privacy_policy => 'プライバシーポリシー';
-	String get license => 'ライセンス';
+	String get licenses => 'ライセンス';
 	String get review_app => 'アプリを評価する';
 	String get delete_all => 'すべてのデータを削除';
 	String get delete_all_description => 'ユーザ情報が削除され、すべてのデータが閲覧できなくなります。この操作は取り消せません。削除してもよろしいですか？';
@@ -285,7 +285,7 @@ class _StringsConfigureEn extends _StringsConfigureJa {
 	@override String get about_this_app => 'About This App';
 	@override String get terms_of_service => 'Terms of Service';
 	@override String get privacy_policy => 'Privacy Policy';
-	@override String get license => 'License';
+	@override String get licenses => 'Licenses';
 	@override String get review_app => 'Review App';
 	@override String get delete_all => 'Delete All Data';
 	@override String get delete_all_description => 'User information will be deleted and all data will be inaccessible. This operation cannot be undone. Are you sure you want to delete?';
