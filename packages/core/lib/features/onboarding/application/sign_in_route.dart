@@ -19,11 +19,13 @@ class SignInPageRoute extends GoRouteData {
     const child = SignInPage();
 
     return switch (InheritedThemeDetector.of(context)) {
-      InheritedThemeType.material => const MaterialPage(
+      InheritedThemeType.material => MaterialPage(
           child: child,
+          name: state.matchedLocation,
         ),
-      InheritedThemeType.cupertino => const CupertinoPage(
+      InheritedThemeType.cupertino => CupertinoPage(
           child: child,
+          name: state.matchedLocation,
         )
     };
   }

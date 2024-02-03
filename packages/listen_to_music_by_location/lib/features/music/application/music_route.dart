@@ -28,6 +28,7 @@ class LocamusicDetailPageRoute extends GoRouteData {
       child: LocamusicDetailPage(
         documentId: documentId,
       ),
+      name: state.matchedLocation,
     );
   }
 }
@@ -48,6 +49,7 @@ class AwaitingMusicPageRoute extends GoRouteData {
         documentId: documentId,
       ),
       fullscreenDialog: true,
+      name: state.matchedLocation,
     );
   }
 }

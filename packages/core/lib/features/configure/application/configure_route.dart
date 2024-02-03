@@ -31,9 +31,11 @@ class ConfigurePageRoute extends GoRouteData {
     return switch (InheritedThemeDetector.of(context)) {
       InheritedThemeType.material => MaterialPage(
           child: child,
+          name: state.matchedLocation,
         ),
       InheritedThemeType.cupertino => CupertinoPage(
           child: child,
+          name: state.matchedLocation,
         )
     };
   }
@@ -57,11 +59,13 @@ class AboutThisAppPageRoute extends GoRouteData {
     const child = AboutThisAppPage();
 
     return switch (InheritedThemeDetector.of(context)) {
-      InheritedThemeType.material => const MaterialPage(
+      InheritedThemeType.material => MaterialPage(
           child: child,
+          name: state.matchedLocation,
         ),
-      InheritedThemeType.cupertino => const CupertinoPage(
+      InheritedThemeType.cupertino => CupertinoPage(
           child: child,
+          name: state.matchedLocation,
         )
     };
   }
@@ -77,11 +81,13 @@ class MyLicensePageRoute extends GoRouteData {
     const child = MyLicensePage();
 
     return switch (InheritedThemeDetector.of(context)) {
-      InheritedThemeType.material => const MaterialPage(
+      InheritedThemeType.material => MaterialPage(
           child: child,
+          name: state.matchedLocation,
         ),
-      InheritedThemeType.cupertino => const CupertinoPage(
+      InheritedThemeType.cupertino => CupertinoPage(
           child: child,
+          name: state.matchedLocation,
         )
     };
   }
@@ -100,11 +106,13 @@ class UserInfoPageRoute extends GoRouteData {
     const child = UserInfoPage();
 
     return switch (InheritedThemeDetector.of(context)) {
-      InheritedThemeType.material => const MaterialPage(
+      InheritedThemeType.material => MaterialPage(
           child: child,
+          name: state.matchedLocation,
         ),
-      InheritedThemeType.cupertino => const CupertinoPage(
+      InheritedThemeType.cupertino => CupertinoPage(
           child: child,
+          name: state.matchedLocation,
         )
     };
   }

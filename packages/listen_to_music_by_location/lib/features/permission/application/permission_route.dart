@@ -14,9 +14,10 @@ class PermissionPageRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return const CupertinoPage(
+    return CupertinoPage(
       fullscreenDialog: true,
-      child: PermissionPage(),
+      child: const PermissionPage(),
+      name: state.matchedLocation,
     );
   }
 }
