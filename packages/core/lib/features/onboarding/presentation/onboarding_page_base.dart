@@ -14,7 +14,7 @@ class OnboardingPageBase extends HookConsumerWidget {
     super.key,
   });
 
-  final List<Widget> children;
+  final List<Image> children;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -76,11 +76,13 @@ class _Body extends HookConsumerWidget {
     this.children,
   );
 
-  final List<Widget> children;
+  final List<Image> children;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = usePageController();
+    final controller = usePageController(
+      viewportFraction: 0.8,
+    );
 
     return SafeArea(
       bottom: false,
@@ -89,7 +91,22 @@ class _Body extends HookConsumerWidget {
           Expanded(
             child: PageView(
               controller: controller,
-              children: children,
+              children: children
+                  .map(
+                    (e) => Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: e.image,
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
             ),
           ),
           const Gap(12),
