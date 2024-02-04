@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_dynamic_calls
+// ignore_for_file: avoid_dynamic_calls, lines_longer_than_80_chars
 
 import 'dart:convert';
 import 'dart:io';
@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:grinder/grinder.dart';
 
 @Task(
-  'Update core export',
+  "Replace remoteconfig.template.json's conditions",
 )
 void replaceRemoteconfigTemplateConditions() {
   final target = File('remoteconfig.template.json');
@@ -15,7 +15,7 @@ void replaceRemoteconfigTemplateConditions() {
   final template = json.decode(raw) as Map<String, dynamic>;
   template['conditions'] = (template['conditions'] as List<dynamic>).map(
     (e) {
-      // アプリ別の条件が定義されているexpressionではないものはそのまま
+      // Keep expressions that are not defined for individual apps as they are
       if (!(e['expression'] as String).startsWith('app.id == ')) {
         log('Skip: ${e['name']}');
         return e;
@@ -39,13 +39,22 @@ void replaceRemoteconfigTemplateConditions() {
         File('packages/$name/firebase.json').readAsStringSync(),
       ) as Map<String, dynamic>;
 
-      // prodのappIdを取得
+      final devAppId = firebaseJson['flutter']['platforms']['dart']
+              ['lib/constants/firebase_options_dev.dart']['configurations']
+          [platform] as String;
+      log('devAppId: $devAppId');
+      // Check devAppId
+      if (expression != "app.id == '$devAppId'") {
+        throw Exception('devAppId does not match');
+      }
+
+      // Get the appId for prod
       final prodAppId = firebaseJson['flutter']['platforms']['dart']
               ['lib/constants/firebase_options_prod.dart']['configurations']
           [platform] as String;
       log('prodAppId: $prodAppId');
 
-      // expressionを置換
+      // Replace the expression
       return e..['expression'] = "app.id == '$prodAppId'";
     },
   ).toList();
