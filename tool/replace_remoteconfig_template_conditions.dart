@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:grinder/grinder.dart';
 
 @Task(
-  "Replace remoteconfig.template.json's conditions",
+  "Replace remoteconfig.template.json's conditions.expression",
 )
 void replaceRemoteconfigTemplateConditions() {
   final list = run(
