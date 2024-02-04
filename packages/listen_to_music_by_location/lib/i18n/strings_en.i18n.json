@@ -27,6 +27,7 @@
   },
   "app_name": "Locamusic",
   "map": "Map",
+  "try_long_press": "Try long-pressing the map to set the range",
   "tap_to_set": "Tap to set",
   "error_dialog_title": "Error",
   "error_dialog_message": "An error occurred. Please try again",

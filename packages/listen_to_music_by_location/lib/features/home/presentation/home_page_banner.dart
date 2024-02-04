@@ -34,6 +34,7 @@ class HomePageBanner extends StatelessWidget {
             ],
           ),
           child: CupertinoButton.filled(
+            padding: const EdgeInsets.all(16),
             onPressed: onPressed,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

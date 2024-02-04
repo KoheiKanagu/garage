@@ -140,6 +140,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsLocamusicJa locamusic = _StringsLocamusicJa._(_root);
 	String get app_name => '場所で音楽';
 	String get map => '地図';
+	String get try_long_press => '地図を長押しして範囲を設定しましょう';
 	String get tap_to_set => 'タップして設定';
 	String get error_dialog_title => 'エラー';
 	String get error_dialog_message => '何らかのエラーが発生しました。もう一度お試しください';
@@ -227,6 +228,7 @@ class _StringsEn extends Translations {
 	@override late final _StringsLocamusicEn locamusic = _StringsLocamusicEn._(_root);
 	@override String get app_name => 'Locamusic';
 	@override String get map => 'Map';
+	@override String get try_long_press => 'Try long-pressing the map to set the range';
 	@override String get tap_to_set => 'Tap to set';
 	@override String get error_dialog_title => 'Error';
 	@override String get error_dialog_message => 'An error occurred. Please try again';

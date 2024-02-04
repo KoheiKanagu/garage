@@ -27,6 +27,7 @@
   },
   "app_name": "場所で音楽",
   "map": "地図",
+  "try_long_press": "地図を長押しして範囲を設定しましょう",
   "tap_to_set": "タップして設定",
   "error_dialog_title": "エラー",
   "error_dialog_message": "何らかのエラーが発生しました。もう一度お試しください",

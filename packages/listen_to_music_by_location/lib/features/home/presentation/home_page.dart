@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intersperse/intersperse.dart';
 import 'package:listen_to_music_by_location/features/home/presentation/home_page_banner.dart';
 import 'package:listen_to_music_by_location/features/map/presentation/map_page.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
@@ -29,6 +31,15 @@ class HomePage extends HookConsumerWidget {
     final permissionError =
         ref.watch(permissionRequestIsNeedProvider).asData?.value ?? false;
 
+    final isEmptyLocamusics = ref.watch(
+      locamusicDocumentsProvider.select(
+        (value) => value.maybeWhen(
+          orElse: () => true,
+          data: (data) => data.isEmpty,
+        ),
+      ),
+    );
+
     return Scaffold(
       floatingActionButton: Padding(
         // TabBarと被らないようにpaddingを設定
@@ -39,9 +50,21 @@ class HomePage extends HookConsumerWidget {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            if (permissionError)
-              HomePageBanner(
+          children: <Widget>[
+            Visibility(
+              visible: isEmptyLocamusics,
+              child: HomePageBanner(
+                label: i18n.try_long_press,
+                leading: const Icon(
+                  CupertinoIcons.lightbulb_fill,
+                  color: CupertinoColors.white,
+                ),
+                onPressed: () {},
+              ),
+            ),
+            Visibility(
+              visible: permissionError,
+              child: HomePageBanner(
                 leading: const Icon(
                   CupertinoIcons.exclamationmark_triangle_fill,
                   color: CupertinoColors.systemYellow,
@@ -51,7 +74,8 @@ class HomePage extends HookConsumerWidget {
                   const PermissionPageRoute().push<void>(context);
                 },
               ),
-          ],
+            ),
+          ].intersperse(const Gap(8)).toList(),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
