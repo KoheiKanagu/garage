@@ -102,20 +102,49 @@ class $AssetsImagesHowToGen {
 class $AssetsImagesOnboardingGen {
   const $AssetsImagesOnboardingGen();
 
-  /// File path: assets/images/onboarding/screenshot_1.webp
-  AssetGenImage get screenshot1 =>
-      const AssetGenImage('assets/images/onboarding/screenshot_1.webp');
+  /// File path: assets/images/onboarding/screenshot_1_en.webp
+  AssetGenImage get screenshot1En =>
+      const AssetGenImage('assets/images/onboarding/screenshot_1_en.webp');
 
-  /// File path: assets/images/onboarding/screenshot_2.webp
-  AssetGenImage get screenshot2 =>
-      const AssetGenImage('assets/images/onboarding/screenshot_2.webp');
+  /// File path: assets/images/onboarding/screenshot_1_ja.webp
+  AssetGenImage get screenshot1Ja =>
+      const AssetGenImage('assets/images/onboarding/screenshot_1_ja.webp');
 
-  /// File path: assets/images/onboarding/screenshot_3.webp
-  AssetGenImage get screenshot3 =>
-      const AssetGenImage('assets/images/onboarding/screenshot_3.webp');
+  /// File path: assets/images/onboarding/screenshot_2_en.webp
+  AssetGenImage get screenshot2En =>
+      const AssetGenImage('assets/images/onboarding/screenshot_2_en.webp');
+
+  /// File path: assets/images/onboarding/screenshot_2_ja.webp
+  AssetGenImage get screenshot2Ja =>
+      const AssetGenImage('assets/images/onboarding/screenshot_2_ja.webp');
+
+  /// File path: assets/images/onboarding/screenshot_3_en.webp
+  AssetGenImage get screenshot3En =>
+      const AssetGenImage('assets/images/onboarding/screenshot_3_en.webp');
+
+  /// File path: assets/images/onboarding/screenshot_3_ja.webp
+  AssetGenImage get screenshot3Ja =>
+      const AssetGenImage('assets/images/onboarding/screenshot_3_ja.webp');
+
+  /// File path: assets/images/onboarding/screenshot_4_en.webp
+  AssetGenImage get screenshot4En =>
+      const AssetGenImage('assets/images/onboarding/screenshot_4_en.webp');
+
+  /// File path: assets/images/onboarding/screenshot_4_ja.webp
+  AssetGenImage get screenshot4Ja =>
+      const AssetGenImage('assets/images/onboarding/screenshot_4_ja.webp');
 
   /// List of all assets
-  List<AssetGenImage> get values => [screenshot1, screenshot2, screenshot3];
+  List<AssetGenImage> get values => [
+        screenshot1En,
+        screenshot1Ja,
+        screenshot2En,
+        screenshot2Ja,
+        screenshot3En,
+        screenshot3Ja,
+        screenshot4En,
+        screenshot4Ja
+      ];
 }
 
 class Assets {
