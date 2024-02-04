@@ -22,7 +22,10 @@ void replaceRemoteconfigTemplateConditions() {
       }
       log('Replace: ${e['name']}');
 
-      final name = e['name'] as String;
+      // suffixes are '_ios' or '_android'
+      final name = (e['name'] as String)
+          .replaceFirst('_ios', '')
+          .replaceFirst('_android', '');
       final expression = e['expression'] as String;
 
       final String platform;
@@ -39,11 +42,11 @@ void replaceRemoteconfigTemplateConditions() {
         File('packages/$name/firebase.json').readAsStringSync(),
       ) as Map<String, dynamic>;
 
+      // Verify the appId for dev
       final devAppId = firebaseJson['flutter']['platforms']['dart']
               ['lib/constants/firebase_options_dev.dart']['configurations']
           [platform] as String;
       log('devAppId: $devAppId');
-      // Check devAppId
       if (expression != "app.id == '$devAppId'") {
         throw Exception('devAppId does not match');
       }
@@ -70,4 +73,8 @@ void replaceRemoteconfigTemplateConditions() {
       'diff',
     ],
   );
+}
+
+void main(List<String> args) {
+  replaceRemoteconfigTemplateConditions();
 }
