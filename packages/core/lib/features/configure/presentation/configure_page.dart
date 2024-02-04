@@ -87,13 +87,22 @@ class ConfigurePage extends HookConsumerWidget {
             ),
           ),
       _DebugListTile(
-        title: 'disableRouterRedirect',
+        title: 'go /',
         onTap: () {
-          disableRouterRedirect = true;
-          showOkAlertDialog(
+          GoRouter.of(context).go('/');
+        },
+      ),
+      _DebugListTile(
+        title: 'disableRouterRedirect',
+        onTap: () async {
+          final result = await showOkCancelAlertDialog(
             context: context,
-            title: 'disabled',
+            title: 'disableRouterRedirect?',
           );
+          if (result == OkCancelResult.ok) {
+            disableRouterRedirect = true;
+            logger.fine('disableRouterRedirect');
+          }
         },
       ),
       _DebugListTile(
@@ -122,12 +131,6 @@ class ConfigurePage extends HookConsumerWidget {
             await ref.read(sharedPreferencesClearProvider.future);
             logger.fine('clear SharedPreferences');
           }
-        },
-      ),
-      _DebugListTile(
-        title: 'go /',
-        onTap: () {
-          GoRouter.of(context).go('/');
         },
       ),
     ];
