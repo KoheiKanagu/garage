@@ -10,7 +10,12 @@ part of 'firebase_user_providers.dart';
 
 String _$firebaseUserHash() => r'c89432ee835eb5fa5addbb18812e9b17c1100f44';
 
-/// See also [firebaseUser].
+/// [fb_auth.User]を取得する
+///
+/// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
+/// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+///
+/// Copied from [firebaseUser].
 @ProviderFor(firebaseUser)
 final firebaseUserProvider = AutoDisposeStreamProvider<fb_auth.User?>.internal(
   firebaseUser,
@@ -50,6 +55,9 @@ class _SystemHash {
 ///
 /// サインインしていない場合はnullを返す
 ///
+/// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
+/// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+///
 /// Copied from [firebaseUserIdTokenResult].
 @ProviderFor(firebaseUserIdTokenResult)
 const firebaseUserIdTokenResultProvider = FirebaseUserIdTokenResultFamily();
@@ -58,6 +66,9 @@ const firebaseUserIdTokenResultProvider = FirebaseUserIdTokenResultFamily();
 ///
 /// サインインしていない場合はnullを返す
 ///
+/// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
+/// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+///
 /// Copied from [firebaseUserIdTokenResult].
 class FirebaseUserIdTokenResultFamily
     extends Family<AsyncValue<fb_auth.IdTokenResult?>> {
@@ -65,12 +76,18 @@ class FirebaseUserIdTokenResultFamily
   ///
   /// サインインしていない場合はnullを返す
   ///
+  /// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
+  /// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+  ///
   /// Copied from [firebaseUserIdTokenResult].
   const FirebaseUserIdTokenResultFamily();
 
   /// [fb_auth.IdTokenResult]を取得する
   ///
   /// サインインしていない場合はnullを返す
+  ///
+  /// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
+  /// Providerの名称を変える場合は、[ProviderLogger] も変更すること
   ///
   /// Copied from [firebaseUserIdTokenResult].
   FirebaseUserIdTokenResultProvider call({
@@ -109,12 +126,18 @@ class FirebaseUserIdTokenResultFamily
 ///
 /// サインインしていない場合はnullを返す
 ///
+/// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
+/// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+///
 /// Copied from [firebaseUserIdTokenResult].
 class FirebaseUserIdTokenResultProvider
     extends AutoDisposeFutureProvider<fb_auth.IdTokenResult?> {
   /// [fb_auth.IdTokenResult]を取得する
   ///
   /// サインインしていない場合はnullを返す
+  ///
+  /// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
+  /// Providerの名称を変える場合は、[ProviderLogger] も変更すること
   ///
   /// Copied from [firebaseUserIdTokenResult].
   FirebaseUserIdTokenResultProvider({
