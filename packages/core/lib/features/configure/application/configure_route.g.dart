@@ -22,7 +22,7 @@ RouteBase get $configurePageRoute => GoRouteData.$route(
 extension $ConfigurePageRouteExtension on ConfigurePageRoute {
   static ConfigurePageRoute _fromState(GoRouterState state) =>
       ConfigurePageRoute(
-        $extra: state.extra as List<ConfigureItem>,
+        $extra: state.extra as List<ConfigureItem>?,
       );
 
   String get location => GoRouteData.$location(

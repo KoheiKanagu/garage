@@ -15,17 +15,17 @@ part 'configure_route.g.dart';
 )
 class ConfigurePageRoute extends GoRouteData {
   const ConfigurePageRoute({
-    this.$extra = const [],
+    this.$extra,
   });
 
   static const path = '/configure';
 
-  final List<ConfigureItem> $extra;
+  final List<ConfigureItem>? $extra;
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     final child = ConfigurePage(
-      additionalItems: $extra,
+      additionalItems: $extra ?? [],
     );
 
     return switch (InheritedThemeDetector.of(context)) {
