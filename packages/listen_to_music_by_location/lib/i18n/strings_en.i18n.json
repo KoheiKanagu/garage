@@ -38,9 +38,12 @@
     "location": "Location",
     "location_details": "To play music based on your current location, you need to allow the use of location information",
     "request_location_permission": "Allow",
-    "request_authorized_when_in_use": "Select \"Allow While Using App\"",
-    "request_authorized_always": "Select \"Always Allow\"",
-    "denied_location_permission": "Location unavailable",
+
+    "request_location_dialog_title": "Please select \"Allow While Using App\"",
+    "request_location_dialog_message": "If permission is not requested, please change it from \"Location\" in settings",
+    "request_location_always_dialog_title": "Please select \"Change to Always Allow\"",
+
+    "denied_location_permission_title": "Location unavailable",
     "denied_location_permission_message": "Please allow the use of location information in settings",
 
     "apple_music": "Apple Music",

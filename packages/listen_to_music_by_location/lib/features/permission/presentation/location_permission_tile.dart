@@ -51,43 +51,58 @@ class LocationPermissionTile extends HookConsumerWidget {
               case AuthorizationStatus.notDetermined:
                 // まだ許可を求めていない場合は、まず使用中のみ許可を求める
                 if (context.mounted) {
-                  await showOkAlertDialog(
+                  final result = await _showActionSheet(
                     context: context,
-                    title: i18n.permission.request_authorized_when_in_use,
+                    title: i18n.permission.request_location_dialog_title,
+                    message: i18n.permission.request_location_dialog_message,
+                    requestPermission: true,
                   );
+
+                  switch (result) {
+                    case _ShowActionSheetResult.openSettings:
+                      await ref.read(openSettingsProvider).openSettings();
+                    case _ShowActionSheetResult.requestPermission:
+                      await ref
+                          .read(locationManagerProvider)
+                          .requestAuthorization(always: false);
+                    case _:
+                    // cancel
+                  }
                 }
-                await ref
-                    .read(locationManagerProvider)
-                    .requestAuthorization(always: false);
 
               case AuthorizationStatus.authorizedWhenInUse:
                 // 使用中のみ許可されている場合は、常に許可を求める
                 if (context.mounted) {
-                  await showOkAlertDialog(
+                  final result = await _showActionSheet(
                     context: context,
-                    title: i18n.permission.request_authorized_always,
+                    title: i18n.permission.request_location_always_dialog_title,
+                    message: i18n.permission.request_location_dialog_message,
+                    requestPermission: true,
                   );
+
+                  switch (result) {
+                    case _ShowActionSheetResult.openSettings:
+                      await ref.read(openSettingsProvider).openSettings();
+                    case _ShowActionSheetResult.requestPermission:
+                      await ref
+                          .read(locationManagerProvider)
+                          .requestAuthorization(always: true);
+                    case _:
+                    // cancel
+                  }
                 }
-                await ref
-                    .read(locationManagerProvider)
-                    .requestAuthorization(always: true);
 
               case AuthorizationStatus.restricted || AuthorizationStatus.denied:
                 // 利用できないか拒否されている場合
-                // 設定画面への遷移を促す
                 if (context.mounted) {
-                  final result = await showModalActionSheet(
+                  final result = await _showActionSheet(
                     context: context,
-                    title: i18n.permission.denied_location_permission,
+                    title: i18n.permission.denied_location_permission_title,
                     message: i18n.permission.denied_location_permission_message,
-                    actions: [
-                      SheetAction(
-                        label: i18n.permission.settings,
-                        key: i18n.permission.settings,
-                      ),
-                    ],
+                    requestPermission: false,
                   );
-                  if (result == i18n.permission.settings) {
+
+                  if (result == _ShowActionSheetResult.openSettings) {
                     await ref.read(openSettingsProvider).openSettings();
                   }
                 }
@@ -101,4 +116,33 @@ class LocationPermissionTile extends HookConsumerWidget {
       ],
     );
   }
+
+  Future<_ShowActionSheetResult?> _showActionSheet({
+    required BuildContext context,
+    required String title,
+    required String message,
+    required bool requestPermission,
+  }) =>
+      showModalActionSheet(
+        context: context,
+        title: title,
+        message: message,
+        actions: [
+          if (requestPermission)
+            SheetAction(
+              label: i18n.permission.request_location_permission,
+              key: _ShowActionSheetResult.requestPermission,
+            ),
+          SheetAction(
+            label: i18n.permission.settings,
+            key: _ShowActionSheetResult.openSettings,
+          ),
+        ],
+      );
+}
+
+enum _ShowActionSheetResult {
+  openSettings,
+  requestPermission,
+  ;
 }
