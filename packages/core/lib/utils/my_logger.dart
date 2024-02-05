@@ -9,10 +9,7 @@ final logger = SimpleLogger()
       AppEnv.dev => Level.ALL,
       AppEnv.prod => Level.WARNING,
     },
-    includeCallerInfo: switch (appEnv) {
-      AppEnv.dev => true,
-      AppEnv.prod => kDebugMode,
-    },
+    includeCallerInfo: true,
   )
   ..mode = switch (appEnv) {
     AppEnv.dev => LoggerMode.print,
