@@ -9,40 +9,47 @@ Future<String> remoteConfigGetStringValue(
   RemoteConfigGetStringValueRef ref, {
   required String key,
   required String defaultValue,
-}) async {
-  final result = await ref.watch(remoteConfigValuesProvider.future);
-  return result[key]?.asString() ?? defaultValue;
-}
+}) =>
+    ref.watch(
+      remoteConfigValuesProvider
+          .selectAsync((data) => data[key]?.asString() ?? defaultValue),
+    );
 
 @riverpod
 Future<int> remoteConfigGetIntValue(
   RemoteConfigGetIntValueRef ref, {
   required String key,
   required int defaultValue,
-}) async {
-  final result = await ref.watch(remoteConfigValuesProvider.future);
-  return result[key]?.asInt() ?? defaultValue;
-}
+}) =>
+    ref.watch(
+      remoteConfigValuesProvider.selectAsync(
+        (data) => data[key]?.asInt() ?? defaultValue,
+      ),
+    );
 
 @riverpod
 Future<double> remoteConfigGetDoubleValue(
   RemoteConfigGetDoubleValueRef ref, {
   required String key,
   required double defaultValue,
-}) async {
-  final result = await ref.watch(remoteConfigValuesProvider.future);
-  return result[key]?.asDouble() ?? defaultValue;
-}
+}) =>
+    ref.watch(
+      remoteConfigValuesProvider.selectAsync(
+        (data) => data[key]?.asDouble() ?? defaultValue,
+      ),
+    );
 
 @riverpod
 Future<bool> remoteConfigGetBoolValue(
   RemoteConfigGetBoolValueRef ref, {
   required String key,
   required bool defaultValue,
-}) async {
-  final result = await ref.watch(remoteConfigValuesProvider.future);
-  return result[key]?.asBool() ?? defaultValue;
-}
+}) =>
+    ref.watch(
+      remoteConfigValuesProvider.selectAsync(
+        (data) => data[key]?.asBool() ?? defaultValue,
+      ),
+    );
 
 @riverpod
 class RemoteConfigValues extends _$RemoteConfigValues {

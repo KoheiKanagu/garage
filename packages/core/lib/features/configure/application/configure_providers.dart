@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'configure_providers.g.dart';
 
+/// 新しいバージョンがリリースされているかどうか
 @riverpod
 Future<bool> configureIsReleasedNewVersion(
   ConfigureIsReleasedNewVersionRef ref,
@@ -10,13 +11,14 @@ Future<bool> configureIsReleasedNewVersion(
   final value = await ref.watch(
     remoteConfigGetIntValueProvider(
       key: RemoteConfigConstant.kLatestVersionCode,
-      defaultValue: RemoteConfigConstant.kLatestVersionCodeValue,
+      defaultValue: RemoteConfigConstant.kLatestVersionCodeDefaultValue,
     ).future,
   );
 
   return value > ref.watch(packageInfoBuildNumberProvider);
 }
 
+/// 新しいバージョンにアップデートが必須であるかどうか
 @riverpod
 Future<bool> configureIsNeedUpdate(
   ConfigureIsNeedUpdateRef ref,
@@ -24,13 +26,14 @@ Future<bool> configureIsNeedUpdate(
   final value = await ref.watch(
     remoteConfigGetIntValueProvider(
       key: RemoteConfigConstant.kRequirementVersionCode,
-      defaultValue: RemoteConfigConstant.kRequirementVersionCodeValue,
+      defaultValue: RemoteConfigConstant.kRequirementVersionCodeDefaultValue,
     ).future,
   );
 
   return value > ref.watch(packageInfoBuildNumberProvider);
 }
 
+/// サービスの稼働状況
 @riverpod
 Future<ServiceStatus> configureServiceStatus(
   ConfigureServiceStatusRef ref,
@@ -38,7 +41,7 @@ Future<ServiceStatus> configureServiceStatus(
   final value = await ref.watch(
     remoteConfigGetStringValueProvider(
       key: RemoteConfigConstant.kServiceStatus,
-      defaultValue: '',
+      defaultValue: RemoteConfigConstant.kServiceStatusDefaultValue,
     ).future,
   );
 
@@ -49,30 +52,30 @@ Future<ServiceStatus> configureServiceStatus(
   };
 }
 
+/// 利用規約のURI
 @riverpod
 Future<Uri?> configureTermsOfServiceUri(
   ConfigureTermsOfServiceUriRef ref,
-) {
-  return ref
-      .watch(
-        remoteConfigGetStringValueProvider(
-          key: RemoteConfigConstant.kTermsOfServiceUri,
-          defaultValue: '',
-        ).future,
-      )
-      .then(Uri.tryParse);
-}
+) =>
+    ref
+        .watch(
+          remoteConfigGetStringValueProvider(
+            key: RemoteConfigConstant.kTermsOfServiceUri,
+            defaultValue: RemoteConfigConstant.kTermsOfServiceUriDefaultValue,
+          ).future,
+        )
+        .then(Uri.tryParse);
 
+/// プライバシーポリシーのURI
 @riverpod
 Future<Uri?> configurePrivacyPolicyUri(
   ConfigurePrivacyPolicyUriRef ref,
-) {
-  return ref
-      .watch(
-        remoteConfigGetStringValueProvider(
-          key: RemoteConfigConstant.kPrivacyPolicyUri,
-          defaultValue: '',
-        ).future,
-      )
-      .then(Uri.tryParse);
-}
+) =>
+    ref
+        .watch(
+          remoteConfigGetStringValueProvider(
+            key: RemoteConfigConstant.kPrivacyPolicyUri,
+            defaultValue: RemoteConfigConstant.kPrivacyPolicyUriDefaultValue,
+          ).future,
+        )
+        .then(Uri.tryParse);

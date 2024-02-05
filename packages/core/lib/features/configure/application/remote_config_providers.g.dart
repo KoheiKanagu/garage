@@ -9,7 +9,7 @@ part of 'remote_config_providers.dart';
 // **************************************************************************
 
 String _$remoteConfigGetStringValueHash() =>
-    r'f96aceca80680f26cc52cdceba86f194e13f8c9e';
+    r'10e10cdd7952ff6bbf363497456ab00e2895584e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -179,7 +179,7 @@ class _RemoteConfigGetStringValueProviderElement
 }
 
 String _$remoteConfigGetIntValueHash() =>
-    r'f8fca718dfb534a2d8c5e563a300d5588dce30a6';
+    r'4a2a0e5b6f3f110df6186c5509f4b1208d0ba0a6';
 
 /// See also [remoteConfigGetIntValue].
 @ProviderFor(remoteConfigGetIntValue)
@@ -327,7 +327,7 @@ class _RemoteConfigGetIntValueProviderElement
 }
 
 String _$remoteConfigGetDoubleValueHash() =>
-    r'bc5b2d6b7f8e58d450cc814681999b08e189a421';
+    r'34ab1dfa8c1061ba7db37dd73439b147f0dae1b4';
 
 /// See also [remoteConfigGetDoubleValue].
 @ProviderFor(remoteConfigGetDoubleValue)
@@ -476,7 +476,7 @@ class _RemoteConfigGetDoubleValueProviderElement
 }
 
 String _$remoteConfigGetBoolValueHash() =>
-    r'9752cbb914a129fba7b53264967cff81a6e303ec';
+    r'a7af8a229939c69b2dbd6d6a26eb90877f83d31b';
 
 /// See also [remoteConfigGetBoolValue].
 @ProviderFor(remoteConfigGetBoolValue)

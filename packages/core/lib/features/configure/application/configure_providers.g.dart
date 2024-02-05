@@ -9,9 +9,11 @@ part of 'configure_providers.dart';
 // **************************************************************************
 
 String _$configureIsReleasedNewVersionHash() =>
-    r'468190f3435ee8da8679ebc7a7a8ab9a3e6788fa';
+    r'fbcb3837c14f2f82f57df8d73605a4267a0d76da';
 
-/// See also [configureIsReleasedNewVersion].
+/// 新しいバージョンがリリースされているかどうか
+///
+/// Copied from [configureIsReleasedNewVersion].
 @ProviderFor(configureIsReleasedNewVersion)
 final configureIsReleasedNewVersionProvider =
     AutoDisposeFutureProvider<bool>.internal(
@@ -26,9 +28,11 @@ final configureIsReleasedNewVersionProvider =
 
 typedef ConfigureIsReleasedNewVersionRef = AutoDisposeFutureProviderRef<bool>;
 String _$configureIsNeedUpdateHash() =>
-    r'd8a92a02a56fedcdf5a62749c921cea0e6a15531';
+    r'2c1b5ea0958dabeec2baff7582a5cf4676dac613';
 
-/// See also [configureIsNeedUpdate].
+/// 新しいバージョンにアップデートが必須であるかどうか
+///
+/// Copied from [configureIsNeedUpdate].
 @ProviderFor(configureIsNeedUpdate)
 final configureIsNeedUpdateProvider = AutoDisposeFutureProvider<bool>.internal(
   configureIsNeedUpdate,
@@ -42,9 +46,11 @@ final configureIsNeedUpdateProvider = AutoDisposeFutureProvider<bool>.internal(
 
 typedef ConfigureIsNeedUpdateRef = AutoDisposeFutureProviderRef<bool>;
 String _$configureServiceStatusHash() =>
-    r'32f9a3ba7ca3d42b893346c2ca54d400e7f9a78d';
+    r'c38b8bfd9acab54d3b0b57496cc242cf5b974f76';
 
-/// See also [configureServiceStatus].
+/// サービスの稼働状況
+///
+/// Copied from [configureServiceStatus].
 @ProviderFor(configureServiceStatus)
 final configureServiceStatusProvider =
     AutoDisposeFutureProvider<ServiceStatus>.internal(
@@ -59,9 +65,11 @@ final configureServiceStatusProvider =
 
 typedef ConfigureServiceStatusRef = AutoDisposeFutureProviderRef<ServiceStatus>;
 String _$configureTermsOfServiceUriHash() =>
-    r'559d609108fc05b2da5334093c7bc68bd0d16a4b';
+    r'e4167996c43c144e6649185fd4ba17f225682d3e';
 
-/// See also [configureTermsOfServiceUri].
+/// 利用規約のURI
+///
+/// Copied from [configureTermsOfServiceUri].
 @ProviderFor(configureTermsOfServiceUri)
 final configureTermsOfServiceUriProvider =
     AutoDisposeFutureProvider<Uri?>.internal(
@@ -76,9 +84,11 @@ final configureTermsOfServiceUriProvider =
 
 typedef ConfigureTermsOfServiceUriRef = AutoDisposeFutureProviderRef<Uri?>;
 String _$configurePrivacyPolicyUriHash() =>
-    r'960a672322cfc4ec91e92847d5386e5d3d089a72';
+    r'6e469309423563195038ef06b65c651579157708';
 
-/// See also [configurePrivacyPolicyUri].
+/// プライバシーポリシーのURI
+///
+/// Copied from [configurePrivacyPolicyUri].
 @ProviderFor(configurePrivacyPolicyUri)
 final configurePrivacyPolicyUriProvider =
     AutoDisposeFutureProvider<Uri?>.internal(

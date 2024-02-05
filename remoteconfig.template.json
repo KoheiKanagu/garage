@@ -33,11 +33,11 @@
     },
     "serviceStatus": {
       "defaultValue": {
-        "value": "up"
+        "value": "down"
       },
       "conditionalValues": {
         "dev.kingu.listenToMusicByLocation": {
-          "value": "0"
+          "value": "up"
         }
       },
       "description": "サービスステータス",
