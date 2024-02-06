@@ -34,49 +34,13 @@ class HomePage extends HookConsumerWidget {
       ),
     );
 
-    return Scaffold(
-      floatingActionButton: Padding(
-        // TabBarと被らないようにpaddingを設定
-        padding: const EdgeInsets.only(
-          bottom: 76,
-          left: 12,
-          right: 12,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Visibility(
-              visible: isEmptyLocamusic,
-              child: HomePageBanner(
-                label: i18n.try_long_press,
-                leading: const Icon(
-                  CupertinoIcons.lightbulb_fill,
-                  color: CupertinoColors.white,
-                ),
-                onPressed: () {},
-              ),
-            ),
-            Visibility(
-              visible: ref.watch(
-                permissionRequestIsRequiredProvider.select(
-                  (value) => value.asData?.value ?? false,
-                ),
-              ),
-              child: HomePageBanner(
-                leading: const Icon(
-                  CupertinoIcons.exclamationmark_triangle_fill,
-                  color: CupertinoColors.systemYellow,
-                ),
-                label: i18n.permission.error_banner_label,
-                onPressed: () {
-                  const PermissionPageRoute().push<void>(context);
-                },
-              ),
-            ),
-          ].intersperse(const Gap(8)).toList(),
-        ),
+    final isPermissionRequest = ref.watch(
+      permissionRequestIsRequiredProvider.select(
+        (value) => value.asData?.value ?? false,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+
+    return Scaffold(
       body: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
           items: [
@@ -90,16 +54,54 @@ class HomePage extends HookConsumerWidget {
             ),
           ],
         ),
-        tabBuilder: (context, index) {
-          switch (index) {
-            case 0:
-              return const MapPage();
-            case 1:
-              return const MusicListPage();
-            default:
-              throw UnimplementedError();
-          }
-        },
+        tabBuilder: (context, index) => Column(
+          children: [
+            Expanded(
+              child: switch (index) {
+                0 => const MapPage(),
+                1 => const MusicListPage(),
+                _ => throw UnimplementedError()
+              },
+            ),
+            // TODO: MapPageの上に重ねるようにボタンを表示
+            // MapPageの上に重ねるようにボタンを表示したいが、Mapがタップできなくなる問題があるので並べる
+            // https://github.com/flutter/flutter/issues/142298#issuecomment-1928971536
+            SafeArea(
+              top: false,
+              child: Container(
+                padding: const EdgeInsets.only(
+                  left: 12,
+                  right: 12,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    if (isEmptyLocamusic)
+                      HomePageBanner(
+                        label: i18n.try_long_press,
+                        leading: const Icon(
+                          CupertinoIcons.lightbulb_fill,
+                          color: CupertinoColors.white,
+                        ),
+                        onPressed: () {},
+                      ),
+                    if (isPermissionRequest)
+                      HomePageBanner(
+                        leading: const Icon(
+                          CupertinoIcons.exclamationmark_triangle_fill,
+                          color: CupertinoColors.systemYellow,
+                        ),
+                        label: i18n.permission.error_banner_label,
+                        onPressed: () {
+                          const PermissionPageRoute().push<void>(context);
+                        },
+                      ),
+                  ].intersperseOuter(const Gap(8)).toList(),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
