@@ -19,7 +19,10 @@ import 'package:core/features/configure/domain/service_status.dart';
 import 'package:core/features/configure/presentation/about_this_app_page.dart';
 import 'package:core/features/configure/presentation/configure_list_tile.dart';
 import 'package:core/features/configure/presentation/configure_page.dart';
+import 'package:core/features/configure/presentation/failed_run_app_page.dart';
 import 'package:core/features/configure/presentation/my_license_page.dart';
+import 'package:core/features/configure/presentation/service_down_page.dart';
+import 'package:core/features/configure/presentation/update_app_page.dart';
 import 'package:core/features/configure/presentation/user_info_page.dart';
 import 'package:core/features/feedback/application/feedback_providers.dart';
 import 'package:core/features/feedback/application/ja_feedback_localizations.dart';
@@ -46,6 +49,7 @@ import 'package:core/utils/geo_point_converter.dart';
 import 'package:core/utils/inherited_theme_detector.dart';
 import 'package:core/utils/media_query_preview.dart';
 import 'package:core/utils/my_logger.dart';
+import 'package:core/utils/store_uri.dart';
 import 'package:core/utils/timestamp_converter.dart';
 
 void main() {}
