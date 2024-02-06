@@ -8,24 +8,24 @@ part of 'permission_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$permissionRequestIsNeedHash() =>
-    r'7724f918b6a1a3b56badeb506ab2afd818d3db3c';
+String _$permissionRequestIsRequiredHash() =>
+    r'9c1ab98787ad0b082d8a85da1522db562b4dabde';
 
 /// 各種権限の確認が必要かどうかを返す
 ///
-/// Copied from [permissionRequestIsNeed].
-@ProviderFor(permissionRequestIsNeed)
-final permissionRequestIsNeedProvider =
+/// Copied from [permissionRequestIsRequired].
+@ProviderFor(permissionRequestIsRequired)
+final permissionRequestIsRequiredProvider =
     AutoDisposeFutureProvider<bool>.internal(
-  permissionRequestIsNeed,
-  name: r'permissionRequestIsNeedProvider',
+  permissionRequestIsRequired,
+  name: r'permissionRequestIsRequiredProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$permissionRequestIsNeedHash,
+      : _$permissionRequestIsRequiredHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef PermissionRequestIsNeedRef = AutoDisposeFutureProviderRef<bool>;
+typedef PermissionRequestIsRequiredRef = AutoDisposeFutureProviderRef<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

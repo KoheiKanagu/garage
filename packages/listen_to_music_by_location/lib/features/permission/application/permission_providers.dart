@@ -6,8 +6,8 @@ part 'permission_providers.g.dart';
 
 /// 各種権限の確認が必要かどうかを返す
 @riverpod
-Future<bool> permissionRequestIsNeed(
-  PermissionRequestIsNeedRef ref,
+Future<bool> permissionRequestIsRequired(
+  PermissionRequestIsRequiredRef ref,
 ) async {
   final locationStatus = await ref
       .watch(locationManagerCurrentPermissionStatusStreamProvider.future);

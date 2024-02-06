@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
@@ -32,6 +34,11 @@ class MapView extends StatelessWidget {
         'meters': meters,
       },
       creationParamsCodec: const StandardMessageCodec(),
+      gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{
+        Factory<OneSequenceGestureRecognizer>(
+          EagerGestureRecognizer.new,
+        ),
+      },
     );
   }
 }

@@ -28,15 +28,9 @@ class HomePage extends HookConsumerWidget {
         (_, __) {},
       );
 
-    final permissionError =
-        ref.watch(permissionRequestIsNeedProvider).asData?.value ?? false;
-
-    final isEmptyLocamusics = ref.watch(
+    final isEmptyLocamusic = ref.watch(
       locamusicDocumentsProvider.select(
-        (value) => value.maybeWhen(
-          orElse: () => true,
-          data: (data) => data.isEmpty,
-        ),
+        (value) => value.asData?.value.isEmpty ?? false,
       ),
     );
 
@@ -52,7 +46,7 @@ class HomePage extends HookConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Visibility(
-              visible: isEmptyLocamusics,
+              visible: isEmptyLocamusic,
               child: HomePageBanner(
                 label: i18n.try_long_press,
                 leading: const Icon(
@@ -63,7 +57,11 @@ class HomePage extends HookConsumerWidget {
               ),
             ),
             Visibility(
-              visible: permissionError,
+              visible: ref.watch(
+                permissionRequestIsRequiredProvider.select(
+                  (value) => value.asData?.value ?? false,
+                ),
+              ),
               child: HomePageBanner(
                 leading: const Icon(
                   CupertinoIcons.exclamationmark_triangle_fill,
