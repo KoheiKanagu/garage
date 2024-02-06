@@ -3,7 +3,6 @@ import 'dart:core';
 import 'package:core/core.dart';
 import 'package:core/features/configure/application/configure_route.dart'
     as configure_route;
-import 'package:core/features/configure/presentation/failed_run_app_page.dart';
 import 'package:core/features/onboarding/application/sign_in_route.dart'
     as sign_in_route;
 import 'package:firebase_analytics/firebase_analytics.dart';

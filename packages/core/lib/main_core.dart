@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:core/features/configure/presentation/failed_run_app_page.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
