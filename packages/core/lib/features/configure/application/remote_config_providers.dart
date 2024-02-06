@@ -9,66 +9,55 @@ Future<String> remoteConfigGetStringValue(
   RemoteConfigGetStringValueRef ref, {
   required String key,
   required String defaultValue,
-}) =>
-    ref.watch(
-      remoteConfigValuesProvider
-          .selectAsync((data) => data[key]?.asString() ?? defaultValue),
-    );
+}) async {
+  final result = await ref.watch(remoteConfigValuesProvider.future);
+  return result[key]?.asString() ?? defaultValue;
+}
 
 @riverpod
 Future<int> remoteConfigGetIntValue(
   RemoteConfigGetIntValueRef ref, {
   required String key,
   required int defaultValue,
-}) =>
-    ref.watch(
-      remoteConfigValuesProvider.selectAsync(
-        (data) => data[key]?.asInt() ?? defaultValue,
-      ),
-    );
+}) async {
+  final result = await ref.watch(remoteConfigValuesProvider.future);
+  return result[key]?.asInt() ?? defaultValue;
+}
 
 @riverpod
 Future<double> remoteConfigGetDoubleValue(
   RemoteConfigGetDoubleValueRef ref, {
   required String key,
   required double defaultValue,
-}) =>
-    ref.watch(
-      remoteConfigValuesProvider.selectAsync(
-        (data) => data[key]?.asDouble() ?? defaultValue,
-      ),
-    );
+}) async {
+  final result = await ref.watch(remoteConfigValuesProvider.future);
+  return result[key]?.asDouble() ?? defaultValue;
+}
 
 @riverpod
 Future<bool> remoteConfigGetBoolValue(
   RemoteConfigGetBoolValueRef ref, {
   required String key,
   required bool defaultValue,
-}) =>
-    ref.watch(
-      remoteConfigValuesProvider.selectAsync(
-        (data) => data[key]?.asBool() ?? defaultValue,
-      ),
-    );
+}) async {
+  final result = await ref.watch(remoteConfigValuesProvider.future);
+  return result[key]?.asBool() ?? defaultValue;
+}
 
 @riverpod
-class RemoteConfigValues extends _$RemoteConfigValues {
-  @override
-  Stream<Map<String, RemoteConfigValue>> build() async* {
-    final config = await ref.watch(firebaseRemoteConfigProvider.future);
+Stream<Map<String, RemoteConfigValue>> remoteConfigValues(
+  RemoteConfigValuesRef ref,
+) async* {
+  final config = await ref.read(firebaseRemoteConfigProvider.future);
+  yield config.getAll();
 
-    // 変更を監視
-    final subscription = config.onConfigUpdated.listen(
-      (event) async {
-        final config = await ref.read(firebaseRemoteConfigProvider.future);
-        await config.activate();
-        state = AsyncValue.data(
-          config.getAll(),
-        );
-      },
-    );
-    ref.onDispose(subscription.cancel);
-
-    yield config.getAll();
-  }
+  // "Multiple listeners can be added by calling this method again"
+  // なので取り扱いに注意が必要
+  yield* config.onConfigUpdated.asyncMap(
+    (_) async {
+      final config = await ref.read(firebaseRemoteConfigProvider.future);
+      await config.activate();
+      return config.getAll();
+    },
+  );
 }

@@ -20,8 +20,8 @@ Future<bool> configureIsReleasedNewVersion(
 
 /// 新しいバージョンにアップデートが必須であるかどうか
 @riverpod
-Future<bool> configureIsNeedUpdate(
-  ConfigureIsNeedUpdateRef ref,
+Future<bool> configureIsRequiredUpdate(
+  ConfigureIsRequiredUpdateRef ref,
 ) async {
   final value = await ref.watch(
     remoteConfigGetIntValueProvider(

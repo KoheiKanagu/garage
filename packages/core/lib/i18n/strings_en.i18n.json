@@ -1,4 +1,20 @@
 {
+  "service_down": {
+    "title": "Maintenance in Progress",
+    "description": "The service is currently down for maintenance. Please try again later.",
+    "exit": "Exit the app"
+  },
+  "update_app": {
+    "title": "has been updated.",
+    "description": "Download the latest version from ${storeName}.",
+    "update": "Update",
+    "skip": "Later"
+  },
+  "failed_run_app": {
+    "title": "An unexpected error occurred.",
+    "description": "Please check your internet connection and try again after a while.",
+    "exit": "Exit the app"
+  },
   "configure": {
     "title": "Settings",
     "feedback": "Feedback",

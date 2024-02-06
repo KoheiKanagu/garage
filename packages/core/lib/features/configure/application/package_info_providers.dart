@@ -32,3 +32,9 @@ String packageInfoPackageName(
   PackageInfoPackageNameRef ref,
 ) =>
     ref.watch(packageInfoProvider).packageName;
+
+@riverpod
+String? packageInfoInstallerStore(
+  PackageInfoInstallerStoreRef ref,
+) =>
+    ref.watch(packageInfoProvider).installerStore;

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,14 +9,12 @@ Future<void> main() async {
   kAppStoreId = '6471416156';
 
   final container = await initialize();
-  if (container == null) {
-    exit(1);
+  if (container != null) {
+    runApp(
+      UncontrolledProviderScope(
+        container: container,
+        child: const MyApp(),
+      ),
+    );
   }
-
-  runApp(
-    UncontrolledProviderScope(
-      container: container,
-      child: const MyApp(),
-    ),
-  );
 }

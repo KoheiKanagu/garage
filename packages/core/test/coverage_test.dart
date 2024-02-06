@@ -42,7 +42,6 @@ import 'package:core/features/onboarding/presentation/term_ack_text.dart';
 import 'package:core/features/user/application/user_providers.dart';
 import 'package:core/features/user/domain/user.dart';
 import 'package:core/utils/budoux.dart';
-import 'package:core/utils/failed_run_app.dart';
 import 'package:core/utils/geo_point_converter.dart';
 import 'package:core/utils/inherited_theme_detector.dart';
 import 'package:core/utils/media_query_preview.dart';

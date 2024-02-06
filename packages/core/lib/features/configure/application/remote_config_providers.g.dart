@@ -9,7 +9,7 @@ part of 'remote_config_providers.dart';
 // **************************************************************************
 
 String _$remoteConfigGetStringValueHash() =>
-    r'10e10cdd7952ff6bbf363497456ab00e2895584e';
+    r'f96aceca80680f26cc52cdceba86f194e13f8c9e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -179,7 +179,7 @@ class _RemoteConfigGetStringValueProviderElement
 }
 
 String _$remoteConfigGetIntValueHash() =>
-    r'4a2a0e5b6f3f110df6186c5509f4b1208d0ba0a6';
+    r'f8fca718dfb534a2d8c5e563a300d5588dce30a6';
 
 /// See also [remoteConfigGetIntValue].
 @ProviderFor(remoteConfigGetIntValue)
@@ -327,7 +327,7 @@ class _RemoteConfigGetIntValueProviderElement
 }
 
 String _$remoteConfigGetDoubleValueHash() =>
-    r'34ab1dfa8c1061ba7db37dd73439b147f0dae1b4';
+    r'bc5b2d6b7f8e58d450cc814681999b08e189a421';
 
 /// See also [remoteConfigGetDoubleValue].
 @ProviderFor(remoteConfigGetDoubleValue)
@@ -476,7 +476,7 @@ class _RemoteConfigGetDoubleValueProviderElement
 }
 
 String _$remoteConfigGetBoolValueHash() =>
-    r'a7af8a229939c69b2dbd6d6a26eb90877f83d31b';
+    r'9752cbb914a129fba7b53264967cff81a6e303ec';
 
 /// See also [remoteConfigGetBoolValue].
 @ProviderFor(remoteConfigGetBoolValue)
@@ -624,13 +624,13 @@ class _RemoteConfigGetBoolValueProviderElement
 }
 
 String _$remoteConfigValuesHash() =>
-    r'678e2c52ce370c5bd4dc71ffe2d5d7c1f2751ac6';
+    r'2e89da740b813e9417fef8fcb676ec502de58f85';
 
-/// See also [RemoteConfigValues].
-@ProviderFor(RemoteConfigValues)
-final remoteConfigValuesProvider = AutoDisposeStreamNotifierProvider<
-    RemoteConfigValues, Map<String, RemoteConfigValue>>.internal(
-  RemoteConfigValues.new,
+/// See also [remoteConfigValues].
+@ProviderFor(remoteConfigValues)
+final remoteConfigValuesProvider =
+    AutoDisposeStreamProvider<Map<String, RemoteConfigValue>>.internal(
+  remoteConfigValues,
   name: r'remoteConfigValuesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
@@ -639,7 +639,7 @@ final remoteConfigValuesProvider = AutoDisposeStreamNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$RemoteConfigValues
-    = AutoDisposeStreamNotifier<Map<String, RemoteConfigValue>>;
+typedef RemoteConfigValuesRef
+    = AutoDisposeStreamProviderRef<Map<String, RemoteConfigValue>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

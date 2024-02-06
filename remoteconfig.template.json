@@ -31,7 +31,7 @@
       "description": "最新版のアプリのバージョンコード",
       "valueType": "NUMBER"
     },
-    "serviceStatus": {
+    "service_status": {
       "defaultValue": {
         "value": "down"
       },

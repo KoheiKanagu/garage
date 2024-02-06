@@ -27,24 +27,25 @@ final configureIsReleasedNewVersionProvider =
 );
 
 typedef ConfigureIsReleasedNewVersionRef = AutoDisposeFutureProviderRef<bool>;
-String _$configureIsNeedUpdateHash() =>
-    r'2c1b5ea0958dabeec2baff7582a5cf4676dac613';
+String _$configureIsRequiredUpdateHash() =>
+    r'3bedec50f5963e27d7fd3f16e7259d5756b129da';
 
 /// 新しいバージョンにアップデートが必須であるかどうか
 ///
-/// Copied from [configureIsNeedUpdate].
-@ProviderFor(configureIsNeedUpdate)
-final configureIsNeedUpdateProvider = AutoDisposeFutureProvider<bool>.internal(
-  configureIsNeedUpdate,
-  name: r'configureIsNeedUpdateProvider',
+/// Copied from [configureIsRequiredUpdate].
+@ProviderFor(configureIsRequiredUpdate)
+final configureIsRequiredUpdateProvider =
+    AutoDisposeFutureProvider<bool>.internal(
+  configureIsRequiredUpdate,
+  name: r'configureIsRequiredUpdateProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$configureIsNeedUpdateHash,
+      : _$configureIsRequiredUpdateHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef ConfigureIsNeedUpdateRef = AutoDisposeFutureProviderRef<bool>;
+typedef ConfigureIsRequiredUpdateRef = AutoDisposeFutureProviderRef<bool>;
 String _$configureServiceStatusHash() =>
     r'c38b8bfd9acab54d3b0b57496cc242cf5b974f76';
 

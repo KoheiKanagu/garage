@@ -136,10 +136,50 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final Translations _root = this; // ignore: unused_field
 
 	// Translations
+	late final _StringsServiceDownJa service_down = _StringsServiceDownJa._(_root);
+	late final _StringsUpdateAppJa update_app = _StringsUpdateAppJa._(_root);
+	late final _StringsFailedRunAppJa failed_run_app = _StringsFailedRunAppJa._(_root);
 	late final _StringsConfigureJa configure = _StringsConfigureJa._(_root);
 	late final _StringsFeedbackJa feedback = _StringsFeedbackJa._(_root);
 	late final _StringsAuthJa auth = _StringsAuthJa._(_root);
 	late final _StringsOnboardingJa onboarding = _StringsOnboardingJa._(_root);
+}
+
+// Path: service_down
+class _StringsServiceDownJa {
+	_StringsServiceDownJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'メンテナンス中';
+	String get description => '現在サービスを停止してメンテナンス中です。しばらくしてから再度お試しください。';
+	String get exit => 'アプリを終了';
+}
+
+// Path: update_app
+class _StringsUpdateAppJa {
+	_StringsUpdateAppJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'が新しくなりました。';
+	String description({required Object storeName}) => '${storeName} で最新バージョンをダウンロードしましょう。';
+	String get update => 'アップデート';
+	String get skip => '後で';
+}
+
+// Path: failed_run_app
+class _StringsFailedRunAppJa {
+	_StringsFailedRunAppJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => '予期せぬエラーが発生しました。';
+	String get description => 'インターネットの接続をご確認の上、しばらく時間を置いてから再度お試しください。';
+	String get exit => 'アプリを終了';
 }
 
 // Path: configure
@@ -267,10 +307,50 @@ class _StringsEn extends Translations {
 	@override late final _StringsEn _root = this; // ignore: unused_field
 
 	// Translations
+	@override late final _StringsServiceDownEn service_down = _StringsServiceDownEn._(_root);
+	@override late final _StringsUpdateAppEn update_app = _StringsUpdateAppEn._(_root);
+	@override late final _StringsFailedRunAppEn failed_run_app = _StringsFailedRunAppEn._(_root);
 	@override late final _StringsConfigureEn configure = _StringsConfigureEn._(_root);
 	@override late final _StringsFeedbackEn feedback = _StringsFeedbackEn._(_root);
 	@override late final _StringsAuthEn auth = _StringsAuthEn._(_root);
 	@override late final _StringsOnboardingEn onboarding = _StringsOnboardingEn._(_root);
+}
+
+// Path: service_down
+class _StringsServiceDownEn extends _StringsServiceDownJa {
+	_StringsServiceDownEn._(_StringsEn root) : this._root = root, super._(root);
+
+	@override final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Maintenance in Progress';
+	@override String get description => 'The service is currently down for maintenance. Please try again later.';
+	@override String get exit => 'Exit the app';
+}
+
+// Path: update_app
+class _StringsUpdateAppEn extends _StringsUpdateAppJa {
+	_StringsUpdateAppEn._(_StringsEn root) : this._root = root, super._(root);
+
+	@override final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'has been updated.';
+	@override String description({required Object storeName}) => 'Download the latest version from ${storeName}.';
+	@override String get update => 'Update';
+	@override String get skip => 'Later';
+}
+
+// Path: failed_run_app
+class _StringsFailedRunAppEn extends _StringsFailedRunAppJa {
+	_StringsFailedRunAppEn._(_StringsEn root) : this._root = root, super._(root);
+
+	@override final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'An unexpected error occurred.';
+	@override String get description => 'Please check your internet connection and try again after a while.';
+	@override String get exit => 'Exit the app';
 }
 
 // Path: configure

@@ -1,4 +1,20 @@
 {
+  "service_down": {
+    "title": "メンテナンス中",
+    "description": "現在サービスを停止してメンテナンス中です。しばらくしてから再度お試しください。",
+    "exit": "アプリを終了"
+  },
+  "update_app": {
+    "title": "が新しくなりました。",
+    "description": "${storeName} で最新バージョンをダウンロードしましょう。",
+    "update": "アップデート",
+    "skip": "後で"
+  },
+  "failed_run_app": {
+    "title": "予期せぬエラーが発生しました。",
+    "description": "インターネットの接続をご確認の上、しばらく時間を置いてから再度お試しください。",
+    "exit": "アプリを終了"
+  },
   "configure": {
     "title": "設定",
     "feedback": "ご意見・不具合の報告",

@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core/features/configure/presentation/failed_run_app_page.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,23 +13,27 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<ProviderContainer?> initialize() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final locale = LocaleSettings.useDeviceLocale();
+  Intl.defaultLocale = locale.languageCode;
+
   return Future<ProviderContainer?>(
     _initialize,
   ).timeout(
-    const Duration(seconds: 5),
+    const Duration(seconds: 10),
     onTimeout: () async {
-      failedRunApp();
+      runApp(
+        const ProviderScope(
+          child: FailedRunAppPage(),
+        ),
+      );
       return null;
     },
   );
 }
 
 Future<ProviderContainer> _initialize() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final locale = LocaleSettings.useDeviceLocale();
-  Intl.defaultLocale = locale.languageCode;
-
   final (firebaseApp, sharedPreferences, packageInfo) = (
     await Firebase.initializeApp(),
     await SharedPreferences.getInstance(),
