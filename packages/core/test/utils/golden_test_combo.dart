@@ -190,23 +190,36 @@ Future<void> precacheImages(WidgetTester tester) async {
 
 @visibleForTesting
 enum TestDeviceSize {
-  iPhone11ProMax,
-  iPhone8Plus,
-  // ignore: constant_identifier_names
-  Pixel4XL,
+  /// such as iPhone 15 Pro Max, iPhone 15 Plus
+  /// https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications/
+  iPhone_6_7inch,
+
+  /// such as iPhone 8 Plus
+  /// https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications/
+  iPhone_5_5inch,
+
+  /// such as Pixel 8 Pro
+  /// https://store.google.com/product/pixel_8_pro_specs
+  Android_20_9inch, // ignore: constant_identifier_names
   ;
 
+  double get pixelRatio => switch (this) {
+        TestDeviceSize.iPhone_6_7inch => 3,
+        TestDeviceSize.iPhone_5_5inch => 3,
+        TestDeviceSize.Android_20_9inch => 3,
+      };
+
   Size get size => switch (this) {
-        TestDeviceSize.iPhone11ProMax => const Size(414, 896),
-        TestDeviceSize.iPhone8Plus => const Size(414, 736),
-        TestDeviceSize.Pixel4XL => const Size(412, 869),
+        TestDeviceSize.iPhone_6_7inch => const Size(1290, 2796) / pixelRatio,
+        TestDeviceSize.iPhone_5_5inch => const Size(1242, 2208) / pixelRatio,
+        TestDeviceSize.Android_20_9inch => const Size(1344, 2992) / pixelRatio,
       };
 
   TargetPlatform get targetPlatform => switch (this) {
-        TestDeviceSize.iPhone11ProMax ||
-        TestDeviceSize.iPhone8Plus =>
+        TestDeviceSize.iPhone_6_7inch ||
+        TestDeviceSize.iPhone_5_5inch =>
           TargetPlatform.iOS,
-        TestDeviceSize.Pixel4XL => TargetPlatform.android,
+        TestDeviceSize.Android_20_9inch => TargetPlatform.android,
       };
 }
 

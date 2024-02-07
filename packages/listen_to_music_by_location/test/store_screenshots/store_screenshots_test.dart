@@ -31,7 +31,7 @@ void main() {
     ],
     textScaleFactors: [1.0],
     devices: [
-      TestDeviceSize.iPhone11ProMax,
+      TestDeviceSize.iPhone_6_7inch,
     ],
   );
 }
