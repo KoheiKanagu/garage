@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
@@ -140,6 +141,11 @@ Future<void> main() async {
       ),
     ],
   );
+
+  await SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.immersive,
+  );
+
   if (container != null) {
     runApp(
       UncontrolledProviderScope(
