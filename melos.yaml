@@ -61,7 +61,6 @@ scripts:
     packageFilters:
       flutter: true
       dirExists: test
-      dependsOn: alchemist
 
   build_runner:build:
     run: |
