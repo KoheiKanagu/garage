@@ -25,19 +25,26 @@ class MyApp extends HookConsumerWidget {
     super.key,
   });
 
+  static const theme = CupertinoThemeData(
+    primaryColor: CupertinoDynamicColor.withBrightness(
+      color: Color(0xFFFA233B),
+      darkColor: Color(0xFFFB5C74),
+    ),
+  );
+
+  static final localizationsDelegates = [
+    GlobalCupertinoLocalizations.delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    FirebaseUILocalizations.delegate,
+  ];
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(
       myGoRouterProvider(
         routes: _routes,
         signedInLocation: const home_route.HomePageRoute().location,
-      ),
-    );
-
-    const theme = CupertinoThemeData(
-      primaryColor: CupertinoDynamicColor.withBrightness(
-        color: Color(0xFFFA233B),
-        darkColor: Color(0xFFFB5C74),
       ),
     );
 
@@ -58,12 +65,7 @@ class MyApp extends HookConsumerWidget {
             // .android()
             .build(),
         supportedLocales: AppLocaleUtils.supportedLocales,
-        localizationsDelegates: [
-          GlobalCupertinoLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          FirebaseUILocalizations.delegate,
-        ],
+        localizationsDelegates: localizationsDelegates,
         theme: theme,
         routerConfig: router,
       ),

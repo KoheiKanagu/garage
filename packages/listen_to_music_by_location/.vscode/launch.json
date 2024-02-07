@@ -30,6 +30,20 @@
         "prod",
       ],
       "program": "lib/main_prod.dart",
+    },
+    {
+      "name": "Golden",
+      "request": "launch",
+      "type": "dart",
+      "codeLens": {
+        "for": [
+          "run-test",
+          "run-test-file"
+        ]
+      },
+      "args": [
+        "--update-goldens"
+      ]
     }
   ]
 }
