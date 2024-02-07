@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -101,6 +103,8 @@ void goldenTestCombo({
                 theme = switch (themeType) {
                   InheritedThemeType.cupertino => cupertinoThemeData?.copyWith(
                       textTheme: cupertinoThemeData.textTheme.apply(
+                        // By default, it uses CupertinoSystemText or CupertinoSystemDisplay,
+                        // but they are not available for testing, so we change it to NotoSansJP.
                         fontFamily: 'NotoSansJP',
                       ),
                     ),
