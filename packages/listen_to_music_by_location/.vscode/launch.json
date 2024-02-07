@@ -48,6 +48,16 @@
         "--flavor",
         "dev",
       ]
-    }
+    },
+    {
+      "name": "Screenshot",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--flavor",
+        "dev",
+      ],
+      "program": "test/main_screenshot.dart"
+    },
   ]
 }

@@ -11,14 +11,18 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<ProviderContainer?> initialize() {
+Future<ProviderContainer?> initialize({
+  List<Override>? overrides,
+}) {
   WidgetsFlutterBinding.ensureInitialized();
 
   final locale = LocaleSettings.useDeviceLocale();
   Intl.defaultLocale = locale.languageCode;
 
   return Future<ProviderContainer?>(
-    _initialize,
+    () => _initialize(
+      overrides: overrides ?? [],
+    ),
   ).timeout(
     const Duration(seconds: 10),
     onTimeout: () async {
@@ -32,7 +36,9 @@ Future<ProviderContainer?> initialize() {
   );
 }
 
-Future<ProviderContainer> _initialize() async {
+Future<ProviderContainer> _initialize({
+  required List<Override> overrides,
+}) async {
   final (firebaseApp, sharedPreferences, packageInfo) = (
     await Firebase.initializeApp(),
     await SharedPreferences.getInstance(),
@@ -49,6 +55,7 @@ Future<ProviderContainer> _initialize() async {
       ProviderLogger(),
     ],
     overrides: [
+      ...overrides,
       sharedPreferencesInstanceProvider.overrideWithValue(
         sharedPreferences,
       ),
