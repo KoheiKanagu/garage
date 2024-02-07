@@ -41,7 +41,7 @@ void goldenTestCombo({
   for (final hostPlatform in hostPlatforms) {
     final ciPlatform = hostPlatform == 'ci';
 
-    for (final device in TestDeviceSize.values) {
+    for (final device in devices) {
       for (final textScaleFactor in textScaleFactors) {
         for (final locale in supportedLocales) {
           final name = '$testName.${device.name}_x${textScaleFactor}_$locale';
