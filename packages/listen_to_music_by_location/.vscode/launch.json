@@ -42,7 +42,11 @@
         ]
       },
       "args": [
-        "--update-goldens"
+        "--update-goldens",
+        "--tags",
+        "golden",
+        "--flavor",
+        "dev",
       ]
     }
   ]

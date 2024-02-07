@@ -4,6 +4,7 @@ export 'constants/app_env.dart';
 export 'constants/global_keys.dart';
 export 'constants/remote_config_constant.dart';
 export 'constants/typedefs.dart';
+export 'extensions/cupertino_text_theme_data_extension.dart';
 export 'extensions/go_router_extension.dart';
 export 'features/authentication/application/firebase_user_providers.dart';
 export 'features/authentication/application/oauth/github_provider.dart';

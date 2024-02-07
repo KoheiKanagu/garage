@@ -80,10 +80,32 @@ flutter:
   uses-material-design: true
   assets:
     - packages/budoux_dart/models/ja.json
-    - assets/images/
-    - assets/images/how_to/
-    - assets/images/onboarding/
-    - assets/si/
+
+    - assets/images/app_icon.webp
+
+    - assets/images/how_to/step1_en.webp
+    - assets/images/how_to/step1_ja.webp
+    - assets/images/how_to/step2_en.webp
+    - assets/images/how_to/step2_ja.webp
+    - assets/images/how_to/step3_en.webp
+    - assets/images/how_to/step3_ja.webp
+    - assets/images/how_to/step4_en.webp
+    - assets/images/how_to/step4_ja.webp
+    - assets/images/how_to/step5_en.webp
+    - assets/images/how_to/step5_ja.webp
+
+    - assets/images/onboarding/screenshot_1_en.webp
+    - assets/images/onboarding/screenshot_1_ja.webp
+    - assets/images/onboarding/screenshot_2_en.webp
+    - assets/images/onboarding/screenshot_2_ja.webp
+    - assets/images/onboarding/screenshot_3_en.webp
+    - assets/images/onboarding/screenshot_3_ja.webp
+    - assets/images/onboarding/screenshot_4_en.webp
+    - assets/images/onboarding/screenshot_4_ja.webp
+
+    - assets/si/apple_music_icon.si
+    - assets/si/apple_music_badge_ja.si
+    - assets/si/apple_music_badge_en.si
 # flutter_native_splash:
 #   color: "#FAFDFD" # lightColorScheme.background
 #   image: "assets/splash_icon.png"
