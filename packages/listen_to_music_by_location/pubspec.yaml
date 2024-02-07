@@ -78,6 +78,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: SocialIcons
+      fonts:
+        - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
+
   assets:
     - packages/budoux_dart/models/ja.json
 

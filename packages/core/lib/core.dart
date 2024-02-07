@@ -48,6 +48,7 @@ export 'features/onboarding/presentation/term_ack_text.dart';
 export 'features/routing/application/my_go_router.dart';
 export 'features/user/application/user_providers.dart';
 export 'features/user/domain/user.dart';
+export 'gen/fonts.gen.dart';
 export 'main_core.dart';
 export 'utils/budoux.dart';
 export 'utils/geo_point_converter.dart';
