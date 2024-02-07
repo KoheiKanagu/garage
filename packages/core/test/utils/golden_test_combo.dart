@@ -86,7 +86,7 @@ void goldenTestCombo({
 
               dynamic theme;
               if (ciPlatform) {
-                // Use Ahem font for CI
+                // TODO: Use Ahem font for CI
                 theme = switch (themeType) {
                   InheritedThemeType.material => materialThemeData?.copyWith(
                       textTheme: materialThemeData.textTheme.apply(
