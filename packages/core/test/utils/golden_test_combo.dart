@@ -1,4 +1,4 @@
-// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: lines_longer_than_80_chars, avoid_dynamic_calls
 
 import 'dart:convert';
 import 'dart:io';
@@ -273,17 +273,18 @@ Future<void> defaultLoadAppFonts() async {
     await loader.load();
   }
 
+  // TODO: There is an issue where CupertinoIcons is not being loaded.
   for (final e in fontManifest) {
-    final family = (e as Map<String, dynamic>)['family'] as String;
-    final loader = FontLoader(
-      // "MaterialIcons" → "MaterialIcons"
-      // "packages/cupertino_icons/CupertinoIcons" → "CupertinoIcons"
-      Uri.parse(family).pathSegments.last,
-    );
+    // "MaterialIcons" → "MaterialIcons"
+    // "packages/cupertino_icons/CupertinoIcons" → "CupertinoIcons"
+    final family = Uri.parse(e['family'] as String).pathSegments.last;
+
+    final loader = FontLoader(family);
 
     for (final f in e['fonts'] as List<dynamic>) {
+      final asset = f['asset'] as String;
       loader.addFont(
-        rootBundle.load((f as Map<String, dynamic>)['asset'] as String),
+        rootBundle.load(asset),
       );
     }
     await loader.load();
