@@ -17,6 +17,10 @@ Future<void> main() async {
   kTenantId = 'loca-music-l7m49';
   kAppStoreId = '6471416156';
 
+  // i18nのlocaleの初期化は[initialize()]だが、待てないのでここで初期化
+  WidgetsFlutterBinding.ensureInitialized();
+  LocaleSettings.useDeviceLocale();
+
   // TODO: assetsのURLに変更
   const artworkUrl =
       'https://github.com/KoheiKanagu/garage/assets/6175794/0c1c925d-a8b5-48e6-ab42-1a9507a9b4d0';
