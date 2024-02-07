@@ -69,7 +69,6 @@ dev_dependencies:
   test: any
   very_good_analysis: ^5.1.0
 
-# https://api.flutter.dev/flutter/dart-ui/FontWeight-class.html
 flutter:
   fonts:
     - family: SocialIcons
