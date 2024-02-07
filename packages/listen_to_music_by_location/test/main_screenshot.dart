@@ -24,6 +24,8 @@ Future<void> main() async {
     (
       documentId: 'document1',
       locamusic: Locamusic(
+        createdAt: Timestamp.fromDate(DateTime.now()),
+        updatedAt: Timestamp.fromDate(DateTime.now()),
         geoPoint: const GeoPoint(35.68099, 139.76720), // Tokyo Station
         distance: DistanceRange.small.meters,
         createdBy: 'createdBy',
@@ -40,6 +42,8 @@ Future<void> main() async {
     (
       documentId: 'document2',
       locamusic: Locamusic(
+        createdAt: Timestamp.fromDate(DateTime.now()),
+        updatedAt: Timestamp.fromDate(DateTime.now()),
         geoPoint: const GeoPoint(35.62984, 139.79401), // Tokyo Big Sight
         distance: DistanceRange.large.meters,
         createdBy: 'createdBy',
@@ -56,6 +60,8 @@ Future<void> main() async {
     (
       documentId: 'document3',
       locamusic: Locamusic(
+        createdAt: Timestamp.fromDate(DateTime.now()),
+        updatedAt: Timestamp.fromDate(DateTime.now()),
         geoPoint: const GeoPoint(35.62922, 139.74009), // Shinagawa Station
         distance: DistanceRange.medium.meters,
         createdBy: 'createdBy',
@@ -72,6 +78,8 @@ Future<void> main() async {
     (
       documentId: 'document4',
       locamusic: Locamusic(
+        createdAt: Timestamp.fromDate(DateTime.now()),
+        updatedAt: Timestamp.fromDate(DateTime.now()),
         geoPoint: const GeoPoint(35.65857, 139.70145), // Shibuya Station
         distance: DistanceRange.medium.meters,
         createdBy: 'createdBy',
@@ -79,7 +87,25 @@ Future<void> main() async {
       ),
       songDetails: SongDetails(
         id: 'music4',
-        title: i18n.app_name,
+        title: i18n.unset,
+        artistName: 'Kanagu Kohei',
+        artworkUrl: artworkUrl,
+        songUrl: '',
+      ),
+    ),
+    (
+      documentId: 'document5',
+      locamusic: Locamusic(
+        createdAt: Timestamp.fromDate(DateTime.now()),
+        updatedAt: Timestamp.fromDate(DateTime.now()),
+        geoPoint: const GeoPoint(35.70550, 139.7517), // Tokyo Dome
+        distance: DistanceRange.medium.meters,
+        createdBy: 'createdBy',
+        musicId: 'music5',
+      ),
+      songDetails: SongDetails(
+        id: 'music5',
+        title: i18n.unset,
         artistName: 'Kanagu Kohei',
         artworkUrl: artworkUrl,
         songUrl: '',

@@ -119,3 +119,7 @@ CFBundleDisplayNameSuffix = dev
 <key>CFBundleDisplayName</key>
 <string>スーパーアプリ$(CFBundleDisplayNameSuffix)</string>
 ```
+
+## 　ストアスクリーンショット
+
+`main_screenshot.dart`
