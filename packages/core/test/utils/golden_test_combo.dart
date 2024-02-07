@@ -3,13 +3,14 @@ import 'dart:io';
 
 import 'package:clock/clock.dart';
 import 'package:core/core.dart';
-import 'package:core/extensions/cupertino_text_theme_data_extension.dart';
+import 'package:core/gen/strings.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
 @isTest
 void goldenTestCombo({
@@ -51,6 +52,10 @@ void goldenTestCombo({
             (tester) async {
               await defaultLoadAppFonts();
 
+              /// Locale settings
+              LocaleSettings.setLocaleRaw(locale.toLanguageTag());
+              Intl.defaultLocale = locale.languageCode;
+
               /// Device surface size
               await tester.binding.setSurfaceSize(device.size);
               addTearDown(
@@ -73,28 +78,38 @@ void goldenTestCombo({
               await beforeTest?.call(container);
 
               /// theme
-              dynamic theme;
-              if (ciPlatform) {
-                // Use Ahem font for CI
-                if (cupertinoThemeData != null) {
-                  theme = cupertinoThemeData.copyWith(
-                    textTheme: cupertinoThemeData.textTheme.apply(
-                      fontFamily: 'Ahem',
-                    ),
-                  );
-                } else if (materialThemeData != null) {
-                  theme = materialThemeData.copyWith(
-                    textTheme: materialThemeData.textTheme.apply(
-                      fontFamily: 'Ahem',
-                    ),
-                  );
-                }
-              } else {
-                theme = cupertinoThemeData ?? materialThemeData;
-              }
               final themeType = cupertinoThemeData != null
                   ? InheritedThemeType.cupertino
                   : InheritedThemeType.material;
+
+              dynamic theme;
+              if (ciPlatform) {
+                // Use Ahem font for CI
+                theme = switch (themeType) {
+                  InheritedThemeType.material => materialThemeData?.copyWith(
+                      textTheme: materialThemeData.textTheme.apply(
+                        fontFamily: 'Ahem',
+                      ),
+                    ),
+                  InheritedThemeType.cupertino => cupertinoThemeData?.copyWith(
+                      textTheme: cupertinoThemeData.textTheme.apply(
+                        fontFamily: 'Ahem',
+                      ),
+                    ),
+                };
+              } else {
+                theme = switch (themeType) {
+                  InheritedThemeType.cupertino => cupertinoThemeData?.copyWith(
+                      textTheme: cupertinoThemeData.textTheme.apply(
+                        fontFamily: 'NotoSansJP',
+                      ),
+                    ),
+                  InheritedThemeType.material =>
+                    materialThemeData?.textTheme.apply(
+                      fontFamily: 'Roboto',
+                    ),
+                };
+              }
 
               /// test target widget
               final home = Builder(
@@ -225,15 +240,41 @@ enum TestDeviceSize {
 
 @visibleForTesting
 Future<void> defaultLoadAppFonts() async {
+  // build/unit_test_assets/FontManifest.json
   final fontManifest = await rootBundle.loadStructuredData(
     'FontManifest.json',
     (string) async => json.decode(string) as Iterable<dynamic>,
   );
 
+  /// Load default fonts from root directory
+  /// https://github.com/KoheiKanagu/garage/tree/main/fonts
+  final defaultFonts = [
+    'NotoSansJP',
+    'Roboto',
+  ];
+
+  for (final e in defaultFonts) {
+    final loader = FontLoader(e);
+
+    final fonts = Directory('../../fonts/$e')
+        .listSync()
+        .map((e) => e.absolute.path)
+        .where((e) => e.endsWith('.ttf'));
+
+    for (final f in fonts) {
+      loader.addFont(
+        rootBundle.load(f),
+      );
+    }
+    await loader.load();
+  }
+
   for (final e in fontManifest) {
     final family = (e as Map<String, dynamic>)['family'] as String;
     final loader = FontLoader(
-      family.replaceAll(RegExp(r'packages\/[^\/]*\/'), ''),
+      // "MaterialIcons" → "MaterialIcons"
+      // "packages/cupertino_icons/CupertinoIcons" → "CupertinoIcons"
+      Uri.parse(family).pathSegments.last,
     );
 
     for (final f in e['fonts'] as List<dynamic>) {

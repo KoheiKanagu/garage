@@ -69,7 +69,9 @@ dev_dependencies:
   test: any
   very_good_analysis: ^5.1.0
 
-fonts:
-  - family: SocialIcons
-    fonts:
-      - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
+# https://api.flutter.dev/flutter/dart-ui/FontWeight-class.html
+flutter:
+  fonts:
+    - family: SocialIcons
+      fonts:
+        - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
