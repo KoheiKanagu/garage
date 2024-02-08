@@ -802,20 +802,234 @@ final locamusicRegionHandlerProvider = AutoDisposeFutureProvider<void>.internal(
 );
 
 typedef LocamusicRegionHandlerRef = AutoDisposeFutureProviderRef<void>;
-String _$locamusicHandlerHash() => r'6a6f93dec84e28184b2db04abbf5f240fa36846a';
+String _$locamusicHandlerHash() => r'39404730c76ebb3ab70c0c00ca88bfe416dfa4a4';
 
-/// See also [locamusicHandler].
+/// ジオフェンスの状態を監視し、曲の再生を制御する
+///
+/// Providerには、アプリがバックグラウンドにある場合は動作しない問題がある。
+/// そのためProviderを利用しない方法で実装する。
+///
+/// https://github.com/rrousselGit/riverpod/issues/2671
+/// この問題が解決すればProviderを利用する実装に変更予定
+///
+/// Copied from [locamusicHandler].
 @ProviderFor(locamusicHandler)
-final locamusicHandlerProvider = AutoDisposeFutureProvider<void>.internal(
-  locamusicHandler,
-  name: r'locamusicHandlerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$locamusicHandlerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const locamusicHandlerProvider = LocamusicHandlerFamily();
 
-typedef LocamusicHandlerRef = AutoDisposeFutureProviderRef<void>;
+/// ジオフェンスの状態を監視し、曲の再生を制御する
+///
+/// Providerには、アプリがバックグラウンドにある場合は動作しない問題がある。
+/// そのためProviderを利用しない方法で実装する。
+///
+/// https://github.com/rrousselGit/riverpod/issues/2671
+/// この問題が解決すればProviderを利用する実装に変更予定
+///
+/// Copied from [locamusicHandler].
+class LocamusicHandlerFamily extends Family<AsyncValue<void>> {
+  /// ジオフェンスの状態を監視し、曲の再生を制御する
+  ///
+  /// Providerには、アプリがバックグラウンドにある場合は動作しない問題がある。
+  /// そのためProviderを利用しない方法で実装する。
+  ///
+  /// https://github.com/rrousselGit/riverpod/issues/2671
+  /// この問題が解決すればProviderを利用する実装に変更予定
+  ///
+  /// Copied from [locamusicHandler].
+  const LocamusicHandlerFamily();
+
+  /// ジオフェンスの状態を監視し、曲の再生を制御する
+  ///
+  /// Providerには、アプリがバックグラウンドにある場合は動作しない問題がある。
+  /// そのためProviderを利用しない方法で実装する。
+  ///
+  /// https://github.com/rrousselGit/riverpod/issues/2671
+  /// この問題が解決すればProviderを利用する実装に変更予定
+  ///
+  /// Copied from [locamusicHandler].
+  LocamusicHandlerProvider call({
+    required Stream<({Region region, RegionState state})>
+        didDetermineStateStream,
+    required CollectionReference<Locamusic> collectionReference,
+    required MusicKit musicKit,
+    required AnalyticsController analyticsController,
+  }) {
+    return LocamusicHandlerProvider(
+      didDetermineStateStream: didDetermineStateStream,
+      collectionReference: collectionReference,
+      musicKit: musicKit,
+      analyticsController: analyticsController,
+    );
+  }
+
+  @override
+  LocamusicHandlerProvider getProviderOverride(
+    covariant LocamusicHandlerProvider provider,
+  ) {
+    return call(
+      didDetermineStateStream: provider.didDetermineStateStream,
+      collectionReference: provider.collectionReference,
+      musicKit: provider.musicKit,
+      analyticsController: provider.analyticsController,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'locamusicHandlerProvider';
+}
+
+/// ジオフェンスの状態を監視し、曲の再生を制御する
+///
+/// Providerには、アプリがバックグラウンドにある場合は動作しない問題がある。
+/// そのためProviderを利用しない方法で実装する。
+///
+/// https://github.com/rrousselGit/riverpod/issues/2671
+/// この問題が解決すればProviderを利用する実装に変更予定
+///
+/// Copied from [locamusicHandler].
+class LocamusicHandlerProvider extends AutoDisposeFutureProvider<void> {
+  /// ジオフェンスの状態を監視し、曲の再生を制御する
+  ///
+  /// Providerには、アプリがバックグラウンドにある場合は動作しない問題がある。
+  /// そのためProviderを利用しない方法で実装する。
+  ///
+  /// https://github.com/rrousselGit/riverpod/issues/2671
+  /// この問題が解決すればProviderを利用する実装に変更予定
+  ///
+  /// Copied from [locamusicHandler].
+  LocamusicHandlerProvider({
+    required Stream<({Region region, RegionState state})>
+        didDetermineStateStream,
+    required CollectionReference<Locamusic> collectionReference,
+    required MusicKit musicKit,
+    required AnalyticsController analyticsController,
+  }) : this._internal(
+          (ref) => locamusicHandler(
+            ref as LocamusicHandlerRef,
+            didDetermineStateStream: didDetermineStateStream,
+            collectionReference: collectionReference,
+            musicKit: musicKit,
+            analyticsController: analyticsController,
+          ),
+          from: locamusicHandlerProvider,
+          name: r'locamusicHandlerProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$locamusicHandlerHash,
+          dependencies: LocamusicHandlerFamily._dependencies,
+          allTransitiveDependencies:
+              LocamusicHandlerFamily._allTransitiveDependencies,
+          didDetermineStateStream: didDetermineStateStream,
+          collectionReference: collectionReference,
+          musicKit: musicKit,
+          analyticsController: analyticsController,
+        );
+
+  LocamusicHandlerProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.didDetermineStateStream,
+    required this.collectionReference,
+    required this.musicKit,
+    required this.analyticsController,
+  }) : super.internal();
+
+  final Stream<({Region region, RegionState state})> didDetermineStateStream;
+  final CollectionReference<Locamusic> collectionReference;
+  final MusicKit musicKit;
+  final AnalyticsController analyticsController;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(LocamusicHandlerRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: LocamusicHandlerProvider._internal(
+        (ref) => create(ref as LocamusicHandlerRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        didDetermineStateStream: didDetermineStateStream,
+        collectionReference: collectionReference,
+        musicKit: musicKit,
+        analyticsController: analyticsController,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _LocamusicHandlerProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LocamusicHandlerProvider &&
+        other.didDetermineStateStream == didDetermineStateStream &&
+        other.collectionReference == collectionReference &&
+        other.musicKit == musicKit &&
+        other.analyticsController == analyticsController;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, didDetermineStateStream.hashCode);
+    hash = _SystemHash.combine(hash, collectionReference.hashCode);
+    hash = _SystemHash.combine(hash, musicKit.hashCode);
+    hash = _SystemHash.combine(hash, analyticsController.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin LocamusicHandlerRef on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `didDetermineStateStream` of this provider.
+  Stream<({Region region, RegionState state})> get didDetermineStateStream;
+
+  /// The parameter `collectionReference` of this provider.
+  CollectionReference<Locamusic> get collectionReference;
+
+  /// The parameter `musicKit` of this provider.
+  MusicKit get musicKit;
+
+  /// The parameter `analyticsController` of this provider.
+  AnalyticsController get analyticsController;
+}
+
+class _LocamusicHandlerProviderElement
+    extends AutoDisposeFutureProviderElement<void> with LocamusicHandlerRef {
+  _LocamusicHandlerProviderElement(super.provider);
+
+  @override
+  Stream<({Region region, RegionState state})> get didDetermineStateStream =>
+      (origin as LocamusicHandlerProvider).didDetermineStateStream;
+  @override
+  CollectionReference<Locamusic> get collectionReference =>
+      (origin as LocamusicHandlerProvider).collectionReference;
+  @override
+  MusicKit get musicKit => (origin as LocamusicHandlerProvider).musicKit;
+  @override
+  AnalyticsController get analyticsController =>
+      (origin as LocamusicHandlerProvider).analyticsController;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

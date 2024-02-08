@@ -77,11 +77,12 @@ Stream<AuthorizationStatus> locationManagerDidChangeAuthorization(
         .stream;
 
 @riverpod
-Stream<
-    ({
-      Region region,
-      RegionState state,
-    })> locationManagerDidDetermineState(
+Raw<
+    Stream<
+        ({
+          Region region,
+          RegionState state,
+        })>> locationManagerDidDetermineState(
   LocationManagerDidDetermineStateRef ref,
 ) =>
     ref.watch(_locationManagerDelegateProvider).didDetermineStateStream.stream;

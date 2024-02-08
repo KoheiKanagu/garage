@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intersperse/intersperse.dart';
+import 'package:listen_to_music_by_location/features/analytics/application/analytics_providers.dart';
 import 'package:listen_to_music_by_location/features/home/presentation/home_page_banner.dart';
 import 'package:listen_to_music_by_location/features/map/presentation/map_page.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/presentation/music_list_page.dart';
+import 'package:listen_to_music_by_location/features/native/application/location_manager_delegate.dart';
+import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 import 'package:listen_to_music_by_location/features/permission/application/permission_providers.dart';
 import 'package:listen_to_music_by_location/features/permission/application/permission_route.dart';
 import 'package:listen_to_music_by_location/gen/strings.g.dart';
@@ -20,7 +23,13 @@ class HomePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref
       ..listen(
-        locamusicHandlerProvider,
+        locamusicHandlerProvider(
+          didDetermineStateStream:
+              ref.watch(locationManagerDidDetermineStateProvider),
+          collectionReference: ref.watch(locamusicCollectionReferenceProvider),
+          musicKit: ref.watch(musicKitProvider),
+          analyticsController: ref.watch(analyticsControllerProvider),
+        ),
         (_, __) {},
       )
       ..listen(

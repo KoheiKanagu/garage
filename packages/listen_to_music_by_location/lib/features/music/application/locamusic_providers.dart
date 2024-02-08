@@ -6,7 +6,6 @@ import 'package:listen_to_music_by_location/exceptions/locamusic_creation_limit_
 import 'package:listen_to_music_by_location/features/analytics/application/analytics_providers.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/music/domain/locamusic.dart';
-import 'package:listen_to_music_by_location/features/native/application/location_manager_delegate.dart';
 import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
 import 'package:listen_to_music_by_location/gen/message.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -195,65 +194,95 @@ Future<void> locamusicRegionHandler(
   );
 }
 
-// ジオフェンスの状態を監視し、曲の再生を制御する
+/// ジオフェンスの状態を監視し、曲の再生を制御する
+///
+/// Providerには、アプリがバックグラウンドにある場合は動作しない問題がある。
+/// そのためProviderを利用しない方法で実装する。
+///
+/// https://github.com/rrousselGit/riverpod/issues/2671
+/// この問題が解決すればProviderを利用する実装に変更予定
 @riverpod
 Future<void> locamusicHandler(
-  LocamusicHandlerRef ref,
-) async {
-  // ジオフェンスの状態
-  final (:region, :state) =
-      await ref.watch(locationManagerDidDetermineStateProvider.future);
+  LocamusicHandlerRef _, {
+  required Stream<
+          ({
+            Region region,
+            RegionState state,
+          })>
+      didDetermineStateStream,
+  required CollectionReference<Locamusic> collectionReference,
+  required MusicKit musicKit,
+  required AnalyticsController analyticsController,
+}) async {
+  final subscription = didDetermineStateStream.listen(
+    // ジオフェンスの状態
+    (event) async {
+      final (:region, :state) = event;
 
-  // 領域に入った時
-  if (state == RegionState.inside) {
-    logger.info(
-      {
-        'state': state,
-        'region': region.encode(),
-      },
-    );
-
-    // identifierを使ってLocamusicのドキュメントを取得
-    final doc =
-        await ref.read(locamusicDocumentProvider(region.identifier).future);
-
-    final builtInSpeaker =
-        await ref.read(musicKitProvider).audioSessionBuiltInSpeaker();
-    if (doc.musicId == null) {
-      logger.info(
-        'skip play music. musicId is null.',
-      );
-      return;
-    }
-
-    if (builtInSpeaker) {
-      if (doc.allowBuiltInSpeaker) {
-        // ビルトインスピーカーの場合で、再生の許可がある場合は再生
+      // 領域に入った時
+      if (state == RegionState.inside) {
         logger.info(
-          'play music: ${doc.musicId}',
+          {
+            'state': state,
+            'region': region.encode(),
+          },
         );
-        // 曲を再生
-        await ref.read(musicKitProvider).play(doc.musicId!);
-        await ref.read(analyticsControllerProvider).logPlayMusic(
+
+        // identifierを使ってLocamusicのドキュメントを取得
+        final doc = await collectionReference
+            .doc(region.identifier)
+            .get()
+            .then((value) => value.data());
+        if (doc == null) {
+          logger.info(
+            'skip play music. locamusic document is null.',
+          );
+          return;
+        }
+
+        final builtInSpeaker = await musicKit.audioSessionBuiltInSpeaker();
+        if (doc.musicId == null) {
+          logger.info(
+            'skip play music. musicId is null.',
+          );
+          return;
+        }
+
+        if (builtInSpeaker) {
+          if (doc.allowBuiltInSpeaker) {
+            // ビルトインスピーカーの場合で、再生の許可がある場合は再生
+            logger.info(
+              'play music: ${doc.musicId}',
+            );
+            // 曲を再生
+            await musicKit.play(doc.musicId!);
+            await analyticsController.logPlayMusic(
               builtInSpeaker: builtInSpeaker,
             );
-      } else {
-        // 許可がないので再生しない
-        logger.info(
-          // ignore: lines_longer_than_80_chars
-          'skip play music. Currently using built-in speaker, but playback is not allowed.',
-        );
-      }
-    } else {
-      // ビルトインスピーカー以外、例えばヘッドフォンの場合は再生する
-      logger.info(
-        'play music: ${doc.musicId}',
-      );
-      // 曲を再生
-      await ref.read(musicKitProvider).play(doc.musicId!);
-      await ref.read(analyticsControllerProvider).logPlayMusic(
+          } else {
+            // 許可がないので再生しない
+            logger.info(
+              // ignore: lines_longer_than_80_chars
+              'skip play music. Currently using built-in speaker, but playback is not allowed.',
+            );
+          }
+        } else {
+          // ビルトインスピーカー以外、例えばヘッドフォンの場合は再生する
+          logger.info(
+            'play music: ${doc.musicId}',
+          );
+          // 曲を再生
+          await musicKit.play(doc.musicId!);
+          await analyticsController.logPlayMusic(
             builtInSpeaker: builtInSpeaker,
           );
-    }
-  }
+        }
+      }
+    },
+  );
+
+  _.onDispose(() {
+    logger.fine('cancel locamusicHandler');
+    subscription.cancel();
+  });
 }

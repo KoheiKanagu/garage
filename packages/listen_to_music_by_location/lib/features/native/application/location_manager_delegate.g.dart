@@ -45,12 +45,12 @@ final locationManagerDidChangeAuthorizationProvider =
 typedef LocationManagerDidChangeAuthorizationRef
     = AutoDisposeStreamProviderRef<AuthorizationStatus>;
 String _$locationManagerDidDetermineStateHash() =>
-    r'a028265403f1a30c3008545a864b24a7f4a6a254';
+    r'09e3ac7eb742ddef8e7ea4f43725be60f54ff094';
 
 /// See also [locationManagerDidDetermineState].
 @ProviderFor(locationManagerDidDetermineState)
-final locationManagerDidDetermineStateProvider =
-    AutoDisposeStreamProvider<({Region region, RegionState state})>.internal(
+final locationManagerDidDetermineStateProvider = AutoDisposeProvider<
+    Raw<Stream<({Region region, RegionState state})>>>.internal(
   locationManagerDidDetermineState,
   name: r'locationManagerDidDetermineStateProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -61,7 +61,7 @@ final locationManagerDidDetermineStateProvider =
 );
 
 typedef LocationManagerDidDetermineStateRef
-    = AutoDisposeStreamProviderRef<({Region region, RegionState state})>;
+    = AutoDisposeProviderRef<Raw<Stream<({Region region, RegionState state})>>>;
 String _$locationManagerDidStartMonitoringHash() =>
     r'0c581614cccce1ebd7084aaa2b74297d3a79ba3d';
 
