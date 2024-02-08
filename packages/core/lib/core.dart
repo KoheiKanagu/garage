@@ -46,6 +46,7 @@ export 'features/onboarding/presentation/onboarding_page_base.dart';
 export 'features/onboarding/presentation/sign_in_page.dart';
 export 'features/onboarding/presentation/term_ack_text.dart';
 export 'features/routing/application/my_go_router.dart';
+export 'features/routing/domain/my_go_router_listenable.dart';
 export 'features/user/application/user_providers.dart';
 export 'features/user/domain/user.dart';
 export 'gen/fonts.gen.dart';

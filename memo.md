@@ -100,7 +100,9 @@ gh pr create --fill --assignee @me
 Build Archive
 
 ```sh
-melos run clean --no-select
+melos run clean --no-select && \
+melos run pub:get && \
+melos run analyze && \
 melos run build:ipa:prod:upload
 melos run build:appbundle:prod:upload
 ```
