@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:core/core.dart';
 import 'package:listen_to_music_by_location/constants/collection_path.dart';
 import 'package:listen_to_music_by_location/exceptions/locamusic_creation_limit_exception.dart';
+import 'package:listen_to_music_by_location/features/analytics/application/analytics_providers.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/music/domain/locamusic.dart';
 import 'package:listen_to_music_by_location/features/native/application/location_manager_delegate.dart';
@@ -233,6 +234,9 @@ Future<void> locamusicHandler(
         );
         // 曲を再生
         await ref.read(musicKitProvider).play(doc.musicId!);
+        await ref.read(analyticsControllerProvider).logPlayMusic(
+              builtInSpeaker: builtInSpeaker,
+            );
       } else {
         // 許可がないので再生しない
         logger.info(
@@ -247,6 +251,9 @@ Future<void> locamusicHandler(
       );
       // 曲を再生
       await ref.read(musicKitProvider).play(doc.musicId!);
+      await ref.read(analyticsControllerProvider).logPlayMusic(
+            builtInSpeaker: builtInSpeaker,
+          );
     }
   }
 }
