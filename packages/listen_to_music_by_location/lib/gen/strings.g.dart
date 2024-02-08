@@ -145,6 +145,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get error_dialog_title => 'エラー';
 	String get error_dialog_message => '何らかのエラーが発生しました。もう一度お試しください';
 	late final _StringsPermissionJa permission = _StringsPermissionJa._(_root);
+	String get continue_text => '続ける';
 }
 
 // Path: locamusic
@@ -190,7 +191,6 @@ class _StringsPermissionJa {
 	String get error_banner_label => '権限の確認が必要です';
 	String get location => '位置情報';
 	String get location_details => '現在位置を基にして音楽を再生するため、位置情報の使用を許可する必要があります';
-	String get request_location_permission => '使用を許可する';
 	String get request_location_dialog_title => '"アプリの使用中は許可" を選択してください';
 	String get request_location_dialog_message => '許可が求められない場合は、設定の"位置情報"から変更してください';
 	String get request_location_always_dialog_title => '"常に許可" に変更を選択してください';
@@ -198,7 +198,6 @@ class _StringsPermissionJa {
 	String get denied_location_permission_message => '設定から位置情報の利用を許可してください';
 	String get apple_music => 'Apple Music';
 	String get apple_music_details => '音楽を再生するため、Apple Music へのアクセスを許可する必要があります';
-	String get request_apple_music_permission => 'アクセスを許可する';
 	String get denied_apple_music_permission => 'Apple Music にアクセスできません';
 	String get denied_apple_music_permission_message => '設定から Apple Music へのアクセスを許可してください';
 	String get settings => '設定';
@@ -234,6 +233,7 @@ class _StringsEn extends Translations {
 	@override String get error_dialog_title => 'Error';
 	@override String get error_dialog_message => 'An error occurred. Please try again';
 	@override late final _StringsPermissionEn permission = _StringsPermissionEn._(_root);
+	@override String get continue_text => 'Continue';
 }
 
 // Path: locamusic
@@ -279,7 +279,6 @@ class _StringsPermissionEn extends _StringsPermissionJa {
 	@override String get error_banner_label => 'Permission confirmation required';
 	@override String get location => 'Location';
 	@override String get location_details => 'To play music based on your current location, you need to allow the use of location information';
-	@override String get request_location_permission => 'Allow';
 	@override String get request_location_dialog_title => 'Please select "Allow While Using App"';
 	@override String get request_location_dialog_message => 'If permission is not requested, please change it from "Location" in settings';
 	@override String get request_location_always_dialog_title => 'Please select "Change to Always Allow"';
@@ -287,7 +286,6 @@ class _StringsPermissionEn extends _StringsPermissionJa {
 	@override String get denied_location_permission_message => 'Please allow the use of location information in settings';
 	@override String get apple_music => 'Apple Music';
 	@override String get apple_music_details => 'To play music, you need to allow access to Apple Music';
-	@override String get request_apple_music_permission => 'Allow access';
 	@override String get denied_apple_music_permission => 'Unable to access Apple Music';
 	@override String get denied_apple_music_permission_message => 'Please allow access to Apple Music in settings';
 	@override String get settings => 'Settings';

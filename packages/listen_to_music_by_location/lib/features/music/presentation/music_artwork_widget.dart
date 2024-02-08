@@ -15,7 +15,7 @@ class MusicArtworkWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final decoration = BoxDecoration(
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(16),
       color: CupertinoTheme.of(context).barBackgroundColor,
       border: Border.all(
         color: CupertinoColors.systemGrey5.resolveFrom(context),
@@ -28,8 +28,11 @@ class MusicArtworkWidget extends StatelessWidget {
         minWidth: kDefaultSize,
       ),
       decoration: decoration,
-      child: const Center(
-        child: Icon(Icons.question_mark_rounded),
+      child: Center(
+        child: Icon(
+          Icons.question_mark_rounded,
+          size: MediaQuery.of(context).textScaler.scale(48),
+        ),
       ),
     );
 

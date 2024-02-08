@@ -30,7 +30,7 @@ class LocationPermissionTile extends HookConsumerWidget {
           title: Text(
             status == AuthorizationStatus.authorizedAlways
                 ? i18n.permission.permission_ok
-                : i18n.permission.request_location_permission,
+                : i18n.continue_text,
           ),
           trailing: switch (status) {
             AuthorizationStatus.authorizedAlways => const Icon(
@@ -130,7 +130,7 @@ class LocationPermissionTile extends HookConsumerWidget {
         actions: [
           if (requestPermission)
             SheetAction(
-              label: i18n.permission.request_location_permission,
+              label: i18n.continue_text,
               key: _ShowActionSheetResult.requestPermission,
             ),
           SheetAction(

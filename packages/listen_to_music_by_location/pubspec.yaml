@@ -100,14 +100,14 @@ flutter:
     - assets/images/how_to/step5_en.webp
     - assets/images/how_to/step5_ja.webp
 
-    - assets/images/onboarding/screenshot_1_en.webp
-    - assets/images/onboarding/screenshot_1_ja.webp
-    - assets/images/onboarding/screenshot_2_en.webp
-    - assets/images/onboarding/screenshot_2_ja.webp
-    - assets/images/onboarding/screenshot_3_en.webp
-    - assets/images/onboarding/screenshot_3_ja.webp
-    - assets/images/onboarding/screenshot_4_en.webp
-    - assets/images/onboarding/screenshot_4_ja.webp
+    - assets/images/onboarding/screenshot_0.webp
+    - assets/images/onboarding/screenshot_1.webp
+    - assets/images/onboarding/screenshot_2.webp
+    - assets/images/onboarding/screenshot_3.webp
+    - assets/images/onboarding/screenshot_4.webp
+    - assets/images/onboarding/screenshot_5.webp
+    - assets/images/onboarding/screenshot_6.webp
+    - assets/images/onboarding/screenshot_7.webp
 
     - assets/si/apple_music_icon.si
     - assets/si/apple_music_badge_ja.si

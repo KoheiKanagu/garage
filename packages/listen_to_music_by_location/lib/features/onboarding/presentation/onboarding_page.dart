@@ -14,16 +14,16 @@ class OnboardingPage extends HookConsumerWidget {
     return OnboardingPageBase(
       children: switch (LocaleSettings.currentLocale) {
         AppLocale.ja => [
-            Assets.images.onboarding.screenshot1Ja.image(),
-            Assets.images.onboarding.screenshot2Ja.image(),
-            Assets.images.onboarding.screenshot3Ja.image(),
-            Assets.images.onboarding.screenshot4Ja.image(),
+            Assets.images.onboarding.screenshot0.image(),
+            Assets.images.onboarding.screenshot1.image(),
+            Assets.images.onboarding.screenshot2.image(),
+            Assets.images.onboarding.screenshot3.image(),
           ],
         AppLocale.en => [
-            Assets.images.onboarding.screenshot1En.image(),
-            Assets.images.onboarding.screenshot2En.image(),
-            Assets.images.onboarding.screenshot3En.image(),
-            Assets.images.onboarding.screenshot4En.image(),
+            Assets.images.onboarding.screenshot4.image(),
+            Assets.images.onboarding.screenshot5.image(),
+            Assets.images.onboarding.screenshot6.image(),
+            Assets.images.onboarding.screenshot7.image(),
           ]
       },
     );

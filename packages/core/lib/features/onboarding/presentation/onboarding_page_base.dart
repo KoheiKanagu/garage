@@ -94,14 +94,13 @@ class _Body extends HookConsumerWidget {
               children: children
                   .map(
                     (e) => Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: e.image,
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.circular(24),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                      ),
+                      child: FittedBox(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(64),
+                          child: e,
                         ),
                       ),
                     ),

@@ -1,6 +1,8 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:core/constants/app_env.dart';
+import 'package:core/core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -88,11 +90,33 @@ Future<FirebaseRemoteConfig> firebaseRemoteConfig(
   if (kDebugMode) {
     await instance.setConfigSettings(
       RemoteConfigSettings(
-        fetchTimeout: const Duration(seconds: 30),
+        fetchTimeout: const Duration(seconds: 5),
         minimumFetchInterval: const Duration(seconds: 30),
       ),
     );
+  } else {
+    await instance.setConfigSettings(
+      RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 5),
+        // service_statusの更新が考えられるため、3時間に1回はfetchする
+        minimumFetchInterval: const Duration(hours: 3),
+      ),
+    );
   }
-  await instance.fetchAndActivate();
+
+  switch (instance.lastFetchStatus) {
+    // 前回fetchが成功している場合はactivateを待たない
+    case RemoteConfigFetchStatus.success:
+      unawaited(
+        instance.fetchAndActivate(),
+      );
+    // まだfetchしていない、または前回失敗した場合はfetchを待つ
+    // アプリの初回起動や、何らかの理由でfetchに失敗した場合
+    case RemoteConfigFetchStatus.noFetchYet:
+    case RemoteConfigFetchStatus.failure:
+    case RemoteConfigFetchStatus.throttle:
+      await instance.fetchAndActivate();
+  }
+
   return instance;
 }

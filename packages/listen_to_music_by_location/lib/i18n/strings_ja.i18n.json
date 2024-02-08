@@ -37,7 +37,6 @@
 
     "location": "位置情報",
     "location_details": "現在位置を基にして音楽を再生するため、位置情報の使用を許可する必要があります",
-    "request_location_permission": "使用を許可する",
 
     "request_location_dialog_title": "\"アプリの使用中は許可\" を選択してください",
     "request_location_dialog_message": "許可が求められない場合は、設定の\"位置情報\"から変更してください",
@@ -48,11 +47,11 @@
 
     "apple_music": "Apple Music",
     "apple_music_details": "音楽を再生するため、Apple Music へのアクセスを許可する必要があります",
-    "request_apple_music_permission": "アクセスを許可する",
     "denied_apple_music_permission": "Apple Music にアクセスできません",
     "denied_apple_music_permission_message": "設定から Apple Music へのアクセスを許可してください",
 
     "settings": "設定",
     "permission_ok": "許可されています"
-  }
+  },
+  "continue_text": "続ける"
 }

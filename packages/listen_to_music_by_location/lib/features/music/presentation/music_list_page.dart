@@ -39,7 +39,7 @@ class MusicListPage extends HookConsumerWidget {
             hasScrollBody: false,
             child: locamusics.maybeWhen(
               orElse: () => const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator.adaptive(),
               ),
               data: (data) => data.isEmpty
                   ? const SizedBox.shrink()

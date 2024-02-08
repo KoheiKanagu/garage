@@ -26,7 +26,7 @@ class MusicPermissionTile extends HookConsumerWidget {
           title: Text(
             status == MusicAuthorizationStatus.authorized
                 ? i18n.permission.permission_ok
-                : i18n.permission.request_apple_music_permission,
+                : i18n.continue_text,
           ),
           leading: ScalableImageWidget.fromSISource(
             si: ScalableImageSource.fromSI(
