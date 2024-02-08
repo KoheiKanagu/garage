@@ -802,7 +802,7 @@ final locamusicRegionHandlerProvider = AutoDisposeFutureProvider<void>.internal(
 );
 
 typedef LocamusicRegionHandlerRef = AutoDisposeFutureProviderRef<void>;
-String _$locamusicHandlerHash() => r'39404730c76ebb3ab70c0c00ca88bfe416dfa4a4';
+String _$locamusicHandlerHash() => r'9272abe4675f54fcc0e847cecec93f139943ee53';
 
 /// ジオフェンスの状態を監視し、曲の再生を制御する
 ///
