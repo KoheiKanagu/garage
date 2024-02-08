@@ -7,14 +7,14 @@ final logger = SimpleLogger()
   ..setLevel(
     switch (appEnv) {
       AppEnv.dev => Level.ALL,
-      AppEnv.prod => Level.WARNING,
+      AppEnv.prod => Level.FINE,
     },
-    includeCallerInfo: true,
+    includeCallerInfo: switch (appEnv) {
+      AppEnv.dev => true,
+      AppEnv.prod => false,
+    },
   )
-  ..mode = switch (appEnv) {
-    AppEnv.dev => LoggerMode.print,
-    AppEnv.prod => LoggerMode.log,
-  }
+  ..mode = LoggerMode.print
   ..onLogged = (log, info) {
     // リリースビルドのみFirebaseCrashlyticsに送信する
     if (kReleaseMode) {
