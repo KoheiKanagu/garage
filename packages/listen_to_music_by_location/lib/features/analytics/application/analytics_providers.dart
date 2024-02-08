@@ -26,7 +26,7 @@ class AnalyticsController {
       analytics.logEvent(
         name: 'play_music',
         parameters: {
-          'built_in_speaker': builtInSpeaker,
+          'built_in_speaker': builtInSpeaker.toString(),
         },
       );
 }
