@@ -109,7 +109,7 @@ class UpdateAppPage extends HookConsumerWidget {
                 storeName: ref.read(packageInfoInstallerStoreProvider) ?? '',
               )
               .wrapBudouXText(
-                alignment: WrapAlignment.center,
+                textAlign: TextAlign.center,
               ),
           const Gap(24),
           button,

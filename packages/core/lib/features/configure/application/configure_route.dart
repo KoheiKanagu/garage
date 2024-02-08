@@ -1,6 +1,7 @@
 import 'package:core/features/configure/domain/configure_item.dart';
 import 'package:core/features/configure/presentation/about_this_app_page.dart';
 import 'package:core/features/configure/presentation/configure_page.dart';
+import 'package:core/features/configure/presentation/failed_run_app_page.dart';
 import 'package:core/features/configure/presentation/my_license_page.dart';
 import 'package:core/features/configure/presentation/service_down_page.dart';
 import 'package:core/features/configure/presentation/update_app_page.dart';
@@ -164,6 +165,33 @@ class ServiceDownPageRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     const child = ServiceDownPage();
+
+    return switch (InheritedThemeDetector.of(context)) {
+      InheritedThemeType.material => MaterialPage(
+          child: child,
+          name: state.matchedLocation,
+          fullscreenDialog: true,
+        ),
+      InheritedThemeType.cupertino => CupertinoPage(
+          child: child,
+          name: state.matchedLocation,
+          fullscreenDialog: true,
+        )
+    };
+  }
+}
+
+@TypedGoRoute<FailedRunAppPageRoute>(
+  path: FailedRunAppPageRoute.path,
+)
+class FailedRunAppPageRoute extends GoRouteData {
+  const FailedRunAppPageRoute();
+
+  static const path = '/failed_run_app';
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    const child = FailedRunAppPage();
 
     return switch (InheritedThemeDetector.of(context)) {
       InheritedThemeType.material => MaterialPage(

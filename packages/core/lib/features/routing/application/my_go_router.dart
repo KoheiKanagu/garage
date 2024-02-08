@@ -24,11 +24,30 @@ Raw<GoRouter> myGoRouter(
   required List<RouteBase> routes,
   required String signedInLocation,
 }) {
-  final listenable = ValueNotifier<bool?>(null);
-
+  // リダイレクトに必要な値を監視するためのListenable
+  final listenable = ValueNotifier<int>(0);
   ref
     ..listen(
-      firebaseUserIsSignedInProvider.future,
+      firebaseUserIsSignedInProvider.selectAsync((data) => data.hashCode),
+      (_, next) async {
+        listenable.value = await next;
+      },
+    )
+    ..listen(
+      configureIsRequiredUpdateProvider.selectAsync((data) => data.hashCode),
+      (_, next) async {
+        listenable.value = await next;
+      },
+    )
+    ..listen(
+      configureIsReleasedNewVersionProvider
+          .selectAsync((data) => data.hashCode),
+      (_, next) async {
+        listenable.value = await next;
+      },
+    )
+    ..listen(
+      configureServiceStatusProvider.selectAsync((data) => data.hashCode),
       (_, next) async {
         listenable.value = await next;
       },
@@ -64,12 +83,38 @@ Raw<GoRouter> myGoRouter(
         return null;
       }
 
-      final (signedIn, requiredUpdate, releasedNewVersion, serviceStatus) = (
-        await ref.read(firebaseUserIsSignedInProvider.future),
-        await ref.read(configureIsRequiredUpdateProvider.future),
-        await ref.read(configureIsReleasedNewVersionProvider.future),
-        await ref.read(configureServiceStatusProvider.future),
+      // 末端のページではリダイレクトしない
+      final notRedirectLocations = [
+        const configure_route.FailedRunAppPageRoute().location,
+        const configure_route.UpdateAppPageRoute(force: true).location,
+        const configure_route.UpdateAppPageRoute(force: false).location,
+      ];
+      if (notRedirectLocations.any((element) => element == state.fullPath)) {
+        return null;
+      }
+
+      // リダイレクトに必要な値を取得
+      // それぞれlistenしているため、初回以外では待つ必要はないはず...
+      final results = await Future.wait(
+        [
+          ref.read(firebaseUserIsSignedInProvider.future),
+          ref.read(configureIsRequiredUpdateProvider.future),
+          ref.read(configureIsReleasedNewVersionProvider.future),
+          ref.read(configureServiceStatusProvider.future),
+        ],
+      ).timeout(
+        const Duration(seconds: 5),
+        onTimeout: () => [],
       );
+      if (results.isEmpty) {
+        logger.severe('Failed to redirect');
+        return const configure_route.FailedRunAppPageRoute().location;
+      }
+
+      final signedIn = results[0] as bool;
+      final requiredUpdate = results[1] as bool;
+      final releasedNewVersion = results[2] as bool;
+      final serviceStatus = results[3] as ServiceStatus;
 
       // サービスがダウンしている場合はサービスダウン画面に遷移
       if (serviceStatus == ServiceStatus.down) {

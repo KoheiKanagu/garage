@@ -14,6 +14,7 @@ List<RouteBase> get $appRoutes => [
       $userInfoPageRoute,
       $updateAppPageRoute,
       $serviceDownPageRoute,
+      $failedRunAppPageRoute,
     ];
 
 RouteBase get $configurePageRoute => GoRouteData.$route(
@@ -160,6 +161,29 @@ extension $ServiceDownPageRouteExtension on ServiceDownPageRoute {
 
   String get location => GoRouteData.$location(
         '/service_down',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $failedRunAppPageRoute => GoRouteData.$route(
+      path: '/failed_run_app',
+      factory: $FailedRunAppPageRouteExtension._fromState,
+    );
+
+extension $FailedRunAppPageRouteExtension on FailedRunAppPageRoute {
+  static FailedRunAppPageRoute _fromState(GoRouterState state) =>
+      const FailedRunAppPageRoute();
+
+  String get location => GoRouteData.$location(
+        '/failed_run_app',
       );
 
   void go(BuildContext context) => context.go(location);

@@ -104,19 +104,21 @@ Future<FirebaseRemoteConfig> firebaseRemoteConfig(
     );
   }
 
-  switch (instance.lastFetchStatus) {
-    // 前回fetchが成功している場合はactivateを待たない
-    case RemoteConfigFetchStatus.success:
-      unawaited(
-        instance.fetchAndActivate(),
-      );
-    // まだfetchしていない、または前回失敗した場合はfetchを待つ
-    // アプリの初回起動や、何らかの理由でfetchに失敗した場合
-    case RemoteConfigFetchStatus.noFetchYet:
-    case RemoteConfigFetchStatus.failure:
-    case RemoteConfigFetchStatus.throttle:
-      await instance.fetchAndActivate();
-  }
+  await instance.fetchAndActivate();
+
+  // switch (instance.lastFetchStatus) {
+  //   // 前回fetchが成功している場合はactivateを待たない
+  //   // アプリの起動が遅くなるため。
+  //   // しかし、RemoteConfigの更新がある場合は早めに欲しいので
+  //   case RemoteConfigFetchStatus.success:
+  //     await instance.fetchAndActivate();
+  //   // まだfetchしていない、または前回失敗した場合はfetchを待つ
+  //   // アプリの初回起動や、何らかの理由でfetchに失敗した場合
+  //   case RemoteConfigFetchStatus.noFetchYet:
+  //   case RemoteConfigFetchStatus.failure:
+  //   case RemoteConfigFetchStatus.throttle:
+  //     await instance.fetchAndActivate();
+  // }
 
   return instance;
 }

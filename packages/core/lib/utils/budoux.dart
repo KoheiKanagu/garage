@@ -27,12 +27,14 @@ extension StringExtension on String {
 
   Widget wrapBudouXText({
     TextStyle? style,
+    TextAlign? textAlign,
     WrapAlignment alignment = WrapAlignment.start,
   }) =>
       wrapBudouX(
         (e) => Text(
           e,
           style: style,
+          textAlign: textAlign,
         ),
         alignment: alignment,
       );
