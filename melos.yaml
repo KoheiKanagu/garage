@@ -30,6 +30,7 @@ scripts:
     description: |
       Run dart fix and format.
     run: |
+      melos run pub:get
       dart fix --apply tool
       melos exec -- dart fix --apply lib
       find tool packages/*/lib packages/*/test -name '*.dart' -not -path 'packages/*/lib/gen/*' -exec dart format --set-exit-if-changed {} \;
@@ -38,6 +39,7 @@ scripts:
     description: |
       Run dart analyze.
     run: |
+      melos run pub:get
       dart analyze --fatal-infos .
       melos exec -- dart analyze --fatal-infos .
 
@@ -45,6 +47,7 @@ scripts:
     description: |
       Run custom lint.
     exec: |
+      melos run pub:get
       # rootのtoolディレクトリもcustom_lintかけたいが、対象のディレクトリを指定できないためできない
       dart run custom_lint
 
