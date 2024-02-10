@@ -8,8 +8,7 @@ class MapView extends StatelessWidget {
   const MapView({
     required this.mapViewType,
     super.key,
-    // CupertinoTabBarに隠れないようにするなら50
-    this.layoutMarginsBottom = 0,
+    this.layoutMarginsBottom = 50,
     this.latitude,
     this.longitude,
     this.meters,
