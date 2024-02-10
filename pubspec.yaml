@@ -5,10 +5,10 @@ environment:
 
 dev_dependencies:
   collection: ^1.18.0
-  custom_lint: ^0.5.8
+  custom_lint: ^0.6.0
   grinder: ^0.9.5
-  melos: ^4.0.0
-  riverpod_lint: ^2.3.7
+  melos: ^4.1.0
+  riverpod_lint: ^2.3.9
   very_good_analysis: ^5.1.0
   yaml: ^3.1.2
   yaml_edit: ^2.1.1
