@@ -1,7 +1,7 @@
 {
   "conditions": [
     {
-      "name": "listen_to_music_by_location",
+      "name": "dev.kingu.listenToMusicByLocation",
       "expression": "app.id == '1:682848709439:ios:3361e1e37cb0d30884c18a'",
       "tagColor": "ORANGE"
     }
@@ -12,7 +12,7 @@
         "value": "0"
       },
       "conditionalValues": {
-        "listen_to_music_by_location": {
+        "dev.kingu.listenToMusicByLocation": {
           "value": "0"
         }
       },
@@ -24,20 +24,20 @@
         "value": "0"
       },
       "conditionalValues": {
-        "listen_to_music_by_location": {
+        "dev.kingu.listenToMusicByLocation": {
           "value": "0"
         }
       },
       "description": "最新版のアプリのバージョンコード",
       "valueType": "NUMBER"
     },
-    "serviceStatus": {
+    "service_status": {
       "defaultValue": {
-        "value": "up"
+        "value": "down"
       },
       "conditionalValues": {
-        "listen_to_music_by_location": {
-          "value": "0"
+        "dev.kingu.listenToMusicByLocation": {
+          "value": "up"
         }
       },
       "description": "サービスステータス",

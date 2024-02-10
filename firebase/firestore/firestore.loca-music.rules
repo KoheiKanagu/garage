@@ -2,12 +2,44 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+
     function isSignedIn() {
       return request.auth != null;
     }
 
-    match /{document=**} {
-      allow read, write: if request.auth != null;
+    match /users_v1/{documentId} {
+
+      // 自分のユーザー情報のみ読み取り可能
+      allow get: if
+        isSignedIn() &&
+        request.auth.uid == documentId
+        ;
     }
+
+    match /locamusics_v1/{documentId} {
+
+      // 自分が作成したものであること
+      // 削除されていないこと
+      allow get, list: if
+        isSignedIn() &&
+        resource.data.createdBy == request.auth.uid
+        ;
+
+      // 自分が作成したものであること
+      // 削除されていないこと
+      allow create: if
+        isSignedIn() &&
+        request.resource.data.createdBy == request.auth.uid &&
+        request.resource.data.deleted == false
+        ;
+
+      // 自分が作成したものであること
+      // 削除されていないこと
+      allow update: if
+        isSignedIn() &&
+        resource.data.createdBy == request.auth.uid
+      ;
+    }
+
   }
 }

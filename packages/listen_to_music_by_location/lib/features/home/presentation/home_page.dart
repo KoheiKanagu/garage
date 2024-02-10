@@ -1,6 +1,18 @@
-import 'package:core/core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intersperse/intersperse.dart';
+import 'package:listen_to_music_by_location/features/analytics/application/analytics_providers.dart';
+import 'package:listen_to_music_by_location/features/home/presentation/home_page_banner.dart';
+import 'package:listen_to_music_by_location/features/map/presentation/map_page.dart';
+import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
+import 'package:listen_to_music_by_location/features/music/presentation/music_list_page.dart';
+import 'package:listen_to_music_by_location/features/native/application/location_manager_delegate.dart';
+import 'package:listen_to_music_by_location/features/native/application/native_provider.dart';
+import 'package:listen_to_music_by_location/features/permission/application/permission_providers.dart';
+import 'package:listen_to_music_by_location/features/permission/application/permission_route.dart';
+import 'package:listen_to_music_by_location/gen/strings.g.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({
@@ -9,19 +21,96 @@ class HomePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              const ConfigurePageRoute().push<void>(context);
-            },
-            icon: const Icon(Icons.settings),
-          ),
-        ],
+    ref
+      ..listen(
+        locamusicHandlerProvider(
+          didDetermineStateStream:
+              ref.watch(locationManagerDidDetermineStateProvider),
+          collectionReference: ref.watch(locamusicCollectionReferenceProvider),
+          musicKit: ref.watch(musicKitProvider),
+          analyticsController: ref.watch(analyticsControllerProvider),
+        ),
+        (_, __) {},
+      )
+      ..listen(
+        locamusicRegionHandlerProvider,
+        (_, __) {},
+      );
+
+    final isEmptyLocamusic = ref.watch(
+      locamusicDocumentsProvider.select(
+        (value) => value.asData?.value.isEmpty ?? false,
       ),
-      body: const Center(
-        child: Text('center'),
+    );
+
+    final isPermissionRequest = ref.watch(
+      permissionRequestIsRequiredProvider.select(
+        (value) => value.asData?.value ?? false,
+      ),
+    );
+
+    return Scaffold(
+      body: CupertinoTabScaffold(
+        tabBar: CupertinoTabBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: const Icon(CupertinoIcons.map_pin_ellipse),
+              label: i18n.map,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(CupertinoIcons.music_albums_fill),
+              label: i18n.app_name,
+            ),
+          ],
+        ),
+        tabBuilder: (context, index) => Column(
+          children: [
+            Expanded(
+              child: switch (index) {
+                0 => const MapPage(),
+                1 => const MusicListPage(),
+                _ => throw UnimplementedError()
+              },
+            ),
+            // TODO: MapPageの上に重ねるようにボタンを表示
+            // MapPageの上に重ねるようにボタンを表示したいが、Mapがタップできなくなる問題があるので並べる
+            // https://github.com/flutter/flutter/issues/142298#issuecomment-1928971536
+            SafeArea(
+              top: false,
+              child: Container(
+                padding: const EdgeInsets.only(
+                  left: 12,
+                  right: 12,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    if (isEmptyLocamusic)
+                      HomePageBanner(
+                        label: i18n.try_long_press,
+                        leading: const Icon(
+                          CupertinoIcons.lightbulb_fill,
+                          color: CupertinoColors.white,
+                        ),
+                        onPressed: () {},
+                      ),
+                    if (isPermissionRequest)
+                      HomePageBanner(
+                        leading: const Icon(
+                          CupertinoIcons.exclamationmark_triangle_fill,
+                          color: CupertinoColors.systemYellow,
+                        ),
+                        label: i18n.permission.error_banner_label,
+                        onPressed: () {
+                          const PermissionPageRoute().push<void>(context);
+                        },
+                      ),
+                  ].intersperseOuter(const Gap(8)).toList(),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

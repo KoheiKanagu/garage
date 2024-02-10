@@ -1,10 +1,12 @@
+import 'package:core/common_widgets/my_smooth_page_indicator.dart';
 import 'package:core/features/onboarding/application/sign_in_route.dart';
-import 'package:core/i18n/strings.g.dart';
+import 'package:core/gen/strings.g.dart';
+import 'package:core/utils/inherited_theme_detector.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingPageBase extends HookConsumerWidget {
   const OnboardingPageBase({
@@ -12,64 +14,107 @@ class OnboardingPageBase extends HookConsumerWidget {
     super.key,
   });
 
-  final List<Widget> children;
+  final List<Image> children;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentPageIndex = useState(0);
+    return switch (InheritedThemeDetector.of(context)) {
+      InheritedThemeType.material => Scaffold(
+          body: _Body(children),
+          bottomNavigationBar: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              child: FilledButton(
+                onPressed: () {
+                  const SignInPageRoute().push<void>(context);
+                },
+                child: Text(
+                  i18n.onboarding.start,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      InheritedThemeType.cupertino => CupertinoPageScaffold(
+          child: Column(
+            children: [
+              Expanded(
+                child: _Body(children),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: SafeArea(
+                  top: false,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                    ),
+                    child: CupertinoButton.filled(
+                      onPressed: () {
+                        const SignInPageRoute().push<void>(context);
+                      },
+                      child: Text(i18n.onboarding.start),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+    };
+  }
+}
+
+class _Body extends HookConsumerWidget {
+  const _Body(
+    this.children,
+  );
+
+  final List<Image> children;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final controller = usePageController(
-      initialPage: currentPageIndex.value,
+      viewportFraction: 0.8,
     );
 
-    return Scaffold(
-      body: Column(
+    return SafeArea(
+      bottom: false,
+      child: Column(
         children: [
           Expanded(
             child: PageView(
               controller: controller,
-              children: children,
+              children: children
+                  .map(
+                    (e) => Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                      ),
+                      child: FittedBox(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(64),
+                          child: e,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
             ),
           ),
           const Gap(12),
-          SmoothPageIndicator(
+          MySmoothPageIndicator(
             controller: controller,
             count: children.length,
-            onDotClicked: (index) {
-              controller.animateToPage(
-                index,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              );
-            },
-            effect: WormEffect(
-              type: WormType.thinUnderground,
-              dotWidth: 8,
-              dotHeight: 8,
-              activeDotColor: Theme.of(context).colorScheme.primary,
-              dotColor: Theme.of(context).colorScheme.onSurface,
-            ),
           ),
           const Gap(24),
         ],
-      ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-          ),
-          child: FilledButton(
-            onPressed: () {
-              const SignInPageRoute().push<void>(context);
-            },
-            child: Text(
-              i18n.onboarding.start,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-          ),
-        ),
       ),
     );
   }

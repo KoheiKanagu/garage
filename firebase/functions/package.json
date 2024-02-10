@@ -11,9 +11,7 @@
     "test": "jest",
     "compile": "tsc",
     "compile:watch": "tsc --watch",
-    "fix": "gts fix",
-    "prepare": "npm run compile",
-    "posttest": "npm run lint"
+    "fix": "gts fix"
   },
   "engines": {
     "node": "20"

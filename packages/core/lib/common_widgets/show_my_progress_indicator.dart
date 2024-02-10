@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 MyProgressIndicator showMyProgressIndicator() {
   final context = rootContext()!;
 
-  showDialog<void>(
+  showAdaptiveDialog<void>(
     context: context,
-    builder: (context) => const AlertDialog(
+    builder: (context) => const AlertDialog.adaptive(
       title: Center(
         child: CircularProgressIndicator.adaptive(),
       ),

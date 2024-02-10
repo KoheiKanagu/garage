@@ -86,5 +86,21 @@ final packageInfoPackageNameProvider = AutoDisposeProvider<String>.internal(
 );
 
 typedef PackageInfoPackageNameRef = AutoDisposeProviderRef<String>;
+String _$packageInfoInstallerStoreHash() =>
+    r'227078254ca207f8f912401132ef318d33bc1692';
+
+/// See also [packageInfoInstallerStore].
+@ProviderFor(packageInfoInstallerStore)
+final packageInfoInstallerStoreProvider = AutoDisposeProvider<String?>.internal(
+  packageInfoInstallerStore,
+  name: r'packageInfoInstallerStoreProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$packageInfoInstallerStoreHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef PackageInfoInstallerStoreRef = AutoDisposeProviderRef<String?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,7 +1,8 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:core/core.dart';
-import 'package:core/i18n/strings.g.dart';
+import 'package:core/gen/strings.g.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,127 +19,168 @@ class ConfigurePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(i18n.configure.title),
+    final children1 = [
+      ConfigureListTile(
+        title: i18n.configure.user_info,
+        onTap: () {
+          const UserInfoPageRoute().push<void>(context);
+        },
+        leadingIcon: Icons.person,
       ),
-      body: ListView(
-        children: [
-          ConfigureListTile(
-            title: i18n.configure.user_info,
-            onTap: () {
-              const UserInfoPageRoute().push<void>(context);
-            },
-            leadingIcon: Icons.person_outline_rounded,
-            trailingIcon: Icons.adaptive.arrow_forward_rounded,
+      ...additionalItems.whereNot((e) => e.forDebug).map(
+            (e) => ConfigureListTile(
+              title: e.text,
+              onTap: e.onTap,
+              trailingIcon: e.trailingIcon,
+              leadingIcon: e.leadingIcon,
+            ),
           ),
-          ...additionalItems.whereNot((e) => e.forDebug).map(
-                (e) => ConfigureListTile(
-                  title: e.text,
-                  onTap: e.onTap,
-                  trailingIcon: e.trailingIcon,
-                  leadingIcon: e.leadingIcon,
-                ),
+    ];
+
+    final children2 = [
+      ConfigureListTile(
+        title: i18n.configure.feedback,
+        leadingIcon: Icons.feedback,
+        leadingIconColor: switch (InheritedThemeDetector.of(context)) {
+          InheritedThemeType.material => Colors.purple,
+          InheritedThemeType.cupertino => CupertinoColors.systemPurple,
+        },
+        onTap: () {
+          showMyBetterFeedback(
+            context,
+            ref,
+            from: FeedbackFrom.configure,
+          );
+        },
+      ),
+      ConfigureListTile(
+        title: i18n.configure.review_app,
+        leadingIcon: Icons.star,
+        leadingIconColor: switch (InheritedThemeDetector.of(context)) {
+          InheritedThemeType.material => Colors.orange,
+          InheritedThemeType.cupertino => CupertinoColors.activeOrange,
+        },
+        onTap: () {
+          InAppReview.instance.openStoreListing(
+            appStoreId: kAppStoreId,
+          );
+        },
+      ),
+      ConfigureListTile(
+        title: i18n.configure.about_this_app,
+        leadingIcon: Icons.info,
+        leadingIconColor: switch (InheritedThemeDetector.of(context)) {
+          InheritedThemeType.material => Colors.blue,
+          InheritedThemeType.cupertino => CupertinoColors.activeBlue,
+        },
+        onTap: () {
+          const AboutThisAppPageRoute().push<void>(context);
+        },
+      ),
+    ];
+
+    final debugTiles = [
+      ...additionalItems.where((e) => e.forDebug).map(
+            (e) => _DebugListTile(
+              title: e.text,
+              onTap: e.onTap,
+            ),
+          ),
+      _DebugListTile(
+        title: 'go /',
+        onTap: () {
+          GoRouter.of(context).go('/');
+        },
+      ),
+      _DebugListTile(
+        title: 'disableRouterRedirect',
+        onTap: () async {
+          final result = await showOkCancelAlertDialog(
+            context: context,
+            title: 'disableRouterRedirect?',
+          );
+          if (result == OkCancelResult.ok) {
+            disableRouterRedirect = true;
+            logger.fine('disableRouterRedirect');
+          }
+        },
+      ),
+      _DebugListTile(
+        title: 'SignOut',
+        onTap: () async {
+          final result = await showOkCancelAlertDialog(
+            context: context,
+            title: 'SignOut?',
+          );
+
+          if (result == OkCancelResult.ok) {
+            await ref.read(firebaseAuthProvider).signOut();
+            logger.fine('SignOut');
+          }
+        },
+      ),
+      _DebugListTile(
+        title: 'clear SharedPreferences',
+        onTap: () async {
+          final result = await showOkCancelAlertDialog(
+            context: context,
+            title: 'clear SharedPreferences?',
+          );
+
+          if (result == OkCancelResult.ok) {
+            await ref.read(sharedPreferencesClearProvider.future);
+            logger.fine('clear SharedPreferences');
+          }
+        },
+      ),
+    ];
+
+    return switch (InheritedThemeDetector.of(context)) {
+      InheritedThemeType.material => Scaffold(
+          appBar: AppBar(
+            title: Text(i18n.configure.title),
+          ),
+          body: ListView(
+            children: [
+              ...children1,
+              const Divider(),
+              ...children2,
+              if (kDebugMode) ...[
+                const Divider(),
+                ...debugTiles,
+              ],
+            ],
+          ),
+        ),
+      InheritedThemeType.cupertino => CupertinoPageScaffold(
+          backgroundColor: CupertinoColors.systemGroupedBackground,
+          navigationBar: CupertinoNavigationBar(
+            middle: Text(i18n.configure.title),
+          ),
+          child: ListView(
+            children: [
+              CupertinoListSection.insetGrouped(
+                children: children1,
               ),
-          if (kDebugMode)
-            ...additionalItems.where((e) => e.forDebug).map(
-                  (e) => ConfigureListTile(
-                    title: '[debug] ${e.text}',
-                    onTap: e.onTap,
-                    trailingIcon: e.trailingIcon,
-                    leadingIcon: e.leadingIcon,
-                  ),
+              CupertinoListSection.insetGrouped(
+                children: children2,
+              ),
+              if (kDebugMode)
+                CupertinoListSection.insetGrouped(
+                  children: debugTiles,
                 ),
-          const _DebugListTiles(),
-          const Divider(),
-          ConfigureListTile(
-            title: i18n.configure.feedback,
-            leadingIcon: Icons.feedback_outlined,
-            trailingIcon: Icons.adaptive.arrow_forward_rounded,
-            onTap: () {
-              showMyBetterFeedback(
-                context,
-                ref,
-                from: FeedbackFrom.configure,
-              );
-            },
+            ],
           ),
-          ConfigureListTile(
-            title: i18n.configure.review_app,
-            leadingIcon: Icons.star_outline_rounded,
-            trailingIcon: Icons.adaptive.arrow_forward_rounded,
-            onTap: () {
-              InAppReview.instance.openStoreListing(
-                appStoreId: kAppStoreId,
-              );
-            },
-          ),
-          ConfigureListTile(
-            title: i18n.configure.about_this_app,
-            leadingIcon: Icons.info_outline_rounded,
-            trailingIcon: Icons.adaptive.arrow_forward_rounded,
-            onTap: () {
-              const AboutThisAppPageRoute().push<void>(context);
-            },
-          ),
-        ],
-      ),
-    );
+        ),
+    };
   }
 }
 
-class _DebugListTiles extends HookConsumerWidget {
-  const _DebugListTiles();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (!kDebugMode) {
-      return const SizedBox.shrink();
-    }
-
-    return Column(
-      children: [
-        ConfigureListTile(
-          title: '[debug] SignOut',
-          onTap: () async {
-            final result = await showOkCancelAlertDialog(
-              context: context,
-              title: 'SignOut?',
-            );
-
-            if (result == OkCancelResult.ok) {
-              await ref.read(firebaseAuthProvider).signOut();
-              logger.d('SignOut');
-            }
-          },
-          leadingIcon: Icons.logout,
-          trailingIcon: Icons.warning_rounded,
-        ),
-        ConfigureListTile(
-          title: '[debug] clear SharedPreferences',
-          onTap: () async {
-            final result = await showOkCancelAlertDialog(
-              context: context,
-              title: 'clear SharedPreferences?',
-            );
-
-            if (result == OkCancelResult.ok) {
-              await ref.read(sharedPreferencesClearProvider.future);
-              logger.d('clear SharedPreferences');
-            }
-          },
-          leadingIcon: Icons.clear_all,
-          trailingIcon: Icons.warning_rounded,
-        ),
-        ConfigureListTile(
-          title: '[debug] go /',
-          onTap: () {
-            GoRouter.of(context).go('/');
-          },
-          leadingIcon: Icons.start_rounded,
-          trailingIcon: Icons.warning_rounded,
-        ),
-      ],
-    );
-  }
+class _DebugListTile extends ConfigureListTile {
+  const _DebugListTile({
+    required super.title,
+    required super.onTap,
+  }) : super(
+          leadingIcon: Icons.bug_report,
+        );
 }

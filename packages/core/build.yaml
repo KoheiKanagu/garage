@@ -15,7 +15,6 @@ targets:
           include:
             - lib/features/*/domain/**.dart
             - lib/features/*/application/**.dart
-            - lib/routing/**.dart
       json_serializable:
         options:
           checked: true
@@ -33,3 +32,4 @@ targets:
           flat_map: false
           timestamp: false
           statistics: false
+          output_directory: lib/gen

@@ -9,7 +9,7 @@ part of 'user_providers.dart';
 // **************************************************************************
 
 String _$userCollectionReferenceHash() =>
-    r'5cde368b9f443122f38704a5baf551e149e24d2c';
+    r'f2b106f5d2c8a2e681f631ff34499c8a4734896c';
 
 /// See also [userCollectionReference].
 @ProviderFor(userCollectionReference)

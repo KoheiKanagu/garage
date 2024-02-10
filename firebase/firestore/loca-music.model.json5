@@ -6,4 +6,21 @@
       deleted: false,
     },
   },
+  locamusics_v1: {
+    $documentId: {
+      createdAt: "Timestamp", // FieldValue.serverTimestamp
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
+      deleted: false,
+      geoPoint: {
+        latitude: 0,
+        longitude: 0,
+      },
+      createdBy: "uid",
+
+      // nullable
+      musicId: "musicId", // Apple Music ID
+
+      allowBuiltInSpeaker: false, // ビルトインスピーカーでの再生を許可するか
+    },
+  },
 }

@@ -17,18 +17,12 @@ sdkPath: .fvm/versions/beta
 scripts:
   analyze:
     run: |
-      flutter pub get
-      flutter pub run build_runner build --delete-conflicting-outputs
-      (cd MELOS_ROOT_PATH && grind update-coverage-test --package=MELOS_PACKAGE_NAME)
-      (cd MELOS_ROOT_PATH && grind update-core-export)
-      dart fix --apply lib
-      find lib test -name "*.dart" -not -path "lib/i18n/strings.g.dart" -exec dart format --set-exit-if-changed {} \;
-      dart analyze --fatal-infos .
-      dart run custom_lint
-      git diff --exit-code
-    exec:
-      concurrency: 1
-      orderDependents: true
+      melos run generate && \
+      melos exec -- "dart fix --apply lib" && \
+      melos exec -- "find lib test -name '*.dart' -not -path 'lib/gen/*' -exec dart format --set-exit-if-changed {} \;" && \
+      git diff --exit-code && \
+      melos exec -- "dart analyze --fatal-infos ." && \
+      melos exec -- "dart run custom_lint"
 
   pub:get:
     run: |
@@ -67,13 +61,10 @@ scripts:
     packageFilters:
       flutter: true
       dirExists: test
-      dependsOn: alchemist
 
   build_runner:build:
     run: |
-      flutter pub get
       flutter pub run build_runner build --delete-conflicting-outputs
-      (cd MELOS_ROOT_PATH && grind update-core-export)
     exec:
       concurrency: 1
       orderDependents: true
@@ -83,7 +74,6 @@ scripts:
 
   build_runner:watch:
     exec: |
-      flutter pub get
       flutter pub run build_runner watch --delete-conflicting-outputs
     packageFilters:
       flutter: true
@@ -138,6 +128,18 @@ scripts:
     packageFilters:
       flutter: true
       dirExists: android
+
+  build:ios:config-only:
+    run: |
+      flutter build ios \
+        --config-only \
+        --flavor dev \
+        --target lib/main_dev.dart
+    exec:
+      concurrency: 1
+    packageFilters:
+      flutter: true
+      dirExists: ios
 
   build:ios:no-codesign:dev:
     run: |
@@ -210,8 +212,26 @@ scripts:
     packageFilters:
       dependsOn: pigeon
 
+  slang:
+    exec: |
+      dart run slang
+    packageFilters:
+      dependsOn: slang
+
   clean:
     exec: |
       flutter clean
     packageFilters:
       flutter: true
+
+  generate:
+    description: |
+      Generate files.
+    run: |
+      grind update-si && \
+      melos run build_runner:build --no-select && \
+      melos run pigeon && \
+      melos run slang && \
+      grind update-coverage-test && \
+      grind update-core-export && \
+      grind dump-firestore-indexes

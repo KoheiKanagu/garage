@@ -43,6 +43,8 @@
       ".fvmrc": true,
       "**/lib/src": true,
       "**/lib/test": true,
+      "**/.symlinks": true,
+      "**/Pods": true
     },
     "cSpell.ignorePaths": [
       "package-lock.json",
@@ -62,19 +64,28 @@
       "budoux",
       "codesign",
       "cupertino",
+      "exclamationmark",
       "firestore",
       "flutterfire",
+      "fullscreen",
+      "Geofence",
       "goldens",
       "kingu",
       "lcov",
       "loca",
+      "Locamusic",
+      "Locamusics",
       "mobilesdk",
+      "Noto",
       "Podfile",
+      "precache",
       "predeploy",
       "pubspec",
       "remoteconfig",
       "riverpod",
+      "Roboto",
       "roggle",
+      "todos",
       "typedefs",
       "unawaited",
       "webp"
@@ -88,7 +99,7 @@
     "conventionalCommits.scopes": [
       "common",
       "core",
-      "LocaMusic",
+      "Locamusic",
     ]
   }
 }

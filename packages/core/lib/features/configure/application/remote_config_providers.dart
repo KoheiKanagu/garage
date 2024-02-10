@@ -45,23 +45,19 @@ Future<bool> remoteConfigGetBoolValue(
 }
 
 @riverpod
-class RemoteConfigValues extends _$RemoteConfigValues {
-  @override
-  Stream<Map<String, RemoteConfigValue>> build() async* {
-    final config = await ref.watch(firebaseRemoteConfigProvider.future);
+Stream<Map<String, RemoteConfigValue>> remoteConfigValues(
+  RemoteConfigValuesRef ref,
+) async* {
+  final config = await ref.read(firebaseRemoteConfigProvider.future);
+  yield config.getAll();
 
-    // 変更を監視
-    final subscription = config.onConfigUpdated.listen(
-      (event) async {
-        final config = await ref.read(firebaseRemoteConfigProvider.future);
-        await config.activate();
-        state = AsyncValue.data(
-          config.getAll(),
-        );
-      },
-    );
-    ref.onDispose(subscription.cancel);
-
-    yield config.getAll();
-  }
+  // "Multiple listeners can be added by calling this method again"
+  // なので取り扱いに注意が必要
+  yield* config.onConfigUpdated.asyncMap(
+    (_) async {
+      final config = await ref.read(firebaseRemoteConfigProvider.future);
+      await config.activate();
+      return config.getAll();
+    },
+  );
 }

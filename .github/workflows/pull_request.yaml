@@ -20,6 +20,9 @@ jobs:
   analyze:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    permissions: # for KoheiKanagu/composite-actions/setup-firebase-cli@main
+      id-token: write
+      contents: read
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v1.8.7
@@ -31,6 +34,12 @@ jobs:
 
       - name: Setup Flutter
         uses: KoheiKanagu/composite-actions/setup-flutter@main
+
+      - name: Setup Firebase CLI Dev
+        uses: KoheiKanagu/composite-actions/setup-firebase-cli@main
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
 
       ### Analyze ###
       - name: Analyze

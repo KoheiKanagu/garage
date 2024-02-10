@@ -1,7 +1,7 @@
 name: listen_to_music_by_location
 publish_to: "none"
 
-version: 0.0.1+5
+version: 0.0.2+16
 
 environment:
   sdk: ^3.3.0-0
@@ -9,27 +9,29 @@ environment:
 
 dependencies:
   adaptive_dialog: ^2.0.0
+  app_links: ^3.5.0
   budoux_dart: ^1.1.0
+  cached_network_image: ^3.3.1
   clock: ^1.1.1
-  cloud_firestore: ^4.13.6
-  cloud_functions: ^4.5.8
+  cloud_firestore: ^4.15.0
+  cloud_functions: ^4.6.1
   collection: ^1.18.0
   core:
     path: ../core
   cupertino_icons: ^1.0.6
   device_info_plus: ^9.1.1
   feedback: ^3.0.0
-  firebase_analytics: ^10.7.4
-  firebase_app_check: ^0.2.1+5
-  firebase_auth: ^4.15.3
-  firebase_core: ^2.24.2
-  firebase_crashlytics: ^3.4.8
-  firebase_performance: ^0.9.3+5
-  firebase_remote_config: ^4.3.8
-  firebase_ui_auth: ^1.11.0
-  firebase_ui_localizations: ^1.9.0
-  firebase_ui_oauth_apple: ^1.2.15
-  firebase_ui_oauth_google: ^1.2.15
+  firebase_analytics: ^10.8.1
+  firebase_app_check: ^0.2.1+9
+  firebase_auth: ^4.17.0
+  firebase_core: ^2.25.0
+  firebase_crashlytics: ^3.4.10
+  firebase_performance: ^0.9.3+9
+  firebase_remote_config: ^4.3.9
+  firebase_ui_auth: ^1.12.1
+  firebase_ui_localizations: ^1.10.1
+  firebase_ui_oauth_apple: ^1.2.17
+  firebase_ui_oauth_google: ^1.2.17
   flutter:
     sdk: flutter
   flutter_hooks: ^0.20.4
@@ -42,21 +44,21 @@ dependencies:
   in_app_review: ^2.0.8
   intersperse: ^2.0.0
   intl: any
+  jovial_svg: ^1.1.20
   json_annotation: ^4.8.1
   package_info_plus: ^5.0.1
-  permission_handler: ^11.1.0
   quick_actions: ^1.0.6
   riverpod_annotation: ^2.3.3
-  roggle: ^0.4.2+1
   share_plus: ^7.2.1
   shared_preferences: ^2.2.2
+  simple_logger: ^1.9.0+3
   slang: ^3.28.0
   slang_flutter: ^3.28.0
+  smooth_page_indicator: ^1.1.0
   url_launcher: ^6.2.2
   uuid: ^4.3.1
 
 dev_dependencies:
-  alchemist: ^0.7.0
   build_runner: ^2.4.7
   custom_lint: ^0.5.7
   flutter_gen_runner: ^5.3.2
@@ -67,6 +69,7 @@ dev_dependencies:
   go_router_builder: ^2.4.1
   json_serializable: ^6.7.1
   mockito: ^5.4.4
+  pigeon: ^15.0.2
   riverpod_generator: ^2.3.9
   riverpod_lint: ^2.3.7
   slang_build_runner: ^3.28.0
@@ -75,8 +78,40 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: SocialIcons
+      fonts:
+        - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
+
   assets:
     - packages/budoux_dart/models/ja.json
+
+    - assets/images/app_icon.webp
+
+    - assets/images/how_to/step1_en.webp
+    - assets/images/how_to/step1_ja.webp
+    - assets/images/how_to/step2_en.webp
+    - assets/images/how_to/step2_ja.webp
+    - assets/images/how_to/step3_en.webp
+    - assets/images/how_to/step3_ja.webp
+    - assets/images/how_to/step4_en.webp
+    - assets/images/how_to/step4_ja.webp
+    - assets/images/how_to/step5_en.webp
+    - assets/images/how_to/step5_ja.webp
+
+    - assets/images/onboarding/screenshot_0.webp
+    - assets/images/onboarding/screenshot_1.webp
+    - assets/images/onboarding/screenshot_2.webp
+    - assets/images/onboarding/screenshot_3.webp
+    - assets/images/onboarding/screenshot_4.webp
+    - assets/images/onboarding/screenshot_5.webp
+    - assets/images/onboarding/screenshot_6.webp
+    - assets/images/onboarding/screenshot_7.webp
+
+    - assets/si/apple_music_icon.si
+    - assets/si/apple_music_badge_ja.si
+    - assets/si/apple_music_badge_en.si
 # flutter_native_splash:
 #   color: "#FAFDFD" # lightColorScheme.background
 #   image: "assets/splash_icon.png"

@@ -1,5 +1,5 @@
 {
-  feedback_v1: {
+  feedbacks_v1: {
     $documentId: {
       createdAt: "Timestamp", // FieldValue.serverTimestamp
       updatedAt: "Timestamp", // FieldValue.serverTimestamp

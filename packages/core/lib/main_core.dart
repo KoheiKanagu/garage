@@ -1,5 +1,5 @@
 import 'package:core/core.dart';
-import 'package:core/i18n/strings.g.dart';
+import 'package:core/gen/strings.g.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -11,24 +11,34 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<ProviderContainer?> initialize() {
-  return Future<ProviderContainer?>(
-    _initialize,
-  ).timeout(
-    const Duration(seconds: 5),
-    onTimeout: () async {
-      failedRunApp();
-      return null;
-    },
-  );
-}
-
-Future<ProviderContainer> _initialize() async {
+Future<ProviderContainer?> initialize({
+  List<Override>? overrides,
+}) {
   WidgetsFlutterBinding.ensureInitialized();
 
   final locale = LocaleSettings.useDeviceLocale();
   Intl.defaultLocale = locale.languageCode;
 
+  return Future<ProviderContainer?>(
+    () => _initialize(
+      overrides: overrides ?? [],
+    ),
+  ).timeout(
+    const Duration(seconds: 10),
+    onTimeout: () async {
+      runApp(
+        const ProviderScope(
+          child: FailedRunAppPage(),
+        ),
+      );
+      return null;
+    },
+  );
+}
+
+Future<ProviderContainer> _initialize({
+  required List<Override> overrides,
+}) async {
   final (firebaseApp, sharedPreferences, packageInfo) = (
     await Firebase.initializeApp(),
     await SharedPreferences.getInstance(),
@@ -45,6 +55,7 @@ Future<ProviderContainer> _initialize() async {
       ProviderLogger(),
     ],
     overrides: [
+      ...overrides,
       sharedPreferencesInstanceProvider.overrideWithValue(
         sharedPreferences,
       ),
@@ -79,13 +90,15 @@ Future<ProviderContainer> _initialize() async {
       container.read(firebaseAnalyticsProvider).setAnalyticsCollectionEnabled(
             kReleaseMode,
           ),
-      switch (kAppEnvDev) {
-        true => FirebaseAppCheck.instance.activate(
-            androidProvider: AndroidProvider.debug,
-            appleProvider: AppleProvider.debug,
-          ),
-        false => FirebaseAppCheck.instance.activate(),
-      },
+      if (kAppEnvDev)
+        FirebaseAppCheck.instance.activate(
+          androidProvider: AndroidProvider.debug,
+          appleProvider: AppleProvider.debug,
+        ),
+      if (kAppEnvProd)
+        FirebaseAppCheck.instance.activate(
+          appleProvider: AppleProvider.appAttest,
+        ),
       const QuickActions().setShortcutItems(
         [
           ShortcutItem(
@@ -103,7 +116,7 @@ Future<ProviderContainer> _initialize() async {
       firebaseUserUidProvider,
       (_, next) async {
         final uid = next.value;
-        logger.i('listen firebaseUserUidProvider: $uid');
+        logger.info('listen firebaseUserUidProvider: $uid');
 
         await Future.wait(
           [

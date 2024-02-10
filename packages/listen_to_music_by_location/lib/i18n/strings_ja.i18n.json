@@ -1,1 +1,57 @@
-{}
+{
+  "unset": "未設定",
+  "locamusic": {
+    "create_limit_error": "範囲を作成できませんでした",
+    "create_limit_error_message": "${n}個まで作成できます",
+    "select_music": "曲を選択",
+    "change_music": "曲を変更",
+    "small": "小",
+    "medium": "中",
+    "large": "大",
+    "delete": "削除",
+    "delete_confirm": "削除しますか？",
+    "open_apple_music": "Apple Music を開く",
+    "awaiting_music_share": "曲の共有を待っています",
+    "how_to_share_step_1": "お気に入りの曲を探して「・・・」をタップしてください",
+    "how_to_share_step_2": "「曲を共有」をタップしてください",
+    "how_to_share_step_3": "「場所で音楽」をタップして共有します",
+    "how_to_share_step_4": "もし「場所で音楽」が見つからない場合は「その他」をタップしてください",
+    "how_to_share_step_5": "「場所で音楽」をタップして共有します",
+    "range_select_title": "音楽の再生を始める範囲",
+    "range_notice": "設定した範囲に入ってから数十秒後に音楽が再生されるので、広めに設定することをオススメします。",
+    "built_in_speaker_title": "内蔵スピーカー",
+    "built_in_speaker_notice": "イヤホンやヘッドホンなどを使用していない場合でも、内臓スピーカーで音楽を再生することを許可します。",
+    "allow_play": "再生を許可",
+    "built_in_speaker_on_warning_title": "内臓スピーカーでの再生を許可します",
+    "built_in_speaker_on_warning_message": "周りの人に音楽が聞こえる可能性がありますので、ご注意ください。"
+  },
+  "app_name": "場所で音楽",
+  "map": "地図",
+  "try_long_press": "地図を長押しして範囲を設定しましょう",
+  "tap_to_set": "タップして設定",
+  "error_dialog_title": "エラー",
+  "error_dialog_message": "何らかのエラーが発生しました。もう一度お試しください",
+  "permission": {
+    "title": "権限の確認",
+    "error_banner_label": "権限の確認が必要です",
+
+    "location": "位置情報",
+    "location_details": "現在位置を基にして音楽を再生するため、位置情報の使用を許可する必要があります",
+
+    "request_location_dialog_title": "\"アプリの使用中は許可\" を選択してください",
+    "request_location_dialog_message": "許可が求められない場合は、設定の\"位置情報\"から変更してください",
+    "request_location_always_dialog_title": "\"常に許可\" に変更を選択してください",
+
+    "denied_location_permission_title": "位置情報が利用できません",
+    "denied_location_permission_message": "設定から位置情報の利用を許可してください",
+
+    "apple_music": "Apple Music",
+    "apple_music_details": "音楽を再生するため、Apple Music へのアクセスを許可する必要があります",
+    "denied_apple_music_permission": "Apple Music にアクセスできません",
+    "denied_apple_music_permission_message": "設定から Apple Music へのアクセスを許可してください",
+
+    "settings": "設定",
+    "permission_ok": "許可されています"
+  },
+  "continue_text": "続ける"
+}

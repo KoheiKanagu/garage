@@ -12,6 +12,7 @@ class FeedbackData with _$FeedbackData {
     required String? email,
     required String message,
     required FeedbackDeviceInfo deviceInfo,
+    required FeedbackType type,
     @Default('') String screenshotBase64,
     @Default(FeedbackFrom.unknown) FeedbackFrom from,
     @TimestampConverter() Timestamp? createdAt,

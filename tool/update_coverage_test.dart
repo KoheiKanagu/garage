@@ -3,17 +3,20 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
 
+import 'utils.dart';
+
 @Task(
   'Update coverage_test.dart',
 )
 Future<void> updateCoverageTest() async {
-  final args = context.invocation.arguments;
+  final packages = await runMelosList();
 
-  final package = args.getOption('package');
-  if (package == null) {
-    fail('--package is required');
+  for (final e in packages) {
+    _exec(e.path.split('/').last);
   }
+}
 
+void _exec(String package) {
   final files = Directory('packages/$package/lib').listSync(
     recursive: true,
   );

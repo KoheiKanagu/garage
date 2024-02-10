@@ -27,7 +27,7 @@ final feedbackDeviceInfoProvider =
 typedef FeedbackDeviceInfoRef
     = AutoDisposeFutureProviderRef<FeedbackDeviceInfo>;
 String _$feedbackCollectionReferenceHash() =>
-    r'c50f657af048830e0166541032576cd735df2cb8';
+    r'69636b249f6f079d3b8e3c4cde298e6c7d83c6bc';
 
 /// See also [feedbackCollectionReference].
 @ProviderFor(feedbackCollectionReference)
@@ -211,5 +211,39 @@ class _FeedbackSubmitProviderElement
   FeedbackFrom get feedbackFrom =>
       (origin as FeedbackSubmitProvider).feedbackFrom;
 }
+
+String _$feedbackDataStateHash() => r'535c01f1ef97641df4afd7783a5f9a071a028b80';
+
+/// See also [feedbackDataState].
+@ProviderFor(feedbackDataState)
+final feedbackDataStateProvider =
+    AutoDisposeFutureProvider<FeedbackData>.internal(
+  feedbackDataState,
+  name: r'feedbackDataStateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$feedbackDataStateHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FeedbackDataStateRef = AutoDisposeFutureProviderRef<FeedbackData>;
+String _$feedbackDataControllerHash() =>
+    r'e8ace355f291bbc951f44ccbea36e1831a7248d0';
+
+/// See also [FeedbackDataController].
+@ProviderFor(FeedbackDataController)
+final feedbackDataControllerProvider = AutoDisposeAsyncNotifierProvider<
+    FeedbackDataController, FeedbackData>.internal(
+  FeedbackDataController.new,
+  name: r'feedbackDataControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$feedbackDataControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$FeedbackDataController = AutoDisposeAsyncNotifier<FeedbackData>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

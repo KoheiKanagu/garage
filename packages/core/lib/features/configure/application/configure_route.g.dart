@@ -12,6 +12,9 @@ List<RouteBase> get $appRoutes => [
       $configurePageRoute,
       $aboutThisAppPageRoute,
       $userInfoPageRoute,
+      $updateAppPageRoute,
+      $serviceDownPageRoute,
+      $failedRunAppPageRoute,
     ];
 
 RouteBase get $configurePageRoute => GoRouteData.$route(
@@ -22,7 +25,7 @@ RouteBase get $configurePageRoute => GoRouteData.$route(
 extension $ConfigurePageRouteExtension on ConfigurePageRoute {
   static ConfigurePageRoute _fromState(GoRouterState state) =>
       ConfigurePageRoute(
-        $extra: state.extra as List<ConfigureItem>,
+        $extra: state.extra as List<ConfigureItem>?,
       );
 
   String get location => GoRouteData.$location(
@@ -99,6 +102,88 @@ extension $UserInfoPageRouteExtension on UserInfoPageRoute {
 
   String get location => GoRouteData.$location(
         '/user_info',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $updateAppPageRoute => GoRouteData.$route(
+      path: '/update_app&force=:force',
+      factory: $UpdateAppPageRouteExtension._fromState,
+    );
+
+extension $UpdateAppPageRouteExtension on UpdateAppPageRoute {
+  static UpdateAppPageRoute _fromState(GoRouterState state) =>
+      UpdateAppPageRoute(
+        force: _$boolConverter(state.pathParameters['force']!),
+      );
+
+  String get location => GoRouteData.$location(
+        '/update_app&force=${Uri.encodeComponent(force.toString())}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+bool _$boolConverter(String value) {
+  switch (value) {
+    case 'true':
+      return true;
+    case 'false':
+      return false;
+    default:
+      throw UnsupportedError('Cannot convert "$value" into a bool.');
+  }
+}
+
+RouteBase get $serviceDownPageRoute => GoRouteData.$route(
+      path: '/service_down',
+      factory: $ServiceDownPageRouteExtension._fromState,
+    );
+
+extension $ServiceDownPageRouteExtension on ServiceDownPageRoute {
+  static ServiceDownPageRoute _fromState(GoRouterState state) =>
+      const ServiceDownPageRoute();
+
+  String get location => GoRouteData.$location(
+        '/service_down',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $failedRunAppPageRoute => GoRouteData.$route(
+      path: '/failed_run_app',
+      factory: $FailedRunAppPageRouteExtension._fromState,
+    );
+
+extension $FailedRunAppPageRouteExtension on FailedRunAppPageRoute {
+  static FailedRunAppPageRoute _fromState(GoRouterState state) =>
+      const FailedRunAppPageRoute();
+
+  String get location => GoRouteData.$location(
+        '/failed_run_app',
       );
 
   void go(BuildContext context) => context.go(location);
