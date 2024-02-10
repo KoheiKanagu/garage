@@ -9,7 +9,7 @@ environment:
 
 dependencies:
   adaptive_dialog: ^2.0.0
-  budoux_dart: ^1.1.0
+  budoux_dart: ^1.2.0
   clock: ^1.1.1
   cloud_firestore: ^4.15.0
   cloud_functions: ^4.6.1

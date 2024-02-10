@@ -85,10 +85,10 @@ packages:
     dependency: "direct main"
     description:
       name: budoux_dart
-      sha256: a6211b06202d8a527a04fe62cb5398c2ac0394a1c37b605142fdaaae074148fb
+      sha256: "7211cfa7bc38beb00d1dfe9d1b9016a6089b0b84b45d6b0b20f66bf8dbd6ef3b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   build:
     dependency: transitive
     description:
