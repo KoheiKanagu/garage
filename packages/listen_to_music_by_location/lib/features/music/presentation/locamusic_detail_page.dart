@@ -139,6 +139,7 @@ class _Range extends HookConsumerWidget {
                 height: 200,
                 child: MapView(
                   mapViewType: MapViewType.locamusicDetailPage,
+                  layoutMarginsBottom: 0,
                 ),
               ),
             ),

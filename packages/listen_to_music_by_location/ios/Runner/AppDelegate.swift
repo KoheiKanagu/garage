@@ -27,7 +27,11 @@ import app_links
           mapViewType: e,
           flutterBinaryMessenger: controller.binaryMessenger
         ),
-        withId: "\(e)"
+        withId: "\(e)",
+        // https://github.com/flutter/flutter/issues/37579#issuecomment-1933365963
+        // これにより、MapViewの上にFlutterのボタンを置いてもジェスチャーの認識がうまくいく
+        gestureRecognizersBlockingPolicy:
+          FlutterPlatformViewGestureRecognizersBlockingPolicyWaitUntilTouchesEnded
       )
     }
 
