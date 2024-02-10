@@ -42,7 +42,7 @@ jobs:
       - name: Replace remoteconfig template conditions
         run: |
           dart pub get
-          grind replace-remoteconfig-template-conditions
+          dart run grinder replace-remoteconfig-template-conditions
 
       ### Deploy ###
       - name: Deploy
