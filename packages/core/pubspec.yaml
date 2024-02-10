@@ -47,8 +47,8 @@ dependencies:
   riverpod_annotation: ^2.3.3
   shared_preferences: ^2.2.2
   simple_logger: ^1.9.0+3
-  slang: ^3.28.0
-  slang_flutter: ^3.28.0
+  slang: ^3.29.0
+  slang_flutter: ^3.29.0
   smooth_page_indicator: ^1.1.0
   url_launcher: ^6.2.2
   uuid: ^4.3.1
@@ -65,7 +65,7 @@ dev_dependencies:
   mockito: ^5.4.4
   riverpod_generator: ^2.3.9
   riverpod_lint: ^2.3.7
-  slang_build_runner: ^3.28.0
+  slang_build_runner: ^3.29.0
   test: any
   very_good_analysis: ^5.1.0
 
