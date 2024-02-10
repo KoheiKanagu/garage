@@ -24,13 +24,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Runner"
+            "value" : "Locamusic"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Runner"
+            "value" : "場所で音楽"
           }
         }
       }
