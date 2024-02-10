@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
 import 'package:yaml/yaml.dart';
 
@@ -21,11 +22,13 @@ Future<void> bumpAllDeps() async {
     final dependencies = (pubspec['dependencies'] as YamlMap)
         .entries
         .where((e) => e.value is String)
+        .whereNot((e) => e.value == 'any') // exclude any version
         .map((e) => e.key as String);
 
     final devDependencies = (pubspec['dev_dependencies'] as YamlMap)
         .entries
         .where((e) => e.value is String)
+        .whereNot((e) => e.value == 'any') // exclude any version
         .map((e) => 'dev:${e.key}');
 
     run(
