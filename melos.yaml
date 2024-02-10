@@ -29,20 +29,23 @@ scripts:
   dart:fix:format:
     description: |
       Run dart fix and format.
-    exec: |
-      dart fix --apply lib
-      find lib test -name '*.dart' -not -path 'lib/gen/*' -exec dart format --set-exit-if-changed {} \;
+    run: |
+      dart fix --apply tool
+      melos exec -- dart fix --apply lib
+      find tool packages/*/lib packages/*/test -name '*.dart' -not -path 'packages/*/lib/gen/' -exec dart format --set-exit-if-changed {} \;
 
   dart:analyze:
     description: |
       Run dart analyze.
-    exec: |
+    run: |
       dart analyze --fatal-infos .
+      melos exec -- dart analyze --fatal-infos .
 
   dart:custom_lint:
     description: |
       Run custom lint.
     exec: |
+      # rootのtoolディレクトリもcustom_lintかけたいが、対象のディレクトリを指定できないためできない
       dart run custom_lint
 
   pub:get:
