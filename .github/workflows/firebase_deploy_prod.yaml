@@ -28,6 +28,9 @@ jobs:
           workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_PROD }}
           service_account: ${{ vars.SERVICE_ACCOUNT_PROD }}
 
+      - run: |
+          firebase use prod --debug
+
       - name: Install dependencies
         run: npm ci
         working-directory: firebase/functions
@@ -44,5 +47,4 @@ jobs:
       ### Deploy ###
       - name: Deploy
         run: |
-          firebase use prod --debug
           firebase deploy --force --except extensions
