@@ -82,7 +82,7 @@ jobs:
         uses: KoheiKanagu/composite-actions/setup-flutter@main
 
       - name: Pods Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             packages/*/ios/Pods
