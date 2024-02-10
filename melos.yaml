@@ -234,4 +234,4 @@ scripts:
       melos run slang && \
       grind update-coverage-test && \
       grind update-core-export && \
-      grind update-firestore-indexes
+      grind dump-firestore-indexes

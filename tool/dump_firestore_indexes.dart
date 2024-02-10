@@ -4,9 +4,18 @@ import 'dart:io';
 import 'package:grinder/grinder.dart';
 
 @Task(
-  'Update firestore indexes',
+  'Dump firestore indexes',
 )
-Future<void> updateFirestoreIndexes() async {
+Future<void> dumpFirestoreIndexes() async {
+  await runAsync(
+    'firebase',
+    arguments: [
+      'use',
+      'dev',
+      '--debug',
+    ],
+  );
+
   final result = await runAsync(
     'firebase',
     arguments: [
