@@ -57,20 +57,24 @@ Future<void> bumpAllDeps() async {
 
 void _pubAdd(String pubspecDirectory) {
   final pubspec = loadYaml(
-    File('$pubspecDirectory/pubspec.yaml').path,
+    File('$pubspecDirectory/pubspec.yaml').readAsStringSync(),
   ) as YamlMap;
 
-  final dependencies = (pubspec['dependencies'] as YamlMap)
-      .entries
-      .where((e) => e.value is String)
-      .whereNot((e) => e.value == 'any') // exclude any version
-      .map((e) => e.key as String);
+  final dependencies = (pubspec['dependencies'] is YamlMap)
+      ? (pubspec['dependencies'] as YamlMap)
+          .entries
+          .where((e) => e.value is String)
+          .whereNot((e) => e.value == 'any') // exclude any version
+          .map((e) => e.key as String)
+      : <String>[];
 
-  final devDependencies = (pubspec['dev_dependencies'] as YamlMap)
-      .entries
-      .where((e) => e.value is String)
-      .whereNot((e) => e.value == 'any') // exclude any version
-      .map((e) => 'dev:${e.key}');
+  final devDependencies = (pubspec['dev_dependencies'] is YamlMap)
+      ? (pubspec['dev_dependencies'] as YamlMap)
+          .entries
+          .where((e) => e.value is String)
+          .whereNot((e) => e.value == 'any') // exclude any version
+          .map((e) => 'dev:${e.key}')
+      : <String>[];
 
   run(
     'fvm',
