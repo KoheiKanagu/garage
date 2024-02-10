@@ -12,6 +12,7 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<ProviderContainer?> initialize({
+  required FirebaseOptions firebaseOptions,
   List<Override>? overrides,
 }) {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,7 @@ Future<ProviderContainer?> initialize({
   return Future<ProviderContainer?>(
     () => _initialize(
       overrides: overrides ?? [],
+      options: firebaseOptions,
     ),
   ).timeout(
     const Duration(seconds: 10),
@@ -38,9 +40,12 @@ Future<ProviderContainer?> initialize({
 
 Future<ProviderContainer> _initialize({
   required List<Override> overrides,
+  required FirebaseOptions options,
 }) async {
   final (firebaseApp, sharedPreferences, packageInfo) = (
-    await Firebase.initializeApp(),
+    await Firebase.initializeApp(
+      options: options,
+    ),
     await SharedPreferences.getInstance(),
     await PackageInfo.fromPlatform(),
   );
