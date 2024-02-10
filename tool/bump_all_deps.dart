@@ -47,7 +47,34 @@ Future<void> bumpAllDeps() async {
     'melos',
     arguments: [
       'run',
+      'pub:get',
+    ],
+  );
+
+  run(
+    'melos',
+    arguments: [
+      'run',
       'pod:update',
+    ],
+  );
+
+  run(
+    'npx',
+    arguments: [
+      'npm-check-updates',
+      '--packageFile',
+      'firebase/functions/package.json',
+      '--upgrade',
+    ],
+  );
+
+  run(
+    'npm',
+    arguments: [
+      '--prefix',
+      'firebase/functions',
+      'install',
     ],
   );
 }
