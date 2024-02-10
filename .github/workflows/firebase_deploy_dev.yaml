@@ -25,6 +25,9 @@ jobs:
           workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
           service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
 
+      - run: |
+          firebase use dev --debug
+
       - name: Install dependencies
         run: npm ci
         working-directory: firebase/functions
@@ -36,10 +39,9 @@ jobs:
       - name: Replace remoteconfig template conditions
         run: |
           dart pub get
-          grind replace-remoteconfig-template-conditions
+          dart run grinder replace-remoteconfig-template-conditions
 
       ### Deploy ###
       - name: Deploy
         run: |
-          firebase use dev --debug
           firebase deploy --force --except extensions
