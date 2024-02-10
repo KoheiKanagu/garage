@@ -17,7 +17,7 @@ jobs:
 
       - uses: KoheiKanagu/composite-actions/run-actionlint@main
 
-  analyze:
+  generage:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     permissions: # for KoheiKanagu/composite-actions/setup-firebase-cli@main
@@ -41,10 +41,65 @@ jobs:
           workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
           service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
 
-      ### Analyze ###
-      - name: Analyze
+      ### Generate ###
+      - run: melos run generate
+
+  fix-format:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v1.8.7
+        with:
+          comment_on_pr: false
+
+      ### Set up ###
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: KoheiKanagu/composite-actions/setup-flutter@main
+
+      ### fix and format ###
+      - name: Fix and Format
         run: |
-          melos run analyze --no-select
+          melos run dart:fix:format
+          git diff --exit-code
+
+  analyze:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v1.8.7
+        with:
+          comment_on_pr: false
+
+      ### Set up ###
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: KoheiKanagu/composite-actions/setup-flutter@main
+
+      ### Analyze ###
+      - run: melos run dart:analyze
+
+  custom_lint:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v1.8.7
+        with:
+          comment_on_pr: false
+
+      ### Set up ###
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: KoheiKanagu/composite-actions/setup-flutter@main
+
+      ### Custom Lint ###
+      - run: melos run dart:custom_lint
 
   test:
     timeout-minutes: 30

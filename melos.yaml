@@ -15,14 +15,41 @@ command:
 sdkPath: .fvm/versions/beta
 
 scripts:
-  analyze:
+  check:
+    description: |
+      Run code generation, format, and static analysis.
+      If any diff are found, it returns an error.
     run: |
       melos run generate && \
-      melos exec -- "dart fix --apply lib" && \
-      melos exec -- "find lib test -name '*.dart' -not -path 'lib/gen/*' -exec dart format --set-exit-if-changed {} \;" && \
+      melos run dart:fix:format && \
       git diff --exit-code && \
-      melos exec -- "dart analyze --fatal-infos ." && \
-      melos exec -- "dart run custom_lint"
+      melos run dart:analyze && \
+      melos run dart:custom_lint
+
+  dart:fix:format:
+    description: |
+      Run dart fix and format.
+    run: |
+      melos run pub:get
+      dart fix --apply tool
+      melos exec -- dart fix --apply lib
+      find tool packages/*/lib packages/*/test -name '*.dart' -not -path 'packages/*/lib/gen/*' -exec dart format --set-exit-if-changed {} \;
+
+  dart:analyze:
+    description: |
+      Run dart analyze.
+    run: |
+      melos run pub:get
+      dart analyze --fatal-infos .
+      melos exec -- dart analyze --fatal-infos .
+
+  dart:custom_lint:
+    description: |
+      Run custom lint.
+    exec: |
+      melos run pub:get
+      # rootのtoolディレクトリもcustom_lintかけたいが、対象のディレクトリを指定できないためできない
+      dart run custom_lint
 
   pub:get:
     run: |
@@ -64,7 +91,7 @@ scripts:
 
   build_runner:build:
     run: |
-      flutter pub run build_runner build --delete-conflicting-outputs
+      dart run build_runner build --delete-conflicting-outputs
     exec:
       concurrency: 1
       orderDependents: true
@@ -74,7 +101,7 @@ scripts:
 
   build_runner:watch:
     exec: |
-      flutter pub run build_runner watch --delete-conflicting-outputs
+      dart run build_runner watch --delete-conflicting-outputs
     packageFilters:
       flutter: true
       dependsOn: build_runner
