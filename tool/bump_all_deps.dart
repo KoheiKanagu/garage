@@ -8,42 +8,15 @@ import 'package:yaml/yaml.dart';
   'Bump all dependencies',
 )
 Future<void> bumpAllDeps() async {
+  // root
+  _pubAdd('.');
+
   final packages = Directory('packages').listSync().whereType<Directory>().map(
         (e) => e.uri.pathSegments.reversed.toList()[1],
       );
 
   for (final packageName in packages) {
-    final file = File(
-      Directory('packages/$packageName/pubspec.yaml').path,
-    ).readAsStringSync();
-
-    final pubspec = loadYaml(file) as YamlMap;
-
-    final dependencies = (pubspec['dependencies'] as YamlMap)
-        .entries
-        .where((e) => e.value is String)
-        .whereNot((e) => e.value == 'any') // exclude any version
-        .map((e) => e.key as String);
-
-    final devDependencies = (pubspec['dev_dependencies'] as YamlMap)
-        .entries
-        .where((e) => e.value is String)
-        .whereNot((e) => e.value == 'any') // exclude any version
-        .map((e) => 'dev:${e.key}');
-
-    run(
-      'fvm',
-      arguments: [
-        'flutter',
-        'pub',
-        'add',
-        '--directory',
-        'packages/$packageName',
-        '--no-precompile',
-        ...dependencies,
-        ...devDependencies,
-      ],
-    );
+    _pubAdd('packages/$packageName');
   }
 
   run(
@@ -78,6 +51,38 @@ Future<void> bumpAllDeps() async {
       '--prefix',
       'firebase/functions',
       'install',
+    ],
+  );
+}
+
+void _pubAdd(String pubspecDirectory) {
+  final pubspec = loadYaml(
+    File('$pubspecDirectory/pubspec.yaml').path,
+  ) as YamlMap;
+
+  final dependencies = (pubspec['dependencies'] as YamlMap)
+      .entries
+      .where((e) => e.value is String)
+      .whereNot((e) => e.value == 'any') // exclude any version
+      .map((e) => e.key as String);
+
+  final devDependencies = (pubspec['dev_dependencies'] as YamlMap)
+      .entries
+      .where((e) => e.value is String)
+      .whereNot((e) => e.value == 'any') // exclude any version
+      .map((e) => 'dev:${e.key}');
+
+  run(
+    'fvm',
+    arguments: [
+      'flutter',
+      'pub',
+      'add',
+      '--directory',
+      pubspecDirectory,
+      '--no-precompile',
+      ...dependencies,
+      ...devDependencies,
     ],
   );
 }
