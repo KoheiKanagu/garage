@@ -5,6 +5,7 @@ import 'package:core/core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:listen_to_music_by_location/constants/firebase_options_dev.dart';
 import 'package:listen_to_music_by_location/features/music/application/locamusic_providers.dart';
 import 'package:listen_to_music_by_location/features/music/domain/distance_range.dart';
 import 'package:listen_to_music_by_location/features/music/domain/locamusic.dart';
@@ -119,6 +120,7 @@ Future<void> main() async {
   ];
 
   final container = await initialize(
+    firebaseOptions: DefaultFirebaseOptions.currentPlatform,
     overrides: [
       locamusicDocumentsProvider.overrideWith(
         (_) => Stream.value(
