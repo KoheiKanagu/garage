@@ -21,9 +21,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
 
-  // TODO: assetsのURLに変更
   const artworkUrl =
-      'https://github.com/KoheiKanagu/garage/assets/6175794/0c1c925d-a8b5-48e6-ab42-1a9507a9b4d0';
+      'https://raw.githubusercontent.com/KoheiKanagu/garage/main/packages/listen_to_music_by_location/assets/images/app_icon.webp';
 
   final mockLocamusics = [
     (
