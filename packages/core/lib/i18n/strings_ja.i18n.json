@@ -77,5 +77,8 @@
     "ack_term(rich)": "本アプリの利用開始をもって${termOfService(利用規約)}と${privacyPolicy(プライバシーポリシー)}に同意したものとみなされます。",
     "anonymous_start": "サインインせずにはじめる",
     "or": "または"
+  },
+  "ads": {
+    "please_check_banner": "広告について確認のお願い"
   }
 }

@@ -143,6 +143,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsFeedbackJa feedback = _StringsFeedbackJa._(_root);
 	late final _StringsAuthJa auth = _StringsAuthJa._(_root);
 	late final _StringsOnboardingJa onboarding = _StringsOnboardingJa._(_root);
+	late final _StringsAdsJa ads = _StringsAdsJa._(_root);
 }
 
 // Path: service_down
@@ -274,6 +275,16 @@ class _StringsOnboardingJa {
 	String get or => 'または';
 }
 
+// Path: ads
+class _StringsAdsJa {
+	_StringsAdsJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get please_check_banner => '広告について確認のお願い';
+}
+
 // Path: feedback.type
 class _StringsFeedbackTypeJa {
 	_StringsFeedbackTypeJa._(this._root);
@@ -314,6 +325,7 @@ class _StringsEn extends Translations {
 	@override late final _StringsFeedbackEn feedback = _StringsFeedbackEn._(_root);
 	@override late final _StringsAuthEn auth = _StringsAuthEn._(_root);
 	@override late final _StringsOnboardingEn onboarding = _StringsOnboardingEn._(_root);
+	@override late final _StringsAdsEn ads = _StringsAdsEn._(_root);
 }
 
 // Path: service_down
@@ -443,6 +455,16 @@ class _StringsOnboardingEn extends _StringsOnboardingJa {
 	]);
 	@override String get anonymous_start => 'Start without signing in';
 	@override String get or => 'Or';
+}
+
+// Path: ads
+class _StringsAdsEn extends _StringsAdsJa {
+	_StringsAdsEn._(_StringsEn root) : this._root = root, super._(root);
+
+	@override final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get please_check_banner => 'Please check about the ads';
 }
 
 // Path: feedback.type
