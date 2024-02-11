@@ -52,8 +52,8 @@ class HomePage extends HookConsumerWidget {
       ),
     );
 
-    final isRequestConsentInfoUpdate = ref.watch(
-      sharedPreferencesRequestConsentInfoUpdateProvider,
+    final isRequestAdsConsentInfoUpdate = ref.watch(
+      sharedPreferencesRequestAdsConsentInfoUpdateProvider,
     );
 
     return Scaffold(
@@ -86,7 +86,7 @@ class HomePage extends HookConsumerWidget {
                   const PermissionPageRoute().push<void>(context);
                 },
               ),
-            if (isRequestConsentInfoUpdate)
+            if (isRequestAdsConsentInfoUpdate)
               HomePageBanner(
                 leading: const Icon(
                   CupertinoIcons.exclamationmark_triangle_fill,
@@ -96,7 +96,7 @@ class HomePage extends HookConsumerWidget {
                 onPressed: () async {
                   await ref
                       .read(sharedPreferencesControllerProvider.notifier)
-                      .setRequestConsentInfoUpdate();
+                      .setRequestAdsConsentInfoUpdate();
                   await ref.read(adsRequestConsentInfoUpdateProvider.future);
                 },
               ),

@@ -26,30 +26,30 @@ final sharedPreferencesInstanceProvider =
 
 typedef SharedPreferencesInstanceRef
     = AutoDisposeProviderRef<SharedPreferences>;
-String _$sharedPreferencesRequestConsentInfoUpdateHash() =>
-    r'ea28d83d311548bd48b8e1a32827d3627de4982c';
+String _$sharedPreferencesRequestAdsConsentInfoUpdateHash() =>
+    r'd4088edd790657f83a6e56ef0cf382918a113c92';
 
 /// request ads consent info update
 ///
 /// If true is returned, use [adsRequestConsentInfoUpdateProvider] to request consent info update.
 ///
-/// Copied from [sharedPreferencesRequestConsentInfoUpdate].
-@ProviderFor(sharedPreferencesRequestConsentInfoUpdate)
-final sharedPreferencesRequestConsentInfoUpdateProvider =
+/// Copied from [sharedPreferencesRequestAdsConsentInfoUpdate].
+@ProviderFor(sharedPreferencesRequestAdsConsentInfoUpdate)
+final sharedPreferencesRequestAdsConsentInfoUpdateProvider =
     AutoDisposeProvider<bool>.internal(
-  sharedPreferencesRequestConsentInfoUpdate,
-  name: r'sharedPreferencesRequestConsentInfoUpdateProvider',
+  sharedPreferencesRequestAdsConsentInfoUpdate,
+  name: r'sharedPreferencesRequestAdsConsentInfoUpdateProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$sharedPreferencesRequestConsentInfoUpdateHash,
+      : _$sharedPreferencesRequestAdsConsentInfoUpdateHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef SharedPreferencesRequestConsentInfoUpdateRef
+typedef SharedPreferencesRequestAdsConsentInfoUpdateRef
     = AutoDisposeProviderRef<bool>;
 String _$sharedPreferencesControllerHash() =>
-    r'4bc39ddc63a3715c0e74e04c4bdc04a41ab6eafd';
+    r'7a4e4ec3473cda6f4f3e5ac5a82dc14e8dbab440';
 
 /// See also [SharedPreferencesController].
 @ProviderFor(SharedPreferencesController)

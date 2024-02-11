@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part 'shared_preferences_providers.g.dart';
 
-const String _kRequestConsentInfoUpdate = 'request_consent_info_update';
+const String _kRequestAdsConsentInfoUpdate = 'request_ads_consent_info_update';
 
 @riverpod
 SharedPreferences sharedPreferencesInstance(
@@ -31,11 +31,11 @@ class SharedPreferencesController extends _$SharedPreferencesController {
     _didChange();
   }
 
-  Future<void> setRequestConsentInfoUpdate({
+  Future<void> setRequestAdsConsentInfoUpdate({
     bool value = false,
   }) async {
     await state.setBool(
-      _kRequestConsentInfoUpdate,
+      _kRequestAdsConsentInfoUpdate,
       value,
     );
     _didChange();
@@ -47,10 +47,10 @@ class SharedPreferencesController extends _$SharedPreferencesController {
 // ignore: lines_longer_than_80_chars
 /// If true is returned, use [adsRequestConsentInfoUpdateProvider] to request consent info update.
 @riverpod
-bool sharedPreferencesRequestConsentInfoUpdate(
-  SharedPreferencesRequestConsentInfoUpdateRef ref,
+bool sharedPreferencesRequestAdsConsentInfoUpdate(
+  SharedPreferencesRequestAdsConsentInfoUpdateRef ref,
 ) =>
     ref.watch(sharedPreferencesControllerProvider).getBool(
-          _kRequestConsentInfoUpdate,
+          _kRequestAdsConsentInfoUpdate,
         ) ??
     true;

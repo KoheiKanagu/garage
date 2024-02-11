@@ -136,11 +136,11 @@ class ConfigurePage extends HookConsumerWidget {
         },
       ),
       _DebugListTile(
-        title: 'reset ConsentInformation',
+        title: 'reset ads consent information',
         onTap: () async {
           final result = await showOkCancelAlertDialog(
             context: context,
-            title: 'reset ConsentInformation?',
+            title: 'reset ads consent information?',
             message:
                 // ignore: lines_longer_than_80_chars
                 'ATT is not reset. If you want to reset ATT, please reinstall the app.',
@@ -150,7 +150,7 @@ class ConfigurePage extends HookConsumerWidget {
             await ConsentInformation.instance.reset();
             await ref
                 .read(sharedPreferencesControllerProvider.notifier)
-                .setRequestConsentInfoUpdate(
+                .setRequestAdsConsentInfoUpdate(
                   value: true,
                 );
             logger.fine('reset ConsentInformation');
