@@ -60,6 +60,7 @@ Future<void> adsResetConsentStatus(
   ref.invalidate(adsConsentStatusProvider);
 }
 
+/// reference: https://developers.google.com/admob/flutter/eu-consent
 void _loadForm() {
   ConsentForm.loadConsentForm(
     (consentForm) async {
@@ -72,8 +73,8 @@ void _loadForm() {
               logger.severe(
                 'Failed to show consent form: $formError',
               );
-              _loadForm();
             }
+            _loadForm();
           },
         );
       }
