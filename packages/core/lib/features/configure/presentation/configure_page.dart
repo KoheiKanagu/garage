@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:in_app_review/in_app_review.dart';
 
@@ -128,9 +129,44 @@ class ConfigurePage extends HookConsumerWidget {
           );
 
           if (result == OkCancelResult.ok) {
-            await ref.read(sharedPreferencesClearProvider.future);
-            logger.fine('clear SharedPreferences');
+            await ref
+                .read(sharedPreferencesControllerProvider.notifier)
+                .clear();
           }
+        },
+      ),
+      _DebugListTile(
+        title: 'reset ConsentInformation',
+        onTap: () async {
+          final result = await showOkCancelAlertDialog(
+            context: context,
+            title: 'reset ConsentInformation?',
+            message:
+                // ignore: lines_longer_than_80_chars
+                'ATT is not reset. If you want to reset ATT, please reinstall the app.',
+          );
+
+          if (result == OkCancelResult.ok) {
+            await ConsentInformation.instance.reset();
+            await ref
+                .read(sharedPreferencesControllerProvider.notifier)
+                .setRequestConsentInfoUpdate(
+                  value: true,
+                );
+            logger.fine('reset ConsentInformation');
+          }
+        },
+      ),
+      _DebugListTile(
+        title: 'openAdInspector',
+        onTap: () {
+          MobileAds.instance.openAdInspector(
+            (error) {
+              if (error != null) {
+                logger.severe('openAdInspector error: $error');
+              }
+            },
+          );
         },
       ),
     ];

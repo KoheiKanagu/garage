@@ -1,3 +1,6 @@
+import 'package:core/features/ads/application/ads_providers.dart';
+import 'package:core/features/configure/application/shared_preferences_providers.dart';
+import 'package:core/gen/strings.g.dart' as core_strings;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -49,6 +52,10 @@ class HomePage extends HookConsumerWidget {
       ),
     );
 
+    final isRequestConsentInfoUpdate = ref.watch(
+      sharedPreferencesRequestConsentInfoUpdateProvider,
+    );
+
     return Scaffold(
       floatingActionButton: Container(
         padding: const EdgeInsets.only(
@@ -77,6 +84,20 @@ class HomePage extends HookConsumerWidget {
                 label: i18n.permission.error_banner_label,
                 onPressed: () {
                   const PermissionPageRoute().push<void>(context);
+                },
+              ),
+            if (isRequestConsentInfoUpdate)
+              HomePageBanner(
+                leading: const Icon(
+                  CupertinoIcons.exclamationmark_triangle_fill,
+                  color: CupertinoColors.systemYellow,
+                ),
+                label: core_strings.i18n.ads.please_check_banner,
+                onPressed: () async {
+                  await ref
+                      .read(sharedPreferencesControllerProvider.notifier)
+                      .setRequestConsentInfoUpdate();
+                  await ref.read(adsRequestConsentInfoUpdateProvider.future);
                 },
               ),
           ].intersperseOuter(const Gap(8)).toList(),

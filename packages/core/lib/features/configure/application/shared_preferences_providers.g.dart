@@ -26,21 +26,44 @@ final sharedPreferencesInstanceProvider =
 
 typedef SharedPreferencesInstanceRef
     = AutoDisposeProviderRef<SharedPreferences>;
-String _$sharedPreferencesClearHash() =>
-    r'a5fa6e4c0e3149f4837dd1e1199b1b0475dd68c7';
+String _$sharedPreferencesRequestConsentInfoUpdateHash() =>
+    r'ea28d83d311548bd48b8e1a32827d3627de4982c';
 
-/// See also [sharedPreferencesClear].
-@ProviderFor(sharedPreferencesClear)
-final sharedPreferencesClearProvider = AutoDisposeFutureProvider<void>.internal(
-  sharedPreferencesClear,
-  name: r'sharedPreferencesClearProvider',
+/// request ads consent info update
+///
+/// If true is returned, use [adsRequestConsentInfoUpdateProvider] to request consent info update.
+///
+/// Copied from [sharedPreferencesRequestConsentInfoUpdate].
+@ProviderFor(sharedPreferencesRequestConsentInfoUpdate)
+final sharedPreferencesRequestConsentInfoUpdateProvider =
+    AutoDisposeProvider<bool>.internal(
+  sharedPreferencesRequestConsentInfoUpdate,
+  name: r'sharedPreferencesRequestConsentInfoUpdateProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$sharedPreferencesClearHash,
+      : _$sharedPreferencesRequestConsentInfoUpdateHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef SharedPreferencesClearRef = AutoDisposeFutureProviderRef<void>;
+typedef SharedPreferencesRequestConsentInfoUpdateRef
+    = AutoDisposeProviderRef<bool>;
+String _$sharedPreferencesControllerHash() =>
+    r'4bc39ddc63a3715c0e74e04c4bdc04a41ab6eafd';
+
+/// See also [SharedPreferencesController].
+@ProviderFor(SharedPreferencesController)
+final sharedPreferencesControllerProvider = AutoDisposeNotifierProvider<
+    SharedPreferencesController, SharedPreferences>.internal(
+  SharedPreferencesController.new,
+  name: r'sharedPreferencesControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$sharedPreferencesControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SharedPreferencesController = AutoDisposeNotifier<SharedPreferences>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
