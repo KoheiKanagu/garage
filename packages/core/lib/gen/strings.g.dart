@@ -283,6 +283,7 @@ class _StringsAdsJa {
 
 	// Translations
 	String get please_check_banner => '広告について確認のお願い';
+	late final _StringsAdsRevokePersonalizedJa revoke_personalized = _StringsAdsRevokePersonalizedJa._(_root);
 }
 
 // Path: feedback.type
@@ -296,6 +297,19 @@ class _StringsFeedbackTypeJa {
 	String get feature_request => '機能追加について';
 	String get impression => 'ご意見・ご感想について';
 	String get other => 'その他';
+}
+
+// Path: ads.revoke_personalized
+class _StringsAdsRevokePersonalizedJa {
+	_StringsAdsRevokePersonalizedJa._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get request_label => 'パーソナライズド広告の同意を取り消す';
+	String get title => 'パーソナライズド広告の同意を取り消しますか？';
+	String get ok_label => '取り消す';
+	String get did_revoke_title => 'パーソナライズド広告の同意を取り消しました';
 }
 
 // Path: <root>
@@ -465,6 +479,7 @@ class _StringsAdsEn extends _StringsAdsJa {
 
 	// Translations
 	@override String get please_check_banner => 'Please check about the ads';
+	@override late final _StringsAdsRevokePersonalizedEn revoke_personalized = _StringsAdsRevokePersonalizedEn._(_root);
 }
 
 // Path: feedback.type
@@ -478,4 +493,17 @@ class _StringsFeedbackTypeEn extends _StringsFeedbackTypeJa {
 	@override String get feature_request => 'Feature Request';
 	@override String get impression => 'Opinion';
 	@override String get other => 'Other';
+}
+
+// Path: ads.revoke_personalized
+class _StringsAdsRevokePersonalizedEn extends _StringsAdsRevokePersonalizedJa {
+	_StringsAdsRevokePersonalizedEn._(_StringsEn root) : this._root = root, super._(root);
+
+	@override final _StringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get request_label => 'Revoke consent for personalized ads';
+	@override String get title => 'Do you want to revoke consent for personalized ads?';
+	@override String get ok_label => 'Revoke';
+	@override String get did_revoke_title => 'Consent for personalized ads has been revoked';
 }

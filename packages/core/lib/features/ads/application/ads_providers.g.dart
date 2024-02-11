@@ -27,5 +27,37 @@ final adsRequestConsentInfoUpdateProvider =
 );
 
 typedef AdsRequestConsentInfoUpdateRef = AutoDisposeFutureProviderRef<void>;
+String _$adsConsentStatusHash() => r'5f46b9754b6f87d055ee1afc42fec09d6b872bdd';
+
+/// See also [adsConsentStatus].
+@ProviderFor(adsConsentStatus)
+final adsConsentStatusProvider =
+    AutoDisposeFutureProvider<ConsentStatus>.internal(
+  adsConsentStatus,
+  name: r'adsConsentStatusProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$adsConsentStatusHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef AdsConsentStatusRef = AutoDisposeFutureProviderRef<ConsentStatus>;
+String _$adsResetConsentStatusHash() =>
+    r'8ab522fa7822170014ce98f2a74998878f884ff4';
+
+/// See also [adsResetConsentStatus].
+@ProviderFor(adsResetConsentStatus)
+final adsResetConsentStatusProvider = AutoDisposeFutureProvider<void>.internal(
+  adsResetConsentStatus,
+  name: r'adsResetConsentStatusProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$adsResetConsentStatusHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef AdsResetConsentStatusRef = AutoDisposeFutureProviderRef<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

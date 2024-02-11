@@ -79,6 +79,12 @@
     "or": "または"
   },
   "ads": {
-    "please_check_banner": "広告について確認のお願い"
+    "please_check_banner": "広告について確認のお願い",
+    "revoke_personalized": {
+      "request_label": "パーソナライズド広告の同意を取り消す",
+      "title": "パーソナライズド広告の同意を取り消しますか？",
+      "ok_label": "取り消す",
+      "did_revoke_title": "パーソナライズド広告の同意を取り消しました"
+    }
   }
 }

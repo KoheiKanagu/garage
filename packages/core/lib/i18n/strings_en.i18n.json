@@ -79,6 +79,12 @@
     "or": "Or"
   },
   "ads": {
-    "please_check_banner": "Please check about the ads"
+    "please_check_banner": "Please check about the ads",
+    "revoke_personalized": {
+      "request_label": "Revoke consent for personalized ads",
+      "title": "Do you want to revoke consent for personalized ads?",
+      "ok_label": "Revoke",
+      "did_revoke_title": "Consent for personalized ads has been revoked"
+    }
   }
 }

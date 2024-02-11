@@ -41,6 +41,25 @@ Future<void> adsRequestConsentInfoUpdate(
   );
 }
 
+@riverpod
+Future<ConsentStatus> adsConsentStatus(
+  AdsConsentStatusRef ref,
+) =>
+    ConsentInformation.instance.getConsentStatus();
+
+@riverpod
+Future<void> adsResetConsentStatus(
+  AdsResetConsentStatusRef ref,
+) async {
+  await ConsentInformation.instance.reset();
+  await ref
+      .read(sharedPreferencesControllerProvider.notifier)
+      .setRequestAdsConsentInfoUpdate(
+        value: true,
+      );
+  ref.invalidate(adsConsentStatusProvider);
+}
+
 void _loadForm() {
   ConsentForm.loadConsentForm(
     (consentForm) async {
