@@ -89,5 +89,9 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-3095994149570460~5090352563</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>許可を選択すると、あなたの興味や関心に合うと思われる広告が表示されるようになります。この情報は広告の配信にのみ活用され、個人を特定する情報は含まれません。</string>
 </dict>
 </plist>
