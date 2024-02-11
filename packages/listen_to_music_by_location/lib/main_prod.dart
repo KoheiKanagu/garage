@@ -10,6 +10,7 @@ Future<void> main() async {
 
   final container = await initialize(
     firebaseOptions: DefaultFirebaseOptions.currentPlatform,
+    bannerAdUnitId: 'ca-app-pub-3095994149570460/8006523462',
   );
 
   if (container != null) {
