@@ -14,31 +14,93 @@ final kBannerAdUnitIdTest = Platform.isAndroid
 
 late final String kBannerAdUnitId;
 
-/// request consent info update
+/// トラッキングをリクエストするべきかどうか
 @riverpod
-Future<void> adsRequestConsentInfoUpdate(
-  AdsRequestConsentInfoUpdateRef ref,
-) async {
-  final params = ConsentRequestParameters(
-    consentDebugSettings: ConsentDebugSettings(
-      debugGeography: kDebugMode
-          ? DebugGeography.debugGeographyEea
-          : DebugGeography.debugGeographyDisabled,
-    ),
-  );
-  ConsentInformation.instance.requestConsentInfoUpdate(
-    params,
-    () async {
-      final available =
-          await ConsentInformation.instance.isConsentFormAvailable();
-      if (available) {
-        _loadForm();
-      }
-    },
-    (error) => logger.severe(
-      'Failed to request consent info update: $error',
-    ),
-  );
+class AdsRequestConsentInfoUpdateController
+    extends _$AdsRequestConsentInfoUpdateController {
+  @override
+  bool build() {
+    reload();
+
+    return false;
+  }
+
+  /// トラッキングをリクエストするべきかどうかを再読み込みする
+  void reload() {
+    ref.invalidate(adsConsentStatusProvider);
+
+    final params = ConsentRequestParameters(
+      consentDebugSettings: ConsentDebugSettings(
+        debugGeography: kDebugMode
+            ? DebugGeography.debugGeographyEea
+            : DebugGeography.debugGeographyDisabled,
+      ),
+    );
+
+    ConsentInformation.instance.requestConsentInfoUpdate(
+      params,
+      () async {
+        final available =
+            await ConsentInformation.instance.isConsentFormAvailable();
+        logger.fine('isConsentFormAvailable: $available');
+        if (!available) {
+          state = false;
+          return;
+        }
+
+        final status = await ref.read(adsConsentStatusProvider.future);
+        state = switch (status) {
+          ConsentStatus.required || ConsentStatus.unknown => true,
+          ConsentStatus.notRequired || ConsentStatus.obtained => false,
+        };
+      },
+      (error) => logger.severe(
+        {
+          'errorCode': error.errorCode,
+          'message': error.message,
+        },
+      ),
+    );
+  }
+
+  /// reference: https://developers.google.com/admob/flutter/eu-consent
+  void loadForm() {
+    reload();
+
+    ConsentForm.loadConsentForm(
+      (consentForm) async {
+        final status = await ref.read(adsConsentStatusProvider.future);
+        if (status == ConsentStatus.required) {
+          consentForm.show(
+            (formError) {
+              if (formError != null) {
+                logger.severe(
+                  {
+                    'errorCode': formError.errorCode,
+                    'message': formError.message,
+                  },
+                );
+              }
+              loadForm();
+            },
+          );
+        }
+      },
+      (formError) => logger.severe(
+        {
+          'errorCode': formError.errorCode,
+          'message': formError.message,
+        },
+      ),
+    );
+  }
+
+  Future<void> reset() async {
+    await ConsentInformation.instance.reset();
+    ref
+      ..invalidate(adsConsentStatusProvider)
+      ..invalidateSelf();
+  }
 }
 
 @riverpod
@@ -46,41 +108,3 @@ Future<ConsentStatus> adsConsentStatus(
   AdsConsentStatusRef ref,
 ) =>
     ConsentInformation.instance.getConsentStatus();
-
-@riverpod
-Future<void> adsResetConsentStatus(
-  AdsResetConsentStatusRef ref,
-) async {
-  await ConsentInformation.instance.reset();
-  await ref
-      .read(sharedPreferencesControllerProvider.notifier)
-      .setRequestAdsConsentInfoUpdate(
-        value: true,
-      );
-  ref.invalidate(adsConsentStatusProvider);
-}
-
-/// reference: https://developers.google.com/admob/flutter/eu-consent
-void _loadForm() {
-  ConsentForm.loadConsentForm(
-    (consentForm) async {
-      final status = await ConsentInformation.instance.getConsentStatus();
-
-      if (status == ConsentStatus.required) {
-        consentForm.show(
-          (formError) {
-            if (formError != null) {
-              logger.severe(
-                'Failed to show consent form: $formError',
-              );
-            }
-            _loadForm();
-          },
-        );
-      }
-    },
-    (formError) => logger.severe(
-      'Failed to load consent form: $formError',
-    ),
-  );
-}
