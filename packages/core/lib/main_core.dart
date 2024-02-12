@@ -1,7 +1,6 @@
 // ignore_for_file: comment_references
 
 import 'package:core/core.dart';
-import 'package:core/features/ads/application/ads_providers.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
