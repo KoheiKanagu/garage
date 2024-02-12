@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:core/core.dart';
@@ -108,3 +109,58 @@ Future<ConsentStatus> adsConsentStatus(
   AdsConsentStatusRef ref,
 ) =>
     ConsentInformation.instance.getConsentStatus();
+
+@riverpod
+Future<BannerAd> adsBanner(
+  AdsBannerRef ref, {
+  required String adUnitId,
+  required int width,
+}) async {
+  final size = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+    width,
+  );
+
+  if (size == null) {
+    throw Exception('AdSize is null');
+  }
+
+  final loadCompleter = Completer<void>();
+
+  final bannerAd = BannerAd(
+    size: size,
+    adUnitId: adUnitId,
+    listener: BannerAdListener(
+      onAdLoaded: (ad) {
+        logger.fine(
+          {
+            'responseInfo': ad.responseInfo,
+            'adUnitId': ad.adUnitId,
+          },
+        );
+        loadCompleter.complete();
+      },
+      onAdFailedToLoad: (ad, error) {
+        ad.dispose();
+        loadCompleter.completeError(
+          {
+            'ad': {
+              'responseInfo': ad.responseInfo,
+              'adUnitId': ad.adUnitId,
+            },
+            'error': {
+              'code': error.code,
+              'domain': error.domain,
+              'message': error.message,
+            },
+          },
+        );
+      },
+    ),
+    request: const AdRequest(),
+  );
+
+  await bannerAd.load();
+  await loadCompleter.future;
+
+  return bannerAd;
+}

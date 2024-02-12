@@ -6,6 +6,8 @@ export 'constants/remote_config_constant.dart';
 export 'constants/typedefs.dart';
 export 'extensions/cupertino_text_theme_data_extension.dart';
 export 'extensions/go_router_extension.dart';
+export 'features/ads/application/ads_providers.dart';
+export 'features/ads/presentation/my_adaptive_banner_ad.dart';
 export 'features/authentication/application/firebase_user_providers.dart';
 export 'features/authentication/application/oauth/github_provider.dart';
 export 'features/authentication/application/oauth/oauth_providers.dart';

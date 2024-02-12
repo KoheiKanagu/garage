@@ -1,4 +1,4 @@
-import 'package:core/features/ads/application/ads_providers.dart';
+import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart' as core_strings;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -55,52 +55,61 @@ class HomePage extends HookConsumerWidget {
         ref.watch(adsRequestConsentInfoUpdateControllerProvider);
 
     return Scaffold(
-      floatingActionButton: Container(
-        padding: const EdgeInsets.only(
-          left: 12,
-          right: 12,
-          bottom: 64,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            if (isEmptyLocamusic)
-              HomePageBanner(
-                label: i18n.try_long_press,
-                leading: const Icon(
-                  CupertinoIcons.lightbulb_fill,
-                  color: CupertinoColors.white,
-                ),
-                onPressed: () {},
-              ),
-            if (isPermissionRequest)
-              HomePageBanner(
-                leading: const Icon(
-                  CupertinoIcons.exclamationmark_triangle_fill,
-                  color: CupertinoColors.systemYellow,
-                ),
-                label: i18n.permission.error_banner_label,
-                onPressed: () {
-                  const PermissionPageRoute().push<void>(context);
-                },
-              ),
-            if (isAdsRequestConsentInfoUpdate)
-              HomePageBanner(
-                leading: const Icon(
-                  CupertinoIcons.exclamationmark_triangle_fill,
-                  color: CupertinoColors.systemYellow,
-                ),
-                label: core_strings.i18n.ads.please_check_banner,
-                onPressed: () {
-                  ref
-                      .read(
-                        adsRequestConsentInfoUpdateControllerProvider.notifier,
-                      )
-                      .loadForm();
-                },
-              ),
-          ].intersperseOuter(const Gap(8)).toList(),
-        ),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+            ),
+            child: Column(
+              children: <Widget>[
+                if (isEmptyLocamusic)
+                  HomePageBanner(
+                    label: i18n.try_long_press,
+                    leading: const Icon(
+                      CupertinoIcons.lightbulb_fill,
+                      color: CupertinoColors.white,
+                    ),
+                    onPressed: () {},
+                  ),
+                if (isPermissionRequest)
+                  HomePageBanner(
+                    leading: const Icon(
+                      CupertinoIcons.exclamationmark_triangle_fill,
+                      color: CupertinoColors.systemYellow,
+                    ),
+                    label: i18n.permission.error_banner_label,
+                    onPressed: () {
+                      const PermissionPageRoute().push<void>(context);
+                    },
+                  ),
+                if (isAdsRequestConsentInfoUpdate)
+                  HomePageBanner(
+                    leading: const Icon(
+                      CupertinoIcons.exclamationmark_triangle_fill,
+                      color: CupertinoColors.systemYellow,
+                    ),
+                    label: core_strings.i18n.ads.please_check_banner,
+                    onPressed: () {
+                      ref
+                          .read(
+                            adsRequestConsentInfoUpdateControllerProvider
+                                .notifier,
+                          )
+                          .loadForm();
+                    },
+                  ),
+              ].intersperseOuter(const Gap(8)).toList(),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(
+              bottom: 64,
+            ),
+            child: MyAdaptiveBannerAd(),
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: CupertinoTabScaffold(
