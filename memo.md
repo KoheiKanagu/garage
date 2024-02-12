@@ -125,3 +125,18 @@ CFBundleDisplayNameSuffix = dev
 ## 　ストアスクリーンショット
 
 `main_screenshot.dart`
+
+## AdMob
+
+### ATT 事前ポップアップ
+
+- あなたに合った広告を表示するためには許可が必要です。
+- Permission is required to display ads that suit you.
+
+- 次の画面で「許可」を選択すると、あなたの興味や関心に合うと思われる広告が表示されるようになります。この情報は広告の配信にのみ活用され、個人を特定する情報は含まれません。
+- If you select "Allow Tracking" on the next screen, ads that are thought to match your interests and concerns will be displayed. This information is only used for ad delivery and does not contain any personal identification information.
+
+### ATT
+
+- 「許可」を選択すると、あなたの興味や関心に合うと思われる広告が表示されるようになります。この情報は広告の配信にのみ活用され、個人を特定する情報は含まれません。
+- If you select "Allow Tracking", ads that are thought to match your interests and concerns will be displayed. This information is only used for ad delivery and does not contain any personal identification information.

@@ -100,7 +100,7 @@ Future<void> firebaseUserDelete(
       .call<void>();
 
   logger.fine('clear SharedPreferences');
-  await ref.read(sharedPreferencesClearProvider.future);
+  await ref.read(sharedPreferencesControllerProvider).clear();
 
   await ref.read(firebaseAuthProvider).signOut();
   logger.fine('success signOut');

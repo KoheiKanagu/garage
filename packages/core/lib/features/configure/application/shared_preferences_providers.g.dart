@@ -26,21 +26,22 @@ final sharedPreferencesInstanceProvider =
 
 typedef SharedPreferencesInstanceRef
     = AutoDisposeProviderRef<SharedPreferences>;
-String _$sharedPreferencesClearHash() =>
-    r'a5fa6e4c0e3149f4837dd1e1199b1b0475dd68c7';
+String _$sharedPreferencesControllerHash() =>
+    r'2bca893846b1e2bea9cb45a10ba16b8f9da3a9c5';
 
-/// See also [sharedPreferencesClear].
-@ProviderFor(sharedPreferencesClear)
-final sharedPreferencesClearProvider = AutoDisposeFutureProvider<void>.internal(
-  sharedPreferencesClear,
-  name: r'sharedPreferencesClearProvider',
+/// See also [SharedPreferencesController].
+@ProviderFor(SharedPreferencesController)
+final sharedPreferencesControllerProvider = AutoDisposeNotifierProvider<
+    SharedPreferencesController, SharedPreferences>.internal(
+  SharedPreferencesController.new,
+  name: r'sharedPreferencesControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$sharedPreferencesClearHash,
+      : _$sharedPreferencesControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef SharedPreferencesClearRef = AutoDisposeFutureProviderRef<void>;
+typedef _$SharedPreferencesController = AutoDisposeNotifier<SharedPreferences>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

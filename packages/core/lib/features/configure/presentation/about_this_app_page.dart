@@ -1,7 +1,9 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -12,7 +14,7 @@ class AboutThisAppPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final children = [
+    final section1 = [
       ConfigureListTile(
         title: i18n.configure.terms_of_service,
         onTap: () async {
@@ -56,13 +58,52 @@ class AboutThisAppPage extends HookConsumerWidget {
       ),
     ];
 
+    final section2 = [
+      // 同意済みの場合のみ表示
+      if (ref.watch(adsConsentStatusProvider).asData?.value ==
+          ConsentStatus.obtained)
+        ConfigureListTile(
+          title: i18n.ads.revoke_personalized.request_label,
+          leadingIcon: Icons.remove_red_eye,
+          leadingIconColor: switch (InheritedThemeDetector.of(context)) {
+            InheritedThemeType.material => Colors.red,
+            InheritedThemeType.cupertino => CupertinoColors.systemRed,
+          },
+          onTap: () async {
+            final result = await showOkCancelAlertDialog(
+              context: context,
+              title: i18n.ads.revoke_personalized.title,
+              okLabel: i18n.ads.revoke_personalized.ok_label,
+            );
+
+            if (result == OkCancelResult.ok) {
+              await ref
+                  .read(adsRequestConsentInfoUpdateControllerProvider.notifier)
+                  .reset();
+              if (context.mounted) {
+                await showOkAlertDialog(
+                  context: context,
+                  title: i18n.ads.revoke_personalized.did_revoke_title,
+                );
+              }
+            }
+          },
+        ),
+    ];
+
     return switch (InheritedThemeDetector.of(context)) {
       InheritedThemeType.material => Scaffold(
           appBar: AppBar(
             title: Text(i18n.configure.about_this_app),
           ),
           body: ListView(
-            children: children,
+            children: [
+              ...section1,
+              if (section2.isNotEmpty) ...[
+                const Divider(),
+                ...section2,
+              ],
+            ],
           ),
         ),
       InheritedThemeType.cupertino => CupertinoPageScaffold(
@@ -74,8 +115,12 @@ class AboutThisAppPage extends HookConsumerWidget {
           child: ListView(
             children: [
               CupertinoListSection.insetGrouped(
-                children: children,
+                children: section1,
               ),
+              if (section2.isNotEmpty)
+                CupertinoListSection.insetGrouped(
+                  children: section2,
+                ),
             ],
           ),
         ),

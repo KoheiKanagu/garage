@@ -77,5 +77,14 @@
     "ack_term(rich)": "By starting to use this app, you are deemed to have agreed to the ${termOfService(Terms of Service)} and ${privacyPolicy(Privacy Policy)}.",
     "anonymous_start": "Start without signing in",
     "or": "Or"
+  },
+  "ads": {
+    "please_check_banner": "Please check about the ads",
+    "revoke_personalized": {
+      "request_label": "Revoke consent for personalized ads",
+      "title": "Do you want to revoke consent for personalized ads?",
+      "ok_label": "Revoke",
+      "did_revoke_title": "Consent for personalized ads has been revoked"
+    }
   }
 }

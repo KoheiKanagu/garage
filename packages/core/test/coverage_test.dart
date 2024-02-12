@@ -4,6 +4,8 @@ import 'package:core/common_widgets/show_my_progress_indicator.dart';
 import 'package:core/constants/collection_path.dart';
 import 'package:core/extensions/cupertino_text_theme_data_extension.dart';
 import 'package:core/extensions/go_router_extension.dart';
+import 'package:core/features/ads/application/ads_providers.dart';
+import 'package:core/features/ads/presentation/my_adaptive_banner_ad.dart';
 import 'package:core/features/authentication/application/firebase_user_providers.dart';
 import 'package:core/features/authentication/application/oauth/github_provider.dart';
 import 'package:core/features/authentication/application/oauth/oauth_providers.dart';

@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,9 +11,20 @@ SharedPreferences sharedPreferencesInstance(
     throw UnimplementedError();
 
 @riverpod
-Future<void> sharedPreferencesClear(
-  SharedPreferencesClearRef ref,
-) async {
-  await ref.watch(sharedPreferencesInstanceProvider).clear();
-  ref.invalidate(sharedPreferencesInstanceProvider);
+class SharedPreferencesController extends _$SharedPreferencesController {
+  @override
+  SharedPreferences build() {
+    return ref.watch(sharedPreferencesInstanceProvider);
+  }
+
+  void _didChange() {
+    state.reload();
+    ref.notifyListeners();
+  }
+
+  Future<void> clear() async {
+    await state.clear();
+    logger.fine('clear SharedPreferences');
+    _didChange();
+  }
 }
