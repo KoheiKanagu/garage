@@ -141,7 +141,16 @@ class ConfigurePage extends HookConsumerWidget {
           MobileAds.instance.openAdInspector(
             (error) {
               if (error != null) {
-                logger.severe('openAdInspector error: $error');
+                logger.severe(
+                  {
+                    'message': 'openAdInspector',
+                    'error': {
+                      'code': error.code,
+                      'domain': error.domain,
+                      'message': error.message,
+                    },
+                  },
+                );
               }
             },
           );

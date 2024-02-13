@@ -115,7 +115,12 @@ class MyOAuthProviderButton extends HookConsumerWidget {
         });
       },
       onCancelled: () {
-        logger.fine('onCancelled [${provider.providerId}]');
+        logger.fine(
+          {
+            'message': 'onCancelled',
+            'providerId': provider.providerId,
+          },
+        );
       },
     );
   }

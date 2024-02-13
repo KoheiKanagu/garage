@@ -48,7 +48,12 @@ Stream<List<LocamusicWithDocumentId>> locamusicDocuments(
   LocamusicDocumentsRef ref,
 ) async* {
   final query = await ref.watch(locamusicQueryProvider.future);
-  logger.fine('locamusicQueryProvider: ${query.parameters}');
+  logger.fine(
+    {
+      'message': 'locamusicQueryProvider',
+      'query.parameters': query.parameters,
+    },
+  );
   yield* query.snapshots().map(
         (event) => event.docs
             .map(

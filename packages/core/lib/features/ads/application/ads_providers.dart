@@ -43,7 +43,12 @@ class AdsRequestConsentInfoUpdateController
       () async {
         final available =
             await ConsentInformation.instance.isConsentFormAvailable();
-        logger.fine('isConsentFormAvailable: $available');
+        logger.fine(
+          {
+            'message': 'isConsentFormAvailable',
+            'available': available,
+          },
+        );
         if (!available) {
           state = false;
           return;
