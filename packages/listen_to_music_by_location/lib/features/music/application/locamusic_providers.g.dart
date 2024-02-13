@@ -43,7 +43,7 @@ final locamusicQueryProvider =
 
 typedef LocamusicQueryRef = AutoDisposeFutureProviderRef<Query<Locamusic>>;
 String _$locamusicDocumentsHash() =>
-    r'aa0e6569dca856f586eec735d3f49bcc2815672a';
+    r'6d8561407184a325f5df28dc370f828b28857bdd';
 
 /// See also [locamusicDocuments].
 @ProviderFor(locamusicDocuments)
