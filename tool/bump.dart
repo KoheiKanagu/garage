@@ -76,8 +76,17 @@ void bump() {
   run(
     'git',
     arguments: [
+      'checkout',
+      '-b',
+      'releases/$branch',
+    ],
+  );
+
+  run(
+    'git',
+    arguments: [
       'add',
-      'packages/$package/pubspec.yaml',
+      pubspecFile.path,
     ],
   );
 
