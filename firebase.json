@@ -47,5 +47,15 @@
   },
   "storage": {
     "rules": "firebase/storage/storage.rules"
+  },
+  "hosting": {
+    "public": "firebase/public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
 }
