@@ -1,0 +1,4 @@
+"Locamusic" is an app that plays music automatically when you arrive at a set place.
+Enjoy your favorite songs at the perfect moment !
+
+Compatible with Apple Music.

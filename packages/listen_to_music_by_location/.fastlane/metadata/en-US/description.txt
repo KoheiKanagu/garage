@@ -1,0 +1,21 @@
+Features of "Music by Location"
+
+**Linking Locations and Music**
+Set your favorite songs to specific locations, and the music will automatically play when you arrive there.
+
+**Music Playback Tailored to Your Scenes**
+You can set multiple locations, allowing you to play music that fits the scene, whether you're commuting, walking, on a date, or driving.
+
+**Rich Music Library**
+Compatible with Apple Music, you can find your favorite songs from over a hundred million tracks.
+
+**Energy Efficient**
+Using the same technology utilized in Apple's "Find My" app, you can use it without worrying about battery consumption.
+
+**User-friendly Interface**
+With a simple and easy-to-understand operation, anyone can use it easily.
+
+**Developed as Open Source**
+As it is developed as open source, anyone can participate in the development.
+You can report bugs or propose features from GitHub or within the app.
+https://github.com/KoheiKanagu/garage
