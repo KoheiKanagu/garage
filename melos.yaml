@@ -215,6 +215,8 @@ scripts:
 
   build:ipa:prod:upload:
     run: |
+      ./fastlane_deliver.sh
+
       flutter build ipa \
         --release \
         --flavor prod \
@@ -226,8 +228,6 @@ scripts:
       fastlane pilot upload \
         --ipa MELOS_PACKAGE_PATH/build/ios/ipa/*.ipa \
         --skip_waiting_for_build_processing
-
-      ./fastlane_deliver.sh
     exec:
       concurrency: 1
     packageFilters:
