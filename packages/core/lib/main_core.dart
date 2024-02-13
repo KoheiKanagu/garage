@@ -75,7 +75,21 @@ Future<ProviderContainer> _initialize({
     await MobileAds.instance.initialize(),
   );
 
-  logger.fine(adsStatus.adapterStatuses);
+  logger.fine(
+    {
+      'message': 'MobileAds initialized',
+      'value': adsStatus.adapterStatuses.entries.map(
+        (e) => {
+          'key': e.key,
+          'value': {
+            'state': e.value.state,
+            'description': e.value.description,
+            'latency': e.value.latency,
+          },
+        },
+      ),
+    },
+  );
 
   FirebaseUIAuth.configureProviders(
     firebaseUIAuthProviders,

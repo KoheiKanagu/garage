@@ -17,12 +17,12 @@ class ProviderLogger extends ProviderObserver {
         'firebaseUserIdTokenResult',
       };
 
-      if (hidden.contains(provider.name)) {
+      //　機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制
+      if (hidden.contains(provider.name) && kAppEnvProd) {
         logger.fine(
           {
             'name': provider.name,
             'runtimeType': provider.runtimeType,
-            // 機密情報が含まれるためログには出力しない
             'newValue': '**hidden**',
           },
         );
