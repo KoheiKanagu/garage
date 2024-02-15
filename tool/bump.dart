@@ -96,6 +96,10 @@ void bump() {
       arguments: [
         'pr',
         'create',
+        '--base',
+        'main',
+        '--head',
+        'releases/$branch',
         '--fill',
         '--assignee',
         '@me',
