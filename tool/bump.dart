@@ -105,7 +105,6 @@ void bump() {
       arguments: [
         'pr',
         'create',
-        '--fill',
         '--assignee',
         '@me',
         '--web',
