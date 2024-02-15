@@ -23,18 +23,18 @@ void createNewRelease() {
 
   final latestTagName = fetchLatestTagName(package);
 
-  // run(
-  //   'gh',
-  //   arguments: [
-  //     'release',
-  //     'create',
-  //     newTagName,
-  //     '--generate-notes',
-  //     '--notes-start-tag',
-  //     latestTagName,
-  //     '--draft',
-  //   ],
-  // );
+  run(
+    'gh',
+    arguments: [
+      'release',
+      'create',
+      newTagName,
+      '--generate-notes',
+      '--notes-start-tag',
+      latestTagName,
+      '--draft',
+    ],
+  );
 
   final createdRelease = json.decode(
     run(
