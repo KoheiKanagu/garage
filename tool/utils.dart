@@ -151,3 +151,47 @@ String getIosBundleId(String package) => RegExp("iosBundleId: '(.*)'")
           .readAsStringSync(),
     )!
     .group(1)!;
+
+Version splitVersion(String versionString) {
+  final regex = RegExp(r'(\d+)\.(\d+)\.(\d+)\+(\d+)$');
+  final match = regex.firstMatch(versionString);
+
+  if (match != null) {
+    final major = int.parse(match.group(1)!);
+    final minor = int.parse(match.group(2)!);
+    final patch = int.parse(match.group(3)!);
+    final build = int.parse(match.group(4)!);
+
+    return Version(
+      major: major,
+      minor: minor,
+      patch: patch,
+      build: build,
+    );
+  }
+
+  throw const FormatException('Invalid version string');
+}
+
+class Version {
+  Version({
+    required this.major,
+    required this.minor,
+    required this.patch,
+    required this.build,
+  });
+
+  int major;
+  int minor;
+  int patch;
+  int build;
+
+  @override
+  String toString() {
+    return '$major.$minor.$patch+$build';
+  }
+
+  String toStringNoBuildNumber() {
+    return '$major.$minor.$patch';
+  }
+}

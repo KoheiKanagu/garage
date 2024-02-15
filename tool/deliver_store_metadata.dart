@@ -17,6 +17,8 @@ void deliverStoreMetadata() {
   final package = argumentPackage();
   final latestTagName = fetchLatestTagName(package);
 
+  final version = splitVersion(latestTagName);
+
   final latestRelease = json.decode(
     run(
       'gh',
@@ -89,6 +91,8 @@ void deliverStoreMetadata() {
             'true',
             '--app_identifier',
             getIosBundleId(package),
+            '--app_version',
+            version.toStringNoBuildNumber(),
           ],
           workingDirectory: 'packages/$package',
         );
