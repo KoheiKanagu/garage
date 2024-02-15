@@ -62,9 +62,12 @@ void createNewRelease() {
     if (availableLocales.containsKey(store)) {
       releaseNotes.writeln('${store.name}:');
       for (final locale in availableLocales[store]!) {
-        releaseNotes
-          ..writeln('  $locale:')
-          ..writeln('    - FIXME');
+        releaseNotes.writeln('  $locale:');
+        if (locale == 'ja') {
+          releaseNotes.writeln('    - 軽微な不具合を修正しました');
+        } else {
+          releaseNotes.writeln('    - Fixed minor bugs');
+        }
       }
     }
   }

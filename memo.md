@@ -91,12 +91,7 @@ touch packages/$NEW_PACKAGE/lib/features/home/presentation/home_page.dart
 ## リリース手順
 
 ```sh
-TARGET_PACKAGE=listen_to_music_by_location
-
-grind bump --package=$TARGET_PACKAGE --patch --create-pr
-# Merge manually
-
-grind create-new-release --package=$TARGET_PACKAGE
+./release_app.sh listen_to_music_by_location
 ```
 
 Build Archive
