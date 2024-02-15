@@ -33,3 +33,7 @@ doc/api/
 
 pubspec_overrides.yaml
 **/coverage/lcov.info
+
+**/.fastlane/Preview.html
+
+**/.fastlane/metadata/*/release_notes.txt

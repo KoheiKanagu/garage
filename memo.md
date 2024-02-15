@@ -91,10 +91,7 @@ touch packages/$NEW_PACKAGE/lib/features/home/presentation/home_page.dart
 ## リリース手順
 
 ```sh
-grind bump --package=listen_to_music_by_location --patch
-gh pr create --fill --assignee @me
-# WIP
-# gh release create --generate-notes foo-v1.0.0+1
+./release_app.sh listen_to_music_by_location
 ```
 
 Build Archive

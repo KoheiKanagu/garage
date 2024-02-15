@@ -1,38 +1,28 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:grinder/grinder.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
+import 'utils.dart';
+
 @Task(
-  'バージョン番号をbumpする',
+  '''
+Bumps the version number and creates a new release branch.
+
+--package: [Required] The package name.
+
+--major: Bump the major version.
+--minor: Bump the minor version.
+--patch: [Default] Bump the patch version.
+
+--create-pr: Create a pull request.
+  ''',
 )
 void bump() {
   final args = context.invocation.arguments;
+  final package = argumentPackage();
 
-  final package = args.getOption('package');
-  if (package == null) {
-    final packages = run(
-      'melos',
-      arguments: [
-        'list',
-        '--json',
-      ],
-      quiet: true,
-    );
-    final names = (json.decode(packages) as List<dynamic>).map(
-      // ignore: avoid_dynamic_calls
-      (e) => e['name'] as String,
-    );
-
-    log('example:');
-    log('```');
-    for (final name in names) {
-      log('grind bump --package=$name');
-    }
-    log('```');
-    fail('--package is required');
-  }
+  pullAndCheckoutMain();
 
   final pubspecFile = File('packages/$package/pubspec.yaml');
   final pubspec = YamlEditor(
@@ -76,8 +66,17 @@ void bump() {
   run(
     'git',
     arguments: [
+      'checkout',
+      '-b',
+      'releases/$branch',
+    ],
+  );
+
+  run(
+    'git',
+    arguments: [
       'add',
-      'packages/$package/pubspec.yaml',
+      pubspecFile.path,
     ],
   );
 
@@ -86,9 +85,24 @@ void bump() {
     arguments: [
       'commit',
       '-m',
-      '[skip ci] Bump $branch',
+      'chore($package): Bump $branch',
     ],
   );
+
+  final createPr = args.hasFlag('create-pr');
+  if (createPr) {
+    run(
+      'gh',
+      arguments: [
+        'pr',
+        'create',
+        '--fill',
+        '--assignee',
+        '@me',
+        '--web',
+      ],
+    );
+  }
 }
 
 Version splitVersion(String versionString) {

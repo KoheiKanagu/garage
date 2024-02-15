@@ -99,7 +99,7 @@
     "conventionalCommits.scopes": [
       "common",
       "core",
-      "Locamusic",
+      "listen_to_music_by_location",
     ]
   }
 }
