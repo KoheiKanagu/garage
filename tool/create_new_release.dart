@@ -41,13 +41,14 @@ void createNewRelease() {
         'view',
         newTagName,
         '--json',
-        'tagName,body',
+        'tagName,body,url',
       ],
     ),
   ) as Map<String, dynamic>;
 
   final createdReleaseTagName = createdRelease['tagName'] as String;
   final createdReleaseBody = createdRelease['body'] as String;
+  final createdReleaseUrl = createdRelease['url'] as String;
 
   final availableLocales = availableLocalizedLocales(package);
 
@@ -64,9 +65,13 @@ void createNewRelease() {
       for (final locale in availableLocales[store]!) {
         releaseNotes.writeln('  $locale:');
         if (locale == 'ja') {
-          releaseNotes.writeln('    - 軽微な不具合を修正しました');
+          releaseNotes
+            ..writeln('    - 軽微な不具合を修正しました。')
+            ..writeln('    - より詳しい変更点は $createdReleaseUrl をご覧ください。');
         } else {
-          releaseNotes.writeln('    - Fixed minor bugs');
+          releaseNotes
+            ..writeln('    - Fixed minor bugs.')
+            ..writeln('    - For more details, check out $createdReleaseUrl');
         }
       }
     }
