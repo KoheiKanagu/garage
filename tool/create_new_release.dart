@@ -41,14 +41,15 @@ void createNewRelease() {
         'view',
         newTagName,
         '--json',
-        'tagName,body,url',
+        'tagName,body',
       ],
     ),
   ) as Map<String, dynamic>;
 
   final createdReleaseTagName = createdRelease['tagName'] as String;
   final createdReleaseBody = createdRelease['body'] as String;
-  final createdReleaseUrl = createdRelease['url'] as String;
+  final createdReleaseUrl =
+      'https://github.com/KoheiKanagu/garage/releases/tag/$newTagName';
 
   final availableLocales = availableLocalizedLocales(package);
 
