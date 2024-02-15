@@ -91,15 +91,21 @@ void bump() {
 
   final createPr = args.hasFlag('create-pr');
   if (createPr) {
+
+    run(
+      'git',
+      arguments: [
+        'push',
+        'origin',
+        'releases/$branch',
+      ],
+    );
+
     run(
       'gh',
       arguments: [
         'pr',
         'create',
-        '--base',
-        'main',
-        '--head',
-        'releases/$branch',
         '--fill',
         '--assignee',
         '@me',
