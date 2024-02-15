@@ -7,6 +7,8 @@ dev_dependencies:
   collection: ^1.18.0
   custom_lint: ^0.6.0
   grinder: ^0.9.5
+  intl: any
+  markdown: ^7.2.1
   melos: ^4.1.0
   riverpod_lint: ^2.3.9
   very_good_analysis: ^5.1.0
