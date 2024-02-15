@@ -91,15 +91,15 @@ void pullAndCheckoutMain() {
   run(
     'git',
     arguments: [
-      'pull',
+      'checkout',
+      'main',
     ],
   );
 
   run(
     'git',
     arguments: [
-      'checkout',
-      'main',
+      'pull',
     ],
   );
 }
