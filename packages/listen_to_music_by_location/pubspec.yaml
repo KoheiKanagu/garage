@@ -113,16 +113,9 @@ flutter:
     - assets/si/apple_music_icon.si
     - assets/si/apple_music_badge_ja.si
     - assets/si/apple_music_badge_en.si
-# flutter_native_splash:
-#   color: "#FAFDFD" # lightColorScheme.background
-#   image: "assets/splash_icon.png"
-#   color_dark: "#191C1D" # darkColorScheme.background
-#   image_dark: "assets/splash_icon_dark.png"
-#   android_12:
-#     image: "assets/splash_icon.png"
-#     color: "#FAFDFD" # lightColorScheme.background
-#     image_dark: "assets/splash_icon_dark.png"
-#     color_dark: "#191C1D" # darkColorScheme.background
-#   android: true
-#   ios: true
-#   fullscreen: true
+flutter_native_splash:
+  color: "#FB5C74"
+  color_dark: "#FA233B"
+  image: assets/images/app_icon_FB5C74.png
+  image_dark: assets/images/app_icon_FA233B.png
+  ios: true
