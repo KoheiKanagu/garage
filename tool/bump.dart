@@ -85,18 +85,26 @@ void bump() {
     arguments: [
       'commit',
       '-m',
-      'chore($package): Bump $branch',
+      'chore: Bump $branch',
     ],
   );
 
   final createPr = args.hasFlag('create-pr');
   if (createPr) {
     run(
+      'git',
+      arguments: [
+        'push',
+        'origin',
+        'releases/$branch',
+      ],
+    );
+
+    run(
       'gh',
       arguments: [
         'pr',
         'create',
-        '--fill',
         '--assignee',
         '@me',
         '--web',

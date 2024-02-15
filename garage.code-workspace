@@ -97,7 +97,6 @@
       "listen_to_music_by_location",
     ],
     "conventionalCommits.scopes": [
-      "common",
       "core",
       "listen_to_music_by_location",
     ]
