@@ -6,7 +6,17 @@ import 'package:yaml_edit/yaml_edit.dart';
 import 'utils.dart';
 
 @Task(
-  'Bumps the version number and creates a new release branch.',
+  '''
+Bumps the version number and creates a new release branch.
+
+--package: [Required] The package name.
+
+--major: Bump the major version.
+--minor: Bump the minor version.
+--patch: [Default] Bump the patch version.
+
+--create-pr: Create a pull request.
+  ''',
 )
 void bump() {
   final args = context.invocation.arguments;
@@ -78,6 +88,21 @@ void bump() {
       'chore($package): Bump $branch',
     ],
   );
+
+  final createPr = args.hasFlag('create-pr');
+  if (createPr) {
+    run(
+      'gh',
+      arguments: [
+        'pr',
+        'create',
+        '--fill',
+        '--assignee',
+        '@me',
+        '--web',
+      ],
+    );
+  }
 }
 
 Version splitVersion(String versionString) {

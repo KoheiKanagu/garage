@@ -91,11 +91,12 @@ touch packages/$NEW_PACKAGE/lib/features/home/presentation/home_page.dart
 ## リリース手順
 
 ```sh
-grind bump --package=listen_to_music_by_location --patch
-gh pr create --fill --assignee @me --web
+TARGET_PACKAGE=listen_to_music_by_location
+
+grind bump --package=$TARGET_PACKAGE --patch --create-pr
 # Merge manually
 
-grind 
+grind create-new-release --package=$TARGET_PACKAGE
 ```
 
 Build Archive
