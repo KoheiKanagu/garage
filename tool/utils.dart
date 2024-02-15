@@ -21,6 +21,10 @@ Future<List<Directory>> runMelosList() async {
       .toList();
 }
 
+bool argumentDryRun() {
+  return context.invocation.arguments.getFlag('dry-run');
+}
+
 String argumentPackage() {
   final args = context.invocation.arguments;
 
@@ -140,3 +144,10 @@ enum StoreName {
   GooglePlay,
   ;
 }
+
+String getIosBundleId(String package) => RegExp("iosBundleId: '(.*)'")
+    .firstMatch(
+      File('packages/$package/lib/constants/firebase_options_prod.dart')
+          .readAsStringSync(),
+    )!
+    .group(1)!;

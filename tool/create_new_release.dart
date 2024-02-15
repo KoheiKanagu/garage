@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_dynamic_calls
-
 import 'dart:convert';
 
 import 'package:grinder/grinder.dart';
@@ -13,8 +11,7 @@ void createNewRelease() {
   // like "listen_to_music_by_location"
   final package = argumentPackage();
 
-  // TODO
-  // pullAndCheckoutMain();
+  pullAndCheckoutMain();
 
   final currentVersion = getCurrentVersion(package);
 
@@ -63,7 +60,7 @@ void createNewRelease() {
 
   for (final store in StoreName.values) {
     if (availableLocales.containsKey(store)) {
-      releaseNotes.writeln(store.name);
+      releaseNotes.writeln('${store.name}:');
       for (final locale in availableLocales[store]!) {
         releaseNotes
           ..writeln('  $locale:')
