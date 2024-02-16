@@ -127,7 +127,8 @@ void goldenTestCombo({
                       ),
                     InheritedThemeType.material => materialThemeData?.copyWith(
                         textTheme: materialThemeData.textTheme.apply(
-                          fontFamily: 'Roboto',
+                          // By default, it uses Roboto, but it does not contain Japanese, so we change it to NotoSansJP.
+                          fontFamily: 'NotoSansJP',
                         ),
                       ),
                   };
@@ -275,7 +276,6 @@ Future<void> defaultLoadAppFonts() async {
   /// https://github.com/KoheiKanagu/garage/tree/main/fonts
   final defaultFonts = [
     'NotoSansJP',
-    'Roboto',
   ];
 
   for (final e in defaultFonts) {
