@@ -94,7 +94,7 @@ Raw<GoRouter> myGoRouter(
       }
 
       // リダイレクトに必要な値を取得
-      // それぞれlistenしているため、初回以外では待つ必要はないはず...
+      // awaitしているがそれぞれlistenしているし、[main_core.dart] で読み込み済みなので待つことはないはず。
       final results = await Future.wait(
         [
           ref.read(firebaseUserIsSignedInProvider.future),
