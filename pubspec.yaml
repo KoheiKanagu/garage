@@ -1,7 +1,7 @@
 name: garage_workspace
 
 environment:
-  sdk: ^3.2.0
+  sdk: ^3.4.0-0
 
 dev_dependencies:
   collection: ^1.18.0
