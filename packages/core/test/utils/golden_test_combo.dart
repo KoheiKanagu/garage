@@ -154,6 +154,7 @@ void goldenTestCombo({
                       key: rootKey,
                       debugShowCheckedModeBanner: false,
                       supportedLocales: supportedLocales,
+                      locale: locale,
                       localizationsDelegates: localizationsDelegates ??
                           defaultLocalizationsDelegates,
                       theme: theme as CupertinoThemeData,
@@ -163,6 +164,7 @@ void goldenTestCombo({
                       key: rootKey,
                       debugShowCheckedModeBanner: false,
                       supportedLocales: supportedLocales,
+                      locale: locale,
                       localizationsDelegates: localizationsDelegates ??
                           defaultLocalizationsDelegates,
                       theme: theme as ThemeData,

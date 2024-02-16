@@ -32,8 +32,8 @@
   "error_dialog_title": "Error",
   "error_dialog_message": "An error occurred. Please try again",
   "permission": {
-    "title": "Permission Confirmation",
-    "error_banner_label": "Permission confirmation required",
+    "title": "Permission Check",
+    "error_banner_label": "Permission Check needed",
 
     "location": "Location",
     "location_details": "To play music based on your current location, you need to allow the use of location information",
