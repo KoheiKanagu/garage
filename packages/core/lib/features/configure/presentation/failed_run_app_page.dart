@@ -16,6 +16,30 @@ class FailedRunAppPage extends StatelessWidget {
         ? InheritedThemeType.cupertino
         : InheritedThemeType.material;
 
+    return switch (themeType) {
+      InheritedThemeType.material => MaterialApp(
+          supportedLocales: AppLocaleUtils.supportedLocales,
+          debugShowCheckedModeBanner: false,
+          home: const FailedRunAppPageHome(),
+        ),
+      InheritedThemeType.cupertino => CupertinoApp(
+          supportedLocales: AppLocaleUtils.supportedLocales,
+          debugShowCheckedModeBanner: false,
+          home: const FailedRunAppPageHome(),
+        ),
+    };
+  }
+}
+
+class FailedRunAppPageHome extends StatelessWidget {
+  const FailedRunAppPageHome({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final themeType = InheritedThemeDetector.of(context);
+
     final body = Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -45,17 +69,11 @@ class FailedRunAppPage extends StatelessWidget {
     );
 
     return switch (themeType) {
-      InheritedThemeType.material => MaterialApp(
-          supportedLocales: AppLocaleUtils.supportedLocales,
-          home: Scaffold(
-            body: body,
-          ),
+      InheritedThemeType.material => Scaffold(
+          body: body,
         ),
-      InheritedThemeType.cupertino => CupertinoApp(
-          supportedLocales: AppLocaleUtils.supportedLocales,
-          home: CupertinoPageScaffold(
-            child: body,
-          ),
+      InheritedThemeType.cupertino => CupertinoPageScaffold(
+          child: body,
         ),
     };
   }
