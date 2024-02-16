@@ -9,19 +9,26 @@ import 'package:core/gen/strings.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+
+final defaultLocalizationsDelegates = [
+  GlobalCupertinoLocalizations.delegate,
+  GlobalMaterialLocalizations.delegate,
+  GlobalWidgetsLocalizations.delegate,
+];
 
 @isTest
 void goldenTestCombo({
   required String testName,
   required Widget widget,
   required List<Locale> supportedLocales,
-  required List<LocalizationsDelegate<dynamic>>? localizationsDelegates,
   required CupertinoThemeData? cupertinoThemeData,
   required ThemeData? materialThemeData,
+  List<LocalizationsDelegate<dynamic>>? localizationsDelegates,
   Future<void> Function(
     ProviderContainer container,
   )? beforeTest,
@@ -134,7 +141,8 @@ void goldenTestCombo({
                     key: rootKey,
                     debugShowCheckedModeBanner: false,
                     supportedLocales: supportedLocales,
-                    localizationsDelegates: localizationsDelegates,
+                    localizationsDelegates:
+                        localizationsDelegates ?? defaultLocalizationsDelegates,
                     theme: theme as CupertinoThemeData,
                     home: home,
                   ),
@@ -142,7 +150,8 @@ void goldenTestCombo({
                     key: rootKey,
                     debugShowCheckedModeBanner: false,
                     supportedLocales: supportedLocales,
-                    localizationsDelegates: localizationsDelegates,
+                    localizationsDelegates:
+                        localizationsDelegates ?? defaultLocalizationsDelegates,
                     theme: theme as ThemeData,
                     home: home,
                   ),
