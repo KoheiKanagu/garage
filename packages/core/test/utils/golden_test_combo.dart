@@ -190,7 +190,7 @@ void goldenTestCombo({
                 await expectLater(
                   find.byKey(rootKey),
                   matchesGoldenFile(
-                    'goldens/$hostPlatform/$name.png',
+                    'goldens/$hostPlatform/$testName/$name.png',
                   ),
                 );
               },
