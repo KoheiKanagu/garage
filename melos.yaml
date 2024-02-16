@@ -58,7 +58,6 @@ scripts:
 
   flutter:test:
     exec: |
-      flutter pub get
       flutter test \
         --exclude-tags golden \
         --flavor dev
@@ -68,8 +67,6 @@ scripts:
 
   flutter:golden:test:
     exec: |
-      flutter pub get
-
       flutter test \
         --tags golden \
         --flavor dev
@@ -79,8 +76,6 @@ scripts:
 
   flutter:golden:update:
     exec: |
-      flutter pub get
-
       flutter test \
         --update-goldens \
         --tags golden \
