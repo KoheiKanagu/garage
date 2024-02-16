@@ -114,6 +114,26 @@ jobs:
         run: |
           melos run flutter:test --no-select
 
+  golden_test:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v1.8.7
+        with:
+          comment_on_pr: false
+
+      ### Set up ###
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: KoheiKanagu/composite-actions/setup-flutter@main
+
+      ### Test ###
+      - name: Test
+        run: |
+          melos run flutter:golden:test --no-select
+
   pod_update:
     timeout-minutes: 60
     runs-on: macos-13
