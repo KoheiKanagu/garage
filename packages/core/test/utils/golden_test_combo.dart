@@ -39,7 +39,7 @@ void goldenTestCombo({
   List<TestDeviceSize> devices = TestDeviceSize.values,
 }) {
   assert(
-    cupertinoThemeData == null && materialThemeData == null,
+    cupertinoThemeData != null || materialThemeData != null,
     'Please specify either cupertinoThemeData or materialThemeData, or both.',
   );
 
@@ -125,9 +125,10 @@ void goldenTestCombo({
                           fontFamily: 'NotoSansJP',
                         ),
                       ),
-                    InheritedThemeType.material =>
-                      materialThemeData?.textTheme.apply(
-                        fontFamily: 'Roboto',
+                    InheritedThemeType.material => materialThemeData?.copyWith(
+                        textTheme: materialThemeData.textTheme.apply(
+                          fontFamily: 'Roboto',
+                        ),
                       ),
                   };
                 }
