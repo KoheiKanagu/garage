@@ -192,7 +192,7 @@ class ConfigurePage extends HookConsumerWidget {
               CupertinoListSection.insetGrouped(
                 children: children2,
               ),
-              if (kDebugMode)
+              if (kDebugMode && enableDebugItems)
                 CupertinoListSection.insetGrouped(
                   children: debugTiles,
                 ),

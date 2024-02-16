@@ -296,11 +296,17 @@ Future<void> defaultLoadAppFonts() async {
   }
 
   for (final e in fontManifest) {
-    // "MaterialIcons" → "MaterialIcons"
-    // "packages/cupertino_icons/CupertinoIcons" → "CupertinoIcons"
-    final family = Uri.parse(e['family'] as String).pathSegments.last;
+    final family = e['family'] as String;
 
-    final loader = FontLoader(family);
+    final FontLoader loader;
+
+    // like "packages/cupertino_icons/CupertinoIcons"
+    if (family.startsWith('packages')) {
+      loader = FontLoader(family);
+    } else {
+      final name = Uri.parse(family).pathSegments.last;
+      loader = FontLoader(name);
+    }
 
     for (final f in e['fonts'] as List<dynamic>) {
       final asset = f['asset'] as String;

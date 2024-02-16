@@ -15,11 +15,23 @@ void main() {
     supportedLocales: AppLocaleUtils.supportedLocales,
     cupertinoThemeData: const CupertinoThemeData(),
     materialThemeData: ThemeData(),
-    // TODO
-    devices: [
-      TestDeviceSize.iPhone_6_7inch,
-    ],
-    // TODO
-    textScaleFactors: [1.0],
+  );
+
+  goldenTestCombo(
+    testName: 'ConfigurePage with additionalItems',
+    widget: ConfigurePage(
+      additionalItems: [
+        ConfigureItem(
+          text: 'Rocket',
+          onTap: () {},
+          leadingIcon: CupertinoIcons.rocket_fill,
+          forDebug: false,
+        ),
+      ],
+      enableDebugItems: false,
+    ),
+    supportedLocales: AppLocaleUtils.supportedLocales,
+    cupertinoThemeData: const CupertinoThemeData(),
+    materialThemeData: ThemeData(),
   );
 }
