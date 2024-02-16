@@ -18,6 +18,7 @@ class ServiceDownPage extends HookConsumerWidget {
           body: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(i18n.service_down.title),
                 const Divider(),
