@@ -71,6 +71,7 @@ dev_dependencies:
   very_good_analysis: ^5.1.0
 
 flutter:
+  uses-material-design: true
   fonts:
     - family: SocialIcons
       fonts:

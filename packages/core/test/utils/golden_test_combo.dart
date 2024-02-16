@@ -101,16 +101,17 @@ void goldenTestCombo({
 
                 dynamic theme;
                 if (ciPlatform) {
-                  // TODO: Use Ahem font for CI
                   theme = switch (themeType) {
                     InheritedThemeType.material => materialThemeData?.copyWith(
                         textTheme: materialThemeData.textTheme.apply(
+                          // Ahem only has alphabets, so Japanese will be tofu.
                           fontFamily: 'Ahem',
                         ),
                       ),
                     InheritedThemeType.cupertino =>
                       cupertinoThemeData?.copyWith(
                         textTheme: cupertinoThemeData.textTheme.apply(
+                          // Ahem only has alphabets, so Japanese will be tofu.
                           fontFamily: 'Ahem',
                         ),
                       ),
@@ -294,7 +295,6 @@ Future<void> defaultLoadAppFonts() async {
     await loader.load();
   }
 
-  // TODO: There is an issue where CupertinoIcons is not being loaded.
   for (final e in fontManifest) {
     // "MaterialIcons" → "MaterialIcons"
     // "packages/cupertino_icons/CupertinoIcons" → "CupertinoIcons"
