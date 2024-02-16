@@ -39,8 +39,8 @@ void goldenTestCombo({
   List<TestDeviceSize> devices = TestDeviceSize.values,
 }) {
   assert(
-    cupertinoThemeData != null || materialThemeData != null,
-    'You must specify one of cupertinoThemeData or materialThemeData',
+    cupertinoThemeData == null && materialThemeData == null,
+    'Please specify either cupertinoThemeData or materialThemeData, or both.',
   );
 
   final hostPlatforms = [
@@ -54,136 +54,147 @@ void goldenTestCombo({
     for (final device in devices) {
       for (final textScaleFactor in textScaleFactors) {
         for (final locale in supportedLocales) {
-          final name = '$testName.${device.name}_x${textScaleFactor}_$locale';
+          for (final themeType in InheritedThemeType.values) {
+            switch (themeType) {
+              case InheritedThemeType.cupertino:
+                if (cupertinoThemeData == null) {
+                  continue;
+                }
+              case InheritedThemeType.material:
+                if (materialThemeData == null) {
+                  continue;
+                }
+            }
 
-          testWidgets(
-            name,
-            (tester) async {
-              await defaultLoadAppFonts();
+            final name =
+                '$testName.${themeType.name}_${device.name}_x${textScaleFactor}_$locale';
 
-              /// Locale settings
-              LocaleSettings.setLocaleRaw(locale.toLanguageTag());
-              Intl.defaultLocale = locale.languageCode;
+            testWidgets(
+              name,
+              (tester) async {
+                await defaultLoadAppFonts();
 
-              /// Device surface size
-              await tester.binding.setSurfaceSize(device.size);
-              addTearDown(
-                () => tester.binding.setSurfaceSize(null),
-              );
+                /// Locale settings
+                LocaleSettings.setLocaleRaw(locale.toLanguageTag());
+                Intl.defaultLocale = locale.languageCode;
 
-              /// Device pixel ratio
-              tester.view.devicePixelRatio = 1.0;
-              addTearDown(
-                tester.view.resetDevicePixelRatio,
-              );
+                /// Device surface size
+                await tester.binding.setSurfaceSize(device.size);
+                addTearDown(
+                  () => tester.binding.setSurfaceSize(null),
+                );
 
-              /// riverpod
-              final container = ProviderContainer(
-                overrides: providerOverrides,
-              );
-              addTearDown(
-                container.dispose,
-              );
-              await beforeTest?.call(container);
+                /// Device pixel ratio
+                tester.view.devicePixelRatio = 1.0;
+                addTearDown(
+                  tester.view.resetDevicePixelRatio,
+                );
 
-              /// theme
-              final themeType = cupertinoThemeData != null
-                  ? InheritedThemeType.cupertino
-                  : InheritedThemeType.material;
+                /// riverpod
+                final container = ProviderContainer(
+                  overrides: providerOverrides,
+                );
+                addTearDown(
+                  container.dispose,
+                );
+                await beforeTest?.call(container);
 
-              dynamic theme;
-              if (ciPlatform) {
-                // TODO: Use Ahem font for CI
-                theme = switch (themeType) {
-                  InheritedThemeType.material => materialThemeData?.copyWith(
-                      textTheme: materialThemeData.textTheme.apply(
-                        fontFamily: 'Ahem',
+                dynamic theme;
+                if (ciPlatform) {
+                  // TODO: Use Ahem font for CI
+                  theme = switch (themeType) {
+                    InheritedThemeType.material => materialThemeData?.copyWith(
+                        textTheme: materialThemeData.textTheme.apply(
+                          fontFamily: 'Ahem',
+                        ),
                       ),
+                    InheritedThemeType.cupertino =>
+                      cupertinoThemeData?.copyWith(
+                        textTheme: cupertinoThemeData.textTheme.apply(
+                          fontFamily: 'Ahem',
+                        ),
+                      ),
+                  };
+                } else {
+                  theme = switch (themeType) {
+                    InheritedThemeType.cupertino =>
+                      cupertinoThemeData?.copyWith(
+                        textTheme: cupertinoThemeData.textTheme.apply(
+                          // By default, it uses CupertinoSystemText or CupertinoSystemDisplay,
+                          // but they are not available for testing, so we change it to NotoSansJP.
+                          fontFamily: 'NotoSansJP',
+                        ),
+                      ),
+                    InheritedThemeType.material =>
+                      materialThemeData?.textTheme.apply(
+                        fontFamily: 'Roboto',
+                      ),
+                  };
+                }
+
+                /// test target widget
+                final home = Builder(
+                  builder: (context) => MediaQuery(
+                    data: MediaQuery.of(context).copyWith(
+                      textScaler: TextScaler.linear(textScaleFactor),
+                      size: device.size,
                     ),
-                  InheritedThemeType.cupertino => cupertinoThemeData?.copyWith(
-                      textTheme: cupertinoThemeData.textTheme.apply(
-                        fontFamily: 'Ahem',
-                      ),
+                    child: UncontrolledProviderScope(
+                      container: container,
+                      child: widget,
+                    ),
+                  ),
+                );
+                final rootKey = UniqueKey();
+                final target = switch (themeType) {
+                  InheritedThemeType.cupertino => CupertinoApp(
+                      key: rootKey,
+                      debugShowCheckedModeBanner: false,
+                      supportedLocales: supportedLocales,
+                      localizationsDelegates: localizationsDelegates ??
+                          defaultLocalizationsDelegates,
+                      theme: theme as CupertinoThemeData,
+                      home: home,
+                    ),
+                  InheritedThemeType.material => MaterialApp(
+                      key: rootKey,
+                      debugShowCheckedModeBanner: false,
+                      supportedLocales: supportedLocales,
+                      localizationsDelegates: localizationsDelegates ??
+                          defaultLocalizationsDelegates,
+                      theme: theme as ThemeData,
+                      home: home,
                     ),
                 };
-              } else {
-                theme = switch (themeType) {
-                  InheritedThemeType.cupertino => cupertinoThemeData?.copyWith(
-                      textTheme: cupertinoThemeData.textTheme.apply(
-                        // By default, it uses CupertinoSystemText or CupertinoSystemDisplay,
-                        // but they are not available for testing, so we change it to NotoSansJP.
-                        fontFamily: 'NotoSansJP',
-                      ),
-                    ),
-                  InheritedThemeType.material =>
-                    materialThemeData?.textTheme.apply(
-                      fontFamily: 'Roboto',
-                    ),
-                };
-              }
 
-              /// test target widget
-              final home = Builder(
-                builder: (context) => MediaQuery(
-                  data: MediaQuery.of(context).copyWith(
-                    textScaler: TextScaler.linear(textScaleFactor),
-                    size: device.size,
+                await tester.runAsync(
+                  () async {
+                    /// real shadows
+                    debugDisableShadows = ciPlatform;
+
+                    await withClock(
+                      fixedClock ?? const Clock(),
+                      () async {
+                        await tester.pumpWidget(target);
+                        await precacheImages(tester);
+                      },
+                    );
+
+                    debugDisableShadows = true;
+                  },
+                );
+
+                await expectLater(
+                  find.byKey(rootKey),
+                  matchesGoldenFile(
+                    'goldens/$hostPlatform/$name.png',
                   ),
-                  child: UncontrolledProviderScope(
-                    container: container,
-                    child: widget,
-                  ),
-                ),
-              );
-              final rootKey = UniqueKey();
-              final target = switch (themeType) {
-                InheritedThemeType.cupertino => CupertinoApp(
-                    key: rootKey,
-                    debugShowCheckedModeBanner: false,
-                    supportedLocales: supportedLocales,
-                    localizationsDelegates:
-                        localizationsDelegates ?? defaultLocalizationsDelegates,
-                    theme: theme as CupertinoThemeData,
-                    home: home,
-                  ),
-                InheritedThemeType.material => MaterialApp(
-                    key: rootKey,
-                    debugShowCheckedModeBanner: false,
-                    supportedLocales: supportedLocales,
-                    localizationsDelegates:
-                        localizationsDelegates ?? defaultLocalizationsDelegates,
-                    theme: theme as ThemeData,
-                    home: home,
-                  ),
-              };
-
-              await tester.runAsync(
-                () async {
-                  /// real shadows
-                  debugDisableShadows = ciPlatform;
-
-                  await withClock(
-                    fixedClock ?? const Clock(),
-                    () async {
-                      await tester.pumpWidget(target);
-                      await precacheImages(tester);
-                    },
-                  );
-
-                  debugDisableShadows = true;
-                },
-              );
-
-              await expectLater(
-                find.byKey(rootKey),
-                matchesGoldenFile(
-                  'goldens/$hostPlatform/$name.png',
-                ),
-              );
-            },
-            tags: ['golden'],
-            skip: skip,
-          );
+                );
+              },
+              tags: ['golden'],
+              skip: skip,
+            );
+          }
         }
       }
     }

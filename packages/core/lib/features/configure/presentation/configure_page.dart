@@ -13,10 +13,14 @@ import 'package:in_app_review/in_app_review.dart';
 class ConfigurePage extends HookConsumerWidget {
   const ConfigurePage({
     required this.additionalItems,
+    @visibleForTesting this.enableDebugItems = true,
     super.key,
   });
 
   final List<ConfigureItem> additionalItems;
+
+  @visibleForTesting
+  final bool enableDebugItems;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -168,7 +172,7 @@ class ConfigurePage extends HookConsumerWidget {
               ...children1,
               const Divider(),
               ...children2,
-              if (kDebugMode) ...[
+              if (kDebugMode && enableDebugItems) ...[
                 const Divider(),
                 ...debugTiles,
               ],
