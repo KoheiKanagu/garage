@@ -19,6 +19,7 @@ void initializeLocalFileComparatorWithThreshold() {
   }
 }
 
+/// reference: https://medium.com/mobilepeople/how-to-add-difference-tolerance-to-golden-tests-on-flutter-2d899c8baad2
 class LocalFileComparatorWithThreshold extends LocalFileComparator {
   LocalFileComparatorWithThreshold(
     super.testFile,
