@@ -121,8 +121,7 @@ void dumpRelease(String tag) {
     ),
   ) as Map<String, dynamic>;
 
-  final file = File('release.md')
-    ..writeAsStringSync(body['body'] as String);
+  final file = File('release.md')..writeAsStringSync(body['body'] as String);
   run(
     'open',
     arguments: [
