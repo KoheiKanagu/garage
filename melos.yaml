@@ -66,6 +66,8 @@ scripts:
       dirExists: test
 
   flutter:golden:test:
+    description: |
+      Run golden tests.
     exec: |
       flutter test \
         --tags golden \
@@ -75,6 +77,8 @@ scripts:
       dirExists: test
 
   flutter:golden:update:
+    description: |
+      Update golden tests.
     exec: |
       flutter test \
         --update-goldens \
