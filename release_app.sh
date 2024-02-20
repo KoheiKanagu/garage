@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euxo pipefail
+set -euo pipefail
 
 # このスクリプトは、指定されたパッケージのリリース手順の一部を自動化します。
 #
@@ -18,21 +18,28 @@ TARGET_PACKAGE=$1
 
 grind bump --package="$TARGET_PACKAGE" --patch --create-pr
 
-read -r -p "Did you manually merge the pull request? (y/n): " CONT
-if [ "$CONT" = "y" ]; then
-    echo "Continuing..."
-else
-    echo "Aborted."
-    exit 1
-fi
+while true; do
+    read -r -p "Did you manually merge the pull request? (y/n): " CONT
+    if [ "$CONT" = "y" ]; then
+        echo "Continuing..."
+        break
+    else
+        echo ""
+        echo "Please merge the pull request and then answer 'y'."
+    fi
+done
 
 grind create-new-release --package="$TARGET_PACKAGE"
-read -r -p "Did you write the release note? (y/n): " CONT
-if [ "$CONT" = "y" ]; then
-    echo "Continuing..."
-else
-    echo "Aborted."
-    exit 1
-fi
+
+while true; do
+    read -r -p "Did you write the release note? (y/n): " CONT
+    if [ "$CONT" = "y" ]; then
+        echo "Continuing..."
+        break
+    else
+        echo ""
+        echo "Please write the release note and then answer 'y'."
+    fi
+done
 
 grind deliver-store-metadata --package="$TARGET_PACKAGE"
