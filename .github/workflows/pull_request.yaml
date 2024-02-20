@@ -134,6 +134,12 @@ jobs:
         run: |
           melos run flutter:golden:test --no-select
 
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: golden_failures
+          path: packages/*/test/**/failures/
+
   pod_update:
     timeout-minutes: 60
     runs-on: macos-13
