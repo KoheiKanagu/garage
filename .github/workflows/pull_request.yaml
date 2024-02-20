@@ -35,7 +35,9 @@ jobs:
           service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
 
       ### Generate ###
-      - run: melos run generate
+      - run: |
+          melos run generate
+          git diff --exit-code
 
   fix-format:
     timeout-minutes: 30

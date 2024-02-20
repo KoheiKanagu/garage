@@ -51,6 +51,7 @@ export 'features/routing/application/my_go_router.dart';
 export 'features/routing/domain/my_go_router_listenable.dart';
 export 'features/user/application/user_providers.dart';
 export 'features/user/domain/user.dart';
+export 'gen/assets.gen.dart';
 export 'gen/fonts.gen.dart';
 export 'main_core.dart';
 export 'utils/budoux.dart';
