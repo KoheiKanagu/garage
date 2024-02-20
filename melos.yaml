@@ -69,7 +69,6 @@ scripts:
     exec: |
       flutter test \
         --tags golden \
-        --concurrency 1 \
         --flavor dev
     packageFilters:
       flutter: true
@@ -80,7 +79,6 @@ scripts:
       flutter test \
         --update-goldens \
         --tags golden \
-        --concurrency 1 \
         --flavor dev
     packageFilters:
       flutter: true
