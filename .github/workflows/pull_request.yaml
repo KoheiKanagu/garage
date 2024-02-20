@@ -116,7 +116,7 @@ jobs:
 
   golden_test:
     timeout-minutes: 30
-    runs-on: ubuntu-latest
+    runs-on: macos-14
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v1.8.7
