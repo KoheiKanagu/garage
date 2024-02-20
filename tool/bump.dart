@@ -107,7 +107,17 @@ void bump() {
         'create',
         '--assignee',
         '@me',
-        '--web',
+        '--fill-first',
+      ],
+    );
+
+    run(
+      'gh',
+      arguments: [
+        'pr',
+        'merge',
+        '--auto',
+        '--squash',
       ],
     );
   }

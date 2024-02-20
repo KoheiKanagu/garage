@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:grinder/grinder.dart';
 
@@ -93,6 +94,8 @@ void createNewRelease() {
     ],
   );
 
+  dumpRelease(createdReleaseTagName);
+
   run(
     'gh',
     arguments: [
@@ -100,6 +103,30 @@ void createNewRelease() {
       'view',
       createdReleaseTagName,
       '--web',
+    ],
+  );
+}
+
+void dumpRelease(String tag) {
+  final body = json.decode(
+    run(
+      'gh',
+      arguments: [
+        'release',
+        'view',
+        tag,
+        '--json',
+        'body',
+      ],
+    ),
+  ) as Map<String, dynamic>;
+
+  final file = File('release.md')
+    ..writeAsStringSync(body['body'] as String);
+  run(
+    'open',
+    arguments: [
+      file.path,
     ],
   );
 }
