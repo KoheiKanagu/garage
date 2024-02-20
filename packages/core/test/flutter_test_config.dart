@@ -9,6 +9,7 @@ Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   await defaultLoadAppFonts();
+  initializeLocalFileComparatorWithThreshold();
 
   await initBudouX();
   await testMain();
