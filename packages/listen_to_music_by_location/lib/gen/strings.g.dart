@@ -275,8 +275,8 @@ class _StringsPermissionEn extends _StringsPermissionJa {
 	@override final _StringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Permission Confirmation';
-	@override String get error_banner_label => 'Permission confirmation required';
+	@override String get title => 'Permission Check';
+	@override String get error_banner_label => 'Permission Check needed';
 	@override String get location => 'Location';
 	@override String get location_details => 'To play music based on your current location, you need to allow the use of location information';
 	@override String get request_location_dialog_title => 'Please select "Allow While Using App"';

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/permission/presentation/location_permission_tile.dart';
@@ -23,10 +22,15 @@ class PermissionPage extends HookConsumerWidget {
               onPressed: () {
                 GoRouter.of(context).pop();
               },
-              child: Text(MaterialLocalizations.of(context).closeButtonLabel),
+              child: Text(
+                CupertinoLocalizations.of(context).modalBarrierDismissLabel,
+              ),
             ),
-            largeTitle: Text(
-              i18n.permission.title,
+            largeTitle: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                i18n.permission.title,
+              ),
             ),
           ),
           const SliverFillRemaining(

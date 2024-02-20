@@ -19,6 +19,41 @@ class UpdateAppPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeType = InheritedThemeDetector.of(context);
 
+    return switch (themeType) {
+      InheritedThemeType.material => MaterialApp(
+          supportedLocales: AppLocaleUtils.supportedLocales,
+          debugShowCheckedModeBanner: false,
+          home: UpdateAppPageHome(
+            force: force,
+          ),
+        ),
+      InheritedThemeType.cupertino => CupertinoApp(
+          supportedLocales: AppLocaleUtils.supportedLocales,
+          debugShowCheckedModeBanner: false,
+          home: UpdateAppPageHome(
+            force: force,
+          ),
+        ),
+    };
+  }
+}
+
+class UpdateAppPageHome extends HookConsumerWidget {
+  const UpdateAppPageHome({
+    required this.force,
+    @visibleForTesting this.noAppIconImage = false,
+    super.key,
+  });
+
+  final bool force;
+
+  @visibleForTesting
+  final bool noAppIconImage;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeType = InheritedThemeDetector.of(context);
+
     final titleTextStyle = switch (themeType) {
       InheritedThemeType.material =>
         Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -88,11 +123,17 @@ class UpdateAppPage extends HookConsumerWidget {
             padding: const EdgeInsets.all(12),
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(12)),
-              child: Image.asset(
-                'assets/images/app_icon.webp',
-                width: 84,
-                height: 84,
-              ),
+              child: noAppIconImage
+                  ? Container(
+                      width: 84,
+                      height: 84,
+                      color: Colors.green,
+                    )
+                  : Image.asset(
+                      'assets/images/app_icon.webp',
+                      width: 84,
+                      height: 84,
+                    ),
             ),
           ),
           Text(
@@ -123,15 +164,11 @@ class UpdateAppPage extends HookConsumerWidget {
     );
 
     return switch (themeType) {
-      InheritedThemeType.material => MaterialApp(
-          home: Scaffold(
-            body: body,
-          ),
+      InheritedThemeType.material => Scaffold(
+          body: body,
         ),
-      InheritedThemeType.cupertino => CupertinoApp(
-          home: CupertinoPageScaffold(
-            child: body,
-          ),
+      InheritedThemeType.cupertino => CupertinoPageScaffold(
+          child: body,
         ),
     };
   }

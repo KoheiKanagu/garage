@@ -1,6 +1,5 @@
 // ignore_for_file: lines_longer_than_80_chars, avoid_dynamic_calls
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:clock/clock.dart';
@@ -8,20 +7,26 @@ import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+
+final defaultLocalizationsDelegates = [
+  GlobalCupertinoLocalizations.delegate,
+  GlobalMaterialLocalizations.delegate,
+  GlobalWidgetsLocalizations.delegate,
+];
 
 @isTest
 void goldenTestCombo({
   required String testName,
   required Widget widget,
   required List<Locale> supportedLocales,
-  required List<LocalizationsDelegate<dynamic>>? localizationsDelegates,
   required CupertinoThemeData? cupertinoThemeData,
   required ThemeData? materialThemeData,
+  List<LocalizationsDelegate<dynamic>>? localizationsDelegates,
   Future<void> Function(
     ProviderContainer container,
   )? beforeTest,
@@ -30,30 +35,36 @@ void goldenTestCombo({
   bool skip = false,
   List<Override> providerOverrides = const [],
   List<TestDeviceSize> devices = TestDeviceSize.values,
+  bool realShadows = false,
 }) {
   assert(
     cupertinoThemeData != null || materialThemeData != null,
-    'You must specify one of cupertinoThemeData or materialThemeData',
+    'Please specify either cupertinoThemeData or materialThemeData, or both.',
   );
 
-  final hostPlatforms = [
-    'ci',
-    if (Platform.isMacOS || Platform.isWindows) Platform.operatingSystem,
-  ];
+  final hostPlatform = Platform.operatingSystem;
 
-  for (final hostPlatform in hostPlatforms) {
-    final ciPlatform = hostPlatform == 'ci';
+  for (final device in devices) {
+    for (final textScaleFactor in textScaleFactors) {
+      for (final locale in supportedLocales) {
+        for (final themeType in InheritedThemeType.values) {
+          switch (themeType) {
+            case InheritedThemeType.cupertino:
+              if (cupertinoThemeData == null) {
+                continue;
+              }
+            case InheritedThemeType.material:
+              if (materialThemeData == null) {
+                continue;
+              }
+          }
 
-    for (final device in devices) {
-      for (final textScaleFactor in textScaleFactors) {
-        for (final locale in supportedLocales) {
-          final name = '$testName.${device.name}_x${textScaleFactor}_$locale';
+          final name =
+              '$testName.${themeType.name}_${device.name}_x${textScaleFactor}_$locale';
 
           testWidgets(
             name,
             (tester) async {
-              await defaultLoadAppFonts();
-
               /// Locale settings
               LocaleSettings.setLocaleRaw(locale.toLanguageTag());
               Intl.defaultLocale = locale.languageCode;
@@ -79,41 +90,21 @@ void goldenTestCombo({
               );
               await beforeTest?.call(container);
 
-              /// theme
-              final themeType = cupertinoThemeData != null
-                  ? InheritedThemeType.cupertino
-                  : InheritedThemeType.material;
-
-              dynamic theme;
-              if (ciPlatform) {
-                // TODO: Use Ahem font for CI
-                theme = switch (themeType) {
-                  InheritedThemeType.material => materialThemeData?.copyWith(
-                      textTheme: materialThemeData.textTheme.apply(
-                        fontFamily: 'Ahem',
-                      ),
+              final theme = switch (themeType) {
+                InheritedThemeType.cupertino => cupertinoThemeData?.copyWith(
+                    textTheme: cupertinoThemeData.textTheme.apply(
+                      // By default, it uses CupertinoSystemText or CupertinoSystemDisplay,
+                      // but they are not available for testing, so we change it to NotoSansJP.
+                      fontFamily: 'NotoSansJP',
                     ),
-                  InheritedThemeType.cupertino => cupertinoThemeData?.copyWith(
-                      textTheme: cupertinoThemeData.textTheme.apply(
-                        fontFamily: 'Ahem',
-                      ),
+                  ),
+                InheritedThemeType.material => materialThemeData?.copyWith(
+                    textTheme: materialThemeData.textTheme.apply(
+                      // By default, it uses Roboto, but it does not contain Japanese, so we change it to NotoSansJP.
+                      fontFamily: 'NotoSansJP',
                     ),
-                };
-              } else {
-                theme = switch (themeType) {
-                  InheritedThemeType.cupertino => cupertinoThemeData?.copyWith(
-                      textTheme: cupertinoThemeData.textTheme.apply(
-                        // By default, it uses CupertinoSystemText or CupertinoSystemDisplay,
-                        // but they are not available for testing, so we change it to NotoSansJP.
-                        fontFamily: 'NotoSansJP',
-                      ),
-                    ),
-                  InheritedThemeType.material =>
-                    materialThemeData?.textTheme.apply(
-                      fontFamily: 'Roboto',
-                    ),
-                };
-              }
+                  ),
+              };
 
               /// test target widget
               final home = Builder(
@@ -134,16 +125,20 @@ void goldenTestCombo({
                     key: rootKey,
                     debugShowCheckedModeBanner: false,
                     supportedLocales: supportedLocales,
-                    localizationsDelegates: localizationsDelegates,
-                    theme: theme as CupertinoThemeData,
+                    locale: locale,
+                    localizationsDelegates:
+                        localizationsDelegates ?? defaultLocalizationsDelegates,
+                    theme: theme! as CupertinoThemeData,
                     home: home,
                   ),
                 InheritedThemeType.material => MaterialApp(
                     key: rootKey,
                     debugShowCheckedModeBanner: false,
                     supportedLocales: supportedLocales,
-                    localizationsDelegates: localizationsDelegates,
-                    theme: theme as ThemeData,
+                    locale: locale,
+                    localizationsDelegates:
+                        localizationsDelegates ?? defaultLocalizationsDelegates,
+                    theme: theme! as ThemeData,
                     home: home,
                   ),
               };
@@ -151,7 +146,7 @@ void goldenTestCombo({
               await tester.runAsync(
                 () async {
                   /// real shadows
-                  debugDisableShadows = ciPlatform;
+                  debugDisableShadows = !realShadows;
 
                   await withClock(
                     fixedClock ?? const Clock(),
@@ -161,6 +156,7 @@ void goldenTestCombo({
                     },
                   );
 
+                  // required reset
                   debugDisableShadows = true;
                 },
               );
@@ -168,7 +164,7 @@ void goldenTestCombo({
               await expectLater(
                 find.byKey(rootKey),
                 matchesGoldenFile(
-                  'goldens/$hostPlatform/$name.png',
+                  'goldens/$hostPlatform/$testName/$name.png',
                 ),
               );
             },
@@ -240,53 +236,4 @@ enum TestDeviceSize {
           TargetPlatform.iOS,
         TestDeviceSize.Android_20_9inch => TargetPlatform.android,
       };
-}
-
-@visibleForTesting
-Future<void> defaultLoadAppFonts() async {
-  // build/unit_test_assets/FontManifest.json
-  final fontManifest = await rootBundle.loadStructuredData(
-    'FontManifest.json',
-    (string) async => json.decode(string) as Iterable<dynamic>,
-  );
-
-  /// Load default fonts from root directory
-  /// https://github.com/KoheiKanagu/garage/tree/main/fonts
-  final defaultFonts = [
-    'NotoSansJP',
-    'Roboto',
-  ];
-
-  for (final e in defaultFonts) {
-    final loader = FontLoader(e);
-
-    final fonts = Directory('../../fonts/$e')
-        .listSync()
-        .map((e) => e.absolute.path)
-        .where((e) => e.endsWith('.ttf'));
-
-    for (final f in fonts) {
-      loader.addFont(
-        rootBundle.load(f),
-      );
-    }
-    await loader.load();
-  }
-
-  // TODO: There is an issue where CupertinoIcons is not being loaded.
-  for (final e in fontManifest) {
-    // "MaterialIcons" → "MaterialIcons"
-    // "packages/cupertino_icons/CupertinoIcons" → "CupertinoIcons"
-    final family = Uri.parse(e['family'] as String).pathSegments.last;
-
-    final loader = FontLoader(family);
-
-    for (final f in e['fonts'] as List<dynamic>) {
-      final asset = f['asset'] as String;
-      loader.addFont(
-        rootBundle.load(asset),
-      );
-    }
-    await loader.load();
-  }
 }
