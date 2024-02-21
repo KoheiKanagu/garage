@@ -31,7 +31,7 @@ Future<void> bumpAllDeps() async {
     'melos',
     arguments: [
       'run',
-      'pod:update',
+      'pod:install',
     ],
   );
 

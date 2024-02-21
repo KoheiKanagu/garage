@@ -105,13 +105,10 @@ scripts:
       flutter: true
       dependsOn: build_runner
 
-  pod:update:
+  pod:install:
     run: |
-      flutter precache --ios
-      flutter pub get
-
       cd ios
-      pod update
+      pod install
     exec:
       concurrency: 1
     packageFilters:
