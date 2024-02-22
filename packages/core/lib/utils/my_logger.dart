@@ -18,6 +18,8 @@ final logger = SimpleLogger()
   ..onLogged = (log, info) {
     // リリースビルドのみFirebaseCrashlyticsに送信する
     if (kReleaseMode) {
+      FirebaseCrashlytics.instance.log(log);
+
       if (info.level >= Level.SEVERE) {
         // 重大なエラー
         FirebaseCrashlytics.instance.recordError(
@@ -35,9 +37,6 @@ final logger = SimpleLogger()
             info.callerFrame.toString(),
           ),
         );
-      } else {
-        // その他
-        FirebaseCrashlytics.instance.log(log);
       }
     }
   };
