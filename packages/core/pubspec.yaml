@@ -8,7 +8,7 @@ environment:
   flutter: ^3.20.0-0
 
 dependencies:
-  adaptive_dialog: ^2.0.0
+  adaptive_dialog: ^2.1.0
   budoux_dart: ^1.2.0
   clock: ^1.1.1
   cloud_firestore: ^4.15.4
