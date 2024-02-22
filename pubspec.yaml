@@ -6,7 +6,7 @@ environment:
 
 dev_dependencies:
   collection: ^1.18.0
-  custom_lint: ^0.6.0
+  custom_lint: ^0.6.2
   flutter:
     sdk: flutter
   grinder: ^0.9.5
