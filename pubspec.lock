@@ -579,3 +579,4 @@ packages:
     version: "2.1.1"
 sdks:
   dart: ">=3.4.0-0 <4.0.0"
+  flutter: ">=3.20.0-0"
