@@ -1,11 +1,14 @@
 name: garage_workspace
 
 environment:
-  sdk: 3.4.0-99.0.dev
+  sdk: ^3.4.0-0
+  flutter: ^3.20.0-0
 
 dev_dependencies:
   collection: ^1.18.0
   custom_lint: ^0.6.0
+  flutter:
+    sdk: flutter
   grinder: ^0.9.5
   intl: any
   markdown: ^7.2.1
