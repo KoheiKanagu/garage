@@ -10,7 +10,7 @@ PODS:
   - AppCheckCore (10.18.1):
     - GoogleUtilities/Environment (~> 7.11)
     - PromisesObjC (~> 2.3)
-  - cloud_firestore (4.15.4):
+  - cloud_firestore (4.15.5):
     - Firebase/Firestore (= 10.20.0)
     - firebase_core
     - Flutter
@@ -51,7 +51,7 @@ PODS:
   - Firebase/RemoteConfig (10.20.0):
     - Firebase/CoreOnly
     - FirebaseRemoteConfig (~> 10.20.0)
-  - firebase_analytics (10.8.5):
+  - firebase_analytics (10.8.6):
     - Firebase/Analytics (= 10.20.0)
     - firebase_core
     - Flutter
@@ -60,18 +60,18 @@ PODS:
     - firebase_core
     - FirebaseAppCheck (~> 10.20.0-beta)
     - Flutter
-  - firebase_auth (4.17.4):
+  - firebase_auth (4.17.5):
     - Firebase/Auth (= 10.20.0)
     - firebase_core
     - Flutter
   - firebase_core (2.25.4):
     - Firebase/CoreOnly (= 10.20.0)
     - Flutter
-  - firebase_crashlytics (3.4.14):
+  - firebase_crashlytics (3.4.15):
     - Firebase/Crashlytics (= 10.20.0)
     - firebase_core
     - Flutter
-  - firebase_dynamic_links (5.4.13):
+  - firebase_dynamic_links (5.4.14):
     - Firebase/DynamicLinks (= 10.20.0)
     - firebase_core
     - Flutter
@@ -79,7 +79,7 @@ PODS:
     - Firebase/Performance (= 10.20.0)
     - firebase_core
     - Flutter
-  - firebase_remote_config (4.3.13):
+  - firebase_remote_config (4.3.14):
     - Firebase/RemoteConfig (= 10.20.0)
     - firebase_core
     - Flutter
@@ -434,19 +434,19 @@ SPEC CHECKSUMS:
   app_links: 5ef33d0d295a89d9d16bb81b0e3b0d5f70d6c875
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   AppCheckCore: d0d4bcb6f90fd9f69958da5350467b79026b38c7
-  cloud_firestore: ba576bee785a05ff952e4da7fa4e23c196917436
+  cloud_firestore: ecf08badc10198974885617f14819201d9a42575
   cloud_functions: 5974cfe154f4e8a0459c2aa03cd69c7055b6777f
   desktop_webview_auth: d645139460ef203d50bd0cdb33356785dd939cce
   device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
   Firebase: 10c8cb12fb7ad2ae0c09ffc86cd9c1ab392a0031
-  firebase_analytics: 2e82fd84ce13f8321aa7b99336d6ee0e6cc7b984
+  firebase_analytics: 9c600045bfb4d16dd78593d18f32c99bb77e5001
   firebase_app_check: 712830093ac727bbfbd5220e39925bdc7f952d3b
-  firebase_auth: 29a10d4129d53aa690c10dbd838ed1a059ef0c9b
+  firebase_auth: 7351d07504173efaf1fb31fe3ffb73b2c521eae0
   firebase_core: a46c312d8bae4defa3d009b2aa7b5b413aeb394e
-  firebase_crashlytics: 3d12285fcbd865d576b9965bd4090cd8b68e11fd
-  firebase_dynamic_links: 58354c4228a25d8c77185baafafaffa2debcc076
+  firebase_crashlytics: 3054fbdd2b4a4a91f25a15e57c9f1bd2a9ed81ae
+  firebase_dynamic_links: 5ff661188e4c8c5676d94619381bfe47f5958778
   firebase_performance: f090bad21e0318995827cbab40992952a8850fcb
-  firebase_remote_config: e9e018e59700ab678c254cc9f36897ee53c15f94
+  firebase_remote_config: c201b15649145b16886f64912a6ae8d46b2a75f5
   FirebaseABTesting: 40774deef367dcc7b736b6c26dd59ce0fab42f41
   FirebaseAnalytics: a2731bf3670747ce8f65368b118d18aa8e368246
   FirebaseAppCheck: 401b26f036fcbe0ffe40bdc1c831ab05955c1b9f
