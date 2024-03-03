@@ -70,7 +70,7 @@ dev_dependencies:
   go_router_builder: ^2.4.1
   json_serializable: ^6.7.1
   mockito: ^5.4.4
-  pigeon: ^17.0.0
+  pigeon: ^17.1.1
   riverpod_generator: ^2.3.11
   riverpod_lint: ^2.3.9
   slang_build_runner: ^3.30.0
