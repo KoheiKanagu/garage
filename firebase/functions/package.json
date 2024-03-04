@@ -28,7 +28,7 @@
     "@swc/core": "^1.4.2",
     "@swc/jest": "^0.2.36",
     "@types/jest": "^29.5.12",
-    "@types/node": "20.11.20",
+    "@types/node": "20.11.24",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "firebase-functions-test": "^3.1.1",
     "gts": "^5.2.0",
