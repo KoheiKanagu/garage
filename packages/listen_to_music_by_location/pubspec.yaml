@@ -20,7 +20,7 @@ dependencies:
     path: ../core
   cupertino_icons: ^1.0.6
   device_info_plus: ^9.1.2
-  feedback: ^3.0.0
+  feedback: ^3.0.1
   firebase_analytics: ^10.8.6
   firebase_app_check: ^0.2.1+13
   firebase_auth: ^4.17.5
