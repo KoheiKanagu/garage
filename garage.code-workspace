@@ -70,7 +70,9 @@
       "fullscreen",
       "Geofence",
       "goldens",
+      "Kanagu",
       "kingu",
+      "Kohei",
       "lcov",
       "loca",
       "Locamusic",
@@ -99,6 +101,10 @@
     "conventionalCommits.scopes": [
       "core",
       "listen_to_music_by_location",
+    ],
+    "cSpell.enabled": true,
+    "cSpell.enableFiletypes": [
+      "github-actions-workflow"
     ]
   }
 }
