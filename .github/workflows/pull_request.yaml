@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  generage:
+  generate:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     permissions: # for KoheiKanagu/composite-actions/setup-firebase-cli@main
