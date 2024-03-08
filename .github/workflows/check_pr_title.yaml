@@ -8,13 +8,13 @@ on:
       - edited
       - synchronize
 
+permissions:
+  pull-requests: read
+
 jobs:
   check-pr-title:
     runs-on: ubuntu-latest
-    permissions:
-      statuses: write
     steps:
-      - uses: aslafy-z/conventional-pr-title-action@v3
-        if: github.actor != 'dependabot[bot]'
+      - uses: amannn/action-semantic-pull-request@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
