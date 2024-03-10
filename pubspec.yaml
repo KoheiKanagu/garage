@@ -11,7 +11,7 @@ dev_dependencies:
     sdk: flutter
   grinder: ^0.9.5
   intl: any
-  markdown: ^7.2.1
+  markdown: ^7.2.2
   melos: ^4.1.0
   riverpod_lint: ^2.3.9
   very_good_analysis: ^5.1.0
