@@ -112,6 +112,16 @@ scripts:
       flutter: true
       dirExists: ios
 
+  pod:update:
+    run: |
+      cd ios
+      pod update
+    exec:
+      concurrency: 1
+    packageFilters:
+      flutter: true
+      dirExists: ios
+
   build:apk:dev:
     run: |
       flutter build apk \
