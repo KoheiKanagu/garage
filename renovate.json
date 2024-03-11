@@ -12,14 +12,21 @@
   "labels": ["dependencies"],
   "packageRules": [
     {
+      "matchManagers": ["pub"],
+      "addLabels": ["dart"]
+    },
+    {
+      "matchManagers": ["npm"],
+      "addLabels": ["javascript"]
+    },
+    {
       "matchPackagePatterns": [
         "firebase_*",
         "cloud_firestore",
         "cloud_functions"
       ],
-      "matchFileNames": ["packages/**"],
-      "groupName": "firebase-dart",
-      "addLabels": ["dart"]
+      "matchFileNames": ["packages/**", "pubspec.yaml"],
+      "groupName": "firebase-dart"
     },
     {
       "matchPackagePatterns": [
@@ -28,51 +35,43 @@
         "json_annotation",
         "json_serializable"
       ],
-      "matchFileNames": ["packages/**"],
-      "groupName": "freezed",
-      "addLabels": ["dart"]
+      "matchFileNames": ["packages/**", "pubspec.yaml"],
+      "groupName": "freezed"
     },
     {
       "matchPackagePatterns": ["hooks_riverpod", "riverpod_*"],
-      "matchFileNames": ["packages/**"],
-      "groupName": "riverpod",
-      "addLabels": ["dart"]
+      "matchFileNames": ["packages/**", "pubspec.yaml"],
+      "groupName": "riverpod"
     },
     {
       "matchPackagePatterns": ["go_router", "go_router_builder"],
-      "matchFileNames": ["packages/**"],
-      "groupName": "go_router",
-      "addLabels": ["dart"]
+      "matchFileNames": ["packages/**", "pubspec.yaml"],
+      "groupName": "go_router"
     },
     {
       "matchPackagePatterns": ["_info_plus$"],
-      "matchFileNames": ["packages/**"],
-      "groupName": "info_plus",
-      "addLabels": ["dart"]
+      "matchFileNames": ["packages/**", "pubspec.yaml"],
+      "groupName": "info_plus"
     },
     {
       "matchPackagePatterns": ["@typescript-eslint/*", "eslint*"],
       "matchFileNames": ["firebase/**"],
-      "groupName": "eslint",
-      "addLabels": ["javascript"]
+      "groupName": "eslint"
     },
     {
       "matchPackagePatterns": ["@swc/jest", "@types/jest", "jest"],
       "matchFileNames": ["firebase/**"],
-      "groupName": "jest",
-      "addLabels": ["javascript"]
+      "groupName": "jest"
     },
     {
       "matchPackagePatterns": ["slang", "slang_*"],
-      "matchFileNames": ["packages/**"],
-      "groupName": "slang",
-      "addLabels": ["dart"]
+      "matchFileNames": ["packages/**", "pubspec.yaml"],
+      "groupName": "slang"
     },
     {
       "matchPackagePatterns": ["@firebase/*", "firebase-*"],
       "matchFileNames": ["firebase/**"],
-      "groupName": "firebase-js",
-      "addLabels": ["javascript"]
+      "groupName": "firebase-js"
     }
   ]
 }
