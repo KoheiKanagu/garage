@@ -57,6 +57,7 @@ jobs:
       ### fix and format ###
       - name: Fix and Format
         run: |
+          melos run pub:get
           melos run dart:fix:format
           git diff --exit-code
 
@@ -76,6 +77,7 @@ jobs:
         uses: KoheiKanagu/composite-actions/setup-flutter@main
 
       ### Analyze ###
+      - run: melos run pub:get
       - run: melos run dart:analyze
 
   custom_lint:
@@ -94,6 +96,7 @@ jobs:
         uses: KoheiKanagu/composite-actions/setup-flutter@main
 
       ### Custom Lint ###
+      - run: melos run pub:get
       - run: melos run dart:custom_lint
 
   test:
