@@ -6,6 +6,10 @@ set -euo pipefail
 # e.g.
 # ./release_app.sh listen_to_music_by_location
 
+git fetch --all
+git checkout main
+git pull origin main
+
 TARGET_PACKAGE=$1
 
 melos run clean --no-select &&
