@@ -120,7 +120,7 @@ void showMyBetterFeedback(
 }) {
   BetterFeedback.of(context).show(
     (feedback) async {
-      await ref.read(
+      await ref.watch(
         feedbackSubmitProvider(
           feedback,
           feedbackFrom: from,

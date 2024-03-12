@@ -18,13 +18,14 @@ class MyFeedbackMessageField extends HookConsumerWidget {
       text: data?.message,
     );
 
-    String? validator(String? value) =>
-        ref.read(feedbackDataControllerProvider.notifier).validateMessage(value)
-            ? null
-            : i18n.feedback.please_enter_your_feedback;
+    String? validator(String? value) => ref
+            .watch(feedbackDataControllerProvider.notifier)
+            .validateMessage(value)
+        ? null
+        : i18n.feedback.please_enter_your_feedback;
 
     void onSaved(String? newValue) => ref
-        .read(feedbackDataControllerProvider.notifier)
+        .watch(feedbackDataControllerProvider.notifier)
         .updateMessage(newValue);
 
     final themeType = InheritedThemeDetector.of(context);

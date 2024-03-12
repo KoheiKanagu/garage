@@ -35,7 +35,7 @@ class MyFeedbackTypePickerField extends HookConsumerWidget {
         return;
       }
 
-      ref.read(feedbackDataControllerProvider.notifier).updateType(result);
+      ref.watch(feedbackDataControllerProvider.notifier).updateType(result);
     }
 
     final themeType = InheritedThemeDetector.of(context);

@@ -33,7 +33,7 @@ class LocamusicDetailPage extends HookConsumerWidget {
         Future(
           () async {
             // MapViewの初期化待ち
-            await ref.read(mapViewDidFinishLoadingMapProvider).firstWhere(
+            await ref.watch(mapViewDidFinishLoadingMapProvider).firstWhere(
                   (element) => element == MapViewType.locamusicDetailPage,
                 );
             initialized.value = true;
@@ -78,7 +78,7 @@ class LocamusicDetailPage extends HookConsumerWidget {
                   );
 
                   if (result == OkCancelResult.ok) {
-                    await ref.read(
+                    await ref.watch(
                       locamusicDeleteProvider(documentId).future,
                     );
 
@@ -154,7 +154,7 @@ class _Range extends HookConsumerWidget {
                     distance: value.meters,
                   );
 
-                  ref.read(
+                  ref.watch(
                     locamusicUpdateProvider(
                       documentId,
                       locamusic: newValue,
@@ -208,7 +208,7 @@ class _BuiltInSpeakerSwitch extends HookConsumerWidget {
                 }
               }
 
-              await ref.read(
+              await ref.watch(
                 locamusicUpdateProvider(
                   documentId,
                   locamusic: locamusic.copyWith(

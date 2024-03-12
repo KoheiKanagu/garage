@@ -41,7 +41,7 @@ class TermAckText extends HookConsumerWidget {
           recognizer: TapGestureRecognizer()
             ..onTap = () async {
               final uri =
-                  await ref.read(configureTermsOfServiceUriProvider.future);
+                  await ref.watch(configureTermsOfServiceUriProvider.future);
               if (uri != null) {
                 await launchUrl(uri);
               }
@@ -53,7 +53,7 @@ class TermAckText extends HookConsumerWidget {
           recognizer: TapGestureRecognizer()
             ..onTap = () async {
               final uri =
-                  await ref.read(configurePrivacyPolicyUriProvider.future);
+                  await ref.watch(configurePrivacyPolicyUriProvider.future);
               if (uri != null) {
                 await launchUrl(uri);
               }

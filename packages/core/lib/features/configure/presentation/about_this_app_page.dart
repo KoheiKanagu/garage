@@ -18,7 +18,8 @@ class AboutThisAppPage extends HookConsumerWidget {
       ConfigureListTile(
         title: i18n.configure.terms_of_service,
         onTap: () async {
-          final url = await ref.read(configureTermsOfServiceUriProvider.future);
+          final url =
+              await ref.watch(configureTermsOfServiceUriProvider.future);
 
           if (url != null) {
             await launchUrl(url);
@@ -33,7 +34,7 @@ class AboutThisAppPage extends HookConsumerWidget {
       ConfigureListTile(
         title: i18n.configure.privacy_policy,
         onTap: () async {
-          final url = await ref.read(configurePrivacyPolicyUriProvider.future);
+          final url = await ref.watch(configurePrivacyPolicyUriProvider.future);
 
           if (url != null) {
             await launchUrl(url);
@@ -78,7 +79,7 @@ class AboutThisAppPage extends HookConsumerWidget {
 
             if (result == OkCancelResult.ok) {
               await ref
-                  .read(adsRequestConsentInfoUpdateControllerProvider.notifier)
+                  .watch(adsRequestConsentInfoUpdateControllerProvider.notifier)
                   .reset();
               if (context.mounted) {
                 await showOkAlertDialog(

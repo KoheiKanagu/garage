@@ -57,13 +57,15 @@ Future<void> firebaseSignIn(FirebaseSignInRef ref) async {
   logger.fine('signIn');
 
   // 初期化が完了するまで待つ
-  final current = await ref.read(firebaseAuthProvider).authStateChanges().first;
+  final current =
+      await ref.watch(firebaseAuthProvider).authStateChanges().first;
 
   final String uid;
   if (current == null) {
     logger.info('not signed in');
 
-    final credential = await ref.read(firebaseAuthProvider).signInAnonymously();
+    final credential =
+        await ref.watch(firebaseAuthProvider).signInAnonymously();
     uid = credential.user?.uid ?? '';
   } else {
     logger.info('already signed in');
@@ -89,20 +91,20 @@ Future<void> firebaseSignIn(FirebaseSignInRef ref) async {
 Future<void> firebaseUserDelete(
   FirebaseUserDeleteRef ref,
 ) async {
-  await ref.read(firebaseAnalyticsProvider).logEvent(
+  await ref.watch(firebaseAnalyticsProvider).logEvent(
         name: 'delete_all',
       );
 
   logger.fine('deleteUser');
   await ref
-      .read(firebaseFunctionsProvider)
+      .watch(firebaseFunctionsProvider)
       .httpsCallable('deleteUser')
       .call<void>();
 
   logger.fine('clear SharedPreferences');
-  await ref.read(sharedPreferencesControllerProvider).clear();
+  await ref.watch(sharedPreferencesControllerProvider).clear();
 
-  await ref.read(firebaseAuthProvider).signOut();
+  await ref.watch(firebaseAuthProvider).signOut();
   logger.fine('success signOut');
 }
 

@@ -18,7 +18,7 @@ class MyFeedbackSubmitButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future<void> onSubmitPressed() async {
-      final data = ref.read(feedbackDataControllerProvider.notifier).commit();
+      final data = ref.watch(feedbackDataControllerProvider.notifier).commit();
       // validateエラーの場合はnull
       if (data == null) {
         return;

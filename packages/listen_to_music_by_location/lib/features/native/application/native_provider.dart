@@ -30,7 +30,7 @@ Stream<AuthorizationStatus> locationManagerCurrentPermissionStatusStream(
   LocationManagerCurrentPermissionStatusStreamRef ref,
 ) async* {
   final current =
-      await ref.read(locationManagerProvider).currentPermissionStatus();
+      await ref.watch(locationManagerProvider).currentPermissionStatus();
   yield current;
 
   final result =

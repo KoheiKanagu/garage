@@ -40,7 +40,7 @@ CollectionReference<FeedbackData> feedbackCollectionReference(
   FeedbackCollectionReferenceRef ref,
 ) {
   return ref
-      .read(firebaseFirestoreDefaultProvider)
+      .watch(firebaseFirestoreDefaultProvider)
       .collection(CollectionPath.kFeedbacks)
       .withConverter(
         fromFirestore: FeedbackData.fromFirestore,
@@ -62,7 +62,7 @@ Future<void> feedbackSubmit(
   );
 
   final docRef =
-      await ref.read(feedbackCollectionReferenceProvider).add(feedbackData);
+      await ref.watch(feedbackCollectionReferenceProvider).add(feedbackData);
   await ref.watch(firebaseCrashlyticsProvider).recordError(
         Exception('Feedback Submitted. documentId: ${docRef.id}'),
         null,

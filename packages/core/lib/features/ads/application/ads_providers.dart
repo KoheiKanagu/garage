@@ -54,7 +54,7 @@ class AdsRequestConsentInfoUpdateController
           return;
         }
 
-        final status = await ref.read(adsConsentStatusProvider.future);
+        final status = await ref.watch(adsConsentStatusProvider.future);
         state = switch (status) {
           ConsentStatus.required || ConsentStatus.unknown => true,
           ConsentStatus.notRequired || ConsentStatus.obtained => false,
@@ -75,7 +75,7 @@ class AdsRequestConsentInfoUpdateController
 
     ConsentForm.loadConsentForm(
       (consentForm) async {
-        final status = await ref.read(adsConsentStatusProvider.future);
+        final status = await ref.watch(adsConsentStatusProvider.future);
         if (status == ConsentStatus.required) {
           consentForm.show(
             (formError) {

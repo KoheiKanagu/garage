@@ -32,7 +32,7 @@ class MapPage extends HookConsumerWidget {
         Future(
           () async {
             // MapViewの初期化待ち
-            await ref.read(mapViewDidFinishLoadingMapProvider).firstWhere(
+            await ref.watch(mapViewDidFinishLoadingMapProvider).firstWhere(
                   (element) => element == MapViewType.mapPage,
                 );
             initialized.value = true;
@@ -52,7 +52,7 @@ class MapPage extends HookConsumerWidget {
 
           // 初回のみAnnotationの場所にカメラを移動
           if (!initialShowAnnotations.value) {
-            await ref.read(mapPageMapViewProvider).showAnnotations();
+            await ref.watch(mapPageMapViewProvider).showAnnotations();
             initialShowAnnotations.value = true;
           }
         },
@@ -75,7 +75,7 @@ class MapPage extends HookConsumerWidget {
 
           String? documentId;
           try {
-            documentId = await ref.read(
+            documentId = await ref.watch(
               locamusicAddProvider(
                 geoPoint: GeoPoint(value.latitude, value.longitude),
                 distanceRange: DistanceRange.medium,

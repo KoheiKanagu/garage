@@ -119,7 +119,7 @@ class ConfigurePage extends HookConsumerWidget {
           );
 
           if (result == OkCancelResult.ok) {
-            await ref.read(firebaseAuthProvider).signOut();
+            await ref.watch(firebaseAuthProvider).signOut();
             logger.fine('SignOut');
           }
         },
@@ -134,7 +134,7 @@ class ConfigurePage extends HookConsumerWidget {
 
           if (result == OkCancelResult.ok) {
             await ref
-                .read(sharedPreferencesControllerProvider.notifier)
+                .watch(sharedPreferencesControllerProvider.notifier)
                 .clear();
           }
         },

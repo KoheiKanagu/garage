@@ -126,7 +126,7 @@ class _AnonymousStartButton extends HookConsumerWidget {
       }
 
       progressAnonymousStart.value = true;
-      await ref.read(firebaseSignInProvider.future).catchError(
+      await ref.watch(firebaseSignInProvider.future).catchError(
             // 成功した場合はGoRouterでリダイレクトされるので、
             // progressAnonymousStartはfalseにする必要はない。
             // エラーになった場合は再試行する可能性があるので、falseにする。
