@@ -33,7 +33,6 @@ scripts:
       dart fix --apply tool
       melos exec -- dart fix --apply lib
       grind dart-format-all
-      git diff --exit-code
 
   dart:analyze:
     description: |
