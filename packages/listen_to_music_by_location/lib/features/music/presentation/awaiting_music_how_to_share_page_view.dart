@@ -80,28 +80,33 @@ class AwaitingMusicHowToSharePageView extends HookConsumerWidget {
     required String text,
     required BuildContext context,
   }) =>
-      Column(
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: CupertinoColors.systemGrey5.resolveFrom(context),
+      Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8,
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: CupertinoColors.systemGrey5.resolveFrom(context),
+                  ),
                 ),
+                padding: const EdgeInsets.all(12),
+                child: image,
               ),
-              padding: const EdgeInsets.all(12),
-              child: image,
             ),
-          ),
-          const Gap(24),
-          text.wrapBudouXText(
-            style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-            alignment: WrapAlignment.center,
-          ),
-          const Gap(12),
-        ],
+            const Gap(24),
+            text.wrapBudouXText(
+              style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+              alignment: WrapAlignment.center,
+            ),
+            const Gap(12),
+          ],
+        ),
       );
 }
