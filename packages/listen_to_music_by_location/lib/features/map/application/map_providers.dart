@@ -29,7 +29,7 @@ Future<void> mapDrawAnnotations(
       ),
     MapViewType.locamusicDetailPage => Future.wait(
         await ref
-            .watch(locamusicDetailPageMapViewProvider
+            .watch(locamusicDetailPageMapViewProvider)
             .getAnnotations()
             .then(
               (value) => [
