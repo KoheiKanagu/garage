@@ -264,7 +264,7 @@ final firebaseUserIsSignedInProvider = AutoDisposeFutureProvider<bool>.internal(
 );
 
 typedef FirebaseUserIsSignedInRef = AutoDisposeFutureProviderRef<bool>;
-String _$firebaseSignInHash() => r'a1cac20bf52effb52e715223b79bc96064b06f29';
+String _$firebaseSignInHash() => r'563ce47b056a34a119df0c7e49f9b9bc6292c4ac';
 
 /// サインインをした後、Userドキュメントが取得できるまで待つ
 ///
@@ -282,7 +282,7 @@ final firebaseSignInProvider = AutoDisposeFutureProvider<void>.internal(
 
 typedef FirebaseSignInRef = AutoDisposeFutureProviderRef<void>;
 String _$firebaseUserDeleteHash() =>
-    r'96a027d64826325d90a5e6171eb45fd8e087ab95';
+    r'29c1c6f3bd3f411764f6de06f18c8b25b57b4dc4';
 
 /// SharedPreferencesとUser Documentの削除が完了するまで待った後、サインアウトする
 ///

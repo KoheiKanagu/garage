@@ -24,7 +24,7 @@ class SharedPreferencesController extends _$SharedPreferencesController {
 
   Future<void> clear() async {
     await state.clear();
-    logger.fine('clear SharedPreferences');
+    logger.debug('clear SharedPreferences');
     _didChange();
   }
 }

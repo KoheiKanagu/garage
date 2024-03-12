@@ -45,7 +45,7 @@ class MyNavigatorObserver extends NavigatorObserver {
       ..setCustomKey('previousRouteArguments', previousRouteArguments)
       ..setCustomKey('didPush', didPush);
 
-    logger.finer(
+    logger.verbose(
       {
         'route': routeName,
         'routeArguments': routeArguments,

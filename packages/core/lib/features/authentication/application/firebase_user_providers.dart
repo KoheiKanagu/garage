@@ -54,7 +54,7 @@ Future<bool> firebaseUserIsSignedIn(
 /// サインインをした後、Userドキュメントが取得できるまで待つ
 @riverpod
 Future<void> firebaseSignIn(FirebaseSignInRef ref) async {
-  logger.fine('signIn');
+  logger.debug('signIn');
 
   // 初期化が完了するまで待つ
   final current =
@@ -77,13 +77,13 @@ Future<void> firebaseSignIn(FirebaseSignInRef ref) async {
     throw Exception('uid is empty');
   }
 
-  logger.fine('await user document');
+  logger.debug('await user document');
 
   await ref.watch(userDocumentSnapshotProvider(uid).future).catchError(
         (_, __) => throw Exception('not found user document: $uid'),
       );
 
-  logger.fine('success signIn');
+  logger.debug('success signIn');
 }
 
 /// SharedPreferencesとUser Documentの削除が完了するまで待った後、サインアウトする
@@ -95,17 +95,17 @@ Future<void> firebaseUserDelete(
         name: 'delete_all',
       );
 
-  logger.fine('deleteUser');
+  logger.debug('deleteUser');
   await ref
       .watch(firebaseFunctionsProvider)
       .httpsCallable('deleteUser')
       .call<void>();
 
-  logger.fine('clear SharedPreferences');
+  logger.debug('clear SharedPreferences');
   await ref.watch(sharedPreferencesControllerProvider).clear();
 
   await ref.watch(firebaseAuthProvider).signOut();
-  logger.fine('success signOut');
+  logger.debug('success signOut');
 }
 
 /// サインインしているアカウントのプロバイダーを取得する

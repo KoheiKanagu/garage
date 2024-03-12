@@ -72,6 +72,11 @@
       "matchPackagePatterns": ["@firebase/*", "firebase-*"],
       "matchFileNames": ["firebase/**"],
       "groupName": "firebase-js"
+    },
+    {
+      "matchPackagePatterns": ["talker", "talker_*"],
+      "matchFileNames": ["packages/**", "pubspec.yaml"],
+      "groupName": "talker"
     }
   ]
 }

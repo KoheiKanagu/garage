@@ -47,10 +47,11 @@ dependencies:
   quick_actions: ^1.0.7
   riverpod_annotation: ^2.3.5
   shared_preferences: ^2.2.2
-  simple_logger: ^1.9.0+3
   slang: ^3.30.1
   slang_flutter: ^3.30.0
   smooth_page_indicator: ^1.1.0
+  talker: ^4.0.3
+  talker_flutter: ^4.0.3
   url_launcher: ^6.2.5
   uuid: ^4.3.3
 

@@ -48,7 +48,7 @@ Stream<List<LocamusicWithDocumentId>> locamusicDocuments(
   LocamusicDocumentsRef ref,
 ) async* {
   final query = await ref.watch(locamusicQueryProvider.future);
-  logger.fine(
+  logger.debug(
     {
       'message': 'locamusicQueryProvider',
       'query.parameters': query.parameters,
@@ -287,7 +287,7 @@ Future<void> locamusicHandler(
   );
 
   _.onDispose(() {
-    logger.fine('cancel locamusicHandler');
+    logger.debug('cancel locamusicHandler');
     subscription.cancel();
   });
 }

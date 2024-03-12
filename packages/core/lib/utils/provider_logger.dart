@@ -19,7 +19,7 @@ class ProviderLogger extends ProviderObserver {
 
       //　機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制
       if (hidden.contains(provider.name) && kAppEnvProd) {
-        logger.fine(
+        logger.debug(
           {
             'name': provider.name,
             'runtimeType': provider.runtimeType,
@@ -30,7 +30,7 @@ class ProviderLogger extends ProviderObserver {
       }
     }
 
-    logger.fine(
+    logger.debug(
       {
         'name': provider.name,
         'runtimeType': provider.runtimeType,
@@ -46,12 +46,12 @@ class ProviderLogger extends ProviderObserver {
     StackTrace stackTrace,
     ProviderContainer container,
   ) {
-    logger.severe(
+    logger.handle(
+      error,
+      stackTrace,
       {
         'name': provider.name,
         'runtimeType': provider.runtimeType,
-        'error': error,
-        'stackTrace': stackTrace,
       },
     );
   }
