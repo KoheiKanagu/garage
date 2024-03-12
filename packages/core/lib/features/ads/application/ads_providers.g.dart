@@ -24,7 +24,7 @@ final adsConsentStatusProvider =
 );
 
 typedef AdsConsentStatusRef = AutoDisposeFutureProviderRef<ConsentStatus>;
-String _$adsBannerHash() => r'19182e8196a44eb795fdead28cfadf9faccc0439';
+String _$adsBannerHash() => r'4a99ebcd86c8a2745dafc880abbb259a59068109';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -190,7 +190,7 @@ class _AdsBannerProviderElement
 }
 
 String _$adsRequestConsentInfoUpdateControllerHash() =>
-    r'59ea1a3435b5cd3d328f0ebdac4dbe3dc71df3de';
+    r'db521824070eb057e7a4ab3edb0557f2bf284cfe';
 
 /// トラッキングをリクエストするべきかどうか
 ///

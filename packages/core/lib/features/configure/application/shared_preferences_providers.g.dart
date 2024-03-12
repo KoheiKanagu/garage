@@ -27,7 +27,7 @@ final sharedPreferencesInstanceProvider =
 typedef SharedPreferencesInstanceRef
     = AutoDisposeProviderRef<SharedPreferences>;
 String _$sharedPreferencesControllerHash() =>
-    r'2bca893846b1e2bea9cb45a10ba16b8f9da3a9c5';
+    r'9fe5942616bd0abf1b1be69b055e411f89cbf362';
 
 /// See also [SharedPreferencesController].
 @ProviderFor(SharedPreferencesController)

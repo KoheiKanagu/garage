@@ -43,7 +43,7 @@ final locamusicQueryProvider =
 
 typedef LocamusicQueryRef = AutoDisposeFutureProviderRef<Query<Locamusic>>;
 String _$locamusicDocumentsHash() =>
-    r'6d8561407184a325f5df28dc370f828b28857bdd';
+    r'21b059b9746cef45c852c3683bf7d3f83b8cf1a1';
 
 /// See also [locamusicDocuments].
 @ProviderFor(locamusicDocuments)
@@ -802,7 +802,7 @@ final locamusicRegionHandlerProvider = AutoDisposeFutureProvider<void>.internal(
 );
 
 typedef LocamusicRegionHandlerRef = AutoDisposeFutureProviderRef<void>;
-String _$locamusicHandlerHash() => r'9272abe4675f54fcc0e847cecec93f139943ee53';
+String _$locamusicHandlerHash() => r'66eab2afdff73666b235c920cf3f2e4a70c9577c';
 
 /// ジオフェンスの状態を監視し、曲の再生を制御する
 ///
