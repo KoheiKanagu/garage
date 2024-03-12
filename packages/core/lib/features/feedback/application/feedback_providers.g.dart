@@ -44,7 +44,7 @@ final feedbackCollectionReferenceProvider =
 
 typedef FeedbackCollectionReferenceRef
     = AutoDisposeProviderRef<CollectionReference<FeedbackData>>;
-String _$feedbackSubmitHash() => r'648e131a3569ea70aaf956fca90de36a00861d46';
+String _$feedbackSubmitHash() => r'0e3448fc6705cda9971f52722278d95c0451b206';
 
 /// Copied from Dart SDK
 class _SystemHash {

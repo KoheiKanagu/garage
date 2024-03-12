@@ -61,7 +61,12 @@ Future<void> feedbackSubmit(
     from: feedbackFrom,
   );
 
-  await ref.read(feedbackCollectionReferenceProvider).add(feedbackData);
+  final docRef =
+      await ref.read(feedbackCollectionReferenceProvider).add(feedbackData);
+  await ref.watch(firebaseCrashlyticsProvider).recordError(
+        Exception('Feedback Submitted. documentId: ${docRef.id}'),
+        null,
+      );
 }
 
 @riverpod
