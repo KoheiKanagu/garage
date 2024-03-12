@@ -134,7 +134,7 @@ class ConfigurePage extends HookConsumerWidget {
 
           if (result == OkCancelResult.ok) {
             await ref
-                .read(sharedPreferencesControllerProvider.notifier)
+                .watch(sharedPreferencesControllerProvider.notifier)
                 .clear();
           }
         },

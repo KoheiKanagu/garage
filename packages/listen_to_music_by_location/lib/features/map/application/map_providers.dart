@@ -22,14 +22,14 @@ Future<void> mapDrawAnnotations(
               (value) => [
                 ref.watch(mapPageMapViewProvider).removeAnnotations(value),
                 ref
-                    .read(mapPageMapViewProvider)
+                    .watch(mapPageMapViewProvider)
                     .removeAnnotationOverlays(value),
               ],
             ),
       ),
     MapViewType.locamusicDetailPage => Future.wait(
         await ref
-            .read(locamusicDetailPageMapViewProvider)
+            .watch(locamusicDetailPageMapViewProvider
             .getAnnotations()
             .then(
               (value) => [
@@ -78,10 +78,10 @@ Future<void> mapDrawAnnotations(
           ],
         MapViewType.locamusicDetailPage => [
             ref
-                .read(locamusicDetailPageMapViewProvider)
+                .watch(locamusicDetailPageMapViewProvider)
                 .addAnnotations(annotations),
             ref
-                .read(locamusicDetailPageMapViewProvider)
+                .watch(locamusicDetailPageMapViewProvider)
                 .addAnnotationOverlays(annotations),
           ],
       },

@@ -97,7 +97,7 @@ Future<void> firebaseUserDelete(
 
   logger.fine('deleteUser');
   await ref
-      .read(firebaseFunctionsProvider)
+      .watch(firebaseFunctionsProvider)
       .httpsCallable('deleteUser')
       .call<void>();
 

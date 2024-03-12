@@ -93,7 +93,7 @@ class HomePage extends HookConsumerWidget {
                     label: core_strings.i18n.ads.please_check_banner,
                     onPressed: () {
                       ref
-                          .read(
+                          .watch(
                             adsRequestConsentInfoUpdateControllerProvider
                                 .notifier,
                           )

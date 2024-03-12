@@ -20,7 +20,7 @@ CollectionReference<Locamusic> locamusicCollectionReference(
   LocamusicCollectionReferenceRef ref,
 ) =>
     ref
-        .read(firebaseFirestoreProvider)
+        .watch(firebaseFirestoreProvider)
         .collection(CollectionPath.kLocamusics)
         .withConverter(
           fromFirestore: Locamusic.fromFirestore,

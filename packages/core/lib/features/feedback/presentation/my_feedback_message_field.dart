@@ -25,7 +25,7 @@ class MyFeedbackMessageField extends HookConsumerWidget {
         : i18n.feedback.please_enter_your_feedback;
 
     void onSaved(String? newValue) => ref
-        .read(feedbackDataControllerProvider.notifier)
+        .watch(feedbackDataControllerProvider.notifier)
         .updateMessage(newValue);
 
     final themeType = InheritedThemeDetector.of(context);

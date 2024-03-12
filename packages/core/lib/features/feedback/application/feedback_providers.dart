@@ -40,7 +40,7 @@ CollectionReference<FeedbackData> feedbackCollectionReference(
   FeedbackCollectionReferenceRef ref,
 ) {
   return ref
-      .read(firebaseFirestoreDefaultProvider)
+      .watch(firebaseFirestoreDefaultProvider)
       .collection(CollectionPath.kFeedbacks)
       .withConverter(
         fromFirestore: FeedbackData.fromFirestore,

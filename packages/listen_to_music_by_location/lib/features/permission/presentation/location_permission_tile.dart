@@ -44,7 +44,7 @@ class LocationPermissionTile extends HookConsumerWidget {
           },
           onTap: () async {
             final status = await ref
-                .read(locationManagerProvider)
+                .watch(locationManagerProvider)
                 .currentPermissionStatus();
 
             switch (status) {
@@ -63,7 +63,7 @@ class LocationPermissionTile extends HookConsumerWidget {
                       await ref.watch(openSettingsProvider).openSettings();
                     case _ShowActionSheetResult.requestPermission:
                       await ref
-                          .read(locationManagerProvider)
+                          .watch(locationManagerProvider)
                           .requestAuthorization(always: false);
                     case _:
                     // cancel
@@ -85,7 +85,7 @@ class LocationPermissionTile extends HookConsumerWidget {
                       await ref.watch(openSettingsProvider).openSettings();
                     case _ShowActionSheetResult.requestPermission:
                       await ref
-                          .read(locationManagerProvider)
+                          .watch(locationManagerProvider)
                           .requestAuthorization(always: true);
                     case _:
                     // cancel

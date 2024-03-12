@@ -79,7 +79,7 @@ class AboutThisAppPage extends HookConsumerWidget {
 
             if (result == OkCancelResult.ok) {
               await ref
-                  .read(adsRequestConsentInfoUpdateControllerProvider.notifier)
+                  .watch(adsRequestConsentInfoUpdateControllerProvider.notifier)
                   .reset();
               if (context.mounted) {
                 await showOkAlertDialog(
