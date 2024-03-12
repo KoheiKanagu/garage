@@ -91,6 +91,14 @@ void pullAndCheckoutMain() {
   run(
     'git',
     arguments: [
+      'fetch',
+      '--all',
+    ],
+  );
+
+  run(
+    'git',
+    arguments: [
       'checkout',
       'main',
     ],
@@ -100,6 +108,8 @@ void pullAndCheckoutMain() {
     'git',
     arguments: [
       'pull',
+      'origin',
+      'main',
     ],
   );
 }
