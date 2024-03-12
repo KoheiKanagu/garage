@@ -32,7 +32,7 @@ scripts:
     run: |
       dart fix --apply tool
       melos exec -- dart fix --apply lib
-      find tool packages/*/lib packages/*/test -name '*.dart' -not -path 'packages/*/lib/gen/*' -exec dart format --set-exit-if-changed {} \;
+      grind dart-format-all
 
   dart:analyze:
     description: |
