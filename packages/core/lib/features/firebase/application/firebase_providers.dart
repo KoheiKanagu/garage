@@ -90,14 +90,14 @@ Future<FirebaseRemoteConfig> firebaseRemoteConfig(
   if (kDebugMode) {
     await instance.setConfigSettings(
       RemoteConfigSettings(
-        fetchTimeout: const Duration(seconds: 5),
+        fetchTimeout: const Duration(seconds: 10),
         minimumFetchInterval: const Duration(seconds: 30),
       ),
     );
   } else {
     await instance.setConfigSettings(
       RemoteConfigSettings(
-        fetchTimeout: const Duration(seconds: 5),
+        fetchTimeout: const Duration(seconds: 10),
         // service_statusの更新が考えられるため、3時間に1回はfetchする
         minimumFetchInterval: const Duration(hours: 3),
       ),
