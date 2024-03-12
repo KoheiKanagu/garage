@@ -51,7 +51,7 @@ class UserInfoPage extends HookConsumerWidget {
           }
 
           final indicator = showMyProgressIndicator();
-          await ref.read(firebaseUserDeleteProvider.future);
+          await ref.watch(firebaseUserDeleteProvider.future);
           indicator.dismiss();
 
           if (context.mounted) {

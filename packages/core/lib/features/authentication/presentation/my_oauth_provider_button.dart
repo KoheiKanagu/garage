@@ -36,7 +36,7 @@ class MyOAuthProviderButton extends HookConsumerWidget {
         );
 
         if (result == OkCancelResult.ok) {
-          await ref.read(
+          await ref.watch(
             firebaseUserUnlinkProviderProvider(
               type.providerId,
             ).future,
@@ -45,7 +45,7 @@ class MyOAuthProviderButton extends HookConsumerWidget {
         return;
       }
 
-      final isSignIn = await ref.read(firebaseUserIsSignedInProvider.future);
+      final isSignIn = await ref.watch(firebaseUserIsSignedInProvider.future);
       if (context.mounted) {
         provider.signIn(
           Theme.of(context).platform,

@@ -19,12 +19,13 @@ class MyFeedbackEmailField extends HookConsumerWidget {
     );
 
     String? validator(String? value) =>
-        ref.read(feedbackDataControllerProvider.notifier).validateEmail(value)
+        ref.watch(feedbackDataControllerProvider.notifier).validateEmail(value)
             ? null
             : i18n.feedback.too_long;
 
-    void onSaved(String? newValue) =>
-        ref.read(feedbackDataControllerProvider.notifier).updateEmail(newValue);
+    void onSaved(String? newValue) => ref
+        .watch(feedbackDataControllerProvider.notifier)
+        .updateEmail(newValue);
 
     final themeType = InheritedThemeDetector.of(context);
     return switch (themeType) {

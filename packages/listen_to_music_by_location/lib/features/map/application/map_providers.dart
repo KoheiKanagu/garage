@@ -18,9 +18,9 @@ Future<void> mapDrawAnnotations(
   // 既存のAnnotationを削除
   await switch (mapViewType) {
     MapViewType.mapPage => Future.wait(
-        await ref.read(mapPageMapViewProvider).getAnnotations().then(
+        await ref.watch(mapPageMapViewProvider).getAnnotations().then(
               (value) => [
-                ref.read(mapPageMapViewProvider).removeAnnotations(value),
+                ref.watch(mapPageMapViewProvider).removeAnnotations(value),
                 ref
                     .read(mapPageMapViewProvider)
                     .removeAnnotationOverlays(value),
@@ -71,8 +71,10 @@ Future<void> mapDrawAnnotations(
     await Future.wait(
       switch (mapViewType) {
         MapViewType.mapPage => [
-            ref.read(mapPageMapViewProvider).addAnnotations(annotations),
-            ref.read(mapPageMapViewProvider).addAnnotationOverlays(annotations),
+            ref.watch(mapPageMapViewProvider).addAnnotations(annotations),
+            ref
+                .watch(mapPageMapViewProvider)
+                .addAnnotationOverlays(annotations),
           ],
         MapViewType.locamusicDetailPage => [
             ref
@@ -94,7 +96,7 @@ Future<void> mapSetAnnotationRegion(
   required LocamusicWithDocumentId locamusic,
   required MapViewType mapViewType,
 }) async {
-  await ref.read(
+  await ref.watch(
     mapDrawAnnotationsProvider(
       locamusics: [locamusic].toList(),
       mapViewType: mapViewType,
@@ -103,14 +105,14 @@ Future<void> mapSetAnnotationRegion(
 
   switch (mapViewType) {
     case MapViewType.mapPage:
-      await ref.read(mapPageMapViewProvider).setMapRegion(
+      await ref.watch(mapPageMapViewProvider).setMapRegion(
             latitude: locamusic.locamusic.geoPoint.latitude,
             longitude: locamusic.locamusic.geoPoint.longitude,
             // MKCircleが十分に表示されるように描画範囲を広げる
             meters: locamusic.locamusic.distance * 2.5,
           );
     case MapViewType.locamusicDetailPage:
-      await ref.read(locamusicDetailPageMapViewProvider).setMapRegion(
+      await ref.watch(locamusicDetailPageMapViewProvider).setMapRegion(
             latitude: locamusic.locamusic.geoPoint.latitude,
             longitude: locamusic.locamusic.geoPoint.longitude,
             // MKCircleが十分に表示されるように描画範囲を広げる
@@ -138,7 +140,7 @@ Future<void> mapPageHandler(
   }
 
   // Annotationを描画
-  await ref.read(
+  await ref.watch(
     mapDrawAnnotationsProvider(
       locamusics: locamusics,
       mapViewType: MapViewType.mapPage,
@@ -164,7 +166,7 @@ Future<void> mapLocamusicDetailPageHandler(
   }
 
   // カメラ位置を調整
-  await ref.read(
+  await ref.watch(
     mapSetAnnotationRegionProvider(
       locamusic: (
         documentId: documentId,

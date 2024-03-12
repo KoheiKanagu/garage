@@ -68,7 +68,7 @@ class UpdateAppPageHome extends HookConsumerWidget {
 
     void onPressed() {
       final uri = storeUri(
-        packageName: ref.read(packageInfoPackageNameProvider),
+        packageName: ref.watch(packageInfoPackageNameProvider),
       );
       if (uri != null) {
         launchUrl(
@@ -147,7 +147,7 @@ class UpdateAppPageHome extends HookConsumerWidget {
           const Gap(8),
           i18n.update_app
               .description(
-                storeName: ref.read(packageInfoInstallerStoreProvider) ?? '',
+                storeName: ref.watch(packageInfoInstallerStoreProvider) ?? '',
               )
               .wrapBudouXText(
                 textAlign: TextAlign.center,

@@ -46,11 +46,11 @@ class MusicPermissionTile extends HookConsumerWidget {
           },
           onTap: () async {
             final status =
-                await ref.read(musicKitCurrentPermissionStatusProvider.future);
+                await ref.watch(musicKitCurrentPermissionStatusProvider.future);
 
             switch (status) {
               case MusicAuthorizationStatus.notDetermined:
-                await ref.read(musicKitProvider).requestPermission();
+                await ref.watch(musicKitProvider).requestPermission();
                 // 現在の権限を取得させるためにinvalidate
                 ref.invalidate(musicKitCurrentPermissionStatusProvider);
 
@@ -72,7 +72,7 @@ class MusicPermissionTile extends HookConsumerWidget {
                     ],
                   );
                   if (result == i18n.permission.settings) {
-                    await ref.read(openSettingsProvider).openSettings();
+                    await ref.watch(openSettingsProvider).openSettings();
                   }
                 }
               case MusicAuthorizationStatus.authorized:

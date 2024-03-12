@@ -48,14 +48,14 @@ Future<bool> remoteConfigGetBoolValue(
 Stream<Map<String, RemoteConfigValue>> remoteConfigValues(
   RemoteConfigValuesRef ref,
 ) async* {
-  final config = await ref.read(firebaseRemoteConfigProvider.future);
+  final config = await ref.watch(firebaseRemoteConfigProvider.future);
   yield config.getAll();
 
   // "Multiple listeners can be added by calling this method again"
   // なので取り扱いに注意が必要
   yield* config.onConfigUpdated.asyncMap(
     (_) async {
-      final config = await ref.read(firebaseRemoteConfigProvider.future);
+      final config = await ref.watch(firebaseRemoteConfigProvider.future);
       await config.activate();
       return config.getAll();
     },

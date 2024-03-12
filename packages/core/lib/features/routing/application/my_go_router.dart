@@ -97,10 +97,10 @@ Raw<GoRouter> myGoRouter(
       // awaitしているがそれぞれlistenしているし、[main_core.dart] で読み込み済みなので待つことはないはず。
       final results = await Future.wait(
         [
-          ref.read(firebaseUserIsSignedInProvider.future),
-          ref.read(configureIsRequiredUpdateProvider.future),
-          ref.read(configureIsReleasedNewVersionProvider.future),
-          ref.read(configureServiceStatusProvider.future),
+          ref.watch(firebaseUserIsSignedInProvider.future),
+          ref.watch(configureIsRequiredUpdateProvider.future),
+          ref.watch(configureIsReleasedNewVersionProvider.future),
+          ref.watch(configureServiceStatusProvider.future),
         ],
       ).timeout(
         const Duration(seconds: 5),

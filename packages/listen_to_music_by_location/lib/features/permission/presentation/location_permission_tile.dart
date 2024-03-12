@@ -60,7 +60,7 @@ class LocationPermissionTile extends HookConsumerWidget {
 
                   switch (result) {
                     case _ShowActionSheetResult.openSettings:
-                      await ref.read(openSettingsProvider).openSettings();
+                      await ref.watch(openSettingsProvider).openSettings();
                     case _ShowActionSheetResult.requestPermission:
                       await ref
                           .read(locationManagerProvider)
@@ -82,7 +82,7 @@ class LocationPermissionTile extends HookConsumerWidget {
 
                   switch (result) {
                     case _ShowActionSheetResult.openSettings:
-                      await ref.read(openSettingsProvider).openSettings();
+                      await ref.watch(openSettingsProvider).openSettings();
                     case _ShowActionSheetResult.requestPermission:
                       await ref
                           .read(locationManagerProvider)
@@ -103,7 +103,7 @@ class LocationPermissionTile extends HookConsumerWidget {
                   );
 
                   if (result == _ShowActionSheetResult.openSettings) {
-                    await ref.read(openSettingsProvider).openSettings();
+                    await ref.watch(openSettingsProvider).openSettings();
                   }
                 }
 

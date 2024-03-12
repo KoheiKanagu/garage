@@ -94,7 +94,7 @@ Future<String> locamusicAdd(
   required GeoPoint geoPoint,
   required DistanceRange distanceRange,
 }) async {
-  final uid = await ref.read(firebaseUserUidProvider.future);
+  final uid = await ref.watch(firebaseUserUidProvider.future);
   if (uid == null) {
     throw Exception('uid is null');
   }

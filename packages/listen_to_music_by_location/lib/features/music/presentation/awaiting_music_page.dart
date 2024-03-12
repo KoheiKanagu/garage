@@ -33,10 +33,10 @@ class AwaitingMusicPage extends HookConsumerWidget {
 
         final indicator = showMyProgressIndicator();
 
-        final doc = await ref.read(
+        final doc = await ref.watch(
           locamusicDocumentProvider(documentId).future,
         );
-        await ref.read(
+        await ref.watch(
           locamusicUpdateProvider(
             documentId,
             locamusic: doc.copyWith(
