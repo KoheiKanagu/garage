@@ -57,7 +57,7 @@ final locationManagerProvider = AutoDisposeProvider<LocationManager>.internal(
 
 typedef LocationManagerRef = AutoDisposeProviderRef<LocationManager>;
 String _$locationManagerCurrentPermissionStatusStreamHash() =>
-    r'cef0d252f4c894a9b92462b6cf8c88e33f4ba4a1';
+    r'9d67985db18dd9b28db30c58454a45fe7cbceec0';
 
 /// 位置情報の権限をStreamで取得する
 ///

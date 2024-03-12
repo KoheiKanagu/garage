@@ -9,7 +9,7 @@ part of 'locamusic_providers.dart';
 // **************************************************************************
 
 String _$locamusicCollectionReferenceHash() =>
-    r'9394fec8ae51fbe84a08c62e1593598af1aa0710';
+    r'5275435221c951e32feadfb08f839f3053ae874b';
 
 /// See also [locamusicCollectionReference].
 @ProviderFor(locamusicCollectionReference)
@@ -341,7 +341,7 @@ class _LocamusicSongDetailsProviderElement
   String get musicId => (origin as LocamusicSongDetailsProvider).musicId;
 }
 
-String _$locamusicAddHash() => r'52e3066430e404a04e16662bbb0dce7bb94ea32c';
+String _$locamusicAddHash() => r'cfddeb0122a0af11408418ca426ba36f554e792c';
 
 /// [CollectionPath.kLocamusics]に[Locamusic]を追加する
 ///

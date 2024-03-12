@@ -9,7 +9,7 @@ part of 'map_providers.dart';
 // **************************************************************************
 
 String _$mapDrawAnnotationsHash() =>
-    r'4066b6415fe55e9e29704ce40aac68fb6fe6d612';
+    r'914a87b9881e0804f3d1648220923e893eafb6b7';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -178,7 +178,7 @@ class _MapDrawAnnotationsProviderElement
 }
 
 String _$mapSetAnnotationRegionHash() =>
-    r'32d19fd3fea92dace11dff6ec529b4d22c48ff72';
+    r'042d5a58ba57d455c9ddb37edb6c7975bf34bea7';
 
 /// Annotationを描画してカメラをズームする
 ///
@@ -338,7 +338,7 @@ class _MapSetAnnotationRegionProviderElement
       (origin as MapSetAnnotationRegionProvider).mapViewType;
 }
 
-String _$mapPageHandlerHash() => r'bb70a02eba2a2994569e0753229f10031d7d734a';
+String _$mapPageHandlerHash() => r'1d3d678c52685c1fa06ad8ab7f41706a7a9a1191';
 
 /// [MapPage] のMapViewのハンドリング
 ///
@@ -356,7 +356,7 @@ final mapPageHandlerProvider = AutoDisposeFutureProvider<void>.internal(
 
 typedef MapPageHandlerRef = AutoDisposeFutureProviderRef<void>;
 String _$mapLocamusicDetailPageHandlerHash() =>
-    r'fa1974aab6624005f05b2df60f8a70e0bac5000c';
+    r'f24918b21261ec893d41a7f1ef6a21c0a21f668b';
 
 /// [LocamusicDetailPage] のMapViewのハンドリング
 ///
