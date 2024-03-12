@@ -19,30 +19,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// [firebaseOptions] is the Firebase options.
 ///
 /// [overrides] is the list of Providers to override.
-///
-/// [bannerAdUnitId] is the AdMob banner ad unit ID.
-/// If not specified, the test ad unit ID will be used.
 Future<ProviderContainer?> initialize({
   required FirebaseOptions firebaseOptions,
   List<Override>? overrides,
-  String? bannerAdUnitId,
 }) {
   WidgetsFlutterBinding.ensureInitialized();
 
   final locale = LocaleSettings.useDeviceLocale();
   Intl.defaultLocale = locale.languageCode;
-
-  /// AdMob
-  if (bannerAdUnitId != null) {
-    kBannerAdUnitId = bannerAdUnitId;
-  } else {
-    if (kAppEnvProd) {
-      logger.warning(
-        '${AppEnv.prod} is selected, but it is a test ad unit id.',
-      );
-    }
-    kBannerAdUnitId = kBannerAdUnitIdTest;
-  }
 
   return Future<ProviderContainer?>(
     () => _initialize(
