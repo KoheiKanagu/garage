@@ -84,7 +84,7 @@ class MyOAuthProviderButton extends HookConsumerWidget {
       loadingIndicator: loadingIndicator(provider),
       onError: (exception) {
         if (exception is AuthCancelledException) {
-          logger.fine(
+          logger.debug(
             {
               'message': 'onCancelled',
               'providerId': provider.providerId,
@@ -97,7 +97,7 @@ class MyOAuthProviderButton extends HookConsumerWidget {
         if (exception is fa.FirebaseAuthException) {
           switch (exception.code) {
             case 'web-context-cancelled':
-              logger.fine(
+              logger.debug(
                 {
                   'message': 'onCancelled',
                   'providerId': provider.providerId,
@@ -109,13 +109,14 @@ class MyOAuthProviderButton extends HookConsumerWidget {
           }
         }
 
-        logger.severe({
-          'onError': provider.providerId,
-          'exception': exception,
-        });
+        logger.handle(
+          exception,
+          StackTrace.current,
+          'provider id: ${provider.providerId}',
+        );
       },
       onCancelled: () {
-        logger.fine(
+        logger.debug(
           {
             'message': 'onCancelled',
             'providerId': provider.providerId,

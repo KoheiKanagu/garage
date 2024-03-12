@@ -106,7 +106,7 @@ class ConfigurePage extends HookConsumerWidget {
           );
           if (result == OkCancelResult.ok) {
             disableRouterRedirect = true;
-            logger.fine('disableRouterRedirect');
+            logger.debug('disableRouterRedirect');
           }
         },
       ),
@@ -120,7 +120,7 @@ class ConfigurePage extends HookConsumerWidget {
 
           if (result == OkCancelResult.ok) {
             await ref.watch(firebaseAuthProvider).signOut();
-            logger.fine('SignOut');
+            logger.debug('SignOut');
           }
         },
       ),
@@ -145,14 +145,13 @@ class ConfigurePage extends HookConsumerWidget {
           MobileAds.instance.openAdInspector(
             (error) {
               if (error != null) {
-                logger.severe(
+                logger.handle(
+                  error,
+                  StackTrace.current,
                   {
-                    'message': 'openAdInspector',
-                    'error': {
-                      'code': error.code,
-                      'domain': error.domain,
-                      'message': error.message,
-                    },
+                    'code': error.code,
+                    'domain': error.domain,
+                    'message': error.message,
                   },
                 );
               }

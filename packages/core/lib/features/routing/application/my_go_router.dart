@@ -64,15 +64,18 @@ Raw<GoRouter> myGoRouter(
       ...configure_route.$appRoutes,
     ],
     errorBuilder: (context, state) {
-      logger.severe({
-        'error': state.error,
-        'name': state.name,
-        'fullPath': state.fullPath,
-        'pathParameters': state.pathParameters,
-        'queryParameters': state.uri.queryParameters,
-        'location': state.uri,
-        'queryParametersAll': state.uri.queryParametersAll,
-      });
+      logger.handle(
+        state.error.toString(),
+        StackTrace.current,
+        {
+          'name': state.name,
+          'fullPath': state.fullPath,
+          'pathParameters': state.pathParameters,
+          'queryParameters': state.uri.queryParameters,
+          'location': state.uri,
+          'queryParametersAll': state.uri.queryParametersAll,
+        },
+      );
 
       return const FailedRunAppPage();
     },
@@ -107,7 +110,9 @@ Raw<GoRouter> myGoRouter(
         onTimeout: () => [],
       );
       if (results.isEmpty) {
-        logger.severe('Failed to redirect');
+        logger.handle(
+          Exception('Failed to redirect'),
+        );
         return const configure_route.FailedRunAppPageRoute().location;
       }
 

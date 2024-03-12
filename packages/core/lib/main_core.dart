@@ -59,7 +59,7 @@ Future<ProviderContainer> _initialize({
     await MobileAds.instance.initialize(),
   );
 
-  logger.fine(
+  logger.debug(
     {
       'message': 'MobileAds initialized',
       'value': adsStatus.adapterStatuses.entries.map(

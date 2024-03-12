@@ -43,7 +43,7 @@ class AdsRequestConsentInfoUpdateController
       () async {
         final available =
             await ConsentInformation.instance.isConsentFormAvailable();
-        logger.fine(
+        logger.debug(
           {
             'message': 'isConsentFormAvailable',
             'available': available,
@@ -60,11 +60,10 @@ class AdsRequestConsentInfoUpdateController
           ConsentStatus.notRequired || ConsentStatus.obtained => false,
         };
       },
-      (error) => logger.severe(
-        {
-          'errorCode': error.errorCode,
-          'message': error.message,
-        },
+      (error) => logger.handle(
+        error,
+        StackTrace.current,
+        error.message,
       ),
     );
   }
@@ -80,11 +79,10 @@ class AdsRequestConsentInfoUpdateController
           consentForm.show(
             (formError) {
               if (formError != null) {
-                logger.severe(
-                  {
-                    'errorCode': formError.errorCode,
-                    'message': formError.message,
-                  },
+                logger.handle(
+                  formError,
+                  StackTrace.current,
+                  formError.message,
                 );
               }
               loadForm();
@@ -92,11 +90,10 @@ class AdsRequestConsentInfoUpdateController
           );
         }
       },
-      (formError) => logger.severe(
-        {
-          'errorCode': formError.errorCode,
-          'message': formError.message,
-        },
+      (formError) => logger.handle(
+        formError,
+        StackTrace.current,
+        formError.message,
       ),
     );
   }
@@ -136,7 +133,7 @@ Future<BannerAd> adsBanner(
     adUnitId: adUnitId,
     listener: BannerAdListener(
       onAdLoaded: (ad) {
-        logger.fine(
+        logger.debug(
           {
             'responseInfo': ad.responseInfo,
             'adUnitId': ad.adUnitId,
