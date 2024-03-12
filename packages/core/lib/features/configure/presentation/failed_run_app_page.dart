@@ -4,6 +4,7 @@ import 'package:core/gen/strings.g.dart';
 import 'package:core/utils/inherited_theme_detector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class FailedRunAppPage extends StatelessWidget {
   const FailedRunAppPage({
@@ -20,11 +21,21 @@ class FailedRunAppPage extends StatelessWidget {
       InheritedThemeType.material => MaterialApp(
           supportedLocales: AppLocaleUtils.supportedLocales,
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: const [
+            GlobalCupertinoLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
           home: const FailedRunAppPageHome(),
         ),
       InheritedThemeType.cupertino => CupertinoApp(
           supportedLocales: AppLocaleUtils.supportedLocales,
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: const [
+            GlobalCupertinoLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
           home: const FailedRunAppPageHome(),
         ),
     };
