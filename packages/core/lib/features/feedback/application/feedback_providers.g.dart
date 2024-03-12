@@ -27,7 +27,7 @@ final feedbackDeviceInfoProvider =
 typedef FeedbackDeviceInfoRef
     = AutoDisposeFutureProviderRef<FeedbackDeviceInfo>;
 String _$feedbackCollectionReferenceHash() =>
-    r'69636b249f6f079d3b8e3c4cde298e6c7d83c6bc';
+    r'8ab1d546948233a9691f0ddd202ceb07ade2e245';
 
 /// See also [feedbackCollectionReference].
 @ProviderFor(feedbackCollectionReference)
@@ -44,7 +44,7 @@ final feedbackCollectionReferenceProvider =
 
 typedef FeedbackCollectionReferenceRef
     = AutoDisposeProviderRef<CollectionReference<FeedbackData>>;
-String _$feedbackSubmitHash() => r'0e3448fc6705cda9971f52722278d95c0451b206';
+String _$feedbackSubmitHash() => r'db4f1dea25eb7dd7ea75053835b383d71e8bae8e';
 
 /// Copied from Dart SDK
 class _SystemHash {
