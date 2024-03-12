@@ -1,7 +1,7 @@
 name: listen_to_music_by_location
 publish_to: "none"
 
-version: 1.0.5+23
+version: 1.0.6+24
 
 environment:
   sdk: ^3.4.0-0
