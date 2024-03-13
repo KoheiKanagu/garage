@@ -131,6 +131,11 @@ scripts:
         --target lib/main_dev.dart \
         --obfuscate \
         --split-debug-info build/app/outputs
+
+      appId=$(jq -r '.flutter.platforms.android.buildConfigurations."src/dev".appId' <firebase.json)
+      firebase crashlytics:symbols:upload \
+        --app "$appId" \
+        build/app/outputs/app.android-*.symbols
     exec:
       concurrency: 1
     packageFilters:
@@ -146,8 +151,9 @@ scripts:
         --obfuscate \
         --split-debug-info build/app/outputs
 
+      appId=$(jq -r '.flutter.platforms.android.buildConfigurations."src/prod".appId' <firebase.json)
       firebase crashlytics:symbols:upload \
-        --app $(cat packages/$MELOS_PACKAGES/android/app/src/prod/google-services.json | jq -r '.client[0].client_info.mobilesdk_app_id') \
+        --app "$appId" \
         build/app/outputs/app.android-*.symbols
 
       echo "TODO: upload app bundle to Google Play Console."
