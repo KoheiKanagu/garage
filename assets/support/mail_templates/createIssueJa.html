@@ -1,0 +1,41 @@
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+      }
+      .container {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 10px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+      }
+      .footer {
+        width: 80%;
+        margin: 0 auto;
+        color: gray;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p><strong>{{appName}}</strong> をご利用いただきありがとうございます。</p>
+      <p>このメールは、お客様からのお問い合わせに対する自動返信メールです。</p>
+      <p>担当者が確認後、改めてご連絡させていただきます。</p>
+      <hr />
+      <h3>{{type}}のお問い合わせ</h3>
+      <p>{{message}}</p>
+    </div>
+  </body>
+
+  {{> footerJa}}
+</html>

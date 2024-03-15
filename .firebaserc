@@ -3,5 +3,13 @@
     "default": "kingu-garage-dev",
     "dev": "kingu-garage-dev",
     "prod": "kingu-garage-prod"
+  },
+  "targets": {},
+  "etags": {
+    "kingu-garage-dev": {
+      "extensionInstances": {
+        "firestore-send-email": "9758cf60d4fabb37d517a64989527be1fcf9995d08ff642e2d43e3b6625fdf4b"
+      }
+    }
   }
 }
