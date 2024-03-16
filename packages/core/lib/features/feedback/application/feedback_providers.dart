@@ -1,9 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/constants/collection_path.dart';
 import 'package:core/core.dart';
+import 'package:core/features/feedback/domain/feedback_comment.dart';
+import 'package:core/features/feedback/domain/feedback_extras.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -11,6 +12,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'feedback_providers.g.dart';
 
 const kFeedbackShortcut = 'feedback_shortcut';
+
+final feedbackFormKey = GlobalKey<FormState>();
 
 @riverpod
 Future<FeedbackDeviceInfo> feedbackDeviceInfo(
@@ -38,15 +41,29 @@ Future<FeedbackDeviceInfo> feedbackDeviceInfo(
 @riverpod
 CollectionReference<FeedbackData> feedbackCollectionReference(
   FeedbackCollectionReferenceRef ref,
-) {
-  return ref
-      .watch(firebaseFirestoreDefaultProvider)
-      .collection(CollectionPath.kFeedbacks)
-      .withConverter(
-        fromFirestore: FeedbackData.fromFirestore,
-        toFirestore: FeedbackData.toFirestore,
-      );
-}
+) =>
+    ref
+        .watch(firebaseFirestoreDefaultProvider)
+        .collection(CollectionPath.kFeedbacks)
+        .withConverter(
+          fromFirestore: FeedbackData.fromFirestore,
+          toFirestore: FeedbackData.toFirestore,
+        );
+
+@riverpod
+CollectionReference<FeedbackComment> feedbackCommentCollectionReference(
+  FeedbackCommentCollectionReferenceRef ref,
+  String feedbackId,
+) =>
+    ref
+        .watch(firebaseFirestoreDefaultProvider)
+        .collection(CollectionPath.kFeedbacks)
+        .doc(feedbackId)
+        .collection(CollectionPath.kFeedbacksComments)
+        .withConverter(
+          fromFirestore: FeedbackComment.fromFirestore,
+          toFirestore: FeedbackComment.toFirestore,
+        );
 
 @riverpod
 Future<void> feedbackSubmit(
@@ -54,18 +71,26 @@ Future<void> feedbackSubmit(
   UserFeedback userFeedback, {
   required FeedbackFrom feedbackFrom,
 }) async {
-  final data = userFeedback.extra!['data'] as FeedbackData;
+  final extras = FeedbackExtras.fromMap(userFeedback.extra!);
 
-  final feedbackData = data.copyWith(
-    screenshotBase64: base64Encode(userFeedback.screenshot),
-    from: feedbackFrom,
+  final feedbackData = extras.feedbackData;
+  final feedbackComment = extras.feedbackComment.copyWith(
+    attachments: [
+      if (extras.attachScreenshot)
+        UriData.fromBytes(
+          userFeedback.screenshot,
+          mimeType: 'image/png',
+        ),
+    ],
   );
 
+  // フィードバックを作成
   final docRef =
       await ref.watch(feedbackCollectionReferenceProvider).add(feedbackData);
-  await ref.watch(firebaseCrashlyticsProvider).recordError(
-        Exception('Feedback Submitted. documentId: ${docRef.id}'),
-        null,
+
+  // フィードバックにコメントを追加
+  await ref.watch(feedbackCommentCollectionReferenceProvider(docRef.id)).add(
+        feedbackComment,
       );
 }
 
@@ -73,60 +98,79 @@ Future<void> feedbackSubmit(
 Future<FeedbackData> feedbackDataState(
   FeedbackDataStateRef ref,
 ) async {
-  final currentUser = await ref.watch(firebaseUserProvider.future);
+  final (currentUser, deviceInfo) = (
+    await ref.watch(firebaseUserProvider.future),
+    await ref.watch(feedbackDeviceInfoProvider.future)
+  );
 
   return FeedbackData(
-    uid: currentUser?.uid,
+    createdBy: currentUser?.uid,
     email: null,
-    message: '',
-    deviceInfo: await ref.watch(feedbackDeviceInfoProvider.future),
+    deviceInfo: deviceInfo,
     type: FeedbackType.impression,
   );
 }
 
 @riverpod
-class FeedbackDataController extends _$FeedbackDataController {
-  static final formKey = GlobalKey<FormState>();
+Future<FeedbackComment> feedbackCommentState(
+  FeedbackCommentStateRef ref,
+) async {
+  final currentUser = await ref.watch(firebaseUserProvider.future);
 
+  return FeedbackComment(
+    createdBy: currentUser?.uid,
+    message: '',
+  );
+}
+
+@riverpod
+String? feedbackValidateEmail(
+  FeedbackValidateEmailRef ref, {
+  required String? value,
+  required String errorMessage,
+}) {
+  // 1024文字以上はエラー
+  if ((value ?? '').length > 1024) {
+    return null;
+  }
+  return errorMessage;
+}
+
+@riverpod
+String? feedbackValidateMessage(
+  FeedbackValidateMessageRef ref, {
+  required String? value,
+  required String errorMessage,
+}) {
+  // 空の場合はエラー
+  if (value?.trim().isEmpty ?? true) {
+    return null;
+  }
+  return errorMessage;
+}
+
+@riverpod
+class FeedbackDataController extends _$FeedbackDataController {
   @override
   Future<FeedbackData> build() {
     return ref.watch(feedbackDataStateProvider.future);
   }
 
-  bool validateEmail(String? email) {
-    // 1024文字以上はエラー
-    if ((email ?? '').length > 1024) {
-      return false;
-    }
-    return true;
-  }
-
   void updateEmail(String? email) {
-    state = state.whenData(
-      (value) => value.copyWith(
-        email: email,
+    final error = ref.watch(
+      feedbackValidateEmailProvider(
+        value: email,
+        errorMessage: '',
       ),
     );
-  }
 
-  bool validateMessage(String? message) {
-    // 空の場合はエラー
-    if (message?.trim().isEmpty ?? true) {
-      return false;
+    if (error == null) {
+      state = state.whenData(
+        (value) => value.copyWith(
+          email: email,
+        ),
+      );
     }
-    return true;
-  }
-
-  void updateMessage(String? message) {
-    if (!validateMessage(message)) {
-      return;
-    }
-
-    state = state.whenData(
-      (value) => value.copyWith(
-        message: message!,
-      ),
-    );
   }
 
   void updateType(FeedbackType type) {
@@ -136,11 +180,29 @@ class FeedbackDataController extends _$FeedbackDataController {
       ),
     );
   }
+}
 
-  FeedbackData? commit() {
-    formKey.currentState?.save();
-    final validated = formKey.currentState?.validate() ?? false;
+@riverpod
+class FeedbackCommentController extends _$FeedbackCommentController {
+  @override
+  Future<FeedbackComment> build() {
+    return ref.watch(feedbackCommentStateProvider.future);
+  }
 
-    return validated ? state.asData?.value : null;
+  void updateMessage(String? message) {
+    final error = ref.watch(
+      feedbackValidateMessageProvider(
+        value: message,
+        errorMessage: '',
+      ),
+    );
+
+    if (error == null) {
+      state = state.whenData(
+        (value) => value.copyWith(
+          message: message!,
+        ),
+      );
+    }
   }
 }

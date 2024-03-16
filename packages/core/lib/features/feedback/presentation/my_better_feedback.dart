@@ -35,33 +35,27 @@ class MyBetterFeedback extends StatelessWidget {
         dragHandleColor: CupertinoColors.systemGrey,
       ),
       feedbackBuilder: (_, submit, scrollController) {
-        final child = MyFeedbackSheet(
-          onSubmit: (data) {
-            submit(
-              'unused this value',
-              extras: {
-                'data': data,
-              },
-            );
-          },
-          scrollController: scrollController,
-        );
-
         if (cupertinoThemeData != null) {
           return CupertinoTheme(
             data: cupertinoThemeData!,
-            child: child,
+            child: MyFeedbackSheet(
+              submit: submit,
+              scrollController: scrollController,
+            ),
           );
         }
 
         if (materialThemeData != null) {
           return Theme(
             data: materialThemeData!,
-            child: child,
+            child: MyFeedbackSheet(
+              submit: submit,
+              scrollController: scrollController,
+            ),
           );
         }
 
-        return child;
+        throw UnimplementedError();
       },
       child: _Wrap(
         child: child,

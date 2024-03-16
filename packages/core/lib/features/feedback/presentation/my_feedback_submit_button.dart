@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/features/feedback/application/feedback_providers.dart';
+import 'package:core/features/feedback/domain/feedback_extras.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:core/utils/inherited_theme_detector.dart';
 import 'package:feedback/feedback.dart';
@@ -37,7 +38,7 @@ class MyFeedbackSubmitButton extends HookConsumerWidget {
       if (result == OkCancelResult.ok) {
         await submit(
           'unused this value',
-          extras: MyFeedbackExtras(
+          extras: FeedbackExtras(
             feedbackData: data,
             feedbackComment: comment,
             attachScreenshot: true,
