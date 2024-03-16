@@ -89,7 +89,7 @@
     },
   },
 
-  mail_v1: {
+  mails_v1: {
     // Trigger Email from Firestore Extension に対応するフィールド
     // https://firebase.google.com/docs/extensions/official/firestore-send-email?hl=ja#sender_and_recipient_fields
     $documentId: {
