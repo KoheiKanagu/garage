@@ -38,11 +38,11 @@
       // nullable
       createdBy: "$uid",
 
-      // 返信先のメールアドレス
-      email: "email@example.com",
+      // ユーザのメールアドレス
+      email: "user@example.com",
 
       // どこからのフィードバックか
-      from: "foo", // configure | shortcut | unknown
+      from: "configure", // configure | shortcut | unknown
 
       deviceInfo: {
         osVersion: "foo",
@@ -52,17 +52,27 @@
         appPackageName: "foo",
       },
 
+      // このissueのステータス
       status: "open", // open | closed
+
       // メールで通知するかどうか
       notifyByEmail: true,
       // プッシュ通知で通知するかどうか
       notifyByPush: true,
+
+      // アプリの言語
+      languageCode: "ja",
 
       // サブコレクション
       comments: {
         $documentId: {
           createdAt: "Timestamp", // FieldValue.serverTimestamp
           updatedAt: "Timestamp", // FieldValue.serverTimestamp
+
+          // サインアウト後のフィードバックの場合はnull
+          // サポートからのコメントの場合は"support"
+          // nullable
+          createdBy: "$uid",
 
           // non-nullable
           message: "メッセージ",
@@ -105,6 +115,8 @@
           appName: "場所で音楽",
           issueId: "123",
           message: "メッセージ",
+
+          // impression, bugReport, featureRequest, other
           type: "impression",
         },
       },
