@@ -72,7 +72,7 @@ export interface Mail {
     data: {
       attachmentsPath: string | null;
       appName: string;
-      issueId: string;
+      feedbackId: string;
       message: string;
       type: 'impression' | 'bugReport' | 'featureRequest' | 'other';
     };

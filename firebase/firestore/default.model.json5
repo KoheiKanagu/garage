@@ -6,40 +6,10 @@
 
       // サインアウト後のフィードバックの場合はnull
       // nullable
-      uid: "$uid",
-
-      // 返信先のメールアドレス
-      email: "email@example.com",
-
-      message: "メッセージ",
-
-      // pngのスクリーンショットをbase64でエンコードしたもの
-      screenshotBase64: "base64",
-
-      deviceInfo: {
-        osVersion: "foo",
-        modelName: "foo",
-        locale: "foo",
-        appVersion: "foo",
-        appPackageName: "foo",
-      },
-
-      // どこからのフィードバックか
-      from: "foo", // configure | shortcut | unknown
-    },
-  },
-
-  issues_v1: {
-    $documentId: {
-      createdAt: "Timestamp", // FieldValue.serverTimestamp
-      updatedAt: "Timestamp", // FieldValue.serverTimestamp
-
-      // サインアウト後のフィードバックの場合はnull
-      // nullable
       createdBy: "$uid",
 
       // ユーザのメールアドレス
-      email: "user@example.com",
+      email: "email@example.com",
 
       // どこからのフィードバックか
       from: "configure", // configure | shortcut | unknown
@@ -52,16 +22,17 @@
         appPackageName: "foo",
       },
 
-      // このissueのステータス
+      // フィードバックの種類
+      type: "impression", // impression | bugReport | featureRequest | other
+
+      // このフィードバックのステータス
       status: "open", // open | closed
 
       // メールで通知するかどうか
       notifyByEmail: true,
+
       // プッシュ通知で通知するかどうか
       notifyByPush: true,
-
-      // アプリの言語
-      languageCode: "ja",
 
       // サブコレクション
       comments: {
@@ -109,14 +80,12 @@
       },
 
       template: {
-        name: "createIssueJa",
+        name: "newFeedbackJa",
         data: {
           attachmentsPath: "data:image/png;base64,xxxxxx",
           appName: "場所で音楽",
-          issueId: "123",
+          feedbackId: "123",
           message: "メッセージ",
-
-          // impression, bugReport, featureRequest, other
           type: "impression",
         },
       },
@@ -124,12 +93,12 @@
   },
 
   mailTemplates_v1: {
-    createIssueJa: {
-      subject: "[{{issueId}}] {{appName}} へのお問い合わせ",
+    newFeedbackJa: {
+      subject: "[{{feedbackId}}] {{appName}} へのお問い合わせ",
       html: "html",
       attachments: [
         {
-          filename: "{{issueId}}.png",
+          filename: "{{feedbackId}}.png",
           path: "{{attachmentsPath}}",
         },
       ],

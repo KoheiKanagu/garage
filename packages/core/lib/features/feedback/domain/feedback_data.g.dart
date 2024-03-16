@@ -14,15 +14,17 @@ _$FeedbackDataImpl _$$FeedbackDataImplFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = _$FeedbackDataImpl(
-          uid: $checkedConvert('uid', (v) => v as String?),
+          createdBy: $checkedConvert('createdBy', (v) => v as String?),
           email: $checkedConvert('email', (v) => v as String?),
-          message: $checkedConvert('message', (v) => v as String),
           deviceInfo: $checkedConvert('deviceInfo',
               (v) => FeedbackDeviceInfo.fromJson(v as Map<String, dynamic>)),
           type: $checkedConvert(
               'type', (v) => $enumDecode(_$FeedbackTypeEnumMap, v)),
-          screenshotBase64:
-              $checkedConvert('screenshotBase64', (v) => v as String? ?? ''),
+          notifyByEmail:
+              $checkedConvert('notifyByEmail', (v) => v as bool? ?? true),
+          notifyByPush:
+              $checkedConvert('notifyByPush', (v) => v as bool? ?? true),
+          status: $checkedConvert('status', (v) => v ?? FeedbackStatus.open),
           from: $checkedConvert(
               'from',
               (v) =>
@@ -39,12 +41,13 @@ _$FeedbackDataImpl _$$FeedbackDataImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$FeedbackDataImplToJson(_$FeedbackDataImpl instance) =>
     <String, dynamic>{
-      'uid': instance.uid,
+      'createdBy': instance.createdBy,
       'email': instance.email,
-      'message': instance.message,
       'deviceInfo': instance.deviceInfo.toJson(),
       'type': _$FeedbackTypeEnumMap[instance.type]!,
-      'screenshotBase64': instance.screenshotBase64,
+      'notifyByEmail': instance.notifyByEmail,
+      'notifyByPush': instance.notifyByPush,
+      'status': instance.status,
       'from': _$FeedbackFromEnumMap[instance.from]!,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
