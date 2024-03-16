@@ -49,11 +49,9 @@
           message: "メッセージ",
 
           attachments: [
-            {
-              // スクリーンショットをbase64でエンコードしたもの
-              contentType: "image/png",
-              value: "base64",
-            },
+            // スクリーンショットをbase64でエンコードしたもの
+            // Data URL
+            "data:image/png;base64,xxxxxx",
           ],
         },
       },

@@ -25,8 +25,8 @@ _$FeedbackCommentImpl _$$FeedbackCommentImplFromJson(
               'attachments',
               (v) =>
                   (v as List<dynamic>?)
-                      ?.map((e) => FeedbackAttachment.fromJson(
-                          e as Map<String, dynamic>))
+                      ?.map(
+                          (e) => const UriDataConverter().fromJson(e as String))
                       .toList() ??
                   const []),
         );
@@ -41,5 +41,6 @@ Map<String, dynamic> _$$FeedbackCommentImplToJson(
       'message': instance.message,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
-      'attachments': instance.attachments.map((e) => e.toJson()).toList(),
+      'attachments':
+          instance.attachments.map(const UriDataConverter().toJson).toList(),
     };

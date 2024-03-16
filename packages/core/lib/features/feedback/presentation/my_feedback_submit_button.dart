@@ -1,26 +1,25 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/features/feedback/application/feedback_providers.dart';
-import 'package:core/features/feedback/domain/feedback_data.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:core/utils/inherited_theme_detector.dart';
+import 'package:feedback/feedback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MyFeedbackSubmitButton extends HookConsumerWidget {
-  const MyFeedbackSubmitButton({
-    required this.onSubmit,
+  const MyFeedbackSubmitButton(
+    this.submit, {
     super.key,
   });
 
-  final ValueChanged<FeedbackData> onSubmit;
+  final OnSubmit submit;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future<void> onSubmitPressed() async {
-      final data = ref.watch(feedbackDataControllerProvider.notifier).commit();
-      // validateエラーの場合はnull
-      if (data == null) {
+      final validate = feedbackFormKey.currentState?.validate() ?? false;
+      if (!validate) {
         return;
       }
 
@@ -30,8 +29,20 @@ class MyFeedbackSubmitButton extends HookConsumerWidget {
         okLabel: i18n.feedback.submit,
       );
 
+      final (data, comment) = (
+        await ref.watch(feedbackDataControllerProvider.future),
+        await ref.watch(feedbackCommentControllerProvider.future),
+      );
+
       if (result == OkCancelResult.ok) {
-        onSubmit(data);
+        await submit(
+          'unused this value',
+          extras: MyFeedbackExtras(
+            feedbackData: data,
+            feedbackComment: comment,
+            attachScreenshot: true,
+          ).toMap(),
+        );
       }
     }
 
