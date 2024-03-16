@@ -11,15 +11,21 @@ export function initializeAuth(tenantId: string): admin.auth.TenantAwareAuth {
 }
 
 export function initializeFirestore(
-  tenantId: string
+  tenantId: string | null
 ): admin.firestore.Firestore {
-  return fs.initializeFirestore(
-    app,
-    {
-      preferRest: true,
-    },
-    tenantIdToDatabaseId(tenantId)
-  );
+  if (tenantId) {
+    return fs.initializeFirestore(
+      app,
+      {
+        preferRest: true,
+      },
+      tenantIdToDatabaseId(tenantId)
+    );
+  }
+
+  return fs.initializeFirestore(app, {
+    preferRest: true,
+  });
 }
 
 // for v2
@@ -44,4 +50,5 @@ export function functions(): f.FunctionBuilder {
 }
 
 export {deleteUser} from './deleteUser';
+export {newIssue} from './newIssue';
 export {onCreateAuthUser} from './onCreateAuthUser';
