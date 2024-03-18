@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/constants/collection_path.dart';
 import 'package:core/core.dart';
+import 'package:core/features/feedback/domain/feedback_attachment.dart';
 import 'package:core/features/feedback/domain/feedback_comment.dart';
 import 'package:core/features/feedback/domain/feedback_extras.dart';
 import 'package:feedback/feedback.dart';
@@ -29,12 +30,15 @@ Future<FeedbackDeviceInfo> feedbackDeviceInfo(
 
   final appPackageName = ref.watch(packageInfoPackageNameProvider);
 
+  final appName = ref.watch(packageInfoAppNameProvider);
+
   return FeedbackDeviceInfo(
     osVersion: osVersion,
     modelName: modelName,
     locale: Platform.localeName,
     appVersion: appVersion,
     appPackageName: appPackageName,
+    appName: appName,
   );
 }
 
@@ -80,9 +84,11 @@ Future<void> feedbackSubmit(
   final feedbackComment = extras.feedbackComment.copyWith(
     attachments: [
       if (extras.attachScreenshot)
-        UriData.fromBytes(
-          userFeedback.screenshot,
-          mimeType: 'image/png',
+        FeedbackAttachment(
+          path: UriData.fromBytes(
+            userFeedback.screenshot,
+            mimeType: 'image/png',
+          ),
         ),
     ],
     feedbackId: feedbackId,

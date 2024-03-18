@@ -9,7 +9,7 @@ part of 'feedback_providers.dart';
 // **************************************************************************
 
 String _$feedbackDeviceInfoHash() =>
-    r'bdf0b424cc7e97c8fc4846564d2db2434b218658';
+    r'4f0dfd40d1d89c3c5facf6b165a231977913c7bd';
 
 /// See also [feedbackDeviceInfo].
 @ProviderFor(feedbackDeviceInfo)
@@ -62,7 +62,7 @@ final feedbackCommentsCollectionReferenceProvider =
 
 typedef FeedbackCommentsCollectionReferenceRef
     = AutoDisposeProviderRef<CollectionReference<FeedbackComment>>;
-String _$feedbackSubmitHash() => r'9ec42162c6572dd2a7d6d5f8b3f7b3fe1cb790bb';
+String _$feedbackSubmitHash() => r'e953e77ad4e36b7921b094946146fb00359c6e59';
 
 /// Copied from Dart SDK
 class _SystemHash {
