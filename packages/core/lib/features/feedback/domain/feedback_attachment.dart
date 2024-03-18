@@ -7,6 +7,7 @@ part 'feedback_attachment.g.dart';
 
 @freezed
 class FeedbackAttachment with _$FeedbackAttachment {
+  /// https://nodemailer.com/message/attachments/
   const factory FeedbackAttachment({
     @UriDataConverter() required UriData path,
   }) = _FeedbackAttachment;
