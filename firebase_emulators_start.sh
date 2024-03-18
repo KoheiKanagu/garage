@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
 
-firebase use dev --dev
+firebase use dev --debug
 
 npm --prefix firebase/functions install --include=dev
 npm --prefix firebase/functions run compile:watch >/dev/null 2>&1 &
