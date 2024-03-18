@@ -5,6 +5,7 @@ import {isUndefined} from 'lodash';
 import {UndefinedDocumentData} from './errors/undefined_document_data';
 import {FeedbackType, Mail, MailTemplateNames} from './models';
 import {CollectionPaths} from './utils/collection_paths';
+import {kSupportEmail} from './utils/constants';
 
 export const onCreateFeedbackComment = onDocumentCreated(
   CollectionPaths.FEEDBACK_COMMENTS,
@@ -55,7 +56,7 @@ export const onCreateFeedbackComment = onDocumentCreated(
     // メールデータ
     const mail: Mail = {
       to: email,
-      cc: 'support@kingu.dev',
+      cc: kSupportEmail,
       message: {
         messageId: null,
       },
