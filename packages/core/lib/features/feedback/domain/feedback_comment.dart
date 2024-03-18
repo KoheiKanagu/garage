@@ -15,7 +15,10 @@ class FeedbackComment with _$FeedbackComment {
     required String? createdBy,
 
     /// メッセージ
-    required String message,
+    String? message,
+
+    /// [FeedbackData] のDocumentID
+    String? feedbackId,
     @TimestampConverter() Timestamp? createdAt,
     @TimestampConverter() Timestamp? updatedAt,
 

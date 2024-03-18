@@ -26,26 +26,43 @@ final feedbackDeviceInfoProvider =
 
 typedef FeedbackDeviceInfoRef
     = AutoDisposeFutureProviderRef<FeedbackDeviceInfo>;
-String _$feedbackCollectionReferenceHash() =>
-    r'4edfe71dd0e5d0f0cd3a774b7902dc5133a81d3b';
+String _$feedbacksCollectionReferenceHash() =>
+    r'1ec49c33b9efddf28925a95950cb7c9eea2c0eb4';
 
-/// See also [feedbackCollectionReference].
-@ProviderFor(feedbackCollectionReference)
-final feedbackCollectionReferenceProvider =
+/// See also [feedbacksCollectionReference].
+@ProviderFor(feedbacksCollectionReference)
+final feedbacksCollectionReferenceProvider =
     AutoDisposeProvider<CollectionReference<FeedbackData>>.internal(
-  feedbackCollectionReference,
-  name: r'feedbackCollectionReferenceProvider',
+  feedbacksCollectionReference,
+  name: r'feedbacksCollectionReferenceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$feedbackCollectionReferenceHash,
+      : _$feedbacksCollectionReferenceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef FeedbackCollectionReferenceRef
+typedef FeedbacksCollectionReferenceRef
     = AutoDisposeProviderRef<CollectionReference<FeedbackData>>;
-String _$feedbackCommentCollectionReferenceHash() =>
-    r'350481bab794d4ec49843d48cb0f36299abc40e4';
+String _$feedbackCommentsCollectionReferenceHash() =>
+    r'6b2734eca08332b1486b4533b5c0b0d0c52ac79b';
+
+/// See also [feedbackCommentsCollectionReference].
+@ProviderFor(feedbackCommentsCollectionReference)
+final feedbackCommentsCollectionReferenceProvider =
+    AutoDisposeProvider<CollectionReference<FeedbackComment>>.internal(
+  feedbackCommentsCollectionReference,
+  name: r'feedbackCommentsCollectionReferenceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$feedbackCommentsCollectionReferenceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FeedbackCommentsCollectionReferenceRef
+    = AutoDisposeProviderRef<CollectionReference<FeedbackComment>>;
+String _$feedbackSubmitHash() => r'9ec42162c6572dd2a7d6d5f8b3f7b3fe1cb790bb';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -67,144 +84,6 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
-
-/// See also [feedbackCommentCollectionReference].
-@ProviderFor(feedbackCommentCollectionReference)
-const feedbackCommentCollectionReferenceProvider =
-    FeedbackCommentCollectionReferenceFamily();
-
-/// See also [feedbackCommentCollectionReference].
-class FeedbackCommentCollectionReferenceFamily
-    extends Family<CollectionReference<FeedbackComment>> {
-  /// See also [feedbackCommentCollectionReference].
-  const FeedbackCommentCollectionReferenceFamily();
-
-  /// See also [feedbackCommentCollectionReference].
-  FeedbackCommentCollectionReferenceProvider call(
-    String feedbackId,
-  ) {
-    return FeedbackCommentCollectionReferenceProvider(
-      feedbackId,
-    );
-  }
-
-  @override
-  FeedbackCommentCollectionReferenceProvider getProviderOverride(
-    covariant FeedbackCommentCollectionReferenceProvider provider,
-  ) {
-    return call(
-      provider.feedbackId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'feedbackCommentCollectionReferenceProvider';
-}
-
-/// See also [feedbackCommentCollectionReference].
-class FeedbackCommentCollectionReferenceProvider
-    extends AutoDisposeProvider<CollectionReference<FeedbackComment>> {
-  /// See also [feedbackCommentCollectionReference].
-  FeedbackCommentCollectionReferenceProvider(
-    String feedbackId,
-  ) : this._internal(
-          (ref) => feedbackCommentCollectionReference(
-            ref as FeedbackCommentCollectionReferenceRef,
-            feedbackId,
-          ),
-          from: feedbackCommentCollectionReferenceProvider,
-          name: r'feedbackCommentCollectionReferenceProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$feedbackCommentCollectionReferenceHash,
-          dependencies: FeedbackCommentCollectionReferenceFamily._dependencies,
-          allTransitiveDependencies: FeedbackCommentCollectionReferenceFamily
-              ._allTransitiveDependencies,
-          feedbackId: feedbackId,
-        );
-
-  FeedbackCommentCollectionReferenceProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.feedbackId,
-  }) : super.internal();
-
-  final String feedbackId;
-
-  @override
-  Override overrideWith(
-    CollectionReference<FeedbackComment> Function(
-            FeedbackCommentCollectionReferenceRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: FeedbackCommentCollectionReferenceProvider._internal(
-        (ref) => create(ref as FeedbackCommentCollectionReferenceRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        feedbackId: feedbackId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeProviderElement<CollectionReference<FeedbackComment>>
-      createElement() {
-    return _FeedbackCommentCollectionReferenceProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is FeedbackCommentCollectionReferenceProvider &&
-        other.feedbackId == feedbackId;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, feedbackId.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin FeedbackCommentCollectionReferenceRef
-    on AutoDisposeProviderRef<CollectionReference<FeedbackComment>> {
-  /// The parameter `feedbackId` of this provider.
-  String get feedbackId;
-}
-
-class _FeedbackCommentCollectionReferenceProviderElement
-    extends AutoDisposeProviderElement<CollectionReference<FeedbackComment>>
-    with FeedbackCommentCollectionReferenceRef {
-  _FeedbackCommentCollectionReferenceProviderElement(super.provider);
-
-  @override
-  String get feedbackId =>
-      (origin as FeedbackCommentCollectionReferenceProvider).feedbackId;
-}
-
-String _$feedbackSubmitHash() => r'9dec40983841d7aa0f0186ab6e4df025ef2d208f';
 
 /// See also [feedbackSubmit].
 @ProviderFor(feedbackSubmit)
@@ -368,7 +247,7 @@ final feedbackDataStateProvider =
 
 typedef FeedbackDataStateRef = AutoDisposeFutureProviderRef<FeedbackData>;
 String _$feedbackCommentStateHash() =>
-    r'f10261379876df7fdd0ecfa1ab36e3a9d4df1e37';
+    r'1c661c653993f362d2099eaec284e5e0ee947136';
 
 /// See also [feedbackCommentState].
 @ProviderFor(feedbackCommentState)
@@ -697,7 +576,7 @@ final feedbackDataControllerProvider = AutoDisposeAsyncNotifierProvider<
 
 typedef _$FeedbackDataController = AutoDisposeAsyncNotifier<FeedbackData>;
 String _$feedbackCommentControllerHash() =>
-    r'fa2cba10c4853b5ec513c1da794559a3a78880f7';
+    r'b35697b68ff6331ef4976f559dcdbe954dae5cbc';
 
 /// See also [FeedbackCommentController].
 @ProviderFor(FeedbackCommentController)

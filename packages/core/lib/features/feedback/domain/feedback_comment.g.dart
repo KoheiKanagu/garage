@@ -16,7 +16,8 @@ _$FeedbackCommentImpl _$$FeedbackCommentImplFromJson(
       ($checkedConvert) {
         final val = _$FeedbackCommentImpl(
           createdBy: $checkedConvert('createdBy', (v) => v as String?),
-          message: $checkedConvert('message', (v) => v as String),
+          message: $checkedConvert('message', (v) => v as String?),
+          feedbackId: $checkedConvert('feedbackId', (v) => v as String?),
           createdAt: $checkedConvert(
               'createdAt', (v) => const TimestampConverter().fromJson(v)),
           updatedAt: $checkedConvert(
@@ -39,6 +40,7 @@ Map<String, dynamic> _$$FeedbackCommentImplToJson(
     <String, dynamic>{
       'createdBy': instance.createdBy,
       'message': instance.message,
+      'feedbackId': instance.feedbackId,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
       'attachments':

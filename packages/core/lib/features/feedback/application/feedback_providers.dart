@@ -39,8 +39,8 @@ Future<FeedbackDeviceInfo> feedbackDeviceInfo(
 }
 
 @riverpod
-CollectionReference<FeedbackData> feedbackCollectionReference(
-  FeedbackCollectionReferenceRef ref,
+CollectionReference<FeedbackData> feedbacksCollectionReference(
+  FeedbacksCollectionReferenceRef ref,
 ) =>
     ref
         .watch(firebaseFirestoreDefaultProvider)
@@ -51,15 +51,12 @@ CollectionReference<FeedbackData> feedbackCollectionReference(
         );
 
 @riverpod
-CollectionReference<FeedbackComment> feedbackCommentCollectionReference(
-  FeedbackCommentCollectionReferenceRef ref,
-  String feedbackId,
+CollectionReference<FeedbackComment> feedbackCommentsCollectionReference(
+  FeedbackCommentsCollectionReferenceRef ref,
 ) =>
     ref
         .watch(firebaseFirestoreDefaultProvider)
-        .collection(CollectionPath.kFeedbacks)
-        .doc(feedbackId)
-        .collection(CollectionPath.kFeedbacksComments)
+        .collection(CollectionPath.kFeedbackComments)
         .withConverter(
           fromFirestore: FeedbackComment.fromFirestore,
           toFirestore: FeedbackComment.toFirestore,
@@ -73,7 +70,13 @@ Future<void> feedbackSubmit(
 }) async {
   final extras = FeedbackExtras.fromMap(userFeedback.extra!);
 
+  // フィードバックを作成
   final feedbackData = extras.feedbackData;
+  final docRef =
+      await ref.watch(feedbacksCollectionReferenceProvider).add(feedbackData);
+  final feedbackId = docRef.id;
+
+  // コメントを作成
   final feedbackComment = extras.feedbackComment.copyWith(
     attachments: [
       if (extras.attachScreenshot)
@@ -82,16 +85,11 @@ Future<void> feedbackSubmit(
           mimeType: 'image/png',
         ),
     ],
+    feedbackId: feedbackId,
   );
-
-  // フィードバックを作成
-  final docRef =
-      await ref.watch(feedbackCollectionReferenceProvider).add(feedbackData);
-
-  // フィードバックにコメントを追加
-  await ref.watch(feedbackCommentCollectionReferenceProvider(docRef.id)).add(
-        feedbackComment,
-      );
+  await ref
+      .watch(feedbackCommentsCollectionReferenceProvider)
+      .add(feedbackComment);
 }
 
 @riverpod
@@ -119,7 +117,6 @@ Future<FeedbackComment> feedbackCommentState(
 
   return FeedbackComment(
     createdBy: currentUser?.uid,
-    message: '',
   );
 }
 
@@ -200,7 +197,7 @@ class FeedbackCommentController extends _$FeedbackCommentController {
     if (error == null) {
       state = state.whenData(
         (value) => value.copyWith(
-          message: message!,
+          message: message,
         ),
       );
     }

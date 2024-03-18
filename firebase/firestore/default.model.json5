@@ -33,28 +33,30 @@
 
       // プッシュ通知で通知するかどうか
       notifyByPush: true,
+    },
+  },
 
-      // サブコレクション
-      comments: {
-        $documentId: {
-          createdAt: "Timestamp", // FieldValue.serverTimestamp
-          updatedAt: "Timestamp", // FieldValue.serverTimestamp
+  feedbackComments_v1: {
+    $documentId: {
+      createdAt: "Timestamp", // FieldValue.serverTimestamp
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
 
-          // サインアウト後のフィードバックの場合はnull
-          // サポートからのコメントの場合は"support"
-          // nullable
-          createdBy: "$uid",
+      // feedbacksのDocumentID
+      feedbackId: "foo",
 
-          // non-nullable
-          message: "メッセージ",
+      // サインアウト後のフィードバックの場合はnull
+      // サポートからのコメントの場合は"support"
+      // nullable
+      createdBy: "$uid",
 
-          attachments: [
-            // スクリーンショットをbase64でエンコードしたもの
-            // Data URL
-            "data:image/png;base64,xxxxxx",
-          ],
-        },
-      },
+      // non-nullable
+      message: "メッセージ",
+
+      attachments: [
+        // スクリーンショットをbase64でエンコードしたもの
+        // Data URL
+        "data:image/png;base64,xxxxxx",
+      ],
     },
   },
 
@@ -82,7 +84,9 @@
         data: {
           attachmentsPath: "data:image/png;base64,xxxxxx",
           appName: "場所で音楽",
-          feedbackId: "123",
+
+          // feedbacksのDocumentID
+          feedbackId: "foo",
           message: "メッセージ",
           type: "impression",
         },

@@ -26,7 +26,10 @@ mixin _$FeedbackComment {
   String? get createdBy => throw _privateConstructorUsedError;
 
   /// メッセージ
-  String get message => throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
+
+  /// [FeedbackData] のDocumentID
+  String? get feedbackId => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get createdAt => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -50,7 +53,8 @@ abstract class $FeedbackCommentCopyWith<$Res> {
   @useResult
   $Res call(
       {String? createdBy,
-      String message,
+      String? message,
+      String? feedbackId,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt,
       @UriDataConverter() List<UriData> attachments});
@@ -70,7 +74,8 @@ class _$FeedbackCommentCopyWithImpl<$Res, $Val extends FeedbackComment>
   @override
   $Res call({
     Object? createdBy = freezed,
-    Object? message = null,
+    Object? message = freezed,
+    Object? feedbackId = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? attachments = null,
@@ -80,10 +85,14 @@ class _$FeedbackCommentCopyWithImpl<$Res, $Val extends FeedbackComment>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as String?,
-      message: null == message
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      feedbackId: freezed == feedbackId
+          ? _value.feedbackId
+          : feedbackId // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -110,7 +119,8 @@ abstract class _$$FeedbackCommentImplCopyWith<$Res>
   @useResult
   $Res call(
       {String? createdBy,
-      String message,
+      String? message,
+      String? feedbackId,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt,
       @UriDataConverter() List<UriData> attachments});
@@ -128,7 +138,8 @@ class __$$FeedbackCommentImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? createdBy = freezed,
-    Object? message = null,
+    Object? message = freezed,
+    Object? feedbackId = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? attachments = null,
@@ -138,10 +149,14 @@ class __$$FeedbackCommentImplCopyWithImpl<$Res>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as String?,
-      message: null == message
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      feedbackId: freezed == feedbackId
+          ? _value.feedbackId
+          : feedbackId // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -163,7 +178,8 @@ class __$$FeedbackCommentImplCopyWithImpl<$Res>
 class _$FeedbackCommentImpl implements _FeedbackComment {
   const _$FeedbackCommentImpl(
       {required this.createdBy,
-      required this.message,
+      this.message,
+      this.feedbackId,
       @TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt,
       @UriDataConverter() final List<UriData> attachments = const []})
@@ -180,7 +196,11 @@ class _$FeedbackCommentImpl implements _FeedbackComment {
 
   /// メッセージ
   @override
-  final String message;
+  final String? message;
+
+  /// [FeedbackData] のDocumentID
+  @override
+  final String? feedbackId;
   @override
   @TimestampConverter()
   final Timestamp? createdAt;
@@ -203,7 +223,7 @@ class _$FeedbackCommentImpl implements _FeedbackComment {
 
   @override
   String toString() {
-    return 'FeedbackComment(createdBy: $createdBy, message: $message, createdAt: $createdAt, updatedAt: $updatedAt, attachments: $attachments)';
+    return 'FeedbackComment(createdBy: $createdBy, message: $message, feedbackId: $feedbackId, createdAt: $createdAt, updatedAt: $updatedAt, attachments: $attachments)';
   }
 
   @override
@@ -214,6 +234,8 @@ class _$FeedbackCommentImpl implements _FeedbackComment {
             (identical(other.createdBy, createdBy) ||
                 other.createdBy == createdBy) &&
             (identical(other.message, message) || other.message == message) &&
+            (identical(other.feedbackId, feedbackId) ||
+                other.feedbackId == feedbackId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -224,8 +246,8 @@ class _$FeedbackCommentImpl implements _FeedbackComment {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, createdBy, message, createdAt,
-      updatedAt, const DeepCollectionEquality().hash(_attachments));
+  int get hashCode => Object.hash(runtimeType, createdBy, message, feedbackId,
+      createdAt, updatedAt, const DeepCollectionEquality().hash(_attachments));
 
   @JsonKey(ignore: true)
   @override
@@ -245,7 +267,8 @@ class _$FeedbackCommentImpl implements _FeedbackComment {
 abstract class _FeedbackComment implements FeedbackComment {
   const factory _FeedbackComment(
           {required final String? createdBy,
-          required final String message,
+          final String? message,
+          final String? feedbackId,
           @TimestampConverter() final Timestamp? createdAt,
           @TimestampConverter() final Timestamp? updatedAt,
           @UriDataConverter() final List<UriData> attachments}) =
@@ -263,7 +286,11 @@ abstract class _FeedbackComment implements FeedbackComment {
   @override
 
   /// メッセージ
-  String get message;
+  String? get message;
+  @override
+
+  /// [FeedbackData] のDocumentID
+  String? get feedbackId;
   @override
   @TimestampConverter()
   Timestamp? get createdAt;
