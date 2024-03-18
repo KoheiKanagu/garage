@@ -36,8 +36,8 @@ mixin _$FeedbackComment {
   Timestamp? get updatedAt => throw _privateConstructorUsedError;
 
   /// 添付ファイル
-  @UriDataConverter()
-  List<UriData> get attachments => throw _privateConstructorUsedError;
+  List<FeedbackAttachment> get attachments =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +57,7 @@ abstract class $FeedbackCommentCopyWith<$Res> {
       String? feedbackId,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt,
-      @UriDataConverter() List<UriData> attachments});
+      List<FeedbackAttachment> attachments});
 }
 
 /// @nodoc
@@ -104,7 +104,7 @@ class _$FeedbackCommentCopyWithImpl<$Res, $Val extends FeedbackComment>
       attachments: null == attachments
           ? _value.attachments
           : attachments // ignore: cast_nullable_to_non_nullable
-              as List<UriData>,
+              as List<FeedbackAttachment>,
     ) as $Val);
   }
 }
@@ -123,7 +123,7 @@ abstract class _$$FeedbackCommentImplCopyWith<$Res>
       String? feedbackId,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt,
-      @UriDataConverter() List<UriData> attachments});
+      List<FeedbackAttachment> attachments});
 }
 
 /// @nodoc
@@ -168,7 +168,7 @@ class __$$FeedbackCommentImplCopyWithImpl<$Res>
       attachments: null == attachments
           ? _value._attachments
           : attachments // ignore: cast_nullable_to_non_nullable
-              as List<UriData>,
+              as List<FeedbackAttachment>,
     ));
   }
 }
@@ -182,7 +182,7 @@ class _$FeedbackCommentImpl implements _FeedbackComment {
       this.feedbackId,
       @TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt,
-      @UriDataConverter() final List<UriData> attachments = const []})
+      final List<FeedbackAttachment> attachments = const []})
       : _attachments = attachments;
 
   factory _$FeedbackCommentImpl.fromJson(Map<String, dynamic> json) =>
@@ -209,13 +209,12 @@ class _$FeedbackCommentImpl implements _FeedbackComment {
   final Timestamp? updatedAt;
 
   /// 添付ファイル
-  final List<UriData> _attachments;
+  final List<FeedbackAttachment> _attachments;
 
   /// 添付ファイル
   @override
   @JsonKey()
-  @UriDataConverter()
-  List<UriData> get attachments {
+  List<FeedbackAttachment> get attachments {
     if (_attachments is EqualUnmodifiableListView) return _attachments;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_attachments);
@@ -266,13 +265,12 @@ class _$FeedbackCommentImpl implements _FeedbackComment {
 
 abstract class _FeedbackComment implements FeedbackComment {
   const factory _FeedbackComment(
-          {required final String? createdBy,
-          final String? message,
-          final String? feedbackId,
-          @TimestampConverter() final Timestamp? createdAt,
-          @TimestampConverter() final Timestamp? updatedAt,
-          @UriDataConverter() final List<UriData> attachments}) =
-      _$FeedbackCommentImpl;
+      {required final String? createdBy,
+      final String? message,
+      final String? feedbackId,
+      @TimestampConverter() final Timestamp? createdAt,
+      @TimestampConverter() final Timestamp? updatedAt,
+      final List<FeedbackAttachment> attachments}) = _$FeedbackCommentImpl;
 
   factory _FeedbackComment.fromJson(Map<String, dynamic> json) =
       _$FeedbackCommentImpl.fromJson;
@@ -300,8 +298,7 @@ abstract class _FeedbackComment implements FeedbackComment {
   @override
 
   /// 添付ファイル
-  @UriDataConverter()
-  List<UriData> get attachments;
+  List<FeedbackAttachment> get attachments;
   @override
   @JsonKey(ignore: true)
   _$$FeedbackCommentImplCopyWith<_$FeedbackCommentImpl> get copyWith =>

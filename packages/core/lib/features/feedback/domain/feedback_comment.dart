@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
-import 'package:core/utils/uri_data_converter.dart';
+import 'package:core/features/feedback/domain/feedback_attachment.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'feedback_comment.freezed.dart';
@@ -23,7 +23,7 @@ class FeedbackComment with _$FeedbackComment {
     @TimestampConverter() Timestamp? updatedAt,
 
     /// 添付ファイル
-    @UriDataConverter() @Default([]) List<UriData> attachments,
+    @Default([]) List<FeedbackAttachment> attachments,
   }) = _FeedbackComment;
 
   factory FeedbackComment.fromJson(Json json) =>

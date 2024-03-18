@@ -6,7 +6,14 @@ export interface User {
   deleted: boolean;
 }
 
-export interface Issue {
+export enum FeedbackType {
+  impression,
+  bugReport,
+  featureRequest,
+  other,
+}
+
+export interface FeedbackData {
   createdAt: Timestamp | FieldValue | null;
   updatedAt: Timestamp | FieldValue | null;
 
@@ -26,23 +33,28 @@ export interface Issue {
     locale: string;
     appVersion: string;
     appPackageName: string;
+    appName: string;
   };
+
+  // フィードバックの種類
+  type: FeedbackType;
 
   // このissueのステータス
   status: 'open' | 'closed';
 
   // メールで通知するかどうか
   notifyByEmail: true;
+
   // プッシュ通知で通知するかどうか
   notifyByPush: true;
-
-  // アプリの言語
-  languageCode: 'ja';
 }
 
-export interface Comment {
+export interface FeedbackComment {
   createdAt: Timestamp | FieldValue | null;
   updatedAt: Timestamp | FieldValue | null;
+
+  // フィードバックのDocumentId
+  feedbackId: string;
 
   // サインアウト後のフィードバックの場合はnull
   // サポートからのコメントの場合は"support"
@@ -50,13 +62,8 @@ export interface Comment {
 
   message: string;
 
-  attachment: [
-    {
-      // スクリーンショットをbase64でエンコードしたもの
-      contentType: string;
-      value: string;
-    },
-  ];
+  // Data URL
+  attachments: Array<unknown>;
 }
 
 export interface Mail {
@@ -70,18 +77,18 @@ export interface Mail {
   template: {
     name: MailTemplateNames;
     data: {
-      attachmentsPath: string | null;
+      attachments: Array<unknown>;
       appName: string;
       feedbackId: string;
       message: string;
-      type: 'impression' | 'bugReport' | 'featureRequest' | 'other';
+      type: FeedbackType;
     };
   };
 }
 
 export enum MailTemplateNames {
-  CreateIssueJa = 'createIssueJa',
-  CreateIssueEn = 'createIssueEn',
+  NewFeedbackJa = 'newFeedbackJa',
+  NewFeedbackEn = 'newFeedbackEn',
 }
 
 export interface MailTemplates {

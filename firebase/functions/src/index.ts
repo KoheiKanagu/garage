@@ -50,5 +50,5 @@ export function functions(): f.FunctionBuilder {
 }
 
 export {deleteUser} from './deleteUser';
-export {newIssue} from './newIssue';
+export {onCreateFeedbackComment} from './onCreateFeedbackComment';
 export {onCreateAuthUser} from './onCreateAuthUser';

@@ -20,6 +20,7 @@
         locale: "foo",
         appVersion: "foo",
         appPackageName: "foo",
+        appName: "foo",
       },
 
       // フィードバックの種類
@@ -52,10 +53,13 @@
       // non-nullable
       message: "メッセージ",
 
+      // https://nodemailer.com/message/attachments/
       attachments: [
-        // スクリーンショットをbase64でエンコードしたもの
-        // Data URL
-        "data:image/png;base64,xxxxxx",
+        {
+          // スクリーンショットをbase64でエンコードしたもの
+          // Data URL
+          path: "data:image/png;base64,xxxxxx",
+        },
       ],
     },
   },
@@ -64,10 +68,11 @@
     // Trigger Email from Firestore Extension に対応するフィールド
     // https://firebase.google.com/docs/extensions/official/firestore-send-email?hl=ja#sender_and_recipient_fields
     $documentId: {
-      to: "support@kingu.dev",
-      cc: "user@example.com",
+      to: "user@example.com",
+      cc: "support@kingu.dev",
       message: {
         // delivery.info.messageId があれば入れる
+        // 返信する時にスレッドにまとめてもらうために必要
         messageId: "foo",
       },
 
@@ -82,7 +87,12 @@
       template: {
         name: "newFeedbackJa",
         data: {
-          attachmentsPath: "data:image/png;base64,xxxxxx",
+          // https://nodemailer.com/message/attachments/
+          attachments: [
+            {
+              path: "data:image/png;base64,xxxxxx",
+            },
+          ],
           appName: "場所で音楽",
 
           // feedbacksのDocumentID
@@ -98,12 +108,7 @@
     newFeedbackJa: {
       subject: "[{{feedbackId}}] {{appName}} へのお問い合わせ",
       html: "html",
-      attachments: [
-        {
-          filename: "{{feedbackId}}.png",
-          path: "{{attachmentsPath}}",
-        },
-      ],
+      attachments: "{{attachments}}",
     },
 
     footer: {
