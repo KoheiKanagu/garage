@@ -1,10 +1,9 @@
-import {addDoc, doc, getDoc, setLogLevel} from '@firebase/firestore';
 import {
   RulesTestEnvironment,
   initializeTestEnvironment,
 } from '@firebase/rules-unit-testing';
-import {readFileSync, writeFileSync} from 'node:fs';
-import {describe} from 'node:test';
+import {addDoc, doc, getDoc, setLogLevel} from 'firebase/firestore';
+import {readFileSync, writeFileSync} from 'fs';
 import {CollectionPaths} from '../src/utils/collection_paths';
 import {
   expectFirestorePermissionDenied,
