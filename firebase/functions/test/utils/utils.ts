@@ -18,16 +18,16 @@ export async function expectFirestorePermissionDenied(
   expect(errorResult.code).toBe('permission-denied' || 'PERMISSION_DENIED');
 }
 
-export async function expectFirestorePermissionUpdateSucceeds(
-  promise: Promise<unknown>
-) {
-  const successResult = await assertSucceeds(promise);
-  expect(successResult).toBeUndefined();
-}
-
-export async function expectFirestorePermissionGetSucceeds(
+export async function expectFirestorePermissionSucceeds(
   promise: Promise<unknown>
 ) {
   const successResult = await assertSucceeds(promise);
   expect(successResult).not.toBeUndefined();
 }
+
+// export async function expectFirestorePermissionGetSucceeds(
+//   promise: Promise<unknown>
+// ) {
+//   const successResult = await assertSucceeds(promise);
+//   expect(successResult).not.toBeUndefined();
+// }

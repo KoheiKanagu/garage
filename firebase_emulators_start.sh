@@ -3,6 +3,7 @@ set -euxo pipefail
 
 firebase use dev --debug
 
+npm --prefix firebase/functions run clean
 npm --prefix firebase/functions install --include=dev
 npm --prefix firebase/functions run compile:watch >/dev/null 2>&1 &
 
