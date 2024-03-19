@@ -42,7 +42,6 @@
   "jest": {
     "testEnvironment": "node",
     "forceExit": true,
-    "detectOpenHandles": true,
     "transform": {
       "^.+\\.(t|j)sx?$": "@swc/jest"
     }
