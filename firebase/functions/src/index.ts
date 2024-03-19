@@ -1,12 +1,14 @@
 import * as admin from 'firebase-admin';
 import * as fs from 'firebase-admin/firestore';
 import * as f from 'firebase-functions';
-import {setGlobalOptions} from 'firebase-functions/v2';
-import {tenantIdToDatabaseId} from './utils/tenant_id_to_database_id';
+import { setGlobalOptions } from 'firebase-functions/v2';
+import { tenantIdToDatabaseId } from './utils/tenant_id_to_database_id';
 
 const app = admin.initializeApp();
 
-export function initializeAuth(tenantId: string): admin.auth.TenantAwareAuth {
+export function initializeAuth(
+  tenantId: string
+): admin.auth.TenantAwareAuth {
   return app.auth().tenantManager().authForTenant(tenantId);
 }
 
@@ -49,6 +51,6 @@ export function functions(): f.FunctionBuilder {
     .region('asia-northeast1');
 }
 
-export {deleteUser} from './deleteUser';
-export {onCreateFeedbackComment} from './onCreateFeedbackComment';
-export {onCreateAuthUser} from './onCreateAuthUser';
+export { deleteUser } from './deleteUser';
+export { onCreateAuthUser } from './onCreateAuthUser';
+export { onCreateFeedbackComment } from './onCreateFeedbackComment';
