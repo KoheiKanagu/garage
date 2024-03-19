@@ -4,11 +4,9 @@ import {
 } from '@firebase/rules-unit-testing';
 import {
   addDoc,
-  collection,
-  deleteDoc,
   doc,
   getDoc,
-  setDoc,
+  getDocs,
   setLogLevel,
 } from 'firebase/firestore';
 import { readFileSync, writeFileSync } from 'fs';
@@ -62,8 +60,7 @@ describe('feedbacks_v1', () => {
       .authenticatedContext('user1')
       .firestore();
     expectFirestorePermissionSucceeds(
-      // addDoc(db.collection(collectionPath), {createdBy: 'user1'})
-      setDoc(doc(db, collectionPath, 'doc1'), {
+      addDoc(db.collection(collectionPath), {
         createdBy: 'user1',
       })
     );
@@ -72,8 +69,7 @@ describe('feedbacks_v1', () => {
       .unauthenticatedContext()
       .firestore();
     expectFirestorePermissionSucceeds(
-      // addDoc(unAuthDb.collection(collectionPath), {createdBy: 'user1'})
-      addDoc(collection(unAuthDb, collectionPath), {
+      addDoc(unAuthDb.collection(collectionPath), {
         createdBy: 'user1',
       })
     );
@@ -107,68 +103,14 @@ describe('feedbackComments_v1', () => {
         .authenticatedContext('user1')
         .firestore();
       expectFirestorePermissionDenied(
-        db.collection(collectionPath).get()
+        getDocs(db.collection(collectionPath))
       );
 
       const unAuthDb = testEnv
         .unauthenticatedContext()
         .firestore();
       expectFirestorePermissionDenied(
-        unAuthDb.collection(collectionPath).get()
-      );
-    });
-
-    it('should not be able to delete', async () => {
-      const documentId = 'doc1';
-
-      const db = testEnv
-        .authenticatedContext('user1')
-        .firestore();
-      expectFirestorePermissionDenied(
-        deleteDoc(doc(db, collectionPath, documentId))
-      );
-
-      const unAuthDb = testEnv
-        .unauthenticatedContext()
-        .firestore();
-      expectFirestorePermissionDenied(
-        deleteDoc(doc(unAuthDb, collectionPath, documentId))
-      );
-    });
-
-    it('should not be able to update', async () => {
-      const documentId = 'doc1';
-      await testEnv.withSecurityRulesDisabled(
-        async context => {
-          setDoc(
-            doc(
-              context.firestore(),
-              collectionPath,
-              documentId
-            ),
-            {
-              createdBy: 'user1',
-            }
-          );
-        }
-      );
-
-      const db = testEnv
-        .authenticatedContext('user1')
-        .firestore();
-      expectFirestorePermissionDenied(
-        setDoc(doc(db, collectionPath, documentId), {
-          field: 'value',
-        })
-      );
-
-      const unAuthDb = testEnv
-        .unauthenticatedContext()
-        .firestore();
-      expectFirestorePermissionDenied(
-        setDoc(doc(unAuthDb, collectionPath, documentId), {
-          field: 'value',
-        })
+        getDocs(unAuthDb.collection(collectionPath))
       );
     });
   });

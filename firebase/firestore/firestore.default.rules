@@ -15,17 +15,17 @@ service cloud.firestore {
       allow create: if true;
 
       allow read: if
-      // 認証済みユーザーであること
+          // 認証済みユーザーであること
           isSignedIn() &&
-      // 自分のfeedbackであること
+          // 自分のfeedbackであること
           isMe(request.auth.uid);
     }
 
     match /feedbackComments_v1/{documentId} {
       allow create: if
-      // このコメントは自分が作成していること
+          // このコメントは自分が作成していること
           isMe(request.resource.data.createdBy) &&
-      // feedbackを作成した人がコメントを作成できること
+          // feedbackを作成した人がコメントを作成できること
           isMe(get(/databases/$(database)/documents/feedbacks_v1/$(request.resource.data.feedbackId)).data.createdBy);
     }
   }
