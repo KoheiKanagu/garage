@@ -55,11 +55,11 @@ afterAll(async () => {
 describe('feedbacks_v1', () => {
   const collectionPath = CollectionPaths.FEEDBACKS;
 
-  it('誰でもcreateできること', () => {
+  it('誰でもcreateできること', async () => {
     const db = testEnv
       .authenticatedContext('user1')
       .firestore();
-    expectFirestorePermissionSucceeds(
+    await expectFirestorePermissionSucceeds(
       addDoc(db.collection(collectionPath), {
         createdBy: 'user1',
       })
@@ -68,9 +68,9 @@ describe('feedbacks_v1', () => {
     const unAuthDb = testEnv
       .unauthenticatedContext()
       .firestore();
-    expectFirestorePermissionSucceeds(
+    await expectFirestorePermissionSucceeds(
       addDoc(unAuthDb.collection(collectionPath), {
-        createdBy: 'user1',
+        createdBy: null,
       })
     );
   });
@@ -86,14 +86,14 @@ describe('feedbackComments_v1', () => {
       const db = testEnv
         .authenticatedContext('user1')
         .firestore();
-      expectFirestorePermissionDenied(
+      await expectFirestorePermissionDenied(
         getDoc(doc(db, collectionPath, documentId))
       );
 
       const unAuthDb = testEnv
         .unauthenticatedContext()
         .firestore();
-      expectFirestorePermissionDenied(
+      await expectFirestorePermissionDenied(
         getDoc(doc(unAuthDb, collectionPath, documentId))
       );
     });
@@ -102,14 +102,14 @@ describe('feedbackComments_v1', () => {
       const db = testEnv
         .authenticatedContext('user1')
         .firestore();
-      expectFirestorePermissionDenied(
+      await expectFirestorePermissionDenied(
         getDocs(db.collection(collectionPath))
       );
 
       const unAuthDb = testEnv
         .unauthenticatedContext()
         .firestore();
-      expectFirestorePermissionDenied(
+      await expectFirestorePermissionDenied(
         getDocs(unAuthDb.collection(collectionPath))
       );
     });
