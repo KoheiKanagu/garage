@@ -1,6 +1,13 @@
 {
   "extends": "./node_modules/gts/",
   "rules": {
-    "node/no-unpublished-import": "off"
+    "node/no-unpublished-import": "off",
+    "@typescript-eslint/no-floating-promises": "error"
+  },
+  "parserOptions": {
+    "project": [
+      "tsconfig.json",
+      "tsconfig.dev.json"
+    ]
   }
 }
