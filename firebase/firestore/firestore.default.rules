@@ -7,26 +7,31 @@ service cloud.firestore {
     }
 
     function isMe(createdBy) {
-      return createdBy == request.auth.uid;
+      return
+        // 未認証ユーザーの場合
+        (createdBy == null && request.auth == null) ||
+        // 認証済みユーザーの場合
+        (createdBy == request.auth.uid);
     }
 
     match /feedbacks_v1/{documentId} {
-      // 誰でも作成できること
-      allow create: if true;
+      allow create: if
+        // 自分であれば作成できること
+        isMe(request.resource.data.createdBy);
 
-      allow read: if
-          // 認証済みユーザーであること
-          isSignedIn() &&
-          // 自分のfeedbackであること
-          isMe(request.auth.uid);
+      allow get, list: if
+        // 認証済みユーザーであること
+        isSignedIn() &&
+        // 自分のfeedbackであること
+        isMe(resource.data.createdBy);
     }
 
     match /feedbackComments_v1/{documentId} {
       allow create: if
-          // このコメントは自分が作成していること
-          isMe(request.resource.data.createdBy) &&
-          // feedbackを作成した人がコメントを作成できること
-          isMe(get(/databases/$(database)/documents/feedbacks_v1/$(request.resource.data.feedbackId)).data.createdBy);
+        // このコメントは自分が作成していること
+        isMe(request.resource.data.createdBy) &&
+        // feedbackを作成した人がコメントを作成できること
+        isMe(get(/databases/$(database)/documents/feedbacks_v1/$(request.resource.data.feedbackId)).data.createdBy);
     }
   }
 }
