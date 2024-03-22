@@ -11,7 +11,11 @@ import {
   setLogLevel,
 } from 'firebase/firestore';
 import { readFileSync, writeFileSync } from 'fs';
-import { FeedbackData, FeedbackType } from '../src/models';
+import {
+  FeedbackComment,
+  FeedbackData,
+  FeedbackType,
+} from '../src/models';
 import { CollectionPaths } from '../src/utils/collection_paths';
 import {
   expectFirestorePermissionDenied,
@@ -54,32 +58,46 @@ afterAll(async () => {
   writeFileSync(outPath, data);
 });
 
+function createFeedbackData(
+  createdBy: string | null
+): FeedbackData {
+  return {
+    createdAt: null,
+    updatedAt: null,
+    createdBy: createdBy,
+    email: 'email@example.com',
+    from: 'configure',
+    deviceInfo: {
+      osVersion: 'osVersion',
+      modelName: 'modelName',
+      locale: 'locale',
+      appVersion: 'appVersion',
+      appPackageName: 'appPackageName',
+      appName: 'appName',
+    },
+    type: FeedbackType.bugReport,
+    status: 'open',
+    notifyByEmail: true,
+    notifyByPush: true,
+  };
+}
+
+function createFeedbackCommentData(
+  createdBy: string | null,
+  feedbackId: string
+): FeedbackComment {
+  return {
+    createdAt: null,
+    updatedAt: null,
+    feedbackId: feedbackId,
+    createdBy: createdBy,
+    message: 'message',
+    attachments: [],
+  };
+}
+
 describe('feedbacks_v1', () => {
   const collectionPath = CollectionPaths.FEEDBACKS;
-
-  function createFeedbackData(
-    createdBy: string | null
-  ): FeedbackData {
-    return {
-      createdAt: null,
-      updatedAt: null,
-      createdBy: createdBy,
-      email: 'email@example.com',
-      from: 'configure',
-      deviceInfo: {
-        osVersion: 'osVersion',
-        modelName: 'modelName',
-        locale: 'locale',
-        appVersion: 'appVersion',
-        appPackageName: 'appPackageName',
-        appName: 'appName',
-      },
-      type: FeedbackType.bugReport,
-      status: 'open',
-      notifyByEmail: true,
-      notifyByPush: true,
-    };
-  }
 
   describe('create', () => {
     it('createできること', async () => {
@@ -97,7 +115,7 @@ describe('feedbacks_v1', () => {
         )
       );
 
-      // 偽って作成はできない
+      // ユーザを偽って作成はできない
       await expectFirestorePermissionDenied(
         addDoc(
           collection(db, collectionPath),
@@ -119,7 +137,7 @@ describe('feedbacks_v1', () => {
         )
       );
 
-      // 偽って作成はできない
+      // ユーザを偽って作成はできない
       await expectFirestorePermissionDenied(
         addDoc(
           collection(unAuthDb, collectionPath),
@@ -245,38 +263,105 @@ describe('feedbacks_v1', () => {
 describe('feedbackComments_v1', () => {
   const collectionPath = CollectionPaths.FEEDBACK_COMMENTS;
 
-  describe('get', () => {
-    it('should not be able to get', async () => {
-      const documentId = 'doc1';
+  describe('create', () => {
+    it('createできること', async () => {
+      const uid = 'user1';
 
       const db = testEnv
-        .authenticatedContext('user1')
+        .authenticatedContext(uid)
         .firestore();
-      await expectFirestorePermissionDenied(
-        getDoc(doc(db, collectionPath, documentId))
+
+      // feedbackを作成
+      const feedbackId = await addDoc(
+        collection(db, CollectionPaths.FEEDBACKS),
+        createFeedbackData(uid)
+      ).then(docRef => docRef.id);
+
+      // commentを作成できる
+      await expectFirestorePermissionSucceeds(
+        addDoc(
+          collection(db, collectionPath),
+          createFeedbackCommentData(uid, feedbackId)
+        )
       );
 
-      const unAuthDb = testEnv
-        .unauthenticatedContext()
-        .firestore();
+      // ユーザを偽って作成はできない
       await expectFirestorePermissionDenied(
-        getDoc(doc(unAuthDb, collectionPath, documentId))
+        addDoc(
+          collection(db, collectionPath),
+          createFeedbackCommentData('user2', feedbackId)
+        )
       );
     });
 
-    it('should not be able to list', async () => {
-      const db = testEnv
-        .authenticatedContext('user1')
-        .firestore();
-      await expectFirestorePermissionDenied(
-        getDocs(db.collection(collectionPath))
-      );
-
+    it('未認証ユーザがcreateできること', async () => {
       const unAuthDb = testEnv
         .unauthenticatedContext()
         .firestore();
+
+      // feedbackを作成
+      const feedbackId = await addDoc(
+        collection(unAuthDb, CollectionPaths.FEEDBACKS),
+        createFeedbackData(null)
+      ).then(docRef => docRef.id);
+
+      // commentを作成できる
+      await expectFirestorePermissionSucceeds(
+        addDoc(
+          collection(unAuthDb, collectionPath),
+          createFeedbackCommentData(null, feedbackId)
+        )
+      );
+
+      // ユーザを偽って作成はできない
       await expectFirestorePermissionDenied(
-        getDocs(unAuthDb.collection(collectionPath))
+        addDoc(
+          collection(unAuthDb, collectionPath),
+          createFeedbackCommentData('user1', feedbackId)
+        )
+      );
+    });
+
+    it('存在しないfeedbackにcommentをcreateできないこと', async () => {
+      const uid = 'user1';
+
+      const db = testEnv
+        .authenticatedContext(uid)
+        .firestore();
+
+      // 存在しないfeedbackIdのcommentは作成できない
+      await expectFirestorePermissionDenied(
+        addDoc(
+          collection(db, collectionPath),
+          createFeedbackCommentData(uid, 'notExist')
+        )
+      );
+    });
+
+    it('他人のfeedbackにcommentをcreateできないこと', async () => {
+      const uid = 'user1';
+
+      const db = testEnv
+        .authenticatedContext(uid)
+        .firestore();
+
+      // feedbackを作成
+      const feedbackId = await addDoc(
+        collection(db, CollectionPaths.FEEDBACKS),
+        createFeedbackData(uid)
+      ).then(docRef => docRef.id);
+
+      // 他人のfeedbackにcommentは作成できない
+      const otherUid = 'user2';
+      const otherDb = testEnv
+        .authenticatedContext(otherUid)
+        .firestore();
+
+      await expectFirestorePermissionDenied(
+        addDoc(
+          collection(otherDb, collectionPath),
+          createFeedbackCommentData(otherUid, feedbackId)
+        )
       );
     });
   });

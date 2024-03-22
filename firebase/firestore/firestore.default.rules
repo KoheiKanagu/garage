@@ -28,9 +28,9 @@ service cloud.firestore {
 
     match /feedbackComments_v1/{documentId} {
       allow create: if
-        // このコメントは自分が作成していること
+        // 自分のcommentsであること
         isMe(request.resource.data.createdBy) &&
-        // feedbackを作成した人がコメントを作成できること
+        // feedbackを作成した人がcommentを作成できること
         isMe(get(/databases/$(database)/documents/feedbacks_v1/$(request.resource.data.feedbackId)).data.createdBy);
     }
   }
