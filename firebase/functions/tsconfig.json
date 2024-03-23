@@ -6,7 +6,8 @@
   },
   "include": [
     "src/**/*.ts",
-    "test/**/*.ts"
+    "test/**/*.ts",
+    "scripts/**/*.ts"
   ],
   "lib": [
     "ES2023"
