@@ -18,7 +18,9 @@ export async function loadAdminSdk() {
       break;
 
     default:
-      throw new Error('Unknown env. Please specify one of dev or prod.');
+      throw new Error(
+        'Unknown env. Please specify one of dev or prod.'
+      );
   }
 
   if ((await _askEnter()) !== '') {
