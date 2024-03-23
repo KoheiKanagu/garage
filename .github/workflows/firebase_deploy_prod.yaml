@@ -44,6 +44,11 @@ jobs:
           dart run grinder replace-remoteconfig-template-conditions
 
       ### Deploy ###
-      - name: Deploy
+      - name: Deploy Mail Templates
+        working-directory: firebase/functions
+        run: |
+          npx ts-node scripts/set_mail_templates.ts --force
+
+      - name: Firebase Deploy
         run: |
           firebase deploy --force --except extensions
