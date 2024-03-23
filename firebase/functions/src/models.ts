@@ -94,18 +94,20 @@ export enum MailTemplateNames {
   NewFeedbackEn = 'newFeedbackEn',
 }
 
+export enum MailTemplateFooterNames {
+  feedbackFooterJa = 'feedbackFooterJa',
+  feedbackFooterEn = 'feedbackFooterEn',
+}
+
 export interface MailTemplates {
+  updatedAt: Timestamp | FieldValue | null;
   subject: string;
   html: string;
-  attachments: [
-    {
-      filename: string;
-      path: string;
-    },
-  ];
+  attachments: string;
 }
 
 export interface MailTemplatePartial {
+  updatedAt: Timestamp | FieldValue | null;
   partial: true;
   html: string;
 }

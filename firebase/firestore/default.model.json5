@@ -106,12 +106,14 @@
 
   mailTemplates_v1: {
     newFeedbackJa: {
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
       subject: "[{{feedbackId}}] {{appName}} へのお問い合わせ",
       html: "html",
       attachments: "{{attachments}}",
     },
 
-    footer: {
+    feedbackFooterJa: {
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
       partial: true,
       html: "html",
     },
