@@ -31,10 +31,3 @@ export async function expectFirestorePermissionSucceeds(
   const successResult = await assertSucceeds(promise);
   expect(successResult).not.toBeUndefined();
 }
-
-// export async function expectFirestorePermissionGetSucceeds(
-//   promise: Promise<unknown>
-// ) {
-//   const successResult = await assertSucceeds(promise);
-//   expect(successResult).not.toBeUndefined();
-// }
