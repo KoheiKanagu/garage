@@ -29,9 +29,13 @@ import 'package:core/features/configure/presentation/update_app_page.dart';
 import 'package:core/features/configure/presentation/user_info_page.dart';
 import 'package:core/features/feedback/application/feedback_providers.dart';
 import 'package:core/features/feedback/application/ja_feedback_localizations.dart';
+import 'package:core/features/feedback/domain/feedback_attachment.dart';
+import 'package:core/features/feedback/domain/feedback_comment.dart';
 import 'package:core/features/feedback/domain/feedback_data.dart';
 import 'package:core/features/feedback/domain/feedback_device_info.dart';
+import 'package:core/features/feedback/domain/feedback_extras.dart';
 import 'package:core/features/feedback/domain/feedback_from.dart';
+import 'package:core/features/feedback/domain/feedback_status.dart';
 import 'package:core/features/feedback/domain/feedback_type.dart';
 import 'package:core/features/feedback/presentation/my_better_feedback.dart';
 import 'package:core/features/feedback/presentation/my_feedback_device_info_field.dart';
@@ -55,5 +59,6 @@ import 'package:core/utils/media_query_preview.dart';
 import 'package:core/utils/my_logger.dart';
 import 'package:core/utils/store_uri.dart';
 import 'package:core/utils/timestamp_converter.dart';
+import 'package:core/utils/uri_data_converter.dart';
 
 void main() {}
