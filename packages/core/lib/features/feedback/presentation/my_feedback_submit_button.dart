@@ -19,7 +19,10 @@ class MyFeedbackSubmitButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future<void> onSubmitPressed() async {
-      final validate = feedbackFormKey.currentState?.validate() ?? false;
+      final state = feedbackFormKey.currentState;
+      state?.save();
+
+      final validate = state?.validate() ?? false;
       if (!validate) {
         return;
       }
@@ -30,12 +33,12 @@ class MyFeedbackSubmitButton extends HookConsumerWidget {
         okLabel: i18n.feedback.submit,
       );
 
-      final (data, comment) = (
-        await ref.watch(feedbackDataControllerProvider.future),
-        await ref.watch(feedbackCommentControllerProvider.future),
-      );
-
       if (result == OkCancelResult.ok) {
+        final (data, comment) = (
+          await ref.watch(feedbackDataControllerProvider.future),
+          await ref.watch(feedbackCommentControllerProvider.future),
+        );
+
         await submit(
           'unused this value',
           extras: FeedbackExtras(

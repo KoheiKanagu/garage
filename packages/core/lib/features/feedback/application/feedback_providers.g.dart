@@ -62,7 +62,7 @@ final feedbackCommentsCollectionReferenceProvider =
 
 typedef FeedbackCommentsCollectionReferenceRef
     = AutoDisposeProviderRef<CollectionReference<FeedbackComment>>;
-String _$feedbackSubmitHash() => r'e953e77ad4e36b7921b094946146fb00359c6e59';
+String _$feedbackSubmitHash() => r'b9638174505afa27ba2f9285f589e7609efe2164';
 
 /// Copied from Dart SDK
 class _SystemHash {
