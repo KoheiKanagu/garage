@@ -131,9 +131,9 @@ String? feedbackValidateEmail(
 }) {
   // 1024文字以上はエラー
   if ((value ?? '').length > 1024) {
-    return null;
+    return errorMessage;
   }
-  return errorMessage;
+  return null;
 }
 
 @riverpod
@@ -144,9 +144,9 @@ String? feedbackValidateMessage(
 }) {
   // 空の場合はエラー
   if (value?.trim().isEmpty ?? true) {
-    return null;
+    return errorMessage;
   }
-  return errorMessage;
+  return null;
 }
 
 @riverpod
