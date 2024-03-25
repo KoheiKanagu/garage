@@ -1,7 +1,9 @@
 import * as admin from 'firebase-admin';
-import { applicationDefault } from 'firebase-admin/app';
+import { Credential } from 'firebase-admin/app';
+import { ExternalAccountClient } from 'google-auth-library';
 import { exit } from 'process';
 import * as readLine from 'readline';
+import { ComputeEngineCredential } from '../../node_modules/firebase-admin/lib/app/credential-internal';
 import fs = require('fs');
 import path = require('path');
 
@@ -39,8 +41,39 @@ export async function loadAdminSdk() {
   }
 
   admin.initializeApp({
-    credential: applicationDefault(),
+    credential: new ExternalAccountCredential(),
+    // credential: applicationDefault(),
   });
+}
+
+// TODO: https://github.com/firebase/firebase-admin-node/issues/1377
+// https://gist.github.com/k2wanko/289f5cf231ca80da099c7414dceb465d
+class ExternalAccountCredential
+  extends ComputeEngineCredential
+  implements Credential
+{
+  async getAccessToken(): Promise<admin.GoogleOAuthAccessToken> {
+    const json = JSON.parse(
+      fs.readFileSync(
+        process.env
+          .GOOGLE_APPLICATION_CREDENTIALS as string,
+        'utf-8'
+      )
+    );
+    const client = ExternalAccountClient.fromJSON(json);
+    if (!client) {
+      throw new Error('client is empty');
+    }
+    const res = await client.getAccessToken();
+
+    return {
+      access_token: res.res?.data?.accessToken || '',
+      expires_in:
+        new Date(
+          res.res?.data?.expireTime ?? 1000
+        ).getTime() / 1000,
+    };
+  }
 }
 
 function outputExportExample() {
