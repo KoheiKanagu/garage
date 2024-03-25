@@ -24,7 +24,11 @@ _$FeedbackDataImpl _$$FeedbackDataImplFromJson(Map<String, dynamic> json) =>
               $checkedConvert('notifyByEmail', (v) => v as bool? ?? true),
           notifyByPush:
               $checkedConvert('notifyByPush', (v) => v as bool? ?? true),
-          status: $checkedConvert('status', (v) => v ?? FeedbackStatus.open),
+          status: $checkedConvert(
+              'status',
+              (v) =>
+                  $enumDecodeNullable(_$FeedbackStatusEnumMap, v) ??
+                  FeedbackStatus.open),
           from: $checkedConvert(
               'from',
               (v) =>
@@ -47,7 +51,7 @@ Map<String, dynamic> _$$FeedbackDataImplToJson(_$FeedbackDataImpl instance) =>
       'type': _$FeedbackTypeEnumMap[instance.type]!,
       'notifyByEmail': instance.notifyByEmail,
       'notifyByPush': instance.notifyByPush,
-      'status': instance.status,
+      'status': _$FeedbackStatusEnumMap[instance.status]!,
       'from': _$FeedbackFromEnumMap[instance.from]!,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
@@ -58,6 +62,11 @@ const _$FeedbackTypeEnumMap = {
   FeedbackType.bugReport: 'bugReport',
   FeedbackType.featureRequest: 'featureRequest',
   FeedbackType.other: 'other',
+};
+
+const _$FeedbackStatusEnumMap = {
+  FeedbackStatus.open: 'open',
+  FeedbackStatus.closed: 'closed',
 };
 
 const _$FeedbackFromEnumMap = {

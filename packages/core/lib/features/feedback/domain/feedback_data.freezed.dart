@@ -40,7 +40,7 @@ mixin _$FeedbackData {
   bool get notifyByPush => throw _privateConstructorUsedError;
 
   /// フィードバックのステータス
-  dynamic get status => throw _privateConstructorUsedError;
+  FeedbackStatus get status => throw _privateConstructorUsedError;
 
   /// どこからのフィードバックか
   FeedbackFrom get from => throw _privateConstructorUsedError;
@@ -68,7 +68,7 @@ abstract class $FeedbackDataCopyWith<$Res> {
       FeedbackType type,
       bool notifyByEmail,
       bool notifyByPush,
-      dynamic status,
+      FeedbackStatus status,
       FeedbackFrom from,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt});
@@ -95,7 +95,7 @@ class _$FeedbackDataCopyWithImpl<$Res, $Val extends FeedbackData>
     Object? type = null,
     Object? notifyByEmail = null,
     Object? notifyByPush = null,
-    Object? status = freezed,
+    Object? status = null,
     Object? from = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -125,10 +125,10 @@ class _$FeedbackDataCopyWithImpl<$Res, $Val extends FeedbackData>
           ? _value.notifyByPush
           : notifyByPush // ignore: cast_nullable_to_non_nullable
               as bool,
-      status: freezed == status
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as FeedbackStatus,
       from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -168,7 +168,7 @@ abstract class _$$FeedbackDataImplCopyWith<$Res>
       FeedbackType type,
       bool notifyByEmail,
       bool notifyByPush,
-      dynamic status,
+      FeedbackStatus status,
       FeedbackFrom from,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt});
@@ -194,7 +194,7 @@ class __$$FeedbackDataImplCopyWithImpl<$Res>
     Object? type = null,
     Object? notifyByEmail = null,
     Object? notifyByPush = null,
-    Object? status = freezed,
+    Object? status = null,
     Object? from = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -224,7 +224,10 @@ class __$$FeedbackDataImplCopyWithImpl<$Res>
           ? _value.notifyByPush
           : notifyByPush // ignore: cast_nullable_to_non_nullable
               as bool,
-      status: freezed == status ? _value.status! : status,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FeedbackStatus,
       from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -289,7 +292,7 @@ class _$FeedbackDataImpl implements _FeedbackData {
   /// フィードバックのステータス
   @override
   @JsonKey()
-  final dynamic status;
+  final FeedbackStatus status;
 
   /// どこからのフィードバックか
   @override
@@ -322,7 +325,7 @@ class _$FeedbackDataImpl implements _FeedbackData {
                 other.notifyByEmail == notifyByEmail) &&
             (identical(other.notifyByPush, notifyByPush) ||
                 other.notifyByPush == notifyByPush) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.from, from) || other.from == from) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -332,18 +335,8 @@ class _$FeedbackDataImpl implements _FeedbackData {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      createdBy,
-      email,
-      deviceInfo,
-      type,
-      notifyByEmail,
-      notifyByPush,
-      const DeepCollectionEquality().hash(status),
-      from,
-      createdAt,
-      updatedAt);
+  int get hashCode => Object.hash(runtimeType, createdBy, email, deviceInfo,
+      type, notifyByEmail, notifyByPush, status, from, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -367,7 +360,7 @@ abstract class _FeedbackData implements FeedbackData {
       required final FeedbackType type,
       final bool notifyByEmail,
       final bool notifyByPush,
-      final dynamic status,
+      final FeedbackStatus status,
       final FeedbackFrom from,
       @TimestampConverter() final Timestamp? createdAt,
       @TimestampConverter() final Timestamp? updatedAt}) = _$FeedbackDataImpl;
@@ -403,7 +396,7 @@ abstract class _FeedbackData implements FeedbackData {
   @override
 
   /// フィードバックのステータス
-  dynamic get status;
+  FeedbackStatus get status;
   @override
 
   /// どこからのフィードバックか

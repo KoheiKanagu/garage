@@ -264,7 +264,7 @@ final feedbackCommentStateProvider =
 
 typedef FeedbackCommentStateRef = AutoDisposeFutureProviderRef<FeedbackComment>;
 String _$feedbackValidateEmailHash() =>
-    r'ea215e29fd22e1f727630b999061126de814d264';
+    r'f55579b9b3c439b0f27e1338238abe004976f716';
 
 /// See also [feedbackValidateEmail].
 @ProviderFor(feedbackValidateEmail)
@@ -411,7 +411,7 @@ class _FeedbackValidateEmailProviderElement
 }
 
 String _$feedbackValidateMessageHash() =>
-    r'17cfea53f73c74c0b5efeda0316f816192e96a8b';
+    r'd9e619393c46c16a024b445bef9cc417cc984cb4';
 
 /// See also [feedbackValidateMessage].
 @ProviderFor(feedbackValidateMessage)

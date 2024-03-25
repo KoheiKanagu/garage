@@ -28,7 +28,7 @@ class FeedbackData with _$FeedbackData {
     @Default(true) bool notifyByPush,
 
     /// フィードバックのステータス
-    @Default(FeedbackStatus.open) status,
+    @Default(FeedbackStatus.open) FeedbackStatus status,
 
     /// どこからのフィードバックか
     @Default(FeedbackFrom.unknown) FeedbackFrom from,
