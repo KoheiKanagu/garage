@@ -72,7 +72,9 @@ Future<void> feedbackSubmit(
   final extras = FeedbackExtras.fromMap(userFeedback.extra!);
 
   // フィードバックを作成
-  final feedbackData = extras.feedbackData;
+  final feedbackData = extras.feedbackData.copyWith(
+    from: feedbackFrom,
+  );
   final docRef =
       await ref.watch(feedbacksCollectionReferenceProvider).add(feedbackData);
   final feedbackId = docRef.id;
