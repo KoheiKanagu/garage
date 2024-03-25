@@ -12,7 +12,7 @@ import { CollectionPaths } from './utils/collection_paths';
 import { kSupportEmail } from './utils/constants';
 
 export const onCreateFeedbackComment = onDocumentCreated(
-  CollectionPaths.FEEDBACK_COMMENTS,
+  `${CollectionPaths.FEEDBACK_COMMENTS}/{documentId}`,
   async event => {
     const feedbackComment = event.data?.data();
 
