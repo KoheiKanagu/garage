@@ -114,12 +114,17 @@ void showMyBetterFeedback(
 }) {
   BetterFeedback.of(context).show(
     (feedback) async {
-      await ref.watch(
-        feedbackSubmitProvider(
-          feedback,
-          feedbackFrom: from,
-        ).future,
-      );
+      final indicator = showMyProgressIndicator();
+      try {
+        await ref.watch(
+          feedbackSubmitProvider(
+            feedback,
+            feedbackFrom: from,
+          ).future,
+        );
+      } finally {
+        indicator.dismiss();
+      }
 
       if (context.mounted) {
         await showOkAlertDialog(
