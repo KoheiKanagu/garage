@@ -335,7 +335,7 @@ it("言語が'en'の場合、英語のテンプレートが使われること", 
         appName: feedbackData.deviceInfo.appName,
         feedbackId: feedbackId,
         message: feedbackComment.message,
-        type: feedbackData.type,
+        type: feedbackData.typeLocalized,
       },
     },
   };
@@ -419,7 +419,7 @@ it('メール送信できること', async () => {
         appName: feedbackData.deviceInfo.appName,
         feedbackId: feedbackId,
         message: feedbackComment.message,
-        type: feedbackData.type,
+        type: feedbackData.typeLocalized,
       },
     },
   };

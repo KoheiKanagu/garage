@@ -3,11 +3,7 @@ import { logger } from 'firebase-functions/v2';
 import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 import { isNull, isUndefined } from 'lodash';
 import { UndefinedDocumentData } from './errors/undefined_document_data';
-import {
-  FeedbackType,
-  Mail,
-  MailTemplateNames,
-} from './models';
+import { Mail, MailTemplateNames } from './models';
 import { CollectionPaths } from './utils/collection_paths';
 import { kSupportEmail } from './utils/constants';
 
@@ -76,7 +72,7 @@ export const onCreateFeedbackComment = onDocumentCreated(
             .appName as string,
           feedbackId: feedbackId,
           message: feedbackComment.message as string,
-          type: feedbackData.type as FeedbackType,
+          type: feedbackData.typeLocalized as string,
         },
       },
     };

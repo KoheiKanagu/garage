@@ -87,7 +87,7 @@ export interface Mail {
       appName: string;
       feedbackId: string;
       message: string;
-      type: FeedbackType;
+      type: string;
     };
   };
 }
