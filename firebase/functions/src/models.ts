@@ -42,6 +42,9 @@ export interface FeedbackData {
   // フィードバックの種類
   type: FeedbackType;
 
+  // フィードバックの種類のローカライズ
+  typeLocalized: string;
+
   // このissueのステータス
   status: 'open' | 'closed';
 

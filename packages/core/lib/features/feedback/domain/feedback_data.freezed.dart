@@ -33,6 +33,9 @@ mixin _$FeedbackData {
   /// フィードバックの種類
   FeedbackType get type => throw _privateConstructorUsedError;
 
+  /// フィードバックの種類（ローカライズ済み）
+  String get typeLocalized => throw _privateConstructorUsedError;
+
   /// メールで通知するか
   bool get notifyByEmail => throw _privateConstructorUsedError;
 
@@ -66,6 +69,7 @@ abstract class $FeedbackDataCopyWith<$Res> {
       String? email,
       FeedbackDeviceInfo deviceInfo,
       FeedbackType type,
+      String typeLocalized,
       bool notifyByEmail,
       bool notifyByPush,
       FeedbackStatus status,
@@ -93,6 +97,7 @@ class _$FeedbackDataCopyWithImpl<$Res, $Val extends FeedbackData>
     Object? email = freezed,
     Object? deviceInfo = null,
     Object? type = null,
+    Object? typeLocalized = null,
     Object? notifyByEmail = null,
     Object? notifyByPush = null,
     Object? status = null,
@@ -117,6 +122,10 @@ class _$FeedbackDataCopyWithImpl<$Res, $Val extends FeedbackData>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as FeedbackType,
+      typeLocalized: null == typeLocalized
+          ? _value.typeLocalized
+          : typeLocalized // ignore: cast_nullable_to_non_nullable
+              as String,
       notifyByEmail: null == notifyByEmail
           ? _value.notifyByEmail
           : notifyByEmail // ignore: cast_nullable_to_non_nullable
@@ -166,6 +175,7 @@ abstract class _$$FeedbackDataImplCopyWith<$Res>
       String? email,
       FeedbackDeviceInfo deviceInfo,
       FeedbackType type,
+      String typeLocalized,
       bool notifyByEmail,
       bool notifyByPush,
       FeedbackStatus status,
@@ -192,6 +202,7 @@ class __$$FeedbackDataImplCopyWithImpl<$Res>
     Object? email = freezed,
     Object? deviceInfo = null,
     Object? type = null,
+    Object? typeLocalized = null,
     Object? notifyByEmail = null,
     Object? notifyByPush = null,
     Object? status = null,
@@ -216,6 +227,10 @@ class __$$FeedbackDataImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as FeedbackType,
+      typeLocalized: null == typeLocalized
+          ? _value.typeLocalized
+          : typeLocalized // ignore: cast_nullable_to_non_nullable
+              as String,
       notifyByEmail: null == notifyByEmail
           ? _value.notifyByEmail
           : notifyByEmail // ignore: cast_nullable_to_non_nullable
@@ -252,6 +267,7 @@ class _$FeedbackDataImpl implements _FeedbackData {
       required this.email,
       required this.deviceInfo,
       required this.type,
+      required this.typeLocalized,
       this.notifyByEmail = true,
       this.notifyByPush = true,
       this.status = FeedbackStatus.open,
@@ -278,6 +294,10 @@ class _$FeedbackDataImpl implements _FeedbackData {
   /// フィードバックの種類
   @override
   final FeedbackType type;
+
+  /// フィードバックの種類（ローカライズ済み）
+  @override
+  final String typeLocalized;
 
   /// メールで通知するか
   @override
@@ -307,7 +327,7 @@ class _$FeedbackDataImpl implements _FeedbackData {
 
   @override
   String toString() {
-    return 'FeedbackData(createdBy: $createdBy, email: $email, deviceInfo: $deviceInfo, type: $type, notifyByEmail: $notifyByEmail, notifyByPush: $notifyByPush, status: $status, from: $from, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'FeedbackData(createdBy: $createdBy, email: $email, deviceInfo: $deviceInfo, type: $type, typeLocalized: $typeLocalized, notifyByEmail: $notifyByEmail, notifyByPush: $notifyByPush, status: $status, from: $from, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -321,6 +341,8 @@ class _$FeedbackDataImpl implements _FeedbackData {
             (identical(other.deviceInfo, deviceInfo) ||
                 other.deviceInfo == deviceInfo) &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.typeLocalized, typeLocalized) ||
+                other.typeLocalized == typeLocalized) &&
             (identical(other.notifyByEmail, notifyByEmail) ||
                 other.notifyByEmail == notifyByEmail) &&
             (identical(other.notifyByPush, notifyByPush) ||
@@ -335,8 +357,19 @@ class _$FeedbackDataImpl implements _FeedbackData {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, createdBy, email, deviceInfo,
-      type, notifyByEmail, notifyByPush, status, from, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      createdBy,
+      email,
+      deviceInfo,
+      type,
+      typeLocalized,
+      notifyByEmail,
+      notifyByPush,
+      status,
+      from,
+      createdAt,
+      updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -358,6 +391,7 @@ abstract class _FeedbackData implements FeedbackData {
       required final String? email,
       required final FeedbackDeviceInfo deviceInfo,
       required final FeedbackType type,
+      required final String typeLocalized,
       final bool notifyByEmail,
       final bool notifyByPush,
       final FeedbackStatus status,
@@ -385,6 +419,10 @@ abstract class _FeedbackData implements FeedbackData {
 
   /// フィードバックの種類
   FeedbackType get type;
+  @override
+
+  /// フィードバックの種類（ローカライズ済み）
+  String get typeLocalized;
   @override
 
   /// メールで通知するか

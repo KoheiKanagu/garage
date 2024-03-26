@@ -111,6 +111,7 @@ Future<FeedbackData> feedbackDataState(
     email: null,
     deviceInfo: deviceInfo,
     type: FeedbackType.impression,
+    typeLocalized: FeedbackType.impression.localizedString,
   );
 }
 
@@ -179,6 +180,7 @@ class FeedbackDataController extends _$FeedbackDataController {
     state = state.whenData(
       (value) => value.copyWith(
         type: type,
+        typeLocalized: type.localizedString,
       ),
     );
   }

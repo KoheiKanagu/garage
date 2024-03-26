@@ -20,6 +20,7 @@ _$FeedbackDataImpl _$$FeedbackDataImplFromJson(Map<String, dynamic> json) =>
               (v) => FeedbackDeviceInfo.fromJson(v as Map<String, dynamic>)),
           type: $checkedConvert(
               'type', (v) => $enumDecode(_$FeedbackTypeEnumMap, v)),
+          typeLocalized: $checkedConvert('typeLocalized', (v) => v as String),
           notifyByEmail:
               $checkedConvert('notifyByEmail', (v) => v as bool? ?? true),
           notifyByPush:
@@ -49,6 +50,7 @@ Map<String, dynamic> _$$FeedbackDataImplToJson(_$FeedbackDataImpl instance) =>
       'email': instance.email,
       'deviceInfo': instance.deviceInfo.toJson(),
       'type': _$FeedbackTypeEnumMap[instance.type]!,
+      'typeLocalized': instance.typeLocalized,
       'notifyByEmail': instance.notifyByEmail,
       'notifyByPush': instance.notifyByPush,
       'status': _$FeedbackStatusEnumMap[instance.status]!,

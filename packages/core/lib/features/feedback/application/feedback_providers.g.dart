@@ -230,7 +230,7 @@ class _FeedbackSubmitProviderElement
       (origin as FeedbackSubmitProvider).feedbackFrom;
 }
 
-String _$feedbackDataStateHash() => r'a6721a33e284a41cdd9f4bb61fe34236af944fb7';
+String _$feedbackDataStateHash() => r'fc6eb2787deafb440eb9cb3c463b70d5cfd135d9';
 
 /// See also [feedbackDataState].
 @ProviderFor(feedbackDataState)
@@ -559,7 +559,7 @@ class _FeedbackValidateMessageProviderElement
 }
 
 String _$feedbackDataControllerHash() =>
-    r'5f6e61b2f09da528f6f22e5470aa1d02bdeaac01';
+    r'274816023b4a1a47a42481f6eaf5677dc985a612';
 
 /// See also [FeedbackDataController].
 @ProviderFor(FeedbackDataController)

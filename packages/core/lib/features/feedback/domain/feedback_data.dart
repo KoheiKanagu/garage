@@ -21,6 +21,9 @@ class FeedbackData with _$FeedbackData {
     /// フィードバックの種類
     required FeedbackType type,
 
+    /// フィードバックの種類（ローカライズ済み）
+    required String typeLocalized,
+
     /// メールで通知するか
     @Default(true) bool notifyByEmail,
 

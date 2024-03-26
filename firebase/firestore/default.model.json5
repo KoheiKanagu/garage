@@ -26,6 +26,9 @@
       // フィードバックの種類
       type: "impression", // impression | bugReport | featureRequest | other
 
+      // フィードバックの種類のローカライズ
+      typeLocalized: "ご意見・ご感想について",
+
       // このフィードバックのステータス
       status: "open", // open | closed
 
