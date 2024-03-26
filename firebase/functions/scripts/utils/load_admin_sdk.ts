@@ -4,15 +4,21 @@ import { ExternalAccountClient } from 'google-auth-library';
 import { exit } from 'process';
 import * as readLine from 'readline';
 import { ComputeEngineCredential } from '../../node_modules/firebase-admin/lib/app/credential-internal';
+import { kDevProjectId } from '../../src/utils/constants';
 import fs = require('fs');
 import path = require('path');
 
-export async function loadAdminSdk() {
+export async function loadAdminSdk(
+  connectToEmulator: boolean = false
+) {
   console.log(
     'This script will initialize the Firebase Admin SDK.'
   );
 
-  if (process.argv.includes('--emulator')) {
+  if (
+    process.argv.includes('--emulator') ||
+    connectToEmulator
+  ) {
     console.log('Connecting to the emulators...');
 
     process.env.FIREBASE_AUTH_EMULATOR_HOST =
@@ -20,7 +26,7 @@ export async function loadAdminSdk() {
     process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8080';
 
     admin.initializeApp({
-      projectId: 'kingu-garage-dev',
+      projectId: kDevProjectId,
     });
     return;
   }

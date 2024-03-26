@@ -86,6 +86,7 @@ export const onCreateFeedbackComment = onDocumentCreated(
     // メール送信
     await firestore()
       .collection(CollectionPaths.MAILS)
-      .add(mail);
+      .doc(event.params.documentId)
+      .set(mail);
   }
 );
