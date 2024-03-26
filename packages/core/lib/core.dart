@@ -40,6 +40,7 @@ export 'features/feedback/domain/feedback_from.dart';
 export 'features/feedback/domain/feedback_status.dart';
 export 'features/feedback/domain/feedback_type.dart';
 export 'features/feedback/presentation/my_better_feedback.dart';
+export 'features/feedback/presentation/my_feedback_attach_screenshot_field.dart';
 export 'features/feedback/presentation/my_feedback_device_info_field.dart';
 export 'features/feedback/presentation/my_feedback_email_field.dart';
 export 'features/feedback/presentation/my_feedback_message_field.dart';

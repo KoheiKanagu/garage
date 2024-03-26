@@ -38,6 +38,7 @@ import 'package:core/features/feedback/domain/feedback_from.dart';
 import 'package:core/features/feedback/domain/feedback_status.dart';
 import 'package:core/features/feedback/domain/feedback_type.dart';
 import 'package:core/features/feedback/presentation/my_better_feedback.dart';
+import 'package:core/features/feedback/presentation/my_feedback_attach_screenshot_field.dart';
 import 'package:core/features/feedback/presentation/my_feedback_device_info_field.dart';
 import 'package:core/features/feedback/presentation/my_feedback_email_field.dart';
 import 'package:core/features/feedback/presentation/my_feedback_message_field.dart';
