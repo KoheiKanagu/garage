@@ -69,7 +69,11 @@ export interface FeedbackComment {
   message: string;
 
   // Data URL
-  attachments: Array<unknown>;
+  attachments: [
+    {
+      path: string;
+    }?,
+  ];
 }
 
 export interface Mail {
