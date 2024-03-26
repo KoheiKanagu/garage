@@ -55,7 +55,10 @@
       "feature_request": "Feature Request",
       "impression": "Opinion",
       "other": "Other"
-    }
+    },
+    "attach_screenshot": "Attach screenshot",
+    "screenshot": "Screenshot",
+    "attach_screenshot_notice": "If you can let us know specifically which part of the report is about, we can respond more quickly. It would be helpful if you could attach a screenshot of the app screen."
   },
   "auth": {
     "sigh_in_with_apple": "Sign in with Apple",

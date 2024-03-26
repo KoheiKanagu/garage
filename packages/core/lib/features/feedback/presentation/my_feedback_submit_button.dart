@@ -34,9 +34,10 @@ class MyFeedbackSubmitButton extends HookConsumerWidget {
       );
 
       if (result == OkCancelResult.ok) {
-        final (data, comment) = (
+        final (data, comment, attachScreenshot) = (
           await ref.watch(feedbackDataControllerProvider.future),
           await ref.watch(feedbackCommentControllerProvider.future),
+          ref.watch(feedbackAttachScreenshotControllerProvider),
         );
 
         await submit(
@@ -44,7 +45,7 @@ class MyFeedbackSubmitButton extends HookConsumerWidget {
           extras: FeedbackExtras(
             feedbackData: data,
             feedbackComment: comment,
-            attachScreenshot: true,
+            attachScreenshot: attachScreenshot,
           ).toMap(),
         );
       }

@@ -232,6 +232,9 @@ class _StringsFeedbackJa {
 	String get too_long => '文字数が多すぎます';
 	String get feedback_type_header => 'どのようなご報告ですか？';
 	late final _StringsFeedbackTypeJa type = _StringsFeedbackTypeJa._(_root);
+	String get attach_screenshot => 'スクリーンショットを添付';
+	String get screenshot => 'スクリーンショット';
+	String get attach_screenshot_notice => '具体的にどの部分に関するご報告かお知らせいただけると、より迅速に対応できるため、アプリ画面のスクリーンショットを添付していただけると助かります。';
 }
 
 // Path: auth
@@ -428,6 +431,9 @@ class _StringsFeedbackEn extends _StringsFeedbackJa {
 	@override String get too_long => 'Too many characters';
 	@override String get feedback_type_header => 'What type of report is this?';
 	@override late final _StringsFeedbackTypeEn type = _StringsFeedbackTypeEn._(_root);
+	@override String get attach_screenshot => 'Attach screenshot';
+	@override String get screenshot => 'Screenshot';
+	@override String get attach_screenshot_notice => 'If you can let us know specifically which part of the report is about, we can respond more quickly. It would be helpful if you could attach a screenshot of the app screen.';
 }
 
 // Path: auth

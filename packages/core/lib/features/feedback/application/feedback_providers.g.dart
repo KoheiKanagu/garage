@@ -558,6 +558,23 @@ class _FeedbackValidateMessageProviderElement
       (origin as FeedbackValidateMessageProvider).errorMessage;
 }
 
+String _$feedbackAttachScreenshotStateHash() =>
+    r'b0123c1b6833b9977c2057912c66053071383934';
+
+/// See also [feedbackAttachScreenshotState].
+@ProviderFor(feedbackAttachScreenshotState)
+final feedbackAttachScreenshotStateProvider =
+    AutoDisposeProvider<bool>.internal(
+  feedbackAttachScreenshotState,
+  name: r'feedbackAttachScreenshotStateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$feedbackAttachScreenshotStateHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FeedbackAttachScreenshotStateRef = AutoDisposeProviderRef<bool>;
 String _$feedbackDataControllerHash() =>
     r'274816023b4a1a47a42481f6eaf5677dc985a612';
 
@@ -592,5 +609,22 @@ final feedbackCommentControllerProvider = AutoDisposeAsyncNotifierProvider<
 );
 
 typedef _$FeedbackCommentController = AutoDisposeAsyncNotifier<FeedbackComment>;
+String _$feedbackAttachScreenshotControllerHash() =>
+    r'75110053edcff3442736e6d7362296fb3a04ef28';
+
+/// See also [FeedbackAttachScreenshotController].
+@ProviderFor(FeedbackAttachScreenshotController)
+final feedbackAttachScreenshotControllerProvider = AutoDisposeNotifierProvider<
+    FeedbackAttachScreenshotController, bool>.internal(
+  FeedbackAttachScreenshotController.new,
+  name: r'feedbackAttachScreenshotControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$feedbackAttachScreenshotControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$FeedbackAttachScreenshotController = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

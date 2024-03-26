@@ -210,3 +210,22 @@ class FeedbackCommentController extends _$FeedbackCommentController {
     }
   }
 }
+
+@riverpod
+bool feedbackAttachScreenshotState(
+  FeedbackAttachScreenshotStateRef ref,
+) =>
+    true;
+
+@riverpod
+class FeedbackAttachScreenshotController
+    extends _$FeedbackAttachScreenshotController {
+  @override
+  bool build() {
+    return ref.watch(feedbackAttachScreenshotStateProvider);
+  }
+
+  void toggle() {
+    state = !state;
+  }
+}

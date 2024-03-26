@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core/features/feedback/presentation/my_feedback_attach_screenshot_field.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -35,6 +36,8 @@ class MyFeedbackSheet extends HookConsumerWidget {
               const Gap(28),
               const MyFeedbackEmailField(),
               const Gap(28),
+              const MyFeedbackAttachScreenshotField(),
+              const Gap(28),
               const MyFeedbackDeviceInfoField(),
               const Gap(28),
               MyFeedbackSubmitButton(submit),
@@ -53,6 +56,7 @@ class MyFeedbackSheet extends HookConsumerWidget {
               const MyFeedbackTypePickerField(),
               const MyFeedbackMessageField(),
               const MyFeedbackEmailField(),
+              const MyFeedbackAttachScreenshotField(),
               const MyFeedbackDeviceInfoField(),
               const Gap(28),
               MyFeedbackSubmitButton(submit),
