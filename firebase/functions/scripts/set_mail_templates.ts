@@ -26,10 +26,10 @@ void (async () => {
     switch (templateName) {
       case MailTemplateNames.NewFeedbackJa:
         subject =
-          '{{appName}} へのお問い合わせありがとうございます';
+          '「{{appName}}」へのお問い合わせありがとうございます';
         break;
       case MailTemplateNames.NewFeedbackEn:
-        subject = 'Thank you for feedback to {{appName}}';
+        subject = 'Thank you for feedback to "{{appName}}"';
         break;
       default:
         throw new Error('Unknown template name');
