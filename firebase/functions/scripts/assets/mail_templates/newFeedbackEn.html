@@ -1,41 +1,73 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
   </head>
-  <head>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: #f0f0f0;
-      }
-      .container {
+
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: whitesmoke;
+      font-family: 'Noto Sans JP', sans-serif;
+    "
+  >
+    <div
+      style="
         width: 80%;
         margin: 0 auto;
-        background-color: #fff;
+        background-color: white;
         padding: 20px;
         border-radius: 5px;
         margin-top: 10px;
         box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-      }
-      .footer {
-        width: 80%;
-        margin: 0 auto;
-        color: gray;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <p>Thank you for using <strong>{{appName}}</strong>.</p>
+      "
+    >
+      <p>
+        Thank you for using
+        <strong>"{{appName}}".</strong>
+      </p>
       <p>This is an automated response to your feedback.</p>
-      <p>Our representative will contact you after reviewing your message.</p>
+      <p>
+        Our representative will contact you after reviewing
+        your feedback.
+      </p>
+      <p>Regards,</p>
+      <p>kingu.dev Support Team</p>
       <hr />
+      <p style="color: gray; font-size: 80%">
+        Feedback ID [{{feedbackId}}]
+      </p>
+
       <h3>Feedback about {{type}}</h3>
       <p>{{message}}</p>
     </div>
   </body>
 
-  {{> feedbackFooterEn}}
+  <footer
+    style="
+      width: 80%;
+      margin: 0 auto;
+      color: gray;
+      font-family: 'Noto Sans JP', sans-serif;
+    "
+  >
+    <div>
+      <p>
+        If you don't recognize this feedback, it's possible
+        that someone else accidentally entered your email
+        address. If that's the case, please ignore this
+        email.
+      </p>
+      <p>
+        <strong>kingu.dev</strong> Support Team |
+        <a href="https://garage.kingu.dev">
+          garage.kingu.dev
+        </a>
+      </p>
+    </div>
+  </footer>
 </html>

@@ -3,9 +3,7 @@ import {
   getFirestore,
 } from 'firebase-admin/firestore';
 import {
-  MailTemplateFooterNames,
   MailTemplateNames,
-  MailTemplatePartial,
   MailTemplates,
 } from '../src/models';
 import { CollectionPaths } from '../src/utils/collection_paths';
@@ -28,11 +26,10 @@ void (async () => {
     switch (templateName) {
       case MailTemplateNames.NewFeedbackJa:
         subject =
-          '[{{feedbackId}}] {{appName}} へのお問い合わせ';
+          '{{appName}} へのお問い合わせありがとうございます';
         break;
       case MailTemplateNames.NewFeedbackEn:
-        subject =
-          '[{{feedbackId}}] Feedback to {{appName}}';
+        subject = 'Thank you for feedback to {{appName}}';
         break;
       default:
         throw new Error('Unknown template name');
@@ -45,23 +42,11 @@ void (async () => {
         `./scripts/assets/mail_templates/${templateName}.html`,
         'utf8'
       ),
-      attachments: '{{attachments}}',
-    };
-    await doc.set(data);
-  }
-
-  for (const templateFooterName of Object.values(
-    MailTemplateFooterNames
-  )) {
-    const doc = collection.doc(templateFooterName);
-
-    const data: MailTemplatePartial = {
-      updatedAt: FieldValue.serverTimestamp(),
-      partial: true,
-      html: fs.readFileSync(
-        `./scripts/assets/mail_templates/${templateFooterName}.html`,
+      text: fs.readFileSync(
+        `./scripts/assets/mail_templates/${templateName}.txt`,
         'utf8'
       ),
+      attachments: '{{attachments}}',
     };
     await doc.set(data);
   }
