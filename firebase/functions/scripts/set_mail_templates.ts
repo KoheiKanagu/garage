@@ -5,7 +5,6 @@ import {
 import {
   MailTemplateNames,
   MailTemplates,
-  MailTemplatesNoAttachments,
 } from '../src/models';
 import { CollectionPaths } from '../src/utils/collection_paths';
 import { loadAdminSdk } from './utils/load_admin_sdk';
@@ -24,10 +23,12 @@ void (async () => {
     let subject: string;
     switch (templateName) {
       case MailTemplateNames.NewFeedbackJa:
+      case MailTemplateNames.NewFeedbackJaNoAttachments:
         subject =
           '「{{appName}}」へのお問い合わせありがとうございます';
         break;
       case MailTemplateNames.NewFeedbackEn:
+      case MailTemplateNames.NewFeedbackEnNoAttachments:
         subject = 'Thank you for feedback to "{{appName}}"';
         break;
       default:
@@ -38,11 +39,15 @@ void (async () => {
       updatedAt: FieldValue.serverTimestamp(),
       subject: subject,
       html: fs.readFileSync(
-        `./scripts/assets/mail_templates/${templateName}.html`,
+        `./scripts/assets/mail_templates/${
+          templateName.split('.')[0]
+        }.html`,
         'utf8'
       ),
       text: fs.readFileSync(
-        `./scripts/assets/mail_templates/${templateName}.txt`,
+        `./scripts/assets/mail_templates/${
+          templateName.split('.')[0]
+        }.txt`,
         'utf8'
       ),
       attachments: [
@@ -52,17 +57,13 @@ void (async () => {
       ],
     };
     const doc = collection.doc(templateName);
-    await doc.set(data);
 
-    const noAttachmentData: MailTemplatesNoAttachments = {
-      updatedAt: FieldValue.serverTimestamp(),
-      subject: data.subject,
-      html: data.html,
-      text: data.text,
-    };
-    const noAttachmentDoc = collection.doc(
-      templateName + 'NoAttachments'
-    );
-    await noAttachmentDoc.set(noAttachmentData);
+    switch (templateName) {
+      case MailTemplateNames.NewFeedbackJaNoAttachments:
+      case MailTemplateNames.NewFeedbackEnNoAttachments:
+        // 添付ファイルなしのテンプレ
+        delete data.attachments;
+    }
+    await doc.set(data);
   }
 })();

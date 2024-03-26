@@ -45,15 +45,29 @@ export const onCreateFeedbackComment = onDocumentCreated(
       return;
     }
 
+    // 添付ファイルがあるか
+    const hasAttachments =
+      feedbackComment.attachments.length > 0;
+
     // デバイスの言語によってメールのテンプレートを変える
     const locale = feedbackData.deviceInfo.locale as string;
     const languageCode = locale.split('-')[0];
 
     let mailTemplateName: MailTemplateNames;
     if (languageCode === 'ja') {
-      mailTemplateName = MailTemplateNames.NewFeedbackJa;
+      if (hasAttachments) {
+        mailTemplateName = MailTemplateNames.NewFeedbackJa;
+      } else {
+        mailTemplateName =
+          MailTemplateNames.NewFeedbackJaNoAttachments;
+      }
     } else {
-      mailTemplateName = MailTemplateNames.NewFeedbackEn;
+      if (hasAttachments) {
+        mailTemplateName = MailTemplateNames.NewFeedbackEn;
+      } else {
+        mailTemplateName =
+          MailTemplateNames.NewFeedbackEnNoAttachments;
+      }
     }
 
     // メールデータ
@@ -76,7 +90,7 @@ export const onCreateFeedbackComment = onDocumentCreated(
     };
 
     // 添付ファイルがあれば追加
-    if (feedbackComment.attachments.length > 0) {
+    if (hasAttachments) {
       mail.template.data.attachmentPath0 = feedbackComment
         .attachments[0].path as string;
     }

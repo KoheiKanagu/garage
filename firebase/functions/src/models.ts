@@ -94,7 +94,9 @@ export interface Mail {
 
 export enum MailTemplateNames {
   NewFeedbackJa = 'newFeedbackJa',
+  NewFeedbackJaNoAttachments = 'newFeedbackJa.NoAttachments',
   NewFeedbackEn = 'newFeedbackEn',
+  NewFeedbackEnNoAttachments = 'newFeedbackEn.NoAttachments',
 }
 
 export interface MailTemplates {
@@ -102,16 +104,9 @@ export interface MailTemplates {
   subject: string;
   html: string;
   text: string;
-  attachments: [
+  attachments?: [
     {
       path: string;
     },
   ];
-}
-
-export interface MailTemplatesNoAttachments {
-  updatedAt: Timestamp | FieldValue | null;
-  subject: string;
-  html: string;
-  text: string;
 }
