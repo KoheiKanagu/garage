@@ -76,14 +76,14 @@ export interface Mail {
   to: string;
   cc: string;
 
-  message: {
+  message?: {
     messageId: string | null;
   };
 
   template: {
     name: MailTemplateNames;
     data: {
-      attachments: Array<unknown>;
+      attachmentPath0?: string;
       appName: string;
       feedbackId: string;
       message: string;
@@ -102,11 +102,16 @@ export interface MailTemplates {
   subject: string;
   html: string;
   text: string;
-  attachments: string;
+  attachments: [
+    {
+      path: string;
+    },
+  ];
 }
 
-export interface MailTemplatePartial {
+export interface MailTemplatesNoAttachments {
   updatedAt: Timestamp | FieldValue | null;
-  partial: true;
+  subject: string;
   html: string;
+  text: string;
 }

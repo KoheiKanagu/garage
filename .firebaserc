@@ -8,7 +8,7 @@
   "etags": {
     "kingu-garage-dev": {
       "extensionInstances": {
-        "firestore-send-email": "56bdd8dc280b8186d13b3c9931a72426d41192c47e8a4db6d0f7f8f23070e2eb"
+        "firestore-send-email": "b58845c81f591404b2b56b35ec5c4b8db2836251223416cc6a852b8fac2e3a49"
       }
     }
   }

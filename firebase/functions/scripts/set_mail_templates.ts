@@ -5,6 +5,7 @@ import {
 import {
   MailTemplateNames,
   MailTemplates,
+  MailTemplatesNoAttachments,
 } from '../src/models';
 import { CollectionPaths } from '../src/utils/collection_paths';
 import { loadAdminSdk } from './utils/load_admin_sdk';
@@ -20,8 +21,6 @@ void (async () => {
   for (const templateName of Object.values(
     MailTemplateNames
   )) {
-    const doc = collection.doc(templateName);
-
     let subject: string;
     switch (templateName) {
       case MailTemplateNames.NewFeedbackJa:
@@ -46,8 +45,24 @@ void (async () => {
         `./scripts/assets/mail_templates/${templateName}.txt`,
         'utf8'
       ),
-      attachments: '{{attachments}}',
+      attachments: [
+        {
+          path: '{{attachmentPath0}}',
+        },
+      ],
     };
+    const doc = collection.doc(templateName);
     await doc.set(data);
+
+    const noAttachmentData: MailTemplatesNoAttachments = {
+      updatedAt: FieldValue.serverTimestamp(),
+      subject: data.subject,
+      html: data.html,
+      text: data.text,
+    };
+    const noAttachmentDoc = collection.doc(
+      templateName + 'NoAttachments'
+    );
+    await noAttachmentDoc.set(noAttachmentData);
   }
 })();

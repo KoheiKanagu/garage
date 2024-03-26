@@ -331,7 +331,8 @@ it("言語が'en'の場合、英語のテンプレートが使われること", 
     template: {
       name: MailTemplateNames.NewFeedbackEn,
       data: {
-        attachments: feedbackComment.attachments,
+        attachmentPath0: feedbackComment
+          .attachments[0] as string,
         appName: feedbackData.deviceInfo.appName,
         feedbackId: feedbackId,
         message: feedbackComment.message,
@@ -415,7 +416,8 @@ it('メール送信できること', async () => {
     template: {
       name: MailTemplateNames.NewFeedbackJa,
       data: {
-        attachments: feedbackComment.attachments,
+        attachmentPath0: feedbackComment
+          .attachments[0] as string,
         appName: feedbackData.deviceInfo.appName,
         feedbackId: feedbackId,
         message: feedbackComment.message,

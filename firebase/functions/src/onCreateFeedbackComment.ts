@@ -66,8 +66,6 @@ export const onCreateFeedbackComment = onDocumentCreated(
       template: {
         name: mailTemplateName,
         data: {
-          attachments:
-            feedbackComment.attachments as Array<unknown>,
           appName: feedbackData.deviceInfo
             .appName as string,
           feedbackId: feedbackId,
@@ -76,6 +74,12 @@ export const onCreateFeedbackComment = onDocumentCreated(
         },
       },
     };
+
+    // 添付ファイルがあれば追加
+    if (feedbackComment.attachments.length > 0) {
+      mail.template.data.attachmentPath0 = feedbackComment
+        .attachments[0].path as string;
+    }
 
     // メール送信
     await firestore()
