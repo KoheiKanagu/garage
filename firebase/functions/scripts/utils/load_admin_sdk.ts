@@ -2,7 +2,6 @@ import * as admin from 'firebase-admin';
 import { applicationDefault } from 'firebase-admin/app';
 import { exit } from 'process';
 import * as readLine from 'readline';
-import { kDevProjectId } from '../../src/utils/constants';
 import fs = require('fs');
 import path = require('path');
 
@@ -27,9 +26,7 @@ export async function loadAdminSdk({
       '127.0.0.1:9099';
     process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8080';
 
-    admin.initializeApp({
-      projectId: kDevProjectId,
-    });
+    adminInitializeApp(useExternalAccountCredential);
     return;
   }
 
@@ -48,9 +45,17 @@ export async function loadAdminSdk({
     await askYesNo();
   }
 
+  adminInitializeApp(useExternalAccountCredential);
+}
+
+function adminInitializeApp(
+  useExternalAccountCredential: boolean
+) {
   if (useExternalAccountCredential) {
+    const ExternalAccountCredential =
+      require('./external-account-credential').ExternalAccountCredential;
     admin.initializeApp({
-      credential: require('./external-account-credential'),
+      credential: new ExternalAccountCredential(),
     });
   } else {
     admin.initializeApp({
