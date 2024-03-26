@@ -197,6 +197,64 @@ it('emailがnullの場合、メール送信されないこと', async () => {
   expect(mailDoc.exists).toBe(false);
 });
 
+it('emailがemptyの場合、メール送信されないこと', async () => {
+  const feedbackData: FeedbackData = {
+    createdAt: Timestamp.fromMillis(0),
+    updatedAt: Timestamp.fromMillis(0),
+    createdBy: 'user1',
+    email: '',
+    from: 'configure',
+    deviceInfo: {
+      osVersion: '1.0',
+      modelName: 'model1',
+      locale: 'ja-JP',
+      appVersion: '1.0',
+      appPackageName: 'com.example.app',
+      appName: 'app1',
+    },
+    type: FeedbackType.impression,
+    status: 'open',
+    notifyByEmail: true,
+    notifyByPush: true,
+  };
+  const feedbackId = await admin
+    .firestore()
+    .collection(CollectionPaths.FEEDBACKS)
+    .add(feedbackData)
+    .then(ref => ref.id);
+
+  const feedbackComment: FeedbackComment = {
+    createdAt: Timestamp.fromMillis(0),
+    updatedAt: Timestamp.fromMillis(0),
+    feedbackId: feedbackId,
+    createdBy: feedbackData.createdBy,
+    message: 'this is a test message',
+    attachments: ['attachments'],
+  };
+  const feedbackCommentDocumentId = 'feedbackCommentId';
+
+  const snapshot = test.firestore.makeDocumentSnapshot(
+    feedbackComment,
+    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
+  );
+
+  const wrapped = wrapV2(targetFunction);
+  await wrapped({
+    params: {
+      documentId: feedbackCommentDocumentId,
+    },
+    data: snapshot,
+  });
+
+  const mailDoc = await admin
+    .firestore()
+    .doc(
+      `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
+    )
+    .get();
+  expect(mailDoc.exists).toBe(false);
+});
+
 it("言語が'en'の場合、英語のテンプレートが使われること", async () => {
   // FeedbackDataを作成
   const feedbackData: FeedbackData = {

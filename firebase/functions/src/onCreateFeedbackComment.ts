@@ -44,7 +44,7 @@ export const onCreateFeedbackComment = onDocumentCreated(
 
     // メールアドレスのチェック
     const email = feedbackData.email as string | null;
-    if (isNull(email)) {
+    if (isNull(email) || email.length === 0) {
       logger.info('not send email. because email is null');
       return;
     }

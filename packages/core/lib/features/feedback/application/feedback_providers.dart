@@ -169,7 +169,7 @@ class FeedbackDataController extends _$FeedbackDataController {
     if (error == null) {
       state = state.whenData(
         (value) => value.copyWith(
-          email: email,
+          email: (email ?? '').isEmpty ? null : email,
         ),
       );
     }
