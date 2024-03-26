@@ -1,7 +1,7 @@
 import { firestore } from 'firebase-admin';
 import { logger } from 'firebase-functions/v2';
 import { onDocumentCreated } from 'firebase-functions/v2/firestore';
-import { isUndefined } from 'lodash';
+import { isNull, isUndefined } from 'lodash';
 import { UndefinedDocumentData } from './errors/undefined_document_data';
 import {
   FeedbackType,
@@ -43,11 +43,9 @@ export const onCreateFeedbackComment = onDocumentCreated(
     }
 
     // メールアドレスのチェック
-    const email = feedbackData.email as string | undefined;
-    if (isUndefined(email)) {
-      logger.info(
-        'not send email. because email is undefined'
-      );
+    const email = feedbackData.email as string | null;
+    if (isNull(email)) {
+      logger.info('not send email. because email is null');
       return;
     }
 

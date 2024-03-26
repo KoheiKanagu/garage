@@ -46,10 +46,10 @@ export interface FeedbackData {
   status: 'open' | 'closed';
 
   // メールで通知するかどうか
-  notifyByEmail: true;
+  notifyByEmail: boolean;
 
   // プッシュ通知で通知するかどうか
-  notifyByPush: true;
+  notifyByPush: boolean;
 }
 
 export interface FeedbackComment {
