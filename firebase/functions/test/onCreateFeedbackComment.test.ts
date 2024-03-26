@@ -24,7 +24,10 @@ const targetFunction = onCreateFeedbackComment;
 let test: FeaturesList;
 
 beforeAll(async () => {
-  await loadAdminSdk(true);
+  await loadAdminSdk({
+    connectToEmulator: true,
+    useExternalAccountCredential: false,
+  });
 });
 
 beforeEach(async () => {
@@ -124,7 +127,7 @@ it('notifyByEmailがfalseの場合、メール送信されないこと', async (
       },
     ],
   };
-  const feedbackCommentDocumentId = 'feedbackCommentId';
+  const feedbackCommentDocumentId = feedbackId;
 
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
@@ -187,7 +190,7 @@ it('emailがnullの場合、メール送信されないこと', async () => {
       },
     ],
   };
-  const feedbackCommentDocumentId = 'feedbackCommentId';
+  const feedbackCommentDocumentId = feedbackId;
 
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
@@ -250,7 +253,7 @@ it('emailがemptyの場合、メール送信されないこと', async () => {
       },
     ],
   };
-  const feedbackCommentDocumentId = 'feedbackCommentId';
+  const feedbackCommentDocumentId = feedbackId;
 
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
@@ -316,7 +319,7 @@ it("言語が'en'の場合、英語のテンプレートが使われること", 
     ],
   };
 
-  const feedbackCommentDocumentId = 'feedbackCommentId';
+  const feedbackCommentDocumentId = feedbackId;
 
   // コメントのmock
   const snapshot = test.firestore.makeDocumentSnapshot(
@@ -402,7 +405,7 @@ it("言語が'en'の場合、英語のテンプレートが使われること。
     attachments: [],
   };
 
-  const feedbackCommentDocumentId = 'feedbackCommentId';
+  const feedbackCommentDocumentId = feedbackId;
 
   // コメントのmock
   const snapshot = test.firestore.makeDocumentSnapshot(
@@ -490,7 +493,7 @@ it('メール送信できること', async () => {
     ],
   };
 
-  const feedbackCommentDocumentId = 'feedbackCommentId';
+  const feedbackCommentDocumentId = feedbackId;
 
   // コメントのmock
   const snapshot = test.firestore.makeDocumentSnapshot(
@@ -575,7 +578,7 @@ it('メール送信できること。添付ファイル無し', async () => {
     attachments: [],
   };
 
-  const feedbackCommentDocumentId = 'feedbackCommentId';
+  const feedbackCommentDocumentId = feedbackId;
 
   // コメントのmock
   const snapshot = test.firestore.makeDocumentSnapshot(

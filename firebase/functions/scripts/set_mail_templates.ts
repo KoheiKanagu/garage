@@ -8,10 +8,14 @@ import {
 } from '../src/models';
 import { CollectionPaths } from '../src/utils/collection_paths';
 import { loadAdminSdk } from './utils/load_admin_sdk';
+
 import fs = require('fs');
 
 void (async () => {
-  await loadAdminSdk();
+  await loadAdminSdk({
+    connectToEmulator: false,
+    useExternalAccountCredential: true,
+  });
 
   const collection = getFirestore().collection(
     CollectionPaths.MAIL_TEMPLATES
