@@ -10,6 +10,11 @@
       "extensionInstances": {
         "firestore-send-email": "b58845c81f591404b2b56b35ec5c4b8db2836251223416cc6a852b8fac2e3a49"
       }
+    },
+    "kingu-garage-prod": {
+      "extensionInstances": {
+        "firestore-send-email": "0f08bdcc423eba315f3f3b12c24cdcaff912af6ee85dc4c79341d60cc83e4f2c"
+      }
     }
   }
 }

@@ -1,5 +1,4 @@
 import * as admin from 'firebase-admin';
-import { applicationDefault } from 'firebase-admin/app';
 import { exit } from 'process';
 import * as readLine from 'readline';
 import fs = require('fs');
@@ -22,13 +21,7 @@ export async function loadAdminSdk(options?: {
       '127.0.0.1:9099';
     process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8080';
 
-    // process.env.FIREBASE_CONFIG = JSON.stringify({
-    //   projectId: kDevProjectId,
-    //   storageBucket: `${kDevProjectId}.appspot.com`,
-    //   locationId: 'asia-northeast1',
-    // });
-
-    adminInitializeApp();
+    admin.initializeApp();
     return;
   }
 
@@ -47,26 +40,7 @@ export async function loadAdminSdk(options?: {
     await askYesNo();
   }
 
-  adminInitializeApp();
-}
-
-function adminInitializeApp() {
-  // // OIDCを利用している場合、applicationDefault()で初期化ができない
-  // // GOOGLE_APPLICATION_CREDENTIALSがセットされるので有無で判定してapplicationDefaultを使わない
-  // // https://github.com/firebase/firebase-admin-node/issues/1377
-  // if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-  //   const ExternalAccountCredential =
-  //     require('./external-account-credential').ExternalAccountCredential;
-  //   admin.initializeApp({
-  //     credential: new ExternalAccountCredential(),
-  //     projectId: process.env.GOOGLE_CLOUD_PROJECT,
-  //   });
-  // } else {
-  admin.initializeApp({
-    credential: applicationDefault(),
-    projectId: process.env.GOOGLE_CLOUD_PROJECT,
-  });
-  // }
+  admin.initializeApp();
 }
 
 function outputExportExample() {

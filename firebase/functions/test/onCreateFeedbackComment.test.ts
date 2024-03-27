@@ -73,11 +73,7 @@ it('feedbackDataがundefinedの場合、UndefinedDocumentDataエラーが発生�
 
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`,
-    // WIP
-    {
-      firebaseApp: admin.app(),
-    }
+    `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`
   );
 
   const wrapped = wrap(targetFunction);
@@ -134,11 +130,7 @@ it('notifyByEmailがfalseの場合、メール送信されないこと', async (
 
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`,
-    // WIP
-    {
-      firebaseApp: admin.app(),
-    }
+    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
   );
 
   const wrapped = wrap(targetFunction);
@@ -201,11 +193,7 @@ it('emailがnullの場合、メール送信されないこと', async () => {
 
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`,
-    // WIP
-    {
-      firebaseApp: admin.app(),
-    }
+    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
   );
 
   const wrapped = wrap(targetFunction);
@@ -268,11 +256,7 @@ it('emailがemptyの場合、メール送信されないこと', async () => {
 
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`,
-    // WIP
-    {
-      firebaseApp: admin.app(),
-    }
+    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
   );
 
   const wrapped = wrap(targetFunction);
@@ -339,11 +323,7 @@ it("言語が'en'の場合、英語のテンプレートが使われること", 
   // コメントのmock
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`,
-    // WIP
-    {
-      firebaseApp: admin.app(),
-    }
+    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
   );
 
   // onDocumentCreated
@@ -429,11 +409,7 @@ it("言語が'en'の場合、英語のテンプレートが使われること。
   // コメントのmock
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`,
-    // WIP
-    {
-      firebaseApp: admin.app(),
-    }
+    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
   );
 
   // onDocumentCreated
@@ -521,11 +497,7 @@ it('メール送信できること', async () => {
   // コメントのmock
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`,
-    // WIP
-    {
-      firebaseApp: admin.app(),
-    }
+    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
   );
 
   // onDocumentCreated
@@ -610,11 +582,7 @@ it('メール送信できること。添付ファイル無し', async () => {
   // コメントのmock
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`,
-    // WIP
-    {
-      firebaseApp: admin.app(),
-    }
+    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
   );
 
   // onDocumentCreated
