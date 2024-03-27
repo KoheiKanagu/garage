@@ -15,7 +15,7 @@ dependencies:
   cloud_functions: ^4.6.8
   collection: ^1.18.0
   cupertino_icons: ^1.0.6
-  device_info_plus: ^9.1.2
+  device_info_plus: ^10.0.1
   feedback: ^3.0.1
   firebase_analytics: ^10.8.9
   firebase_app_check: ^0.2.1+13
@@ -43,7 +43,7 @@ dependencies:
   intersperse: ^2.0.0
   intl: any
   json_annotation: ^4.8.1
-  package_info_plus: ^5.0.1
+  package_info_plus: ^6.0.0
   quick_actions: ^1.0.7
   riverpod_annotation: ^2.3.5
   shared_preferences: ^2.2.2
