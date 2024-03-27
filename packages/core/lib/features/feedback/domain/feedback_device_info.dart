@@ -13,6 +13,7 @@ class FeedbackDeviceInfo with _$FeedbackDeviceInfo {
     required String locale,
     required String appVersion,
     required String appPackageName,
+    required String appName,
   }) = _FeedbackDeviceInfo;
 
   factory FeedbackDeviceInfo.fromJson(Json json) =>

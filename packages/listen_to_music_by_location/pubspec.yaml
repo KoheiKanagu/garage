@@ -9,7 +9,7 @@ environment:
 
 dependencies:
   adaptive_dialog: ^2.1.0
-  app_links: ^4.0.0
+  app_links: ^4.0.1
   budoux_dart: ^1.2.0
   cached_network_image: ^3.3.1
   clock: ^1.1.1
@@ -19,7 +19,7 @@ dependencies:
   core:
     path: ../core
   cupertino_icons: ^1.0.6
-  device_info_plus: ^9.1.2
+  device_info_plus: ^10.0.1
   feedback: ^3.0.1
   firebase_analytics: ^10.9.0
   firebase_app_check: ^0.2.1+13
@@ -47,7 +47,7 @@ dependencies:
   intl: any
   jovial_svg: ^1.1.20
   json_annotation: ^4.8.1
-  package_info_plus: ^5.0.1
+  package_info_plus: ^6.0.0
   quick_actions: ^1.0.7
   riverpod_annotation: ^2.3.5
   share_plus: ^7.2.2
@@ -55,8 +55,8 @@ dependencies:
   slang: ^3.30.1
   slang_flutter: ^3.30.0
   smooth_page_indicator: ^1.1.0
-  talker: ^4.0.3
-  talker_flutter: ^4.0.3
+  talker: ^4.1.0
+  talker_flutter: ^4.1.0
   url_launcher: ^6.2.5
   uuid: ^4.3.3
 

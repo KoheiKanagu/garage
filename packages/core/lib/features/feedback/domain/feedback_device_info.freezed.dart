@@ -25,6 +25,7 @@ mixin _$FeedbackDeviceInfo {
   String get locale => throw _privateConstructorUsedError;
   String get appVersion => throw _privateConstructorUsedError;
   String get appPackageName => throw _privateConstructorUsedError;
+  String get appName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $FeedbackDeviceInfoCopyWith<$Res> {
       String modelName,
       String locale,
       String appVersion,
-      String appPackageName});
+      String appPackageName,
+      String appName});
 }
 
 /// @nodoc
@@ -64,6 +66,7 @@ class _$FeedbackDeviceInfoCopyWithImpl<$Res, $Val extends FeedbackDeviceInfo>
     Object? locale = null,
     Object? appVersion = null,
     Object? appPackageName = null,
+    Object? appName = null,
   }) {
     return _then(_value.copyWith(
       osVersion: null == osVersion
@@ -86,6 +89,10 @@ class _$FeedbackDeviceInfoCopyWithImpl<$Res, $Val extends FeedbackDeviceInfo>
           ? _value.appPackageName
           : appPackageName // ignore: cast_nullable_to_non_nullable
               as String,
+      appName: null == appName
+          ? _value.appName
+          : appName // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -103,7 +110,8 @@ abstract class _$$FeedbackDeviceInfoImplCopyWith<$Res>
       String modelName,
       String locale,
       String appVersion,
-      String appPackageName});
+      String appPackageName,
+      String appName});
 }
 
 /// @nodoc
@@ -122,6 +130,7 @@ class __$$FeedbackDeviceInfoImplCopyWithImpl<$Res>
     Object? locale = null,
     Object? appVersion = null,
     Object? appPackageName = null,
+    Object? appName = null,
   }) {
     return _then(_$FeedbackDeviceInfoImpl(
       osVersion: null == osVersion
@@ -144,6 +153,10 @@ class __$$FeedbackDeviceInfoImplCopyWithImpl<$Res>
           ? _value.appPackageName
           : appPackageName // ignore: cast_nullable_to_non_nullable
               as String,
+      appName: null == appName
+          ? _value.appName
+          : appName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -156,7 +169,8 @@ class _$FeedbackDeviceInfoImpl implements _FeedbackDeviceInfo {
       required this.modelName,
       required this.locale,
       required this.appVersion,
-      required this.appPackageName});
+      required this.appPackageName,
+      required this.appName});
 
   factory _$FeedbackDeviceInfoImpl.fromJson(Map<String, dynamic> json) =>
       _$$FeedbackDeviceInfoImplFromJson(json);
@@ -171,10 +185,12 @@ class _$FeedbackDeviceInfoImpl implements _FeedbackDeviceInfo {
   final String appVersion;
   @override
   final String appPackageName;
+  @override
+  final String appName;
 
   @override
   String toString() {
-    return 'FeedbackDeviceInfo(osVersion: $osVersion, modelName: $modelName, locale: $locale, appVersion: $appVersion, appPackageName: $appPackageName)';
+    return 'FeedbackDeviceInfo(osVersion: $osVersion, modelName: $modelName, locale: $locale, appVersion: $appVersion, appPackageName: $appPackageName, appName: $appName)';
   }
 
   @override
@@ -190,13 +206,14 @@ class _$FeedbackDeviceInfoImpl implements _FeedbackDeviceInfo {
             (identical(other.appVersion, appVersion) ||
                 other.appVersion == appVersion) &&
             (identical(other.appPackageName, appPackageName) ||
-                other.appPackageName == appPackageName));
+                other.appPackageName == appPackageName) &&
+            (identical(other.appName, appName) || other.appName == appName));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, osVersion, modelName, locale, appVersion, appPackageName);
+  int get hashCode => Object.hash(runtimeType, osVersion, modelName, locale,
+      appVersion, appPackageName, appName);
 
   @JsonKey(ignore: true)
   @override
@@ -219,7 +236,8 @@ abstract class _FeedbackDeviceInfo implements FeedbackDeviceInfo {
       required final String modelName,
       required final String locale,
       required final String appVersion,
-      required final String appPackageName}) = _$FeedbackDeviceInfoImpl;
+      required final String appPackageName,
+      required final String appName}) = _$FeedbackDeviceInfoImpl;
 
   factory _FeedbackDeviceInfo.fromJson(Map<String, dynamic> json) =
       _$FeedbackDeviceInfoImpl.fromJson;
@@ -234,6 +252,8 @@ abstract class _FeedbackDeviceInfo implements FeedbackDeviceInfo {
   String get appVersion;
   @override
   String get appPackageName;
+  @override
+  String get appName;
   @override
   @JsonKey(ignore: true)
   _$$FeedbackDeviceInfoImplCopyWith<_$FeedbackDeviceInfoImpl> get copyWith =>

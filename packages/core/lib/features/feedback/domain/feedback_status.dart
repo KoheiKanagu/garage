@@ -1,0 +1,5 @@
+enum FeedbackStatus {
+  open,
+  closed,
+  ;
+}

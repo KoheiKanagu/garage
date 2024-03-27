@@ -6,12 +6,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MyFeedbackSheet extends HookConsumerWidget {
   const MyFeedbackSheet({
-    required this.onSubmit,
+    required this.submit,
     required this.scrollController,
     super.key,
   });
 
-  final void Function(FeedbackData data) onSubmit;
+  final OnSubmit submit;
 
   final ScrollController? scrollController;
 
@@ -20,7 +20,7 @@ class MyFeedbackSheet extends HookConsumerWidget {
     final themeType = InheritedThemeDetector.of(context);
 
     return Form(
-      key: FeedbackDataController.formKey,
+      key: feedbackFormKey,
       child: switch (themeType) {
         InheritedThemeType.material => ListView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -35,9 +35,11 @@ class MyFeedbackSheet extends HookConsumerWidget {
               const Gap(28),
               const MyFeedbackEmailField(),
               const Gap(28),
+              const MyFeedbackAttachScreenshotField(),
+              const Gap(28),
               const MyFeedbackDeviceInfoField(),
               const Gap(28),
-              MyFeedbackSubmitButton(onSubmit: onSubmit),
+              MyFeedbackSubmitButton(submit),
             ],
           ),
         InheritedThemeType.cupertino => ListView(
@@ -53,9 +55,10 @@ class MyFeedbackSheet extends HookConsumerWidget {
               const MyFeedbackTypePickerField(),
               const MyFeedbackMessageField(),
               const MyFeedbackEmailField(),
+              const MyFeedbackAttachScreenshotField(),
               const MyFeedbackDeviceInfoField(),
               const Gap(28),
-              MyFeedbackSubmitButton(onSubmit: onSubmit),
+              MyFeedbackSubmitButton(submit),
             ],
           ),
       },

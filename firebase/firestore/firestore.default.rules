@@ -2,8 +2,36 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isMe(createdBy) {
+      return
+        // 未認証ユーザーの場合
+        (createdBy == null && request.auth == null) ||
+        // 認証済みユーザーの場合
+        (createdBy == request.auth.uid);
+    }
+
     match /feedbacks_v1/{documentId} {
-      allow create: if true;
+      allow create: if
+        // 自分であれば作成できること
+        isMe(request.resource.data.createdBy);
+
+      allow get, list: if
+        // 認証済みユーザーであること
+        isSignedIn() &&
+        // 自分のfeedbackであること
+        isMe(resource.data.createdBy);
+    }
+
+    match /feedbackComments_v1/{documentId} {
+      allow create: if
+        // 自分のcommentsであること
+        isMe(request.resource.data.createdBy) &&
+        // feedbackを作成した人がcommentを作成できること
+        isMe(get(/databases/$(database)/documents/feedbacks_v1/$(request.resource.data.feedbackId)).data.createdBy);
     }
   }
 }

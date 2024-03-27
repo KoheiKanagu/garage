@@ -6,15 +6,13 @@
 
       // サインアウト後のフィードバックの場合はnull
       // nullable
-      uid: "$uid",
+      createdBy: "$uid",
 
-      // 返信先のメールアドレス
+      // ユーザのメールアドレス
       email: "email@example.com",
 
-      message: "メッセージ",
-
-      // pngのスクリーンショットをbase64でエンコードしたもの
-      screenshotBase64: "base64",
+      // どこからのフィードバックか
+      from: "configure", // configure | shortcut | unknown
 
       deviceInfo: {
         osVersion: "foo",
@@ -22,10 +20,105 @@
         locale: "foo",
         appVersion: "foo",
         appPackageName: "foo",
+        appName: "foo",
       },
 
-      // どこからのフィードバックか
-      from: "foo", // configure | shortcut | unknown
+      // フィードバックの種類
+      type: "impression", // impression | bugReport | featureRequest | other
+
+      // フィードバックの種類のローカライズ
+      typeLocalized: "ご意見・ご感想について",
+
+      // このフィードバックのステータス
+      status: "open", // open | closed
+
+      // メールで通知するかどうか
+      notifyByEmail: true,
+
+      // プッシュ通知で通知するかどうか
+      notifyByPush: true,
+    },
+  },
+
+  feedbackComments_v1: {
+    $documentId: {
+      createdAt: "Timestamp", // FieldValue.serverTimestamp
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
+
+      // feedbacksのDocumentID
+      feedbackId: "foo",
+
+      // サインアウト後のフィードバックの場合はnull
+      // サポートからのコメントの場合は"support"
+      // nullable
+      createdBy: "$uid",
+
+      // non-nullable
+      message: "メッセージ",
+
+      // https://nodemailer.com/message/attachments/
+      attachments: [
+        {
+          // スクリーンショットをbase64でエンコードしたもの
+          // Data URL
+          path: "data:image/png;base64,xxxxxx",
+        },
+      ],
+    },
+  },
+
+  mails_v1: {
+    // Trigger Email from Firestore Extension に対応するフィールド
+    // https://firebase.google.com/docs/extensions/official/firestore-send-email?hl=ja#sender_and_recipient_fields
+    $documentId: {
+      to: "user@example.com",
+      cc: "support@kingu.dev",
+      message: {
+        // delivery.info.messageId があれば入れる
+        // 返信する時にスレッドにまとめてもらうために必要
+        messageId: "foo",
+      },
+
+      // Trigger Email from Firestore Extension によって追加される
+      // https://firebase.google.com/docs/extensions/official/firestore-send-email/delivery-status
+      delivery: {
+        info: {
+          messageId: "foo",
+        },
+      },
+
+      template: {
+        name: "newFeedbackJa",
+        data: {
+          // https://nodemailer.com/message/attachments/
+          attachments: [
+            {
+              path: "data:image/png;base64,xxxxxx",
+            },
+          ],
+          appName: "場所で音楽",
+
+          // feedbacksのDocumentID
+          feedbackId: "foo",
+          message: "メッセージ",
+          type: "impression",
+        },
+      },
+    },
+  },
+
+  mailTemplates_v1: {
+    newFeedbackJa: {
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
+      subject: "[{{feedbackId}}] {{appName}} へのお問い合わせ",
+      html: "html",
+      attachments: "{{attachments}}",
+    },
+
+    feedbackFooterJa: {
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
+      partial: true,
+      html: "html",
     },
   },
 }

@@ -18,10 +18,12 @@ class MyFeedbackEmailField extends HookConsumerWidget {
       text: data?.email,
     );
 
-    String? validator(String? value) =>
-        ref.watch(feedbackDataControllerProvider.notifier).validateEmail(value)
-            ? null
-            : i18n.feedback.too_long;
+    String? validator(String? value) => ref.watch(
+          feedbackValidateEmailProvider(
+            value: value,
+            errorMessage: i18n.feedback.too_long,
+          ),
+        );
 
     void onSaved(String? newValue) => ref
         .watch(feedbackDataControllerProvider.notifier)

@@ -8,7 +8,6 @@ npm --prefix firebase/functions run clean
 npm --prefix firebase/functions run compile
 
 firebase emulators:exec \
-    --debug \
     --only auth,functions,firestore \
     --import firebase/testdata \
     "npm --prefix firebase/functions run test"

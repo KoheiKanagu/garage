@@ -55,7 +55,10 @@
       "feature_request": "機能追加について",
       "impression": "ご意見・ご感想について",
       "other": "その他"
-    }
+    },
+    "attach_screenshot": "スクリーンショットを添付",
+    "screenshot": "スクリーンショット",
+    "attach_screenshot_notice": "具体的にどの部分に関するご報告かお知らせいただけると、より迅速に対応できるため、アプリ画面のスクリーンショットを添付していただけると助かります。"
   },
   "auth": {
     "sigh_in_with_apple": "Appleでサインイン",
