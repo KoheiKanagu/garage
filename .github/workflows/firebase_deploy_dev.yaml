@@ -40,6 +40,13 @@ jobs:
           dart pub get
           dart run grinder replace-remoteconfig-template-conditions
 
+      - name: Export Firebase Admin SDK Service Account
+        run: |
+          # https://github.com/firebase/firebase-admin-node/issues/1377
+          # Workaround for the issue above
+          echo ${{ secrets.FIREBASE_ADMIN_SDK_SERVICE_ACCOUNT_DEV }} | base64 --decode > service-account.json
+          export GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/service-account.json
+
       ### Deploy ###
       - name: Deploy Mail Templates
         working-directory: firebase/functions
@@ -49,3 +56,9 @@ jobs:
       - name: Firebase Deploy
         run: |
           firebase deploy --force --except extensions
+
+      ### Cleanup ###
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -f service-account.json
