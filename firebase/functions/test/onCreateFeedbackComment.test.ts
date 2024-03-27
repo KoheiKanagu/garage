@@ -26,7 +26,6 @@ let test: FeaturesList;
 beforeAll(async () => {
   await loadAdminSdk({
     connectToEmulator: true,
-    useExternalAccountCredential: false,
   });
 });
 

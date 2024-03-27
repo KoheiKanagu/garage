@@ -5,12 +5,8 @@ import * as readLine from 'readline';
 import fs = require('fs');
 import path = require('path');
 
-export async function loadAdminSdk({
-  connectToEmulator = false,
-  useExternalAccountCredential = false,
-}: {
+export async function loadAdminSdk(options?: {
   connectToEmulator: boolean;
-  useExternalAccountCredential: boolean;
 }) {
   console.log(
     'This script will initialize the Firebase Admin SDK.'
@@ -18,7 +14,7 @@ export async function loadAdminSdk({
 
   if (
     process.argv.includes('--emulator') ||
-    connectToEmulator
+    options?.connectToEmulator
   ) {
     console.log('Connecting to the emulators...');
 
@@ -26,7 +22,7 @@ export async function loadAdminSdk({
       '127.0.0.1:9099';
     process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8080';
 
-    adminInitializeApp(useExternalAccountCredential);
+    adminInitializeApp();
     return;
   }
 
@@ -45,13 +41,14 @@ export async function loadAdminSdk({
     await askYesNo();
   }
 
-  adminInitializeApp(useExternalAccountCredential);
+  adminInitializeApp();
 }
 
-function adminInitializeApp(
-  useExternalAccountCredential: boolean
-) {
-  if (useExternalAccountCredential) {
+function adminInitializeApp() {
+  // OIDCを利用している場合、applicationDefault()で初期化ができない
+  // GOOGLE_APPLICATION_CREDENTIALSがセットされるので有無で判定してapplicationDefaultを使わない
+  // https://github.com/firebase/firebase-admin-node/issues/1377
+  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
     const ExternalAccountCredential =
       require('./external-account-credential').ExternalAccountCredential;
     admin.initializeApp({
