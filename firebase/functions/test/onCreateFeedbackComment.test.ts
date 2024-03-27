@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 import { Timestamp } from 'firebase-admin/firestore';
 import { FeaturesList } from 'firebase-functions-test/lib/features';
-import { wrapV2 } from 'firebase-functions-test/lib/v2';
+import { wrap } from 'firebase-functions-test/lib/main';
 import { loadAdminSdk } from '../scripts/utils/load_admin_sdk';
 import { UndefinedDocumentData } from '../src/errors/undefined_document_data';
 import {
@@ -46,7 +46,7 @@ it('dataがundefinedの場合、UndefinedDocumentDataエラーが発生するこ
     `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`
   );
 
-  const wrapped = wrapV2(targetFunction);
+  const wrapped = wrap(targetFunction);
   await expect(
     wrapped({
       params: {
@@ -76,7 +76,7 @@ it('feedbackDataがundefinedの場合、UndefinedDocumentDataエラーが発生�
     `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`
   );
 
-  const wrapped = wrapV2(targetFunction);
+  const wrapped = wrap(targetFunction);
   await expect(
     wrapped({
       params: {
@@ -133,7 +133,7 @@ it('notifyByEmailがfalseの場合、メール送信されないこと', async (
     `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
   );
 
-  const wrapped = wrapV2(targetFunction);
+  const wrapped = wrap(targetFunction);
   await wrapped({
     params: {
       documentId: feedbackCommentDocumentId,
@@ -196,7 +196,7 @@ it('emailがnullの場合、メール送信されないこと', async () => {
     `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
   );
 
-  const wrapped = wrapV2(targetFunction);
+  const wrapped = wrap(targetFunction);
   await wrapped({
     params: {
       documentId: feedbackCommentDocumentId,
@@ -259,7 +259,7 @@ it('emailがemptyの場合、メール送信されないこと', async () => {
     `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
   );
 
-  const wrapped = wrapV2(targetFunction);
+  const wrapped = wrap(targetFunction);
   await wrapped({
     params: {
       documentId: feedbackCommentDocumentId,
@@ -327,7 +327,7 @@ it("言語が'en'の場合、英語のテンプレートが使われること", 
   );
 
   // onDocumentCreated
-  const wrapped = wrapV2(targetFunction);
+  const wrapped = wrap(targetFunction);
   await wrapped({
     params: {
       documentId: feedbackCommentDocumentId,
@@ -413,7 +413,7 @@ it("言語が'en'の場合、英語のテンプレートが使われること。
   );
 
   // onDocumentCreated
-  const wrapped = wrapV2(targetFunction);
+  const wrapped = wrap(targetFunction);
   await wrapped({
     params: {
       documentId: feedbackCommentDocumentId,
@@ -501,7 +501,7 @@ it('メール送信できること', async () => {
   );
 
   // onDocumentCreated
-  const wrapped = wrapV2(targetFunction);
+  const wrapped = wrap(targetFunction);
   await wrapped({
     params: {
       documentId: feedbackCommentDocumentId,
@@ -586,7 +586,7 @@ it('メール送信できること。添付ファイル無し', async () => {
   );
 
   // onDocumentCreated
-  const wrapped = wrapV2(targetFunction);
+  const wrapped = wrap(targetFunction);
   await wrapped({
     params: {
       documentId: feedbackCommentDocumentId,
