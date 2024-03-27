@@ -45,7 +45,7 @@ jobs:
           # https://github.com/firebase/firebase-admin-node/issues/1377
           # Workaround for the issue above
           echo ${{ secrets.FIREBASE_ADMIN_SDK_SERVICE_ACCOUNT_DEV }} | base64 --decode > service-account.json
-          export GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/service-account.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/service-account.json" >> "$GITHUB_ENV"
 
       ### Deploy ###
       - name: Deploy Mail Templates
