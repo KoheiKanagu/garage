@@ -1,6 +1,5 @@
 import * as admin from 'firebase-admin';
 import { Timestamp } from 'firebase-admin/firestore';
-import * as testApp from 'firebase-functions-test';
 import { FeaturesList } from 'firebase-functions-test/lib/features';
 import { wrap } from 'firebase-functions-test/lib/main';
 import { loadAdminSdk } from '../scripts/utils/load_admin_sdk';
@@ -28,8 +27,6 @@ beforeAll(async () => {
   await loadAdminSdk({
     connectToEmulator: true,
   });
-
-  testApp();
 });
 
 beforeEach(async () => {
