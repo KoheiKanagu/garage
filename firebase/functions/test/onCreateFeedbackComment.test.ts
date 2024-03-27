@@ -43,7 +43,11 @@ afterEach(async () => {
 it('dataがundefinedの場合、UndefinedDocumentDataエラーが発生すること', async () => {
   const snapshot = test.firestore.makeDocumentSnapshot(
     {},
-    `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`
+    `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`,
+    // WIP
+    {
+      firebaseApp: admin.app(),
+    }
   );
 
   const wrapped = wrap(targetFunction);
