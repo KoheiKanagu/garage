@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin';
 import { Timestamp } from 'firebase-admin/firestore';
+import * as testApp from 'firebase-functions-test';
 import { FeaturesList } from 'firebase-functions-test/lib/features';
 import { wrap } from 'firebase-functions-test/lib/main';
 import { loadAdminSdk } from '../scripts/utils/load_admin_sdk';
@@ -27,6 +28,8 @@ beforeAll(async () => {
   await loadAdminSdk({
     connectToEmulator: true,
   });
+
+  testApp();
 });
 
 beforeEach(async () => {
@@ -43,11 +46,7 @@ afterEach(async () => {
 it('dataがundefinedの場合、UndefinedDocumentDataエラーが発生すること', async () => {
   const snapshot = test.firestore.makeDocumentSnapshot(
     {},
-    `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`,
-    // WIP
-    {
-      firebaseApp: admin.app(),
-    }
+    `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`
   );
 
   const wrapped = wrap(targetFunction);

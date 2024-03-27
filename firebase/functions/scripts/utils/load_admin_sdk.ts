@@ -2,6 +2,7 @@ import * as admin from 'firebase-admin';
 import { applicationDefault } from 'firebase-admin/app';
 import { exit } from 'process';
 import * as readLine from 'readline';
+import { kDevProjectId } from '../../src/utils/constants';
 import fs = require('fs');
 import path = require('path');
 
@@ -21,6 +22,12 @@ export async function loadAdminSdk(options?: {
     process.env.FIREBASE_AUTH_EMULATOR_HOST =
       '127.0.0.1:9099';
     process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8080';
+
+    process.env.FIREBASE_CONFIG = JSON.stringify({
+      projectId: kDevProjectId,
+      storageBucket: `${kDevProjectId}.appspot.com`,
+      locationId: 'asia-northeast1',
+    });
 
     adminInitializeApp();
     return;
