@@ -1,6 +1,5 @@
 import * as admin from 'firebase-admin';
 import { Timestamp } from 'firebase-admin/firestore';
-import { FeaturesList } from 'firebase-functions-test/lib/features';
 import { wrap } from 'firebase-functions-test/lib/main';
 import { loadAdminSdk } from '../scripts/utils/load_admin_sdk';
 import { UndefinedDocumentData } from '../src/errors/undefined_document_data';
@@ -20,17 +19,12 @@ import {
 import { getFirebaseFunctionsTest } from './utils/getFirebaseFunctionsTest';
 
 const targetFunction = onCreateFeedbackComment;
-
-let test: FeaturesList;
+const test = getFirebaseFunctionsTest();
 
 beforeAll(async () => {
   await loadAdminSdk({
     connectToEmulator: true,
   });
-});
-
-beforeEach(async () => {
-  test = getFirebaseFunctionsTest();
 });
 
 afterEach(async () => {
