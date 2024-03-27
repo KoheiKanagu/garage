@@ -8,12 +8,32 @@ part 'feedback_data.g.dart';
 @freezed
 class FeedbackData with _$FeedbackData {
   const factory FeedbackData({
-    required String? uid,
+    /// だれがフィードバックしたか
+    /// サインアウト後にフィードバックした場合はnull
+    required String? createdBy,
+
+    /// ユーザのメールアドレス
     required String? email,
-    required String message,
+
+    /// デバイス情報
     required FeedbackDeviceInfo deviceInfo,
+
+    /// フィードバックの種類
     required FeedbackType type,
-    @Default('') String screenshotBase64,
+
+    /// フィードバックの種類（ローカライズ済み）
+    required String typeLocalized,
+
+    /// メールで通知するか
+    @Default(true) bool notifyByEmail,
+
+    /// プッシュ通知で通知するか
+    @Default(true) bool notifyByPush,
+
+    /// フィードバックのステータス
+    @Default(FeedbackStatus.open) FeedbackStatus status,
+
+    /// どこからのフィードバックか
     @Default(FeedbackFrom.unknown) FeedbackFrom from,
     @TimestampConverter() Timestamp? createdAt,
     @TimestampConverter() Timestamp? updatedAt,

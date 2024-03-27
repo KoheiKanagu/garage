@@ -9,7 +9,7 @@ part of 'feedback_providers.dart';
 // **************************************************************************
 
 String _$feedbackDeviceInfoHash() =>
-    r'bdf0b424cc7e97c8fc4846564d2db2434b218658';
+    r'4f0dfd40d1d89c3c5facf6b165a231977913c7bd';
 
 /// See also [feedbackDeviceInfo].
 @ProviderFor(feedbackDeviceInfo)
@@ -26,25 +26,43 @@ final feedbackDeviceInfoProvider =
 
 typedef FeedbackDeviceInfoRef
     = AutoDisposeFutureProviderRef<FeedbackDeviceInfo>;
-String _$feedbackCollectionReferenceHash() =>
-    r'8ab1d546948233a9691f0ddd202ceb07ade2e245';
+String _$feedbacksCollectionReferenceHash() =>
+    r'1ec49c33b9efddf28925a95950cb7c9eea2c0eb4';
 
-/// See also [feedbackCollectionReference].
-@ProviderFor(feedbackCollectionReference)
-final feedbackCollectionReferenceProvider =
+/// See also [feedbacksCollectionReference].
+@ProviderFor(feedbacksCollectionReference)
+final feedbacksCollectionReferenceProvider =
     AutoDisposeProvider<CollectionReference<FeedbackData>>.internal(
-  feedbackCollectionReference,
-  name: r'feedbackCollectionReferenceProvider',
+  feedbacksCollectionReference,
+  name: r'feedbacksCollectionReferenceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$feedbackCollectionReferenceHash,
+      : _$feedbacksCollectionReferenceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef FeedbackCollectionReferenceRef
+typedef FeedbacksCollectionReferenceRef
     = AutoDisposeProviderRef<CollectionReference<FeedbackData>>;
-String _$feedbackSubmitHash() => r'db4f1dea25eb7dd7ea75053835b383d71e8bae8e';
+String _$feedbackCommentsCollectionReferenceHash() =>
+    r'6b2734eca08332b1486b4533b5c0b0d0c52ac79b';
+
+/// See also [feedbackCommentsCollectionReference].
+@ProviderFor(feedbackCommentsCollectionReference)
+final feedbackCommentsCollectionReferenceProvider =
+    AutoDisposeProvider<CollectionReference<FeedbackComment>>.internal(
+  feedbackCommentsCollectionReference,
+  name: r'feedbackCommentsCollectionReferenceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$feedbackCommentsCollectionReferenceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FeedbackCommentsCollectionReferenceRef
+    = AutoDisposeProviderRef<CollectionReference<FeedbackComment>>;
+String _$feedbackSubmitHash() => r'b9638174505afa27ba2f9285f589e7609efe2164';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -212,7 +230,7 @@ class _FeedbackSubmitProviderElement
       (origin as FeedbackSubmitProvider).feedbackFrom;
 }
 
-String _$feedbackDataStateHash() => r'535c01f1ef97641df4afd7783a5f9a071a028b80';
+String _$feedbackDataStateHash() => r'fc6eb2787deafb440eb9cb3c463b70d5cfd135d9';
 
 /// See also [feedbackDataState].
 @ProviderFor(feedbackDataState)
@@ -228,8 +246,337 @@ final feedbackDataStateProvider =
 );
 
 typedef FeedbackDataStateRef = AutoDisposeFutureProviderRef<FeedbackData>;
+String _$feedbackCommentStateHash() =>
+    r'1c661c653993f362d2099eaec284e5e0ee947136';
+
+/// See also [feedbackCommentState].
+@ProviderFor(feedbackCommentState)
+final feedbackCommentStateProvider =
+    AutoDisposeFutureProvider<FeedbackComment>.internal(
+  feedbackCommentState,
+  name: r'feedbackCommentStateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$feedbackCommentStateHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FeedbackCommentStateRef = AutoDisposeFutureProviderRef<FeedbackComment>;
+String _$feedbackValidateEmailHash() =>
+    r'f55579b9b3c439b0f27e1338238abe004976f716';
+
+/// See also [feedbackValidateEmail].
+@ProviderFor(feedbackValidateEmail)
+const feedbackValidateEmailProvider = FeedbackValidateEmailFamily();
+
+/// See also [feedbackValidateEmail].
+class FeedbackValidateEmailFamily extends Family<String?> {
+  /// See also [feedbackValidateEmail].
+  const FeedbackValidateEmailFamily();
+
+  /// See also [feedbackValidateEmail].
+  FeedbackValidateEmailProvider call({
+    required String? value,
+    required String errorMessage,
+  }) {
+    return FeedbackValidateEmailProvider(
+      value: value,
+      errorMessage: errorMessage,
+    );
+  }
+
+  @override
+  FeedbackValidateEmailProvider getProviderOverride(
+    covariant FeedbackValidateEmailProvider provider,
+  ) {
+    return call(
+      value: provider.value,
+      errorMessage: provider.errorMessage,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'feedbackValidateEmailProvider';
+}
+
+/// See also [feedbackValidateEmail].
+class FeedbackValidateEmailProvider extends AutoDisposeProvider<String?> {
+  /// See also [feedbackValidateEmail].
+  FeedbackValidateEmailProvider({
+    required String? value,
+    required String errorMessage,
+  }) : this._internal(
+          (ref) => feedbackValidateEmail(
+            ref as FeedbackValidateEmailRef,
+            value: value,
+            errorMessage: errorMessage,
+          ),
+          from: feedbackValidateEmailProvider,
+          name: r'feedbackValidateEmailProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$feedbackValidateEmailHash,
+          dependencies: FeedbackValidateEmailFamily._dependencies,
+          allTransitiveDependencies:
+              FeedbackValidateEmailFamily._allTransitiveDependencies,
+          value: value,
+          errorMessage: errorMessage,
+        );
+
+  FeedbackValidateEmailProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.value,
+    required this.errorMessage,
+  }) : super.internal();
+
+  final String? value;
+  final String errorMessage;
+
+  @override
+  Override overrideWith(
+    String? Function(FeedbackValidateEmailRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FeedbackValidateEmailProvider._internal(
+        (ref) => create(ref as FeedbackValidateEmailRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        value: value,
+        errorMessage: errorMessage,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<String?> createElement() {
+    return _FeedbackValidateEmailProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FeedbackValidateEmailProvider &&
+        other.value == value &&
+        other.errorMessage == errorMessage;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, value.hashCode);
+    hash = _SystemHash.combine(hash, errorMessage.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin FeedbackValidateEmailRef on AutoDisposeProviderRef<String?> {
+  /// The parameter `value` of this provider.
+  String? get value;
+
+  /// The parameter `errorMessage` of this provider.
+  String get errorMessage;
+}
+
+class _FeedbackValidateEmailProviderElement
+    extends AutoDisposeProviderElement<String?> with FeedbackValidateEmailRef {
+  _FeedbackValidateEmailProviderElement(super.provider);
+
+  @override
+  String? get value => (origin as FeedbackValidateEmailProvider).value;
+  @override
+  String get errorMessage =>
+      (origin as FeedbackValidateEmailProvider).errorMessage;
+}
+
+String _$feedbackValidateMessageHash() =>
+    r'd9e619393c46c16a024b445bef9cc417cc984cb4';
+
+/// See also [feedbackValidateMessage].
+@ProviderFor(feedbackValidateMessage)
+const feedbackValidateMessageProvider = FeedbackValidateMessageFamily();
+
+/// See also [feedbackValidateMessage].
+class FeedbackValidateMessageFamily extends Family<String?> {
+  /// See also [feedbackValidateMessage].
+  const FeedbackValidateMessageFamily();
+
+  /// See also [feedbackValidateMessage].
+  FeedbackValidateMessageProvider call({
+    required String? value,
+    required String errorMessage,
+  }) {
+    return FeedbackValidateMessageProvider(
+      value: value,
+      errorMessage: errorMessage,
+    );
+  }
+
+  @override
+  FeedbackValidateMessageProvider getProviderOverride(
+    covariant FeedbackValidateMessageProvider provider,
+  ) {
+    return call(
+      value: provider.value,
+      errorMessage: provider.errorMessage,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'feedbackValidateMessageProvider';
+}
+
+/// See also [feedbackValidateMessage].
+class FeedbackValidateMessageProvider extends AutoDisposeProvider<String?> {
+  /// See also [feedbackValidateMessage].
+  FeedbackValidateMessageProvider({
+    required String? value,
+    required String errorMessage,
+  }) : this._internal(
+          (ref) => feedbackValidateMessage(
+            ref as FeedbackValidateMessageRef,
+            value: value,
+            errorMessage: errorMessage,
+          ),
+          from: feedbackValidateMessageProvider,
+          name: r'feedbackValidateMessageProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$feedbackValidateMessageHash,
+          dependencies: FeedbackValidateMessageFamily._dependencies,
+          allTransitiveDependencies:
+              FeedbackValidateMessageFamily._allTransitiveDependencies,
+          value: value,
+          errorMessage: errorMessage,
+        );
+
+  FeedbackValidateMessageProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.value,
+    required this.errorMessage,
+  }) : super.internal();
+
+  final String? value;
+  final String errorMessage;
+
+  @override
+  Override overrideWith(
+    String? Function(FeedbackValidateMessageRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FeedbackValidateMessageProvider._internal(
+        (ref) => create(ref as FeedbackValidateMessageRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        value: value,
+        errorMessage: errorMessage,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<String?> createElement() {
+    return _FeedbackValidateMessageProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FeedbackValidateMessageProvider &&
+        other.value == value &&
+        other.errorMessage == errorMessage;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, value.hashCode);
+    hash = _SystemHash.combine(hash, errorMessage.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin FeedbackValidateMessageRef on AutoDisposeProviderRef<String?> {
+  /// The parameter `value` of this provider.
+  String? get value;
+
+  /// The parameter `errorMessage` of this provider.
+  String get errorMessage;
+}
+
+class _FeedbackValidateMessageProviderElement
+    extends AutoDisposeProviderElement<String?>
+    with FeedbackValidateMessageRef {
+  _FeedbackValidateMessageProviderElement(super.provider);
+
+  @override
+  String? get value => (origin as FeedbackValidateMessageProvider).value;
+  @override
+  String get errorMessage =>
+      (origin as FeedbackValidateMessageProvider).errorMessage;
+}
+
+String _$feedbackAttachScreenshotStateHash() =>
+    r'b0123c1b6833b9977c2057912c66053071383934';
+
+/// See also [feedbackAttachScreenshotState].
+@ProviderFor(feedbackAttachScreenshotState)
+final feedbackAttachScreenshotStateProvider =
+    AutoDisposeProvider<bool>.internal(
+  feedbackAttachScreenshotState,
+  name: r'feedbackAttachScreenshotStateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$feedbackAttachScreenshotStateHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FeedbackAttachScreenshotStateRef = AutoDisposeProviderRef<bool>;
 String _$feedbackDataControllerHash() =>
-    r'e8ace355f291bbc951f44ccbea36e1831a7248d0';
+    r'274816023b4a1a47a42481f6eaf5677dc985a612';
 
 /// See also [FeedbackDataController].
 @ProviderFor(FeedbackDataController)
@@ -245,5 +592,39 @@ final feedbackDataControllerProvider = AutoDisposeAsyncNotifierProvider<
 );
 
 typedef _$FeedbackDataController = AutoDisposeAsyncNotifier<FeedbackData>;
+String _$feedbackCommentControllerHash() =>
+    r'b35697b68ff6331ef4976f559dcdbe954dae5cbc';
+
+/// See also [FeedbackCommentController].
+@ProviderFor(FeedbackCommentController)
+final feedbackCommentControllerProvider = AutoDisposeAsyncNotifierProvider<
+    FeedbackCommentController, FeedbackComment>.internal(
+  FeedbackCommentController.new,
+  name: r'feedbackCommentControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$feedbackCommentControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$FeedbackCommentController = AutoDisposeAsyncNotifier<FeedbackComment>;
+String _$feedbackAttachScreenshotControllerHash() =>
+    r'75110053edcff3442736e6d7362296fb3a04ef28';
+
+/// See also [FeedbackAttachScreenshotController].
+@ProviderFor(FeedbackAttachScreenshotController)
+final feedbackAttachScreenshotControllerProvider = AutoDisposeNotifierProvider<
+    FeedbackAttachScreenshotController, bool>.internal(
+  FeedbackAttachScreenshotController.new,
+  name: r'feedbackAttachScreenshotControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$feedbackAttachScreenshotControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$FeedbackAttachScreenshotController = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -12,20 +12,21 @@ class MyFeedbackMessageField extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(feedbackDataControllerProvider).asData?.value;
+    final data = ref.watch(feedbackCommentControllerProvider).asData?.value;
 
     final controller = useTextEditingController(
       text: data?.message,
     );
 
-    String? validator(String? value) => ref
-            .watch(feedbackDataControllerProvider.notifier)
-            .validateMessage(value)
-        ? null
-        : i18n.feedback.please_enter_your_feedback;
+    String? validator(String? value) => ref.watch(
+          feedbackValidateMessageProvider(
+            value: value,
+            errorMessage: i18n.feedback.please_enter_your_feedback,
+          ),
+        );
 
     void onSaved(String? newValue) => ref
-        .watch(feedbackDataControllerProvider.notifier)
+        .watch(feedbackCommentControllerProvider.notifier)
         .updateMessage(newValue);
 
     final themeType = InheritedThemeDetector.of(context);

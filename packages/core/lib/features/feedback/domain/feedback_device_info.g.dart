@@ -20,6 +20,7 @@ _$FeedbackDeviceInfoImpl _$$FeedbackDeviceInfoImplFromJson(
           locale: $checkedConvert('locale', (v) => v as String),
           appVersion: $checkedConvert('appVersion', (v) => v as String),
           appPackageName: $checkedConvert('appPackageName', (v) => v as String),
+          appName: $checkedConvert('appName', (v) => v as String),
         );
         return val;
       },
@@ -33,4 +34,5 @@ Map<String, dynamic> _$$FeedbackDeviceInfoImplToJson(
       'locale': instance.locale,
       'appVersion': instance.appVersion,
       'appPackageName': instance.appPackageName,
+      'appName': instance.appName,
     };

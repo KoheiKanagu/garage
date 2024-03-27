@@ -20,12 +20,32 @@ FeedbackData _$FeedbackDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$FeedbackData {
-  String? get uid => throw _privateConstructorUsedError;
+  /// だれがフィードバックしたか
+  /// サインアウト後にフィードバックした場合はnull
+  String? get createdBy => throw _privateConstructorUsedError;
+
+  /// ユーザのメールアドレス
   String? get email => throw _privateConstructorUsedError;
-  String get message => throw _privateConstructorUsedError;
+
+  /// デバイス情報
   FeedbackDeviceInfo get deviceInfo => throw _privateConstructorUsedError;
+
+  /// フィードバックの種類
   FeedbackType get type => throw _privateConstructorUsedError;
-  String get screenshotBase64 => throw _privateConstructorUsedError;
+
+  /// フィードバックの種類（ローカライズ済み）
+  String get typeLocalized => throw _privateConstructorUsedError;
+
+  /// メールで通知するか
+  bool get notifyByEmail => throw _privateConstructorUsedError;
+
+  /// プッシュ通知で通知するか
+  bool get notifyByPush => throw _privateConstructorUsedError;
+
+  /// フィードバックのステータス
+  FeedbackStatus get status => throw _privateConstructorUsedError;
+
+  /// どこからのフィードバックか
   FeedbackFrom get from => throw _privateConstructorUsedError;
   @TimestampConverter()
   Timestamp? get createdAt => throw _privateConstructorUsedError;
@@ -45,12 +65,14 @@ abstract class $FeedbackDataCopyWith<$Res> {
       _$FeedbackDataCopyWithImpl<$Res, FeedbackData>;
   @useResult
   $Res call(
-      {String? uid,
+      {String? createdBy,
       String? email,
-      String message,
       FeedbackDeviceInfo deviceInfo,
       FeedbackType type,
-      String screenshotBase64,
+      String typeLocalized,
+      bool notifyByEmail,
+      bool notifyByPush,
+      FeedbackStatus status,
       FeedbackFrom from,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt});
@@ -71,29 +93,27 @@ class _$FeedbackDataCopyWithImpl<$Res, $Val extends FeedbackData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = freezed,
+    Object? createdBy = freezed,
     Object? email = freezed,
-    Object? message = null,
     Object? deviceInfo = null,
     Object? type = null,
-    Object? screenshotBase64 = null,
+    Object? typeLocalized = null,
+    Object? notifyByEmail = null,
+    Object? notifyByPush = null,
+    Object? status = null,
     Object? from = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
-      uid: freezed == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      createdBy: freezed == createdBy
+          ? _value.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
               as String?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
       deviceInfo: null == deviceInfo
           ? _value.deviceInfo
           : deviceInfo // ignore: cast_nullable_to_non_nullable
@@ -102,10 +122,22 @@ class _$FeedbackDataCopyWithImpl<$Res, $Val extends FeedbackData>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as FeedbackType,
-      screenshotBase64: null == screenshotBase64
-          ? _value.screenshotBase64
-          : screenshotBase64 // ignore: cast_nullable_to_non_nullable
+      typeLocalized: null == typeLocalized
+          ? _value.typeLocalized
+          : typeLocalized // ignore: cast_nullable_to_non_nullable
               as String,
+      notifyByEmail: null == notifyByEmail
+          ? _value.notifyByEmail
+          : notifyByEmail // ignore: cast_nullable_to_non_nullable
+              as bool,
+      notifyByPush: null == notifyByPush
+          ? _value.notifyByPush
+          : notifyByPush // ignore: cast_nullable_to_non_nullable
+              as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FeedbackStatus,
       from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -139,12 +171,14 @@ abstract class _$$FeedbackDataImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? uid,
+      {String? createdBy,
       String? email,
-      String message,
       FeedbackDeviceInfo deviceInfo,
       FeedbackType type,
-      String screenshotBase64,
+      String typeLocalized,
+      bool notifyByEmail,
+      bool notifyByPush,
+      FeedbackStatus status,
       FeedbackFrom from,
       @TimestampConverter() Timestamp? createdAt,
       @TimestampConverter() Timestamp? updatedAt});
@@ -164,29 +198,27 @@ class __$$FeedbackDataImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = freezed,
+    Object? createdBy = freezed,
     Object? email = freezed,
-    Object? message = null,
     Object? deviceInfo = null,
     Object? type = null,
-    Object? screenshotBase64 = null,
+    Object? typeLocalized = null,
+    Object? notifyByEmail = null,
+    Object? notifyByPush = null,
+    Object? status = null,
     Object? from = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_$FeedbackDataImpl(
-      uid: freezed == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      createdBy: freezed == createdBy
+          ? _value.createdBy
+          : createdBy // ignore: cast_nullable_to_non_nullable
               as String?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
       deviceInfo: null == deviceInfo
           ? _value.deviceInfo
           : deviceInfo // ignore: cast_nullable_to_non_nullable
@@ -195,10 +227,22 @@ class __$$FeedbackDataImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as FeedbackType,
-      screenshotBase64: null == screenshotBase64
-          ? _value.screenshotBase64
-          : screenshotBase64 // ignore: cast_nullable_to_non_nullable
+      typeLocalized: null == typeLocalized
+          ? _value.typeLocalized
+          : typeLocalized // ignore: cast_nullable_to_non_nullable
               as String,
+      notifyByEmail: null == notifyByEmail
+          ? _value.notifyByEmail
+          : notifyByEmail // ignore: cast_nullable_to_non_nullable
+              as bool,
+      notifyByPush: null == notifyByPush
+          ? _value.notifyByPush
+          : notifyByPush // ignore: cast_nullable_to_non_nullable
+              as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FeedbackStatus,
       from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
@@ -219,12 +263,14 @@ class __$$FeedbackDataImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$FeedbackDataImpl implements _FeedbackData {
   const _$FeedbackDataImpl(
-      {required this.uid,
+      {required this.createdBy,
       required this.email,
-      required this.message,
       required this.deviceInfo,
       required this.type,
-      this.screenshotBase64 = '',
+      required this.typeLocalized,
+      this.notifyByEmail = true,
+      this.notifyByPush = true,
+      this.status = FeedbackStatus.open,
       this.from = FeedbackFrom.unknown,
       @TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt});
@@ -232,19 +278,43 @@ class _$FeedbackDataImpl implements _FeedbackData {
   factory _$FeedbackDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$FeedbackDataImplFromJson(json);
 
+  /// だれがフィードバックしたか
+  /// サインアウト後にフィードバックした場合はnull
   @override
-  final String? uid;
+  final String? createdBy;
+
+  /// ユーザのメールアドレス
   @override
   final String? email;
-  @override
-  final String message;
+
+  /// デバイス情報
   @override
   final FeedbackDeviceInfo deviceInfo;
+
+  /// フィードバックの種類
   @override
   final FeedbackType type;
+
+  /// フィードバックの種類（ローカライズ済み）
+  @override
+  final String typeLocalized;
+
+  /// メールで通知するか
   @override
   @JsonKey()
-  final String screenshotBase64;
+  final bool notifyByEmail;
+
+  /// プッシュ通知で通知するか
+  @override
+  @JsonKey()
+  final bool notifyByPush;
+
+  /// フィードバックのステータス
+  @override
+  @JsonKey()
+  final FeedbackStatus status;
+
+  /// どこからのフィードバックか
   @override
   @JsonKey()
   final FeedbackFrom from;
@@ -257,7 +327,7 @@ class _$FeedbackDataImpl implements _FeedbackData {
 
   @override
   String toString() {
-    return 'FeedbackData(uid: $uid, email: $email, message: $message, deviceInfo: $deviceInfo, type: $type, screenshotBase64: $screenshotBase64, from: $from, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'FeedbackData(createdBy: $createdBy, email: $email, deviceInfo: $deviceInfo, type: $type, typeLocalized: $typeLocalized, notifyByEmail: $notifyByEmail, notifyByPush: $notifyByPush, status: $status, from: $from, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -265,14 +335,19 @@ class _$FeedbackDataImpl implements _FeedbackData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FeedbackDataImpl &&
-            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.createdBy, createdBy) ||
+                other.createdBy == createdBy) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.message, message) || other.message == message) &&
             (identical(other.deviceInfo, deviceInfo) ||
                 other.deviceInfo == deviceInfo) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.screenshotBase64, screenshotBase64) ||
-                other.screenshotBase64 == screenshotBase64) &&
+            (identical(other.typeLocalized, typeLocalized) ||
+                other.typeLocalized == typeLocalized) &&
+            (identical(other.notifyByEmail, notifyByEmail) ||
+                other.notifyByEmail == notifyByEmail) &&
+            (identical(other.notifyByPush, notifyByPush) ||
+                other.notifyByPush == notifyByPush) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.from, from) || other.from == from) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -282,8 +357,19 @@ class _$FeedbackDataImpl implements _FeedbackData {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, email, message, deviceInfo,
-      type, screenshotBase64, from, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      createdBy,
+      email,
+      deviceInfo,
+      type,
+      typeLocalized,
+      notifyByEmail,
+      notifyByPush,
+      status,
+      from,
+      createdAt,
+      updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -301,12 +387,14 @@ class _$FeedbackDataImpl implements _FeedbackData {
 
 abstract class _FeedbackData implements FeedbackData {
   const factory _FeedbackData(
-      {required final String? uid,
+      {required final String? createdBy,
       required final String? email,
-      required final String message,
       required final FeedbackDeviceInfo deviceInfo,
       required final FeedbackType type,
-      final String screenshotBase64,
+      required final String typeLocalized,
+      final bool notifyByEmail,
+      final bool notifyByPush,
+      final FeedbackStatus status,
       final FeedbackFrom from,
       @TimestampConverter() final Timestamp? createdAt,
       @TimestampConverter() final Timestamp? updatedAt}) = _$FeedbackDataImpl;
@@ -315,18 +403,41 @@ abstract class _FeedbackData implements FeedbackData {
       _$FeedbackDataImpl.fromJson;
 
   @override
-  String? get uid;
+
+  /// だれがフィードバックしたか
+  /// サインアウト後にフィードバックした場合はnull
+  String? get createdBy;
   @override
+
+  /// ユーザのメールアドレス
   String? get email;
   @override
-  String get message;
-  @override
+
+  /// デバイス情報
   FeedbackDeviceInfo get deviceInfo;
   @override
+
+  /// フィードバックの種類
   FeedbackType get type;
   @override
-  String get screenshotBase64;
+
+  /// フィードバックの種類（ローカライズ済み）
+  String get typeLocalized;
   @override
+
+  /// メールで通知するか
+  bool get notifyByEmail;
+  @override
+
+  /// プッシュ通知で通知するか
+  bool get notifyByPush;
+  @override
+
+  /// フィードバックのステータス
+  FeedbackStatus get status;
+  @override
+
+  /// どこからのフィードバックか
   FeedbackFrom get from;
   @override
   @TimestampConverter()

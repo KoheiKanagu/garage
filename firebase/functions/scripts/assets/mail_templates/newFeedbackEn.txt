@@ -1,0 +1,18 @@
+Thank you for using "{{appName}}".
+This is an automated response to your feedback.
+Our representative will contact you after reviewing your feedback.
+
+Regards,
+kingu.dev Support Team
+
+-- -- --
+Feedback ID [{{feedbackId}}]
+
+Feedback about {{type}}
+{{message}}
+-- -- --
+
+If you don't recognize this feedback, it's possible that someone else accidentally entered your email address.
+If that's the case, please ignore this email.
+
+kingu.dev Support Team | https://garage.kingu.dev
