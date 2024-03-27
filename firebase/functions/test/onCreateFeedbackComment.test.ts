@@ -81,7 +81,7 @@ it('feedbackDataがundefinedの場合、UndefinedDocumentDataエラーが発生�
   ).rejects.toThrow(UndefinedDocumentData);
 });
 
-it('notifyByEmailがfalseの場合、メール送信されないこと', async () => {
+it('notifyByEmailがfalseの場合、supportにだけメール送信されること', async () => {
   const feedbackData: FeedbackData = {
     createdAt: Timestamp.fromMillis(0),
     updatedAt: Timestamp.fromMillis(0),
@@ -141,10 +141,30 @@ it('notifyByEmailがfalseの場合、メール送信されないこと', async (
       `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
     )
     .get();
-  expect(mailDoc.exists).toBe(false);
+  expect(mailDoc.exists).toBe(true);
+
+  const expected: Mail = {
+    cc: kSupportEmail,
+    message: {
+      messageId: `${feedbackId}@kingu.dev`,
+    },
+    template: {
+      name: MailTemplateNames.NewFeedbackJa,
+      data: {
+        attachmentPath0:
+          feedbackComment.attachments[0]!.path,
+        appName: feedbackData.deviceInfo.appName,
+        feedbackId: feedbackId,
+        message: feedbackComment.message,
+        type: feedbackData.typeLocalized,
+      },
+    },
+  };
+
+  expect(mailDoc.data()).toEqual(expected);
 });
 
-it('emailがnullの場合、メール送信されないこと', async () => {
+it('emailがnullの場合、supportにだけメール送信されること', async () => {
   const feedbackData: FeedbackData = {
     createdAt: Timestamp.fromMillis(0),
     updatedAt: Timestamp.fromMillis(0),
@@ -204,10 +224,30 @@ it('emailがnullの場合、メール送信されないこと', async () => {
       `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
     )
     .get();
-  expect(mailDoc.exists).toBe(false);
+  expect(mailDoc.exists).toBe(true);
+
+  const expected: Mail = {
+    cc: kSupportEmail,
+    message: {
+      messageId: `${feedbackId}@kingu.dev`,
+    },
+    template: {
+      name: MailTemplateNames.NewFeedbackJa,
+      data: {
+        attachmentPath0:
+          feedbackComment.attachments[0]!.path,
+        appName: feedbackData.deviceInfo.appName,
+        feedbackId: feedbackId,
+        message: feedbackComment.message,
+        type: feedbackData.typeLocalized,
+      },
+    },
+  };
+
+  expect(mailDoc.data()).toEqual(expected);
 });
 
-it('emailがemptyの場合、メール送信されないこと', async () => {
+it('emailがemptyの場合、supportにだけメール送信されること', async () => {
   const feedbackData: FeedbackData = {
     createdAt: Timestamp.fromMillis(0),
     updatedAt: Timestamp.fromMillis(0),
@@ -267,7 +307,27 @@ it('emailがemptyの場合、メール送信されないこと', async () => {
       `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
     )
     .get();
-  expect(mailDoc.exists).toBe(false);
+  expect(mailDoc.exists).toBe(true);
+
+  const expected: Mail = {
+    cc: kSupportEmail,
+    message: {
+      messageId: `${feedbackId}@kingu.dev`,
+    },
+    template: {
+      name: MailTemplateNames.NewFeedbackJa,
+      data: {
+        attachmentPath0:
+          feedbackComment.attachments[0]!.path,
+        appName: feedbackData.deviceInfo.appName,
+        feedbackId: feedbackId,
+        message: feedbackComment.message,
+        type: feedbackData.typeLocalized,
+      },
+    },
+  };
+
+  expect(mailDoc.data()).toEqual(expected);
 });
 
 it("言語が'en'の場合、英語のテンプレートが使われること", async () => {
@@ -342,7 +402,7 @@ it("言語が'en'の場合、英語のテンプレートが使われること", 
     to: feedbackData.email!,
     cc: kSupportEmail,
     message: {
-      messageId: null,
+      messageId: `${feedbackId}@kingu.dev`,
     },
     template: {
       name: MailTemplateNames.NewFeedbackEn,
@@ -428,7 +488,7 @@ it("言語が'en'の場合、英語のテンプレートが使われること。
     to: feedbackData.email!,
     cc: kSupportEmail,
     message: {
-      messageId: null,
+      messageId: `${feedbackId}@kingu.dev`,
     },
     template: {
       // 添付ファイル無し
@@ -516,7 +576,7 @@ it('メール送信できること', async () => {
     to: feedbackData.email!,
     cc: kSupportEmail,
     message: {
-      messageId: null,
+      messageId: `${feedbackId}@kingu.dev`,
     },
     template: {
       name: MailTemplateNames.NewFeedbackJa,
@@ -601,7 +661,7 @@ it('メール送信できること。添付ファイル無し', async () => {
     to: feedbackData.email!,
     cc: kSupportEmail,
     message: {
-      messageId: null,
+      messageId: `${feedbackId}@kingu.dev`,
     },
     template: {
       // 添付ファイル無し

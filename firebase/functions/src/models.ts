@@ -77,7 +77,7 @@ export interface FeedbackComment {
 }
 
 export interface Mail {
-  to: string;
+  to?: string;
   cc: string;
 
   message?: {

@@ -1,5 +1,4 @@
 import { firestore } from 'firebase-admin';
-import { logger } from 'firebase-functions/v2';
 import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 import { isNull, isUndefined } from 'lodash';
 import { UndefinedDocumentData } from './errors/undefined_document_data';
@@ -31,19 +30,9 @@ export const onCreateFeedbackComment = onDocumentCreated(
     // メールで通知するかどうか
     const notifyByEmail =
       feedbackData.notifyByEmail as boolean;
-    if (!notifyByEmail) {
-      logger.info(
-        'not send email. because notifyByEmail is false'
-      );
-      return;
-    }
 
-    // メールアドレスのチェック
+    // メールアドレス
     const email = feedbackData.email as string | null;
-    if (isNull(email) || email.length === 0) {
-      logger.info('not send email. because email is null');
-      return;
-    }
 
     // 添付ファイルがあるか
     const hasAttachments =
@@ -72,10 +61,9 @@ export const onCreateFeedbackComment = onDocumentCreated(
 
     // メールデータ
     const mail: Mail = {
-      to: email,
       cc: kSupportEmail,
       message: {
-        messageId: null,
+        messageId: `${feedbackId}@kingu.dev`,
       },
       template: {
         name: mailTemplateName,
@@ -88,6 +76,15 @@ export const onCreateFeedbackComment = onDocumentCreated(
         },
       },
     };
+
+    // メール通知する、メールアドレスが存在するならtoに追加
+    if (
+      notifyByEmail &&
+      !isNull(email) &&
+      email.length > 0
+    ) {
+      mail.to = email;
+    }
 
     // 添付ファイルがあれば追加
     if (hasAttachments) {
