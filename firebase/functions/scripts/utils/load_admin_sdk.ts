@@ -56,10 +56,12 @@ function adminInitializeApp(
       require('./external-account-credential').ExternalAccountCredential;
     admin.initializeApp({
       credential: new ExternalAccountCredential(),
+      projectId: process.env.GOOGLE_CLOUD_PROJECT,
     });
   } else {
     admin.initializeApp({
       credential: applicationDefault(),
+      projectId: process.env.GOOGLE_CLOUD_PROJECT,
     });
   }
 }
