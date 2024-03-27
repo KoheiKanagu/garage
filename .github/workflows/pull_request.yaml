@@ -202,20 +202,14 @@ jobs:
           workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
           service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
 
-      # - name: Export Firebase Admin SDK Service Account
-      #   run: |
-      #     # https://github.com/firebase/firebase-admin-node/issues/1377
-      #     # Workaround for the issue above
-      #     echo ${{ secrets.FIREBASE_ADMIN_SDK_SERVICE_ACCOUNT_DEV }} | base64 --decode > service-account.json
-      #     echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/service-account.json" >> "$GITHUB_ENV"
-
       ### Test ###
       - name: Test
         run: |
+          # https://github.com/firebase/firebase-admin-node/issues/1377
+          # Workaround for the issue above
           echo ${{ secrets.FIREBASE_ADMIN_SDK_SERVICE_ACCOUNT_DEV }} | base64 --decode > service-account.json
-          echo $GOOGLE_APPLICATION_CREDENTIALS
           export GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/service-account.json
-          echo $GOOGLE_APPLICATION_CREDENTIALS
+
           ./firebase_emulators_test.sh
 
       ### Cleanup ###

@@ -47,6 +47,11 @@ jobs:
       - name: Deploy Mail Templates
         working-directory: firebase/functions
         run: |
+          # https://github.com/firebase/firebase-admin-node/issues/1377
+          # Workaround for the issue above
+          echo ${{ secrets.FIREBASE_ADMIN_SDK_SERVICE_ACCOUNT_DEV }} | base64 --decode > service-account.json
+          export GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/service-account.json
+
           npx ts-node scripts/set_mail_templates.ts --force
 
       - name: Firebase Deploy
