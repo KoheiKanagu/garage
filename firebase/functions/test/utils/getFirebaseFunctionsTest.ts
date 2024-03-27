@@ -1,4 +1,3 @@
-import * as admin from 'firebase-admin';
 import { kDevProjectId } from '../../src/utils/constants';
 
 /* eslint-disable node/no-unpublished-require */
@@ -10,7 +9,7 @@ export function getFirebaseFunctionsTest() {
   // });
 
   return require('firebase-functions-test')({
-    credential: admin.credential.applicationDefault(),
+    // credential: admin.credential.applicationDefault(),
     projectId: kDevProjectId,
   });
 
