@@ -81,253 +81,247 @@ it('feedbackDataがundefinedの場合、UndefinedDocumentDataエラーが発生�
   ).rejects.toThrow(UndefinedDocumentData);
 });
 
-it('notifyByEmailがfalseの場合、supportにだけメール送信されること', async () => {
-  const feedbackData: FeedbackData = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    createdBy: 'user1',
-    email: 'email@example.com',
-    from: 'configure',
-    deviceInfo: {
-      osVersion: '1.0',
-      modelName: 'model1',
-      locale: 'ja_JP',
-      appVersion: '1.0',
-      appPackageName: 'com.example.app',
-      appName: 'app1',
-    },
-    type: FeedbackType.impression,
-    typeLocalized: 'ご意見・ご感想について',
-    status: 'open',
-    notifyByEmail: false,
-    notifyByPush: true,
-  };
-  const feedbackId = await admin
-    .firestore()
-    .collection(CollectionPaths.FEEDBACKS)
-    .add(feedbackData)
-    .then(ref => ref.id);
-
-  const feedbackComment: FeedbackComment = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    feedbackId: feedbackId,
-    createdBy: feedbackData.createdBy,
-    message: 'this is a test message',
+describe('メール送信できること', () => {
+  async function setupData(options: {
+    email: string | null;
+    notifyByEmail: boolean;
     attachments: [
       {
-        path: 'attachments',
+        path: string;
+      }?,
+    ];
+  }): Promise<Mail> {
+    // FeedbackDataを作成
+    const feedbackData: FeedbackData = {
+      createdAt: Timestamp.fromMillis(0),
+      updatedAt: Timestamp.fromMillis(0),
+      createdBy: 'user1',
+      email: options.email,
+      from: 'configure',
+      deviceInfo: {
+        osVersion: '1.0',
+        modelName: 'model1',
+        locale: 'ja_JP',
+        appVersion: '1.0',
+        appPackageName: 'com.example.app',
+        appName: 'app1',
       },
-    ],
-  };
-  const feedbackCommentDocumentId = feedbackId;
+      type: FeedbackType.impression,
+      typeLocalized: 'ご意見・ご感想について',
+      status: 'open',
+      notifyByEmail: options.notifyByEmail,
+      notifyByPush: true,
+    };
+    const feedbackDoc = await admin
+      .firestore()
+      .collection(CollectionPaths.FEEDBACKS)
+      .add(feedbackData)
+      .then(ref => ref.get());
 
-  const snapshot = test.firestore.makeDocumentSnapshot(
-    feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
-  );
+    const feedbackId = feedbackDoc.id;
 
-  const wrapped = wrap(targetFunction);
-  await wrapped({
-    params: {
-      documentId: feedbackCommentDocumentId,
-    },
-    data: snapshot,
+    // コメントを作成
+    const feedbackComment: FeedbackComment = {
+      createdAt: Timestamp.fromMillis(0),
+      updatedAt: Timestamp.fromMillis(0),
+      feedbackId: feedbackId,
+      createdBy: feedbackData.createdBy,
+      message: 'this is a test message',
+      attachments: options.attachments,
+    };
+
+    const feedbackCommentDocumentId = feedbackId;
+
+    // コメントのmock
+    const snapshot = test.firestore.makeDocumentSnapshot(
+      feedbackComment,
+      `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
+    );
+
+    // onDocumentCreated
+    const wrapped = wrap(targetFunction);
+    await wrapped({
+      params: {
+        documentId: feedbackCommentDocumentId,
+      },
+      data: snapshot,
+    });
+
+    // expect
+    const mailDoc = await admin
+      .firestore()
+      .doc(
+        `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
+      )
+      .get();
+    expect(mailDoc.exists).toBe(true);
+
+    return mailDoc.data() as Mail;
+  }
+
+  it('送信される', async () => {
+    const actual = await setupData({
+      email: 'email@example.com',
+      notifyByEmail: true,
+      attachments: [
+        {
+          path: 'attachments',
+        },
+      ],
+    });
+
+    expect(actual.to).toBe('email@example.com');
+    expect(actual.cc).toBe(kSupportEmail);
+    expect(actual.template.data.attachmentPath0).toBe(
+      'attachments'
+    );
   });
 
-  const mailDoc = await admin
-    .firestore()
-    .doc(
-      `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
-    )
-    .get();
-  expect(mailDoc.exists).toBe(true);
+  it('送信される。添付ファイル無し', async () => {
+    const actual = await setupData({
+      email: 'email@example.com',
+      notifyByEmail: true,
+      attachments: [],
+    });
 
-  const expected: Mail = {
-    cc: kSupportEmail,
-    message: {
-      messageId: `${feedbackId}@kingu.dev`,
-    },
-    template: {
-      name: MailTemplateNames.NewFeedbackJa,
-      data: {
-        attachmentPath0:
-          feedbackComment.attachments[0]!.path,
-        appName: feedbackData.deviceInfo.appName,
-        feedbackId: feedbackId,
-        message: feedbackComment.message,
-        type: feedbackData.typeLocalized,
-      },
-    },
-  };
-
-  expect(mailDoc.data()).toEqual(expected);
-});
-
-it('emailがnullの場合、supportにだけメール送信されること', async () => {
-  const feedbackData: FeedbackData = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    createdBy: 'user1',
-    email: null,
-    from: 'configure',
-    deviceInfo: {
-      osVersion: '1.0',
-      modelName: 'model1',
-      locale: 'ja_JP',
-      appVersion: '1.0',
-      appPackageName: 'com.example.app',
-      appName: 'app1',
-    },
-    type: FeedbackType.impression,
-    typeLocalized: 'ご意見・ご感想について',
-    status: 'open',
-    notifyByEmail: true,
-    notifyByPush: true,
-  };
-  const feedbackId = await admin
-    .firestore()
-    .collection(CollectionPaths.FEEDBACKS)
-    .add(feedbackData)
-    .then(ref => ref.id);
-
-  const feedbackComment: FeedbackComment = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    feedbackId: feedbackId,
-    createdBy: feedbackData.createdBy,
-    message: 'this is a test message',
-    attachments: [
-      {
-        path: 'attachments',
-      },
-    ],
-  };
-  const feedbackCommentDocumentId = feedbackId;
-
-  const snapshot = test.firestore.makeDocumentSnapshot(
-    feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
-  );
-
-  const wrapped = wrap(targetFunction);
-  await wrapped({
-    params: {
-      documentId: feedbackCommentDocumentId,
-    },
-    data: snapshot,
+    expect(actual.to).toBe('email@example.com');
+    expect(actual.cc).toBe(kSupportEmail);
+    expect(
+      actual.template.data.attachmentPath0
+    ).toBeUndefined();
   });
 
-  const mailDoc = await admin
-    .firestore()
-    .doc(
-      `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
-    )
-    .get();
-  expect(mailDoc.exists).toBe(true);
+  describe('notifyByEmailがfalse', () => {
+    it('supportにだけメール送信されること', async () => {
+      const actual = await setupData({
+        email: 'email@example.com',
+        notifyByEmail: false,
+        attachments: [
+          {
+            path: 'attachments',
+          },
+        ],
+      });
 
-  const expected: Mail = {
-    cc: kSupportEmail,
-    message: {
-      messageId: `${feedbackId}@kingu.dev`,
-    },
-    template: {
-      name: MailTemplateNames.NewFeedbackJa,
-      data: {
-        attachmentPath0:
-          feedbackComment.attachments[0]!.path,
-        appName: feedbackData.deviceInfo.appName,
-        feedbackId: feedbackId,
-        message: feedbackComment.message,
-        type: feedbackData.typeLocalized,
-      },
-    },
-  };
+      expect(actual.to).toBeUndefined();
+      expect(actual.cc).toBe(kSupportEmail);
+      expect(actual.template.data.attachmentPath0).toBe(
+        'attachments'
+      );
+    });
 
-  expect(mailDoc.data()).toEqual(expected);
-});
+    it('supportにだけメール送信されること。添付ファイル無し', async () => {
+      const actual = await setupData({
+        email: 'email@example.com',
+        notifyByEmail: false,
+        attachments: [],
+      });
 
-it('emailがemptyの場合、supportにだけメール送信されること', async () => {
-  const feedbackData: FeedbackData = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    createdBy: 'user1',
-    email: '',
-    from: 'configure',
-    deviceInfo: {
-      osVersion: '1.0',
-      modelName: 'model1',
-      locale: 'ja_JP',
-      appVersion: '1.0',
-      appPackageName: 'com.example.app',
-      appName: 'app1',
-    },
-    type: FeedbackType.impression,
-    typeLocalized: 'ご意見・ご感想について',
-    status: 'open',
-    notifyByEmail: true,
-    notifyByPush: true,
-  };
-  const feedbackId = await admin
-    .firestore()
-    .collection(CollectionPaths.FEEDBACKS)
-    .add(feedbackData)
-    .then(ref => ref.id);
+      expect(actual.to).toBeUndefined();
+      expect(actual.cc).toBe(kSupportEmail);
+      expect(
+        actual.template.data.attachmentPath0
+      ).toBeUndefined();
+    });
 
-  const feedbackComment: FeedbackComment = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    feedbackId: feedbackId,
-    createdBy: feedbackData.createdBy,
-    message: 'this is a test message',
-    attachments: [
-      {
-        path: 'attachments',
-      },
-    ],
-  };
-  const feedbackCommentDocumentId = feedbackId;
+    it('supportにだけメール送信されること。emailはnull', async () => {
+      const actual = await setupData({
+        email: null,
+        notifyByEmail: false,
+        attachments: [
+          {
+            path: 'attachments',
+          },
+        ],
+      });
 
-  const snapshot = test.firestore.makeDocumentSnapshot(
-    feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
-  );
+      expect(actual.to).toBeUndefined();
+      expect(actual.cc).toBe(kSupportEmail);
+      expect(actual.template.data.attachmentPath0).toBe(
+        'attachments'
+      );
+    });
 
-  const wrapped = wrap(targetFunction);
-  await wrapped({
-    params: {
-      documentId: feedbackCommentDocumentId,
-    },
-    data: snapshot,
+    it('supportにだけメール送信されること。emailはnull。添付ファイル無し', async () => {
+      const actual = await setupData({
+        email: null,
+        notifyByEmail: false,
+        attachments: [],
+      });
+
+      expect(actual.to).toBeUndefined();
+      expect(actual.cc).toBe(kSupportEmail);
+      expect(
+        actual.template.data.attachmentPath0
+      ).toBeUndefined();
+    });
   });
 
-  const mailDoc = await admin
-    .firestore()
-    .doc(
-      `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
-    )
-    .get();
-  expect(mailDoc.exists).toBe(true);
+  describe('emailが無い', () => {
+    it('emailがnullの場合、supportにだけメール送信されること', async () => {
+      const actual = await setupData({
+        email: null,
+        notifyByEmail: true,
+        attachments: [
+          {
+            path: 'attachments',
+          },
+        ],
+      });
 
-  const expected: Mail = {
-    cc: kSupportEmail,
-    message: {
-      messageId: `${feedbackId}@kingu.dev`,
-    },
-    template: {
-      name: MailTemplateNames.NewFeedbackJa,
-      data: {
-        attachmentPath0:
-          feedbackComment.attachments[0]!.path,
-        appName: feedbackData.deviceInfo.appName,
-        feedbackId: feedbackId,
-        message: feedbackComment.message,
-        type: feedbackData.typeLocalized,
-      },
-    },
-  };
+      expect(actual.to).toBeUndefined();
+      expect(actual.cc).toBe(kSupportEmail);
+      expect(actual.template.data.attachmentPath0).toBe(
+        'attachments'
+      );
+    });
 
-  expect(mailDoc.data()).toEqual(expected);
+    it('emailがnullの場合、supportにだけメール送信されること。添付ファイル無し', async () => {
+      const actual = await setupData({
+        email: null,
+        notifyByEmail: true,
+        attachments: [],
+      });
+
+      expect(actual.to).toBeUndefined();
+      expect(actual.cc).toBe(kSupportEmail);
+      expect(
+        actual.template.data.attachmentPath0
+      ).toBeUndefined();
+    });
+
+    it('emailが空の場合、supportにだけメール送信されること', async () => {
+      const actual = await setupData({
+        email: '',
+        notifyByEmail: true,
+        attachments: [
+          {
+            path: 'attachments',
+          },
+        ],
+      });
+
+      expect(actual.to).toBeUndefined();
+      expect(actual.cc).toBe(kSupportEmail);
+      expect(actual.template.data.attachmentPath0).toBe(
+        'attachments'
+      );
+    });
+
+    it('emailが空の場合、supportにだけメール送信されること。添付ファイル無し', async () => {
+      const actual = await setupData({
+        email: '',
+        notifyByEmail: true,
+        attachments: [],
+      });
+
+      expect(actual.to).toBeUndefined();
+      expect(actual.cc).toBe(kSupportEmail);
+      expect(
+        actual.template.data.attachmentPath0
+      ).toBeUndefined();
+    });
+  });
 });
 
 describe('メールの言語', () => {
@@ -566,177 +560,4 @@ describe('メールの言語', () => {
       ).toBeUndefined();
     }
   });
-});
-
-it('メール送信できること', async () => {
-  // FeedbackDataを作成
-  const feedbackData: FeedbackData = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    createdBy: 'user1',
-    email: 'email@example.com',
-    from: 'configure',
-    deviceInfo: {
-      osVersion: '1.0',
-      modelName: 'model1',
-      locale: 'ja_JP',
-      appVersion: '1.0',
-      appPackageName: 'com.example.app',
-      appName: 'app1',
-    },
-    type: FeedbackType.impression,
-    typeLocalized: 'ご意見・ご感想について',
-    status: 'open',
-    notifyByEmail: true,
-    notifyByPush: true,
-  };
-  const feedbackId = await admin
-    .firestore()
-    .collection(CollectionPaths.FEEDBACKS)
-    .add(feedbackData)
-    .then(ref => ref.id);
-
-  // コメントを作成
-  const feedbackComment: FeedbackComment = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    feedbackId: feedbackId,
-    createdBy: feedbackData.createdBy,
-    message: 'this is a test message',
-    attachments: [
-      {
-        path: 'attachments',
-      },
-    ],
-  };
-
-  const feedbackCommentDocumentId = feedbackId;
-
-  // コメントのmock
-  const snapshot = test.firestore.makeDocumentSnapshot(
-    feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
-  );
-
-  // onDocumentCreated
-  const wrapped = wrap(targetFunction);
-  await wrapped({
-    params: {
-      documentId: feedbackCommentDocumentId,
-    },
-    data: snapshot,
-  });
-
-  // expect
-  const mailDoc = await admin
-    .firestore()
-    .doc(
-      `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
-    )
-    .get();
-  expect(mailDoc.exists).toBe(true);
-
-  const expected: Mail = {
-    to: feedbackData.email!,
-    cc: kSupportEmail,
-    message: {
-      messageId: `${feedbackId}@kingu.dev`,
-    },
-    template: {
-      name: MailTemplateNames.NewFeedbackJa,
-      data: {
-        attachmentPath0:
-          feedbackComment.attachments[0]!.path,
-        appName: feedbackData.deviceInfo.appName,
-        feedbackId: feedbackId,
-        message: feedbackComment.message,
-        type: feedbackData.typeLocalized,
-      },
-    },
-  };
-  expect(mailDoc.data()).toEqual(expected);
-});
-
-it('メール送信できること。添付ファイル無し', async () => {
-  // FeedbackDataを作成
-  const feedbackData: FeedbackData = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    createdBy: 'user1',
-    email: 'email@example.com',
-    from: 'configure',
-    deviceInfo: {
-      osVersion: '1.0',
-      modelName: 'model1',
-      locale: 'ja_JP',
-      appVersion: '1.0',
-      appPackageName: 'com.example.app',
-      appName: 'app1',
-    },
-    type: FeedbackType.impression,
-    typeLocalized: 'ご意見・ご感想について',
-    status: 'open',
-    notifyByEmail: true,
-    notifyByPush: true,
-  };
-  const feedbackId = await admin
-    .firestore()
-    .collection(CollectionPaths.FEEDBACKS)
-    .add(feedbackData)
-    .then(ref => ref.id);
-
-  // コメントを作成
-  const feedbackComment: FeedbackComment = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    feedbackId: feedbackId,
-    createdBy: feedbackData.createdBy,
-    message: 'this is a test message',
-    attachments: [],
-  };
-
-  const feedbackCommentDocumentId = feedbackId;
-
-  // コメントのmock
-  const snapshot = test.firestore.makeDocumentSnapshot(
-    feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
-  );
-
-  // onDocumentCreated
-  const wrapped = wrap(targetFunction);
-  await wrapped({
-    params: {
-      documentId: feedbackCommentDocumentId,
-    },
-    data: snapshot,
-  });
-
-  // expect
-  const mailDoc = await admin
-    .firestore()
-    .doc(
-      `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
-    )
-    .get();
-  expect(mailDoc.exists).toBe(true);
-
-  const expected: Mail = {
-    to: feedbackData.email!,
-    cc: kSupportEmail,
-    message: {
-      messageId: `${feedbackId}@kingu.dev`,
-    },
-    template: {
-      // 添付ファイル無し
-      name: MailTemplateNames.NewFeedbackJaNoAttachments,
-      data: {
-        appName: feedbackData.deviceInfo.appName,
-        feedbackId: feedbackId,
-        message: feedbackComment.message,
-        type: feedbackData.typeLocalized,
-      },
-    },
-  };
-  expect(mailDoc.data()).toEqual(expected);
 });
