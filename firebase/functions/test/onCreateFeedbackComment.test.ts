@@ -330,263 +330,242 @@ it('emailがemptyの場合、supportにだけメール送信されること', as
   expect(mailDoc.data()).toEqual(expected);
 });
 
-it("言語が'en'の場合、英語のテンプレートが使われること", async () => {
-  // FeedbackDataを作成
-  const feedbackData: FeedbackData = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    createdBy: 'user1',
-    email: 'email@example.com',
-    from: 'configure',
-    deviceInfo: {
-      osVersion: '1.0',
-      modelName: 'model1',
-      locale: 'en_US',
-      appVersion: '1.0',
-      appPackageName: 'com.example.app',
-      appName: 'app1',
-    },
-    type: FeedbackType.impression,
-    typeLocalized: 'ご意見・ご感想について',
-    status: 'open',
-    notifyByEmail: true,
-    notifyByPush: true,
-  };
-  const feedbackId = await admin
-    .firestore()
-    .collection(CollectionPaths.FEEDBACKS)
-    .add(feedbackData)
-    .then(ref => ref.id);
-
-  // コメントを作成
-  const feedbackComment: FeedbackComment = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    feedbackId: feedbackId,
-    createdBy: feedbackData.createdBy,
-    message: 'this is a test message',
+describe('メールの言語', () => {
+  async function setupData(options: {
+    locale: string;
     attachments: [
       {
-        path: 'attachments',
+        path: string;
+      }?,
+    ];
+  }): Promise<Mail> {
+    // FeedbackDataを作成
+    const feedbackData: FeedbackData = {
+      createdAt: Timestamp.fromMillis(0),
+      updatedAt: Timestamp.fromMillis(0),
+      createdBy: 'user1',
+      email: 'email@example.com',
+      from: 'configure',
+      deviceInfo: {
+        osVersion: '1.0',
+        modelName: 'model1',
+        locale: options.locale,
+        appVersion: '1.0',
+        appPackageName: 'com.example.app',
+        appName: 'app1',
       },
-    ],
-  };
+      type: FeedbackType.impression,
+      typeLocalized: 'ご意見・ご感想について',
+      status: 'open',
+      notifyByEmail: true,
+      notifyByPush: true,
+    };
+    const feedbackDoc = await admin
+      .firestore()
+      .collection(CollectionPaths.FEEDBACKS)
+      .add(feedbackData)
+      .then(ref => ref.get());
 
-  const feedbackCommentDocumentId = feedbackId;
+    const feedbackId = feedbackDoc.id;
 
-  // コメントのmock
-  const snapshot = test.firestore.makeDocumentSnapshot(
-    feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
-  );
+    // コメントを作成
+    const feedbackComment: FeedbackComment = {
+      createdAt: Timestamp.fromMillis(0),
+      updatedAt: Timestamp.fromMillis(0),
+      feedbackId: feedbackId,
+      createdBy: feedbackData.createdBy,
+      message: 'this is a test message',
+      attachments: options.attachments,
+    };
 
-  // onDocumentCreated
-  const wrapped = wrap(targetFunction);
-  await wrapped({
-    params: {
-      documentId: feedbackCommentDocumentId,
-    },
-    data: snapshot,
+    const feedbackCommentDocumentId = feedbackId;
+
+    // コメントのmock
+    const snapshot = test.firestore.makeDocumentSnapshot(
+      feedbackComment,
+      `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
+    );
+
+    // onDocumentCreated
+    const wrapped = wrap(targetFunction);
+    await wrapped({
+      params: {
+        documentId: feedbackCommentDocumentId,
+      },
+      data: snapshot,
+    });
+
+    // expect
+    const mailDoc = await admin
+      .firestore()
+      .doc(
+        `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
+      )
+      .get();
+    expect(mailDoc.exists).toBe(true);
+
+    return mailDoc.data() as Mail;
+  }
+
+  it("言語が'ja'の場合、日本語のテンプレートが使われること", async () => {
+    const attachment = {
+      path: 'attachments',
+    };
+
+    const locales = ['ja_JP', 'ja'];
+
+    for (const locale of locales) {
+      const actual = await setupData({
+        locale: locale,
+        attachments: [attachment],
+      });
+
+      expect(actual.template.name).toBe(
+        MailTemplateNames.NewFeedbackJa
+      );
+      expect(actual.template.data.attachmentPath0).toBe(
+        attachment.path
+      );
+    }
   });
 
-  // expect
-  const mailDoc = await admin
-    .firestore()
-    .doc(
-      `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
-    )
-    .get();
-  expect(mailDoc.exists).toBe(true);
+  it("言語が'ja'の場合、日本語のテンプレートが使われること。添付ファイル無し", async () => {
+    const locales = ['ja_JP', 'ja'];
 
-  const expected: Mail = {
-    to: feedbackData.email!,
-    cc: kSupportEmail,
-    message: {
-      messageId: `${feedbackId}@kingu.dev`,
-    },
-    template: {
-      name: MailTemplateNames.NewFeedbackEn,
-      data: {
-        attachmentPath0:
-          feedbackComment.attachments[0]!.path,
-        appName: feedbackData.deviceInfo.appName,
-        feedbackId: feedbackId,
-        message: feedbackComment.message,
-        type: feedbackData.typeLocalized,
-      },
-    },
-  };
-  expect(mailDoc.data()).toEqual(expected);
-});
+    for (const locale of locales) {
+      const actual = await setupData({
+        locale: locale,
+        attachments: [],
+      });
 
-it("言語が'en'の場合、英語のテンプレートが使われること。添付ファイル無し", async () => {
-  // FeedbackDataを作成
-  const feedbackData: FeedbackData = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    createdBy: 'user1',
-    email: 'email@example.com',
-    from: 'configure',
-    deviceInfo: {
-      osVersion: '1.0',
-      modelName: 'model1',
-      locale: 'en_US',
-      appVersion: '1.0',
-      appPackageName: 'com.example.app',
-      appName: 'app1',
-    },
-    type: FeedbackType.impression,
-    typeLocalized: 'ご意見・ご感想について',
-    status: 'open',
-    notifyByEmail: true,
-    notifyByPush: true,
-  };
-  const feedbackId = await admin
-    .firestore()
-    .collection(CollectionPaths.FEEDBACKS)
-    .add(feedbackData)
-    .then(ref => ref.id);
-
-  // コメントを作成
-  const feedbackComment: FeedbackComment = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    feedbackId: feedbackId,
-    createdBy: feedbackData.createdBy,
-    message: 'this is a test message',
-    // 添付ファイル無し
-    attachments: [],
-  };
-
-  const feedbackCommentDocumentId = feedbackId;
-
-  // コメントのmock
-  const snapshot = test.firestore.makeDocumentSnapshot(
-    feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
-  );
-
-  // onDocumentCreated
-  const wrapped = wrap(targetFunction);
-  await wrapped({
-    params: {
-      documentId: feedbackCommentDocumentId,
-    },
-    data: snapshot,
+      expect(actual.template.name).toBe(
+        MailTemplateNames.NewFeedbackJaNoAttachments
+      );
+      expect(
+        actual.template.data.attachmentPath0
+      ).toBeUndefined();
+    }
   });
 
-  // expect
-  const mailDoc = await admin
-    .firestore()
-    .doc(
-      `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
-    )
-    .get();
-  expect(mailDoc.exists).toBe(true);
+  it("言語が'en'の場合、英語のテンプレートが使われること", async () => {
+    const attachment = {
+      path: 'attachments',
+    };
 
-  const expected: Mail = {
-    to: feedbackData.email!,
-    cc: kSupportEmail,
-    message: {
-      messageId: `${feedbackId}@kingu.dev`,
-    },
-    template: {
-      // 添付ファイル無し
-      name: MailTemplateNames.NewFeedbackEnNoAttachments,
-      data: {
-        appName: feedbackData.deviceInfo.appName,
-        feedbackId: feedbackId,
-        message: feedbackComment.message,
-        type: feedbackData.typeLocalized,
-      },
-    },
-  };
-  expect(mailDoc.data()).toEqual(expected);
-});
+    const locales = ['en_US', 'en'];
 
-it('不明な言語の場合、英語のテンプレートが使われること', async () => {
-  // FeedbackDataを作成
-  const feedbackData: FeedbackData = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    createdBy: 'user1',
-    email: 'email@example.com',
-    from: 'configure',
-    deviceInfo: {
-      osVersion: '1.0',
-      modelName: 'model1',
-      locale: 'foobar',
-      appVersion: '1.0',
-      appPackageName: 'com.example.app',
-      appName: 'app1',
-    },
-    type: FeedbackType.impression,
-    typeLocalized: 'ご意見・ご感想について',
-    status: 'open',
-    notifyByEmail: true,
-    notifyByPush: true,
-  };
-  const feedbackId = await admin
-    .firestore()
-    .collection(CollectionPaths.FEEDBACKS)
-    .add(feedbackData)
-    .then(ref => ref.id);
+    for (const locale of locales) {
+      const actual = await setupData({
+        locale: locale,
+        attachments: [attachment],
+      });
 
-  // コメントを作成
-  const feedbackComment: FeedbackComment = {
-    createdAt: Timestamp.fromMillis(0),
-    updatedAt: Timestamp.fromMillis(0),
-    feedbackId: feedbackId,
-    createdBy: feedbackData.createdBy,
-    message: 'this is a test message',
-    // 添付ファイル無し
-    attachments: [],
-  };
-
-  const feedbackCommentDocumentId = feedbackId;
-
-  // コメントのmock
-  const snapshot = test.firestore.makeDocumentSnapshot(
-    feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
-  );
-
-  // onDocumentCreated
-  const wrapped = wrap(targetFunction);
-  await wrapped({
-    params: {
-      documentId: feedbackCommentDocumentId,
-    },
-    data: snapshot,
+      expect(actual.template.name).toBe(
+        MailTemplateNames.NewFeedbackEn
+      );
+      expect(actual.template.data.attachmentPath0).toBe(
+        attachment.path
+      );
+    }
   });
 
-  // expect
-  const mailDoc = await admin
-    .firestore()
-    .doc(
-      `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
-    )
-    .get();
-  expect(mailDoc.exists).toBe(true);
+  it("言語が'en'の場合、英語のテンプレートが使われること。添付ファイル無し", async () => {
+    const locales = ['en_US', 'en'];
 
-  const expected: Mail = {
-    to: feedbackData.email!,
-    cc: kSupportEmail,
-    message: {
-      messageId: `${feedbackId}@kingu.dev`,
-    },
-    template: {
-      // 添付ファイル無し
-      name: MailTemplateNames.NewFeedbackEnNoAttachments,
-      data: {
-        appName: feedbackData.deviceInfo.appName,
-        feedbackId: feedbackId,
-        message: feedbackComment.message,
-        type: feedbackData.typeLocalized,
-      },
-    },
-  };
-  expect(mailDoc.data()).toEqual(expected);
+    for (const locale of locales) {
+      const actual = await setupData({
+        locale: locale,
+        attachments: [],
+      });
+
+      expect(actual.template.name).toBe(
+        MailTemplateNames.NewFeedbackEnNoAttachments
+      );
+      expect(
+        actual.template.data.attachmentPath0
+      ).toBeUndefined();
+    }
+  });
+
+  it('その他の言語の場合、英語のテンプレートが使われること', async () => {
+    const attachment = {
+      path: 'attachments',
+    };
+
+    const locales = ['zh_CN', 'zh_TW', 'ko_KR'];
+
+    for (const locale of locales) {
+      const actual = await setupData({
+        locale: locale,
+        attachments: [attachment],
+      });
+
+      expect(actual.template.name).toBe(
+        MailTemplateNames.NewFeedbackEn
+      );
+      expect(actual.template.data.attachmentPath0).toBe(
+        attachment.path
+      );
+    }
+  });
+
+  it('その他の言語の場合、英語のテンプレートが使われること。添付ファイル無し', async () => {
+    const locales = ['zh_CN', 'zh_TW', 'ko_KR'];
+
+    for (const locale of locales) {
+      const actual = await setupData({
+        locale: locale,
+        attachments: [],
+      });
+
+      expect(actual.template.name).toBe(
+        MailTemplateNames.NewFeedbackEnNoAttachments
+      );
+      expect(
+        actual.template.data.attachmentPath0
+      ).toBeUndefined();
+    }
+  });
+
+  it('不明な言語の場合、英語のテンプレートが使われること', async () => {
+    const attachment = {
+      path: 'attachments',
+    };
+
+    const locales = ['unknown', ''];
+
+    for (const locale of locales) {
+      const actual = await setupData({
+        locale: locale,
+        attachments: [attachment],
+      });
+
+      expect(actual.template.name).toBe(
+        MailTemplateNames.NewFeedbackEn
+      );
+      expect(actual.template.data.attachmentPath0).toBe(
+        attachment.path
+      );
+    }
+  });
+
+  it('不明な言語の場合、英語のテンプレートが使われること。添付ファイル無し', async () => {
+    const locales = ['unknown', ''];
+
+    for (const locale of locales) {
+      const actual = await setupData({
+        locale: locale,
+        attachments: [],
+      });
+
+      expect(actual.template.name).toBe(
+        MailTemplateNames.NewFeedbackEnNoAttachments
+      );
+      expect(
+        actual.template.data.attachmentPath0
+      ).toBeUndefined();
+    }
+  });
 });
 
 it('メール送信できること', async () => {
