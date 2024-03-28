@@ -16,7 +16,7 @@ import {
   FeedbackData,
   FeedbackType,
 } from '../src/models';
-import { CollectionPaths } from '../src/utils/collection_paths';
+import { CollectionPaths } from '../src/utils/collection-paths';
 import {
   expectFirestorePermissionDenied,
   expectFirestorePermissionSucceeds,

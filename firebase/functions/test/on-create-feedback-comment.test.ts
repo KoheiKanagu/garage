@@ -1,8 +1,8 @@
 import * as admin from 'firebase-admin';
 import { Timestamp } from 'firebase-admin/firestore';
 import { wrap } from 'firebase-functions-test/lib/main';
-import { loadAdminSdk } from '../scripts/utils/load_admin_sdk';
-import { UndefinedDocumentData } from '../src/errors/undefined_document_data';
+import { loadAdminSdk } from '../scripts/utils/load-admin-sdk';
+import { UndefinedDocumentData } from '../src/errors/undefined-document-data';
 import {
   FeedbackComment,
   FeedbackData,
@@ -10,13 +10,13 @@ import {
   Mail,
   MailTemplateNames,
 } from '../src/models';
-import { onCreateFeedbackComment } from '../src/onCreateFeedbackComment';
-import { CollectionPaths } from '../src/utils/collection_paths';
+import { onCreateFeedbackComment } from '../src/on-create-feedback-comment';
+import { CollectionPaths } from '../src/utils/collection-paths';
 import {
   kDevProjectId,
   kSupportEmail,
 } from '../src/utils/constants';
-import { getFirebaseFunctionsTest } from './utils/getFirebaseFunctionsTest';
+import { getFirebaseFunctionsTest } from './utils/get-firebase-functions-test';
 
 const targetFunction = onCreateFeedbackComment;
 const test = getFirebaseFunctionsTest();
