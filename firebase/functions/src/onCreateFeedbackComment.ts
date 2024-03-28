@@ -40,7 +40,7 @@ export const onCreateFeedbackComment = onDocumentCreated(
 
     // デバイスの言語によってメールのテンプレートを変える
     const locale = feedbackData.deviceInfo.locale as string;
-    const languageCode = locale.split('-')[0];
+    const languageCode = locale.split('_')[0];
 
     let mailTemplateName: MailTemplateNames;
     if (languageCode === 'ja') {
