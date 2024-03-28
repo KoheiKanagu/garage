@@ -1,9 +1,9 @@
 import { firestore } from 'firebase-admin';
 import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 import { isNull, isUndefined } from 'lodash';
-import { UndefinedDocumentData } from './errors/undefined_document_data';
+import { UndefinedDocumentData } from './errors/undefined-document-data';
 import { Mail, MailTemplateNames } from './models';
-import { CollectionPaths } from './utils/collection_paths';
+import { CollectionPaths } from './utils/collection-paths';
 import { kSupportEmail } from './utils/constants';
 
 export const onCreateFeedbackComment = onDocumentCreated(

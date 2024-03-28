@@ -1,4 +1,4 @@
-import { tenantIdToDatabaseId } from '../../src/utils/tenant_id_to_database_id';
+import { tenantIdToDatabaseId } from '../../src/utils/tenant-id-to-database-id';
 
 describe('tenantIdToDatabaseId', () => {
   it('should return the correct databaseId when tenantId is provided', () => {

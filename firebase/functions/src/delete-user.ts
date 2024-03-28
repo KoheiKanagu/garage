@@ -2,7 +2,7 @@ import { FieldValue } from 'firebase-admin/firestore';
 import { logger } from 'firebase-functions/v2';
 import { onCall } from 'firebase-functions/v2/https';
 import { initializeAuth, initializeFirestore } from '.';
-import { CollectionPaths } from './utils/collection_paths';
+import { CollectionPaths } from './utils/collection-paths';
 
 export const deleteUser = onCall(async request => {
   const uid = request.auth?.uid;

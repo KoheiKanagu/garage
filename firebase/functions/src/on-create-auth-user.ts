@@ -2,7 +2,7 @@ import { FieldValue } from 'firebase-admin/firestore';
 import { logger } from 'firebase-functions/v1';
 import { functions, initializeFirestore } from '.';
 import { User } from './models';
-import { CollectionPaths } from './utils/collection_paths';
+import { CollectionPaths } from './utils/collection-paths';
 
 export const onCreateAuthUser = functions()
   .auth.user()

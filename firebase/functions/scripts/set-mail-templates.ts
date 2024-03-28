@@ -6,8 +6,8 @@ import {
   MailTemplateNames,
   MailTemplates,
 } from '../src/models';
-import { CollectionPaths } from '../src/utils/collection_paths';
-import { loadAdminSdk } from './utils/load_admin_sdk';
+import { CollectionPaths } from '../src/utils/collection-paths';
+import { loadAdminSdk } from './utils/load-admin-sdk';
 
 import fs = require('fs');
 
