@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   pull_request:
   workflow_call:
+    secrets:
+      FIREBASE_ADMIN_SDK_SERVICE_ACCOUNT_DEV:
+        required: true
+
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-pull_request
