@@ -9,7 +9,7 @@ part of 'location_manager_delegate.dart';
 // **************************************************************************
 
 String _$locationManagerDelegateHash() =>
-    r'619eb56375bbd5862c9fb074f2b74cf1e421561c';
+    r'd72cfbf52f518e5f71ffb3c0e6aa0ae5647ccf5c';
 
 /// See also [_locationManagerDelegate].
 @ProviderFor(_locationManagerDelegate)

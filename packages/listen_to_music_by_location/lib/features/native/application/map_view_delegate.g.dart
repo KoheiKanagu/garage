@@ -8,7 +8,7 @@ part of 'map_view_delegate.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mapViewDelegateHash() => r'fbb3b471093968720799155e648fc4bd752ee75c';
+String _$mapViewDelegateHash() => r'd9a4e1f73d78f6f76bd5e8bb5dbe4d642a6624c9';
 
 /// See also [_mapViewDelegate].
 @ProviderFor(_mapViewDelegate)
