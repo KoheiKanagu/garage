@@ -5,3 +5,5 @@ GOOGLE_SERVICE_REVERSED_CLIENT_ID = com.googleusercontent.apps.468490578657-k1rn
 FIREBASE_ENCODED_APP_ID = app-1-468490578657-ios-af5af82afe08d9df82e5a0
 
 MY_CUSTOM_URL_SCHEME = loca-music
+
+FLUTTER_TARGET = lib/main_prod.dart

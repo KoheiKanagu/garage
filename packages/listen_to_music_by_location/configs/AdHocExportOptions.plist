@@ -9,21 +9,12 @@
 	<key>method</key>
 	<string>ad-hoc</string>
 	<key>signingStyle</key>
-	<string>manual</string>
+	<string>automatic</string>
 	<key>stripSwiftSymbols</key>
 	<true/>
 	<key>teamID</key>
 	<string>4XBP3H82S7</string>
 	<key>thinning</key>
 	<string>&lt;none&gt;</string>
-	<key>provisioningProfiles</key>
-	<dict>
-		<key>dev.kingu.listenToMusicByLocation.dev</key>
-		<string>dev.kingu.listenToMusicByLocation.dev Ad Hoc</string>
-		<key>dev.kingu.listenToMusicByLocation.dev.ShareExtension</key>
-		<string>listenToMusicByLocation.dev.ShareExtension Ad Hoc</string>
-	</dict>
-	<key>signingCertificate</key>
-	<string>Apple Distribution: Kohei Kanagu (4XBP3H82S7)</string>
 </dict>
 </plist>
