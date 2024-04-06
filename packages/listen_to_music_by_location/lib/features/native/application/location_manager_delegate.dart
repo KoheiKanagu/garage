@@ -15,7 +15,7 @@ _LocationManagerDelegate _locationManagerDelegate(
     didStartMonitoringStream: StreamController.broadcast(),
   );
 
-  LocationManagerDelegate.setup(controller);
+  LocationManagerDelegate.setUp(controller);
 
   return controller;
 }
