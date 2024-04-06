@@ -15,7 +15,7 @@ _MapViewDelegate _mapViewDelegate(
     mapViewDidFinishLoadingMapStream: StreamController.broadcast(),
   );
 
-  MapViewDelegate.setup(controller);
+  MapViewDelegate.setUp(controller);
 
   return controller;
 }
