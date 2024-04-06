@@ -8,7 +8,6 @@ on:
       FIREBASE_ADMIN_SDK_SERVICE_ACCOUNT_DEV:
         required: true
 
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-pull_request
   cancel-in-progress: true
@@ -152,7 +151,7 @@ jobs:
 
   pod_install:
     timeout-minutes: 60
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
