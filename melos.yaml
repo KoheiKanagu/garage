@@ -231,10 +231,6 @@ scripts:
         --export-options-plist configs/AppStoreExportOptions.plist \
         --obfuscate \
         --split-debug-info build/app/outputs
-
-      fastlane pilot upload \
-        --ipa MELOS_PACKAGE_PATH/build/ios/ipa/*.ipa \
-        --skip_waiting_for_build_processing
     exec:
       concurrency: 1
     packageFilters:
