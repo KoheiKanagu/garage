@@ -20,7 +20,7 @@ jobs:
 
   build_ios_no-codesign:
     timeout-minutes: 60
-    runs-on: macos-latest
+    runs-on: macos-14
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
