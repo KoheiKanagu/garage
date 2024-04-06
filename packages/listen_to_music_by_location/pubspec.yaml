@@ -5,7 +5,7 @@ version: 1.0.8+27
 
 environment:
   sdk: ^3.4.0-0
-  flutter: ^3.20.0-0
+  flutter: ^3.22.0-0
 
 dependencies:
   adaptive_dialog: ^2.1.0
@@ -67,7 +67,7 @@ dev_dependencies:
   flutter_native_splash: ^2.4.0
   flutter_test:
     sdk: flutter
-  freezed: ^2.4.7
+  freezed: ^2.5.0
   go_router_builder: ^2.4.1
   json_serializable: ^6.7.1
   mockito: ^5.4.4
