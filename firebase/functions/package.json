@@ -1,17 +1,16 @@
 {
   "name": "functions",
   "scripts": {
-    "lint": "gts lint",
+    "lint": "eslint .",
     "serve": "npm run build && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "clean": "gts clean",
     "test": "jest",
     "compile": "tsc",
     "compile:watch": "tsc --watch",
-    "fix": "gts fix"
+    "fix": "eslint --fix ."
   },
   "engines": {
     "node": "20"

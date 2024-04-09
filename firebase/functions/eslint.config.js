@@ -7,8 +7,9 @@ module.exports = [
   stylistic.configs['recommended-flat'],
   stylistic.configs.customize({
     semi: true,
+    braceStyle: '1tbs',
   }),
-  {
+  ...tsEslint.config({
     files: [
       'scripts/**/*.ts',
       'src/**/*.ts',
@@ -18,13 +19,17 @@ module.exports = [
       '@typescript-eslint': tsEslint.plugin,
       'jest': jestPlugin,
     },
+    extends: [
+      ...tsEslint.configs.recommendedTypeChecked,
+      ...tsEslint.configs.stylisticTypeChecked,
+    ],
     languageOptions: {
       parser: tsEslint.parser,
       parserOptions: {
         project: true,
       },
     },
-  },
+  }),
   {
     files: [
       'test/**/*.ts',
