@@ -3,19 +3,10 @@ import { Timestamp } from 'firebase-admin/firestore';
 import { wrap } from 'firebase-functions-test/lib/main';
 import { loadAdminSdk } from '../scripts/utils/load-admin-sdk';
 import { UndefinedDocumentData } from '../src/errors/undefined-document-data';
-import {
-  FeedbackComment,
-  FeedbackData,
-  FeedbackType,
-  Mail,
-  MailTemplateNames,
-} from '../src/models';
+import { FeedbackComment, FeedbackData, FeedbackType, Mail, MailTemplateNames } from '../src/models';
 import { onCreateFeedbackComment } from '../src/on-create-feedback-comment';
 import { CollectionPaths } from '../src/utils/collection-paths';
-import {
-  kDevProjectId,
-  kSupportEmail,
-} from '../src/utils/constants';
+import { kDevProjectId, kSupportEmail } from '../src/utils/constants';
 import { getFirebaseFunctionsTest } from './utils/get-firebase-functions-test';
 
 const targetFunction = onCreateFeedbackComment;
@@ -38,7 +29,7 @@ it('dataがundefinedの場合、UndefinedDocumentDataエラーが発生するこ
   const snapshot = test.firestore.makeDocumentSnapshot(
     {},
     `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`,
-  );
+  ) as admin.firestore.DocumentSnapshot;
 
   const wrapped = wrap(targetFunction);
   await expect(
@@ -68,7 +59,7 @@ it('feedbackDataがundefinedの場合、UndefinedDocumentDataエラーが発生�
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
     `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`,
-  );
+  ) as admin.firestore.DocumentSnapshot;
 
   const wrapped = wrap(targetFunction);
   await expect(
@@ -136,7 +127,7 @@ describe('メール送信できること', () => {
     const snapshot = test.firestore.makeDocumentSnapshot(
       feedbackComment,
       `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`,
-    );
+    ) as admin.firestore.DocumentSnapshot;
 
     // onDocumentCreated
     const wrapped = wrap(targetFunction);
@@ -378,7 +369,7 @@ describe('メールの言語', () => {
     const snapshot = test.firestore.makeDocumentSnapshot(
       feedbackComment,
       `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`,
-    );
+    ) as admin.firestore.DocumentSnapshot;
 
     // onDocumentCreated
     const wrapped = wrap(targetFunction);

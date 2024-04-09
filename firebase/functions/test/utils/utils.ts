@@ -1,14 +1,4 @@
-import {
-  assertFails,
-  assertSucceeds,
-} from '@firebase/rules-unit-testing';
-
-// https://github.com/aws/aws-sdk-js-v3/issues/3063#issuecomment-1188564123
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface ReadableStream<Uint8Array> {}
-  interface ServiceWorkerRegistration {}
-}
+import { assertFails, assertSucceeds } from '@firebase/rules-unit-testing';
 
 export function getFirestoreCoverageMeta(
   projectId: string,
@@ -19,7 +9,9 @@ export function getFirestoreCoverageMeta(
 export async function expectFirestorePermissionDenied(
   promise: Promise<unknown>,
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const errorResult = await assertFails(promise);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   expect(errorResult.code).toBe(
     'permission-denied' || 'PERMISSION_DENIED',
   );

@@ -44,6 +44,7 @@ module.exports = [
     rules: {
       ...jestPlugin.configs['flat/recommended'].rules,
       ...jestPlugin.configs['flat/style'].rules,
+      'jest/expect-expect': 'off',
     },
   },
 ];
