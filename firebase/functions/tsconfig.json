@@ -1,19 +1,15 @@
 {
-  "extends": "./node_modules/gts/tsconfig-google.json",
+  "extends": [
+    "@tsconfig/node20/tsconfig.json",
+    "@tsconfig/strictest/tsconfig.json",
+  ],
+  "compileOnSave": true,
   "compilerOptions": {
-    "rootDir": ".",
     "outDir": "build"
   },
   "include": [
-    "src/**/*.ts",
-    "test/**/*.ts",
-    "scripts/**/*.ts"
-  ],
-  "lib": [
-    "ES2023"
-  ],
-  "exclude": [
-    "node_modules",
-    "build"
+    "src",
+    "test",
+    "scripts"
   ]
 }

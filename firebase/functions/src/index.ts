@@ -7,13 +7,13 @@ import { tenantIdToDatabaseId } from './utils/tenant-id-to-database-id';
 const app = admin.initializeApp();
 
 export function initializeAuth(
-  tenantId: string
+  tenantId: string,
 ): admin.auth.TenantAwareAuth {
   return app.auth().tenantManager().authForTenant(tenantId);
 }
 
 export function initializeFirestore(
-  tenantId: string | null
+  tenantId: string | null,
 ): admin.firestore.Firestore {
   if (tenantId) {
     return fs.initializeFirestore(
@@ -21,7 +21,7 @@ export function initializeFirestore(
       {
         preferRest: true,
       },
-      tenantIdToDatabaseId(tenantId)
+      tenantIdToDatabaseId(tenantId),
     );
   }
 

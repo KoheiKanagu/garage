@@ -6,8 +6,6 @@ export const CollectionPaths = {
   MAIL_TEMPLATES: 'mailTemplates_v1',
 } as const;
 
-export type CollectionPaths =
-  (typeof CollectionPaths)[keyof typeof CollectionPaths];
+export type CollectionPaths = (typeof CollectionPaths)[keyof typeof CollectionPaths];
 
-export const CollectionPathsValues =
-  Object.values(CollectionPaths);
+export const CollectionPathsValues = Object.values(CollectionPaths);

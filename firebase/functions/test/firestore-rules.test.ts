@@ -1,27 +1,9 @@
-import {
-  RulesTestEnvironment,
-  initializeTestEnvironment,
-} from '@firebase/rules-unit-testing';
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  setLogLevel,
-} from 'firebase/firestore';
+import { RulesTestEnvironment, initializeTestEnvironment } from '@firebase/rules-unit-testing';
+import { addDoc, collection, doc, getDoc, getDocs, setLogLevel } from 'firebase/firestore';
 import { readFileSync, writeFileSync } from 'fs';
-import {
-  FeedbackComment,
-  FeedbackData,
-  FeedbackType,
-} from '../src/models';
+import { FeedbackComment, FeedbackData, FeedbackType } from '../src/models';
 import { CollectionPaths } from '../src/utils/collection-paths';
-import {
-  expectFirestorePermissionDenied,
-  expectFirestorePermissionSucceeds,
-  getFirestoreCoverageMeta,
-} from './utils/utils';
+import { expectFirestorePermissionDenied, expectFirestorePermissionSucceeds, getFirestoreCoverageMeta } from './utils/utils';
 
 let testEnv: RulesTestEnvironment;
 const PROJECT_ID = 'my-project';
@@ -34,7 +16,7 @@ beforeAll(async () => {
     firestore: {
       rules: readFileSync(
         '../firestore/firestore.default.rules',
-        'utf8'
+        'utf8',
       ),
       host: 'localhost',
       port: 8080,
@@ -59,7 +41,7 @@ afterAll(async () => {
 });
 
 function createFeedbackData(
-  createdBy: string | null
+  createdBy: string | null,
 ): FeedbackData {
   return {
     createdAt: null,
@@ -85,7 +67,7 @@ function createFeedbackData(
 
 function createFeedbackCommentData(
   createdBy: string | null,
-  feedbackId: string
+  feedbackId: string,
 ): FeedbackComment {
   return {
     createdAt: null,
@@ -112,16 +94,16 @@ describe('feedbacks_v1', () => {
       await expectFirestorePermissionSucceeds(
         addDoc(
           collection(db, collectionPath),
-          createFeedbackData(createdBy)
-        )
+          createFeedbackData(createdBy),
+        ),
       );
 
       // ユーザを偽って作成はできない
       await expectFirestorePermissionDenied(
         addDoc(
           collection(db, collectionPath),
-          createFeedbackData('user2')
-        )
+          createFeedbackData('user2'),
+        ),
       );
     });
 
@@ -134,16 +116,16 @@ describe('feedbacks_v1', () => {
       await expectFirestorePermissionSucceeds(
         addDoc(
           collection(unAuthDb, collectionPath),
-          createFeedbackData(null)
-        )
+          createFeedbackData(null),
+        ),
       );
 
       // ユーザを偽って作成はできない
       await expectFirestorePermissionDenied(
         addDoc(
           collection(unAuthDb, collectionPath),
-          createFeedbackData('user1')
-        )
+          createFeedbackData('user1'),
+        ),
       );
     });
   });
@@ -159,12 +141,12 @@ describe('feedbacks_v1', () => {
       // documentを作成
       const documentId = await addDoc(
         collection(db, collectionPath),
-        createFeedbackData(uid)
+        createFeedbackData(uid),
       ).then(docRef => docRef.id);
 
       // 自分のdocumentはgetできる
       await expectFirestorePermissionSucceeds(
-        getDoc(doc(db, collectionPath, documentId))
+        getDoc(doc(db, collectionPath, documentId)),
       );
 
       // 他人はgetできない
@@ -172,7 +154,7 @@ describe('feedbacks_v1', () => {
         .authenticatedContext('user2')
         .firestore();
       await expectFirestorePermissionDenied(
-        getDoc(doc(otherDb, collectionPath, documentId))
+        getDoc(doc(otherDb, collectionPath, documentId)),
       );
     });
 
@@ -186,7 +168,7 @@ describe('feedbacks_v1', () => {
       // documentを作成
       const documentId = await addDoc(
         collection(db, collectionPath),
-        createFeedbackData(uid)
+        createFeedbackData(uid),
       ).then(docRef => docRef.id);
 
       // 未認証ユーザはgetできない
@@ -194,7 +176,7 @@ describe('feedbacks_v1', () => {
         .unauthenticatedContext()
         .firestore();
       await expectFirestorePermissionDenied(
-        getDoc(doc(unAuthDb, collectionPath, documentId))
+        getDoc(doc(unAuthDb, collectionPath, documentId)),
       );
     });
   });
@@ -210,7 +192,7 @@ describe('feedbacks_v1', () => {
       // documentを作成
       await addDoc(
         collection(db, collectionPath),
-        createFeedbackData(uid)
+        createFeedbackData(uid),
       );
 
       // 自分のdocumentはlistできる
@@ -218,8 +200,8 @@ describe('feedbacks_v1', () => {
         getDocs(
           db
             .collection(collectionPath)
-            .where('createdBy', '==', uid)
-        )
+            .where('createdBy', '==', uid),
+        ),
       );
 
       // 他人のdocumentはlistできない
@@ -227,8 +209,8 @@ describe('feedbacks_v1', () => {
         getDocs(
           db
             .collection(collectionPath)
-            .where('createdBy', '==', 'user2')
-        )
+            .where('createdBy', '==', 'user2'),
+        ),
       );
 
       // 他人はlistできない
@@ -239,8 +221,8 @@ describe('feedbacks_v1', () => {
         getDocs(
           otherDb
             .collection(collectionPath)
-            .where('createdBy', '==', uid)
-        )
+            .where('createdBy', '==', uid),
+        ),
       );
     });
 
@@ -254,8 +236,8 @@ describe('feedbacks_v1', () => {
         getDocs(
           unAuthDb
             .collection(collectionPath)
-            .where('createdBy', '==', 'uid')
-        )
+            .where('createdBy', '==', 'uid'),
+        ),
       );
     });
   });
@@ -275,23 +257,23 @@ describe('feedbackComments_v1', () => {
       // feedbackを作成
       const feedbackId = await addDoc(
         collection(db, CollectionPaths.FEEDBACKS),
-        createFeedbackData(uid)
+        createFeedbackData(uid),
       ).then(docRef => docRef.id);
 
       // commentを作成できる
       await expectFirestorePermissionSucceeds(
         addDoc(
           collection(db, collectionPath),
-          createFeedbackCommentData(uid, feedbackId)
-        )
+          createFeedbackCommentData(uid, feedbackId),
+        ),
       );
 
       // ユーザを偽って作成はできない
       await expectFirestorePermissionDenied(
         addDoc(
           collection(db, collectionPath),
-          createFeedbackCommentData('user2', feedbackId)
-        )
+          createFeedbackCommentData('user2', feedbackId),
+        ),
       );
     });
 
@@ -303,23 +285,23 @@ describe('feedbackComments_v1', () => {
       // feedbackを作成
       const feedbackId = await addDoc(
         collection(unAuthDb, CollectionPaths.FEEDBACKS),
-        createFeedbackData(null)
+        createFeedbackData(null),
       ).then(docRef => docRef.id);
 
       // commentを作成できる
       await expectFirestorePermissionSucceeds(
         addDoc(
           collection(unAuthDb, collectionPath),
-          createFeedbackCommentData(null, feedbackId)
-        )
+          createFeedbackCommentData(null, feedbackId),
+        ),
       );
 
       // ユーザを偽って作成はできない
       await expectFirestorePermissionDenied(
         addDoc(
           collection(unAuthDb, collectionPath),
-          createFeedbackCommentData('user1', feedbackId)
-        )
+          createFeedbackCommentData('user1', feedbackId),
+        ),
       );
     });
 
@@ -334,8 +316,8 @@ describe('feedbackComments_v1', () => {
       await expectFirestorePermissionDenied(
         addDoc(
           collection(db, collectionPath),
-          createFeedbackCommentData(uid, 'notExist')
-        )
+          createFeedbackCommentData(uid, 'notExist'),
+        ),
       );
     });
 
@@ -349,7 +331,7 @@ describe('feedbackComments_v1', () => {
       // feedbackを作成
       const feedbackId = await addDoc(
         collection(db, CollectionPaths.FEEDBACKS),
-        createFeedbackData(uid)
+        createFeedbackData(uid),
       ).then(docRef => docRef.id);
 
       // 他人のfeedbackにcommentは作成できない
@@ -361,8 +343,8 @@ describe('feedbackComments_v1', () => {
       await expectFirestorePermissionDenied(
         addDoc(
           collection(otherDb, collectionPath),
-          createFeedbackCommentData(otherUid, feedbackId)
-        )
+          createFeedbackCommentData(otherUid, feedbackId),
+        ),
       );
     });
   });

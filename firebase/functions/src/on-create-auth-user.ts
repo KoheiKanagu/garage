@@ -5,12 +5,12 @@ import { User } from './models';
 import { CollectionPaths } from './utils/collection-paths';
 
 export const onCreateAuthUser = functions()
-  .auth.user()
+  .auth
+  .user()
   .onCreate(async (user, context) => {
     logger.info('uid', user.uid);
 
-    const eventAgeMs =
-      Date.now() - Date.parse(context.timestamp);
+    const eventAgeMs = Date.now() - Date.parse(context.timestamp);
     const eventMaxAgeMs = 1000 * 60 * 3; // 3分
     if (eventAgeMs > eventMaxAgeMs) {
       logger.error('Event is too old to process.');
@@ -31,10 +31,10 @@ export const onCreateAuthUser = functions()
     };
 
     await firestore
-      .collection(CollectionPaths.USERS) //
+      .collection(CollectionPaths.USERS)
       .doc(user.uid)
       .create(data)
-      .catch(error => {
+      .catch((error) => {
         logger.warn(error);
       });
   });
