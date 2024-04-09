@@ -1,5 +1,5 @@
 export function tenantIdToDatabaseId(
-  tenantId: string
+  tenantId: string,
 ): string {
   const parts = tenantId.split('-');
   parts.pop();

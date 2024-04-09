@@ -4,6 +4,11 @@ const jestPlugin = require('eslint-plugin-jest');
 
 /** @type {import("eslint").Linter.FlatConfig[]} */
 module.exports = [
+  {
+    ignores: [
+      '**/build/**',
+    ],
+  },
   stylistic.configs['recommended-flat'],
   stylistic.configs.customize({
     semi: true,

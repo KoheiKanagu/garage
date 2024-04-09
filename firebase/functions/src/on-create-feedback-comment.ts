@@ -8,14 +8,14 @@ import { kSupportEmail } from './utils/constants';
 
 export const onCreateFeedbackComment = onDocumentCreated(
   `${CollectionPaths.FEEDBACK_COMMENTS}/{documentId}`,
-  async event => {
+  async (event) => {
     const feedbackComment = event.data?.data();
 
     if (isUndefined(feedbackComment)) {
       throw new UndefinedDocumentData();
     }
 
-    const feedbackId = feedbackComment.feedbackId as string;
+    const feedbackId = feedbackComment['feedbackId'] as string;
 
     const feedbackSnapshot = await firestore()
       .collection(CollectionPaths.FEEDBACKS)
@@ -28,18 +28,16 @@ export const onCreateFeedbackComment = onDocumentCreated(
     }
 
     // メールで通知するかどうか
-    const notifyByEmail =
-      feedbackData.notifyByEmail as boolean;
+    const notifyByEmail = feedbackData['notifyByEmail'] as boolean;
 
     // メールアドレス
-    const email = feedbackData.email as string | null;
+    const email = feedbackData['email'] as string | null;
 
     // 添付ファイルがあるか
-    const hasAttachments =
-      feedbackComment.attachments.length > 0;
+    const hasAttachments = feedbackComment['attachments'].length > 0;
 
     // デバイスの言語によってメールのテンプレートを変える
-    const locale = feedbackData.deviceInfo.locale as string;
+    const locale = feedbackData['deviceInfo'].locale as string;
     const languageCode = locale.split('_')[0];
 
     let mailTemplateName: MailTemplateNames;
@@ -47,15 +45,13 @@ export const onCreateFeedbackComment = onDocumentCreated(
       if (hasAttachments) {
         mailTemplateName = MailTemplateNames.NewFeedbackJa;
       } else {
-        mailTemplateName =
-          MailTemplateNames.NewFeedbackJaNoAttachments;
+        mailTemplateName = MailTemplateNames.NewFeedbackJaNoAttachments;
       }
     } else {
       if (hasAttachments) {
         mailTemplateName = MailTemplateNames.NewFeedbackEn;
       } else {
-        mailTemplateName =
-          MailTemplateNames.NewFeedbackEnNoAttachments;
+        mailTemplateName = MailTemplateNames.NewFeedbackEnNoAttachments;
       }
     }
 
@@ -68,28 +64,22 @@ export const onCreateFeedbackComment = onDocumentCreated(
       template: {
         name: mailTemplateName,
         data: {
-          appName: feedbackData.deviceInfo
-            .appName as string,
+          appName: feedbackData['deviceInfo'].appName as string,
           feedbackId: feedbackId,
-          message: feedbackComment.message as string,
-          type: feedbackData.typeLocalized as string,
+          message: feedbackComment['message'] as string,
+          type: feedbackData['typeLocalized'] as string,
         },
       },
     };
 
     // メール通知する、メールアドレスが存在するならtoに追加
-    if (
-      notifyByEmail &&
-      !isNull(email) &&
-      email.length > 0
-    ) {
+    if (notifyByEmail && !isNull(email) && email.length > 0) {
       mail.to = email;
     }
 
     // 添付ファイルがあれば追加
     if (hasAttachments) {
-      mail.template.data.attachmentPath0 = feedbackComment
-        .attachments[0].path as string;
+      mail.template.data.attachmentPath0 = feedbackComment['attachments'][0].path as string;
     }
 
     // メール送信
@@ -97,5 +87,5 @@ export const onCreateFeedbackComment = onDocumentCreated(
       .collection(CollectionPaths.MAILS)
       .doc(event.params.documentId)
       .set(mail);
-  }
+  },
 );

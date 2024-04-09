@@ -37,7 +37,7 @@ afterEach(async () => {
 it('dataがundefinedの場合、UndefinedDocumentDataエラーが発生すること', async () => {
   const snapshot = test.firestore.makeDocumentSnapshot(
     {},
-    `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`
+    `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`,
   );
 
   const wrapped = wrap(targetFunction);
@@ -47,7 +47,7 @@ it('dataがundefinedの場合、UndefinedDocumentDataエラーが発生するこ
         documentId: 'documentId',
       },
       data: snapshot,
-    })
+    }),
   ).rejects.toThrow(UndefinedDocumentData);
 });
 
@@ -67,7 +67,7 @@ it('feedbackDataがundefinedの場合、UndefinedDocumentDataエラーが発生�
 
   const snapshot = test.firestore.makeDocumentSnapshot(
     feedbackComment,
-    `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`
+    `${CollectionPaths.FEEDBACK_COMMENTS}/documentId`,
   );
 
   const wrapped = wrap(targetFunction);
@@ -77,7 +77,7 @@ it('feedbackDataがundefinedの場合、UndefinedDocumentDataエラーが発生�
         documentId: 'documentId',
       },
       data: snapshot,
-    })
+    }),
   ).rejects.toThrow(UndefinedDocumentData);
 });
 
@@ -135,7 +135,7 @@ describe('メール送信できること', () => {
     // コメントのmock
     const snapshot = test.firestore.makeDocumentSnapshot(
       feedbackComment,
-      `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
+      `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`,
     );
 
     // onDocumentCreated
@@ -151,7 +151,7 @@ describe('メール送信できること', () => {
     const mailDoc = await admin
       .firestore()
       .doc(
-        `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
+        `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`,
       )
       .get();
     expect(mailDoc.exists).toBe(true);
@@ -173,7 +173,7 @@ describe('メール送信できること', () => {
     expect(actual.to).toBe('email@example.com');
     expect(actual.cc).toBe(kSupportEmail);
     expect(actual.template.data.attachmentPath0).toBe(
-      'attachments'
+      'attachments',
     );
   });
 
@@ -187,7 +187,7 @@ describe('メール送信できること', () => {
     expect(actual.to).toBe('email@example.com');
     expect(actual.cc).toBe(kSupportEmail);
     expect(
-      actual.template.data.attachmentPath0
+      actual.template.data.attachmentPath0,
     ).toBeUndefined();
   });
 
@@ -206,7 +206,7 @@ describe('メール送信できること', () => {
       expect(actual.to).toBeUndefined();
       expect(actual.cc).toBe(kSupportEmail);
       expect(actual.template.data.attachmentPath0).toBe(
-        'attachments'
+        'attachments',
       );
     });
 
@@ -220,7 +220,7 @@ describe('メール送信できること', () => {
       expect(actual.to).toBeUndefined();
       expect(actual.cc).toBe(kSupportEmail);
       expect(
-        actual.template.data.attachmentPath0
+        actual.template.data.attachmentPath0,
       ).toBeUndefined();
     });
 
@@ -238,7 +238,7 @@ describe('メール送信できること', () => {
       expect(actual.to).toBeUndefined();
       expect(actual.cc).toBe(kSupportEmail);
       expect(actual.template.data.attachmentPath0).toBe(
-        'attachments'
+        'attachments',
       );
     });
 
@@ -252,7 +252,7 @@ describe('メール送信できること', () => {
       expect(actual.to).toBeUndefined();
       expect(actual.cc).toBe(kSupportEmail);
       expect(
-        actual.template.data.attachmentPath0
+        actual.template.data.attachmentPath0,
       ).toBeUndefined();
     });
   });
@@ -272,7 +272,7 @@ describe('メール送信できること', () => {
       expect(actual.to).toBeUndefined();
       expect(actual.cc).toBe(kSupportEmail);
       expect(actual.template.data.attachmentPath0).toBe(
-        'attachments'
+        'attachments',
       );
     });
 
@@ -286,7 +286,7 @@ describe('メール送信できること', () => {
       expect(actual.to).toBeUndefined();
       expect(actual.cc).toBe(kSupportEmail);
       expect(
-        actual.template.data.attachmentPath0
+        actual.template.data.attachmentPath0,
       ).toBeUndefined();
     });
 
@@ -304,7 +304,7 @@ describe('メール送信できること', () => {
       expect(actual.to).toBeUndefined();
       expect(actual.cc).toBe(kSupportEmail);
       expect(actual.template.data.attachmentPath0).toBe(
-        'attachments'
+        'attachments',
       );
     });
 
@@ -318,7 +318,7 @@ describe('メール送信できること', () => {
       expect(actual.to).toBeUndefined();
       expect(actual.cc).toBe(kSupportEmail);
       expect(
-        actual.template.data.attachmentPath0
+        actual.template.data.attachmentPath0,
       ).toBeUndefined();
     });
   });
@@ -377,7 +377,7 @@ describe('メールの言語', () => {
     // コメントのmock
     const snapshot = test.firestore.makeDocumentSnapshot(
       feedbackComment,
-      `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`
+      `${CollectionPaths.FEEDBACK_COMMENTS}/${feedbackCommentDocumentId}`,
     );
 
     // onDocumentCreated
@@ -393,7 +393,7 @@ describe('メールの言語', () => {
     const mailDoc = await admin
       .firestore()
       .doc(
-        `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`
+        `${CollectionPaths.MAILS}/${feedbackCommentDocumentId}`,
       )
       .get();
     expect(mailDoc.exists).toBe(true);
@@ -401,7 +401,7 @@ describe('メールの言語', () => {
     return mailDoc.data() as Mail;
   }
 
-  it("言語が'ja'の場合、日本語のテンプレートが使われること", async () => {
+  it('言語が\'ja\'の場合、日本語のテンプレートが使われること', async () => {
     const attachment = {
       path: 'attachments',
     };
@@ -415,15 +415,15 @@ describe('メールの言語', () => {
       });
 
       expect(actual.template.name).toBe(
-        MailTemplateNames.NewFeedbackJa
+        MailTemplateNames.NewFeedbackJa,
       );
       expect(actual.template.data.attachmentPath0).toBe(
-        attachment.path
+        attachment.path,
       );
     }
   });
 
-  it("言語が'ja'の場合、日本語のテンプレートが使われること。添付ファイル無し", async () => {
+  it('言語が\'ja\'の場合、日本語のテンプレートが使われること。添付ファイル無し', async () => {
     const locales = ['ja_JP', 'ja'];
 
     for (const locale of locales) {
@@ -433,15 +433,15 @@ describe('メールの言語', () => {
       });
 
       expect(actual.template.name).toBe(
-        MailTemplateNames.NewFeedbackJaNoAttachments
+        MailTemplateNames.NewFeedbackJaNoAttachments,
       );
       expect(
-        actual.template.data.attachmentPath0
+        actual.template.data.attachmentPath0,
       ).toBeUndefined();
     }
   });
 
-  it("言語が'en'の場合、英語のテンプレートが使われること", async () => {
+  it('言語が\'en\'の場合、英語のテンプレートが使われること', async () => {
     const attachment = {
       path: 'attachments',
     };
@@ -455,15 +455,15 @@ describe('メールの言語', () => {
       });
 
       expect(actual.template.name).toBe(
-        MailTemplateNames.NewFeedbackEn
+        MailTemplateNames.NewFeedbackEn,
       );
       expect(actual.template.data.attachmentPath0).toBe(
-        attachment.path
+        attachment.path,
       );
     }
   });
 
-  it("言語が'en'の場合、英語のテンプレートが使われること。添付ファイル無し", async () => {
+  it('言語が\'en\'の場合、英語のテンプレートが使われること。添付ファイル無し', async () => {
     const locales = ['en_US', 'en'];
 
     for (const locale of locales) {
@@ -473,10 +473,10 @@ describe('メールの言語', () => {
       });
 
       expect(actual.template.name).toBe(
-        MailTemplateNames.NewFeedbackEnNoAttachments
+        MailTemplateNames.NewFeedbackEnNoAttachments,
       );
       expect(
-        actual.template.data.attachmentPath0
+        actual.template.data.attachmentPath0,
       ).toBeUndefined();
     }
   });
@@ -495,10 +495,10 @@ describe('メールの言語', () => {
       });
 
       expect(actual.template.name).toBe(
-        MailTemplateNames.NewFeedbackEn
+        MailTemplateNames.NewFeedbackEn,
       );
       expect(actual.template.data.attachmentPath0).toBe(
-        attachment.path
+        attachment.path,
       );
     }
   });
@@ -513,10 +513,10 @@ describe('メールの言語', () => {
       });
 
       expect(actual.template.name).toBe(
-        MailTemplateNames.NewFeedbackEnNoAttachments
+        MailTemplateNames.NewFeedbackEnNoAttachments,
       );
       expect(
-        actual.template.data.attachmentPath0
+        actual.template.data.attachmentPath0,
       ).toBeUndefined();
     }
   });
@@ -535,10 +535,10 @@ describe('メールの言語', () => {
       });
 
       expect(actual.template.name).toBe(
-        MailTemplateNames.NewFeedbackEn
+        MailTemplateNames.NewFeedbackEn,
       );
       expect(actual.template.data.attachmentPath0).toBe(
-        attachment.path
+        attachment.path,
       );
     }
   });
@@ -553,10 +553,10 @@ describe('メールの言語', () => {
       });
 
       expect(actual.template.name).toBe(
-        MailTemplateNames.NewFeedbackEnNoAttachments
+        MailTemplateNames.NewFeedbackEnNoAttachments,
       );
       expect(
-        actual.template.data.attachmentPath0
+        actual.template.data.attachmentPath0,
       ).toBeUndefined();
     }
   });

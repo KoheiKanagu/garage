@@ -11,23 +11,23 @@ declare global {
 }
 
 export function getFirestoreCoverageMeta(
-  projectId: string
+  projectId: string,
 ) {
   return `http://localhost:8080/emulator/v1/projects/${projectId}:ruleCoverage.html`;
 }
 
 export async function expectFirestorePermissionDenied(
-  promise: Promise<unknown>
+  promise: Promise<unknown>,
 ) {
   const errorResult = await assertFails(promise);
   expect(errorResult.code).toBe(
-    'permission-denied' || 'PERMISSION_DENIED'
+    'permission-denied' || 'PERMISSION_DENIED',
   );
 }
 
 export async function expectFirestorePermissionSucceeds(
-  promise: Promise<unknown>
+  promise: Promise<unknown>,
 ) {
   const successResult = await assertSucceeds(promise);
-  expect(successResult).not.toBeUndefined();
+  expect(successResult).toBeDefined();
 }

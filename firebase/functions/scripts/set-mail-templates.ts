@@ -15,23 +15,19 @@ void (async () => {
   await loadAdminSdk();
 
   const collection = getFirestore().collection(
-    CollectionPaths.MAIL_TEMPLATES
+    CollectionPaths.MAIL_TEMPLATES,
   );
 
-  for (const templateName of Object.values(
-    MailTemplateNames
-  )) {
+  for (const templateName of Object.values(MailTemplateNames)) {
     let subject: string;
     switch (templateName) {
       case MailTemplateNames.NewFeedbackJa:
       case MailTemplateNames.NewFeedbackJaNoAttachments:
-        subject =
-          '「{{appName}}」へのお問い合わせありがとうございます [{{feedbackId}}]';
+        subject = '「{{appName}}」へのお問い合わせありがとうございます [{{feedbackId}}]';
         break;
       case MailTemplateNames.NewFeedbackEn:
       case MailTemplateNames.NewFeedbackEnNoAttachments:
-        subject =
-          'Thank you for feedback to "{{appName}}" [feedbackId]';
+        subject = 'Thank you for feedback to "{{appName}}" [feedbackId]';
         break;
       default:
         throw new Error('Unknown template name');
@@ -41,16 +37,12 @@ void (async () => {
       updatedAt: FieldValue.serverTimestamp(),
       subject: subject,
       html: fs.readFileSync(
-        `./scripts/assets/mail_templates/${
-          templateName.split('.')[0]
-        }.html`,
-        'utf8'
+        `./scripts/assets/mail_templates/${templateName.split('.')[0]}.html`,
+        'utf8',
       ),
       text: fs.readFileSync(
-        `./scripts/assets/mail_templates/${
-          templateName.split('.')[0]
-        }.txt`,
-        'utf8'
+        `./scripts/assets/mail_templates/${templateName.split('.')[0]}.txt`,
+        'utf8',
       ),
       attachments: [
         {
