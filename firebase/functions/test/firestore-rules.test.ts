@@ -1,27 +1,9 @@
-import {
-  RulesTestEnvironment,
-  initializeTestEnvironment,
-} from '@firebase/rules-unit-testing';
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  setLogLevel,
-} from 'firebase/firestore';
+import { RulesTestEnvironment, initializeTestEnvironment } from '@firebase/rules-unit-testing';
+import { addDoc, collection, doc, getDoc, getDocs, setLogLevel } from 'firebase/firestore';
 import { readFileSync, writeFileSync } from 'fs';
-import {
-  FeedbackComment,
-  FeedbackData,
-  FeedbackType,
-} from '../src/models';
+import { FeedbackComment, FeedbackData, FeedbackType } from '../src/models';
 import { CollectionPaths } from '../src/utils/collection-paths';
-import {
-  expectFirestorePermissionDenied,
-  expectFirestorePermissionSucceeds,
-  getFirestoreCoverageMeta,
-} from './utils/utils';
+import { expectFirestorePermissionDenied, expectFirestorePermissionSucceeds, getFirestoreCoverageMeta } from './utils/utils';
 
 let testEnv: RulesTestEnvironment;
 const PROJECT_ID = 'my-project';
