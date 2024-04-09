@@ -7,6 +7,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
+    "clean": "rm -rf build",
     "test": "jest",
     "compile": "tsc",
     "compile:watch": "tsc --watch",
