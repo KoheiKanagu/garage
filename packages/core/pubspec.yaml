@@ -73,3 +73,10 @@ flutter:
 
   assets:
     - packages/budoux_dart/models/ja.json
+
+    - assets/si/apple-light.si
+    - assets/si/apple-dark.si
+    - assets/si/google-light.si
+    - assets/si/google-dark.si
+    - assets/si/github-light.si
+    - assets/si/github-dark.si

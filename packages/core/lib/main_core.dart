@@ -4,7 +4,6 @@ import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -50,7 +49,7 @@ Future<ProviderContainer> _initialize({
   required List<Override> overrides,
   required FirebaseOptions options,
 }) async {
-  final (firebaseApp, sharedPreferences, packageInfo, adsStatus) = (
+  final (_, sharedPreferences, packageInfo, adsStatus) = (
     await Firebase.initializeApp(
       options: options,
     ),
@@ -73,11 +72,6 @@ Future<ProviderContainer> _initialize({
         },
       ),
     },
-  );
-
-  FirebaseUIAuth.configureProviders(
-    firebaseUIAuthProviders,
-    app: firebaseApp,
   );
 
   final container = ProviderContainer(
