@@ -31,7 +31,7 @@ class SignInPage extends HookConsumerWidget {
           bottomNavigationBar: ackWidget,
           body: ListView(
             children: [
-              MyOauthProviderButtons(
+              MyAuthProviderButtons(
                 header: i18n.onboarding.social_account_sign_in,
                 footers: [
                   i18n.onboarding.social_account_sign_in_description,
@@ -52,7 +52,7 @@ class SignInPage extends HookConsumerWidget {
             bottomNavigationBar: ackWidget,
             body: ListView(
               children: [
-                MyOauthProviderButtons(
+                MyAuthProviderButtons(
                   header: i18n.onboarding.social_account_sign_in,
                   footers: [
                     i18n.onboarding.social_account_sign_in_description,

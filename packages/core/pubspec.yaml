@@ -25,10 +25,6 @@ dependencies:
   firebase_dynamic_links: ^5.5.0
   firebase_performance: ^0.9.4
   firebase_remote_config: ^4.4.0
-  firebase_ui_auth: ^1.13.1
-  firebase_ui_localizations: ^1.10.2
-  firebase_ui_oauth_apple: ^1.2.19
-  firebase_ui_oauth_google: ^1.3.1
   flutter:
     sdk: flutter
   flutter_hooks: ^0.20.5
@@ -42,6 +38,7 @@ dependencies:
   in_app_review: ^2.0.9
   intersperse: ^2.0.0
   intl: any
+  jovial_svg: ^1.1.20
   json_annotation: ^4.8.1
   package_info_plus: ^6.0.0
   quick_actions: ^1.0.7
@@ -73,10 +70,13 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  fonts:
-    - family: SocialIcons
-      fonts:
-        - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
 
   assets:
     - packages/budoux_dart/models/ja.json
+
+    - assets/si/apple-light.si
+    - assets/si/apple-dark.si
+    - assets/si/google-light.si
+    - assets/si/google-dark.si
+    - assets/si/github-light.si
+    - assets/si/github-dark.si
