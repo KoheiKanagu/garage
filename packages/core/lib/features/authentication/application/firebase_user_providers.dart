@@ -38,18 +38,22 @@ Future<fb_auth.IdTokenResult?> firebaseUserIdTokenResult(
 Future<String?> firebaseUserUid(
   FirebaseUserUidRef ref,
 ) =>
-    ref.watch(firebaseUserProvider.future).then(
-          (value) => value?.uid,
-        );
+    ref.watch(
+      firebaseUserProvider.selectAsync(
+        (value) => value?.uid,
+      ),
+    );
 
 /// サインインしているかどうか
 @riverpod
 Future<bool> firebaseUserIsSignedIn(
   FirebaseUserIsSignedInRef ref,
 ) =>
-    ref.watch(firebaseUserUidProvider.future).then(
-          (value) => value != null,
-        );
+    ref.watch(
+      firebaseUserUidProvider.selectAsync(
+        (value) => value != null,
+      ),
+    );
 
 /// サインインをした後、Userドキュメントが取得できるまで待つ
 @riverpod
@@ -113,9 +117,15 @@ Future<void> firebaseUserDelete(
 Future<List<String>?> firebaseUserLinkedProviders(
   FirebaseUserLinkedProvidersRef ref,
 ) =>
-    ref.watch(firebaseUserProvider.future).then(
-          (value) => value?.providerData.map((e) => e.providerId).toList(),
-        );
+    ref.watch(
+      firebaseUserProvider.selectAsync(
+        (value) => value?.providerData
+            .map(
+              (e) => e.providerId,
+            )
+            .toList(),
+      ),
+    );
 
 /// リンクしているプロバイダーを解除する
 @riverpod
