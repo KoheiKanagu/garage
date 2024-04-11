@@ -10,7 +10,7 @@ Future<void> waitMergePullRequest() async {
   final completer = Completer<void>();
 
   Timer.periodic(
-    const Duration(seconds: 5),
+    const Duration(seconds: 30),
     (timer) {
       final result = run(
         'gh',
