@@ -7,80 +7,77 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'my_auth_provider.g.dart';
 
 @riverpod
-AuthProvider myAuth(
-  MyAuthRef ref,
-  MyAuthProviderType type,
-) =>
-    switch (type) {
-      MyAuthProviderType.apple => AppleAuthProvider()..addScope('email'),
-      MyAuthProviderType.google => GoogleAuthProvider()
-        ..addScope('email')
-        ..setCustomParameters({'prompt': 'select_account'}),
-      MyAuthProviderType.github => GithubAuthProvider()..addScope('email'),
-    };
+class MyAuthProviderController extends _$MyAuthProviderController {
+  @override
+  AuthProvider build(
+    MyAuthProviderType type,
+  ) =>
+      switch (type) {
+        MyAuthProviderType.apple => AppleAuthProvider()..addScope('email'),
+        MyAuthProviderType.google => GoogleAuthProvider()
+          ..addScope('email')
+          ..setCustomParameters({'prompt': 'select_account'}),
+        MyAuthProviderType.github => GithubAuthProvider()..addScope('email'),
+      };
 
-@riverpod
-Future<void> myAuthSignInOrLink(
-  MyAuthSignInOrLinkRef ref,
-  AuthProvider authProvider,
-) async {
-  try {
-    final currentUser = await ref.watch(firebaseUserProvider.future);
-    if (currentUser != null) {
-      await currentUser.linkWithProvider(authProvider);
-    } else {
-      await ref.watch(firebaseAuthProvider).signInWithPopup(authProvider);
-    }
-  } on Exception catch (exception) {
-    if (exception is FirebaseAuthException) {
-      switch (exception.code) {
-        case 'web-context-cancelled':
-          logger.debug(
-            {
-              'message': 'onCancelled',
-              'providerId': authProvider.providerId,
-              'exceptionMessage': exception.message,
-              'exceptionCode': exception.code,
-            },
-          );
-          return;
-
-        case 'canceled':
-          logger.debug(
-            {
-              'message': 'onCancelled',
-              'providerId': authProvider.providerId,
-              'exceptionMessage': exception.message,
-              'exceptionCode': exception.code,
-            },
-          );
-          return;
+  Future<void> signInOrLink() async {
+    try {
+      final currentUser = await ref.watch(firebaseUserProvider.future);
+      if (currentUser != null) {
+        await currentUser.linkWithProvider(state);
+      } else {
+        await ref.watch(firebaseAuthProvider).signInWithPopup(state);
       }
-    }
+    } on Exception catch (exception) {
+      if (exception is FirebaseAuthException) {
+        switch (exception.code) {
+          case 'web-context-cancelled':
+            logger.debug(
+              {
+                'message': 'onCancelled',
+                'providerId': state.providerId,
+                'exceptionMessage': exception.message,
+                'exceptionCode': exception.code,
+              },
+            );
+            return;
 
-    logger.handle(
-      exception,
-      StackTrace.current,
-      'provider id: ${authProvider.providerId}',
+          case 'canceled':
+            logger.debug(
+              {
+                'message': 'onCancelled',
+                'providerId': state.providerId,
+                'exceptionMessage': exception.message,
+                'exceptionCode': exception.code,
+              },
+            );
+            return;
+        }
+      }
+
+      logger.handle(
+        exception,
+        StackTrace.current,
+        'provider id: ${state.providerId}',
+      );
+    }
+  }
+
+  Future<void> unlink() async {
+    await ref.watch(
+      firebaseUserUnlinkProviderProvider(state.providerId).future,
     );
   }
 }
 
 @riverpod
-Future<void> myAuthUnlink(
-  MyAuthUnlinkRef ref,
-  AuthProvider authProvider,
-) =>
-    ref.watch(
-      firebaseUserUnlinkProviderProvider(authProvider.providerId).future,
-    );
-
-@riverpod
-Future<bool> myAuthIsLinked(
-  MyAuthIsLinkedRef ref,
-  AuthProvider authProvider,
+Future<bool> myAuthProviderIsLinked(
+  MyAuthProviderIsLinkedRef ref,
+  MyAuthProviderType type,
 ) async {
   final linked = await ref.watch(firebaseUserLinkedProvidersProvider.future);
+  final authProvider = ref.watch(myAuthProviderControllerProvider(type));
+
   return linked?.contains(authProvider.providerId) ?? false;
 }
 

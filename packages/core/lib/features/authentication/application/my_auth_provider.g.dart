@@ -8,7 +8,8 @@ part of 'my_auth_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$myAuthHash() => r'03a568429448fa91b8c8d0de207669d5125b7f67';
+String _$myAuthProviderIsLinkedHash() =>
+    r'be28a101b15bc7e4a52a033aa78e0b3d2c71e94f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,27 +32,27 @@ class _SystemHash {
   }
 }
 
-/// See also [myAuth].
-@ProviderFor(myAuth)
-const myAuthProvider = MyAuthFamily();
+/// See also [myAuthProviderIsLinked].
+@ProviderFor(myAuthProviderIsLinked)
+const myAuthProviderIsLinkedProvider = MyAuthProviderIsLinkedFamily();
 
-/// See also [myAuth].
-class MyAuthFamily extends Family<AuthProvider> {
-  /// See also [myAuth].
-  const MyAuthFamily();
+/// See also [myAuthProviderIsLinked].
+class MyAuthProviderIsLinkedFamily extends Family<AsyncValue<bool>> {
+  /// See also [myAuthProviderIsLinked].
+  const MyAuthProviderIsLinkedFamily();
 
-  /// See also [myAuth].
-  MyAuthProvider call(
+  /// See also [myAuthProviderIsLinked].
+  MyAuthProviderIsLinkedProvider call(
     MyAuthProviderType type,
   ) {
-    return MyAuthProvider(
+    return MyAuthProviderIsLinkedProvider(
       type,
     );
   }
 
   @override
-  MyAuthProvider getProviderOverride(
-    covariant MyAuthProvider provider,
+  MyAuthProviderIsLinkedProvider getProviderOverride(
+    covariant MyAuthProviderIsLinkedProvider provider,
   ) {
     return call(
       provider.type,
@@ -70,31 +71,32 @@ class MyAuthFamily extends Family<AuthProvider> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'myAuthProvider';
+  String? get name => r'myAuthProviderIsLinkedProvider';
 }
 
-/// See also [myAuth].
-class MyAuthProvider extends AutoDisposeProvider<AuthProvider> {
-  /// See also [myAuth].
-  MyAuthProvider(
+/// See also [myAuthProviderIsLinked].
+class MyAuthProviderIsLinkedProvider extends AutoDisposeFutureProvider<bool> {
+  /// See also [myAuthProviderIsLinked].
+  MyAuthProviderIsLinkedProvider(
     MyAuthProviderType type,
   ) : this._internal(
-          (ref) => myAuth(
-            ref as MyAuthRef,
+          (ref) => myAuthProviderIsLinked(
+            ref as MyAuthProviderIsLinkedRef,
             type,
           ),
-          from: myAuthProvider,
-          name: r'myAuthProvider',
+          from: myAuthProviderIsLinkedProvider,
+          name: r'myAuthProviderIsLinkedProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$myAuthHash,
-          dependencies: MyAuthFamily._dependencies,
-          allTransitiveDependencies: MyAuthFamily._allTransitiveDependencies,
+                  : _$myAuthProviderIsLinkedHash,
+          dependencies: MyAuthProviderIsLinkedFamily._dependencies,
+          allTransitiveDependencies:
+              MyAuthProviderIsLinkedFamily._allTransitiveDependencies,
           type: type,
         );
 
-  MyAuthProvider._internal(
+  MyAuthProviderIsLinkedProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -108,12 +110,12 @@ class MyAuthProvider extends AutoDisposeProvider<AuthProvider> {
 
   @override
   Override overrideWith(
-    AuthProvider Function(MyAuthRef provider) create,
+    FutureOr<bool> Function(MyAuthProviderIsLinkedRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: MyAuthProvider._internal(
-        (ref) => create(ref as MyAuthRef),
+      override: MyAuthProviderIsLinkedProvider._internal(
+        (ref) => create(ref as MyAuthProviderIsLinkedRef),
         from: from,
         name: null,
         dependencies: null,
@@ -125,13 +127,13 @@ class MyAuthProvider extends AutoDisposeProvider<AuthProvider> {
   }
 
   @override
-  AutoDisposeProviderElement<AuthProvider> createElement() {
-    return _MyAuthProviderElement(this);
+  AutoDisposeFutureProviderElement<bool> createElement() {
+    return _MyAuthProviderIsLinkedProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is MyAuthProvider && other.type == type;
+    return other is MyAuthProviderIsLinkedProvider && other.type == type;
   }
 
   @override
@@ -143,46 +145,57 @@ class MyAuthProvider extends AutoDisposeProvider<AuthProvider> {
   }
 }
 
-mixin MyAuthRef on AutoDisposeProviderRef<AuthProvider> {
+mixin MyAuthProviderIsLinkedRef on AutoDisposeFutureProviderRef<bool> {
   /// The parameter `type` of this provider.
   MyAuthProviderType get type;
 }
 
-class _MyAuthProviderElement extends AutoDisposeProviderElement<AuthProvider>
-    with MyAuthRef {
-  _MyAuthProviderElement(super.provider);
+class _MyAuthProviderIsLinkedProviderElement
+    extends AutoDisposeFutureProviderElement<bool>
+    with MyAuthProviderIsLinkedRef {
+  _MyAuthProviderIsLinkedProviderElement(super.provider);
 
   @override
-  MyAuthProviderType get type => (origin as MyAuthProvider).type;
+  MyAuthProviderType get type =>
+      (origin as MyAuthProviderIsLinkedProvider).type;
 }
 
-String _$myAuthSignInOrLinkHash() =>
-    r'4b79af2c207e1165a27843870f67c302e66cb87e';
+String _$myAuthProviderControllerHash() =>
+    r'fa08bc15dd9a9ee7934de68e2b36fe605a038b32';
 
-/// See also [myAuthSignInOrLink].
-@ProviderFor(myAuthSignInOrLink)
-const myAuthSignInOrLinkProvider = MyAuthSignInOrLinkFamily();
+abstract class _$MyAuthProviderController
+    extends BuildlessAutoDisposeNotifier<AuthProvider> {
+  late final MyAuthProviderType type;
 
-/// See also [myAuthSignInOrLink].
-class MyAuthSignInOrLinkFamily extends Family<AsyncValue<void>> {
-  /// See also [myAuthSignInOrLink].
-  const MyAuthSignInOrLinkFamily();
+  AuthProvider build(
+    MyAuthProviderType type,
+  );
+}
 
-  /// See also [myAuthSignInOrLink].
-  MyAuthSignInOrLinkProvider call(
-    AuthProvider authProvider,
+/// See also [MyAuthProviderController].
+@ProviderFor(MyAuthProviderController)
+const myAuthProviderControllerProvider = MyAuthProviderControllerFamily();
+
+/// See also [MyAuthProviderController].
+class MyAuthProviderControllerFamily extends Family<AuthProvider> {
+  /// See also [MyAuthProviderController].
+  const MyAuthProviderControllerFamily();
+
+  /// See also [MyAuthProviderController].
+  MyAuthProviderControllerProvider call(
+    MyAuthProviderType type,
   ) {
-    return MyAuthSignInOrLinkProvider(
-      authProvider,
+    return MyAuthProviderControllerProvider(
+      type,
     );
   }
 
   @override
-  MyAuthSignInOrLinkProvider getProviderOverride(
-    covariant MyAuthSignInOrLinkProvider provider,
+  MyAuthProviderControllerProvider getProviderOverride(
+    covariant MyAuthProviderControllerProvider provider,
   ) {
     return call(
-      provider.authProvider,
+      provider.type,
     );
   }
 
@@ -198,352 +211,100 @@ class MyAuthSignInOrLinkFamily extends Family<AsyncValue<void>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'myAuthSignInOrLinkProvider';
+  String? get name => r'myAuthProviderControllerProvider';
 }
 
-/// See also [myAuthSignInOrLink].
-class MyAuthSignInOrLinkProvider extends AutoDisposeFutureProvider<void> {
-  /// See also [myAuthSignInOrLink].
-  MyAuthSignInOrLinkProvider(
-    AuthProvider authProvider,
+/// See also [MyAuthProviderController].
+class MyAuthProviderControllerProvider extends AutoDisposeNotifierProviderImpl<
+    MyAuthProviderController, AuthProvider> {
+  /// See also [MyAuthProviderController].
+  MyAuthProviderControllerProvider(
+    MyAuthProviderType type,
   ) : this._internal(
-          (ref) => myAuthSignInOrLink(
-            ref as MyAuthSignInOrLinkRef,
-            authProvider,
-          ),
-          from: myAuthSignInOrLinkProvider,
-          name: r'myAuthSignInOrLinkProvider',
+          () => MyAuthProviderController()..type = type,
+          from: myAuthProviderControllerProvider,
+          name: r'myAuthProviderControllerProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$myAuthSignInOrLinkHash,
-          dependencies: MyAuthSignInOrLinkFamily._dependencies,
+                  : _$myAuthProviderControllerHash,
+          dependencies: MyAuthProviderControllerFamily._dependencies,
           allTransitiveDependencies:
-              MyAuthSignInOrLinkFamily._allTransitiveDependencies,
-          authProvider: authProvider,
+              MyAuthProviderControllerFamily._allTransitiveDependencies,
+          type: type,
         );
 
-  MyAuthSignInOrLinkProvider._internal(
+  MyAuthProviderControllerProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.authProvider,
+    required this.type,
   }) : super.internal();
 
-  final AuthProvider authProvider;
+  final MyAuthProviderType type;
 
   @override
-  Override overrideWith(
-    FutureOr<void> Function(MyAuthSignInOrLinkRef provider) create,
+  AuthProvider runNotifierBuild(
+    covariant MyAuthProviderController notifier,
   ) {
+    return notifier.build(
+      type,
+    );
+  }
+
+  @override
+  Override overrideWith(MyAuthProviderController Function() create) {
     return ProviderOverride(
       origin: this,
-      override: MyAuthSignInOrLinkProvider._internal(
-        (ref) => create(ref as MyAuthSignInOrLinkRef),
+      override: MyAuthProviderControllerProvider._internal(
+        () => create()..type = type,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        authProvider: authProvider,
+        type: type,
       ),
     );
   }
 
   @override
-  AutoDisposeFutureProviderElement<void> createElement() {
-    return _MyAuthSignInOrLinkProviderElement(this);
+  AutoDisposeNotifierProviderElement<MyAuthProviderController, AuthProvider>
+      createElement() {
+    return _MyAuthProviderControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is MyAuthSignInOrLinkProvider &&
-        other.authProvider == authProvider;
+    return other is MyAuthProviderControllerProvider && other.type == type;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, authProvider.hashCode);
+    hash = _SystemHash.combine(hash, type.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin MyAuthSignInOrLinkRef on AutoDisposeFutureProviderRef<void> {
-  /// The parameter `authProvider` of this provider.
-  AuthProvider get authProvider;
+mixin MyAuthProviderControllerRef
+    on AutoDisposeNotifierProviderRef<AuthProvider> {
+  /// The parameter `type` of this provider.
+  MyAuthProviderType get type;
 }
 
-class _MyAuthSignInOrLinkProviderElement
-    extends AutoDisposeFutureProviderElement<void> with MyAuthSignInOrLinkRef {
-  _MyAuthSignInOrLinkProviderElement(super.provider);
+class _MyAuthProviderControllerProviderElement
+    extends AutoDisposeNotifierProviderElement<MyAuthProviderController,
+        AuthProvider> with MyAuthProviderControllerRef {
+  _MyAuthProviderControllerProviderElement(super.provider);
 
   @override
-  AuthProvider get authProvider =>
-      (origin as MyAuthSignInOrLinkProvider).authProvider;
-}
-
-String _$myAuthUnlinkHash() => r'97db898470bb8847ed8d09910589abaa40d29dd2';
-
-/// See also [myAuthUnlink].
-@ProviderFor(myAuthUnlink)
-const myAuthUnlinkProvider = MyAuthUnlinkFamily();
-
-/// See also [myAuthUnlink].
-class MyAuthUnlinkFamily extends Family<AsyncValue<void>> {
-  /// See also [myAuthUnlink].
-  const MyAuthUnlinkFamily();
-
-  /// See also [myAuthUnlink].
-  MyAuthUnlinkProvider call(
-    AuthProvider authProvider,
-  ) {
-    return MyAuthUnlinkProvider(
-      authProvider,
-    );
-  }
-
-  @override
-  MyAuthUnlinkProvider getProviderOverride(
-    covariant MyAuthUnlinkProvider provider,
-  ) {
-    return call(
-      provider.authProvider,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'myAuthUnlinkProvider';
-}
-
-/// See also [myAuthUnlink].
-class MyAuthUnlinkProvider extends AutoDisposeFutureProvider<void> {
-  /// See also [myAuthUnlink].
-  MyAuthUnlinkProvider(
-    AuthProvider authProvider,
-  ) : this._internal(
-          (ref) => myAuthUnlink(
-            ref as MyAuthUnlinkRef,
-            authProvider,
-          ),
-          from: myAuthUnlinkProvider,
-          name: r'myAuthUnlinkProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$myAuthUnlinkHash,
-          dependencies: MyAuthUnlinkFamily._dependencies,
-          allTransitiveDependencies:
-              MyAuthUnlinkFamily._allTransitiveDependencies,
-          authProvider: authProvider,
-        );
-
-  MyAuthUnlinkProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.authProvider,
-  }) : super.internal();
-
-  final AuthProvider authProvider;
-
-  @override
-  Override overrideWith(
-    FutureOr<void> Function(MyAuthUnlinkRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: MyAuthUnlinkProvider._internal(
-        (ref) => create(ref as MyAuthUnlinkRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        authProvider: authProvider,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<void> createElement() {
-    return _MyAuthUnlinkProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is MyAuthUnlinkProvider && other.authProvider == authProvider;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, authProvider.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin MyAuthUnlinkRef on AutoDisposeFutureProviderRef<void> {
-  /// The parameter `authProvider` of this provider.
-  AuthProvider get authProvider;
-}
-
-class _MyAuthUnlinkProviderElement
-    extends AutoDisposeFutureProviderElement<void> with MyAuthUnlinkRef {
-  _MyAuthUnlinkProviderElement(super.provider);
-
-  @override
-  AuthProvider get authProvider =>
-      (origin as MyAuthUnlinkProvider).authProvider;
-}
-
-String _$myAuthIsLinkedHash() => r'ff58a83a12460e53a54bf5b0d6066b80dff697b4';
-
-/// See also [myAuthIsLinked].
-@ProviderFor(myAuthIsLinked)
-const myAuthIsLinkedProvider = MyAuthIsLinkedFamily();
-
-/// See also [myAuthIsLinked].
-class MyAuthIsLinkedFamily extends Family<AsyncValue<bool>> {
-  /// See also [myAuthIsLinked].
-  const MyAuthIsLinkedFamily();
-
-  /// See also [myAuthIsLinked].
-  MyAuthIsLinkedProvider call(
-    AuthProvider authProvider,
-  ) {
-    return MyAuthIsLinkedProvider(
-      authProvider,
-    );
-  }
-
-  @override
-  MyAuthIsLinkedProvider getProviderOverride(
-    covariant MyAuthIsLinkedProvider provider,
-  ) {
-    return call(
-      provider.authProvider,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'myAuthIsLinkedProvider';
-}
-
-/// See also [myAuthIsLinked].
-class MyAuthIsLinkedProvider extends AutoDisposeFutureProvider<bool> {
-  /// See also [myAuthIsLinked].
-  MyAuthIsLinkedProvider(
-    AuthProvider authProvider,
-  ) : this._internal(
-          (ref) => myAuthIsLinked(
-            ref as MyAuthIsLinkedRef,
-            authProvider,
-          ),
-          from: myAuthIsLinkedProvider,
-          name: r'myAuthIsLinkedProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$myAuthIsLinkedHash,
-          dependencies: MyAuthIsLinkedFamily._dependencies,
-          allTransitiveDependencies:
-              MyAuthIsLinkedFamily._allTransitiveDependencies,
-          authProvider: authProvider,
-        );
-
-  MyAuthIsLinkedProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.authProvider,
-  }) : super.internal();
-
-  final AuthProvider authProvider;
-
-  @override
-  Override overrideWith(
-    FutureOr<bool> Function(MyAuthIsLinkedRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: MyAuthIsLinkedProvider._internal(
-        (ref) => create(ref as MyAuthIsLinkedRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        authProvider: authProvider,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<bool> createElement() {
-    return _MyAuthIsLinkedProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is MyAuthIsLinkedProvider &&
-        other.authProvider == authProvider;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, authProvider.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin MyAuthIsLinkedRef on AutoDisposeFutureProviderRef<bool> {
-  /// The parameter `authProvider` of this provider.
-  AuthProvider get authProvider;
-}
-
-class _MyAuthIsLinkedProviderElement
-    extends AutoDisposeFutureProviderElement<bool> with MyAuthIsLinkedRef {
-  _MyAuthIsLinkedProviderElement(super.provider);
-
-  @override
-  AuthProvider get authProvider =>
-      (origin as MyAuthIsLinkedProvider).authProvider;
+  MyAuthProviderType get type =>
+      (origin as MyAuthProviderControllerProvider).type;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

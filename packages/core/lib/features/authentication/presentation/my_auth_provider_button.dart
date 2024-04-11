@@ -19,7 +19,9 @@ class MyAuthProviderButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authProvider = ref.watch(myAuthProvider(type));
+    final authProviderController = ref.watch(
+      myAuthProviderControllerProvider(type).notifier,
+    );
 
     return Container(
       decoration: BoxDecoration(
@@ -28,7 +30,7 @@ class MyAuthProviderButton extends HookConsumerWidget {
       ),
       height: _logoSize,
       width: double.infinity,
-      child: ref.watch(myAuthIsLinkedProvider(authProvider)).maybeWhen(
+      child: ref.watch(myAuthProviderIsLinkedProvider(type)).maybeWhen(
             orElse: () => CircularProgressIndicator(
               backgroundColor: type.textColorOf(context),
             ),
@@ -45,14 +47,10 @@ class MyAuthProviderButton extends HookConsumerWidget {
                   );
 
                   if (result == OkCancelResult.ok) {
-                    await ref.watch(
-                      myAuthUnlinkProvider(authProvider).future,
-                    );
+                    await authProviderController.unlink();
                   }
                 } else {
-                  await ref.watch(
-                    myAuthSignInOrLinkProvider(authProvider).future,
-                  );
+                  await authProviderController.signInOrLink();
                 }
               },
               child: Row(
