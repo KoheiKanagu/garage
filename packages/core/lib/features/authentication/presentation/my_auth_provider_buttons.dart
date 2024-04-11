@@ -1,13 +1,12 @@
 import 'package:core/core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intersperse/intersperse.dart';
 
-class MyOauthProviderButtons extends HookConsumerWidget {
-  const MyOauthProviderButtons({
+class MyAuthProviderButtons extends HookConsumerWidget {
+  const MyAuthProviderButtons({
     required this.header,
     required this.footers,
     super.key,
@@ -19,33 +18,21 @@ class MyOauthProviderButtons extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final buttons = switch (ref.watch(firebaseUserLinkedProvidersProvider)) {
-      AsyncData(:final value) => [
-          MyOAuthProviderButton(
-            type: MyOAuthProviderType.apple,
-            action: value?.contains(AppleAuthProvider.PROVIDER_ID) ?? false
-                ? MyOAuthProviderButtonAction.unlink
-                : MyOAuthProviderButtonAction.signInOrLink,
-          ),
-          MyOAuthProviderButton(
-            type: MyOAuthProviderType.google,
-            action: value?.contains(GoogleAuthProvider.PROVIDER_ID) ?? false
-                ? MyOAuthProviderButtonAction.unlink
-                : MyOAuthProviderButtonAction.signInOrLink,
-          ),
-          MyOAuthProviderButton(
-            type: MyOAuthProviderType.github,
-            action: value?.contains(GithubAuthProvider.PROVIDER_ID) ?? false
-                ? MyOAuthProviderButtonAction.unlink
-                : MyOAuthProviderButtonAction.signInOrLink,
-          ),
-        ],
-      _ => [
-          const Center(
-            child: CircularProgressIndicator.adaptive(),
-          ),
-        ],
-    };
+    final buttons = <Widget>[
+      const MyAuthProviderButton(
+        type: MyAuthProviderType.apple,
+      ),
+      const MyAuthProviderButton(
+        type: MyAuthProviderType.google,
+      ),
+      const MyAuthProviderButton(
+        type: MyAuthProviderType.github,
+      ),
+    ]
+        .intersperse(
+          const Gap(8),
+        )
+        .toList();
 
     return switch (InheritedThemeDetector.of(context)) {
       InheritedThemeType.material => Column(
