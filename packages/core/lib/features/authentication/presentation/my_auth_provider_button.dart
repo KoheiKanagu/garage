@@ -71,6 +71,7 @@ class MyAuthProviderButton extends HookConsumerWidget {
                             fontWeight: FontWeight.w600,
                             color: type.textColorOf(context),
                           ),
+                      textScaler: TextScaler.noScaling,
                     ),
                   ],
                 ),

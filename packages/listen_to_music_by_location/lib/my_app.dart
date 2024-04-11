@@ -29,7 +29,6 @@ class MyApp extends HookConsumerWidget {
       color: Color(0xFFFA233B),
       darkColor: Color(0xFFFB5C74),
     ),
-
   );
 
   static final localizationsDelegates = [
