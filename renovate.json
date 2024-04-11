@@ -54,7 +54,13 @@
       "groupName": "info_plus"
     },
     {
-      "matchPackagePatterns": ["@typescript-eslint/*", "eslint*"],
+      "matchPackagePatterns": [
+        "@stylistic/*",
+        "@types/eslint",
+        "eslint",
+        "eslint-plugin-*",
+        "typescript-eslint"
+      ],
       "matchFileNames": ["firebase/**"],
       "groupName": "eslint"
     },
@@ -69,7 +75,7 @@
       "groupName": "slang"
     },
     {
-      "matchPackagePatterns": ["@firebase/*", "firebase-*"],
+      "matchPackagePatterns": ["@firebase/*", "firebase", "firebase-*"],
       "matchFileNames": ["firebase/**"],
       "groupName": "firebase-js"
     },
