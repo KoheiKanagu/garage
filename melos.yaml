@@ -21,6 +21,7 @@ scripts:
       If any diff are found, it returns an error.
     steps:
       - melos run generate
+      - melos run update-si
       - melos run dart:fix:format
       - git diff --exit-code
       - melos run dart:analyze
@@ -260,10 +261,15 @@ scripts:
     description: |
       Generate files.
     steps:
-      - grind update-si
       - melos run build_runner:build --no-select
       - melos run pigeon
       - melos run slang
       - grind update-coverage-test
       - grind update-core-export
       - grind dump-firestore-indexes
+
+  update-si:
+    description: |
+      Update si.
+    steps:
+      - grind update-si
