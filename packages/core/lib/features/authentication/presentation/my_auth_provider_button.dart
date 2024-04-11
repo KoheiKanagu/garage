@@ -31,8 +31,10 @@ class MyAuthProviderButton extends HookConsumerWidget {
       height: _logoSize,
       width: double.infinity,
       child: ref.watch(myAuthProviderIsLinkedProvider(type)).maybeWhen(
-            orElse: () => CircularProgressIndicator(
-              backgroundColor: type.textColorOf(context),
+            orElse: () => Center(
+              child: CircularProgressIndicator.adaptive(
+                backgroundColor: type.textColorOf(context),
+              ),
             ),
             data: (isLinked) => GestureDetector(
               onTap: () async {
