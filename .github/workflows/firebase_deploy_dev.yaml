@@ -51,7 +51,7 @@ jobs:
           # GOOGLE_APPLICATION_CREDENTIALS is only used in the current shell
           export GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/firebase/functions/service-account.json
 
-          npx ts-node scripts/set-mail-templates.ts --force
+          npx tsx scripts/set-mail-templates.ts --force
 
       - name: Firebase Deploy
         run: |
