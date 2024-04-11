@@ -33,3 +33,6 @@ targets:
           timestamp: false
           statistics: false
           output_directory: lib/gen
+      freezed:
+        options:
+          format: false
