@@ -15,14 +15,24 @@ class MyAuthProviderButton extends HookConsumerWidget {
 
   final MyAuthProviderType type;
 
+  static const double _logoSize = 44;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authProvider = ref.watch(myAuthProvider(type));
 
-    return ref.watch(myAuthIsLinkedProvider(authProvider)).maybeWhen(
-          orElse: CircularProgressIndicator.adaptive,
-          data: (isLinked) {
-            return GestureDetector(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: type.logoBackgroundColorOf(context),
+      ),
+      height: _logoSize,
+      width: double.infinity,
+      child: ref.watch(myAuthIsLinkedProvider(authProvider)).maybeWhen(
+            orElse: () => CircularProgressIndicator(
+              backgroundColor: type.textColorOf(context),
+            ),
+            data: (isLinked) => GestureDetector(
               onTap: () async {
                 if (isLinked) {
                   final result = await showOkCancelAlertDialog(
@@ -45,39 +55,33 @@ class MyAuthProviderButton extends HookConsumerWidget {
                   );
                 }
               },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: type.logoBackgroundColorOf(context),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 44,
-                      height: 44,
-                      padding: type.logoPadding,
-                      child: ScalableImageWidget.fromSISource(
-                        si: ScalableImageSource.fromSI(
-                          DefaultAssetBundle.of(context),
-                          type.logoAssetPathOf(context),
-                        ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: _logoSize,
+                    height: _logoSize,
+                    padding: type.logoPadding,
+                    child: ScalableImageWidget.fromSISource(
+                      si: ScalableImageSource.fromSI(
+                        DefaultAssetBundle.of(context),
+                        type.logoAssetPathOf(context),
                       ),
                     ),
-                    Text(
-                      isLinked ? type.unlinkLabel : type.signInLabel,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: 19,
-                            fontWeight: FontWeight.w600,
-                            color: type.textColorOf(context),
-                          ),
-                      textScaler: TextScaler.noScaling,
-                    ),
-                  ],
-                ),
+                  ),
+                  Text(
+                    isLinked ? type.unlinkLabel : type.signInLabel,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: 19,
+                          fontWeight: FontWeight.w600,
+                          color: type.textColorOf(context),
+                        ),
+                    textScaler: TextScaler.noScaling,
+                  ),
+                ],
               ),
-            );
-          },
-        );
+            ),
+          ),
+    );
   }
 }
