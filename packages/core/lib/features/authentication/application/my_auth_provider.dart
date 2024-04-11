@@ -87,6 +87,12 @@ enum MyAuthProviderType {
   github,
   ;
 
+  String get providerId => switch (this) {
+        MyAuthProviderType.apple => AppleAuthProvider().providerId,
+        MyAuthProviderType.google => GoogleAuthProvider().providerId,
+        MyAuthProviderType.github => GithubAuthProvider().providerId,
+      };
+
   String get providerName => switch (this) {
         MyAuthProviderType.apple => i18n.auth.apple_id,
         MyAuthProviderType.google => i18n.auth.google_account,

@@ -3,6 +3,7 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:jovial_svg/jovial_svg.dart';
@@ -19,6 +20,8 @@ class MyAuthProviderButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeType = InheritedThemeDetector.of(context);
+
     final authProviderController = ref.watch(
       myAuthProviderControllerProvider(type).notifier,
     );
@@ -71,11 +74,20 @@ class MyAuthProviderButton extends HookConsumerWidget {
                   ),
                   Text(
                     isLinked ? type.unlinkLabel : type.signInLabel,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: 19,
-                          fontWeight: FontWeight.w600,
-                          color: type.textColorOf(context),
-                        ),
+                    style: switch (themeType) {
+                      InheritedThemeType.material =>
+                        Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontSize: 19,
+                              fontWeight: FontWeight.w600,
+                              color: type.textColorOf(context),
+                            ),
+                      InheritedThemeType.cupertino =>
+                        CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                              fontSize: 19,
+                              fontWeight: FontWeight.w600,
+                              color: type.textColorOf(context),
+                            ),
+                    },
                     textScaler: TextScaler.noScaling,
                   ),
                 ],
