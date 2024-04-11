@@ -11,20 +11,20 @@ dependencies:
   adaptive_dialog: ^2.1.0
   budoux_dart: ^1.2.0
   clock: ^1.1.1
-  cloud_firestore: ^4.16.0
-  cloud_functions: ^4.7.0
+  cloud_firestore: ^4.16.1
+  cloud_functions: ^4.7.1
   collection: ^1.18.0
   cupertino_icons: ^1.0.6
   device_info_plus: ^10.0.1
   feedback: ^3.0.1
-  firebase_analytics: ^10.10.0
+  firebase_analytics: ^10.10.1
   firebase_app_check: ^0.2.2
-  firebase_auth: ^4.19.0
-  firebase_core: ^2.28.0
-  firebase_crashlytics: ^3.5.0
-  firebase_dynamic_links: ^5.5.0
+  firebase_auth: ^4.19.1
+  firebase_core: ^2.29.0
+  firebase_crashlytics: ^3.5.1
+  firebase_dynamic_links: ^5.5.1
   firebase_performance: ^0.9.4
-  firebase_remote_config: ^4.4.0
+  firebase_remote_config: ^4.4.1
   flutter:
     sdk: flutter
   flutter_hooks: ^0.20.5
