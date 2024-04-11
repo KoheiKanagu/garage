@@ -27,7 +27,7 @@ Future<void> dartFormatAll() async {
             .listSync(recursive: true)
             .where((e) => e.path.endsWith('.dart'))
             .whereNot((e) => e.path.endsWith('.gen.dart'))
-            .whereNot((e) => e.path.endsWith('.freezed.dart')),
+            .whereNot((e) => e.path.endsWith('.g.dart')),
       )
       .flattened;
 
