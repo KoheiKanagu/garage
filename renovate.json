@@ -54,7 +54,13 @@
       "groupName": "info_plus"
     },
     {
-      "matchPackagePatterns": ["@typescript-eslint/*", "eslint*"],
+      "matchPackagePatterns": [
+        "@stylistic/*",
+        "@types/eslint",
+        "eslint",
+        "eslint-plugin-*",
+        "typescript-eslint"
+      ],
       "matchFileNames": ["firebase/**"],
       "groupName": "eslint"
     },
@@ -69,7 +75,7 @@
       "groupName": "slang"
     },
     {
-      "matchPackagePatterns": ["@firebase/*", "firebase-*"],
+      "matchPackagePatterns": ["@firebase/*", "firebase", "firebase-*"],
       "matchFileNames": ["firebase/**"],
       "groupName": "firebase-js"
     },
@@ -77,6 +83,11 @@
       "matchPackagePatterns": ["talker", "talker_*"],
       "matchFileNames": ["packages/**", "pubspec.yaml"],
       "groupName": "talker"
+    },
+    {
+      "matchPackagePatterns": ["@tsconfig/*"],
+      "matchFileNames": ["firebase/**"],
+      "groupName": "tsconfig"
     }
   ]
 }
