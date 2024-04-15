@@ -19,18 +19,6 @@
       "description": "必須バージョンのアプリのバージョンコード",
       "valueType": "NUMBER"
     },
-    "latest_version_code": {
-      "defaultValue": {
-        "value": "0"
-      },
-      "conditionalValues": {
-        "dev.kingu.listenToMusicByLocation": {
-          "value": "0"
-        }
-      },
-      "description": "最新版のアプリのバージョンコード",
-      "valueType": "NUMBER"
-    },
     "service_status": {
       "defaultValue": {
         "value": "down"

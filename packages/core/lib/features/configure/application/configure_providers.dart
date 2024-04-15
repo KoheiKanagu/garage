@@ -3,35 +3,17 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'configure_providers.g.dart';
 
-/// 新しいバージョンがリリースされているかどうか
+/// アップデートが必須なバージョンコード
 @riverpod
-Future<bool> configureIsReleasedNewVersion(
-  ConfigureIsReleasedNewVersionRef ref,
-) async {
-  final value = await ref.watch(
-    remoteConfigGetIntValueProvider(
-      key: RemoteConfigConstant.kLatestVersionCode,
-      defaultValue: RemoteConfigConstant.kLatestVersionCodeDefaultValue,
-    ).future,
-  );
-
-  return value > ref.watch(packageInfoBuildNumberProvider);
-}
-
-/// 新しいバージョンにアップデートが必須であるかどうか
-@riverpod
-Future<bool> configureIsRequiredUpdate(
-  ConfigureIsRequiredUpdateRef ref,
-) async {
-  final value = await ref.watch(
-    remoteConfigGetIntValueProvider(
-      key: RemoteConfigConstant.kRequirementVersionCode,
-      defaultValue: RemoteConfigConstant.kRequirementVersionCodeDefaultValue,
-    ).future,
-  );
-
-  return value > ref.watch(packageInfoBuildNumberProvider);
-}
+Future<int> configureRequiredVersionCode(
+  ConfigureRequiredVersionCodeRef ref,
+) =>
+    ref.watch(
+      remoteConfigGetIntValueProvider(
+        key: RemoteConfigConstant.kRequirementVersionCode,
+        defaultValue: RemoteConfigConstant.kRequirementVersionCodeDefaultValue,
+      ).future,
+    );
 
 /// サービスの稼働状況
 @riverpod

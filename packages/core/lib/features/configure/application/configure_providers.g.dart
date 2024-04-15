@@ -8,44 +8,25 @@ part of 'configure_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$configureIsReleasedNewVersionHash() =>
-    r'fbcb3837c14f2f82f57df8d73605a4267a0d76da';
+String _$configureRequiredVersionCodeHash() =>
+    r'2d52e2e3d606c6efd683d480cfd9a0bb2b5f1386';
 
-/// 新しいバージョンがリリースされているかどうか
+/// アップデートが必須なバージョンコード
 ///
-/// Copied from [configureIsReleasedNewVersion].
-@ProviderFor(configureIsReleasedNewVersion)
-final configureIsReleasedNewVersionProvider =
-    AutoDisposeFutureProvider<bool>.internal(
-  configureIsReleasedNewVersion,
-  name: r'configureIsReleasedNewVersionProvider',
+/// Copied from [configureRequiredVersionCode].
+@ProviderFor(configureRequiredVersionCode)
+final configureRequiredVersionCodeProvider =
+    AutoDisposeFutureProvider<int>.internal(
+  configureRequiredVersionCode,
+  name: r'configureRequiredVersionCodeProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$configureIsReleasedNewVersionHash,
+      : _$configureRequiredVersionCodeHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef ConfigureIsReleasedNewVersionRef = AutoDisposeFutureProviderRef<bool>;
-String _$configureIsRequiredUpdateHash() =>
-    r'3bedec50f5963e27d7fd3f16e7259d5756b129da';
-
-/// 新しいバージョンにアップデートが必須であるかどうか
-///
-/// Copied from [configureIsRequiredUpdate].
-@ProviderFor(configureIsRequiredUpdate)
-final configureIsRequiredUpdateProvider =
-    AutoDisposeFutureProvider<bool>.internal(
-  configureIsRequiredUpdate,
-  name: r'configureIsRequiredUpdateProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$configureIsRequiredUpdateHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef ConfigureIsRequiredUpdateRef = AutoDisposeFutureProviderRef<bool>;
+typedef ConfigureRequiredVersionCodeRef = AutoDisposeFutureProviderRef<int>;
 String _$configureServiceStatusHash() =>
     r'c38b8bfd9acab54d3b0b57496cc242cf5b974f76';
 
