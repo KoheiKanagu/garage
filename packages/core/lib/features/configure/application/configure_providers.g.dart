@@ -28,7 +28,7 @@ final configureRequiredVersionCodeProvider =
 
 typedef ConfigureRequiredVersionCodeRef = AutoDisposeFutureProviderRef<int>;
 String _$configureServiceStatusHash() =>
-    r'c38b8bfd9acab54d3b0b57496cc242cf5b974f76';
+    r'1b440e3d3cddbc6b4aa5e58334579f52f47d0e32';
 
 /// サービスの稼働状況
 ///
@@ -47,7 +47,7 @@ final configureServiceStatusProvider =
 
 typedef ConfigureServiceStatusRef = AutoDisposeFutureProviderRef<ServiceStatus>;
 String _$configureTermsOfServiceUriHash() =>
-    r'e4167996c43c144e6649185fd4ba17f225682d3e';
+    r'd001b5b61ae51e520db1594f1856cb613f667cf9';
 
 /// 利用規約のURI
 ///
@@ -66,7 +66,7 @@ final configureTermsOfServiceUriProvider =
 
 typedef ConfigureTermsOfServiceUriRef = AutoDisposeFutureProviderRef<Uri?>;
 String _$configurePrivacyPolicyUriHash() =>
-    r'6e469309423563195038ef06b65c651579157708';
+    r'f7b256b3f0641e0bf4d0c55c13e13b23daea5c3e';
 
 /// プライバシーポリシーのURI
 ///
