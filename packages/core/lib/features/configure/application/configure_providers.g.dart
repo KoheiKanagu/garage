@@ -27,25 +27,6 @@ final configureRequiredVersionCodeProvider =
 );
 
 typedef ConfigureRequiredVersionCodeRef = AutoDisposeFutureProviderRef<int>;
-String _$configureServiceStatusHash() =>
-    r'1b440e3d3cddbc6b4aa5e58334579f52f47d0e32';
-
-/// サービスの稼働状況
-///
-/// Copied from [configureServiceStatus].
-@ProviderFor(configureServiceStatus)
-final configureServiceStatusProvider =
-    AutoDisposeFutureProvider<ServiceStatus>.internal(
-  configureServiceStatus,
-  name: r'configureServiceStatusProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$configureServiceStatusHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef ConfigureServiceStatusRef = AutoDisposeFutureProviderRef<ServiceStatus>;
 String _$configureTermsOfServiceUriHash() =>
     r'd001b5b61ae51e520db1594f1856cb613f667cf9';
 

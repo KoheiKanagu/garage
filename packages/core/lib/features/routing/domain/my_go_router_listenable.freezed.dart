@@ -37,6 +37,8 @@ abstract class $MyGoRouterListenableCopyWith<$Res> {
       bool requiredUpdate,
       bool releasedNewVersion,
       ServiceStatus serviceStatus});
+
+  $ServiceStatusCopyWith<$Res> get serviceStatus;
 }
 
 /// @nodoc
@@ -77,6 +79,14 @@ class _$MyGoRouterListenableCopyWithImpl<$Res,
               as ServiceStatus,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ServiceStatusCopyWith<$Res> get serviceStatus {
+    return $ServiceStatusCopyWith<$Res>(_value.serviceStatus, (value) {
+      return _then(_value.copyWith(serviceStatus: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -92,6 +102,9 @@ abstract class _$$MyGoRouterListenableImplCopyWith<$Res>
       bool requiredUpdate,
       bool releasedNewVersion,
       ServiceStatus serviceStatus});
+
+  @override
+  $ServiceStatusCopyWith<$Res> get serviceStatus;
 }
 
 /// @nodoc

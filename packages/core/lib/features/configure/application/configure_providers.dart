@@ -15,24 +15,6 @@ Future<int> configureRequiredVersionCode(
       ).future,
     );
 
-/// サービスの稼働状況
-@riverpod
-Future<ServiceStatus> configureServiceStatus(
-  ConfigureServiceStatusRef ref,
-) =>
-    ref.watch(
-      remoteConfigGetStringValueProvider(
-        key: RemoteConfigConstant.kServiceStatus,
-        defaultValue: RemoteConfigConstant.kServiceStatusDefaultValue,
-      ).selectAsync(
-        (e) => switch (e) {
-          'up' => ServiceStatus.up,
-          'down' => ServiceStatus.down,
-          _ => ServiceStatus.down,
-        },
-      ),
-    );
-
 /// 利用規約のURI
 @riverpod
 Future<Uri?> configureTermsOfServiceUri(
