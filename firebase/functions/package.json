@@ -14,7 +14,7 @@
     "fix": "eslint --fix ."
   },
   "engines": {
-    "node": "20.12.2"
+    "node": "20"
   },
   "type": "commonjs",
   "main": "build/src/index.js",
