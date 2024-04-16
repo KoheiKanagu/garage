@@ -25,11 +25,6 @@ const _nativeAutomatorConfig = NativeAutomatorConfig(
   findTimeout: Duration(seconds: 20), // 10 seconds is too short for some CIs
 );
 
-// Future<void> createApp(PatrolIntegrationTester $) async {
-//   await app_main.main();
-//   await $.pumpAndSettle();
-// }
-
 void patrol(
   String description,
   Future<void> Function(PatrolIntegrationTester) callback, {
