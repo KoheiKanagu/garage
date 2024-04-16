@@ -62,11 +62,15 @@ dev_dependencies:
   go_router_builder: ^2.5.1
   json_serializable: ^6.7.1
   mockito: ^5.4.4
+  patrol: ^3.6.1
   riverpod_generator: ^2.4.0
   riverpod_lint: ^2.3.10
   slang_build_runner: ^3.30.0
   test: any
   very_good_analysis: ^5.1.0
+
+dependency_overrides:
+  test_api: any
 
 flutter:
   uses-material-design: true
