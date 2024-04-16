@@ -8,8 +8,6 @@ part 'service_status.g.dart';
 @freezed
 class ServiceStatus with _$ServiceStatus {
   const factory ServiceStatus({
-    @TimestampConverter() Timestamp? createdAt,
-    @TimestampConverter() Timestamp? updatedAt,
     @Default(Status.down) Status status,
   }) = _ServiceStatus;
 
@@ -21,9 +19,7 @@ class ServiceStatus with _$ServiceStatus {
           );
 
   static ToFirestore<ServiceStatus> get toFirestore =>
-      (data, _) => TimestampConverter.updateServerTimestamp(
-            data.toJson(),
-          );
+      (data, _) => data.toJson();
 }
 
 enum Status {

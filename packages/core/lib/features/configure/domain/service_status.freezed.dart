@@ -20,10 +20,6 @@ ServiceStatus _$ServiceStatusFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ServiceStatus {
-  @TimestampConverter()
-  Timestamp? get createdAt => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  Timestamp? get updatedAt => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,10 +34,7 @@ abstract class $ServiceStatusCopyWith<$Res> {
           ServiceStatus value, $Res Function(ServiceStatus) then) =
       _$ServiceStatusCopyWithImpl<$Res, ServiceStatus>;
   @useResult
-  $Res call(
-      {@TimestampConverter() Timestamp? createdAt,
-      @TimestampConverter() Timestamp? updatedAt,
-      Status status});
+  $Res call({Status status});
 }
 
 /// @nodoc
@@ -57,19 +50,9 @@ class _$ServiceStatusCopyWithImpl<$Res, $Val extends ServiceStatus>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as Timestamp?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as Timestamp?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -86,10 +69,7 @@ abstract class _$$ServiceStatusImplCopyWith<$Res>
       __$$ServiceStatusImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {@TimestampConverter() Timestamp? createdAt,
-      @TimestampConverter() Timestamp? updatedAt,
-      Status status});
+  $Res call({Status status});
 }
 
 /// @nodoc
@@ -103,19 +83,9 @@ class __$$ServiceStatusImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
     Object? status = null,
   }) {
     return _then(_$ServiceStatusImpl(
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as Timestamp?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as Timestamp?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -127,27 +97,18 @@ class __$$ServiceStatusImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ServiceStatusImpl implements _ServiceStatus {
-  const _$ServiceStatusImpl(
-      {@TimestampConverter() this.createdAt,
-      @TimestampConverter() this.updatedAt,
-      this.status = Status.down});
+  const _$ServiceStatusImpl({this.status = Status.down});
 
   factory _$ServiceStatusImpl.fromJson(Map<String, dynamic> json) =>
       _$$ServiceStatusImplFromJson(json);
 
-  @override
-  @TimestampConverter()
-  final Timestamp? createdAt;
-  @override
-  @TimestampConverter()
-  final Timestamp? updatedAt;
   @override
   @JsonKey()
   final Status status;
 
   @override
   String toString() {
-    return 'ServiceStatus(createdAt: $createdAt, updatedAt: $updatedAt, status: $status)';
+    return 'ServiceStatus(status: $status)';
   }
 
   @override
@@ -155,16 +116,12 @@ class _$ServiceStatusImpl implements _ServiceStatus {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ServiceStatusImpl &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, createdAt, updatedAt, status);
+  int get hashCode => Object.hash(runtimeType, status);
 
   @JsonKey(ignore: true)
   @override
@@ -181,20 +138,11 @@ class _$ServiceStatusImpl implements _ServiceStatus {
 }
 
 abstract class _ServiceStatus implements ServiceStatus {
-  const factory _ServiceStatus(
-      {@TimestampConverter() final Timestamp? createdAt,
-      @TimestampConverter() final Timestamp? updatedAt,
-      final Status status}) = _$ServiceStatusImpl;
+  const factory _ServiceStatus({final Status status}) = _$ServiceStatusImpl;
 
   factory _ServiceStatus.fromJson(Map<String, dynamic> json) =
       _$ServiceStatusImpl.fromJson;
 
-  @override
-  @TimestampConverter()
-  Timestamp? get createdAt;
-  @override
-  @TimestampConverter()
-  Timestamp? get updatedAt;
   @override
   Status get status;
   @override

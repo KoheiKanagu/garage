@@ -46,19 +46,25 @@ Raw<ValueNotifier<MyGoRouterListenable>> refreshListenable(
       },
     )
     ..listen(
-      configureIsReleasedNewVersionProvider.selectAsync((e) => e),
+      configureIsReleasedNewVersionProvider,
       (_, next) async {
-        listenable.value = listenable.value.copyWith(
-          releasedNewVersion: await next,
-        );
+        final value = next.value;
+        if (value != null) {
+          listenable.value = listenable.value.copyWith(
+            releasedNewVersion: value,
+          );
+        }
       },
     )
     ..listen(
-      serviceStatusProvider.selectAsync((e) => e),
+      serviceStatusProvider,
       (_, next) async {
-        listenable.value = listenable.value.copyWith(
-          serviceStatus: await next,
-        );
+        final value = next.value;
+        if (value != null) {
+          listenable.value = listenable.value.copyWith(
+            serviceStatus: value,
+          );
+        }
       },
     )
     ..onDispose(listenable.dispose);

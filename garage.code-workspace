@@ -24,7 +24,8 @@
   "settings": {
     "dart.flutterSdkPath": ".fvm/versions/beta",
     "search.exclude": {
-      "**/.fvm": true
+      "**/.fvm": true,
+      "**/build": true
     },
     "files.watcherExclude": {
       "**/.fvm": true

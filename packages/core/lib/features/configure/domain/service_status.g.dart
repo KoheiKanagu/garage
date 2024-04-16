@@ -14,10 +14,6 @@ _$ServiceStatusImpl _$$ServiceStatusImplFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = _$ServiceStatusImpl(
-          createdAt: $checkedConvert(
-              'createdAt', (v) => const TimestampConverter().fromJson(v)),
-          updatedAt: $checkedConvert(
-              'updatedAt', (v) => const TimestampConverter().fromJson(v)),
           status: $checkedConvert('status',
               (v) => $enumDecodeNullable(_$StatusEnumMap, v) ?? Status.down),
         );
@@ -27,8 +23,6 @@ _$ServiceStatusImpl _$$ServiceStatusImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$ServiceStatusImplToJson(_$ServiceStatusImpl instance) =>
     <String, dynamic>{
-      'createdAt': const TimestampConverter().toJson(instance.createdAt),
-      'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
       'status': _$StatusEnumMap[instance.status]!,
     };
 
