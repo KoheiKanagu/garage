@@ -8,7 +8,7 @@ part of 'my_go_router.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$refreshListenableHash() => r'3366e449311194e88996f3508c995de02d703289';
+String _$refreshListenableHash() => r'd5126ca8ba4a0b764c33aea196ead28d67ba67cc';
 
 /// See also [refreshListenable].
 @ProviderFor(refreshListenable)

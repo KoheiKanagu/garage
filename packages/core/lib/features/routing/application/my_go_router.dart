@@ -30,24 +30,30 @@ Raw<ValueNotifier<MyGoRouterListenable>> refreshListenable(
 
   ref
     ..listen(
-      firebaseUserIsSignedInProvider.selectAsync((e) => e),
-      (_, next) async {
-        listenable.value = listenable.value.copyWith(
-          signedIn: await next,
-        );
+      firebaseUserIsSignedInProvider,
+      (_, next) {
+        final value = next.value;
+        if (value != null) {
+          listenable.value = listenable.value.copyWith(
+            signedIn: value,
+          );
+        }
       },
     )
     ..listen(
-      configureIsRequiredUpdateProvider.selectAsync((e) => e),
-      (_, next) async {
-        listenable.value = listenable.value.copyWith(
-          requiredUpdate: await next,
-        );
+      configureIsRequiredUpdateProvider,
+      (_, next) {
+        final value = next.value;
+        if (value != null) {
+          listenable.value = listenable.value.copyWith(
+            requiredUpdate: value,
+          );
+        }
       },
     )
     ..listen(
       configureIsReleasedNewVersionProvider,
-      (_, next) async {
+      (_, next) {
         final value = next.value;
         if (value != null) {
           listenable.value = listenable.value.copyWith(
@@ -58,7 +64,7 @@ Raw<ValueNotifier<MyGoRouterListenable>> refreshListenable(
     )
     ..listen(
       serviceStatusProvider,
-      (_, next) async {
+      (_, next) {
         final value = next.value;
         if (value != null) {
           listenable.value = listenable.value.copyWith(
