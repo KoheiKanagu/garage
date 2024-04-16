@@ -12,7 +12,7 @@ Future<int> configureRequiredVersionCode(
       remoteConfigGetIntValueProvider(
         key: RemoteConfigConstant.kRequirementVersionCode,
         defaultValue: RemoteConfigConstant.kRequirementVersionCodeDefaultValue,
-      ).future,
+      ).selectAsync((e) => e),
     );
 
 /// 利用規約のURI

@@ -9,7 +9,7 @@ part of 'configure_providers.dart';
 // **************************************************************************
 
 String _$configureRequiredVersionCodeHash() =>
-    r'2d52e2e3d606c6efd683d480cfd9a0bb2b5f1386';
+    r'fe43bfe602a99d4e0517dc34cf293a500d44847b';
 
 /// アップデートが必須なバージョンコード
 ///
