@@ -52,6 +52,7 @@ jobs:
           export GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/firebase/functions/service-account.json
 
           npx tsx scripts/set-mail-templates.ts --force
+          npx tsx scripts/set-service-status-up.ts --force
 
       - name: Firebase Deploy
         run: |
