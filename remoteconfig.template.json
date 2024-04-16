@@ -19,17 +19,17 @@
       "description": "必須バージョンのアプリのバージョンコード",
       "valueType": "NUMBER"
     },
-    "service_status": {
+    "latest_version_code": {
       "defaultValue": {
-        "value": "down"
+        "value": "0"
       },
       "conditionalValues": {
         "dev.kingu.listenToMusicByLocation": {
-          "value": "up"
+          "value": "0"
         }
       },
-      "description": "サービスステータス",
-      "valueType": "STRING"
+      "description": "最新版のアプリのバージョンコード",
+      "valueType": "NUMBER"
     },
     "terms_of_service_uri": {
       "defaultValue": {

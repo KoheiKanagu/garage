@@ -3,16 +3,28 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'configure_providers.g.dart';
 
-/// アップデートが必須なバージョンコード
+/// 新しいバージョンがリリースされているかどうか
 @riverpod
-Future<int> configureRequiredVersionCode(
-  ConfigureRequiredVersionCodeRef ref,
+Future<bool> configureIsReleasedNewVersion(
+  ConfigureIsReleasedNewVersionRef ref,
+) =>
+    ref.watch(
+      remoteConfigGetIntValueProvider(
+        key: RemoteConfigConstant.kLatestVersionCode,
+        defaultValue: RemoteConfigConstant.kLatestVersionCodeDefaultValue,
+      ).selectAsync((e) => e > ref.watch(packageInfoBuildNumberProvider)),
+    );
+
+/// 新しいバージョンにアップデートが必須であるかどうか
+@riverpod
+Future<bool> configureIsRequiredUpdate(
+  ConfigureIsRequiredUpdateRef ref,
 ) =>
     ref.watch(
       remoteConfigGetIntValueProvider(
         key: RemoteConfigConstant.kRequirementVersionCode,
         defaultValue: RemoteConfigConstant.kRequirementVersionCodeDefaultValue,
-      ).selectAsync((e) => e),
+      ).selectAsync((e) => e > ref.watch(packageInfoBuildNumberProvider)),
     );
 
 /// 利用規約のURI

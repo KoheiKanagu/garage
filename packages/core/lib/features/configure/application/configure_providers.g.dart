@@ -8,25 +8,44 @@ part of 'configure_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$configureRequiredVersionCodeHash() =>
-    r'fe43bfe602a99d4e0517dc34cf293a500d44847b';
+String _$configureIsReleasedNewVersionHash() =>
+    r'812a0770b0411d2d42b49471f368aa22aba19341';
 
-/// アップデートが必須なバージョンコード
+/// 新しいバージョンがリリースされているかどうか
 ///
-/// Copied from [configureRequiredVersionCode].
-@ProviderFor(configureRequiredVersionCode)
-final configureRequiredVersionCodeProvider =
-    AutoDisposeFutureProvider<int>.internal(
-  configureRequiredVersionCode,
-  name: r'configureRequiredVersionCodeProvider',
+/// Copied from [configureIsReleasedNewVersion].
+@ProviderFor(configureIsReleasedNewVersion)
+final configureIsReleasedNewVersionProvider =
+    AutoDisposeFutureProvider<bool>.internal(
+  configureIsReleasedNewVersion,
+  name: r'configureIsReleasedNewVersionProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$configureRequiredVersionCodeHash,
+      : _$configureIsReleasedNewVersionHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef ConfigureRequiredVersionCodeRef = AutoDisposeFutureProviderRef<int>;
+typedef ConfigureIsReleasedNewVersionRef = AutoDisposeFutureProviderRef<bool>;
+String _$configureIsRequiredUpdateHash() =>
+    r'912cc6e763bcfa977039360062d092214570f059';
+
+/// 新しいバージョンにアップデートが必須であるかどうか
+///
+/// Copied from [configureIsRequiredUpdate].
+@ProviderFor(configureIsRequiredUpdate)
+final configureIsRequiredUpdateProvider =
+    AutoDisposeFutureProvider<bool>.internal(
+  configureIsRequiredUpdate,
+  name: r'configureIsRequiredUpdateProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$configureIsRequiredUpdateHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef ConfigureIsRequiredUpdateRef = AutoDisposeFutureProviderRef<bool>;
 String _$configureTermsOfServiceUriHash() =>
     r'd001b5b61ae51e520db1594f1856cb613f667cf9';
 

@@ -151,7 +151,7 @@ class _$MyGoRouterListenableImpl implements _MyGoRouterListenable {
       {this.signedIn = false,
       this.requiredUpdate = false,
       this.releasedNewVersion = false,
-      this.serviceStatus = ServiceStatus.down});
+      this.serviceStatus = Status.down});
 
   @override
   @JsonKey()
