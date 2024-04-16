@@ -91,7 +91,6 @@
       "todos",
       "typedefs",
       "unawaited",
-      "upgrader",
       "webp"
     ],
     "jest.disabledWorkspaceFolders": [
