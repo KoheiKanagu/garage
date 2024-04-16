@@ -14,6 +14,11 @@ service cloud.firestore {
         (createdBy == request.auth.uid);
     }
 
+    match /serviceStatus_v1/{documentId} {
+      // 誰でも読み取りできること
+      allow read: if true;
+    }
+
     match /feedbacks_v1/{documentId} {
       allow create: if
         // 自分であれば作成できること
