@@ -17,6 +17,7 @@ export 'features/configure/application/configure_route.dart' hide $appRoutes;
 export 'features/configure/application/device_info_providers.dart';
 export 'features/configure/application/package_info_providers.dart';
 export 'features/configure/application/remote_config_providers.dart';
+export 'features/configure/application/service_status_providers.dart';
 export 'features/configure/application/shared_preferences_providers.dart';
 export 'features/configure/domain/configure_item.dart';
 export 'features/configure/domain/service_status.dart';

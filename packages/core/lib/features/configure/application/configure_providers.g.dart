@@ -9,7 +9,7 @@ part of 'configure_providers.dart';
 // **************************************************************************
 
 String _$configureIsReleasedNewVersionHash() =>
-    r'fbcb3837c14f2f82f57df8d73605a4267a0d76da';
+    r'1f4dbce265c28a0c6b278ece43337dbd53416475';
 
 /// 新しいバージョンがリリースされているかどうか
 ///
@@ -28,7 +28,7 @@ final configureIsReleasedNewVersionProvider =
 
 typedef ConfigureIsReleasedNewVersionRef = AutoDisposeFutureProviderRef<bool>;
 String _$configureIsRequiredUpdateHash() =>
-    r'3bedec50f5963e27d7fd3f16e7259d5756b129da';
+    r'bc5498e47a4860e09aefe0f43fde8bff8b3a8d78';
 
 /// 新しいバージョンにアップデートが必須であるかどうか
 ///
@@ -46,27 +46,8 @@ final configureIsRequiredUpdateProvider =
 );
 
 typedef ConfigureIsRequiredUpdateRef = AutoDisposeFutureProviderRef<bool>;
-String _$configureServiceStatusHash() =>
-    r'c38b8bfd9acab54d3b0b57496cc242cf5b974f76';
-
-/// サービスの稼働状況
-///
-/// Copied from [configureServiceStatus].
-@ProviderFor(configureServiceStatus)
-final configureServiceStatusProvider =
-    AutoDisposeFutureProvider<ServiceStatus>.internal(
-  configureServiceStatus,
-  name: r'configureServiceStatusProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$configureServiceStatusHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef ConfigureServiceStatusRef = AutoDisposeFutureProviderRef<ServiceStatus>;
 String _$configureTermsOfServiceUriHash() =>
-    r'e4167996c43c144e6649185fd4ba17f225682d3e';
+    r'd001b5b61ae51e520db1594f1856cb613f667cf9';
 
 /// 利用規約のURI
 ///
@@ -85,7 +66,7 @@ final configureTermsOfServiceUriProvider =
 
 typedef ConfigureTermsOfServiceUriRef = AutoDisposeFutureProviderRef<Uri?>;
 String _$configurePrivacyPolicyUriHash() =>
-    r'6e469309423563195038ef06b65c651579157708';
+    r'f7b256b3f0641e0bf4d0c55c13e13b23daea5c3e';
 
 /// プライバシーポリシーのURI
 ///

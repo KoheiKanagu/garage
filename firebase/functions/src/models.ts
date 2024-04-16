@@ -111,3 +111,8 @@ export interface MailTemplates {
     },
   ];
 }
+
+export interface ServiceStatus {
+  updatedAt: Timestamp | FieldValue | null;
+  status: 'up' | 'down';
+}

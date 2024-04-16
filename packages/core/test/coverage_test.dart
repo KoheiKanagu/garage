@@ -15,6 +15,7 @@ import 'package:core/features/configure/application/configure_route.dart';
 import 'package:core/features/configure/application/device_info_providers.dart';
 import 'package:core/features/configure/application/package_info_providers.dart';
 import 'package:core/features/configure/application/remote_config_providers.dart';
+import 'package:core/features/configure/application/service_status_providers.dart';
 import 'package:core/features/configure/application/shared_preferences_providers.dart';
 import 'package:core/features/configure/domain/configure_item.dart';
 import 'package:core/features/configure/domain/service_status.dart';

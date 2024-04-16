@@ -19,7 +19,7 @@ mixin _$MyGoRouterListenable {
   bool get signedIn => throw _privateConstructorUsedError;
   bool get requiredUpdate => throw _privateConstructorUsedError;
   bool get releasedNewVersion => throw _privateConstructorUsedError;
-  ServiceStatus get serviceStatus => throw _privateConstructorUsedError;
+  Status get serviceStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MyGoRouterListenableCopyWith<MyGoRouterListenable> get copyWith =>
@@ -36,7 +36,7 @@ abstract class $MyGoRouterListenableCopyWith<$Res> {
       {bool signedIn,
       bool requiredUpdate,
       bool releasedNewVersion,
-      ServiceStatus serviceStatus});
+      Status serviceStatus});
 }
 
 /// @nodoc
@@ -74,7 +74,7 @@ class _$MyGoRouterListenableCopyWithImpl<$Res,
       serviceStatus: null == serviceStatus
           ? _value.serviceStatus
           : serviceStatus // ignore: cast_nullable_to_non_nullable
-              as ServiceStatus,
+              as Status,
     ) as $Val);
   }
 }
@@ -91,7 +91,7 @@ abstract class _$$MyGoRouterListenableImplCopyWith<$Res>
       {bool signedIn,
       bool requiredUpdate,
       bool releasedNewVersion,
-      ServiceStatus serviceStatus});
+      Status serviceStatus});
 }
 
 /// @nodoc
@@ -126,7 +126,7 @@ class __$$MyGoRouterListenableImplCopyWithImpl<$Res>
       serviceStatus: null == serviceStatus
           ? _value.serviceStatus
           : serviceStatus // ignore: cast_nullable_to_non_nullable
-              as ServiceStatus,
+              as Status,
     ));
   }
 }
@@ -138,7 +138,7 @@ class _$MyGoRouterListenableImpl implements _MyGoRouterListenable {
       {this.signedIn = false,
       this.requiredUpdate = false,
       this.releasedNewVersion = false,
-      this.serviceStatus = ServiceStatus.down});
+      this.serviceStatus = Status.up});
 
   @override
   @JsonKey()
@@ -151,7 +151,7 @@ class _$MyGoRouterListenableImpl implements _MyGoRouterListenable {
   final bool releasedNewVersion;
   @override
   @JsonKey()
-  final ServiceStatus serviceStatus;
+  final Status serviceStatus;
 
   @override
   String toString() {
@@ -191,7 +191,7 @@ abstract class _MyGoRouterListenable implements MyGoRouterListenable {
       {final bool signedIn,
       final bool requiredUpdate,
       final bool releasedNewVersion,
-      final ServiceStatus serviceStatus}) = _$MyGoRouterListenableImpl;
+      final Status serviceStatus}) = _$MyGoRouterListenableImpl;
 
   @override
   bool get signedIn;
@@ -200,7 +200,7 @@ abstract class _MyGoRouterListenable implements MyGoRouterListenable {
   @override
   bool get releasedNewVersion;
   @override
-  ServiceStatus get serviceStatus;
+  Status get serviceStatus;
   @override
   @JsonKey(ignore: true)
   _$$MyGoRouterListenableImplCopyWith<_$MyGoRouterListenableImpl>

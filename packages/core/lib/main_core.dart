@@ -102,33 +102,6 @@ Future<ProviderContainer> _initialize({
     return true;
   };
 
-  /// listen Providers ---
-  container
-    ..listen(
-      firebaseUserUidProvider,
-      (_, next) async {
-        final uid = next.value;
-        logger.info('listen firebaseUserUidProvider: $uid');
-
-        await Future.wait(
-          [
-            container.read(firebaseAnalyticsProvider).setUserId(
-                  id: uid,
-                ),
-            container.read(firebaseCrashlyticsProvider).setUserIdentifier(
-                  uid ?? '',
-                ),
-          ],
-        );
-      },
-    )
-    ..listen(
-      remoteConfigValuesProvider,
-      (_, __) {
-        // disposeされるのを防ぐ
-      },
-    );
-
   /// async initialization ---
   await Future.wait(
     [
@@ -158,11 +131,41 @@ Future<ProviderContainer> _initialize({
           ),
         ],
       ),
-      // [my_go_router.dart] のredirectで参照しているので、起動する段階でロードしておく
-      // ロードしておかないと初回のredirectが遅くなり、画面がグレーアウトしてしまう
-      container.read(remoteConfigValuesProvider.future),
     ],
   );
+
+  /// listen Providers ---
+  container
+    ..listen(
+      firebaseUserUidProvider,
+      (_, next) async {
+        final uid = next.value;
+        logger.info('listen firebaseUserUidProvider: $uid');
+
+        await Future.wait(
+          [
+            container.read(firebaseAnalyticsProvider).setUserId(
+                  id: uid,
+                ),
+            container.read(firebaseCrashlyticsProvider).setUserIdentifier(
+                  uid ?? '',
+                ),
+          ],
+        );
+      },
+    )
+    ..listen(
+      remoteConfigValuesProvider,
+      (_, __) {
+        // disposeされるのを防ぐ
+      },
+    )
+    ..listen(
+      serviceStatusProvider,
+      (_, __) {
+        // disposeされるのを防ぐ
+      },
+    );
 
   return container;
 }

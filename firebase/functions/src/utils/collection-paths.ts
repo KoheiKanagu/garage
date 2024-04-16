@@ -4,6 +4,7 @@ export const CollectionPaths = {
   FEEDBACK_COMMENTS: 'feedbackComments_v1',
   MAILS: 'mails_v1',
   MAIL_TEMPLATES: 'mailTemplates_v1',
+  SERVICE_STATUS: 'serviceStatus_v1',
 } as const;
 
 export type CollectionPaths = (typeof CollectionPaths)[keyof typeof CollectionPaths];

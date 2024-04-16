@@ -31,18 +31,6 @@
       "description": "最新版のアプリのバージョンコード",
       "valueType": "NUMBER"
     },
-    "service_status": {
-      "defaultValue": {
-        "value": "down"
-      },
-      "conditionalValues": {
-        "dev.kingu.listenToMusicByLocation": {
-          "value": "up"
-        }
-      },
-      "description": "サービスステータス",
-      "valueType": "STRING"
-    },
     "terms_of_service_uri": {
       "defaultValue": {
         "value": "https://github.com/KoheiKanagu/garage/blob/main/term_of_service.md"
