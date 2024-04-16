@@ -2,6 +2,7 @@
 import 'package:core/common_widgets/my_smooth_page_indicator.dart';
 import 'package:core/common_widgets/show_my_progress_indicator.dart';
 import 'package:core/constants/collection_path.dart';
+import 'package:core/constants/localizations_delegates.dart';
 import 'package:core/extensions/cupertino_text_theme_data_extension.dart';
 import 'package:core/extensions/go_router_extension.dart';
 import 'package:core/features/ads/application/ads_providers.dart';

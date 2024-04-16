@@ -2,7 +2,6 @@ import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -23,11 +22,7 @@ class UpdateAppPage extends HookConsumerWidget {
     return switch (themeType) {
       InheritedThemeType.material => MaterialApp(
           supportedLocales: AppLocaleUtils.supportedLocales,
-          localizationsDelegates: const [
-            GlobalCupertinoLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
+          localizationsDelegates: localizationsDelegates,
           debugShowCheckedModeBanner: false,
           home: UpdateAppPageHome(
             force: force,
@@ -35,11 +30,7 @@ class UpdateAppPage extends HookConsumerWidget {
         ),
       InheritedThemeType.cupertino => CupertinoApp(
           supportedLocales: AppLocaleUtils.supportedLocales,
-          localizationsDelegates: const [
-            GlobalCupertinoLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
+          localizationsDelegates: localizationsDelegates,
           debugShowCheckedModeBanner: false,
           home: UpdateAppPageHome(
             force: force,
