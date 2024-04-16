@@ -57,6 +57,7 @@ Stream<Map<String, RemoteConfigValue>> remoteConfigValues(
   RemoteConfigValuesRef ref,
 ) async* {
   final config = await ref.watch(firebaseRemoteConfigProvider.future);
+  await config.fetchAndActivate();
   yield config.getAll();
 
   // "Multiple listeners can be added by calling this method again"

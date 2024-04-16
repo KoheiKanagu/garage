@@ -95,7 +95,5 @@ Future<FirebaseRemoteConfig> firebaseRemoteConfig(
       ),
     );
   }
-
-  await instance.fetchAndActivate();
   return instance;
 }
