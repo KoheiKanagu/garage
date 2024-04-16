@@ -111,3 +111,7 @@ export interface MailTemplates {
     },
   ];
 }
+
+export interface ServiceStatus {
+  status: 'up' | 'down';
+}
