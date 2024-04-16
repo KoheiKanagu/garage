@@ -6,7 +6,7 @@ part 'service_status_providers.g.dart';
 
 /// サービスの稼働状況
 @riverpod
-Stream<ServiceStatus> serviceStatus(
+Stream<Status> serviceStatus(
   ServiceStatusRef ref,
 ) =>
     ref
@@ -19,5 +19,5 @@ Stream<ServiceStatus> serviceStatus(
         .doc(kDatabaseId)
         .snapshots()
         .map(
-          (e) => e.data() ?? const ServiceStatus(),
+          (e) => e.data()?.status ?? Status.down,
         );

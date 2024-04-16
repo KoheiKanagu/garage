@@ -8,7 +8,24 @@ part of 'my_go_router.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$myGoRouterHash() => r'e1122eb5875adc46089c04c71fb90ee82ee35ff6';
+String _$refreshListenableHash() => r'901d1a2f2ed5fd9e3bac1e5cca5fc54ca41de392';
+
+/// See also [refreshListenable].
+@ProviderFor(refreshListenable)
+final refreshListenableProvider =
+    AutoDisposeProvider<Raw<ValueNotifier<MyGoRouterListenable>>>.internal(
+  refreshListenable,
+  name: r'refreshListenableProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$refreshListenableHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef RefreshListenableRef
+    = AutoDisposeProviderRef<Raw<ValueNotifier<MyGoRouterListenable>>>;
+String _$myGoRouterHash() => r'23595df284a05e2c4e023a57afac43222aa02399';
 
 /// Copied from Dart SDK
 class _SystemHash {

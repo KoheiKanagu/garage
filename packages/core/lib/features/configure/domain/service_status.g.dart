@@ -19,7 +19,7 @@ _$ServiceStatusImpl _$$ServiceStatusImplFromJson(Map<String, dynamic> json) =>
           updatedAt: $checkedConvert(
               'updatedAt', (v) => const TimestampConverter().fromJson(v)),
           status: $checkedConvert('status',
-              (v) => $enumDecodeNullable(_$StatusEnumMap, v) ?? Status.up),
+              (v) => $enumDecodeNullable(_$StatusEnumMap, v) ?? Status.down),
         );
         return val;
       },

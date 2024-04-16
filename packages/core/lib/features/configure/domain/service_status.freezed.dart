@@ -130,7 +130,7 @@ class _$ServiceStatusImpl implements _ServiceStatus {
   const _$ServiceStatusImpl(
       {@TimestampConverter() this.createdAt,
       @TimestampConverter() this.updatedAt,
-      this.status = Status.up});
+      this.status = Status.down});
 
   factory _$ServiceStatusImpl.fromJson(Map<String, dynamic> json) =>
       _$$ServiceStatusImplFromJson(json);

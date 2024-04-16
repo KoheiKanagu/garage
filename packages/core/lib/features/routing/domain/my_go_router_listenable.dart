@@ -9,6 +9,6 @@ class MyGoRouterListenable with _$MyGoRouterListenable {
     @Default(false) bool signedIn,
     @Default(false) bool requiredUpdate,
     @Default(false) bool releasedNewVersion,
-    @Default(Status.down) ServiceStatus serviceStatus,
+    @Default(Status.up) Status serviceStatus,
   }) = _MyGoRouterListenable;
 }

@@ -10,7 +10,7 @@ class ServiceStatus with _$ServiceStatus {
   const factory ServiceStatus({
     @TimestampConverter() Timestamp? createdAt,
     @TimestampConverter() Timestamp? updatedAt,
-    @Default(Status.up) Status status,
+    @Default(Status.down) Status status,
   }) = _ServiceStatus;
 
   factory ServiceStatus.fromJson(Json json) => _$ServiceStatusFromJson(json);
