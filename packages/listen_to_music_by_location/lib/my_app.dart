@@ -1,6 +1,5 @@
 import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_to_music_by_location/features/home/application/home_route.dart'
     as home_route;
@@ -30,12 +29,6 @@ class MyApp extends HookConsumerWidget {
       darkColor: Color(0xFFFB5C74),
     ),
   );
-
-  static final localizationsDelegates = [
-    GlobalCupertinoLocalizations.delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
