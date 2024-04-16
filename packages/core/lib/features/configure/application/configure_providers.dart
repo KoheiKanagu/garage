@@ -7,25 +7,29 @@ part 'configure_providers.g.dart';
 @riverpod
 Future<bool> configureIsReleasedNewVersion(
   ConfigureIsReleasedNewVersionRef ref,
-) =>
-    ref.watch(
-      remoteConfigGetIntValueProvider(
-        key: RemoteConfigConstant.kLatestVersionCode,
-        defaultValue: RemoteConfigConstant.kLatestVersionCodeDefaultValue,
-      ).selectAsync((e) => e > ref.watch(packageInfoBuildNumberProvider)),
-    );
+) {
+  final buildNumber = ref.watch(packageInfoBuildNumberProvider);
+  return ref.watch(
+    remoteConfigGetIntValueProvider(
+      key: RemoteConfigConstant.kLatestVersionCode,
+      defaultValue: RemoteConfigConstant.kLatestVersionCodeDefaultValue,
+    ).selectAsync((e) => e > buildNumber),
+  );
+}
 
 /// 新しいバージョンにアップデートが必須であるかどうか
 @riverpod
 Future<bool> configureIsRequiredUpdate(
   ConfigureIsRequiredUpdateRef ref,
-) =>
-    ref.watch(
-      remoteConfigGetIntValueProvider(
-        key: RemoteConfigConstant.kRequirementVersionCode,
-        defaultValue: RemoteConfigConstant.kRequirementVersionCodeDefaultValue,
-      ).selectAsync((e) => e > ref.watch(packageInfoBuildNumberProvider)),
-    );
+) {
+  final buildNumber = ref.watch(packageInfoBuildNumberProvider);
+  return ref.watch(
+    remoteConfigGetIntValueProvider(
+      key: RemoteConfigConstant.kRequirementVersionCode,
+      defaultValue: RemoteConfigConstant.kRequirementVersionCodeDefaultValue,
+    ).selectAsync((e) => e > buildNumber),
+  );
+}
 
 /// 利用規約のURI
 @riverpod

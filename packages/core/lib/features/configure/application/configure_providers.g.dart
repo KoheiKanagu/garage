@@ -9,7 +9,7 @@ part of 'configure_providers.dart';
 // **************************************************************************
 
 String _$configureIsReleasedNewVersionHash() =>
-    r'812a0770b0411d2d42b49471f368aa22aba19341';
+    r'1f4dbce265c28a0c6b278ece43337dbd53416475';
 
 /// 新しいバージョンがリリースされているかどうか
 ///
@@ -28,7 +28,7 @@ final configureIsReleasedNewVersionProvider =
 
 typedef ConfigureIsReleasedNewVersionRef = AutoDisposeFutureProviderRef<bool>;
 String _$configureIsRequiredUpdateHash() =>
-    r'912cc6e763bcfa977039360062d092214570f059';
+    r'bc5498e47a4860e09aefe0f43fde8bff8b3a8d78';
 
 /// 新しいバージョンにアップデートが必須であるかどうか
 ///
