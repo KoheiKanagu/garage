@@ -1,6 +1,7 @@
 // ignore_for_file: comment_references
 
 import 'package:core/core.dart';
+import 'package:core/features/configure/application/service_status_providers.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -127,6 +128,12 @@ Future<ProviderContainer> _initialize({
       (_, __) {
         // disposeされるのを防ぐ
       },
+    )
+    ..listen(
+      serviceStatusProvider,
+      (_, __) {
+        // disposeされるのを防ぐ
+      },
     );
 
   /// async initialization ---
@@ -158,9 +165,6 @@ Future<ProviderContainer> _initialize({
           ),
         ],
       ),
-      // [my_go_router.dart] のredirectで参照しているので、起動する段階でロードしておく
-      // ロードしておかないと初回のredirectが遅くなり、画面がグレーアウトしてしまう
-      container.read(remoteConfigValuesProvider.future),
     ],
   );
 
