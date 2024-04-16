@@ -103,6 +103,38 @@ Future<ProviderContainer> _initialize({
     return true;
   };
 
+  /// async initialization ---
+  await Future.wait(
+    [
+      initBudouX(),
+      container
+          .read(firebaseCrashlyticsProvider)
+          .setCrashlyticsCollectionEnabled(
+            kReleaseMode,
+          ),
+      container.read(firebaseAnalyticsProvider).setAnalyticsCollectionEnabled(
+            kReleaseMode,
+          ),
+      if (kAppEnvDev)
+        FirebaseAppCheck.instance.activate(
+          androidProvider: AndroidProvider.debug,
+          appleProvider: AppleProvider.debug,
+        ),
+      if (kAppEnvProd)
+        FirebaseAppCheck.instance.activate(
+          appleProvider: AppleProvider.appAttest,
+        ),
+      const QuickActions().setShortcutItems(
+        [
+          ShortcutItem(
+            type: kFeedbackShortcut,
+            localizedTitle: i18n.feedback.please_feedback,
+          ),
+        ],
+      ),
+    ],
+  );
+
   /// listen Providers ---
   container
     ..listen(
@@ -135,38 +167,6 @@ Future<ProviderContainer> _initialize({
         // disposeされるのを防ぐ
       },
     );
-
-  /// async initialization ---
-  await Future.wait(
-    [
-      initBudouX(),
-      container
-          .read(firebaseCrashlyticsProvider)
-          .setCrashlyticsCollectionEnabled(
-            kReleaseMode,
-          ),
-      container.read(firebaseAnalyticsProvider).setAnalyticsCollectionEnabled(
-            kReleaseMode,
-          ),
-      if (kAppEnvDev)
-        FirebaseAppCheck.instance.activate(
-          androidProvider: AndroidProvider.debug,
-          appleProvider: AppleProvider.debug,
-        ),
-      if (kAppEnvProd)
-        FirebaseAppCheck.instance.activate(
-          appleProvider: AppleProvider.appAttest,
-        ),
-      const QuickActions().setShortcutItems(
-        [
-          ShortcutItem(
-            type: kFeedbackShortcut,
-            localizedTitle: i18n.feedback.please_feedback,
-          ),
-        ],
-      ),
-    ],
-  );
 
   return container;
 }
