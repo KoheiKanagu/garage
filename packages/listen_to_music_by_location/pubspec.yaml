@@ -68,6 +68,7 @@ dev_dependencies:
   json_serializable: ^6.7.1
   mockito: ^5.4.4
   patrol: ^3.6.1
+  patrol_finders: ^2.0.2
   pigeon: ^18.0.0
   riverpod_generator: ^2.4.0
   riverpod_lint: ^2.3.10
