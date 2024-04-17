@@ -109,7 +109,7 @@
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D1A83472BCE657D00BF44D1 /* RunnerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1A83562BCE661E00BF44D1 /* RunnerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RunnerUITests.m; sourceTree = "<group>"; };
-		7D1A835A2BCE6CE300BF44D1 /* prod.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = prod.xctestplan; path = prod/prod.xctestplan; sourceTree = "<group>"; };
+		7D1A835D2BCFC4D900BF44D1 /* dev.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = dev.xctestplan; path = dev/dev.xctestplan; sourceTree = "<group>"; };
 		7D1B63372B74D1760016D3F8 /* Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 		7D1B63522B78B0F90016D3F8 /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		7D2236DE2B47CD4E008A379D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -246,7 +246,7 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
-				7D1A835A2BCE6CE300BF44D1 /* prod.xctestplan */,
+				7D1A835D2BCFC4D900BF44D1 /* dev.xctestplan */,
 				7D1B63372B74D1760016D3F8 /* Location.gpx */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,

@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "B4D146DC-71BA-471F-89BE-DA29FF61DCB0",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Runner.xcodeproj",
+        "identifier" : "7D1A83462BCE657D00BF44D1",
+        "name" : "RunnerUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
