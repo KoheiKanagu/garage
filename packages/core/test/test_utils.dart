@@ -21,23 +21,14 @@ ProviderContainer createContainer({
   return container;
 }
 
-const _nativeAutomatorConfig = NativeAutomatorConfig(
-  findTimeout: Duration(seconds: 20), // 10 seconds is too short for some CIs
-);
-
 void patrol(
   String description,
-  Future<void> Function(PatrolIntegrationTester) callback, {
-  bool? skip,
-  NativeAutomatorConfig? nativeAutomatorConfig,
-  LiveTestWidgetsFlutterBindingFramePolicy framePolicy =
-      LiveTestWidgetsFlutterBindingFramePolicy.fadePointers,
-}) {
-  patrolTest(
-    description,
-    nativeAutomatorConfig: nativeAutomatorConfig ?? _nativeAutomatorConfig,
-    framePolicy: framePolicy,
-    skip: skip,
-    callback,
-  );
-}
+  Future<void> Function(PatrolIntegrationTester) callback,
+) =>
+    patrolTest(
+      description,
+      nativeAutomatorConfig: const NativeAutomatorConfig(
+        findTimeout: Duration(seconds: 20),
+      ),
+      callback,
+    );
