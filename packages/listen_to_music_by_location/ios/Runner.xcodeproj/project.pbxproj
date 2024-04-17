@@ -919,7 +919,7 @@
 		};
 		331C8088294A63A400263BE5 /* Debug-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2482EB26C5E47003EE90636D /* Pods-RunnerTests.debug-prod.xcconfig */;
+			baseConfigurationReference = 7D6AEE722B06E891009A9944 /* Debug-prod.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -938,7 +938,7 @@
 		};
 		331C8089294A63A400263BE5 /* Release-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A1CFA2B93886FE9A14665777 /* Pods-RunnerTests.release-prod.xcconfig */;
+			baseConfigurationReference = 7D6AEE702B06E891009A9944 /* Release-prod.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -955,7 +955,7 @@
 		};
 		331C808A294A63A400263BE5 /* Profile-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF850B508779A97B145F3062 /* Pods-RunnerTests.profile-prod.xcconfig */;
+			baseConfigurationReference = 7D6AEE752B06E891009A9944 /* Profile-prod.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1476,7 +1476,7 @@
 		};
 		7D5115772AFBBD1200B76BDE /* Debug-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17AF32501C4D30194B49AD81 /* Pods-RunnerTests.debug-dev.xcconfig */;
+			baseConfigurationReference = 7D6AEE742B06E891009A9944 /* Debug-dev.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1581,7 +1581,7 @@
 		};
 		7D51157A2AFBBD7300B76BDE /* Release-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95DDC27AC0C4B44E8567BA90 /* Pods-RunnerTests.release-dev.xcconfig */;
+			baseConfigurationReference = 7D6AEE712B06E891009A9944 /* Release-dev.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1682,7 +1682,7 @@
 		};
 		7D51157D2AFBBD7900B76BDE /* Profile-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E354337A74197747A5F4BCC9 /* Pods-RunnerTests.profile-dev.xcconfig */;
+			baseConfigurationReference = 7D6AEE732B06E891009A9944 /* Profile-dev.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

@@ -127,4 +127,4 @@ patrol:
   app_name: Locamusic
   flavor: dev
   ios:
-    bundle_id: dev.kingu.listenToMusicByLocation
+    bundle_id: dev.kingu.listenToMusicByLocation.dev
