@@ -71,6 +71,11 @@ dev_dependencies:
   very_good_analysis: ^5.1.0
 
 dependency_overrides:
+  patrol_finders:
+    git:
+      url: https://github.com/KoheiKanagu/patrol.git
+      ref: patrol_tester
+      path: packages/patrol_finders
   test_api: any
 
 flutter:

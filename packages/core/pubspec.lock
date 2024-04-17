@@ -1064,10 +1064,11 @@ packages:
   patrol_finders:
     dependency: "direct dev"
     description:
-      name: patrol_finders
-      sha256: ac33527cc1b63e3aa131dbd7107cfda8ee2df0fb4a4a423c067174a2e60db77b
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/patrol_finders"
+      ref: patrol_tester
+      resolved-ref: aacc33f640d24ed958336595cbaa00d5c81f2417
+      url: "https://github.com/KoheiKanagu/patrol.git"
+    source: git
     version: "2.0.2"
   petitparser:
     dependency: transitive
@@ -1478,10 +1479,10 @@ packages:
     dependency: "direct overridden"
     description:
       name: test_api
-      sha256: "9955ae474176f7ac8ee4e989dadfb411a58c30415bcfb648fa04b2b8a03afa7f"
+      sha256: "5c2f730018264d276c20e4f1503fd1308dfbbae39ec8ee63c5236311ac06954b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.0"
+    version: "0.6.1"
   test_core:
     dependency: transitive
     description:
