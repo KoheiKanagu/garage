@@ -129,7 +129,6 @@ scripts:
         --release \
         --flavor dev \
         --target-platform android-arm64 \
-        --target lib/main_dev.dart \
         --obfuscate \
         --split-debug-info build/app/outputs
 
@@ -148,7 +147,6 @@ scripts:
       flutter build appbundle \
         --release \
         --flavor prod \
-        --target lib/main_prod.dart \
         --obfuscate \
         --split-debug-info build/app/outputs
 
@@ -170,8 +168,7 @@ scripts:
     run: |
       flutter build ios \
         --config-only \
-        --flavor dev \
-        --target lib/main_dev.dart
+        --flavor dev
     exec:
       concurrency: 1
     packageFilters:
@@ -184,7 +181,6 @@ scripts:
         --release \
         --no-codesign \
         --flavor dev \
-        --target lib/main_dev.dart \
         --obfuscate \
         --split-debug-info build/app/outputs
     exec:
@@ -199,7 +195,6 @@ scripts:
         --release \
         --no-codesign \
         --flavor prod \
-        --target lib/main_prod.dart \
         --obfuscate \
         --split-debug-info build/app/outputs
     exec:
@@ -213,7 +208,6 @@ scripts:
       flutter build ipa \
         --release \
         --flavor dev \
-        --target lib/main_dev.dart \
         --export-options-plist configs/AdHocExportOptions.plist \
         --obfuscate \
         --split-debug-info build/app/outputs
@@ -228,7 +222,6 @@ scripts:
       flutter build ipa \
         --release \
         --flavor prod \
-        --target lib/main_prod.dart \
         --export-options-plist configs/AppStoreExportOptions.plist \
         --obfuscate \
         --split-debug-info build/app/outputs

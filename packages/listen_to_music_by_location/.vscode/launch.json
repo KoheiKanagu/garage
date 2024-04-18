@@ -9,7 +9,7 @@
         "--flavor",
         "dev",
       ],
-      "program": "lib/main_dev.dart"
+      "program": "lib/main.dart"
     },
     {
       "name": "attach",
@@ -19,7 +19,7 @@
         "--flavor",
         "dev",
       ],
-      "program": "lib/main_dev.dart"
+      "program": "lib/main.dart"
     },
     {
       "name": "prod",
@@ -29,7 +29,7 @@
         "--flavor",
         "prod",
       ],
-      "program": "lib/main_prod.dart",
+      "program": "lib/main.dart",
     },
     {
       "name": "Golden",
