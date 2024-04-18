@@ -28,6 +28,7 @@ void _exec(String package) {
     'firebase_options_prod.dart',
     'global_keys.dart',
     'main_core.dart',
+    'main.dart',
     'main_dev.dart',
     'main_prod.dart',
     'my_app.dart',
