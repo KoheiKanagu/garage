@@ -13,6 +13,10 @@
       "path": "packages/listen_to_music_by_location"
     },
     {
+      "name": "obento",
+      "path": "packages/obento"
+    },
+    {
       "name": "firebase",
       "path": "firebase"
     },
@@ -99,10 +103,12 @@
       "core",
       "firebase",
       "listen_to_music_by_location",
+      "obento",
     ],
     "conventionalCommits.scopes": [
       "core",
       "listen_to_music_by_location",
+      "obento",
     ],
     "cSpell.enabled": true,
     "cSpell.enableFiletypes": [
