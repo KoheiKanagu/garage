@@ -9,6 +9,11 @@
       "database": "loca-music",
       "rules": "firebase/firestore/firestore.loca-music.rules",
       "indexes": "firebase/firestore/firestore.loca-music.indexes.json"
+    },
+    {
+      "database": "obento",
+      "rules": "firebase/firestore/firestore.obento.rules",
+      "indexes": "firebase/firestore/firestore.obento.indexes.json"
     }
   ],
   "functions": [
