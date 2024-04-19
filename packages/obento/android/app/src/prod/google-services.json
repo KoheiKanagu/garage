@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "468490578657",
+    "project_id": "kingu-garage-prod",
+    "storage_bucket": "kingu-garage-prod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468490578657:android:68b3b6646201636882e5a0",
+        "android_client_info": {
+          "package_name": "dev.kingu.obento"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468490578657-169qrdg33eqdoj28g5hp28cchcjih65g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAET6J81BvpfF5_wyheWjRTHIGuhyBvghU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468490578657-169qrdg33eqdoj28g5hp28cchcjih65g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "468490578657-ais2kvhed62p8elq071voe972c5m7ft0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.kingu.obento"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

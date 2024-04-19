@@ -1,5 +1,5 @@
 #include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release-dev.xcconfig"
 #include "Generated.xcconfig"
 
-GOOGLE_SERVICE_REVERSED_CLIENT_ID = com.googleusercontent.apps.682848709439-9c11vs8n5k5rb1a82vh5bjrqso6rhi2j
-FIREBASE_ENCODED_APP_ID = app-1-682848709439-ios-3361e1e37cb0d30884c18a
+GOOGLE_SERVICE_REVERSED_CLIENT_ID = com.googleusercontent.apps.682848709439-nlmh96cs3o3ir5pf8uugon582hm8p7eu
+FIREBASE_ENCODED_APP_ID = app-1-682848709439-ios-0385652c1ce6392c84c18a

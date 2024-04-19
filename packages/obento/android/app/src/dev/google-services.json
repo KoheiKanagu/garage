@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "682848709439",
+    "project_id": "kingu-garage-dev",
+    "storage_bucket": "kingu-garage-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682848709439:android:e09c7918d934bb9784c18a",
+        "android_client_info": {
+          "package_name": "dev.kingu.obento.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "682848709439-03rncr19725do5kscrnpqq0ge35uli0l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0Gp6bbjWi_Icr6g6OCtAPjhuML5cUeoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "682848709439-03rncr19725do5kscrnpqq0ge35uli0l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "682848709439-9c11vs8n5k5rb1a82vh5bjrqso6rhi2j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.kingu.listenToMusicByLocation.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
