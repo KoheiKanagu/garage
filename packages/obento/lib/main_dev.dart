@@ -6,8 +6,7 @@ import 'package:obento/my_app.dart';
 
 Future<void> main() async {
   kTenantId = 'obento-44oe4';
-  // TODO: Replace with your own app store ID
-  kAppStoreId = 'TODO';
+  kAppStoreId = '6499041461';
   kBannerAdUnitId = kBannerAdUnitIdTest;
 
   final container = await initialize(

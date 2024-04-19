@@ -6,12 +6,8 @@ import 'package:obento/my_app.dart';
 
 Future<void> main() async {
   kTenantId = 'obento-xfha1';
-
-  // TODO: Replace with your own app store ID
-  kAppStoreId = 'TODO';
-
-  // TODO: Replace with your own ad unit ID
-  kBannerAdUnitId = 'TODO';
+  kAppStoreId = '6499041461';
+  kBannerAdUnitId = 'ca-app-pub-3095994149570460/6342314310';
 
   final container = await initialize(
     firebaseOptions: DefaultFirebaseOptions.currentPlatform,
