@@ -1,0 +1,53 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "dev",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--flavor",
+        "dev",
+      ],
+      "program": "lib/main.dart"
+    },
+    {
+      "name": "prod",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--flavor",
+        "prod",
+      ],
+      "program": "lib/main.dart",
+    },
+    {
+      "name": "Golden",
+      "request": "launch",
+      "type": "dart",
+      "codeLens": {
+        "for": [
+          "run-test",
+          "run-test-file"
+        ]
+      },
+      "args": [
+        "--update-goldens",
+        "--tags",
+        "golden",
+        "--flavor",
+        "dev",
+      ]
+    },
+    {
+      "name": "Screenshot",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--flavor",
+        "dev",
+      ],
+      "program": "test/main_screenshot.dart"
+    },
+  ]
+}
