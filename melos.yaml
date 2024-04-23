@@ -149,9 +149,8 @@ scripts:
 
       MELOS_ROOT_PATH/tool/crashlytics_symbols_upload.sh prod
 
-      echo "TODO: upload app bundle to Google Play Console."
-      # fastlane supply \
-      #   --aab MELOS_PACKAGE_PATH/build/app/outputs/bundle/release/app-release.aab
+      fastlane supply \
+        --aab MELOS_PACKAGE_PATH/build/app/outputs/bundle/release/app-release.aab
     exec:
       concurrency: 1
     packageFilters:
