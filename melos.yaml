@@ -132,10 +132,7 @@ scripts:
         --obfuscate \
         --split-debug-info build/app/outputs
 
-      appId=$(jq -r '.client[0].client_info.mobilesdk_app_id' packages/$MELOS_PACKAGES/android/app/src/dev/google-services.json)
-      firebase crashlytics:symbols:upload \
-        --app "$appId" \
-        build/app/outputs/app.android-*.symbols
+      MELOS_ROOT_PATH/tool/crashlytics_symbols_upload.sh dev
     exec:
       concurrency: 1
     packageFilters:
@@ -150,10 +147,7 @@ scripts:
         --obfuscate \
         --split-debug-info build/app/outputs
 
-      appId=$(jq -r '.client[0].client_info.mobilesdk_app_id' packages/$MELOS_PACKAGES/android/app/src/prod/google-services.json)
-      firebase crashlytics:symbols:upload \
-        --app "$appId" \
-        build/app/outputs/app.android-*.symbols
+      MELOS_ROOT_PATH/tool/crashlytics_symbols_upload.sh prod
 
       echo "TODO: upload app bundle to Google Play Console."
       # fastlane supply \
