@@ -2,6 +2,7 @@ import 'package:grinder/grinder.dart';
 
 export 'bump.dart';
 export 'bump_all_deps.dart';
+export 'crashlytics_symbols_upload.dart';
 export 'create_new_release.dart';
 export 'dart_format_all.dart';
 export 'deliver_store_metadata.dart';
@@ -13,6 +14,7 @@ export 'update_core_export.dart';
 export 'update_coverage_test.dart';
 export 'update_si.dart';
 export 'upload_app_privacy_details.dart';
+export 'upload_to_play_store.dart';
 export 'wait_merge_pull_request.dart';
 
 void main(List<String> args) {
