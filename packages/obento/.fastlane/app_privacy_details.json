@@ -1,0 +1,100 @@
+[
+  {
+    "category": "ADVERTISING_DATA",
+    "purposes": [
+      "DEVELOPERS_ADVERTISING",
+      "THIRD_PARTY_ADVERTISING"
+    ],
+    "data_protections": [
+      "DATA_LINKED_TO_YOU",
+      "DATA_USED_TO_TRACK_YOU"
+    ]
+  },
+  {
+    "category": "COARSE_LOCATION",
+    "purposes": [
+      "ANALYTICS"
+    ],
+    "data_protections": [
+      "DATA_NOT_LINKED_TO_YOU"
+    ]
+  },
+  {
+    "category": "CRASH_DATA",
+    "purposes": [
+      "ANALYTICS",
+      "APP_FUNCTIONALITY"
+    ],
+    "data_protections": [
+      "DATA_NOT_LINKED_TO_YOU"
+    ]
+  },
+  {
+    "category": "DEVICE_ID",
+    "purposes": [
+      "APP_FUNCTIONALITY",
+      "THIRD_PARTY_ADVERTISING"
+    ],
+    "data_protections": [
+      "DATA_LINKED_TO_YOU",
+      "DATA_USED_TO_TRACK_YOU"
+    ]
+  },
+  {
+    "category": "EMAIL_ADDRESS",
+    "purposes": [
+      "APP_FUNCTIONALITY"
+    ],
+    "data_protections": [
+      "DATA_NOT_LINKED_TO_YOU"
+    ]
+  },
+  {
+    "category": "OTHER_DIAGNOSTIC_DATA",
+    "purposes": [
+      "ANALYTICS",
+      "APP_FUNCTIONALITY"
+    ],
+    "data_protections": [
+      "DATA_NOT_LINKED_TO_YOU"
+    ]
+  },
+  {
+    "category": "OTHER_USAGE_DATA",
+    "purposes": [
+      "APP_FUNCTIONALITY"
+    ],
+    "data_protections": [
+      "DATA_NOT_LINKED_TO_YOU"
+    ]
+  },
+  {
+    "category": "PERFORMANCE_DATA",
+    "purposes": [
+      "APP_FUNCTIONALITY"
+    ],
+    "data_protections": [
+      "DATA_NOT_LINKED_TO_YOU"
+    ]
+  },
+  {
+    "category": "PRODUCT_INTERACTION",
+    "purposes": [
+      "ANALYTICS",
+      "APP_FUNCTIONALITY"
+    ],
+    "data_protections": [
+      "DATA_NOT_LINKED_TO_YOU"
+    ]
+  },
+  {
+    "category": "USER_ID",
+    "purposes": [
+      "ANALYTICS",
+      "APP_FUNCTIONALITY"
+    ],
+    "data_protections": [
+      "DATA_NOT_LINKED_TO_YOU"
+    ]
+  }
+]

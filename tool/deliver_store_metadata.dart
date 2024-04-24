@@ -11,7 +11,7 @@ import 'package:yaml/yaml.dart';
 import 'utils.dart';
 
 @Task(
-  'Create a new release',
+  'Deliver store metadata',
 )
 void deliverStoreMetadata() {
   final package = argumentPackage();
