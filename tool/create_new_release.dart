@@ -66,7 +66,7 @@ void createNewRelease() {
       releaseNotes.writeln('${store.name}:');
       for (final locale in availableLocales[store]!) {
         releaseNotes.writeln('  $locale:');
-        if (locale == 'ja') {
+        if (locale == 'ja' || locale == 'ja-JP') {
           releaseNotes
             ..writeln('    - 軽微な不具合を修正しました。')
             ..writeln('    - より詳しい変更点は $createdReleaseUrl をご覧ください。');

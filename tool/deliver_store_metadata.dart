@@ -58,7 +58,8 @@ void deliverStoreMetadata() {
       final notesPath = switch (store) {
         StoreName.AppStore =>
           'packages/$package/.fastlane/metadata/$locale/release_notes.txt',
-        StoreName.GooglePlay => throw UnimplementedError(),
+        StoreName.GooglePlay =>
+          'packages/$package/.fastlane/metadata/$locale/changelogs/default.txt',
       };
 
       File(notesPath).writeAsStringSync(
@@ -97,7 +98,30 @@ void deliverStoreMetadata() {
           workingDirectory: 'packages/$package',
         );
       case StoreName.GooglePlay:
-      // TODO: Handle this case.
+        run(
+          'fastlane',
+          arguments: [
+            'supply',
+            '--skip_upload_apk',
+            'true',
+            '--skip_upload_aab',
+            'true',
+            '--skip_upload_images',
+            'true',
+            '--skip_upload_screenshots',
+            'true',
+            '--metadata_path',
+            '.fastlane/metadata/android',
+            '--package_name',
+            getAndroidPackageName(package),
+            '--track',
+            'alpha',
+            '--version_code',
+            // このバージョンのリリースが存在している必要がある
+            version.build.toString(),
+          ],
+          workingDirectory: 'packages/$package',
+        );
     }
   }
 }

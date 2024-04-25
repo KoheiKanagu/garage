@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
-import 'package:intl/locale.dart' as intl;
 import 'package:yaml_edit/yaml_edit.dart';
+
+import 'flutterfire_configure.dart';
 
 Future<List<Directory>> runMelosList() async {
   final result = await runAsync(
@@ -114,35 +114,26 @@ void pullAndCheckoutMain() {
   );
 }
 
-/// [package] がfastlane deliverで対応しているLocaleを取得する
+/// fastlaneのmetadataにあるLocaleを取得する
 Map<StoreName, List<String>> availableLocalizedLocales(String package) {
   final metadataDir = Directory('packages/$package/.fastlane/metadata');
   final metadataAndroidDir = Directory('${metadataDir.path}/android');
 
   final result = <StoreName, List<String>>{};
 
-  if (metadataAndroidDir.existsSync()) {
-    // TODO: Android
+  if (Directory('${metadataDir.path}/default').existsSync()) {
+    result[StoreName.AppStore] = [
+      'ja',
+      'en-US',
+    ];
   }
 
-  final locales = metadataDir
-      .listSync()
-      .whereType<Directory>()
-      .map((e) {
-        final seg = e.uri.pathSegments;
-        // ディレクトリの場合は.lastだと空白になる
-        return seg[seg.length - 2];
-      })
-      // 共有するdefaultは除外
-      .whereNot((e) => e == 'default')
-      .where(
-        // 何らかのLocaleのディレクトリであるものだけを抽出
-        (e) => intl.Locale.tryParse(e) != null,
-      )
-      .toList()
-    ..sort();
-
-  result[StoreName.AppStore] = locales;
+  if (metadataAndroidDir.existsSync()) {
+    result[StoreName.GooglePlay] = [
+      'ja-JP',
+      'en-US',
+    ];
+  }
 
   return result;
 }
@@ -155,12 +146,17 @@ enum StoreName {
   ;
 }
 
-String getIosBundleId(String package) => RegExp("iosBundleId: '(.*)'")
-    .firstMatch(
-      File('packages/$package/lib/constants/firebase_options_prod.dart')
-          .readAsStringSync(),
-    )!
-    .group(1)!;
+String getIosBundleId(String package) => packages
+    .firstWhere(
+      (e) => e.directory == package,
+    )
+    .bundleId;
+
+String getAndroidPackageName(String package) => packages
+    .firstWhere(
+      (e) => e.directory == package,
+    )
+    .packageName;
 
 Version splitVersion(String versionString) {
   final regex = RegExp(r'(\d+)\.(\d+)\.(\d+)\+(\d+)$');

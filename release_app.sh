@@ -41,6 +41,7 @@ while true; do
 done
 
 # Release Notesを含めたメタデータを各ストアに配信します
+# WIP アップロードの後、最後に実行する必要がある
 grind deliver-store-metadata --package="$TARGET_PACKAGE"
 
 # TODO: 複数アプリの場合はどうする？

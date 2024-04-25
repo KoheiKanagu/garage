@@ -2,7 +2,6 @@ import 'package:grinder/grinder.dart';
 
 export 'bump.dart';
 export 'bump_all_deps.dart';
-export 'crashlytics_symbols_upload.dart';
 export 'create_new_release.dart';
 export 'dart_format_all.dart';
 export 'deliver_store_metadata.dart';
