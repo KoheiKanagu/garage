@@ -30,6 +30,15 @@ Future<void> bumpAllDeps() async {
   run(
     'melos',
     arguments: [
+      'exec',
+      '--dir-exists=ios',
+      '(pod update --project-directory=ios)',
+    ],
+  );
+
+  run(
+    'melos',
+    arguments: [
       'run',
       'pod:install',
     ],
