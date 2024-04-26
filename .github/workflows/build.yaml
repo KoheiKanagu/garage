@@ -60,6 +60,12 @@ jobs:
       - name: Setup Flutter
         uses: KoheiKanagu/composite-actions/setup-flutter@main
 
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.2.1
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Gradle Cache
         uses: actions/cache@v3
         with:
