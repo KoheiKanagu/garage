@@ -114,8 +114,7 @@ scripts:
 
   pod:update:
     run: |
-      cd ios
-      pod update
+      pod update --project-directory=ios
     exec:
       concurrency: 1
     packageFilters:
