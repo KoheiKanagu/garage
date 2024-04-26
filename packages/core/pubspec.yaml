@@ -14,7 +14,7 @@ dependencies:
   cloud_firestore: ^4.16.1
   cloud_functions: ^4.7.1
   collection: ^1.18.0
-  cupertino_icons: ^1.0.6
+  cupertino_icons: ^1.0.8
   device_info_plus: ^10.1.0
   feedback: ^3.0.1
   firebase_analytics: ^10.10.1
