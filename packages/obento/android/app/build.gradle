@@ -29,8 +29,13 @@ if (flutterVersionName == null) {
 }
 
 android {
-    apply from: "signing-configs-debug.gradle", to: android
-    apply from: "signing-configs-release.gradle", to: android
+    if (file("signing-configs-debug.gradle").exists()) {
+        apply from: "signing-configs-debug.gradle", to: android
+    }
+
+    if (file("signing-configs-release.gradle").exists()) {
+        apply from: "signing-configs-release.gradle", to: android
+    }
 
     namespace = "dev.kingu.obento"
     compileSdk = flutter.compileSdkVersion

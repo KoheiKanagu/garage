@@ -130,9 +130,8 @@ scripts:
         --flavor dev \
         --target-platform android-arm64 \
         --obfuscate \
-        --split-debug-info build/app/outputs
-
-      MELOS_ROOT_PATH/tool/crashlytics_symbols_upload.sh dev
+        --split-debug-info build/app/outputs &&
+        MELOS_ROOT_PATH/tool/crashlytics_symbols_upload.sh dev
     exec:
       concurrency: 1
     packageFilters:
@@ -145,10 +144,9 @@ scripts:
         --release \
         --flavor prod \
         --obfuscate \
-        --split-debug-info build/app/outputs
-
-      MELOS_ROOT_PATH/tool/crashlytics_symbols_upload.sh prod
-      MELOS_ROOT_PATH/tool/upload-to-play-store.sh MELOS_PACKAGE_NAME
+        --split-debug-info build/app/outputs &&
+        MELOS_ROOT_PATH/tool/crashlytics_symbols_upload.sh prod &&
+        MELOS_ROOT_PATH/tool/upload-to-play-store.sh MELOS_PACKAGE_NAME
     exec:
       concurrency: 1
     packageFilters:
