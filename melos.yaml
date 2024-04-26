@@ -19,13 +19,13 @@ scripts:
     description: |
       Run code generation, format, and static analysis.
       If any diff are found, it returns an error.
-    steps:
-      - melos run generate
-      - melos run update-si
-      - melos run dart:fix:format
-      - git diff --exit-code
-      - melos run dart:analyze
-      - melos run dart:custom_lint
+    run: |
+      melos run generate &&
+        melos run update-si &&
+        melos run dart:fix:format &&
+        git diff --exit-code &&
+        melos run dart:analyze &&
+        melos run dart:custom_lint
 
   dart:fix:format:
     description: |
@@ -242,16 +242,15 @@ scripts:
   generate:
     description: |
       Generate files.
-    steps:
-      - melos run build_runner:build --no-select
-      - melos run pigeon
-      - melos run slang
-      - grind update-coverage-test
-      - grind update-core-export
-      - grind dump-firestore-indexes
+    run: |
+      melos run build_runner:build --no-select &&
+        melos run pigeon --no-select &&
+        grind update-coverage-test &&
+        grind update-core-export &&
+        grind dump-firestore-indexes
 
   update-si:
     description: |
       Update si.
-    steps:
-      - grind update-si
+    run: |
+      grind update-si
