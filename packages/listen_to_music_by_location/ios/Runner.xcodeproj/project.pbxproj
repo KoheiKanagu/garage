@@ -327,9 +327,9 @@
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				55C2EAADDE18126C11D1DE1E /* [CP] Embed Pods Frameworks */,
-				9AD2F5C9DDD2C04EF6A8B890 /* FlutterFire: "flutterfire bundle-service-file" */,
-				F5F8A1438CA1426384C07581 /* FlutterFire: "flutterfire upload-crashlytics-symbols" */,
 				2E8B61BF69BC41B9BAE9E988 /* [CP] Copy Pods Resources */,
+				797C36BEF9A5B4C1B8C10F6D /* FlutterFire: "flutterfire bundle-service-file" */,
+				B67BD9278F66B342F09A4417 /* FlutterFire: "flutterfire upload-crashlytics-symbols" */,
 			);
 			buildRules = (
 			);
@@ -490,6 +490,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		797C36BEF9A5B4C1B8C10F6D /* FlutterFire: "flutterfire bundle-service-file" */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "FlutterFire: \"flutterfire bundle-service-file\"";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\n#!/bin/bash\nPATH=${PATH}:$FLUTTER_ROOT/bin:$HOME/.pub-cache/bin\nflutterfire bundle-service-file --plist-destination=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app --build-configuration=${CONFIGURATION} --platform=ios --apple-project-path=${SRCROOT}\n";
+		};
 		968576634F4F04F37080E646 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -527,25 +545,7 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n";
 		};
-		9AD2F5C9DDD2C04EF6A8B890 /* FlutterFire: "flutterfire bundle-service-file" */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "FlutterFire: \"flutterfire bundle-service-file\"";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\n#!/bin/bash\nPATH=${PATH}:$FLUTTER_ROOT/bin:$HOME/.pub-cache/bin\nflutterfire bundle-service-file --plist-destination=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app --build-configuration=${CONFIGURATION} --platform=ios --apple-project-path=${SRCROOT}\n";
-		};
-		F5F8A1438CA1426384C07581 /* FlutterFire: "flutterfire upload-crashlytics-symbols" */ = {
+		B67BD9278F66B342F09A4417 /* FlutterFire: "flutterfire upload-crashlytics-symbols" */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (

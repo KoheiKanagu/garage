@@ -19,13 +19,13 @@ scripts:
     description: |
       Run code generation, format, and static analysis.
       If any diff are found, it returns an error.
-    steps:
-      - melos run generate
-      - melos run update-si
-      - melos run dart:fix:format
-      - git diff --exit-code
-      - melos run dart:analyze
-      - melos run dart:custom_lint
+    run: |
+      melos run generate &&
+        melos run update-si &&
+        melos run dart:fix:format &&
+        git diff --exit-code &&
+        melos run dart:analyze &&
+        melos run dart:custom_lint
 
   dart:fix:format:
     description: |
@@ -130,12 +130,8 @@ scripts:
         --flavor dev \
         --target-platform android-arm64 \
         --obfuscate \
-        --split-debug-info build/app/outputs
-
-      appId=$(jq -r '.flutter.platforms.android.buildConfigurations."src/dev".appId' <firebase.json)
-      firebase crashlytics:symbols:upload \
-        --app "$appId" \
-        build/app/outputs/app.android-*.symbols
+        --split-debug-info build/app/outputs &&
+        MELOS_ROOT_PATH/tool/crashlytics_symbols_upload.sh dev
     exec:
       concurrency: 1
     packageFilters:
@@ -148,16 +144,9 @@ scripts:
         --release \
         --flavor prod \
         --obfuscate \
-        --split-debug-info build/app/outputs
-
-      appId=$(jq -r '.flutter.platforms.android.buildConfigurations."src/prod".appId' <firebase.json)
-      firebase crashlytics:symbols:upload \
-        --app "$appId" \
-        build/app/outputs/app.android-*.symbols
-
-      echo "TODO: upload app bundle to Google Play Console."
-      # fastlane supply \
-      #   --aab MELOS_PACKAGE_PATH/build/app/outputs/bundle/release/app-release.aab
+        --split-debug-info build/app/outputs &&
+        MELOS_ROOT_PATH/tool/crashlytics_symbols_upload.sh prod &&
+        MELOS_ROOT_PATH/tool/upload-to-play-store.sh MELOS_PACKAGE_NAME
     exec:
       concurrency: 1
     packageFilters:
@@ -253,16 +242,15 @@ scripts:
   generate:
     description: |
       Generate files.
-    steps:
-      - melos run build_runner:build --no-select
-      - melos run pigeon
-      - melos run slang
-      - grind update-coverage-test
-      - grind update-core-export
-      - grind dump-firestore-indexes
+    run: |
+      melos run build_runner:build --no-select &&
+        melos run pigeon --no-select &&
+        grind update-coverage-test &&
+        grind update-core-export &&
+        grind dump-firestore-indexes
 
   update-si:
     description: |
       Update si.
-    steps:
-      - grind update-si
+    run: |
+      grind update-si

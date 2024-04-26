@@ -44,53 +44,52 @@ jobs:
       ### Build ###
       - run: melos run build:ios:no-codesign:dev --no-select
 
-  # TODO
-  # build_android:
-  #   timeout-minutes: 30
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       flavor: # FIXME
-  #         - dev
-  #         - prod
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     id-token: write
-  #     contents: read
-  #   steps:
-  #     ### Set up ###
-  #     - uses: actions/checkout@v4
+  build_android:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v2.0.0
 
-  #     - name: Setup Flutter
-  #       uses: KoheiKanagu/composite-actions/setup-flutter@main
+      ### Set up ###
+      - uses: actions/checkout@v4
 
-  #     - name: Gradle Cache
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: |
-  #           ~/.gradle/caches
-  #           ~/.gradle/wrapper
-  #         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-gradle-
+      - name: Setup Flutter
+        uses: KoheiKanagu/composite-actions/setup-flutter@main
 
-  #     - uses: KoheiKanagu/composite-actions/setup-android-signing@main
-  #       with:
-  #         package: listen_to_music_by_location
-  #         signing_configs_base64: ${{ secrets.SIGNING_CONFIGS_LISTEN_TO_MUSIC_BY_LOCATION_BASE64 }}
-  #         upload_keystore_base64: ${{ secrets.UPLOAD_KEYSTORE_LISTEN_TO_MUSIC_BY_LOCATION_BASE64 }}
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.2.1
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-  #     # for `firebase crashlytics:symbols:upload`
-  #     - name: Setup Firebase CLI Prod
-  #       uses: KoheiKanagu/composite-actions/setup-firebase-cli@main
-  #       if: matrix.flavor == 'prod'
-  #       with:
-  #         workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_PROD }}
-  #         service_account: ${{ vars.SERVICE_ACCOUNT_PROD }}
+      - name: Gradle Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
-  #     ### Build ###
-  #     - if: matrix.flavor == 'dev'
-  #       run: melos run build:apk:dev --no-select
+      ### Android Signing ###
+      - uses: KoheiKanagu/composite-actions/setup-android-signing@main
+        with:
+          package: obento
+          signing_configs_base64: ${{ secrets.SIGNING_CONFIGS_OBENTO_BASE64 }}
+          signing_configs_name: signing-configs-release.gradle
+          upload_keystore_base64: ${{ secrets.UPLOAD_KEYSTORE_OBENTO_BASE64 }}
 
-  #     - if: matrix.flavor == 'prod'
-  #       run: melos run build:appbundle:prod --no-select
+      # for `firebase crashlytics:symbols:upload`
+      - name: Setup Firebase CLI Prod
+        uses: KoheiKanagu/composite-actions/setup-firebase-cli@main
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER_DEV }}
+          service_account: ${{ vars.SERVICE_ACCOUNT_DEV }}
+
+      ### Build ###
+      - run: melos run build:apk:dev --no-select

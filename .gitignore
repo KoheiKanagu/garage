@@ -39,8 +39,14 @@ pubspec_overrides.yaml
 
 **/test/**/failures/*.png
 
-release.md
 firebase/secrets/kingu-garage-prod-firebase-adminsdk-lbl8o-42b17939b4.json
 firebase/secrets/kingu-garage-dev-firebase-adminsdk-ajer4-9d175efbae.json
 firebase/functions/firestore-coverage.html
 .firebase/*.cache
+
+packages/*/android/app/signing-configs-debug.gradle
+packages/*/android/app/signing-configs-release.gradle
+packages/*/.crashlytics/dump_syms.bin
+packages/*/.fastlane/metadata/android/*/changelogs/default.txt
+
+releaseNotes

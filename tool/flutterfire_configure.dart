@@ -6,11 +6,11 @@ final packages = [
     bundleId: 'dev.kingu.listenToMusicByLocation',
     packageName: 'dev.kingu.listen_to_music_by_location',
   ),
-  // (
-  //   directory: 'TODO',
-  //   bundleId: 'dev.kingu.TODO',
-  //   packageName: 'dev.kingu.TODO',
-  // ),
+  (
+    directory: 'obento',
+    bundleId: 'dev.kingu.obento',
+    packageName: 'dev.kingu.obento',
+  ),
 ];
 
 const String email = 'kohei.kanagu@gmail.com';
