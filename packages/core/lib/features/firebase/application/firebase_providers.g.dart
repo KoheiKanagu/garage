@@ -25,7 +25,7 @@ final firebaseCrashlyticsProvider =
 );
 
 typedef FirebaseCrashlyticsRef = AutoDisposeProviderRef<FirebaseCrashlytics>;
-String _$firebaseFirestoreHash() => r'eea12ae8f9c76a486d6891c7ce8e7a85ec7e12d0';
+String _$firebaseFirestoreHash() => r'481032c6d10429202d8a31958206e336fafe0a76';
 
 /// See also [firebaseFirestore].
 @ProviderFor(firebaseFirestore)

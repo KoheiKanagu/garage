@@ -586,7 +586,7 @@
 		};
 		331C8088294A63A400263BE5 /* Debug-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D67D3072BD285BA00C2FC35 /* Debug-dev.xcconfig */;
+			baseConfigurationReference = 02929940E0CDD0D08D60E516 /* Pods-RunnerTests.debug-dev.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -604,7 +604,7 @@
 		};
 		331C8089294A63A400263BE5 /* Release-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D67D3082BD285BA00C2FC35 /* Release-dev.xcconfig */;
+			baseConfigurationReference = 58F0C5FC35AA417ECADFA11D /* Pods-RunnerTests.release-dev.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -620,7 +620,7 @@
 		};
 		331C808A294A63A400263BE5 /* Profile-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D67D3062BD285BA00C2FC35 /* Profile-dev.xcconfig */;
+			baseConfigurationReference = 2667BA4E31704AC573E66807 /* Pods-RunnerTests.profile-dev.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -726,7 +726,7 @@
 		};
 		7D67D2FE2BD27D1A00C2FC35 /* Debug-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D67D30A2BD285BA00C2FC35 /* Debug-prod.xcconfig */;
+			baseConfigurationReference = 004090657B8C92A6C46E59E2 /* Pods-RunnerTests.debug-prod.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -830,7 +830,7 @@
 		};
 		7D67D3012BD27D2D00C2FC35 /* Release-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D67D30B2BD285BA00C2FC35 /* Release-prod.xcconfig */;
+			baseConfigurationReference = CF4FDAD4FE9FEA61F8FDBF67 /* Pods-RunnerTests.release-prod.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -930,7 +930,7 @@
 		};
 		7D67D3042BD27D3400C2FC35 /* Profile-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7D67D3092BD285BA00C2FC35 /* Profile-prod.xcconfig */;
+			baseConfigurationReference = 1DC332B9DBE5E1328C837A00 /* Pods-RunnerTests.profile-prod.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

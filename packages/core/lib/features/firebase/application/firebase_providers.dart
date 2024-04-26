@@ -25,7 +25,7 @@ FirebaseCrashlytics firebaseCrashlytics(FirebaseCrashlyticsRef _) =>
 FirebaseFirestore firebaseFirestore(FirebaseFirestoreRef _) {
   final instance = FirebaseFirestore.instanceFor(
     app: Firebase.app(),
-    databaseURL: kDatabaseId,
+    databaseId: kDatabaseId,
   );
 
   if (kUseFirebaseEmulator) {

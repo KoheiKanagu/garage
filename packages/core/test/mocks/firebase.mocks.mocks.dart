@@ -474,13 +474,18 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
       ) as _i2.Query<T>);
 
   @override
-  _i6.Stream<_i2.QuerySnapshot<T>> snapshots(
-          {bool? includeMetadataChanges = false}) =>
+  _i6.Stream<_i2.QuerySnapshot<T>> snapshots({
+    bool? includeMetadataChanges = false,
+    _i7.ListenSource? source = _i7.ListenSource.defaultSource,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #snapshots,
           [],
-          {#includeMetadataChanges: includeMetadataChanges},
+          {
+            #includeMetadataChanges: includeMetadataChanges,
+            #source: source,
+          },
         ),
         returnValue: _i6.Stream<_i2.QuerySnapshot<T>>.empty(),
         returnValueForMissingStub: _i6.Stream<_i2.QuerySnapshot<T>>.empty(),
@@ -981,13 +986,18 @@ class MockDocumentReference<T extends Object?> extends _i1.Mock
       ) as _i6.Future<_i2.DocumentSnapshot<T>>);
 
   @override
-  _i6.Stream<_i2.DocumentSnapshot<T>> snapshots(
-          {bool? includeMetadataChanges = false}) =>
+  _i6.Stream<_i2.DocumentSnapshot<T>> snapshots({
+    bool? includeMetadataChanges = false,
+    _i7.ListenSource? source = _i7.ListenSource.defaultSource,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #snapshots,
           [],
-          {#includeMetadataChanges: includeMetadataChanges},
+          {
+            #includeMetadataChanges: includeMetadataChanges,
+            #source: source,
+          },
         ),
         returnValue: _i6.Stream<_i2.DocumentSnapshot<T>>.empty(),
         returnValueForMissingStub: _i6.Stream<_i2.DocumentSnapshot<T>>.empty(),
