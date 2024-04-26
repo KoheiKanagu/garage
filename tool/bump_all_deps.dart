@@ -32,7 +32,8 @@ Future<void> bumpAllDeps() async {
     arguments: [
       'exec',
       '--dir-exists=ios',
-      '(pod update --project-directory=ios)',
+      '--',
+      'pod update --project-directory=ios',
     ],
   );
 
