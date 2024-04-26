@@ -88,6 +88,12 @@
       "matchPackagePatterns": ["@tsconfig/*"],
       "matchFileNames": ["firebase/**"],
       "groupName": "tsconfig"
+    },
+    {
+      "matchPackageNames": ["node"],
+      "matchDepTypes": ["engines"],
+      "matchFileNames": ["firebase/functions/package.json"],
+      "enabled": false
     }
   ]
 }
