@@ -1,8 +1,6 @@
-// ignore_for_file: avoid_dynamic_calls
-
 import 'package:grinder/grinder.dart';
 
-import 'grind.dart';
+import 'flutterfire_configure.dart';
 import 'utils.dart';
 
 @Task(

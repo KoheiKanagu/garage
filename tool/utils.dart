@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
-import 'package:yaml_edit/yaml_edit.dart';
 
 import 'flutterfire_configure.dart';
 
@@ -23,6 +23,26 @@ Future<List<Directory>> runMelosList() async {
 
 bool argumentDryRun() {
   return context.invocation.arguments.getFlag('dry-run');
+}
+
+List<String> argumentPackages() {
+  final args = context.invocation.arguments;
+
+  final argsPackages = args.getOption('packages');
+
+  if (argsPackages == null) {
+    log('example:');
+    log('```');
+    log('--packages=${packages.map((e) => e.directory).join(",")}');
+    log('or');
+    log('--packages=all');
+    log('```');
+    fail('--packages is required');
+  }
+
+  return argsPackages == 'all'
+      ? packages.map((e) => e.directory).toList()
+      : argsPackages.split(',');
 }
 
 String argumentPackage() {
@@ -55,18 +75,7 @@ String argumentPackage() {
   return package;
 }
 
-/// pubspec.yamlからパッケージのバージョンを取得する
-///
-/// like "1.0.0+10"
-String getCurrentVersion(String package) {
-  final pubspecFile = File('packages/$package/pubspec.yaml');
-  final pubspec = YamlEditor(
-    pubspecFile.readAsStringSync(),
-  );
-  return pubspec.parseAt(['version']).value as String;
-}
-
-String fetchLatestTagName(String package) {
+String? fetchLatestTagName(String package) {
   final result = run(
     'gh',
     arguments: [
@@ -76,18 +85,14 @@ String fetchLatestTagName(String package) {
       'tagName',
     ],
   );
-  final tagNames = (json.decode(result) as List)
-      .map((e) => e as Map<String, dynamic>)
-      .map((e) => e['tagName'] as String)
-      .toList();
-  final tagName = tagNames.firstWhere(
-    (element) => element.startsWith(package),
-  );
 
-  return tagName;
+  return (json.decode(result) as List)
+      .cast<Map<String, dynamic>>()
+      .map((e) => e['tagName'] as String)
+      .firstWhereOrNull((e) => e.startsWith(package));
 }
 
-void pullAndCheckoutMain() {
+void gitPullAndCheckoutMain() {
   run(
     'git',
     arguments: [
