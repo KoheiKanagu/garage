@@ -11,6 +11,7 @@ class OnboardingPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // TODO: オンボーディングの画像を変更する
     return OnboardingPageBase(
       children: switch (LocaleSettings.currentLocale) {
         AppLocale.ja => [
