@@ -53,11 +53,9 @@ class ConfigureListTile extends StatelessWidget {
                       ? Theme.of(context).colorScheme.error
                       : leadingIconColor,
                 ),
-          trailing: trailingIcon == null
-              ? Icon(
-                  Icons.adaptive.arrow_forward_rounded,
-                )
-              : Icon(trailingIcon),
+          trailing: trailingIcon == null ? null : Icon(trailingIcon),
+          // two lines
+          minTileHeight: 72,
         ),
       InheritedThemeType.cupertino => CupertinoListTile.notched(
           title: Text(

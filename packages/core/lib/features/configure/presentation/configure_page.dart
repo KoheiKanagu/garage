@@ -169,10 +169,8 @@ class ConfigurePage extends HookConsumerWidget {
           body: ListView(
             children: [
               ...children1,
-              const Divider(),
               ...children2,
               if (kDebugMode && enableDebugItems) ...[
-                const Divider(),
                 ...debugTiles,
               ],
             ],
