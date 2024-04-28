@@ -14,31 +14,15 @@ final _routes = [
   ...home_route.$appRoutes,
 ];
 
+final myThemeBuilder = MyThemeBuilder(
+  baseColor: const Color(0xFFFF5722),
+  baseDarkColor: const Color(0xFFFF5722),
+);
+
 class MyApp extends HookConsumerWidget {
   const MyApp({
     super.key,
   });
-
-  static const cupertinoTheme = CupertinoThemeData(
-    primaryColor: CupertinoDynamicColor.withBrightness(
-      color: Color(0xFFFF5722),
-      darkColor: Color(0xFFFF9800),
-    ),
-  );
-
-  static final materialTheme = ThemeData.from(
-    colorScheme: const ColorScheme.light(
-      primary: Color(0xFFFF5722),
-    ),
-    useMaterial3: true,
-  );
-
-  static final materialDarkTheme = ThemeData.from(
-    colorScheme: const ColorScheme.dark(
-      primary: Color(0xFFFF9800),
-    ),
-    useMaterial3: true,
-  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -50,7 +34,10 @@ class MyApp extends HookConsumerWidget {
     );
 
     return MyBetterFeedback(
-      cupertinoThemeData: cupertinoTheme,
+      cupertinoThemeData: myThemeBuilder.cupertinoThemeData,
+      materialThemeData: myThemeBuilder.materialThemeData(
+        Theme.of(context).brightness,
+      ),
       child: Platform.isIOS
           ? CupertinoApp.router(
               debugShowCheckedModeBanner: false,
@@ -68,7 +55,7 @@ class MyApp extends HookConsumerWidget {
                   .build(),
               supportedLocales: AppLocaleUtils.supportedLocales,
               localizationsDelegates: localizationsDelegates,
-              theme: cupertinoTheme,
+              theme: myThemeBuilder.cupertinoThemeData,
               routerConfig: router,
             )
           : MaterialApp.router(
@@ -87,8 +74,8 @@ class MyApp extends HookConsumerWidget {
                   .build(),
               supportedLocales: AppLocaleUtils.supportedLocales,
               localizationsDelegates: localizationsDelegates,
-              theme: materialTheme,
-              darkTheme: materialTheme,
+              theme: myThemeBuilder.materialLightThemeData,
+              darkTheme: myThemeBuilder.materialDarkThemeData,
               routerConfig: router,
             ),
     );
