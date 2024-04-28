@@ -36,7 +36,7 @@
     "@types/lodash": "^4.17.0",
     "@types/node": "20.12.7",
     "eslint": "^8.57.0",
-    "eslint-plugin-jest": "^28.2.0",
+    "eslint-plugin-jest": "^28.3.0",
     "firebase": "^10.11.1",
     "firebase-functions-test": "^3.2.0",
     "google-auth-library": "^9.9.0",
