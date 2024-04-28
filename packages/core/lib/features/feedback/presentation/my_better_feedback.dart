@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
@@ -35,7 +37,7 @@ class MyBetterFeedback extends StatelessWidget {
         dragHandleColor: CupertinoColors.systemGrey,
       ),
       feedbackBuilder: (_, submit, scrollController) {
-        if (cupertinoThemeData != null) {
+        if (Platform.isIOS && cupertinoThemeData != null) {
           return CupertinoTheme(
             data: cupertinoThemeData!,
             child: MyFeedbackSheet(
