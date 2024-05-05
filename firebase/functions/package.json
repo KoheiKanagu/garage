@@ -33,7 +33,7 @@
     "@tsconfig/strictest": "^2.0.5",
     "@types/eslint": "^8.56.10",
     "@types/jest": "^29.5.12",
-    "@types/lodash": "^4.17.0",
+    "@types/lodash": "^4.17.1",
     "@types/node": "20.12.8",
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "^28.3.0",
