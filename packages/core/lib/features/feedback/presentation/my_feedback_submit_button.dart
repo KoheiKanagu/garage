@@ -53,7 +53,7 @@ class MyFeedbackSubmitButton extends HookConsumerWidget {
 
     final themeType = InheritedThemeDetector.of(context);
     return switch (themeType) {
-      InheritedThemeType.material => ElevatedButton(
+      InheritedThemeType.material => FilledButton(
           onPressed: onSubmitPressed,
           child: Text(i18n.feedback.submit),
         ),

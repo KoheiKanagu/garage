@@ -18,18 +18,18 @@ class MyBetterFeedback extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final feedbackTheme = FeedbackThemeData(
+      feedbackSheetColor:
+          CupertinoColors.systemGroupedBackground.resolveFrom(context),
+      dragHandleColor: CupertinoColors.systemGrey,
+    );
+
     return BetterFeedback(
       mode: FeedbackMode.navigate,
       localizationsDelegates: [
         CustomFeedbackLocalizationsDelegate(),
       ],
-      theme: child is CupertinoApp
-          ? FeedbackThemeData(
-              feedbackSheetColor:
-                  CupertinoColors.systemGroupedBackground.resolveFrom(context),
-              dragHandleColor: CupertinoColors.systemGrey,
-            )
-          : null,
+      theme: feedbackTheme,
       feedbackBuilder: (_, submit, scrollController) {
         if (child is CupertinoApp) {
           final app = child as CupertinoApp;
@@ -39,9 +39,12 @@ class MyBetterFeedback extends StatelessWidget {
             supportedLocales: app.supportedLocales,
             localizationsDelegates: app.localizationsDelegates,
             theme: app.theme,
-            home: MyFeedbackSheet(
-              submit: submit,
-              scrollController: scrollController,
+            home: CupertinoPageScaffold(
+              backgroundColor: feedbackTheme.feedbackSheetColor,
+              child: MyFeedbackSheet(
+                submit: submit,
+                scrollController: scrollController,
+              ),
             ),
           );
         }
@@ -55,9 +58,12 @@ class MyBetterFeedback extends StatelessWidget {
             localizationsDelegates: app.localizationsDelegates,
             theme: app.theme,
             darkTheme: app.darkTheme,
-            home: MyFeedbackSheet(
-              submit: submit,
-              scrollController: scrollController,
+            home: Scaffold(
+              backgroundColor: feedbackTheme.feedbackSheetColor,
+              body: MyFeedbackSheet(
+                submit: submit,
+                scrollController: scrollController,
+              ),
             ),
           );
         }

@@ -16,7 +16,7 @@ final _routes = [
 
 final myThemeBuilder = MyThemeBuilder(
   baseColor: const Color(0xFFFF5722),
-  baseDarkColor: const Color(0xFFFF5722),
+  baseDarkColor: const Color(0xFFFF9800),
 );
 
 class MyApp extends HookConsumerWidget {

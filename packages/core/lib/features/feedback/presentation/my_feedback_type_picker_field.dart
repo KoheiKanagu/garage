@@ -17,11 +17,27 @@ class MyFeedbackTypePickerField extends HookConsumerWidget {
       return const SizedBox.shrink();
     }
 
+    final themeType = InheritedThemeDetector.of(context);
+
     Future<void> onTap() async {
       final result = await showConfirmationDialog<FeedbackType>(
         context: context,
         title: i18n.feedback.feedback_type_header,
         initialSelectedActionKey: data.type,
+        builder: (context, child) {
+          return switch (themeType) {
+            InheritedThemeType.material => Theme(
+                // ダイアログのテーマがデフォルトになってしまうのでrootContextを参照する
+                data: Theme.of(rootContext()!),
+                child: child,
+              ),
+            InheritedThemeType.cupertino => CupertinoTheme(
+                // ダイアログのテーマがデフォルトになってしまうのでrootContextを参照する
+                data: CupertinoTheme.of(rootContext()!),
+                child: child,
+              ),
+          };
+        },
         actions: FeedbackType.values
             .map(
               (e) => AlertDialogAction(
@@ -38,13 +54,15 @@ class MyFeedbackTypePickerField extends HookConsumerWidget {
       ref.watch(feedbackDataControllerProvider.notifier).updateType(result);
     }
 
-    final themeType = InheritedThemeDetector.of(context);
     return switch (themeType) {
       InheritedThemeType.material => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            i18n.feedback.feedback_type_header.wrapBudouXText(
-              style: Theme.of(context).textTheme.bodySmall,
+            Text(
+              i18n.feedback.feedback_type_header,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
             ),
             ListTile(
               title: Text(data.type.localizedString),
