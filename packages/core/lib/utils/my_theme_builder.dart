@@ -1,3 +1,4 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,30 +14,19 @@ class MyThemeBuilder {
       ),
     );
 
-    final material = ThemeData.from(
-      colorScheme: ColorScheme.light(
+    materialLightThemeData = FlexThemeData.light(
+      colors: FlexSchemeColor.from(
         primary: baseColor,
       ),
       useMaterial3: true,
     );
 
-    final materialDark = ThemeData.from(
-      colorScheme: ColorScheme.dark(
-        primary: baseColor,
+    materialDarkThemeData = FlexThemeData.dark(
+      colors: FlexSchemeColor.from(
+        primary: baseDarkColor,
       ),
+      darkIsTrueBlack: true,
       useMaterial3: true,
-    );
-
-    materialLightThemeData = material.copyWith(
-      listTileTheme: material.listTileTheme.copyWith(
-        iconColor: material.colorScheme.primary,
-      ),
-    );
-
-    materialDarkThemeData = materialDark.copyWith(
-      listTileTheme: materialDark.listTileTheme.copyWith(
-        iconColor: materialDark.colorScheme.primary,
-      ),
     );
   }
 

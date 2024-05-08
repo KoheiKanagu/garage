@@ -14,15 +14,9 @@ class MyBetterFeedback extends StatelessWidget {
   const MyBetterFeedback({
     required this.child,
     super.key,
-    this.cupertinoThemeData,
-    this.materialThemeData,
   });
 
   final Widget child;
-
-  final CupertinoThemeData? cupertinoThemeData;
-
-  final ThemeData? materialThemeData;
 
   @override
   Widget build(BuildContext context) {
@@ -31,26 +25,39 @@ class MyBetterFeedback extends StatelessWidget {
       localizationsDelegates: [
         CustomFeedbackLocalizationsDelegate(),
       ],
-      theme: FeedbackThemeData(
-        feedbackSheetColor:
-            CupertinoColors.systemGroupedBackground.resolveFrom(context),
-        dragHandleColor: CupertinoColors.systemGrey,
-      ),
+      theme: Platform.isIOS
+          ? FeedbackThemeData(
+              feedbackSheetColor:
+                  CupertinoColors.systemGroupedBackground.resolveFrom(context),
+              dragHandleColor: CupertinoColors.systemGrey,
+            )
+          : null,
       feedbackBuilder: (_, submit, scrollController) {
-        if (Platform.isIOS && cupertinoThemeData != null) {
-          return CupertinoTheme(
-            data: cupertinoThemeData!,
-            child: MyFeedbackSheet(
+        if (child is CupertinoApp) {
+          final app = child as CupertinoApp;
+
+          return CupertinoApp(
+            debugShowCheckedModeBanner: app.debugShowCheckedModeBanner,
+            supportedLocales: app.supportedLocales,
+            localizationsDelegates: app.localizationsDelegates,
+            theme: app.theme,
+            home: MyFeedbackSheet(
               submit: submit,
               scrollController: scrollController,
             ),
           );
         }
 
-        if (materialThemeData != null) {
-          return Theme(
-            data: materialThemeData!,
-            child: MyFeedbackSheet(
+        if (child is MaterialApp) {
+          final app = child as MaterialApp;
+
+          return MaterialApp(
+            debugShowCheckedModeBanner: app.debugShowCheckedModeBanner,
+            supportedLocales: app.supportedLocales,
+            localizationsDelegates: app.localizationsDelegates,
+            theme: app.theme,
+            darkTheme: app.darkTheme,
+            home: MyFeedbackSheet(
               submit: submit,
               scrollController: scrollController,
             ),

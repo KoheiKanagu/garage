@@ -34,10 +34,6 @@ class MyApp extends HookConsumerWidget {
     );
 
     return MyBetterFeedback(
-      cupertinoThemeData: myThemeBuilder.cupertinoThemeData,
-      materialThemeData: myThemeBuilder.materialThemeData(
-        Theme.of(context).brightness,
-      ),
       child: Platform.isIOS
           ? CupertinoApp.router(
               debugShowCheckedModeBanner: false,
