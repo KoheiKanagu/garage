@@ -39,8 +39,8 @@ class MyBetterFeedback extends StatelessWidget {
             supportedLocales: app.supportedLocales,
             localizationsDelegates: app.localizationsDelegates,
             theme: app.theme,
-            home: CupertinoPageScaffold(
-              backgroundColor: feedbackTheme.feedbackSheetColor,
+            home: ColoredBox(
+              color: feedbackTheme.feedbackSheetColor,
               child: MyFeedbackSheet(
                 submit: submit,
                 scrollController: scrollController,
@@ -58,9 +58,9 @@ class MyBetterFeedback extends StatelessWidget {
             localizationsDelegates: app.localizationsDelegates,
             theme: app.theme,
             darkTheme: app.darkTheme,
-            home: Scaffold(
-              backgroundColor: feedbackTheme.feedbackSheetColor,
-              body: MyFeedbackSheet(
+            home: ColoredBox(
+              color: feedbackTheme.feedbackSheetColor,
+              child: MyFeedbackSheet(
                 submit: submit,
                 scrollController: scrollController,
               ),
