@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
@@ -127,27 +129,20 @@ void showMyBetterFeedback(
 }) {
   BetterFeedback.of(context).show(
     (feedback) async {
-      final indicator = showMyProgressIndicator();
-      try {
-        await ref.watch(
-          feedbackSubmitProvider(
-            feedback,
-            feedbackFrom: from,
-          ).future,
-        );
-      } finally {
-        indicator.dismiss();
-      }
+      await ref.watch(
+        feedbackSubmitProvider(
+          feedback,
+          feedbackFrom: from,
+        ).future,
+      );
 
       if (context.mounted) {
-        await showOkAlertDialog(
-          context: context,
-          message: i18n.feedback.thank_you_for_your_feedback,
+        unawaited(
+          showOkAlertDialog(
+            context: context,
+            message: i18n.feedback.thank_you_for_your_feedback,
+          ),
         );
-      }
-
-      if (context.mounted) {
-        BetterFeedback.of(context).hide();
       }
     },
   );

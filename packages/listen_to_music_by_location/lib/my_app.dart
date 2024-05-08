@@ -40,7 +40,6 @@ class MyApp extends HookConsumerWidget {
     );
 
     return MyBetterFeedback(
-      cupertinoThemeData: theme,
       child: CupertinoApp.router(
         debugShowCheckedModeBanner: false,
         builder: (context, child) => MediaQueryPreview(
