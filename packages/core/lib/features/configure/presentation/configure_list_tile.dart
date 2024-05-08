@@ -45,19 +45,13 @@ class ConfigureListTile extends StatelessWidget {
           ),
           subtitle: subtitle,
           onTap: onTap,
-          leading: leadingIcon == null
-              ? null
-              : Icon(
-                  leadingIcon,
-                  color: isDestructiveAction
-                      ? Theme.of(context).colorScheme.error
-                      : leadingIconColor,
-                ),
-          trailing: trailingIcon == null
-              ? Icon(
-                  Icons.adaptive.arrow_forward_rounded,
-                )
-              : Icon(trailingIcon),
+          leading: leadingIcon == null ? null : Icon(leadingIcon),
+          iconColor: isDestructiveAction
+              ? Theme.of(context).colorScheme.error
+              : leadingIconColor ?? Theme.of(context).colorScheme.primary,
+          trailing: trailingIcon == null ? null : Icon(trailingIcon),
+          // two lines
+          minTileHeight: 72,
         ),
       InheritedThemeType.cupertino => CupertinoListTile.notched(
           title: Text(

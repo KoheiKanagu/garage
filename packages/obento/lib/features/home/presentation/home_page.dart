@@ -10,6 +10,16 @@ class HomePage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              const ConfigurePageRoute().push<void>(context);
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: Text(appEnv.toString()),
       ),

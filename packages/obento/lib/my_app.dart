@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:obento/features/home/application/home_route.dart' as home_route;
 import 'package:obento/features/onboarding/application/onboarding_route.dart'
@@ -11,17 +14,15 @@ final _routes = [
   ...home_route.$appRoutes,
 ];
 
+final myThemeBuilder = MyThemeBuilder(
+  baseColor: const Color(0xFFFF5722),
+  baseDarkColor: const Color(0xFFFF9800),
+);
+
 class MyApp extends HookConsumerWidget {
   const MyApp({
     super.key,
   });
-
-  static const theme = CupertinoThemeData(
-    primaryColor: CupertinoDynamicColor.withBrightness(
-      color: Color(0xFFFF5722),
-      darkColor: Color(0xFFFF9800),
-    ),
-  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,26 +34,46 @@ class MyApp extends HookConsumerWidget {
     );
 
     return MyBetterFeedback(
-      cupertinoThemeData: theme,
-      child: CupertinoApp.router(
-        debugShowCheckedModeBanner: false,
-        builder: (context, child) => MediaQueryPreview(
-          context,
-          child,
-          cupertino: true,
-        )
-            // .disableDynamicIsland()
-            // .textScale05()
-            .textScale10()
-            // .textScale15()
-            // .textScale20()
-            // .android()
-            .build(),
-        supportedLocales: AppLocaleUtils.supportedLocales,
-        localizationsDelegates: localizationsDelegates,
-        theme: theme,
-        routerConfig: router,
-      ),
+      child: Platform.isIOS
+          ? CupertinoApp.router(
+              debugShowCheckedModeBanner: false,
+              builder: (context, child) => MediaQueryPreview(
+                context,
+                child,
+                cupertino: true,
+              )
+                  // .disableDynamicIsland()
+                  // .textScale05()
+                  .textScale10()
+                  // .textScale15()
+                  // .textScale20()
+                  // .android()
+                  .build(),
+              supportedLocales: AppLocaleUtils.supportedLocales,
+              localizationsDelegates: localizationsDelegates,
+              theme: myThemeBuilder.cupertinoThemeData,
+              routerConfig: router,
+            )
+          : MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              builder: (context, child) => MediaQueryPreview(
+                context,
+                child,
+                cupertino: true,
+              )
+                  // .disableDynamicIsland()
+                  // .textScale05()
+                  .textScale10()
+                  // .textScale15()
+                  // .textScale20()
+                  // .android()
+                  .build(),
+              supportedLocales: AppLocaleUtils.supportedLocales,
+              localizationsDelegates: localizationsDelegates,
+              theme: myThemeBuilder.materialLightThemeData,
+              darkTheme: myThemeBuilder.materialDarkThemeData,
+              routerConfig: router,
+            ),
     );
   }
 }

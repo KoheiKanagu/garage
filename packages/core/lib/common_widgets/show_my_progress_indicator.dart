@@ -1,8 +1,8 @@
 import 'package:core/constants/global_keys.dart';
 import 'package:flutter/material.dart';
 
-MyProgressIndicator showMyProgressIndicator() {
-  final context = rootContext()!;
+MyProgressIndicator showMyProgressIndicator([BuildContext? ctx]) {
+  final context = ctx ?? rootContext()!;
 
   showAdaptiveDialog<void>(
     context: context,

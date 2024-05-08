@@ -17,11 +17,25 @@ class MyFeedbackTypePickerField extends HookConsumerWidget {
       return const SizedBox.shrink();
     }
 
+    final themeType = InheritedThemeDetector.of(context);
+
     Future<void> onTap() async {
       final result = await showConfirmationDialog<FeedbackType>(
         context: context,
         title: i18n.feedback.feedback_type_header,
         initialSelectedActionKey: data.type,
+        // ignore: lines_longer_than_80_chars
+        // Since the dialog's theme defaults to the default theme, we need to reference the rootContext
+        builder: (context, child) => switch (themeType) {
+          InheritedThemeType.material => Theme(
+              data: Theme.of(rootContext()!),
+              child: child,
+            ),
+          InheritedThemeType.cupertino => CupertinoTheme(
+              data: CupertinoTheme.of(rootContext()!),
+              child: child,
+            ),
+        },
         actions: FeedbackType.values
             .map(
               (e) => AlertDialogAction(
@@ -38,13 +52,15 @@ class MyFeedbackTypePickerField extends HookConsumerWidget {
       ref.watch(feedbackDataControllerProvider.notifier).updateType(result);
     }
 
-    final themeType = InheritedThemeDetector.of(context);
     return switch (themeType) {
       InheritedThemeType.material => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            i18n.feedback.feedback_type_header.wrapBudouXText(
-              style: Theme.of(context).textTheme.bodySmall,
+            Text(
+              i18n.feedback.feedback_type_header,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
             ),
             ListTile(
               title: Text(data.type.localizedString),

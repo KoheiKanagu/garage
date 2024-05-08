@@ -38,6 +38,9 @@ class MyFeedbackEmailField extends HookConsumerWidget {
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 hintText: 'email@example.com',
+                hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: Colors.grey,
+                    ),
                 counter: const SizedBox.shrink(),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 label: Text(i18n.feedback.email_address),

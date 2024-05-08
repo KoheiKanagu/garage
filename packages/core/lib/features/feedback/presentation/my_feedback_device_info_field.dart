@@ -23,7 +23,9 @@ class MyFeedbackDeviceInfoField extends HookConsumerWidget {
           children: [
             Text(
               i18n.feedback.device_info,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
             ),
             ListTile(
               title: Text(i18n.feedback.os_version),

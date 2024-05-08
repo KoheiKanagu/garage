@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
@@ -12,45 +14,58 @@ class MyBetterFeedback extends StatelessWidget {
   const MyBetterFeedback({
     required this.child,
     super.key,
-    this.cupertinoThemeData,
-    this.materialThemeData,
   });
 
   final Widget child;
 
-  final CupertinoThemeData? cupertinoThemeData;
-
-  final ThemeData? materialThemeData;
-
   @override
   Widget build(BuildContext context) {
+    final feedbackTheme = FeedbackThemeData(
+      feedbackSheetColor:
+          CupertinoColors.systemGroupedBackground.resolveFrom(context),
+      dragHandleColor: CupertinoColors.systemGrey,
+    );
+
     return BetterFeedback(
       mode: FeedbackMode.navigate,
       localizationsDelegates: [
         CustomFeedbackLocalizationsDelegate(),
       ],
-      theme: FeedbackThemeData(
-        feedbackSheetColor:
-            CupertinoColors.systemGroupedBackground.resolveFrom(context),
-        dragHandleColor: CupertinoColors.systemGrey,
-      ),
+      theme: feedbackTheme,
       feedbackBuilder: (_, submit, scrollController) {
-        if (cupertinoThemeData != null) {
-          return CupertinoTheme(
-            data: cupertinoThemeData!,
-            child: MyFeedbackSheet(
-              submit: submit,
-              scrollController: scrollController,
+        if (child is CupertinoApp) {
+          final app = child as CupertinoApp;
+
+          return CupertinoApp(
+            debugShowCheckedModeBanner: app.debugShowCheckedModeBanner,
+            supportedLocales: app.supportedLocales,
+            localizationsDelegates: app.localizationsDelegates,
+            theme: app.theme,
+            home: ColoredBox(
+              color: feedbackTheme.feedbackSheetColor,
+              child: MyFeedbackSheet(
+                submit: submit,
+                scrollController: scrollController,
+              ),
             ),
           );
         }
 
-        if (materialThemeData != null) {
-          return Theme(
-            data: materialThemeData!,
-            child: MyFeedbackSheet(
-              submit: submit,
-              scrollController: scrollController,
+        if (child is MaterialApp) {
+          final app = child as MaterialApp;
+
+          return MaterialApp(
+            debugShowCheckedModeBanner: app.debugShowCheckedModeBanner,
+            supportedLocales: app.supportedLocales,
+            localizationsDelegates: app.localizationsDelegates,
+            theme: app.theme,
+            darkTheme: app.darkTheme,
+            home: ColoredBox(
+              color: feedbackTheme.feedbackSheetColor,
+              child: MyFeedbackSheet(
+                submit: submit,
+                scrollController: scrollController,
+              ),
             ),
           );
         }
@@ -114,27 +129,20 @@ void showMyBetterFeedback(
 }) {
   BetterFeedback.of(context).show(
     (feedback) async {
-      final indicator = showMyProgressIndicator();
-      try {
-        await ref.watch(
-          feedbackSubmitProvider(
-            feedback,
-            feedbackFrom: from,
-          ).future,
-        );
-      } finally {
-        indicator.dismiss();
-      }
+      await ref.watch(
+        feedbackSubmitProvider(
+          feedback,
+          feedbackFrom: from,
+        ).future,
+      );
 
       if (context.mounted) {
-        await showOkAlertDialog(
-          context: context,
-          message: i18n.feedback.thank_you_for_your_feedback,
+        unawaited(
+          showOkAlertDialog(
+            context: context,
+            message: i18n.feedback.thank_you_for_your_feedback,
+          ),
         );
-      }
-
-      if (context.mounted) {
-        BetterFeedback.of(context).hide();
       }
     },
   );
