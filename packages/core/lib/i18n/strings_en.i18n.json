@@ -89,5 +89,7 @@
       "ok_label": "Revoke",
       "did_revoke_title": "Consent for personalized ads has been revoked"
     }
-  }
+  },
+  "edit": "Edit",
+  "add": "Add"
 }

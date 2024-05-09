@@ -136,6 +136,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final Translations _root = this; // ignore: unused_field
 
 	// Translations
+	String get app_name => '#お弁当記録';
 }
 
 // Path: <root>
@@ -158,4 +159,5 @@ class _StringsEn extends Translations {
 	@override late final _StringsEn _root = this; // ignore: unused_field
 
 	// Translations
+	@override String get app_name => '#obento';
 }

@@ -144,6 +144,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsAuthJa auth = _StringsAuthJa._(_root);
 	late final _StringsOnboardingJa onboarding = _StringsOnboardingJa._(_root);
 	late final _StringsAdsJa ads = _StringsAdsJa._(_root);
+	String get edit => '編集';
+	String get add => '追加';
 }
 
 // Path: service_down
@@ -343,6 +345,8 @@ class _StringsEn extends Translations {
 	@override late final _StringsAuthEn auth = _StringsAuthEn._(_root);
 	@override late final _StringsOnboardingEn onboarding = _StringsOnboardingEn._(_root);
 	@override late final _StringsAdsEn ads = _StringsAdsEn._(_root);
+	@override String get edit => 'Edit';
+	@override String get add => 'Add';
 }
 
 // Path: service_down
