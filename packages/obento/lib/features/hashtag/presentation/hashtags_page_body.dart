@@ -53,12 +53,11 @@ class HashtagsPageBody extends HookConsumerWidget {
                       DialogTextField(
                         hintText: i18n.tamagoyaki,
                         maxLength: 64,
-                        validator: (value) {
-                          final isEmpty = value?.trim().isEmpty ?? true;
-                          return isEmpty
-                              ? core_i18n.i18n.error_field_cannot_be_empty
-                              : null;
-                        },
+                        validator: ref
+                            .watch(
+                              hashtagsEditControllerProvider.notifier,
+                            )
+                            .validate,
                       ),
                     ],
                   );

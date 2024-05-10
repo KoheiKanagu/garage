@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
+import 'package:core/gen/strings.g.dart' as core_i18n;
 import 'package:obento/constants/collection_path.dart';
 import 'package:obento/features/hashtag/domain/hashtag.dart';
 import 'package:obento/gen/strings.g.dart';
@@ -125,6 +126,23 @@ class HashtagsEditController extends _$HashtagsEditController {
     }
 
     ref.watch(hashtagControllerProvider.notifier).addTag(tag);
+  }
+
+  String? validate(String? value) {
+    final trimmed = value?.trim();
+
+    final isEmpty = trimmed?.isEmpty ?? true;
+    if (isEmpty) {
+      return core_i18n.i18n.error_field_cannot_be_empty;
+    }
+
+    final current = ref.watch(hashtagControllerProvider).value?.hashtags ?? [];
+
+    if (current.contains(trimmed)) {
+      return i18n.error_tag_already_exists;
+    }
+
+    return null;
   }
 }
 
