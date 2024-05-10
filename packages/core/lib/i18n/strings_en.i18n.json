@@ -94,5 +94,6 @@
   "add": "Add",
   "done": "Done",
   "cancel": "Cancel",
-  "save": "Save"
+  "save": "Save",
+  "error_field_cannot_be_empty": "This field is required"
 }

@@ -149,6 +149,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get done => '完了';
 	String get cancel => 'キャンセル';
 	String get save => '保存';
+	String get error_field_cannot_be_empty => 'この項目は必須です';
 }
 
 // Path: service_down
@@ -353,6 +354,7 @@ class _StringsEn extends Translations {
 	@override String get done => 'Done';
 	@override String get cancel => 'Cancel';
 	@override String get save => 'Save';
+	@override String get error_field_cannot_be_empty => 'This field is required';
 }
 
 // Path: service_down

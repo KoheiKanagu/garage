@@ -94,5 +94,6 @@
   "add": "追加",
   "done": "完了",
   "cancel": "キャンセル",
-  "save": "保存"
+  "save": "保存",
+  "error_field_cannot_be_empty": "この項目は必須です"
 }
