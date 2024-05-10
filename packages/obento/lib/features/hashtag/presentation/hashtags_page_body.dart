@@ -3,6 +3,7 @@ import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart' as core_i18n;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:obento/features/hashtag/application/hashtag_providers.dart';
 import 'package:obento/features/hashtag/presentation/hashtag_chip.dart';
@@ -35,6 +36,7 @@ class HashtagsPageBody extends HookConsumerWidget {
                 (e) => HashtagChip(
                   label: e,
                   onPressed: () {
+                    HapticFeedback.mediumImpact();
                     ref
                         .watch(hashtagsSelectedControllerProvider.notifier)
                         .toggle(e);
