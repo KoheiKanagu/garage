@@ -1,5 +1,6 @@
 {
   "app_name": "#obento",
   "create_new": "Create New",
-  "tamagoyaki": "Tamagoyaki"
+  "tamagoyaki": "Tamagoyaki",
+  "error_tag_already_exists": "This item already exists"
 }

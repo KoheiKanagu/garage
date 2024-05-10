@@ -1,5 +1,6 @@
 {
   "app_name": "#お弁当記録",
   "create_new": "新しい項目を作成",
-  "tamagoyaki": "卵焼き"
+  "tamagoyaki": "卵焼き",
+  "error_tag_already_exists": "この項目は既に作成されています"
 }
