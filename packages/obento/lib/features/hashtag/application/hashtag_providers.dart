@@ -46,22 +46,54 @@ class HashtagController extends _$HashtagController {
     );
   }
 
-  Future<void> updateTags(List<String> tags) async {
+  void updateTags(List<String> tags) {
+    state = state.whenData(
+      (e) => e.copyWith(hashtags: tags),
+    );
+  }
+
+  Future<void> commit() async {
     final value = state.value;
     if (value == null) {
-      logger.warning('HashtagController.update: state.value is null');
+      logger.warning('HashtagController.commit: state.value is null');
       return;
     }
 
     final data = await ref.watch(hashtagsDocumentSnapshotProvider.future);
 
     await data.reference.set(
-      value.copyWith(
-        hashtags: tags,
-      ),
+      value,
       SetOptions(
         merge: true,
       ),
     );
+  }
+}
+
+@riverpod
+class HashtagsEditController extends _$HashtagsEditController {
+  @override
+  bool build() {
+    return false;
+  }
+
+  void cancel() {
+    state = false;
+
+    ref.invalidate(hashtagControllerProvider);
+  }
+
+  void edit() {
+    state = true;
+  }
+
+  void save() {
+    ref.watch(hashtagControllerProvider.notifier).commit();
+
+    state = false;
+  }
+
+  void updateTags(List<String> tags) {
+    ref.watch(hashtagControllerProvider.notifier).updateTags(tags);
   }
 }

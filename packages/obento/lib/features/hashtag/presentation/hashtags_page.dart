@@ -1,10 +1,12 @@
 import 'package:core/core.dart';
-import 'package:core/gen/strings.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:obento/features/hashtag/application/hashtag_providers.dart';
 import 'package:obento/features/hashtag/presentation/hashtags_page_body.dart';
-import 'package:pull_down_button/pull_down_button.dart';
+import 'package:obento/features/hashtag/presentation/hashtags_page_cancel_button.dart';
+import 'package:obento/features/hashtag/presentation/hashtags_page_menu_button.dart';
+import 'package:obento/features/hashtag/presentation/hashtags_page_save_button.dart';
 
 class HashtagsPage extends HookConsumerWidget {
   const HashtagsPage({
@@ -18,64 +20,27 @@ class HashtagsPage extends HookConsumerWidget {
     return switch (themeType) {
       InheritedThemeType.material => Scaffold(
           appBar: AppBar(
+            leadingWidth: double.infinity,
+            leading: ref.watch(hashtagsEditControllerProvider)
+                ? const HashtagsPageCancelButton()
+                : null,
             actions: [
-              PopupMenuButton(
-                iconColor: Theme.of(context).colorScheme.primary,
-                itemBuilder: (context) {
-                  final configure = i18n.configure.title;
-                  final edit = i18n.edit;
-
-                  return [
-                    PopupMenuItem(
-                      value: edit,
-                      child: Text(edit),
-                    ),
-                    PopupMenuItem(
-                      value: configure,
-                      child: Text(configure),
-                    ),
-                  ];
-                },
-                onSelected: (value) {
-                  if (value == i18n.configure.title) {
-                    const ConfigurePageRoute().push<void>(context);
-                  }
-
-                  if (value == i18n.edit) {
-                    // TODO: edit state
-                  }
-                },
-              ),
+              if (ref.watch(hashtagsEditControllerProvider))
+                const HashtagsPageSaveButton()
+              else
+                const HashtagsPageMenuButton(),
             ],
           ),
-          body: const HashtagsPageBody()),
+          body: const HashtagsPageBody(),
+        ),
       InheritedThemeType.cupertino => CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
-            trailing: PullDownButton(
-              itemBuilder: (context) {
-                return [
-                  PullDownMenuItem(
-                    onTap: () {
-                      // TODO: edit state
-                    },
-                    title: i18n.edit,
-                    icon: CupertinoIcons.pencil,
-                  ),
-                  PullDownMenuItem(
-                    onTap: () {
-                      const ConfigurePageRoute().push<void>(context);
-                    },
-                    title: i18n.configure.title,
-                    icon: CupertinoIcons.settings,
-                  ),
-                ];
-              },
-              buttonBuilder: (context, showMenu) => CupertinoButton(
-                onPressed: showMenu,
-                padding: EdgeInsets.zero,
-                child: const Icon(CupertinoIcons.ellipsis_circle),
-              ),
-            ),
+            leading: ref.watch(hashtagsEditControllerProvider)
+                ? const HashtagsPageCancelButton()
+                : null,
+            trailing: ref.watch(hashtagsEditControllerProvider)
+                ? const HashtagsPageSaveButton()
+                : const HashtagsPageMenuButton(),
           ),
           child: const HashtagsPageBody(),
         ),
