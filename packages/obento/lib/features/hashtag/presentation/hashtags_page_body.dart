@@ -66,9 +66,10 @@ class HashtagsPageBody extends HookConsumerWidget {
                     return;
                   }
 
-                  ref.watch(hashtagsEditControllerProvider.notifier)
-                    ..addTag(result.first)
-                    ..save();
+                  ref
+                      .watch(hashtagsEditControllerProvider.notifier)
+                      .addTag(result.first);
+                  ref.watch(hashtagsEditControllerProvider.notifier).save();
                 },
                 icon: switch (InheritedThemeDetector.of(context)) {
                   InheritedThemeType.material => Icons.add_circle,
