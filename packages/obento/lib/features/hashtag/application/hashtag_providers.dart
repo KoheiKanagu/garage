@@ -125,7 +125,6 @@ class HashtagsEditController extends _$HashtagsEditController {
     }
 
     ref.watch(hashtagControllerProvider.notifier).addTag(tag);
-    ref.watch(hashtagControllerProvider.notifier).commit();
   }
 }
 
