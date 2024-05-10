@@ -91,5 +91,8 @@
     }
   },
   "edit": "Edit",
-  "add": "Add"
+  "add": "Add",
+  "done": "Done",
+  "cancel": "Cancel",
+  "save": "Save"
 }

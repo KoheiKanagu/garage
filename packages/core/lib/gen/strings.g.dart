@@ -146,6 +146,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsAdsJa ads = _StringsAdsJa._(_root);
 	String get edit => '編集';
 	String get add => '追加';
+	String get done => '完了';
+	String get cancel => 'キャンセル';
+	String get save => '保存';
 }
 
 // Path: service_down
@@ -347,6 +350,9 @@ class _StringsEn extends Translations {
 	@override late final _StringsAdsEn ads = _StringsAdsEn._(_root);
 	@override String get edit => 'Edit';
 	@override String get add => 'Add';
+	@override String get done => 'Done';
+	@override String get cancel => 'Cancel';
+	@override String get save => 'Save';
 }
 
 // Path: service_down
