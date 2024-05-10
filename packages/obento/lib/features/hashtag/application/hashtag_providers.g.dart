@@ -61,7 +61,7 @@ final hashtagControllerProvider =
 
 typedef _$HashtagController = AutoDisposeAsyncNotifier<Hashtag>;
 String _$hashtagsEditControllerHash() =>
-    r'4fe861e294be7e5c6eaee088e6583e6a2450c8c4';
+    r'6b0049e400ff9521ef6aff1bca69227d002a5097';
 
 /// See also [HashtagsEditController].
 @ProviderFor(HashtagsEditController)
@@ -77,5 +77,22 @@ final hashtagsEditControllerProvider =
 );
 
 typedef _$HashtagsEditController = AutoDisposeNotifier<bool>;
+String _$hashtagsSelectedControllerHash() =>
+    r'c26b74467c38cc9ecbc897f589ccf44c90d80c7e';
+
+/// See also [HashtagsSelectedController].
+@ProviderFor(HashtagsSelectedController)
+final hashtagsSelectedControllerProvider = AutoDisposeNotifierProvider<
+    HashtagsSelectedController, Set<String>>.internal(
+  HashtagsSelectedController.new,
+  name: r'hashtagsSelectedControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$hashtagsSelectedControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$HashtagsSelectedController = AutoDisposeNotifier<Set<String>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -46,9 +46,22 @@ class HashtagController extends _$HashtagController {
     );
   }
 
-  void updateTags(List<String> tags) {
+  void setTags(List<String> tags) {
     state = state.whenData(
-      (e) => e.copyWith(hashtags: tags),
+      (e) => e.copyWith(
+        hashtags: tags,
+      ),
+    );
+  }
+
+  void addTag(String tag) {
+    state = state.whenData(
+      (e) => e.copyWith(
+        hashtags: [
+          ...e.hashtags,
+          tag,
+        ],
+      ),
     );
   }
 
@@ -93,7 +106,54 @@ class HashtagsEditController extends _$HashtagsEditController {
     state = false;
   }
 
-  void updateTags(List<String> tags) {
-    ref.watch(hashtagControllerProvider.notifier).updateTags(tags);
+  void setTags(List<String> tags) {
+    ref.watch(hashtagControllerProvider.notifier).setTags(
+          tags
+              .map(
+                (e) => e.trim(),
+              )
+              .where(
+                (e) => e.isNotEmpty,
+              )
+              .toList(),
+        );
+  }
+
+  void addTag(String tag) {
+    if (tag.trim().isEmpty) {
+      return;
+    }
+
+    ref.watch(hashtagControllerProvider.notifier).addTag(tag);
+    ref.watch(hashtagControllerProvider.notifier).commit();
+  }
+}
+
+@riverpod
+class HashtagsSelectedController extends _$HashtagsSelectedController {
+  static const String kSelectedHashtags = 'selected_hashtags';
+
+  @override
+  Set<String> build() {
+    final list = ref
+        .watch(sharedPreferencesControllerProvider)
+        .getStringList(kSelectedHashtags);
+
+    return list?.toSet() ?? {};
+  }
+
+  void toggle(String tag) {
+    if (state.contains(tag)) {
+      state = state..remove(tag);
+    } else {
+      state = state..add(tag);
+    }
+
+    ref.notifyListeners();
+
+    ref.watch(sharedPreferencesControllerProvider).setStringList(
+          kSelectedHashtags,
+          state.toList(),
+        );
   }
 }
