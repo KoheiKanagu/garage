@@ -44,29 +44,29 @@ final hashtagsDocumentSnapshotProvider =
 
 typedef HashtagsDocumentSnapshotRef
     = AutoDisposeStreamProviderRef<DocumentSnapshot<Hashtag>>;
-String _$hashtagControllerHash() => r'12724307d3210476863ee82d9daea3df26e1c95a';
+String _$hashtagHash() => r'd6b97b31f6c6e9b1f1e2b3cf9be43faf8aafb4e2';
 
-/// See also [HashtagController].
-@ProviderFor(HashtagController)
-final hashtagControllerProvider =
-    AutoDisposeAsyncNotifierProvider<HashtagController, Hashtag>.internal(
-  HashtagController.new,
-  name: r'hashtagControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$hashtagControllerHash,
+/// See also [hashtag].
+@ProviderFor(hashtag)
+final hashtagProvider = AutoDisposeFutureProvider<
+    ({Hashtag hashtag, DocumentReference<Hashtag> reference})>.internal(
+  hashtag,
+  name: r'hashtagProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$hashtagHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$HashtagController = AutoDisposeAsyncNotifier<Hashtag>;
+typedef HashtagRef = AutoDisposeFutureProviderRef<
+    ({Hashtag hashtag, DocumentReference<Hashtag> reference})>;
 String _$hashtagsEditControllerHash() =>
-    r'6b0049e400ff9521ef6aff1bca69227d002a5097';
+    r'e25e4a317202f799ebeddb230d4dd075fcc3fbc1';
 
 /// See also [HashtagsEditController].
 @ProviderFor(HashtagsEditController)
 final hashtagsEditControllerProvider =
-    AutoDisposeNotifierProvider<HashtagsEditController, bool>.internal(
+    AutoDisposeNotifierProvider<HashtagsEditController, Hashtag?>.internal(
   HashtagsEditController.new,
   name: r'hashtagsEditControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -76,7 +76,7 @@ final hashtagsEditControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$HashtagsEditController = AutoDisposeNotifier<bool>;
+typedef _$HashtagsEditController = AutoDisposeNotifier<Hashtag?>;
 String _$hashtagsSelectedControllerHash() =>
     r'c26b74467c38cc9ecbc897f589ccf44c90d80c7e';
 

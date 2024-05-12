@@ -29,103 +29,91 @@ Stream<DocumentSnapshot<Hashtag>> hashtagsDocumentSnapshot(
 }
 
 @riverpod
-class HashtagController extends _$HashtagController {
-  @override
-  Future<Hashtag> build() async {
-    final snapshot = await ref.watch(hashtagsDocumentSnapshotProvider.future);
+Future<
+    ({
+      Hashtag hashtag,
+      DocumentReference<Hashtag> reference,
+    })> hashtag(
+  HashtagRef ref,
+) async {
+  final snapshot = await ref.watch(hashtagsDocumentSnapshotProvider.future);
 
-    final data = snapshot.data();
-    if (data != null) {
-      return data;
-    }
-
-    return Hashtag(
-      hashtags: [
-        // default tag
-        i18n.app_name,
-      ],
-    );
-  }
-
-  void setTags(List<String> tags) {
-    state = state.whenData(
-      (e) => e.copyWith(
-        hashtags: tags,
-      ),
-    );
-  }
-
-  void addTag(String tag) {
-    state = state.whenData(
-      (e) => e.copyWith(
+  final data = snapshot.data() ??
+      Hashtag(
         hashtags: [
-          ...e.hashtags,
-          tag,
+          // default tag
+          i18n.app_name,
         ],
-      ),
-    );
-  }
+      );
 
-  Future<void> commit() async {
-    final value = state.value;
-    if (value == null) {
-      logger.warning('HashtagController.commit: state.value is null');
-      return;
-    }
-
-    final data = await ref.watch(hashtagsDocumentSnapshotProvider.future);
-
-    await data.reference.set(
-      value,
-      SetOptions(
-        merge: true,
-      ),
-    );
-  }
+  return (
+    hashtag: data,
+    reference: snapshot.reference,
+  );
 }
 
 @riverpod
 class HashtagsEditController extends _$HashtagsEditController {
   @override
-  bool build() {
-    return false;
+  Hashtag? build() {
+    return null;
+  }
+
+  Future<void> edit() async {
+    state = await ref.watch(
+      hashtagProvider.selectAsync(
+        (e) => e.hashtag,
+      ),
+    );
   }
 
   void cancel() {
-    state = false;
-
-    ref.invalidate(hashtagControllerProvider);
+    state = null;
   }
 
-  void edit() {
-    state = true;
-  }
-
-  void save() {
-    ref.watch(hashtagControllerProvider.notifier).commit();
-
-    state = false;
-  }
-
-  void setTags(List<String> tags) {
-    ref.watch(hashtagControllerProvider.notifier).setTags(
-          tags
-              .map(
-                (e) => e.trim(),
-              )
-              .where(
-                (e) => e.isNotEmpty,
-              )
-              .toList(),
-        );
-  }
-
-  void addTag(String tag) {
-    if (tag.trim().isEmpty) {
+  void swap(int oldIndex, int newIndex) {
+    final newHashtags = state?.hashtags.toList();
+    if (newHashtags == null) {
       return;
     }
 
-    ref.watch(hashtagControllerProvider.notifier).addTag(tag);
+    newHashtags.insert(
+      oldIndex < newIndex ? newIndex - 1 : newIndex,
+      newHashtags.removeAt(oldIndex),
+    );
+
+    set(newHashtags);
+  }
+
+  void delete(int index) {
+    final newHashtags = state?.hashtags.toList();
+    if (newHashtags == null) {
+      return;
+    }
+
+    newHashtags.removeAt(index);
+
+    set(newHashtags);
+  }
+
+  void add(String tag) {
+    set([
+      ...state?.hashtags ?? [],
+      tag,
+    ]);
+  }
+
+  void set(List<String> tags) {
+    state = state?.copyWith(
+      hashtags: tags
+          .map(
+            (e) => e.trim(),
+          )
+          .where(
+            (e) => e.isNotEmpty,
+          )
+          .toList(),
+    );
   }
 
   String? validate(String? value) {
@@ -136,13 +124,33 @@ class HashtagsEditController extends _$HashtagsEditController {
       return core_i18n.i18n.error_field_cannot_be_empty;
     }
 
-    final current = ref.watch(hashtagControllerProvider).value?.hashtags ?? [];
-
+    final current = state?.hashtags ?? [];
     if (current.contains(trimmed)) {
       return i18n.error_tag_already_exists;
     }
 
     return null;
+  }
+
+  Future<void> save() async {
+    if (state == null) {
+      return;
+    }
+
+    final reference = await ref.watch(
+      hashtagProvider.selectAsync(
+        (e) => e.reference,
+      ),
+    );
+
+    await reference.set(
+      state!,
+      SetOptions(
+        merge: true,
+      ),
+    );
+
+    state = null;
   }
 }
 
