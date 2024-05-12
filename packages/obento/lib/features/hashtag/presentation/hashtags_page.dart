@@ -34,6 +34,8 @@ class HashtagsPage extends HookConsumerWidget {
           body: const HashtagsPageBody(),
         ),
       InheritedThemeType.cupertino => CupertinoPageScaffold(
+          backgroundColor:
+              CupertinoColors.systemGroupedBackground.resolveFrom(context),
           navigationBar: CupertinoNavigationBar(
             leading: isEditMode ? const HashtagsPageCancelButton() : null,
             trailing: isEditMode
