@@ -17,15 +17,15 @@ class HashtagsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeType = InheritedThemeDetector.of(context);
 
+    final isEditMode = ref.watch(hashtagsEditControllerProvider) != null;
+
     return switch (themeType) {
       InheritedThemeType.material => Scaffold(
           appBar: AppBar(
             leadingWidth: double.infinity,
-            leading: ref.watch(hashtagsEditControllerProvider)
-                ? const HashtagsPageCancelButton()
-                : null,
+            leading: isEditMode ? const HashtagsPageCancelButton() : null,
             actions: [
-              if (ref.watch(hashtagsEditControllerProvider))
+              if (isEditMode)
                 const HashtagsPageSaveButton()
               else
                 const HashtagsPageMenuButton(),
@@ -35,10 +35,8 @@ class HashtagsPage extends HookConsumerWidget {
         ),
       InheritedThemeType.cupertino => CupertinoPageScaffold(
           navigationBar: CupertinoNavigationBar(
-            leading: ref.watch(hashtagsEditControllerProvider)
-                ? const HashtagsPageCancelButton()
-                : null,
-            trailing: ref.watch(hashtagsEditControllerProvider)
+            leading: isEditMode ? const HashtagsPageCancelButton() : null,
+            trailing: isEditMode
                 ? const HashtagsPageSaveButton()
                 : const HashtagsPageMenuButton(),
           ),
