@@ -95,5 +95,6 @@
   "done": "Done",
   "cancel": "Cancel",
   "save": "Save",
+  "delete": "Delete",
   "error_field_cannot_be_empty": "This field is required"
 }
