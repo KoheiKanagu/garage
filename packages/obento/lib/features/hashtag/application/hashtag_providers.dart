@@ -29,27 +29,38 @@ Stream<DocumentSnapshot<Hashtag>> hashtagsDocumentSnapshot(
 }
 
 @riverpod
+Future<
+    ({
+      Hashtag hashtag,
+      DocumentReference<Hashtag> reference,
+    })> hashtag(
+  HashtagRef ref,
+) async {
+  final snapshot = await ref.watch(hashtagsDocumentSnapshotProvider.future);
+
+  final data = snapshot.data() ??
+      Hashtag(
+        hashtags: [
+          // default tag
+          i18n.app_name,
+        ],
+      );
+
+  return (
+    hashtag: data,
+    reference: snapshot.reference,
+  );
+}
+
+@riverpod
 class HashtagController extends _$HashtagController {
   @override
   Future<
       ({
         Hashtag hashtag,
         DocumentReference<Hashtag> reference,
-      })> build() async {
-    final snapshot = await ref.watch(hashtagsDocumentSnapshotProvider.future);
-
-    final data = snapshot.data() ??
-        Hashtag(
-          hashtags: [
-            // default tag
-            i18n.app_name,
-          ],
-        );
-
-    return (
-      hashtag: data,
-      reference: snapshot.reference,
-    );
+      })> build() {
+    return ref.watch(hashtagProvider.future);
   }
 
   Future<void> add(String value) async {
