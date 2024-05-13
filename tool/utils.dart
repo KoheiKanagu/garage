@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
+import 'package:yaml/yaml.dart';
 
 import 'flutterfire_configure.dart';
 
@@ -205,4 +206,14 @@ class Version {
   String toStringNoBuildNumber() {
     return '$major.$minor.$patch';
   }
+}
+
+Version currentVersion(String package) {
+  final pubspec = loadYaml(
+    File('packages/$package/pubspec.yaml').readAsStringSync(),
+  ) as YamlMap;
+
+  final version = pubspec['version'] as String;
+
+  return splitVersion(version);
 }
