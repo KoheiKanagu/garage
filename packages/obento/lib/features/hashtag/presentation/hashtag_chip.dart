@@ -49,6 +49,7 @@ class HashtagChip extends HookConsumerWidget {
               ? Theme.of(context).colorScheme.secondary.withOpacity(0.1)
               : Theme.of(context).colorScheme.onPrimary,
           side: BorderSide(
+            width: 2,
             color: isSelected
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.primary.withOpacity(0.2),
@@ -58,31 +59,43 @@ class HashtagChip extends HookConsumerWidget {
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
-                color: isSelected
-                    ? CupertinoTheme.of(context).primaryColor
-                    : CupertinoTheme.of(context).primaryColor.withOpacity(0.2),
+                width: 0.3,
+                color: CupertinoColors.white,
               ),
               borderRadius: BorderRadius.circular(8),
-              color: isSelected
-                  ? CupertinoTheme.of(context).primaryColor.withOpacity(0.1)
-                  : CupertinoTheme.of(context).primaryContrastingColor,
             ),
-            child: CupertinoButton(
-              onPressed: onPressed,
-              child: Row(
-                children: [
-                  leadingIcon,
-                  const Gap(8),
-                  Text(
-                    label,
-                    style: TextStyle(
-                      color: const CupertinoDynamicColor.withBrightness(
-                        color: CupertinoColors.black,
-                        darkColor: CupertinoColors.white,
-                      ).resolveFrom(context),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 2,
+                  color: isSelected
+                      ? CupertinoTheme.of(context).primaryColor
+                      : CupertinoTheme.of(context)
+                          .primaryColor
+                          .withOpacity(0.2),
+                ),
+                borderRadius: BorderRadius.circular(8),
+                color: isSelected
+                    ? CupertinoTheme.of(context).primaryColor.withOpacity(0.1)
+                    : CupertinoTheme.of(context).primaryContrastingColor,
+              ),
+              child: CupertinoButton(
+                onPressed: onPressed,
+                child: Row(
+                  children: [
+                    leadingIcon,
+                    const Gap(8),
+                    Text(
+                      label,
+                      style: TextStyle(
+                        color: const CupertinoDynamicColor.withBrightness(
+                          color: CupertinoColors.black,
+                          darkColor: CupertinoColors.white,
+                        ).resolveFrom(context),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
