@@ -71,6 +71,7 @@ class _FloatingActionButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Future<void> onPreview() async {
       final value = await ref.watch(hashtagPreviewProvider.future);
+      await HapticFeedback.mediumImpact();
 
       if (context.mounted) {
         if (value.isEmpty) {
@@ -100,6 +101,7 @@ class _FloatingActionButton extends HookConsumerWidget {
               context: context,
               title: core_i18n.i18n.copied_to_clipboard,
             );
+            await HapticFeedback.heavyImpact();
           }
         }
       }
