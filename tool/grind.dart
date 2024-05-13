@@ -6,6 +6,7 @@ export 'dart_format_all.dart';
 export 'deliver_store_metadata.dart';
 export 'download_app_privacy_details.dart';
 export 'dump_firestore_indexes.dart';
+export 'dump_release_notes.dart';
 export 'flutterfire_configure.dart';
 export 'replace_remoteconfig_template_conditions.dart';
 export 'update_core_export.dart';
