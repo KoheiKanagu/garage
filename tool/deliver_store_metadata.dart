@@ -24,6 +24,8 @@ void deliverStoreMetadata() {
           'true',
           '--precheck_include_in_app_purchases',
           'false',
+          '--automatic_release',
+          'true',
           '--force',
           'true',
           '--app_identifier',
