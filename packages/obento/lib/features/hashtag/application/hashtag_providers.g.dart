@@ -44,7 +44,22 @@ final hashtagsDocumentSnapshotProvider =
 
 typedef HashtagsDocumentSnapshotRef
     = AutoDisposeStreamProviderRef<DocumentSnapshot<Hashtag>>;
-String _$hashtagControllerHash() => r'9076b38453b69145084d62d163fcddca9da79ead';
+String _$hashtagPreviewHash() => r'a2e6925d32a9fdc76a5fa759d85ebc7c6cab1815';
+
+/// See also [hashtagPreview].
+@ProviderFor(hashtagPreview)
+final hashtagPreviewProvider = AutoDisposeFutureProvider<String>.internal(
+  hashtagPreview,
+  name: r'hashtagPreviewProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$hashtagPreviewHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef HashtagPreviewRef = AutoDisposeFutureProviderRef<String>;
+String _$hashtagControllerHash() => r'7224af5e500da3902bc3355b81706e364446d2fd';
 
 /// See also [HashtagController].
 @ProviderFor(HashtagController)
