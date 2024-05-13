@@ -1,1 +1,3 @@
-TODO
+"#obento" is an app that allows you to easily create posts for "#obento" that you always post on social media.
+
+You can record the hashtags and side dishes of your bento box that you always use, so you can create posts with just a tap without having to type the text every time.
