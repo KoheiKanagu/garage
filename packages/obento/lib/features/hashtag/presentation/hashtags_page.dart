@@ -1,6 +1,11 @@
+import 'dart:async';
+
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
+import 'package:core/gen/strings.g.dart' as core_i18n;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:obento/features/hashtag/application/hashtag_providers.dart';
 import 'package:obento/features/hashtag/presentation/hashtags_page_body.dart';
@@ -20,8 +25,6 @@ class HashtagsPage extends HookConsumerWidget {
 
     final isEditMode = ref.watch(hashtagsEditControllerProvider) != null;
 
-    void onPreview() {}
-
     return switch (themeType) {
       InheritedThemeType.material => Scaffold(
           appBar: AppBar(
@@ -35,26 +38,12 @@ class HashtagsPage extends HookConsumerWidget {
             ],
           ),
           body: const HashtagsPageBody(),
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: onPreview,
-            label: Text(i18n.preview),
+          floatingActionButton: Visibility(
+            visible: !isEditMode,
+            child: const _FloatingActionButton(),
           ),
         ),
       InheritedThemeType.cupertino => Scaffold(
-          floatingActionButton: CupertinoButton.filled(
-            padding: const EdgeInsets.all(16),
-            onPressed: onPreview,
-            child: Text(
-              i18n.preview,
-              style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: const CupertinoDynamicColor.withBrightness(
-                      color: CupertinoColors.white,
-                      darkColor: CupertinoColors.black,
-                    ).resolveFrom(context),
-                  ),
-            ),
-          ),
           body: CupertinoPageScaffold(
             backgroundColor:
                 CupertinoColors.systemGroupedBackground.resolveFrom(context),
@@ -65,6 +54,75 @@ class HashtagsPage extends HookConsumerWidget {
                   : const HashtagsPageMenuButton(),
             ),
             child: const HashtagsPageBody(),
+          ),
+          floatingActionButton: Visibility(
+            visible: !isEditMode,
+            child: const _FloatingActionButton(),
+          ),
+        ),
+    };
+  }
+}
+
+class _FloatingActionButton extends HookConsumerWidget {
+  const _FloatingActionButton();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    Future<void> onPreview() async {
+      final value = await ref.watch(hashtagPreviewProvider.future);
+
+      if (context.mounted) {
+        if (value.isEmpty) {
+          await showOkAlertDialog(
+            context: context,
+            title: i18n.not_selected,
+          );
+          return;
+        }
+
+        final result = await showOkCancelAlertDialog(
+          context: context,
+          okLabel: core_i18n.i18n.copy,
+          cancelLabel: core_i18n.i18n.close,
+          message: value,
+        );
+
+        if (result == OkCancelResult.ok) {
+          await Clipboard.setData(
+            ClipboardData(
+              text: value,
+            ),
+          );
+
+          if (context.mounted) {
+            await showOkAlertDialog(
+              context: context,
+              title: core_i18n.i18n.copied_to_clipboard,
+            );
+          }
+        }
+      }
+    }
+
+    final themeType = InheritedThemeDetector.of(context);
+    return switch (themeType) {
+      InheritedThemeType.material => FloatingActionButton.extended(
+          onPressed: onPreview,
+          label: Text(i18n.preview),
+        ),
+      InheritedThemeType.cupertino => CupertinoButton.filled(
+          padding: const EdgeInsets.all(16),
+          onPressed: onPreview,
+          child: Text(
+            i18n.preview,
+            style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: const CupertinoDynamicColor.withBrightness(
+                    color: CupertinoColors.white,
+                    darkColor: CupertinoColors.black,
+                  ).resolveFrom(context),
+                ),
           ),
         ),
     };
