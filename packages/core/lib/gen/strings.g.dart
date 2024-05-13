@@ -153,6 +153,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get error_field_cannot_be_empty => 'この項目は必須です';
 	String get copy => 'コピー';
 	String get close => '閉じる';
+	String get copied_to_clipboard => 'クリップボードにコピーしました';
 }
 
 // Path: service_down
@@ -361,6 +362,7 @@ class _StringsEn extends Translations {
 	@override String get error_field_cannot_be_empty => 'This field is required';
 	@override String get copy => 'Copy';
 	@override String get close => 'Close';
+	@override String get copied_to_clipboard => 'Copied to clipboard';
 }
 
 // Path: service_down

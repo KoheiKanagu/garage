@@ -98,5 +98,6 @@
   "delete": "Delete",
   "error_field_cannot_be_empty": "This field is required",
   "copy": "Copy",
-  "close": "Close"
+  "close": "Close",
+  "copied_to_clipboard": "Copied to clipboard"
 }

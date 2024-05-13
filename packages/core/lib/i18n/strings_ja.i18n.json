@@ -98,5 +98,6 @@
   "delete": "削除",
   "error_field_cannot_be_empty": "この項目は必須です",
   "copy": "コピー",
-  "close": "閉じる"
+  "close": "閉じる",
+  "copied_to_clipboard": "クリップボードにコピーしました"
 }
