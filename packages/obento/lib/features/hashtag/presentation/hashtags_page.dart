@@ -7,6 +7,7 @@ import 'package:obento/features/hashtag/presentation/hashtags_page_body.dart';
 import 'package:obento/features/hashtag/presentation/hashtags_page_cancel_button.dart';
 import 'package:obento/features/hashtag/presentation/hashtags_page_menu_button.dart';
 import 'package:obento/features/hashtag/presentation/hashtags_page_save_button.dart';
+import 'package:obento/gen/strings.g.dart';
 
 class HashtagsPage extends HookConsumerWidget {
   const HashtagsPage({
@@ -18,6 +19,8 @@ class HashtagsPage extends HookConsumerWidget {
     final themeType = InheritedThemeDetector.of(context);
 
     final isEditMode = ref.watch(hashtagsEditControllerProvider) != null;
+
+    void onPreview() {}
 
     return switch (themeType) {
       InheritedThemeType.material => Scaffold(
@@ -32,17 +35,37 @@ class HashtagsPage extends HookConsumerWidget {
             ],
           ),
           body: const HashtagsPageBody(),
-        ),
-      InheritedThemeType.cupertino => CupertinoPageScaffold(
-          backgroundColor:
-              CupertinoColors.systemGroupedBackground.resolveFrom(context),
-          navigationBar: CupertinoNavigationBar(
-            leading: isEditMode ? const HashtagsPageCancelButton() : null,
-            trailing: isEditMode
-                ? const HashtagsPageSaveButton()
-                : const HashtagsPageMenuButton(),
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: onPreview,
+            label: Text(i18n.preview),
           ),
-          child: const HashtagsPageBody(),
+        ),
+      InheritedThemeType.cupertino => Scaffold(
+          floatingActionButton: CupertinoButton.filled(
+            padding: const EdgeInsets.all(16),
+            onPressed: onPreview,
+            child: Text(
+              i18n.preview,
+              style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: const CupertinoDynamicColor.withBrightness(
+                      color: CupertinoColors.white,
+                      darkColor: CupertinoColors.black,
+                    ).resolveFrom(context),
+                  ),
+            ),
+          ),
+          body: CupertinoPageScaffold(
+            backgroundColor:
+                CupertinoColors.systemGroupedBackground.resolveFrom(context),
+            navigationBar: CupertinoNavigationBar(
+              leading: isEditMode ? const HashtagsPageCancelButton() : null,
+              trailing: isEditMode
+                  ? const HashtagsPageSaveButton()
+                  : const HashtagsPageMenuButton(),
+            ),
+            child: const HashtagsPageBody(),
+          ),
         ),
     };
   }
