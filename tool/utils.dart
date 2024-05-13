@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -208,6 +209,9 @@ class Version {
   }
 }
 
+/// pubspec.yamlからパッケージのバージョンを取得する
+///
+/// like "1.0.0+10"
 Version currentVersion(String package) {
   final pubspec = loadYaml(
     File('packages/$package/pubspec.yaml').readAsStringSync(),
@@ -216,4 +220,37 @@ Version currentVersion(String package) {
   final version = pubspec['version'] as String;
 
   return splitVersion(version);
+}
+
+/// PRがマージされるまで待つ
+///
+/// PRがマージされると、マージされたコミットのSHAを返す
+Future<String> waitMergePr() async {
+  final completer = Completer<String>();
+
+  Timer.periodic(
+    const Duration(seconds: 30),
+    (timer) {
+      final result = run(
+        'gh',
+        arguments: [
+          'pr',
+          'view',
+          '--json',
+          'mergedAt,mergeCommit',
+        ],
+      );
+
+      final data = json.decode(result) as Map<String, dynamic>;
+      final mergedAt = data['mergedAt'] as String?;
+      if (mergedAt != null) {
+        final mergeCommit = data['mergeCommit']['oid'] as String;
+
+        timer.cancel();
+        completer.complete(mergeCommit);
+      }
+    },
+  );
+
+  return completer.future;
 }

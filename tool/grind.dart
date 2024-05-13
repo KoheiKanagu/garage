@@ -8,6 +8,7 @@ export 'download_app_privacy_details.dart';
 export 'dump_firestore_indexes.dart';
 export 'dump_release_notes.dart';
 export 'flutterfire_configure.dart';
+export 'initial_release.dart';
 export 'replace_remoteconfig_template_conditions.dart';
 export 'update_core_export.dart';
 export 'update_coverage_test.dart';
