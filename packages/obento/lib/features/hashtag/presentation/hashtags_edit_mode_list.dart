@@ -18,69 +18,79 @@ class HashtagsEditModeList extends HookConsumerWidget {
 
     final themeType = InheritedThemeDetector.of(context);
 
-    return ReorderableListView.builder(
-      onReorder: ref.watch(hashtagsEditControllerProvider.notifier).swap,
-      buildDefaultDragHandles: false,
-      itemCount: hashtags.length,
-      itemBuilder: (context, index) {
-        final e = hashtags[index];
+    return Padding(
+      padding: EdgeInsets.only(
+        top: switch (themeType) {
+          InheritedThemeType.cupertino =>
+            MediaQuery.of(context).viewPadding.top +
+                kMinInteractiveDimensionCupertino,
+          _ => 0,
+        },
+      ),
+      child: ReorderableListView.builder(
+        onReorder: ref.watch(hashtagsEditControllerProvider.notifier).swap,
+        buildDefaultDragHandles: false,
+        itemCount: hashtags.length,
+        itemBuilder: (context, index) {
+          final e = hashtags[index];
 
-        Future<void> onDelete() async {
-          final result = await showOkCancelAlertDialog(
-            context: context,
-            title: i18n.delete_hashtag(
-              hashtag: hashtags[index],
-            ),
-            okLabel: core_i18n.i18n.delete,
-            isDestructiveAction: true,
-          );
+          Future<void> onDelete() async {
+            final result = await showOkCancelAlertDialog(
+              context: context,
+              title: i18n.delete_hashtag(
+                hashtag: hashtags[index],
+              ),
+              okLabel: core_i18n.i18n.delete,
+              isDestructiveAction: true,
+            );
 
-          if (result == OkCancelResult.ok) {
-            ref.watch(hashtagsEditControllerProvider.notifier).delete(index);
+            if (result == OkCancelResult.ok) {
+              ref.watch(hashtagsEditControllerProvider.notifier).delete(index);
+            }
           }
-        }
 
-        final key = ValueKey('Hashtag_$e-$index');
+          final key = ValueKey('Hashtag_$e-$index');
 
-        return switch (themeType) {
-          InheritedThemeType.material => ListTile(
-              key: key,
-              title: Text(e),
-              leading: IconButton(
-                onPressed: () async => onDelete(),
-                icon: Icon(
-                  Icons.remove_circle,
-                  color: Theme.of(context).colorScheme.error,
+          return switch (themeType) {
+            InheritedThemeType.material => ListTile(
+                key: key,
+                title: Text(e),
+                leading: IconButton(
+                  onPressed: () async => onDelete(),
+                  icon: Icon(
+                    Icons.remove_circle,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                ),
+                trailing: ReorderableDragStartListener(
+                  index: index,
+                  child: Icon(
+                    Icons.drag_handle,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
               ),
-              trailing: ReorderableDragStartListener(
-                index: index,
-                child: Icon(
-                  Icons.drag_handle,
-                  color: Theme.of(context).colorScheme.primary,
+            InheritedThemeType.cupertino => CupertinoListTile(
+                key: key,
+                backgroundColor:
+                    CupertinoColors.systemBackground.resolveFrom(context),
+                title: Text(e),
+                leading: CupertinoButton(
+                  onPressed: () async => onDelete(),
+                  padding: EdgeInsets.zero,
+                  child: Icon(
+                    CupertinoIcons.delete_solid,
+                    color: CupertinoColors.systemRed.resolveFrom(context),
+                  ),
+                ),
+                trailing: ReorderableDragStartListener(
+                  index: index,
+                  child: const Icon(CupertinoIcons.bars),
                 ),
               ),
-            ),
-          InheritedThemeType.cupertino => CupertinoListTile(
-              key: key,
-              backgroundColor:
-                  CupertinoColors.systemBackground.resolveFrom(context),
-              title: Text(e),
-              leading: CupertinoButton(
-                onPressed: () async => onDelete(),
-                padding: EdgeInsets.zero,
-                child: Icon(
-                  CupertinoIcons.delete_solid,
-                  color: CupertinoColors.systemRed.resolveFrom(context),
-                ),
-              ),
-              trailing: ReorderableDragStartListener(
-                index: index,
-                child: const Icon(CupertinoIcons.bars),
-              ),
-            ),
-        };
-      },
+          };
+        },
+      ),
     );
   }
 }
