@@ -3,5 +3,6 @@
   "create_new": "Create New",
   "tamagoyaki": "Tamagoyaki",
   "error_tag_already_exists": "This item already exists",
-  "delete_hashtag": "Delete ${hashtag}?"
+  "delete_hashtag": "Delete ${hashtag}?",
+  "preview": "Preview"
 }

@@ -141,6 +141,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get tamagoyaki => '卵焼き';
 	String get error_tag_already_exists => 'この項目は既に作成されています';
 	String delete_hashtag({required Object hashtag}) => '${hashtag}を削除しますか？';
+	String get preview => 'プレビュー';
 }
 
 // Path: <root>
@@ -168,4 +169,5 @@ class _StringsEn extends Translations {
 	@override String get tamagoyaki => 'Tamagoyaki';
 	@override String get error_tag_already_exists => 'This item already exists';
 	@override String delete_hashtag({required Object hashtag}) => 'Delete ${hashtag}?';
+	@override String get preview => 'Preview';
 }
