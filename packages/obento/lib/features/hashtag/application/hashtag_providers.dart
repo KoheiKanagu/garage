@@ -191,6 +191,10 @@ class HashtagsSelectedController extends _$HashtagsSelectedController {
       state = state..add(tag);
     }
 
+    _notify();
+  }
+
+  void _notify() {
     ref.notifyListeners();
 
     ref.watch(sharedPreferencesControllerProvider).setStringList(
@@ -198,12 +202,24 @@ class HashtagsSelectedController extends _$HashtagsSelectedController {
           state.toList(),
         );
   }
+
+  Future<void> cleanup() async {
+    final tags = await ref.watch(
+      hashtagControllerProvider.selectAsync((e) => e.hashtag.hashtags),
+    );
+
+    state = state.where(tags.contains).toSet();
+
+    _notify();
+  }
 }
 
 @riverpod
 Future<String> hashtagPreview(
   HashtagPreviewRef ref,
 ) async {
+  await ref.watch(hashtagsSelectedControllerProvider.notifier).cleanup();
+
   final selected = ref.watch(hashtagsSelectedControllerProvider);
 
   final value = await ref.watch(
