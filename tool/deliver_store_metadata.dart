@@ -11,6 +11,8 @@ void deliverStoreMetadata() {
   final packages = argumentPackages();
 
   for (final package in packages) {
+    final version = currentVersion(package);
+
     final appStore =
         Directory('packages/$package/.fastlane/metadata/default').existsSync();
     if (appStore) {
@@ -30,8 +32,8 @@ void deliverStoreMetadata() {
           'true',
           '--app_identifier',
           getIosBundleId(package),
-          // '--app_version',
-          // version.toStringNoBuildNumber(),
+          '--app_version',
+          version.toStringNoBuildNumber(),
         ],
         workingDirectory: 'packages/$package',
       );
@@ -58,9 +60,9 @@ void deliverStoreMetadata() {
           getAndroidPackageName(package),
           '--track',
           'alpha',
-          // '--version_code',
-          // // このバージョンのリリースが存在している必要がある
-          // version.build.toString(),
+          '--version_code',
+          // このバージョンのリリースが存在している必要がある
+          version.build.toString(),
         ],
         workingDirectory: 'packages/$package',
       );
