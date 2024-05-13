@@ -96,5 +96,7 @@
   "cancel": "キャンセル",
   "save": "保存",
   "delete": "削除",
-  "error_field_cannot_be_empty": "この項目は必須です"
+  "error_field_cannot_be_empty": "この項目は必須です",
+  "copy": "コピー",
+  "close": "閉じる"
 }
