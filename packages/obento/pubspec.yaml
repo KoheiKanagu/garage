@@ -79,6 +79,14 @@ flutter:
 
     - assets/images/app_icon.webp
 
+    - assets/images/onboarding/screenshot_0.webp
+    - assets/images/onboarding/screenshot_1.webp
+    - assets/images/onboarding/screenshot_2.webp
+    - assets/images/onboarding/screenshot_3.webp
+    - assets/images/onboarding/screenshot_4.webp
+    - assets/images/onboarding/screenshot_5.webp
+    - assets/images/onboarding/screenshot_6.webp
+    - assets/images/onboarding/screenshot_7.webp
 flutter_native_splash:
   color: "#FF9800"
   color_dark: "#FF5722"
