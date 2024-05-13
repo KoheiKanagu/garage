@@ -44,24 +44,26 @@ final hashtagsDocumentSnapshotProvider =
 
 typedef HashtagsDocumentSnapshotRef
     = AutoDisposeStreamProviderRef<DocumentSnapshot<Hashtag>>;
-String _$hashtagHash() => r'd6b97b31f6c6e9b1f1e2b3cf9be43faf8aafb4e2';
+String _$hashtagControllerHash() => r'9076b38453b69145084d62d163fcddca9da79ead';
 
-/// See also [hashtag].
-@ProviderFor(hashtag)
-final hashtagProvider = AutoDisposeFutureProvider<
+/// See also [HashtagController].
+@ProviderFor(HashtagController)
+final hashtagControllerProvider = AutoDisposeAsyncNotifierProvider<
+    HashtagController,
     ({Hashtag hashtag, DocumentReference<Hashtag> reference})>.internal(
-  hashtag,
-  name: r'hashtagProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$hashtagHash,
+  HashtagController.new,
+  name: r'hashtagControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$hashtagControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef HashtagRef = AutoDisposeFutureProviderRef<
+typedef _$HashtagController = AutoDisposeAsyncNotifier<
     ({Hashtag hashtag, DocumentReference<Hashtag> reference})>;
 String _$hashtagsEditControllerHash() =>
-    r'e25e4a317202f799ebeddb230d4dd075fcc3fbc1';
+    r'f5363a1d7a1ee6c56fc479e438b4442ae508bc30';
 
 /// See also [HashtagsEditController].
 @ProviderFor(HashtagsEditController)

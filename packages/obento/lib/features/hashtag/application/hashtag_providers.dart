@@ -29,27 +29,74 @@ Stream<DocumentSnapshot<Hashtag>> hashtagsDocumentSnapshot(
 }
 
 @riverpod
-Future<
-    ({
-      Hashtag hashtag,
-      DocumentReference<Hashtag> reference,
-    })> hashtag(
-  HashtagRef ref,
-) async {
-  final snapshot = await ref.watch(hashtagsDocumentSnapshotProvider.future);
+class HashtagController extends _$HashtagController {
+  @override
+  Future<
+      ({
+        Hashtag hashtag,
+        DocumentReference<Hashtag> reference,
+      })> build() async {
+    final snapshot = await ref.watch(hashtagsDocumentSnapshotProvider.future);
 
-  final data = snapshot.data() ??
-      Hashtag(
-        hashtags: [
-          // default tag
-          i18n.app_name,
-        ],
-      );
+    final data = snapshot.data() ??
+        Hashtag(
+          hashtags: [
+            // default tag
+            i18n.app_name,
+          ],
+        );
 
-  return (
-    hashtag: data,
-    reference: snapshot.reference,
-  );
+    return (
+      hashtag: data,
+      reference: snapshot.reference,
+    );
+  }
+
+  Future<void> add(String value) async {
+    final newTag = value.trim();
+    if (newTag.isEmpty) {
+      return;
+    }
+
+    final data = state.value;
+    if (data == null) {
+      return;
+    }
+
+    final newHashtag = data.hashtag.copyWith(
+      hashtags: [
+        ...data.hashtag.hashtags,
+        newTag,
+      ],
+    );
+
+    await data.reference.set(
+      newHashtag,
+      SetOptions(
+        merge: true,
+      ),
+    );
+  }
+
+  String? validate(String? value) {
+    final current = state.value?.hashtag;
+    if (current == null) {
+      throw Exception('HashtagController state is null');
+    }
+
+    final trimmed = value?.trim();
+
+    final isEmpty = trimmed?.isEmpty ?? true;
+    if (isEmpty) {
+      return core_i18n.i18n.error_field_cannot_be_empty;
+    }
+
+    if (current.hashtags.contains(trimmed)) {
+      return i18n.error_tag_already_exists;
+    }
+
+    return null;
+  }
 }
 
 @riverpod
@@ -61,7 +108,7 @@ class HashtagsEditController extends _$HashtagsEditController {
 
   Future<void> edit() async {
     state = await ref.watch(
-      hashtagProvider.selectAsync(
+      hashtagControllerProvider.selectAsync(
         (e) => e.hashtag,
       ),
     );
@@ -96,40 +143,10 @@ class HashtagsEditController extends _$HashtagsEditController {
     set(newHashtags);
   }
 
-  void add(String tag) {
-    set([
-      ...state?.hashtags ?? [],
-      tag,
-    ]);
-  }
-
   void set(List<String> tags) {
     state = state?.copyWith(
-      hashtags: tags
-          .map(
-            (e) => e.trim(),
-          )
-          .where(
-            (e) => e.isNotEmpty,
-          )
-          .toList(),
+      hashtags: tags,
     );
-  }
-
-  String? validate(String? value) {
-    final trimmed = value?.trim();
-
-    final isEmpty = trimmed?.isEmpty ?? true;
-    if (isEmpty) {
-      return core_i18n.i18n.error_field_cannot_be_empty;
-    }
-
-    final current = state?.hashtags ?? [];
-    if (current.contains(trimmed)) {
-      return i18n.error_tag_already_exists;
-    }
-
-    return null;
   }
 
   Future<void> save() async {
@@ -138,7 +155,7 @@ class HashtagsEditController extends _$HashtagsEditController {
     }
 
     final reference = await ref.watch(
-      hashtagProvider.selectAsync(
+      hashtagControllerProvider.selectAsync(
         (e) => e.reference,
       ),
     );

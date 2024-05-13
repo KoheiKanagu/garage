@@ -18,7 +18,8 @@ class HashtagsPageBody extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isEdit = ref.watch(hashtagsEditControllerProvider) != null;
-    final hashtags = ref.watch(hashtagProvider).value?.hashtag.hashtags;
+    final hashtags =
+        ref.watch(hashtagControllerProvider).value?.hashtag.hashtags;
 
     if (hashtags == null) {
       return const Center(
@@ -51,7 +52,7 @@ class HashtagsPageBody extends HookConsumerWidget {
                           },
                         ),
                       ),
-                      const _AddChip(),
+                      _AddChip(hashtags),
                     ],
                   ),
                 ),
@@ -62,7 +63,11 @@ class HashtagsPageBody extends HookConsumerWidget {
 }
 
 class _AddChip extends HookConsumerWidget {
-  const _AddChip();
+  const _AddChip(
+    this.currentHashtags,
+  );
+
+  final List<String> currentHashtags;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -76,11 +81,7 @@ class _AddChip extends HookConsumerWidget {
             DialogTextField(
               hintText: i18n.tamagoyaki,
               maxLength: 64,
-              validator: ref
-                  .watch(
-                    hashtagsEditControllerProvider.notifier,
-                  )
-                  .validate,
+              validator: ref.watch(hashtagControllerProvider.notifier).validate,
             ),
           ],
         );
@@ -89,8 +90,7 @@ class _AddChip extends HookConsumerWidget {
           return;
         }
 
-        ref.watch(hashtagsEditControllerProvider.notifier).add(result.first);
-        await ref.watch(hashtagsEditControllerProvider.notifier).save();
+        await ref.watch(hashtagControllerProvider.notifier).add(result.first);
       },
       icon: switch (InheritedThemeDetector.of(context)) {
         InheritedThemeType.material => Icons.add_circle,
