@@ -46,11 +46,8 @@ Future<void> createNewReleases() async {
         '--target',
         mergeCommitSHA,
         '--generate-notes',
-        // 初回リリースの場合は指定しない
-        if (latestTagName != null) ...[
-          '--notes-start-tag',
-          latestTagName,
-        ],
+        '--notes-start-tag',
+        latestTagName!,
         '--draft',
       ],
     );
