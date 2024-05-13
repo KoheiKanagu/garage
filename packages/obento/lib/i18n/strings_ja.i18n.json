@@ -4,5 +4,6 @@
   "tamagoyaki": "卵焼き",
   "error_tag_already_exists": "この項目は既に作成されています",
   "delete_hashtag": "${hashtag}を削除しますか？",
-  "preview": "プレビュー"
+  "preview": "プレビュー",
+  "not_selected": "選択されていません"
 }

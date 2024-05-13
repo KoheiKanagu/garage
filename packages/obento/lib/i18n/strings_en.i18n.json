@@ -4,5 +4,6 @@
   "tamagoyaki": "Tamagoyaki",
   "error_tag_already_exists": "This item already exists",
   "delete_hashtag": "Delete ${hashtag}?",
-  "preview": "Preview"
+  "preview": "Preview",
+  "not_selected": "Not Selected"
 }
