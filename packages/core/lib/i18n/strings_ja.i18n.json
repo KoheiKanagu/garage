@@ -74,7 +74,9 @@
     "unlink": "解除",
     "sign_out": "サインアウト",
     "sign_out_description": "サインアウトすると、アカウントを接続していない場合は現在利用中のデータにアクセスできなくなります。",
-    "sign_out_complete": "サインアウトしました"
+    "sign_out_complete": "サインアウトしました",
+    "exception": "予期せぬエラーが発生しました",
+    "exception_message": "しばらく時間を置いてから再度お試しください。"
   },
   "onboarding": {
     "start": "はじめる",
