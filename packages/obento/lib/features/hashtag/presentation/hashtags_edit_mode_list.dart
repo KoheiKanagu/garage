@@ -3,6 +3,7 @@ import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart' as core_i18n;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:obento/features/hashtag/application/hashtag_providers.dart';
 import 'package:obento/gen/strings.g.dart';
@@ -29,6 +30,8 @@ class HashtagsEditModeList extends HookConsumerWidget {
       ),
       child: ReorderableListView.builder(
         onReorder: ref.watch(hashtagsEditControllerProvider.notifier).swap,
+        onReorderStart: (_) => HapticFeedback.lightImpact(),
+        onReorderEnd: (_) => HapticFeedback.lightImpact(),
         buildDefaultDragHandles: false,
         itemCount: hashtags.length,
         itemBuilder: (context, index) {

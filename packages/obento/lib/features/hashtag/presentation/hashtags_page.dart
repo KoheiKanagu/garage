@@ -90,6 +90,7 @@ class _FloatingActionButton extends HookConsumerWidget {
         );
 
         if (result == OkCancelResult.ok) {
+          await HapticFeedback.heavyImpact();
           await Clipboard.setData(
             ClipboardData(
               text: value,
@@ -101,7 +102,6 @@ class _FloatingActionButton extends HookConsumerWidget {
               context: context,
               title: core_i18n.i18n.copied_to_clipboard,
             );
-            await HapticFeedback.heavyImpact();
           }
         }
       }

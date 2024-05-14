@@ -90,6 +90,7 @@ class _AddChip extends HookConsumerWidget {
           return;
         }
 
+        await HapticFeedback.mediumImpact();
         await ref.watch(hashtagControllerProvider.notifier).add(result.first);
       },
       icon: switch (InheritedThemeDetector.of(context)) {
