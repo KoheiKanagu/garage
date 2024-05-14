@@ -74,7 +74,9 @@
     "unlink": "Unlink",
     "sign_out": "Sign out",
     "sign_out_description": "When you sign out, you will no longer have access to the data you are currently using unless you are connected to an account.",
-    "sign_out_complete": "Signed out successfully"
+    "sign_out_complete": "Signed out successfully",
+    "exception": "An unexpected error occurred",
+    "exception_message": "Please try again after a while."
   },
   "onboarding": {
     "start": "Start",

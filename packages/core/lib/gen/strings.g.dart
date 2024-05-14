@@ -268,6 +268,8 @@ class _StringsAuthJa {
 	String get sign_out => 'サインアウト';
 	String get sign_out_description => 'サインアウトすると、アカウントを接続していない場合は現在利用中のデータにアクセスできなくなります。';
 	String get sign_out_complete => 'サインアウトしました';
+	String get exception => '予期せぬエラーが発生しました';
+	String get exception_message => 'しばらく時間を置いてから再度お試しください。';
 }
 
 // Path: onboarding
@@ -480,6 +482,8 @@ class _StringsAuthEn extends _StringsAuthJa {
 	@override String get sign_out => 'Sign out';
 	@override String get sign_out_description => 'When you sign out, you will no longer have access to the data you are currently using unless you are connected to an account.';
 	@override String get sign_out_complete => 'Signed out successfully';
+	@override String get exception => 'An unexpected error occurred';
+	@override String get exception_message => 'Please try again after a while.';
 }
 
 // Path: onboarding

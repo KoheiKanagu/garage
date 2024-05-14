@@ -5,6 +5,7 @@ import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 
@@ -26,6 +27,8 @@ class MyAuthProviderButton extends HookConsumerWidget {
       myAuthProviderControllerProvider(type).notifier,
     );
 
+    final isProgress = useState(false);
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -41,56 +44,94 @@ class MyAuthProviderButton extends HookConsumerWidget {
             ),
             data: (isLinked) => GestureDetector(
               onTap: () async {
-                if (isLinked) {
-                  final result = await showOkCancelAlertDialog(
-                    context: context,
-                    title: i18n.auth.unlink_confirm(
-                      account: type.providerName,
-                    ),
-                    isDestructiveAction: true,
-                    okLabel: i18n.auth.unlink,
-                  );
+                if (isProgress.value) {
+                  return;
+                }
+                final indicator = showMyProgressIndicator(
+                  builder: (context) => const SizedBox.shrink(),
+                );
 
-                  if (result == OkCancelResult.ok) {
-                    await authProviderController.unlink();
+                try {
+                  isProgress.value = true;
+
+                  if (isLinked) {
+                    final result = await showOkCancelAlertDialog(
+                      context: context,
+                      title: i18n.auth.unlink_confirm(
+                        account: type.providerName,
+                      ),
+                      isDestructiveAction: true,
+                      okLabel: i18n.auth.unlink,
+                    );
+
+                    if (result == OkCancelResult.ok) {
+                      await authProviderController.unlink();
+                    }
+                  } else {
+                    await authProviderController.signInOrLink();
                   }
-                } else {
-                  await authProviderController.signInOrLink();
+                } on Exception catch (e, stack) {
+                  logger.handle(e, stack);
+
+                  if (context.mounted) {
+                    await showOkAlertDialog(
+                      context: context,
+                      title: i18n.auth.exception,
+                      message: i18n.auth.exception_message,
+                    );
+                  }
+                } finally {
+                  isProgress.value = false;
+                  indicator.dismiss();
                 }
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: _logoSize,
-                    height: _logoSize,
-                    padding: type.logoPadding,
-                    child: ScalableImageWidget.fromSISource(
-                      si: ScalableImageSource.fromSI(
-                        DefaultAssetBundle.of(context),
-                        type.logoAssetPathOf(context),
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                child: isProgress.value
+                    ? const Center(
+                        child: CircularProgressIndicator.adaptive(
+                          backgroundColor: Colors.white,
+                        ),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: _logoSize,
+                            height: _logoSize,
+                            padding: type.logoPadding,
+                            child: ScalableImageWidget.fromSISource(
+                              si: ScalableImageSource.fromSI(
+                                DefaultAssetBundle.of(context),
+                                type.logoAssetPathOf(context),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            isLinked ? type.unlinkLabel : type.signInLabel,
+                            style: switch (themeType) {
+                              InheritedThemeType.material => Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.w600,
+                                    color: type.textColorOf(context),
+                                  ),
+                              InheritedThemeType.cupertino =>
+                                CupertinoTheme.of(context)
+                                    .textTheme
+                                    .textStyle
+                                    .copyWith(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.w600,
+                                      color: type.textColorOf(context),
+                                    ),
+                            },
+                            textScaler: TextScaler.noScaling,
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                  Text(
-                    isLinked ? type.unlinkLabel : type.signInLabel,
-                    style: switch (themeType) {
-                      InheritedThemeType.material =>
-                        Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              fontSize: 19,
-                              fontWeight: FontWeight.w600,
-                              color: type.textColorOf(context),
-                            ),
-                      InheritedThemeType.cupertino =>
-                        CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-                              fontSize: 19,
-                              fontWeight: FontWeight.w600,
-                              color: type.textColorOf(context),
-                            ),
-                    },
-                    textScaler: TextScaler.noScaling,
-                  ),
-                ],
               ),
             ),
           ),
