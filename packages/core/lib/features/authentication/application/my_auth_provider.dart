@@ -26,7 +26,7 @@ class MyAuthProviderController extends _$MyAuthProviderController {
       if (currentUser != null) {
         await currentUser.linkWithProvider(state);
       } else {
-        await ref.watch(firebaseAuthProvider).signInWithPopup(state);
+        await ref.watch(firebaseAuthProvider).signInWithProvider(state);
       }
     } on Exception catch (exception) {
       if (exception is FirebaseAuthException) {
