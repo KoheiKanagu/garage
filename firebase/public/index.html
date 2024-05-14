@@ -65,7 +65,14 @@
         overflow: hidden;
         border-radius: 13px;
         width: 200px;
-        height: 66.4px;
+        height: 66.85381836px;
+      }
+      #message #google_play_badge {
+        display: inline-block;
+        overflow: hidden;
+        border-radius: 13px;
+        width: 200px;
+        height: 59.5744680851px;
       }
       #load {
         color: rgba(0, 0, 0, 0.4);
@@ -89,6 +96,26 @@
   <body>
     <div id="message">
       <div style="text-align: center">
+        <img src="obento-app_icon.webp" alt="#obento App Icon" id="app_icon" />
+
+        <a href="https://example.com" id="app_store_badge"
+          ><img
+            src="app_store.svg"
+            alt="Download on the App Store"
+            id="app_store_badge"
+        /></a>
+
+        <a href="TODO" id="google_play_badge"
+          ><img
+            src="google_play.webp"
+            alt="Download on the Google Play Store"
+            id="google_play_badge"
+        /></a>
+      </div>
+
+      <hr />
+
+      <div style="text-align: center">
         <img
           src="locamusic-app_icon.webp"
           alt="Locamusic App Icon"
@@ -98,7 +125,7 @@
           href="https://apps.apple.com/jp/app/%E5%A0%B4%E6%89%80%E3%81%A7%E9%9F%B3%E6%A5%BD/id6471416156?itsct=apps_box_badge&amp;itscg=30200"
           id="app_store_badge"
           ><img
-            src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1707350400"
+            src="app_store.svg"
             alt="Download on the App Store"
             id="app_store_badge"
         /></a>
@@ -107,9 +134,9 @@
       <hr />
 
       <a target="_blank" id="about_creator" href="https://kingu.dev">
-        アプリ制作者についてはこちら
+        アプリの開発者についてはこちら
         <br />
-        About the app creator
+        About the apps' developer
       </a>
     </div>
   </body>
