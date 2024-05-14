@@ -71,7 +71,10 @@
     "unlink_github": "GitHubとの接続を解除",
     "github_account": "GitHubアカウント",
     "unlink_confirm": "$accountとの接続を解除しますか？",
-    "unlink": "解除"
+    "unlink": "解除",
+    "sign_out": "サインアウト",
+    "sign_out_description": "サインアウトすると、アカウントを接続していない場合は現在利用中のデータにアクセスできなくなります。",
+    "sign_out_complete": "サインアウトしました"
   },
   "onboarding": {
     "start": "はじめる",
