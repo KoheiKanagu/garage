@@ -265,6 +265,9 @@ class _StringsAuthJa {
 	String get github_account => 'GitHubアカウント';
 	String unlink_confirm({required Object account}) => '${account}との接続を解除しますか？';
 	String get unlink => '解除';
+	String get sign_out => 'サインアウト';
+	String get sign_out_description => 'サインアウトすると、アカウントを接続していない場合は現在利用中のデータにアクセスできなくなります。';
+	String get sign_out_complete => 'サインアウトしました';
 }
 
 // Path: onboarding
@@ -474,6 +477,9 @@ class _StringsAuthEn extends _StringsAuthJa {
 	@override String get github_account => 'GitHub Account';
 	@override String unlink_confirm({required Object account}) => 'Unlink ${account}?';
 	@override String get unlink => 'Unlink';
+	@override String get sign_out => 'Sign out';
+	@override String get sign_out_description => 'When you sign out, you will no longer have access to the data you are currently using unless you are connected to an account.';
+	@override String get sign_out_complete => 'Signed out successfully';
 }
 
 // Path: onboarding

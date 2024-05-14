@@ -112,6 +112,22 @@ Future<void> firebaseUserDelete(
   logger.debug('success signOut');
 }
 
+/// SharedPreferencesの削除が完了するまで待った後、サインアウトする
+@riverpod
+Future<void> firebaseUserSignOut(
+  FirebaseUserSignOutRef ref,
+) async {
+  await ref.watch(firebaseAnalyticsProvider).logEvent(
+        name: 'sign_out',
+      );
+
+  logger.debug('clear SharedPreferences');
+  await ref.watch(sharedPreferencesControllerProvider).clear();
+
+  await ref.watch(firebaseAuthProvider).signOut();
+  logger.debug('success signOut');
+}
+
 /// サインインしているアカウントのプロバイダーを取得する
 @riverpod
 Future<List<String>?> firebaseUserLinkedProviders(
