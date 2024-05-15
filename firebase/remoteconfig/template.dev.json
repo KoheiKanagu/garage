@@ -1,0 +1,71 @@
+{
+  "conditions": [
+    {
+      "name": "listenToMusicByLocation ios",
+      "expression": "app.id == '1:682848709439:ios:3361e1e37cb0d30884c18a'",
+      "tagColor": "ORANGE"
+    },
+    {
+      "name": "obento ios",
+      "expression": "app.id == '1:682848709439:ios:0385652c1ce6392c84c18a'",
+      "tagColor": "GREEN"
+    },
+    {
+      "name": "obento android",
+      "expression": "app.id == '1:682848709439:android:e09c7918d934bb9784c18a'",
+      "tagColor": "GREEN"
+    }
+  ],
+  "parameters": {
+    "latest_version_code": {
+      "defaultValue": {
+        "value": "0"
+      },
+      "conditionalValues": {
+        "listenToMusicByLocation ios": {
+          "value": "0"
+        },
+        "obento ios": {
+          "value": "0"
+        },
+        "obento android": {
+          "value": "0"
+        }
+      },
+      "description": "最新版のアプリのバージョンコード",
+      "valueType": "NUMBER"
+    },
+    "requirement_version_code": {
+      "defaultValue": {
+        "value": "0"
+      },
+      "conditionalValues": {
+        "listenToMusicByLocation ios": {
+          "value": "0"
+        },
+        "obento ios": {
+          "value": "0"
+        },
+        "obento android": {
+          "value": "0"
+        }
+      },
+      "description": "必須バージョンのアプリのバージョンコード",
+      "valueType": "NUMBER"
+    },
+    "privacy_policy_uri": {
+      "defaultValue": {
+        "value": "https://github.com/KoheiKanagu/garage/blob/main/privacy_policy.md"
+      },
+      "description": "プライバシーポリシー",
+      "valueType": "STRING"
+    },
+    "terms_of_service_uri": {
+      "defaultValue": {
+        "value": "https://github.com/KoheiKanagu/garage/blob/main/term_of_service.md"
+      },
+      "description": "利用規約",
+      "valueType": "STRING"
+    }
+  }
+}
