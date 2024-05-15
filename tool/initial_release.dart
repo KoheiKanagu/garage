@@ -26,7 +26,9 @@ Future<void> initialRelease() async {
       '--assignee',
       '@me',
       '--title',
-      'feat($package): Initial Release',
+      '"feat($package): Initial Release"',
+      '--body',
+      'Initial Release',
     ],
   );
 
@@ -42,9 +44,12 @@ Future<void> initialRelease() async {
       'release',
       'create',
       newTagName,
+      '--title',
+      newTagName,
+      '--notes',
+      '# Initial Release',
       '--target',
       'main',
-      '--generate-notes',
       '--draft',
     ],
   );
