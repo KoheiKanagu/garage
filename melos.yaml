@@ -144,7 +144,7 @@ scripts:
         --obfuscate \
         --split-debug-info build/app/outputs &&
         MELOS_ROOT_PATH/tool/crashlytics_symbols_upload.sh prod &&
-        MELOS_ROOT_PATH/tool/upload-to-play-store.sh MELOS_PACKAGE_NAME
+        (cd MELOS_ROOT_PATH && ./tool/upload_to_play_store.sh MELOS_PACKAGE_NAME)
     exec:
       concurrency: 1
     packageFilters:

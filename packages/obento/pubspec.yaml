@@ -1,7 +1,7 @@
 name: obento
 publish_to: "none"
 
-version: 0.0.0+3
+version: 1.0.0+7
 
 environment:
   sdk: ^3.4.0-0
@@ -42,6 +42,7 @@ dependencies:
   jovial_svg: ^1.1.20
   json_annotation: ^4.9.0
   package_info_plus: ^8.0.0
+  pull_down_button: ^0.9.4
   quick_actions: ^1.0.7
   riverpod_annotation: ^2.3.5
   share_plus: ^9.0.0
@@ -78,6 +79,14 @@ flutter:
 
     - assets/images/app_icon.webp
 
+    - assets/images/onboarding/screenshot_0.webp
+    - assets/images/onboarding/screenshot_1.webp
+    - assets/images/onboarding/screenshot_2.webp
+    - assets/images/onboarding/screenshot_3.webp
+    - assets/images/onboarding/screenshot_4.webp
+    - assets/images/onboarding/screenshot_5.webp
+    - assets/images/onboarding/screenshot_6.webp
+    - assets/images/onboarding/screenshot_7.webp
 flutter_native_splash:
   color: "#FF9800"
   color_dark: "#FF5722"

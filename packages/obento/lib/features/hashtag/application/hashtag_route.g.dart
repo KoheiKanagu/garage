@@ -2,26 +2,27 @@
 
 // ignore_for_file: require_trailing_commas, non_constant_identifier_names, cast_nullable_to_non_nullable, lines_longer_than_80_chars, unnecessary_null_checks, strict_raw_type
 
-part of 'home_route.dart';
+part of 'hashtag_route.dart';
 
 // **************************************************************************
 // GoRouterGenerator
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $homePageRoute,
+      $hashtagPageRoute,
     ];
 
-RouteBase get $homePageRoute => GoRouteData.$route(
-      path: '/home',
-      factory: $HomePageRouteExtension._fromState,
+RouteBase get $hashtagPageRoute => GoRouteData.$route(
+      path: '/hashtags',
+      factory: $HashtagPageRouteExtension._fromState,
     );
 
-extension $HomePageRouteExtension on HomePageRoute {
-  static HomePageRoute _fromState(GoRouterState state) => const HomePageRoute();
+extension $HashtagPageRouteExtension on HashtagPageRoute {
+  static HashtagPageRoute _fromState(GoRouterState state) =>
+      const HashtagPageRoute();
 
   String get location => GoRouteData.$location(
-        '/home',
+        '/hashtags',
       );
 
   void go(BuildContext context) => context.go(location);

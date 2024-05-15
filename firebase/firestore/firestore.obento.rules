@@ -15,5 +15,26 @@ service cloud.firestore {
         request.auth.uid == documentId
         ;
     }
+
+    match /hashtags_v1/{documentId} {
+
+      // 自分だけ読み取り可能
+      allow get: if
+        isSignedIn() &&
+        request.auth.uid == documentId
+        ;
+
+      // 自分だけ作成可能
+      allow create: if
+        isSignedIn() &&
+        request.auth.uid == documentId
+        ;
+
+      // 自分だけ更新可能
+      allow update: if
+        isSignedIn() &&
+        request.auth.uid == documentId
+        ;
+    }
   }
 }

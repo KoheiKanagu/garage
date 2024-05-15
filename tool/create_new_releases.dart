@@ -29,10 +29,10 @@ Future<void> createNewReleases() async {
 
   // Releaseを作成する
   for (final package in argPackages) {
-    final currentVersion = getCurrentVersion(package);
+    final version = currentVersion(package).toString();
 
     // like "listen_to_music_by_location-v1.0.0+17"
-    final newTagName = '$package-v$currentVersion';
+    final newTagName = '$package-v$version';
 
     // like "listen_to_music_by_location-v1.0.0+17"
     final latestTagName = fetchLatestTagName(package);
@@ -46,11 +46,8 @@ Future<void> createNewReleases() async {
         '--target',
         mergeCommitSHA,
         '--generate-notes',
-        // 初回リリースの場合は指定しない
-        if (latestTagName != null) ...[
-          '--notes-start-tag',
-          latestTagName,
-        ],
+        '--notes-start-tag',
+        latestTagName!,
         '--draft',
       ],
     );
@@ -187,39 +184,6 @@ void createPr() {
   );
 }
 
-/// PRがマージされるまで待つ
-///
-/// PRがマージされると、マージされたコミットのSHAを返す
-Future<String> waitMergePr() async {
-  final completer = Completer<String>();
-
-  Timer.periodic(
-    const Duration(seconds: 30),
-    (timer) {
-      final result = run(
-        'gh',
-        arguments: [
-          'pr',
-          'view',
-          '--json',
-          'mergedAt,mergeCommit',
-        ],
-      );
-
-      final data = json.decode(result) as Map<String, dynamic>;
-      final mergedAt = data['mergedAt'] as String?;
-      if (mergedAt != null) {
-        final mergeCommit = data['mergeCommit']['oid'] as String;
-
-        timer.cancel();
-        completer.complete(mergeCommit);
-      }
-    },
-  );
-
-  return completer.future;
-}
-
 void bump(List<String> packages) {
   for (final package in packages) {
     final pubspecFile = File('packages/$package/pubspec.yaml');
@@ -246,15 +210,4 @@ void bump(List<String> packages) {
       pubspec.toString(),
     );
   }
-}
-
-/// pubspec.yamlからパッケージのバージョンを取得する
-///
-/// like "1.0.0+10"
-String getCurrentVersion(String package) {
-  final pubspecFile = File('packages/$package/pubspec.yaml');
-  final pubspec = YamlEditor(
-    pubspecFile.readAsStringSync(),
-  );
-  return pubspec.parseAt(['version']).value as String;
 }

@@ -94,5 +94,15 @@
       "ok_label": "Revoke",
       "did_revoke_title": "Consent for personalized ads has been revoked"
     }
-  }
+  },
+  "edit": "Edit",
+  "add": "Add",
+  "done": "Done",
+  "cancel": "Cancel",
+  "save": "Save",
+  "delete": "Delete",
+  "error_field_cannot_be_empty": "This field is required",
+  "copy": "Copy",
+  "close": "Close",
+  "copied_to_clipboard": "Copied to clipboard"
 }

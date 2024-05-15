@@ -11,6 +11,8 @@ void uploadAppPrivacyDetails() {
 
   final bundleId = packages.firstWhere((e) => e.directory == package).bundleId;
 
+  final noAds = context.invocation.arguments.getFlag('noAds');
+
   run(
     'fastlane',
     arguments: [
@@ -19,7 +21,10 @@ void uploadAppPrivacyDetails() {
       'username:kanagu@kingu.dev',
       'team_id:121589329',
       'app_identifier:$bundleId',
-      'json_path:packages/$package/.fastlane/app_privacy_details.json',
+      if (noAds)
+        'json_path:tool/assets/app_privacy_details_no_ads.json'
+      else
+        'json_path:packages/$package/.fastlane/app_privacy_details.json',
     ],
   );
 }

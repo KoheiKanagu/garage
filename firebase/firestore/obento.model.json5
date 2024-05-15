@@ -1,0 +1,16 @@
+{
+  users_v1: {
+    $uid: {
+      createdAt: "Timestamp", // FieldValue.serverTimestamp
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
+      deleted: false,
+    },
+  },
+  hashtags_v1: {
+    $uid: {
+      createdAt: "Timestamp", // FieldValue.serverTimestamp
+      updatedAt: "Timestamp", // FieldValue.serverTimestamp
+      hashtags: ["hashtag1", "hashtag2"],
+    },
+  },
+}

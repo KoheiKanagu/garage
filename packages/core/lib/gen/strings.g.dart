@@ -144,6 +144,16 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsAuthJa auth = _StringsAuthJa._(_root);
 	late final _StringsOnboardingJa onboarding = _StringsOnboardingJa._(_root);
 	late final _StringsAdsJa ads = _StringsAdsJa._(_root);
+	String get edit => '編集';
+	String get add => '追加';
+	String get done => '完了';
+	String get cancel => 'キャンセル';
+	String get save => '保存';
+	String get delete => '削除';
+	String get error_field_cannot_be_empty => 'この項目は必須です';
+	String get copy => 'コピー';
+	String get close => '閉じる';
+	String get copied_to_clipboard => 'クリップボードにコピーしました';
 }
 
 // Path: service_down
@@ -348,6 +358,16 @@ class _StringsEn extends Translations {
 	@override late final _StringsAuthEn auth = _StringsAuthEn._(_root);
 	@override late final _StringsOnboardingEn onboarding = _StringsOnboardingEn._(_root);
 	@override late final _StringsAdsEn ads = _StringsAdsEn._(_root);
+	@override String get edit => 'Edit';
+	@override String get add => 'Add';
+	@override String get done => 'Done';
+	@override String get cancel => 'Cancel';
+	@override String get save => 'Save';
+	@override String get delete => 'Delete';
+	@override String get error_field_cannot_be_empty => 'This field is required';
+	@override String get copy => 'Copy';
+	@override String get close => 'Close';
+	@override String get copied_to_clipboard => 'Copied to clipboard';
 }
 
 // Path: service_down
