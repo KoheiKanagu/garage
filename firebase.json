@@ -48,7 +48,7 @@
     }
   },
   "remoteconfig": {
-    "template": "firebase/remoteconfig/remoteconfig.template.json"
+    "template": "firebase/remoteconfig/template.json"
   },
   "storage": {
     "rules": "firebase/storage/storage.rules"

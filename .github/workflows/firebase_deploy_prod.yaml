@@ -31,6 +31,10 @@ jobs:
       - run: |
           firebase use prod --debug
 
+      - name: Copy Remote Config Template
+        run: |
+          cp firebase/remoteconfig/template.prod.json firebase/remoteconfig/template.json
+
       - name: Install dependencies
         run: npm ci
         working-directory: firebase/functions

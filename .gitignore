@@ -48,3 +48,4 @@ packages/*/android/app/signing-configs-debug.gradle
 packages/*/android/app/signing-configs-release.gradle
 packages/*/.crashlytics/dump_syms.bin
 packages/*/.fastlane/metadata/android/*/changelogs/*.txt
+firebase/remoteconfig/template.json
