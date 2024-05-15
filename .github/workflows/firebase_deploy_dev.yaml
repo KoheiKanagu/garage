@@ -19,9 +19,6 @@ jobs:
       ### Setup ###
       - uses: actions/checkout@v4
 
-      - name: Setup Flutter
-        uses: KoheiKanagu/composite-actions/setup-flutter@main
-
       - name: Setup Firebase CLI
         uses: KoheiKanagu/composite-actions/setup-firebase-cli@main
         with:
@@ -34,11 +31,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
         working-directory: firebase/functions
-
-      - name: Replace remoteconfig template conditions
-        run: |
-          dart pub get
-          dart run grinder replace-remoteconfig-template-conditions
 
       ### Deploy ###
       - name: Deploy Mail Templates
