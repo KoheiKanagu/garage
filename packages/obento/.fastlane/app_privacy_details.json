@@ -32,10 +32,12 @@
   {
     "category": "DEVICE_ID",
     "purposes": [
-      "APP_FUNCTIONALITY"
+      "APP_FUNCTIONALITY",
+      "THIRD_PARTY_ADVERTISING"
     ],
     "data_protections": [
-      "DATA_LINKED_TO_YOU"
+      "DATA_LINKED_TO_YOU",
+      "DATA_USED_TO_TRACK_YOU"
     ]
   },
   {
