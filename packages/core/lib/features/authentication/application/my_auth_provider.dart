@@ -1,5 +1,4 @@
 import 'package:core/core.dart';
-import 'package:core/features/authentication/exception/credential_already_in_use_exception.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
