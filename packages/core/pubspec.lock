@@ -857,10 +857,10 @@ packages:
     dependency: "direct main"
     description:
       name: jovial_svg
-      sha256: "7162d9fce53e284782f6178e175c9e07dde695779392eaa2542c1f795658eb3d"
+      sha256: "000cafe183bdeba28f76d65bf93fc9b636d6f7eaa7e2a33e80c4345a28866ea8"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.20"
+    version: "1.1.21"
   js:
     dependency: transitive
     description:
