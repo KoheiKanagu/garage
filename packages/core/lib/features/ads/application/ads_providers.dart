@@ -61,9 +61,14 @@ class AdsRequestConsentInfoUpdateController
         };
       },
       (error) => logger.handle(
-        error,
+        {
+          'message': 'requestConsentInfoUpdate',
+          'error': {
+            'errorCode': error.errorCode,
+            'message': error.message,
+          },
+        },
         StackTrace.current,
-        error.message,
       ),
     );
   }
