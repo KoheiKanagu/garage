@@ -136,6 +136,13 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final Translations _root = this; // ignore: unused_field
 
 	// Translations
+	String get app_name => '#お弁当記録';
+	String get create_new => '新しい項目を作成';
+	String get tamagoyaki => '卵焼き';
+	String get error_tag_already_exists => 'この項目は既に作成されています';
+	String delete_hashtag({required Object hashtag}) => '${hashtag}を削除しますか？';
+	String get preview => 'プレビュー';
+	String get not_selected => '選択されていません';
 }
 
 // Path: <root>
@@ -158,4 +165,11 @@ class _StringsEn extends Translations {
 	@override late final _StringsEn _root = this; // ignore: unused_field
 
 	// Translations
+	@override String get app_name => '#obento';
+	@override String get create_new => 'Create New';
+	@override String get tamagoyaki => 'Tamagoyaki';
+	@override String get error_tag_already_exists => 'This item already exists';
+	@override String delete_hashtag({required Object hashtag}) => 'Delete ${hashtag}?';
+	@override String get preview => 'Preview';
+	@override String get not_selected => 'Not Selected';
 }

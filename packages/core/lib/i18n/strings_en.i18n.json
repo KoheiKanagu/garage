@@ -71,8 +71,15 @@
     "unlink_github": "Unlink GitHub",
     "github_account": "GitHub Account",
     "unlink_confirm": "Unlink $account?",
-    "unlink": "Unlink"
-  },
+    "unlink": "Unlink",
+    "sign_out": "Sign out",
+    "sign_out_description": "When you sign out, you will no longer have access to the data you are currently using unless you are connected to an account.",
+    "sign_out_complete": "Signed out successfully",
+    "exception": "An unexpected error occurred",
+    "exception_message": "Please try again after a while.",
+    "credential_already_in_use_exception": "Account already in use",
+    "credential_already_in_use_exception_message": "This ${providerName} is already connected to another user. Please use a different ${providerName}."
+    },
   "onboarding": {
     "start": "Start",
     "social_account_sign_in": "Sign in with Social Account",
@@ -89,5 +96,15 @@
       "ok_label": "Revoke",
       "did_revoke_title": "Consent for personalized ads has been revoked"
     }
-  }
+  },
+  "edit": "Edit",
+  "add": "Add",
+  "done": "Done",
+  "cancel": "Cancel",
+  "save": "Save",
+  "delete": "Delete",
+  "error_field_cannot_be_empty": "This field is required",
+  "copy": "Copy",
+  "close": "Close",
+  "copied_to_clipboard": "Copied to clipboard"
 }

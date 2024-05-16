@@ -26,9 +26,9 @@ class MyAuthProviderController extends _$MyAuthProviderController {
       if (currentUser != null) {
         await currentUser.linkWithProvider(state);
       } else {
-        await ref.watch(firebaseAuthProvider).signInWithPopup(state);
+        await ref.watch(firebaseAuthProvider).signInWithProvider(state);
       }
-    } on Exception catch (exception) {
+    } on Exception catch (exception, stack) {
       if (exception is FirebaseAuthException) {
         switch (exception.code) {
           case 'web-context-cancelled':
@@ -52,12 +52,24 @@ class MyAuthProviderController extends _$MyAuthProviderController {
               },
             );
             return;
+
+          case 'credential-already-in-use':
+            logger.info(
+              {
+                'message': 'credentialAlreadyInUse',
+                'providerId': state.providerId,
+                'exceptionMessage': exception.message,
+                'exceptionCode': exception.code,
+              },
+            );
+
+            throw CredentialAlreadyInUseException(type);
         }
       }
 
       logger.handle(
         exception,
-        StackTrace.current,
+        stack,
         'provider id: ${state.providerId}',
       );
     }

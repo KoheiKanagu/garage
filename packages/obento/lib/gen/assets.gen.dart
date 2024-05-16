@@ -16,8 +16,59 @@ class $AssetsImagesGen {
   AssetGenImage get appIcon =>
       const AssetGenImage('assets/images/app_icon.webp');
 
+  $AssetsImagesOnboardingGen get onboarding =>
+      const $AssetsImagesOnboardingGen();
+
   /// List of all assets
   List<AssetGenImage> get values => [appIcon];
+}
+
+class $AssetsImagesOnboardingGen {
+  const $AssetsImagesOnboardingGen();
+
+  /// File path: assets/images/onboarding/screenshot_0.webp
+  AssetGenImage get screenshot0 =>
+      const AssetGenImage('assets/images/onboarding/screenshot_0.webp');
+
+  /// File path: assets/images/onboarding/screenshot_1.webp
+  AssetGenImage get screenshot1 =>
+      const AssetGenImage('assets/images/onboarding/screenshot_1.webp');
+
+  /// File path: assets/images/onboarding/screenshot_2.webp
+  AssetGenImage get screenshot2 =>
+      const AssetGenImage('assets/images/onboarding/screenshot_2.webp');
+
+  /// File path: assets/images/onboarding/screenshot_3.webp
+  AssetGenImage get screenshot3 =>
+      const AssetGenImage('assets/images/onboarding/screenshot_3.webp');
+
+  /// File path: assets/images/onboarding/screenshot_4.webp
+  AssetGenImage get screenshot4 =>
+      const AssetGenImage('assets/images/onboarding/screenshot_4.webp');
+
+  /// File path: assets/images/onboarding/screenshot_5.webp
+  AssetGenImage get screenshot5 =>
+      const AssetGenImage('assets/images/onboarding/screenshot_5.webp');
+
+  /// File path: assets/images/onboarding/screenshot_6.webp
+  AssetGenImage get screenshot6 =>
+      const AssetGenImage('assets/images/onboarding/screenshot_6.webp');
+
+  /// File path: assets/images/onboarding/screenshot_7.webp
+  AssetGenImage get screenshot7 =>
+      const AssetGenImage('assets/images/onboarding/screenshot_7.webp');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+        screenshot0,
+        screenshot1,
+        screenshot2,
+        screenshot3,
+        screenshot4,
+        screenshot5,
+        screenshot6,
+        screenshot7
+      ];
 }
 
 class Assets {

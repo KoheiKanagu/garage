@@ -44,7 +44,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "By choosing 'Allow Tracking', ads that are thought to match your interests and concerns will start to be displayed. This information is only used for ad delivery and does not contain any personally identifiable information."
+            "value" : "If you select \"Allow Tracking\", ads that are thought to match your interests and concerns will be displayed. This information is only used for ad delivery and does not contain any personal identification information."
           }
         },
         "ja" : {

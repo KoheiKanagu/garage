@@ -752,26 +752,26 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "9e0f7d1a3e7dc5010903e330fbc5497872c4c3cf6626381d69083cc1d5113c1e"
+      sha256: "81f94e16d7063b60f0da3a79f872e140d6518f306749303bf981abd7d6b46734"
       url: "https://pub.dev"
     source: hosted
-    version: "14.0.2"
+    version: "14.1.0"
   go_router_builder:
     dependency: "direct dev"
     description:
       name: go_router_builder
-      sha256: "7cbd20d9e17396b966af6f40a071d84b039caff360ec80d08ac8a589a56b6804"
+      sha256: a6f74b9f7dffe317c2479d6edb8757fde5df33a0056394d3a0d3ec44f4809210
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.1"
+    version: "2.6.2"
   google_mobile_ads:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: google_mobile_ads
-      sha256: f07d4e2ebf56181e8dd18ee810607e84aeac8add5251bb44c1c886af47ff021a
+      sha256: e2d18992d30b2be77cb6976b931112fc3c4612feffb5eb7a8b036bd7a64934da
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.0"
+    version: "5.1.0"
   gradient_borders:
     dependency: transitive
     description:
@@ -1172,6 +1172,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  pull_down_button:
+    dependency: "direct main"
+    description:
+      name: pull_down_button
+      sha256: "48b928203afdeafa4a8be5dc96980523bc8a2ddbd04569f766071a722be22379"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.4"
   quick_actions:
     dependency: "direct main"
     description:
@@ -1485,26 +1493,26 @@ packages:
     dependency: "direct main"
     description:
       name: talker
-      sha256: "7fd2118fbdd35ee9004d1ed326d101cdbabe5fed3575e9e9aa050535e019e885"
+      sha256: edd1ec2d1e941ac1569f27d820cd896e0dc9bc4e4160963e3c8c192079f08da0
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.5"
+    version: "4.2.0"
   talker_flutter:
     dependency: "direct main"
     description:
       name: talker_flutter
-      sha256: "981da0bb1501a9937f914574b5987f839e363a8402f613addbbf9ebe7e8393c1"
+      sha256: "8b10ea148e16410abc950ab596a9cb9b2ae4380640dec9a88dc80503f41902b8"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.5"
+    version: "4.2.0"
   talker_logger:
     dependency: transitive
     description:
       name: talker_logger
-      sha256: d09f459ff09ab510f74f4384d674dccce0a85ecf8b5733258ffdc9869d082505
+      sha256: "777c62bb8019ec26f5b99626fe0bd28e169bae724ffde8438a5e4ad28e2c20df"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.5"
+    version: "4.2.0"
   term_glyph:
     dependency: transitive
     description:

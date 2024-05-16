@@ -59,8 +59,6 @@
 	<false/>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3095994149570460~3931773394</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>By choosing &apos;Allow Tracking&apos;, ads that are thought to match your interests and concerns will start to be displayed. This information is only used for ad delivery and does not contain any personally identifiable information.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -262,5 +260,7 @@
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>If you select &quot;Allow Tracking&quot;, ads that are thought to match your interests and concerns will be displayed. This information is only used for ad delivery and does not contain any personal identification information.</string>
 </dict>
 </plist>

@@ -1,1 +1,22 @@
-TODO
+Features of "#obento"
+
+**Easily create "#obento" sentences**
+You can easily create sentences for "#obento" by simply tapping on them, which you always post on SNS.
+
+**Register as many as you like!**
+There are no restrictions on the items you can register.
+You can register as many items as you like according to your own "#obento".
+
+**Can be used anywhere!**
+Since the created sentences can be copied to the clipboard, you can use them on any SNS.
+
+**Easy to use by rearranging!**
+You can rearrange the registered items, making it easy to select the ones you use frequently and move them to a convenient location.
+
+**User-friendly Interface**
+With a simple and easy-to-understand operation, anyone can use it easily.
+
+**Developed as Open Source**
+As it is developed as open source, anyone can participate in the development.
+You can report bugs or propose features from GitHub or within the app.
+https://github.com/KoheiKanagu/garage

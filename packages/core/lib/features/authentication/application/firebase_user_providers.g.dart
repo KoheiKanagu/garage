@@ -299,6 +299,24 @@ final firebaseUserDeleteProvider = AutoDisposeFutureProvider<void>.internal(
 );
 
 typedef FirebaseUserDeleteRef = AutoDisposeFutureProviderRef<void>;
+String _$firebaseUserSignOutHash() =>
+    r'a7e5c67c9d66e3fea967abc0e18d7859f45af26f';
+
+/// SharedPreferencesの削除が完了するまで待った後、サインアウトする
+///
+/// Copied from [firebaseUserSignOut].
+@ProviderFor(firebaseUserSignOut)
+final firebaseUserSignOutProvider = AutoDisposeFutureProvider<void>.internal(
+  firebaseUserSignOut,
+  name: r'firebaseUserSignOutProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$firebaseUserSignOutHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FirebaseUserSignOutRef = AutoDisposeFutureProviderRef<void>;
 String _$firebaseUserLinkedProvidersHash() =>
     r'5ffed4bddbd190b0a004376b6ce9f70556c8482a';
 

@@ -161,7 +161,7 @@ class _MyAuthProviderIsLinkedProviderElement
 }
 
 String _$myAuthProviderControllerHash() =>
-    r'fa08bc15dd9a9ee7934de68e2b36fe605a038b32';
+    r'e2eaa7e3bd32e6ca811f69b83d7cf7d2ce340262';
 
 abstract class _$MyAuthProviderController
     extends BuildlessAutoDisposeNotifier<AuthProvider> {
