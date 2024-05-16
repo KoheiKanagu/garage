@@ -96,7 +96,13 @@ class AdsRequestConsentInfoUpdateController
         }
       },
       (formError) => logger.handle(
-        formError,
+        {
+          'message': 'loadConsentForm',
+          'error': {
+            'errorCode': formError.errorCode,
+            'message': formError.message,
+          },
+        },
         StackTrace.current,
         formError.message,
       ),
