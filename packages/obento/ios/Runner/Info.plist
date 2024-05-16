@@ -260,5 +260,7 @@
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>If you select &quot;Allow Tracking&quot;, ads that are thought to match your interests and concerns will be displayed. This information is only used for ad delivery and does not contain any personal identification information.</string>
 </dict>
 </plist>
