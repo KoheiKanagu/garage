@@ -127,6 +127,7 @@ class _FloatingActionButton extends HookConsumerWidget {
     final themeType = InheritedThemeDetector.of(context);
     return switch (themeType) {
       InheritedThemeType.material => FloatingActionButton.extended(
+          heroTag: 'preview_button',
           onPressed: onPreview,
           label: Text(i18n.preview),
         ),
@@ -176,6 +177,7 @@ class AdsRequestConsentButton extends HookConsumerWidget {
                 ),
               ),
             InheritedThemeType.material => FloatingActionButton.extended(
+                heroTag: 'ads_request_consent_button',
                 elevation: 0,
                 onPressed: onPressed,
                 label: Text(
