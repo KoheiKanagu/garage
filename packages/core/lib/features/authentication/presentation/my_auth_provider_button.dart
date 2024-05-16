@@ -2,6 +2,7 @@
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
+import 'package:core/features/authentication/exception/credential_already_in_use_exception.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +72,22 @@ class MyAuthProviderButton extends HookConsumerWidget {
                     await authProviderController.signInOrLink();
                   }
                 } on Exception catch (e, stack) {
+                  if (e is CredentialAlreadyInUseException) {
+                    final providerName = e.type.providerName;
+
+                    if (context.mounted) {
+                      await showOkAlertDialog(
+                        context: context,
+                        title: i18n.auth.credential_already_in_use_exception,
+                        message: i18n.auth
+                            .credential_already_in_use_exception_message(
+                          providerName: providerName,
+                        ),
+                      );
+                      return;
+                    }
+                  }
+
                   logger.handle(e, stack);
 
                   if (context.mounted) {

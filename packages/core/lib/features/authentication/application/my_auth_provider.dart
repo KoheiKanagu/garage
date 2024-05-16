@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:core/features/authentication/exception/credential_already_in_use_exception.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class MyAuthProviderController extends _$MyAuthProviderController {
       } else {
         await ref.watch(firebaseAuthProvider).signInWithProvider(state);
       }
-    } on Exception catch (exception) {
+    } on Exception catch (exception, stack) {
       if (exception is FirebaseAuthException) {
         switch (exception.code) {
           case 'web-context-cancelled':
@@ -52,12 +53,24 @@ class MyAuthProviderController extends _$MyAuthProviderController {
               },
             );
             return;
+
+          case 'credential-already-in-use':
+            logger.info(
+              {
+                'message': 'credentialAlreadyInUse',
+                'providerId': state.providerId,
+                'exceptionMessage': exception.message,
+                'exceptionCode': exception.code,
+              },
+            );
+
+            throw CredentialAlreadyInUseException(type);
         }
       }
 
       logger.handle(
         exception,
-        StackTrace.current,
+        stack,
         'provider id: ${state.providerId}',
       );
     }
