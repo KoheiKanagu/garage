@@ -6,6 +6,7 @@ import 'package:core/gen/strings.g.dart' as core_i18n;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:obento/features/hashtag/application/hashtag_providers.dart';
 import 'package:obento/features/hashtag/presentation/hashtags_page_body.dart';
@@ -37,7 +38,13 @@ class HashtagsPage extends HookConsumerWidget {
             child: const _FloatingActionButton(),
           ),
           bottomNavigationBar: const SafeArea(
-            child: MyAdaptiveBannerAd(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AdsRequestConsentButton(),
+                MyAdaptiveBannerAd(),
+              ],
+            ),
           ),
           extendBody: true,
         );
@@ -138,5 +145,47 @@ class _FloatingActionButton extends HookConsumerWidget {
           ),
         ),
     };
+  }
+}
+
+class AdsRequestConsentButton extends HookConsumerWidget {
+  const AdsRequestConsentButton({
+    super.key,
+  });
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeType = InheritedThemeDetector.of(context);
+
+    void onPressed() {
+      ref
+          .watch(
+            adsRequestConsentInfoUpdateControllerProvider.notifier,
+          )
+          .loadForm();
+    }
+
+    return Visibility(
+      visible: ref.watch(adsRequestConsentInfoUpdateControllerProvider),
+      child: Column(
+        children: [
+          switch (themeType) {
+            InheritedThemeType.cupertino => CupertinoButton.filled(
+                onPressed: onPressed,
+                child: Text(
+                  core_i18n.i18n.ads.please_check_banner,
+                ),
+              ),
+            InheritedThemeType.material => FloatingActionButton.extended(
+                elevation: 0,
+                onPressed: onPressed,
+                label: Text(
+                  core_i18n.i18n.ads.please_check_banner,
+                ),
+              ),
+          },
+          const Gap(12),
+        ],
+      ),
+    );
   }
 }
