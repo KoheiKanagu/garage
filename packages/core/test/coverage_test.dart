@@ -9,6 +9,7 @@ import 'package:core/features/ads/application/ads_providers.dart';
 import 'package:core/features/ads/presentation/my_adaptive_banner_ad.dart';
 import 'package:core/features/authentication/application/firebase_user_providers.dart';
 import 'package:core/features/authentication/application/my_auth_provider.dart';
+import 'package:core/features/authentication/exception/credential_already_in_use_exception.dart';
 import 'package:core/features/authentication/presentation/my_auth_provider_button.dart';
 import 'package:core/features/authentication/presentation/my_auth_provider_buttons.dart';
 import 'package:core/features/configure/application/configure_providers.dart';

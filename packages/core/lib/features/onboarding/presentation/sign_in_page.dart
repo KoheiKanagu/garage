@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:flutter/cupertino.dart';
@@ -125,13 +126,32 @@ class _AnonymousStartButton extends HookConsumerWidget {
         return;
       }
 
+      final indicator = showMyProgressIndicator(
+        builder: (context) => const SizedBox.shrink(),
+      );
       progressAnonymousStart.value = true;
-      await ref.watch(firebaseSignInProvider.future).catchError(
-            // 成功した場合はGoRouterでリダイレクトされるので、
-            // progressAnonymousStartはfalseにする必要はない。
-            // エラーになった場合は再試行する可能性があるので、falseにする。
-            (_) => progressAnonymousStart.value = false,
+
+      try {
+        await ref.watch(firebaseSignInProvider.future);
+      } on Exception catch (e, stack) {
+        logger.handle(e, stack);
+
+        if (context.mounted) {
+          await showOkAlertDialog(
+            context: context,
+            title: i18n.auth.exception,
+            message: i18n.auth.exception_message,
           );
+        }
+      } finally {
+        if (context.mounted) {
+          // 成功した場合はGoRouterでリダイレクトされてしまうので、
+          // context.mountedをチェックする必要がある
+          progressAnonymousStart.value = false;
+        }
+
+        indicator.dismiss();
+      }
     }
 
     final themeType = InheritedThemeDetector.of(context);
@@ -142,34 +162,42 @@ class _AnonymousStartButton extends HookConsumerWidget {
       child: switch (themeType) {
         InheritedThemeType.material => FilledButton(
             onPressed: onPressedAnonymousStart,
-            child: progressAnonymousStart.value
-                ? CircularProgressIndicator.adaptive(
-                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                  )
-                : Text(
-                    i18n.onboarding.anonymous_start,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: progressAnonymousStart.value
+                  ? CircularProgressIndicator.adaptive(
+                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                    )
+                  : Text(
+                      i18n.onboarding.anonymous_start,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+            ),
           ),
         InheritedThemeType.cupertino => CupertinoButton.filled(
             onPressed: onPressedAnonymousStart,
-            child: progressAnonymousStart.value
-                ? CircularProgressIndicator.adaptive(
-                    backgroundColor:
-                        CupertinoTheme.of(context).primaryContrastingColor,
-                  )
-                : Text(
-                    i18n.onboarding.anonymous_start,
-                    style:
-                        CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-                              color: CupertinoTheme.of(context)
-                                  .primaryContrastingColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                  ),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: progressAnonymousStart.value
+                  ? CircularProgressIndicator.adaptive(
+                      backgroundColor:
+                          CupertinoTheme.of(context).primaryContrastingColor,
+                    )
+                  : Text(
+                      i18n.onboarding.anonymous_start,
+                      style: CupertinoTheme.of(context)
+                          .textTheme
+                          .textStyle
+                          .copyWith(
+                            color: CupertinoTheme.of(context)
+                                .primaryContrastingColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+            ),
           ),
       },
     );

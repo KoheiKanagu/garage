@@ -4,7 +4,7 @@ set -euxo pipefail
 package=$1
 
 fastlane supply \
-  --package_name "$package" \
+  --package_name "dev.kingu.$package" \
   --aab packages/"$package"/build/app/outputs/bundle/prodRelease/app-prod-release.aab \
   --skip_upload_apk true \
   --skip_upload_metadata true \

@@ -11,18 +11,19 @@ class OnboardingPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: オンボーディングの画像を変更する
     return OnboardingPageBase(
       children: switch (LocaleSettings.currentLocale) {
         AppLocale.ja => [
-            Assets.images.appIcon.image(),
-            Assets.images.appIcon.image(),
-            Assets.images.appIcon.image(),
+            Assets.images.onboarding.screenshot0.image(),
+            Assets.images.onboarding.screenshot1.image(),
+            Assets.images.onboarding.screenshot2.image(),
+            Assets.images.onboarding.screenshot3.image(),
           ],
         AppLocale.en => [
-            Assets.images.appIcon.image(),
-            Assets.images.appIcon.image(),
-            Assets.images.appIcon.image(),
+            Assets.images.onboarding.screenshot4.image(),
+            Assets.images.onboarding.screenshot5.image(),
+            Assets.images.onboarding.screenshot6.image(),
+            Assets.images.onboarding.screenshot7.image(),
           ]
       },
     );

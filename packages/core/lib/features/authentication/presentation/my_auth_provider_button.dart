@@ -5,6 +5,7 @@ import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 
@@ -26,39 +27,17 @@ class MyAuthProviderButton extends HookConsumerWidget {
       myAuthProviderControllerProvider(type).notifier,
     );
 
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: type.logoBackgroundColorOf(context),
-      ),
-      height: _logoSize,
-      width: double.infinity,
-      child: ref.watch(myAuthProviderIsLinkedProvider(type)).maybeWhen(
-            orElse: () => Center(
-              child: CircularProgressIndicator.adaptive(
-                backgroundColor: type.textColorOf(context),
-              ),
-            ),
-            data: (isLinked) => GestureDetector(
-              onTap: () async {
-                if (isLinked) {
-                  final result = await showOkCancelAlertDialog(
-                    context: context,
-                    title: i18n.auth.unlink_confirm(
-                      account: type.providerName,
-                    ),
-                    isDestructiveAction: true,
-                    okLabel: i18n.auth.unlink,
-                  );
+    final isProgress = useState(false);
 
-                  if (result == OkCancelResult.ok) {
-                    await authProviderController.unlink();
-                  }
-                } else {
-                  await authProviderController.signInOrLink();
-                }
-              },
-              child: Row(
+    final isLinked = ref.watch(myAuthProviderIsLinkedProvider(type));
+
+    final child = isLinked.maybeWhen(
+      orElse: () => indicatorWidget(context),
+      data: (isLinked) => AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: isProgress.value
+            ? indicatorWidget(context)
+            : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
@@ -92,8 +71,90 @@ class MyAuthProviderButton extends HookConsumerWidget {
                   ),
                 ],
               ),
+      ),
+    );
+
+    Future<void> onPressed() async {
+      if (isProgress.value) {
+        return;
+      }
+      final indicator = showMyProgressIndicator(
+        builder: (context) => const SizedBox.shrink(),
+      );
+
+      try {
+        isProgress.value = true;
+
+        if (isLinked.value ?? false) {
+          final result = await showOkCancelAlertDialog(
+            context: context,
+            title: i18n.auth.unlink_confirm(
+              account: type.providerName,
             ),
+            isDestructiveAction: true,
+            okLabel: i18n.auth.unlink,
+          );
+
+          if (result == OkCancelResult.ok) {
+            await authProviderController.unlink();
+          }
+        } else {
+          await authProviderController.signInOrLink();
+        }
+      } on Exception catch (e, stack) {
+        if (e is CredentialAlreadyInUseException) {
+          final providerName = e.type.providerName;
+
+          if (context.mounted) {
+            await showOkAlertDialog(
+              context: context,
+              title: i18n.auth.credential_already_in_use_exception,
+              message: i18n.auth.credential_already_in_use_exception_message(
+                providerName: providerName,
+              ),
+            );
+            return;
+          }
+        }
+
+        logger.handle(e, stack);
+
+        if (context.mounted) {
+          await showOkAlertDialog(
+            context: context,
+            title: i18n.auth.exception,
+            message: i18n.auth.exception_message,
+          );
+        }
+      } finally {
+        isProgress.value = false;
+        indicator.dismiss();
+      }
+    }
+
+    return switch (themeType) {
+      InheritedThemeType.material => FilledButton(
+          onPressed: onPressed,
+          style: FilledButton.styleFrom(
+            backgroundColor: type.logoBackgroundColorOf(context),
+            foregroundColor: type.textColorOf(context),
           ),
+          child: child,
+        ),
+      InheritedThemeType.cupertino => CupertinoButton(
+          onPressed: onPressed,
+          padding: EdgeInsets.zero,
+          color: type.logoBackgroundColorOf(context),
+          child: child,
+        ),
+    };
+  }
+
+  Widget indicatorWidget(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator.adaptive(
+        backgroundColor: type.textColorOf(context),
+      ),
     );
   }
 }

@@ -11,6 +11,7 @@ export 'features/ads/application/ads_providers.dart';
 export 'features/ads/presentation/my_adaptive_banner_ad.dart';
 export 'features/authentication/application/firebase_user_providers.dart';
 export 'features/authentication/application/my_auth_provider.dart';
+export 'features/authentication/exception/credential_already_in_use_exception.dart';
 export 'features/authentication/presentation/my_auth_provider_button.dart';
 export 'features/authentication/presentation/my_auth_provider_buttons.dart';
 export 'features/configure/application/configure_providers.dart';

@@ -2,17 +2,17 @@
   "conditions": [
     {
       "name": "listenToMusicByLocation ios",
-      "expression": "app.id == '1:682848709439:ios:3361e1e37cb0d30884c18a'",
+      "expression": "app.id == '1:468490578657:ios:af5af82afe08d9df82e5a0'",
       "tagColor": "ORANGE"
     },
     {
       "name": "obento ios",
-      "expression": "app.id == '1:682848709439:ios:0385652c1ce6392c84c18a'",
+      "expression": "app.id == '1:468490578657:ios:328cf1043258665f82e5a0'",
       "tagColor": "GREEN"
     },
     {
       "name": "obento android",
-      "expression": "app.id == '1:682848709439:android:e09c7918d934bb9784c18a'",
+      "expression": "app.id == '1:468490578657:android:68b3b6646201636882e5a0'",
       "tagColor": "GREEN"
     }
   ],

@@ -1,20 +1,24 @@
 import 'package:core/constants/global_keys.dart';
 import 'package:flutter/material.dart';
 
-MyProgressIndicator showMyProgressIndicator([BuildContext? ctx]) {
-  final context = ctx ?? rootContext()!;
+MyProgressIndicator showMyProgressIndicator({
+  BuildContext? context,
+  WidgetBuilder? builder,
+}) {
+  final ctx = context ?? rootContext()!;
 
   showAdaptiveDialog<void>(
-    context: context,
-    builder: (context) => const AlertDialog.adaptive(
-      title: Center(
-        child: CircularProgressIndicator.adaptive(),
-      ),
-    ),
+    context: ctx,
+    builder: builder ??
+        (context) => const AlertDialog.adaptive(
+              title: Center(
+                child: CircularProgressIndicator.adaptive(),
+              ),
+            ),
     barrierDismissible: false,
   );
 
-  return MyProgressIndicator(context);
+  return MyProgressIndicator(ctx);
 }
 
 class MyProgressIndicator {

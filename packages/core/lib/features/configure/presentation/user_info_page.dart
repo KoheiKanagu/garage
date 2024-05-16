@@ -35,6 +35,34 @@ class UserInfoPage extends HookConsumerWidget {
 
     final children2 = [
       ConfigureListTile(
+        title: i18n.auth.sign_out,
+        leadingIcon: Icons.logout,
+        isDestructiveAction: true,
+        onTap: () async {
+          final result = await showOkCancelAlertDialog(
+            context: context,
+            title: i18n.auth.sign_out,
+            message: i18n.auth.sign_out_description,
+            okLabel: i18n.auth.sign_out,
+            isDestructiveAction: true,
+          );
+          if (result != OkCancelResult.ok) {
+            return;
+          }
+
+          final indicator = showMyProgressIndicator();
+          await ref.watch(firebaseUserSignOutProvider.future);
+          indicator.dismiss();
+
+          if (context.mounted) {
+            await showOkAlertDialog(
+              context: context,
+              title: i18n.auth.sign_out_complete,
+            );
+          }
+        },
+      ),
+      ConfigureListTile(
         title: i18n.configure.delete_all,
         leadingIcon: Icons.delete_forever,
         isDestructiveAction: true,

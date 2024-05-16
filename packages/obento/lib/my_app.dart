@@ -4,14 +4,15 @@ import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:obento/features/home/application/home_route.dart' as home_route;
+import 'package:obento/features/hashtag/application/hashtag_route.dart'
+    as hashtag_route;
 import 'package:obento/features/onboarding/application/onboarding_route.dart'
     as onboarding_route;
 import 'package:obento/gen/strings.g.dart';
 
 final _routes = [
   ...onboarding_route.$appRoutes,
-  ...home_route.$appRoutes,
+  ...hashtag_route.$appRoutes,
 ];
 
 final myThemeBuilder = MyThemeBuilder(
@@ -29,7 +30,7 @@ class MyApp extends HookConsumerWidget {
     final router = ref.watch(
       myGoRouterProvider(
         routes: _routes,
-        signedInLocation: const home_route.HomePageRoute().location,
+        signedInLocation: const hashtag_route.HashtagPageRoute().location,
       ),
     );
 

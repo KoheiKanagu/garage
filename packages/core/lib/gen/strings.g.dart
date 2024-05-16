@@ -144,6 +144,16 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _StringsAuthJa auth = _StringsAuthJa._(_root);
 	late final _StringsOnboardingJa onboarding = _StringsOnboardingJa._(_root);
 	late final _StringsAdsJa ads = _StringsAdsJa._(_root);
+	String get edit => '編集';
+	String get add => '追加';
+	String get done => '完了';
+	String get cancel => 'キャンセル';
+	String get save => '保存';
+	String get delete => '削除';
+	String get error_field_cannot_be_empty => 'この項目は必須です';
+	String get copy => 'コピー';
+	String get close => '閉じる';
+	String get copied_to_clipboard => 'クリップボードにコピーしました';
 }
 
 // Path: service_down
@@ -255,6 +265,13 @@ class _StringsAuthJa {
 	String get github_account => 'GitHubアカウント';
 	String unlink_confirm({required Object account}) => '${account}との接続を解除しますか？';
 	String get unlink => '解除';
+	String get sign_out => 'サインアウト';
+	String get sign_out_description => 'サインアウトすると、アカウントを接続していない場合は現在利用中のデータにアクセスできなくなります。';
+	String get sign_out_complete => 'サインアウトしました';
+	String get exception => '予期せぬエラーが発生しました';
+	String get exception_message => 'しばらく時間を置いてから再度お試しください。';
+	String get credential_already_in_use_exception => 'アカウントを接続できません';
+	String credential_already_in_use_exception_message({required Object providerName}) => 'この${providerName}はすでに他のユーザーに接続されています。他の${providerName}を使用してください。';
 }
 
 // Path: onboarding
@@ -343,6 +360,16 @@ class _StringsEn extends Translations {
 	@override late final _StringsAuthEn auth = _StringsAuthEn._(_root);
 	@override late final _StringsOnboardingEn onboarding = _StringsOnboardingEn._(_root);
 	@override late final _StringsAdsEn ads = _StringsAdsEn._(_root);
+	@override String get edit => 'Edit';
+	@override String get add => 'Add';
+	@override String get done => 'Done';
+	@override String get cancel => 'Cancel';
+	@override String get save => 'Save';
+	@override String get delete => 'Delete';
+	@override String get error_field_cannot_be_empty => 'This field is required';
+	@override String get copy => 'Copy';
+	@override String get close => 'Close';
+	@override String get copied_to_clipboard => 'Copied to clipboard';
 }
 
 // Path: service_down
@@ -454,6 +481,13 @@ class _StringsAuthEn extends _StringsAuthJa {
 	@override String get github_account => 'GitHub Account';
 	@override String unlink_confirm({required Object account}) => 'Unlink ${account}?';
 	@override String get unlink => 'Unlink';
+	@override String get sign_out => 'Sign out';
+	@override String get sign_out_description => 'When you sign out, you will no longer have access to the data you are currently using unless you are connected to an account.';
+	@override String get sign_out_complete => 'Signed out successfully';
+	@override String get exception => 'An unexpected error occurred';
+	@override String get exception_message => 'Please try again after a while.';
+	@override String get credential_already_in_use_exception => 'Account already in use';
+	@override String credential_already_in_use_exception_message({required Object providerName}) => 'This ${providerName} is already connected to another user. Please use a different ${providerName}.';
 }
 
 // Path: onboarding

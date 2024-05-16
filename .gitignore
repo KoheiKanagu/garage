@@ -34,8 +34,8 @@ doc/api/
 pubspec_overrides.yaml
 **/coverage/lcov.info
 
-**/.fastlane/Preview.html
-**/.fastlane/metadata/*/release_notes.txt
+packages/*/.fastlane/Preview.html
+packages/*/.fastlane/metadata/*/release_notes.txt
 
 **/test/**/failures/*.png
 
@@ -47,6 +47,5 @@ firebase/functions/firestore-coverage.html
 packages/*/android/app/signing-configs-debug.gradle
 packages/*/android/app/signing-configs-release.gradle
 packages/*/.crashlytics/dump_syms.bin
-packages/*/.fastlane/metadata/android/*/changelogs/default.txt
-
-releaseNotes
+packages/*/.fastlane/metadata/android/*/changelogs/*.txt
+firebase/remoteconfig/template.json

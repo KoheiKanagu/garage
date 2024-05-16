@@ -71,7 +71,14 @@
     "unlink_github": "GitHubとの接続を解除",
     "github_account": "GitHubアカウント",
     "unlink_confirm": "$accountとの接続を解除しますか？",
-    "unlink": "解除"
+    "unlink": "解除",
+    "sign_out": "サインアウト",
+    "sign_out_description": "サインアウトすると、アカウントを接続していない場合は現在利用中のデータにアクセスできなくなります。",
+    "sign_out_complete": "サインアウトしました",
+    "exception": "予期せぬエラーが発生しました",
+    "exception_message": "しばらく時間を置いてから再度お試しください。",
+    "credential_already_in_use_exception": "アカウントを接続できません",
+    "credential_already_in_use_exception_message": "この${providerName}はすでに他のユーザーに接続されています。他の${providerName}を使用してください。"
   },
   "onboarding": {
     "start": "はじめる",
@@ -89,5 +96,15 @@
       "ok_label": "取り消す",
       "did_revoke_title": "パーソナライズド広告の同意を取り消しました"
     }
-  }
+  },
+  "edit": "編集",
+  "add": "追加",
+  "done": "完了",
+  "cancel": "キャンセル",
+  "save": "保存",
+  "delete": "削除",
+  "error_field_cannot_be_empty": "この項目は必須です",
+  "copy": "コピー",
+  "close": "閉じる",
+  "copied_to_clipboard": "クリップボードにコピーしました"
 }

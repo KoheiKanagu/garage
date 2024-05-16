@@ -21,10 +21,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<ProviderContainer?> initialize({
   required FirebaseOptions firebaseOptions,
   List<Override>? overrides,
+  AppLocale? useLocale,
 }) {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final locale = LocaleSettings.useDeviceLocale();
+  final locale = useLocale ?? LocaleSettings.useDeviceLocale();
   Intl.defaultLocale = locale.languageCode;
 
   return Future<ProviderContainer?>(
