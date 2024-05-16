@@ -85,7 +85,13 @@ class AdsRequestConsentInfoUpdateController
             (formError) {
               if (formError != null) {
                 logger.handle(
-                  formError,
+                  {
+                    'message': 'consentForm.show',
+                    'error': {
+                      'errorCode': formError.errorCode,
+                      'message': formError.message,
+                    },
+                  },
                   StackTrace.current,
                   formError.message,
                 );
