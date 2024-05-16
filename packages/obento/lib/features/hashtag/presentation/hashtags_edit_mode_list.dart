@@ -19,16 +19,12 @@ class HashtagsEditModeList extends HookConsumerWidget {
 
     final themeType = InheritedThemeDetector.of(context);
 
-    return Padding(
-      padding: EdgeInsets.only(
-        top: switch (themeType) {
-          InheritedThemeType.cupertino =>
-            MediaQuery.of(context).viewPadding.top +
-                kMinInteractiveDimensionCupertino,
-          _ => 0,
-        },
-      ),
+    return SafeArea(
+      bottom: false,
       child: ReorderableListView.builder(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.viewPaddingOf(context).bottom,
+        ),
         onReorder: ref.watch(hashtagsEditControllerProvider.notifier).swap,
         onReorderStart: (_) => HapticFeedback.lightImpact(),
         onReorderEnd: (_) => HapticFeedback.lightImpact(),
