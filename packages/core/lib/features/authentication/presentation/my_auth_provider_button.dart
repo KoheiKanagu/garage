@@ -71,6 +71,22 @@ class MyAuthProviderButton extends HookConsumerWidget {
                     await authProviderController.signInOrLink();
                   }
                 } on Exception catch (e, stack) {
+                  if (e is CredentialAlreadyInUseException) {
+                    final providerName = e.type.providerName;
+
+                    if (context.mounted) {
+                      await showOkAlertDialog(
+                        context: context,
+                        title: i18n.auth.credential_already_in_use_exception,
+                        message: i18n.auth
+                            .credential_already_in_use_exception_message(
+                          providerName: providerName,
+                        ),
+                      );
+                      return;
+                    }
+                  }
+
                   logger.handle(e, stack);
 
                   if (context.mounted) {

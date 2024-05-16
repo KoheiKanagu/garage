@@ -76,8 +76,10 @@
     "sign_out_description": "When you sign out, you will no longer have access to the data you are currently using unless you are connected to an account.",
     "sign_out_complete": "Signed out successfully",
     "exception": "An unexpected error occurred",
-    "exception_message": "Please try again after a while."
-  },
+    "exception_message": "Please try again after a while.",
+    "credential_already_in_use_exception": "Account already in use",
+    "credential_already_in_use_exception_message": "This ${providerName} is already connected to another user. Please use a different ${providerName}."
+    },
   "onboarding": {
     "start": "Start",
     "social_account_sign_in": "Sign in with Social Account",

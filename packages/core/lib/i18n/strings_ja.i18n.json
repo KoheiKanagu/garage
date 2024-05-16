@@ -76,7 +76,9 @@
     "sign_out_description": "サインアウトすると、アカウントを接続していない場合は現在利用中のデータにアクセスできなくなります。",
     "sign_out_complete": "サインアウトしました",
     "exception": "予期せぬエラーが発生しました",
-    "exception_message": "しばらく時間を置いてから再度お試しください。"
+    "exception_message": "しばらく時間を置いてから再度お試しください。",
+    "credential_already_in_use_exception": "アカウントを接続できません",
+    "credential_already_in_use_exception_message": "この${providerName}はすでに他のユーザーに接続されています。他の${providerName}を使用してください。"
   },
   "onboarding": {
     "start": "はじめる",

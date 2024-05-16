@@ -270,6 +270,8 @@ class _StringsAuthJa {
 	String get sign_out_complete => 'サインアウトしました';
 	String get exception => '予期せぬエラーが発生しました';
 	String get exception_message => 'しばらく時間を置いてから再度お試しください。';
+	String get credential_already_in_use_exception => 'アカウントを接続できません';
+	String credential_already_in_use_exception_message({required Object providerName}) => 'この${providerName}はすでに他のユーザーに接続されています。他の${providerName}を使用してください。';
 }
 
 // Path: onboarding
@@ -484,6 +486,8 @@ class _StringsAuthEn extends _StringsAuthJa {
 	@override String get sign_out_complete => 'Signed out successfully';
 	@override String get exception => 'An unexpected error occurred';
 	@override String get exception_message => 'Please try again after a while.';
+	@override String get credential_already_in_use_exception => 'Account already in use';
+	@override String credential_already_in_use_exception_message({required Object providerName}) => 'This ${providerName} is already connected to another user. Please use a different ${providerName}.';
 }
 
 // Path: onboarding
