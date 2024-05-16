@@ -35,6 +35,10 @@ class AdsRequestConsentInfoUpdateController
         debugGeography: kDebugMode
             ? DebugGeography.debugGeographyEea
             : DebugGeography.debugGeographyDisabled,
+        testIdentifiers: [
+          // KiPhone 11 Pro
+          '76C1671A-8474-4661-90B8-1B553EB07930',
+        ],
       ),
     );
 
@@ -61,9 +65,14 @@ class AdsRequestConsentInfoUpdateController
         };
       },
       (error) => logger.handle(
-        error,
+        {
+          'message': 'requestConsentInfoUpdate',
+          'error': {
+            'errorCode': error.errorCode,
+            'message': error.message,
+          },
+        },
         StackTrace.current,
-        error.message,
       ),
     );
   }
@@ -80,7 +89,13 @@ class AdsRequestConsentInfoUpdateController
             (formError) {
               if (formError != null) {
                 logger.handle(
-                  formError,
+                  {
+                    'message': 'consentForm.show',
+                    'error': {
+                      'errorCode': formError.errorCode,
+                      'message': formError.message,
+                    },
+                  },
                   StackTrace.current,
                   formError.message,
                 );
@@ -91,7 +106,13 @@ class AdsRequestConsentInfoUpdateController
         }
       },
       (formError) => logger.handle(
-        formError,
+        {
+          'message': 'loadConsentForm',
+          'error': {
+            'errorCode': formError.errorCode,
+            'message': formError.message,
+          },
+        },
         StackTrace.current,
         formError.message,
       ),
