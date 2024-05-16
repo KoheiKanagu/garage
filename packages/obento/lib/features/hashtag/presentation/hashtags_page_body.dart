@@ -31,32 +31,40 @@ class HashtagsPageBody extends HookConsumerWidget {
       duration: const Duration(milliseconds: 300),
       child: isEdit
           ? const HashtagsEditModeList()
-          : ListView(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      ...hashtags.map(
-                        (e) => HashtagChip(
-                          label: e,
-                          onPressed: () {
-                            HapticFeedback.mediumImpact();
-                            ref
-                                .watch(
-                                  hashtagsSelectedControllerProvider.notifier,
-                                )
-                                .toggle(e);
-                          },
+          : MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                padding: MediaQuery.paddingOf(context) +
+                    EdgeInsets.only(
+                      bottom: MediaQuery.textScalerOf(context).scale(72),
+                    ),
+              ),
+              child: ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        ...hashtags.map(
+                          (e) => HashtagChip(
+                            label: e,
+                            onPressed: () {
+                              HapticFeedback.mediumImpact();
+                              ref
+                                  .watch(
+                                    hashtagsSelectedControllerProvider.notifier,
+                                  )
+                                  .toggle(e);
+                            },
+                          ),
                         ),
-                      ),
-                      _AddChip(hashtags),
-                    ],
+                        _AddChip(hashtags),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
     );
   }
