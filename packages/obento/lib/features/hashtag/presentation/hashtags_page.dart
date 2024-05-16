@@ -25,8 +25,25 @@ class HashtagsPage extends HookConsumerWidget {
 
     final isEditMode = ref.watch(hashtagsEditControllerProvider) != null;
 
+    Scaffold wrapScaffold({
+      required AppBar? appBar,
+      required Widget body,
+    }) =>
+        Scaffold(
+          appBar: appBar,
+          body: body,
+          floatingActionButton: Visibility(
+            visible: !isEditMode,
+            child: const _FloatingActionButton(),
+          ),
+          bottomNavigationBar: const SafeArea(
+            child: MyAdaptiveBannerAd(),
+          ),
+          extendBody: true,
+        );
+
     return switch (themeType) {
-      InheritedThemeType.material => Scaffold(
+      InheritedThemeType.material => wrapScaffold(
           appBar: AppBar(
             leadingWidth: double.infinity,
             leading: isEditMode ? const HashtagsPageCancelButton() : null,
@@ -38,12 +55,9 @@ class HashtagsPage extends HookConsumerWidget {
             ],
           ),
           body: const HashtagsPageBody(),
-          floatingActionButton: Visibility(
-            visible: !isEditMode,
-            child: const _FloatingActionButton(),
-          ),
         ),
-      InheritedThemeType.cupertino => Scaffold(
+      InheritedThemeType.cupertino => wrapScaffold(
+          appBar: null,
           body: CupertinoPageScaffold(
             backgroundColor:
                 CupertinoColors.systemGroupedBackground.resolveFrom(context),
@@ -54,10 +68,6 @@ class HashtagsPage extends HookConsumerWidget {
                   : const HashtagsPageMenuButton(),
             ),
             child: const HashtagsPageBody(),
-          ),
-          floatingActionButton: Visibility(
-            visible: !isEditMode,
-            child: const _FloatingActionButton(),
           ),
         ),
     };

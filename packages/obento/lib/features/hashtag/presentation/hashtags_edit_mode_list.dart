@@ -23,7 +23,7 @@ class HashtagsEditModeList extends HookConsumerWidget {
       bottom: false,
       child: ReorderableListView.builder(
         padding: EdgeInsets.only(
-          bottom: MediaQuery.viewPaddingOf(context).bottom,
+          bottom: MediaQuery.paddingOf(context).bottom,
         ),
         onReorder: ref.watch(hashtagsEditControllerProvider.notifier).swap,
         onReorderStart: (_) => HapticFeedback.lightImpact(),
