@@ -35,6 +35,10 @@ class AdsRequestConsentInfoUpdateController
         debugGeography: kDebugMode
             ? DebugGeography.debugGeographyEea
             : DebugGeography.debugGeographyDisabled,
+        testIdentifiers: [
+          // KiPhone 11 Pro
+          '76C1671A-8474-4661-90B8-1B553EB07930',
+        ],
       ),
     );
 
