@@ -212,5 +212,5 @@ void createPr() {
 
 extension PackageExtension on Package {
   String get changelogUrl =>
-      'https://github.com/KoheiKanagu/garage/packages/$name/CHANGELOG.md';
+      'https://github.com/KoheiKanagu/garage/blob/main/packages/$name/CHANGELOG.md';
 }
