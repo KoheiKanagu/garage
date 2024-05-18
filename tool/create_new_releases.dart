@@ -143,7 +143,7 @@ void createPr() {
       '--short',
       'HEAD',
     ],
-  );
+  ).trim();
   final releaseBranch = 'releases/$hash';
 
   run(
