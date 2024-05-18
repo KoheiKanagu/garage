@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
 
 import 'utils.dart';
@@ -7,11 +8,11 @@ import 'utils.dart';
 @Task(
   'Deliver store metadata',
 )
-void deliverStoreMetadata() {
+Future<void> deliverStoreMetadata() async {
   final packages = argumentPackages();
 
   for (final package in packages) {
-    final version = currentVersion(package);
+    final version = await currentVersion(package);
 
     final appStore =
         Directory('packages/$package/.fastlane/metadata/default').existsSync();
@@ -42,6 +43,24 @@ void deliverStoreMetadata() {
     final googlePlay =
         Directory('packages/$package/.fastlane/metadata/android').existsSync();
     if (googlePlay) {
+      final result = run(
+        'fastlane',
+        arguments: [
+          'run',
+          'google_play_track_version_codes',
+          'package_name:${getAndroidPackageName(package)}',
+          'track:alpha',
+        ],
+      );
+
+      // fastlaneの出力はjsonなどで取得できないので、正規表現で取得する
+      final versionCode = RegExp(r'Result: \[(.+)\]')
+          .firstMatch(result)!
+          .group(1)!
+          .split(', ')
+          .map(int.parse)
+          .max;
+
       run(
         'fastlane',
         arguments: [
@@ -60,10 +79,8 @@ void deliverStoreMetadata() {
           getAndroidPackageName(package),
           '--track',
           'alpha',
-          //TODO: このバージョンのリリースが存在している必要がある?
-          // '--version_code',
-          // このバージョンのリリースが存在している必要がある
-          // version.build.toString(),
+          '--version_code',
+          versionCode.toString(),
         ],
         workingDirectory: 'packages/$package',
       );
