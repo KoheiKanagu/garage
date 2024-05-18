@@ -29,6 +29,13 @@ Future<void> createNewReleases() async {
       '--yes',
     ],
   );
+  run(
+    'melos',
+    arguments: [
+      'run',
+      'pub:get',
+    ],
+  );
 
   // コミットしてPRを作る
   createPr();
