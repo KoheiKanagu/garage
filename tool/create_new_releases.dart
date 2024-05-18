@@ -111,7 +111,7 @@ void createReleaseNotesTemplate(Package package) {
       )..writeAsStringSync(locale == 'ja' ? jaTemplate : enTemplate);
 
       run(
-        'open',
+        'code',
         arguments: [
           file.path,
         ],
@@ -133,7 +133,7 @@ void createReleaseNotesTemplate(Package package) {
       )..writeAsStringSync(locale == 'ja-JP' ? jaTemplate : enTemplate);
 
       run(
-        'open',
+        'code',
         arguments: [
           file.path,
         ],
