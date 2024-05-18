@@ -9,10 +9,13 @@ dev_dependencies:
   custom_lint: ^0.6.4
   flutter:
     sdk: flutter
+  glob: ^2.1.2
   grinder: ^0.9.5
   intl: any
   markdown: ^7.2.2
   melos: ^6.0.0
+  path: ^1.9.0
+  pub_semver: ^2.1.4
   riverpod_lint: ^2.3.10
   very_good_analysis: ^5.1.0
   yaml: ^3.1.2

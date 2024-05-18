@@ -26,7 +26,7 @@ Future<void> initialRelease() async {
       '--assignee',
       '@me',
       '--title',
-      '"feat($package): Initial Release"',
+      '"feat: Initial Release of $package"',
       '--body',
       'Initial Release',
     ],
@@ -34,7 +34,7 @@ Future<void> initialRelease() async {
 
   await waitMergePr();
 
-  final version = currentVersion(package);
+  final version = await currentVersion(package);
 
   final newTagName = '$package-v$version';
 
