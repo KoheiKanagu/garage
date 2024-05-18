@@ -136,7 +136,16 @@ void createReleaseNotesTemplate(Package package) {
 }
 
 void createPr() {
-  final releaseBranch = 'releases/${DateTime.now().toIso8601String()}';
+  final hash = run(
+    'git',
+    arguments: [
+      'rev-parse',
+      '--short',
+      'HEAD',
+    ],
+  );
+  final releaseBranch = 'releases/$hash';
+
   run(
     'git',
     arguments: [
