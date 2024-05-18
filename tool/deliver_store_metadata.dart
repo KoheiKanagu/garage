@@ -33,7 +33,7 @@ void deliverStoreMetadata() {
           '--app_identifier',
           getIosBundleId(package),
           '--app_version',
-          version.toStringNoBuildNumber(),
+          version.toString(),
         ],
         workingDirectory: 'packages/$package',
       );
@@ -60,9 +60,10 @@ void deliverStoreMetadata() {
           getAndroidPackageName(package),
           '--track',
           'alpha',
-          '--version_code',
+          //TODO: このバージョンのリリースが存在している必要がある?
+          // '--version_code',
           // このバージョンのリリースが存在している必要がある
-          version.build.toString(),
+          // version.build.toString(),
         ],
         workingDirectory: 'packages/$package',
       );

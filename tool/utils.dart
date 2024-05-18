@@ -1,12 +1,20 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
-import 'package:yaml/yaml.dart';
+import 'package:melos/melos.dart';
+import 'package:pub_semver/pub_semver.dart';
 
 import 'flutterfire_configure.dart';
+
+Future<MelosWorkspace> melosWorkspace() async => Melos(
+      config: await MelosWorkspaceConfig.fromWorkspaceRoot(
+        Directory.current,
+      ),
+    ).createWorkspace();
 
 Future<List<Directory>> runMelosList() async {
   final result = await runAsync(
@@ -61,7 +69,6 @@ String argumentPackage() {
       quiet: true,
     );
     final names = (json.decode(packages) as List<dynamic>).map(
-      // ignore: avoid_dynamic_calls
       (e) => e['name'] as String,
     );
 
@@ -75,23 +82,6 @@ String argumentPackage() {
   }
 
   return package;
-}
-
-String? fetchLatestTagName(String package) {
-  final result = run(
-    'gh',
-    arguments: [
-      'release',
-      'list',
-      '--json',
-      'tagName',
-    ],
-  );
-
-  return (json.decode(result) as List)
-      .cast<Map<String, dynamic>>()
-      .map((e) => e['tagName'] as String)
-      .firstWhereOrNull((e) => e.startsWith(package));
 }
 
 void gitPullAndCheckoutMain() {
@@ -121,38 +111,6 @@ void gitPullAndCheckoutMain() {
   );
 }
 
-/// fastlaneのmetadataにあるLocaleを取得する
-Map<StoreName, List<String>> availableLocalizedLocales(String package) {
-  final metadataDir = Directory('packages/$package/.fastlane/metadata');
-  final metadataAndroidDir = Directory('${metadataDir.path}/android');
-
-  final result = <StoreName, List<String>>{};
-
-  if (Directory('${metadataDir.path}/default').existsSync()) {
-    result[StoreName.AppStore] = [
-      'ja',
-      'en-US',
-    ];
-  }
-
-  if (metadataAndroidDir.existsSync()) {
-    result[StoreName.GooglePlay] = [
-      'ja-JP',
-      'en-US',
-    ];
-  }
-
-  return result;
-}
-
-enum StoreName {
-  // ignore: constant_identifier_names
-  AppStore,
-  // ignore: constant_identifier_names
-  GooglePlay,
-  ;
-}
-
 String getIosBundleId(String package) => packages
     .firstWhere(
       (e) => e.directory == package,
@@ -165,61 +123,13 @@ String getAndroidPackageName(String package) => packages
     )
     .packageName;
 
-Version splitVersion(String versionString) {
-  final regex = RegExp(r'(\d+)\.(\d+)\.(\d+)\+(\d+)$');
-  final match = regex.firstMatch(versionString);
-
-  if (match != null) {
-    final major = int.parse(match.group(1)!);
-    final minor = int.parse(match.group(2)!);
-    final patch = int.parse(match.group(3)!);
-    final build = int.parse(match.group(4)!);
-
-    return Version(
-      major: major,
-      minor: minor,
-      patch: patch,
-      build: build,
-    );
-  }
-
-  throw const FormatException('Invalid version string');
-}
-
-class Version {
-  Version({
-    required this.major,
-    required this.minor,
-    required this.patch,
-    required this.build,
-  });
-
-  int major;
-  int minor;
-  int patch;
-  int build;
-
-  @override
-  String toString() {
-    return '$major.$minor.$patch+$build';
-  }
-
-  String toStringNoBuildNumber() {
-    return '$major.$minor.$patch';
-  }
-}
-
 /// pubspec.yamlからパッケージのバージョンを取得する
 ///
 /// like "1.0.0+10"
-Version currentVersion(String package) {
-  final pubspec = loadYaml(
-    File('packages/$package/pubspec.yaml').readAsStringSync(),
-  ) as YamlMap;
-
-  final version = pubspec['version'] as String;
-
-  return splitVersion(version);
+Future<Version> currentVersion(String package) {
+  return melosWorkspace().then(
+    (e) => e.allPackages[package]!.version,
+  );
 }
 
 /// PRがマージされるまで待つ
