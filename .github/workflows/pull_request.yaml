@@ -181,9 +181,6 @@ jobs:
       ### Set up ###
       - uses: actions/checkout@v4
 
-      - name: Setup Flutter
-        uses: KoheiKanagu/composite-actions/setup-flutter@main
-
       - name: Pods Cache
         uses: actions/cache@v4
         with:
@@ -198,10 +195,12 @@ jobs:
         run: gem update cocoapods
 
       ### Build ###
-      - run: melos run pub:get
-
-      - run: melos run pod:install
-
+      - run: |
+          for dir in packages/*/ios; do
+              pushd $(dirname $dir)
+              pod install --project-directory=ios
+              popd
+          done
       - run: git diff --exit-code
 
   firebase-test:
