@@ -11,103 +11,23 @@
     <meta property="og:type" content="website" />
     <title>garage</title>
 
-    <style media="screen">
-      body {
-        background: #eceff1;
-        color: rgba(0, 0, 0, 0.87);
-        font-family: Roboto, Helvetica, Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      #message {
-        background: white;
-        max-width: 360px;
-        margin: 100px auto 16px;
-        padding: 32px 24px;
-        border-radius: 8px;
-      }
-      #message h2 {
-        color: #ffa100;
-        font-weight: bold;
-        font-size: 16px;
-        margin: 0 0 8px;
-      }
-      #message h1 {
-        font-size: 22px;
-        font-weight: 300;
-        color: rgba(0, 0, 0, 0.6);
-        margin: 0 0 16px;
-      }
-      #message p {
-        line-height: 140%;
-        margin: 16px 0 24px;
-        font-size: 14px;
-      }
-      #message #about_developer {
-        display: block;
-        text-align: center;
-        background: #039be5;
-        text-transform: uppercase;
-        text-decoration: none;
-        color: white;
-        padding: 16px;
-        border-radius: 8px;
-      }
-      #message {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      }
-      #message #app_icon {
-        width: 200px;
-        height: 200px;
-        border-radius: 22%;
-        overflow: hidden;
-        display: inline-block;
-        vertical-align: middle;
-        margin: 16px 16px 16px 16px;
-      }
-      #message #app_store_badge {
-        display: inline-block;
-        overflow: hidden;
-        border-radius: 11px;
-        width: 200px;
-        height: 66.85381836px;
-      }
-      #message #google_play_badge {
-        display: inline-block;
-        overflow: hidden;
-        border-radius: 7px;
-        width: 200px;
-        height: 59.5744680851px;
-      }
-      #load {
-        color: rgba(0, 0, 0, 0.4);
-        text-align: center;
-        font-size: 13px;
-      }
-      @media (max-width: 600px) {
-        body,
-        #message {
-          margin-top: 0;
-          background: white;
-          box-shadow: none;
-        }
-        body {
-          border-top: 16px solid #ffa100;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
 
   <body>
     <div id="message">
       <div style="text-align: center">
-        <img src="obento-app_icon.webp" alt="#obento App Icon" id="app_icon" />
+        <img
+          src="assets/obento-app_icon.webp"
+          alt="#obento App Icon"
+          id="app_icon"
+        />
 
         <a
           href="https://apps.apple.com/us/app/obento/id6499041461?itsct=apps_box_link&itscg=30200"
           id="app_store_badge"
           ><img
-            src="app_store.svg"
+            src="assets/app_store.svg"
             alt="Download on the App Store"
             id="app_store_badge"
         /></a>
@@ -116,7 +36,7 @@
           href="https://play.google.com/store/apps/details?id=dev.kingu.obento"
           id="google_play_badge"
           ><img
-            src="google_play.webp"
+            src="assets/google_play.webp"
             alt="Download on the Google Play Store"
             id="google_play_badge"
         /></a>
@@ -126,7 +46,7 @@
 
       <div style="text-align: center">
         <img
-          src="locamusic-app_icon.webp"
+          src="assets/locamusic-app_icon.webp"
           alt="Locamusic App Icon"
           id="app_icon"
         />
@@ -134,14 +54,16 @@
           href="https://apps.apple.com/us/app/locamusic/id6471416156?itsct=apps_box_link&itscg=30200"
           id="app_store_badge"
           ><img
-            src="app_store.svg"
+            src="assets/app_store.svg"
             alt="Download on the App Store"
             id="app_store_badge"
         /></a>
       </div>
+    </div>
+  </body>
 
-      <hr />
-
+  <footer>
+    <div>
       <p>
         アプリに関するお問い合わせは、アプリ内のフィードバック、
         <a href="mailto:support@kingu.dev">メール</a>
@@ -165,7 +87,13 @@
         >
       </p>
 
-      <hr />
+      <a target="_blank" id="other_apps" href="https://garage.kingu.dev">
+        その他のアプリはこちら
+        <br />
+        Other apps
+      </a>
+
+      <br />
 
       <a target="_blank" id="about_developer" href="https://kingu.dev">
         アプリの開発者についてはこちら
@@ -173,5 +101,5 @@
         About the app's developer
       </a>
     </div>
-  </body>
+  </footer>
 </html>
