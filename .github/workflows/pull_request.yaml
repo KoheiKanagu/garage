@@ -69,6 +69,25 @@ jobs:
           melos run generate
           git diff --exit-code
 
+  build_runner:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v2.0.0
+        with:
+          comment_on_pr: false
+
+      ### Set up ###
+      - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: KoheiKanagu/composite-actions/setup-flutter@main
+
+      ### Build ###
+      - run: |
+          melos run build_runner:build --no-select
+
   update-si:
     timeout-minutes: 30
     runs-on: ubuntu-latest
