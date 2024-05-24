@@ -19,7 +19,7 @@ permissions:
   attestations: write
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-docker
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.FLUTTER_VERSION }}-docker
   cancel-in-progress: true
 
 jobs:
