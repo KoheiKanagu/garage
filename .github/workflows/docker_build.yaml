@@ -18,6 +18,8 @@ permissions:
   packages: write
   attestations: write
 
+run-name: ${{ inputs.FLUTTER_VERSION }}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.FLUTTER_VERSION }}-docker
   cancel-in-progress: true
