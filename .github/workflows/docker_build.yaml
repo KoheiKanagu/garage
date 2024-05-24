@@ -10,7 +10,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: flutter
+  IMAGE_NAME: KoheiKanagu/flutter
 
 permissions:
   contents: read
