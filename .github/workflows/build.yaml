@@ -51,7 +51,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     container:
-      image: ${{ env.FLUTTER_IMAGE_NAME }}
+      image: ${{ github.env.FLUTTER_IMAGE_NAME }}
     permissions:
       id-token: write
       contents: read
