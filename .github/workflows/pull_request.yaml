@@ -12,9 +12,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-pull_request
   cancel-in-progress: true
 
-env:
-  FLUTTER_IMAGE_NAME: ghcr.io/koheikanagu/flutter:3.22.0
-
 jobs:
   changed-files:
     timeout-minutes: 30
@@ -47,7 +44,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
-      image: ${{ github.env.FLUTTER_IMAGE_NAME }}
+      image: ghcr.io/koheikanagu/flutter:3.22.0
     permissions: # for KoheiKanagu/composite-actions/setup-firebase-cli@main
       id-token: write
       contents: read
@@ -75,7 +72,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
-      image: ${{ github.env.FLUTTER_IMAGE_NAME }}
+      image: ghcr.io/koheikanagu/flutter:3.22.0
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -93,7 +90,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
-      image: ${{ github.env.FLUTTER_IMAGE_NAME }}
+      image: ghcr.io/koheikanagu/flutter:3.22.0
     needs: changed-files
     if: ${{ needs.changed-files.outputs.update_si_any_changed == 'true' }}
     steps:
@@ -114,7 +111,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
-      image: ${{ github.env.FLUTTER_IMAGE_NAME }}
+      image: ghcr.io/koheikanagu/flutter:3.22.0
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -135,7 +132,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
-      image: ${{ github.env.FLUTTER_IMAGE_NAME }}
+      image: ghcr.io/koheikanagu/flutter:3.22.0
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -153,7 +150,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
-      image: ${{ github.env.FLUTTER_IMAGE_NAME }}
+      image: ghcr.io/koheikanagu/flutter:3.22.0
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -171,7 +168,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
-      image: ${{ github.env.FLUTTER_IMAGE_NAME }}
+      image: ghcr.io/koheikanagu/flutter:3.22.0
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0

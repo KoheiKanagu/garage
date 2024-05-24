@@ -9,9 +9,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-build
   cancel-in-progress: true
 
-env:
-  FLUTTER_IMAGE_NAME: ghcr.io/koheikanagu/flutter:3.22.0
-
 jobs:
   pull_request_jobs:
     uses: ./.github/workflows/pull_request.yaml
@@ -51,7 +48,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     container:
-      image: ${{ github.env.FLUTTER_IMAGE_NAME }}
+      image: ghcr.io/koheikanagu/flutter:3.22.0
     permissions:
       id-token: write
       contents: read
