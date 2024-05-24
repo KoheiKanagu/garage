@@ -9,6 +9,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-build
   cancel-in-progress: true
 
+env:
+  FLUTTER_IMAGE_NAME: ghcr.io/koheikanagu/flutter:3.22.0
+
 jobs:
   pull_request_jobs:
     uses: ./.github/workflows/pull_request.yaml
@@ -47,6 +50,8 @@ jobs:
   build_android:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    container:
+      image: ${{ env.FLUTTER_IMAGE_NAME }}
     permissions:
       id-token: write
       contents: read
@@ -56,9 +61,6 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: KoheiKanagu/composite-actions/setup-flutter@main
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4.2.1

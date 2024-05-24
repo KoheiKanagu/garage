@@ -12,6 +12,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-pull_request
   cancel-in-progress: true
 
+env:
+  FLUTTER_IMAGE_NAME: ghcr.io/koheikanagu/flutter:3.22.0
+
 jobs:
   changed-files:
     timeout-minutes: 30
@@ -43,6 +46,8 @@ jobs:
   generate:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    container:
+      image: ${{ env.FLUTTER_IMAGE_NAME }}
     permissions: # for KoheiKanagu/composite-actions/setup-firebase-cli@main
       id-token: write
       contents: read
@@ -54,9 +59,6 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: KoheiKanagu/composite-actions/setup-flutter@main
 
       - name: Setup Firebase CLI Dev
         uses: KoheiKanagu/composite-actions/setup-firebase-cli@main
@@ -72,6 +74,8 @@ jobs:
   build_runner:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    container:
+      image: ${{ env.FLUTTER_IMAGE_NAME }}
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -81,9 +85,6 @@ jobs:
       ### Set up ###
       - uses: actions/checkout@v4
 
-      - name: Setup Flutter
-        uses: KoheiKanagu/composite-actions/setup-flutter@main
-
       ### Build ###
       - run: |
           melos run build_runner:build --no-select
@@ -91,6 +92,8 @@ jobs:
   update-si:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    container:
+      image: ${{ env.FLUTTER_IMAGE_NAME }}
     needs: changed-files
     if: ${{ needs.changed-files.outputs.update_si_any_changed == 'true' }}
     steps:
@@ -102,9 +105,6 @@ jobs:
       ### Set up ###
       - uses: actions/checkout@v4
 
-      - name: Setup Flutter
-        uses: KoheiKanagu/composite-actions/setup-flutter@main
-
       ### Update si ###
       - run: |
           melos run update-si
@@ -113,6 +113,8 @@ jobs:
   fix-format:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    container:
+      image: ${{ env.FLUTTER_IMAGE_NAME }}
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -121,9 +123,6 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: KoheiKanagu/composite-actions/setup-flutter@main
 
       ### fix and format ###
       - name: Fix and Format
@@ -135,6 +134,8 @@ jobs:
   analyze:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    container:
+      image: ${{ env.FLUTTER_IMAGE_NAME }}
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -143,9 +144,6 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: KoheiKanagu/composite-actions/setup-flutter@main
 
       ### Analyze ###
       - run: melos run pub:get
@@ -154,6 +152,8 @@ jobs:
   custom_lint:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    container:
+      image: ${{ env.FLUTTER_IMAGE_NAME }}
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -162,9 +162,6 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: KoheiKanagu/composite-actions/setup-flutter@main
 
       ### Custom Lint ###
       - run: melos run pub:get
@@ -173,6 +170,8 @@ jobs:
   test:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    container:
+      image: ${{ env.FLUTTER_IMAGE_NAME }}
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -181,9 +180,6 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: KoheiKanagu/composite-actions/setup-flutter@main
 
       ### Test ###
       - name: Test
