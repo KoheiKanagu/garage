@@ -15,6 +15,7 @@ env:
 permissions:
   contents: read
   packages: write
+  attestations: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-docker
