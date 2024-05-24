@@ -24,5 +24,7 @@ RUN flutter doctor --verbose
 
 # Install global Dart packages
 RUN dart pub global activate melos
+ENV MELOS_SDK_PATH /home/$USERNAME/flutter
+
 RUN dart pub global activate grinder
 RUN dart pub global activate flutterfire_cli

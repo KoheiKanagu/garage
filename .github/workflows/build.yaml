@@ -47,6 +47,8 @@ jobs:
   build_android:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/koheikanagu/flutter:3.22.0
     permissions:
       id-token: write
       contents: read
@@ -56,9 +58,6 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
-
-      - name: Setup Flutter
-        uses: KoheiKanagu/composite-actions/setup-flutter@main
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4.2.1
