@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-05-29
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`core` - `v1.1.1`](#core---v111)
+ - [`listen_to_music_by_location` - `v1.1.1`](#listen_to_music_by_location---v111)
+ - [`obento` - `v1.1.1`](#obento---v111)
+
+---
+
+#### `core` - `v1.1.1`
+
+ - **FIX**(deps): update slang to ^3.31.0 ([#359](https://github.com/KoheiKanagu/garage/issues/359)). ([5873bba9](https://github.com/KoheiKanagu/garage/commit/5873bba9fdcf8e2df88622021c609d1fe52237d8))
+ - **FIX**(deps): update dependency go_router to ^14.1.3 ([#353](https://github.com/KoheiKanagu/garage/issues/353)). ([0ee57154](https://github.com/KoheiKanagu/garage/commit/0ee5715438bca535fc5ca51700de6ea0f1bb8a58))
+ - **FIX**(deps): update talker to ^4.2.3 ([#355](https://github.com/KoheiKanagu/garage/issues/355)). ([7702b5ae](https://github.com/KoheiKanagu/garage/commit/7702b5aef703fafd6878c665309a8f70b0a32e96))
+ - **FIX**(deps): update go_router ([#345](https://github.com/KoheiKanagu/garage/issues/345)). ([90ad588c](https://github.com/KoheiKanagu/garage/commit/90ad588cd4fb5ae7bf7b4336c9f2566df9830d32))
+
+#### `listen_to_music_by_location` - `v1.1.1`
+
+ - **FIX**(deps): update dependency app_links to ^6.1.1 ([#358](https://github.com/KoheiKanagu/garage/issues/358)). ([e4166a23](https://github.com/KoheiKanagu/garage/commit/e4166a23302a32c3525b6b46a6a81feaf71f106b))
+ - **FIX**(deps): update slang to ^3.31.0 ([#359](https://github.com/KoheiKanagu/garage/issues/359)). ([5873bba9](https://github.com/KoheiKanagu/garage/commit/5873bba9fdcf8e2df88622021c609d1fe52237d8))
+ - **FIX**(deps): update dependency go_router to ^14.1.3 ([#353](https://github.com/KoheiKanagu/garage/issues/353)). ([0ee57154](https://github.com/KoheiKanagu/garage/commit/0ee5715438bca535fc5ca51700de6ea0f1bb8a58))
+ - **FIX**(deps): update talker to ^4.2.3 ([#355](https://github.com/KoheiKanagu/garage/issues/355)). ([7702b5ae](https://github.com/KoheiKanagu/garage/commit/7702b5aef703fafd6878c665309a8f70b0a32e96))
+ - **FIX**(deps): update go_router ([#345](https://github.com/KoheiKanagu/garage/issues/345)). ([90ad588c](https://github.com/KoheiKanagu/garage/commit/90ad588cd4fb5ae7bf7b4336c9f2566df9830d32))
+
+#### `obento` - `v1.1.1`
+
+ - **FIX**(deps): update slang to ^3.31.0 ([#359](https://github.com/KoheiKanagu/garage/issues/359)). ([5873bba9](https://github.com/KoheiKanagu/garage/commit/5873bba9fdcf8e2df88622021c609d1fe52237d8))
+ - **FIX**(deps): update dependency go_router to ^14.1.3 ([#353](https://github.com/KoheiKanagu/garage/issues/353)). ([0ee57154](https://github.com/KoheiKanagu/garage/commit/0ee5715438bca535fc5ca51700de6ea0f1bb8a58))
+ - **FIX**(deps): update talker to ^4.2.3 ([#355](https://github.com/KoheiKanagu/garage/issues/355)). ([7702b5ae](https://github.com/KoheiKanagu/garage/commit/7702b5aef703fafd6878c665309a8f70b0a32e96))
+ - **FIX**(deps): update go_router ([#345](https://github.com/KoheiKanagu/garage/issues/345)). ([90ad588c](https://github.com/KoheiKanagu/garage/commit/90ad588cd4fb5ae7bf7b4336c9f2566df9830d32))
+
+
 ## 2024-05-18
 
 ### Changes
