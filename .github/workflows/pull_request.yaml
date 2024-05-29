@@ -221,8 +221,9 @@ jobs:
           flutter-version-file: pubspec.yaml
           cache: true
 
-      - name: Pub Global Activate
+      - name: Flutter bootstrap
         run: |
+          echo "MELOS_SDK_PATH=$FLUTTER_ROOT" >> $GITHUB_ENV
           .github/workflows/pub_global_activate.sh
 
       ### Test ###
@@ -258,8 +259,9 @@ jobs:
           flutter-version-file: pubspec.yaml
           cache: true
 
-      - name: Pub Global Activate
+      - name: Flutter bootstrap
         run: |
+          echo "MELOS_SDK_PATH=$FLUTTER_ROOT" >> $GITHUB_ENV
           .github/workflows/pub_global_activate.sh
 
       - name: Pods Cache
