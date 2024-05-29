@@ -2,11 +2,8 @@ name: Build and Publish Flutter Docker Image
 
 on:
   workflow_dispatch:
-    inputs:
-      FLUTTER_VERSION:
-        description: 'Flutter version'
-        required: true
-        default: '3.22.0'
+  schedule:
+    - cron: "0 17 * * *" # JTS 02:00
 
 env:
   REGISTRY: ghcr.io
@@ -18,16 +15,26 @@ permissions:
   packages: write
   attestations: write
 
-run-name: ${{ inputs.FLUTTER_VERSION }}
-
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.FLUTTER_VERSION }}-docker
+  group: ${{ github.workflow }}-${{ github.ref }}-docker
   cancel-in-progress: true
 
 jobs:
+  check-flutter-version:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    outputs:
+      flutter_version: ${{ steps.check-flutter-version.outputs.flutter_version }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get Flutter version
+        id: check-flutter-version
+        run: echo "flutter_version=$(yq eval '.environment.flutter' pubspec.yaml)" >>"$GITHUB_OUTPUT"
+
   build_and_publish:
     timeout-minutes: 30
     runs-on: ubuntu-latest
+    needs: check-flutter-version
 
     steps:
       - uses: actions/checkout@v4.1.6
@@ -48,7 +55,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=${{ inputs.FLUTTER_VERSION }}
+            type=raw,value=${{ needs.check-flutter-version.outputs.flutter_version }}
 
       - name: Build and push
         id: push
@@ -57,7 +64,8 @@ jobs:
           context: .
           push: true
           build-args: |
-            FLUTTER_VERSION=${{ inputs.FLUTTER_VERSION }}
+            FLUTTER_VERSION=${{ needs.check-flutter-version.outputs.flutter_version }}
+            BUILDKIT_INLINE_CACHE=1
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
@@ -68,4 +76,3 @@ jobs:
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
-          push-to-registry: true
