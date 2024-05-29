@@ -223,8 +223,7 @@ jobs:
 
       - name: Flutter bootstrap
         run: |
-          echo "MELOS_SDK_PATH=$FLUTTER_ROOT" >> $GITHUB_ENV
-          .github/workflows/pub_global_activate.sh
+          .github/workflows/flutter_bootstrap.sh
 
       ### Test ###
       - name: Test
@@ -261,8 +260,7 @@ jobs:
 
       - name: Flutter bootstrap
         run: |
-          echo "MELOS_SDK_PATH=$FLUTTER_ROOT" >> $GITHUB_ENV
-          .github/workflows/pub_global_activate.sh
+          .github/workflows/flutter_bootstrap.sh
 
       - name: Pods Cache
         uses: actions/cache@v4
