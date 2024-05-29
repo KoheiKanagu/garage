@@ -7,7 +7,6 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
@@ -61,10 +60,6 @@ FirebaseAuth firebaseAuth(FirebaseAuthRef _) {
 @riverpod
 FirebaseAnalytics firebaseAnalytics(FirebaseAnalyticsRef _) =>
     FirebaseAnalytics.instance;
-
-@riverpod
-FirebaseDynamicLinks firebaseDynamicLinks(FirebaseDynamicLinksRef _) =>
-    FirebaseDynamicLinks.instance;
 
 @riverpod
 FirebasePerformance firebasePerformance(FirebasePerformanceRef _) =>

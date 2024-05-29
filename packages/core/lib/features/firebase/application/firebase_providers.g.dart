@@ -88,23 +88,6 @@ final firebaseAnalyticsProvider =
 );
 
 typedef FirebaseAnalyticsRef = AutoDisposeProviderRef<FirebaseAnalytics>;
-String _$firebaseDynamicLinksHash() =>
-    r'35aae1580305993cc4657034c3dddee006a3bee2';
-
-/// See also [firebaseDynamicLinks].
-@ProviderFor(firebaseDynamicLinks)
-final firebaseDynamicLinksProvider =
-    AutoDisposeProvider<FirebaseDynamicLinks>.internal(
-  firebaseDynamicLinks,
-  name: r'firebaseDynamicLinksProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$firebaseDynamicLinksHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef FirebaseDynamicLinksRef = AutoDisposeProviderRef<FirebaseDynamicLinks>;
 String _$firebasePerformanceHash() =>
     r'8e1d63e452a93bc66b247dc7d95ef6fc072eaf48';
 
