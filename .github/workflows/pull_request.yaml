@@ -221,7 +221,7 @@ jobs:
           flutter-version-file: pubspec.yaml
           cache: true
           cache-key: "flutter-:os:-:channel:-:version:-:arch:"
-          pub-cache-key: "flutter-pub:os:-:channel:-:version:-:arch:"
+          pub-cache-key: "flutter-pub-:os:-:channel:-:version:-:arch:"
 
       - name: Flutter bootstrap
         run: |
@@ -260,7 +260,7 @@ jobs:
           flutter-version-file: pubspec.yaml
           cache: true
           cache-key: "flutter-:os:-:channel:-:version:-:arch:"
-          pub-cache-key: "flutter-pub:os:-:channel:-:version:-:arch:"
+          pub-cache-key: "flutter-pub-:os:-:channel:-:version:-:arch:"
 
       - name: Flutter bootstrap
         run: |
