@@ -1,3 +1,10 @@
+## 1.1.1
+
+ - **FIX**(deps): update slang to ^3.31.0 ([#359](https://github.com/KoheiKanagu/garage/issues/359)). ([5873bba9](https://github.com/KoheiKanagu/garage/commit/5873bba9fdcf8e2df88622021c609d1fe52237d8))
+ - **FIX**(deps): update dependency go_router to ^14.1.3 ([#353](https://github.com/KoheiKanagu/garage/issues/353)). ([0ee57154](https://github.com/KoheiKanagu/garage/commit/0ee5715438bca535fc5ca51700de6ea0f1bb8a58))
+ - **FIX**(deps): update talker to ^4.2.3 ([#355](https://github.com/KoheiKanagu/garage/issues/355)). ([7702b5ae](https://github.com/KoheiKanagu/garage/commit/7702b5aef703fafd6878c665309a8f70b0a32e96))
+ - **FIX**(deps): update go_router ([#345](https://github.com/KoheiKanagu/garage/issues/345)). ([90ad588c](https://github.com/KoheiKanagu/garage/commit/90ad588cd4fb5ae7bf7b4336c9f2566df9830d32))
+
 ## 1.1.0
 
  - **FIX**(deps): update firebase-dart ([#302](https://github.com/KoheiKanagu/garage/issues/302)). ([b2cf5dd6](https://github.com/KoheiKanagu/garage/commit/b2cf5dd6240e700a5cf27bed547dae594304c7a6))
