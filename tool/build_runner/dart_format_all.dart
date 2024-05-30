@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
 import 'package:path/path.dart' as p;
 
-import 'utils.dart';
+import '../utils.dart';
 
 @Task(
   'Run dart format on all packages',

@@ -7,7 +7,7 @@ import 'package:grinder/grinder.dart';
 import 'package:melos/melos.dart';
 import 'package:path/path.dart' as p;
 
-import 'utils.dart';
+import '../utils.dart';
 
 @Task(
   'Create new Releases',

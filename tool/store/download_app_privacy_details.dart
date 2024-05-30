@@ -2,7 +2,7 @@
 
 import 'package:grinder/grinder.dart';
 
-import 'utils.dart';
+import '../utils.dart';
 
 @Task(
   'Download app privacy details',

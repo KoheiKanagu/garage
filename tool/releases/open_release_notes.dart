@@ -1,7 +1,7 @@
 import 'package:grinder/grinder.dart';
 import 'package:path/path.dart' as p;
 
-import 'utils.dart';
+import '../utils.dart';
 
 @Task(
   'Open release notes text files in text editor',

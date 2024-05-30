@@ -1,6 +1,6 @@
 import 'package:grinder/grinder.dart';
 
-import 'utils.dart';
+import '../utils.dart';
 
 const String email = 'kohei.kanagu@gmail.com';
 

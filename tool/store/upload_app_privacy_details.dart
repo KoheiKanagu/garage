@@ -1,6 +1,6 @@
 import 'package:grinder/grinder.dart';
 
-import 'utils.dart';
+import '../utils.dart';
 
 @Task(
   'Upload app privacy details',

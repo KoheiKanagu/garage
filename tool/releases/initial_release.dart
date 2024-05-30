@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:grinder/grinder.dart';
 
-import 'utils.dart';
+import '../utils.dart';
 
 @Task(
   'Create initial GitHub Releases',

@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
 
-import 'utils.dart';
+import '../utils.dart';
 
 @Task(
   'Deliver store metadata',
