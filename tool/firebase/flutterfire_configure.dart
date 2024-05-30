@@ -1,17 +1,6 @@
 import 'package:grinder/grinder.dart';
 
-final packages = [
-  (
-    directory: 'listen_to_music_by_location',
-    bundleId: 'dev.kingu.listenToMusicByLocation',
-    packageName: 'dev.kingu.listen_to_music_by_location',
-  ),
-  (
-    directory: 'obento',
-    bundleId: 'dev.kingu.obento',
-    packageName: 'dev.kingu.obento',
-  ),
-];
+import '../utils.dart';
 
 const String email = 'kohei.kanagu@gmail.com';
 
@@ -21,8 +10,10 @@ const String projectNameProd = 'kingu-garage-prod';
 @Task(
   'FlutterFire configure',
 )
-void flutterfireConfigure() {
-  for (final e in packages) {
+Future<void> flutterfireConfigure() async {
+  final packages = await argumentScopes();
+
+  for (final e in packages.values) {
     for (final buildConfig in ['Debug-dev', 'Release-dev', 'Profile-dev']) {
       run(
         'flutterfire',
@@ -36,17 +27,17 @@ void flutterfireConfigure() {
           'lib/constants/firebase_options_dev.dart',
           '--yes',
           '--ios-bundle-id',
-          '${e.bundleId}.dev',
+          '${e.iosBundleId}.dev',
           '--ios-build-config',
           buildConfig,
           '--ios-out',
           'ios/dev/GoogleService-Info.plist',
           '--android-package-name',
-          '${e.packageName}.dev',
+          '${e.androidPackageName}.dev',
           '--android-out',
           'android/app/src/dev/google-services.json',
         ],
-        workingDirectory: 'packages/${e.directory}',
+        workingDirectory: e.path,
       );
     }
 
@@ -63,17 +54,17 @@ void flutterfireConfigure() {
           'lib/constants/firebase_options_prod.dart',
           '--yes',
           '--ios-bundle-id',
-          e.bundleId,
+          e.iosBundleId,
           '--ios-build-config',
           buildConfig,
           '--ios-out',
           'ios/prod/GoogleService-Info.plist',
           '--android-package-name',
-          e.packageName,
+          e.androidPackageName,
           '--android-out',
           'android/app/src/prod/google-services.json',
         ],
-        workingDirectory: 'packages/${e.directory}',
+        workingDirectory: e.path,
       );
     }
   }

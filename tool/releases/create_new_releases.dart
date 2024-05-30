@@ -7,7 +7,7 @@ import 'package:grinder/grinder.dart';
 import 'package:melos/melos.dart';
 import 'package:path/path.dart' as p;
 
-import 'utils.dart';
+import '../utils.dart';
 
 @Task(
   'Create new Releases',
@@ -111,7 +111,7 @@ void createReleaseNotesTemplate(Package package) {
       )..writeAsStringSync(locale == 'ja' ? jaTemplate : enTemplate);
 
       run(
-        'code',
+        'open',
         arguments: [
           file.path,
         ],
@@ -133,7 +133,7 @@ void createReleaseNotesTemplate(Package package) {
       )..writeAsStringSync(locale == 'ja-JP' ? jaTemplate : enTemplate);
 
       run(
-        'code',
+        'open',
         arguments: [
           file.path,
         ],

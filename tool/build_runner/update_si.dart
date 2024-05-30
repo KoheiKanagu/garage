@@ -2,18 +2,21 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
+import 'package:path/path.dart' as p;
 
-import 'utils.dart';
+import '../utils.dart';
 
 @Task(
   'Update si files',
 )
 Future<void> updateSi() async {
-  final packages = await runMelosList();
+  final packages = await melosWorkspaceAllPackages();
 
-  final futures = packages.map(
+  final futures = packages.values.map(
     (e) {
-      final dir = Directory('${e.path}/assets/svg');
+      final dir = Directory(
+        p.join(e.path, 'assets', 'svg'),
+      );
       if (!dir.existsSync()) {
         return <Future<String>>[];
       }
@@ -31,7 +34,7 @@ Future<void> updateSi() async {
                 'jovial_svg:svg_to_si',
                 svg.path,
                 '--out',
-                '${e.path}/assets/si',
+                p.join(e.path, 'assets', 'si'),
               ],
               workingDirectory: e.path,
             ),

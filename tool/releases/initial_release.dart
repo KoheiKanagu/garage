@@ -2,13 +2,15 @@ import 'dart:async';
 
 import 'package:grinder/grinder.dart';
 
-import 'utils.dart';
+import '../utils.dart';
 
 @Task(
   'Create initial GitHub Releases',
 )
 Future<void> initialRelease() async {
-  final package = argumentPackages().single;
+  final package = await argumentScopes().then(
+    (v) => v.values.single,
+  );
 
   run(
     'git',
@@ -26,7 +28,7 @@ Future<void> initialRelease() async {
       '--assignee',
       '@me',
       '--title',
-      '"feat: Initial Release of $package"',
+      '"feat: Initial Release of ${package.name}"',
       '--body',
       'Initial Release',
     ],
@@ -34,9 +36,7 @@ Future<void> initialRelease() async {
 
   await waitMergePr();
 
-  final version = await currentVersion(package);
-
-  final newTagName = '$package-v$version';
+  final newTagName = '${package.name}-v${package.version}';
 
   run(
     'gh',
