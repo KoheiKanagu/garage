@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
+import 'package:path/path.dart' as p;
 
 import 'utils.dart';
 
@@ -9,15 +10,19 @@ import 'utils.dart';
   'Run dart format on all packages',
 )
 Future<void> dartFormatAll() async {
-  final packages = await runMelosList();
+  final packages = await melosWorkspaceAllPackages();
 
   final targets = [
     Directory('tool'),
-    ...packages.map(
-      (e) => Directory('${e.path}/lib'),
+    ...packages.values.map(
+      (e) => Directory(
+        p.join(e.path, 'lib'),
+      ),
     ),
-    ...packages.map(
-      (e) => Directory('${e.path}/test'),
+    ...packages.values.map(
+      (e) => Directory(
+        p.join(e.path, 'test'),
+      ),
     ),
   ];
 

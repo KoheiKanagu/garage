@@ -1,15 +1,14 @@
 import 'package:grinder/grinder.dart';
 
-import 'flutterfire_configure.dart';
 import 'utils.dart';
 
 @Task(
   'Upload app privacy details',
 )
-void uploadAppPrivacyDetails() {
-  final package = argumentPackage();
-
-  final bundleId = packages.firstWhere((e) => e.directory == package).bundleId;
+Future<void> uploadAppPrivacyDetails() async {
+  final package = await argumentScopes().then(
+    (v) => v.values.single,
+  );
 
   final noAds = context.invocation.arguments.getFlag('noAds');
 
@@ -20,11 +19,11 @@ void uploadAppPrivacyDetails() {
       'upload_app_privacy_details_to_app_store',
       'username:kanagu@kingu.dev',
       'team_id:121589329',
-      'app_identifier:$bundleId',
+      'app_identifier:${package.iosBundleId}',
       if (noAds)
         'json_path:tool/assets/app_privacy_details_no_ads.json'
       else
-        'json_path:packages/$package/.fastlane/app_privacy_details.json',
+        'json_path:packages/${package.name}/.fastlane/app_privacy_details.json',
     ],
   );
 }

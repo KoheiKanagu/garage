@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
+import 'package:melos/melos.dart';
+import 'package:path/path.dart' as p;
 
 import 'utils.dart';
 
@@ -9,15 +11,17 @@ import 'utils.dart';
   'Update coverage_test.dart',
 )
 Future<void> updateCoverageTest() async {
-  final packages = await runMelosList();
+  final packages = await melosWorkspaceAllPackages();
 
-  for (final e in packages) {
-    _exec(e.path.split('/').last);
+  for (final e in packages.values) {
+    _exec(e);
   }
 }
 
-void _exec(String package) {
-  final files = Directory('packages/$package/lib').listSync(
+void _exec(Package package) {
+  final files = Directory(
+    p.join(package.path, 'lib'),
+  ).listSync(
     recursive: true,
   );
 
@@ -43,16 +47,30 @@ void _exec(String package) {
       .whereType<File>()
       .where((e) => e.path.endsWith('.dart'))
       .map((e) => e.path)
-      .map((e) => e.replaceFirst('packages/$package/lib/', ''))
+      .map(
+        (e) => e.replaceFirst(
+          p.join(package.path, 'lib'),
+          '',
+        ),
+      )
       .whereNot((element) => excludeFiles.contains(element.split('/').last))
       .whereNot((element) => element.endsWith('.g.dart'))
       .whereNot((element) => element.endsWith('.freezed.dart'))
       .whereNot((element) => element.endsWith('.gen.dart'))
-      .map((e) => "import 'package:$package/$e';")
+      .map(
+        (e) => "import 'package:${package.name + e}';",
+      )
       .toList()
     ..sort();
 
-  File('packages/$package/test/coverage_test.dart').writeAsStringSync('''
+  File(
+    p.join(
+      'packages',
+      package.name,
+      'test',
+      'coverage_test.dart',
+    ),
+  ).writeAsStringSync('''
 // ignore_for_file: unused_import
 ${exports.join('\n')}
 

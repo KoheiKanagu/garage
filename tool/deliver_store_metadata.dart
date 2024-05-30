@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:collection/collection.dart';
 import 'package:grinder/grinder.dart';
 
@@ -9,14 +7,10 @@ import 'utils.dart';
   'Deliver store metadata',
 )
 Future<void> deliverStoreMetadata() async {
-  final packages = argumentPackages();
+  final packages = await argumentScopes();
 
-  for (final package in packages) {
-    final version = await currentVersion(package);
-
-    final appStore =
-        Directory('packages/$package/.fastlane/metadata/default').existsSync();
-    if (appStore) {
+  for (final package in packages.values) {
+    if (package.hasAppStoreMetaData) {
       run(
         'fastlane',
         arguments: [
@@ -32,23 +26,22 @@ Future<void> deliverStoreMetadata() async {
           '--force',
           'true',
           '--app_identifier',
-          getIosBundleId(package),
+          package.iosBundleId,
           '--app_version',
-          version.toString(),
+          package.version.toString(),
+          '--metadata_path',
+          package.appStoreMetaDataDirectory.path,
         ],
-        workingDirectory: 'packages/$package',
       );
     }
 
-    final googlePlay =
-        Directory('packages/$package/.fastlane/metadata/android').existsSync();
-    if (googlePlay) {
+    if (package.hasGooglePlayMetaData) {
       final result = run(
         'fastlane',
         arguments: [
           'run',
           'google_play_track_version_codes',
-          'package_name:${getAndroidPackageName(package)}',
+          'package_name:${package.androidPackageName}',
           'track:alpha',
         ],
       );
@@ -74,15 +67,14 @@ Future<void> deliverStoreMetadata() async {
           '--skip_upload_screenshots',
           'true',
           '--metadata_path',
-          '.fastlane/metadata/android',
+          package.googlePlayMetaDataDirectory.path,
           '--package_name',
-          getAndroidPackageName(package),
+          package.androidPackageName,
           '--track',
           'alpha',
           '--version_code',
           versionCode.toString(),
         ],
-        workingDirectory: 'packages/$package',
       );
     }
   }
