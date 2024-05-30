@@ -129,11 +129,89 @@ extension PackageExtension on Package {
         p.join(path, '.fastlane/metadata'),
       );
 
+  List<String> get appStoreSupportLocales => switch (name) {
+        _ => ['ja', 'en-US'],
+      };
+
+  List<
+      ({
+        String locale,
+        File releaseNote,
+        String noteTemplate,
+        bool isJapanese,
+        String appName,
+      })> get appStoreReleaseNotes => switch (name) {
+        _ => appStoreSupportLocales
+            .map(
+              (e) => (
+                locale: e,
+                releaseNote: File(
+                  p.join(
+                    appStoreMetaDataDirectory.path,
+                    e,
+                    'release_notes.txt',
+                  ),
+                ),
+                noteTemplate:
+                    e == 'ja' ? _releaseNoteTemplateJa : _releaseNoteTemplateEn,
+                isJapanese: e == 'ja',
+                appName: File(
+                  p.join(
+                    appStoreMetaDataDirectory.path,
+                    e,
+                    'name.txt',
+                  ),
+                ).readAsStringSync().trim(),
+              ),
+            )
+            .toList(),
+      };
+
   bool get hasGooglePlayMetaData => googlePlayMetaDataDirectory.existsSync();
 
   Directory get googlePlayMetaDataDirectory => Directory(
         p.join(path, '.fastlane/metadata/android'),
       );
+
+  List<String> get googlePlaySupportLocales => switch (name) {
+        _ => ['ja-JP', 'en-US'],
+      };
+
+  List<
+      ({
+        String locale,
+        File releaseNote,
+        String noteTemplate,
+        bool isJapanese,
+        String appName,
+      })> get googlePlayReleaseNotes => switch (name) {
+        _ => googlePlaySupportLocales
+            .map(
+              (e) => (
+                locale: e,
+                releaseNote: File(
+                  p.join(
+                    googlePlayMetaDataDirectory.path,
+                    e,
+                    'changelogs',
+                    'default.txt',
+                  ),
+                ),
+                noteTemplate: e == 'ja-JP'
+                    ? _releaseNoteTemplateJa
+                    : _releaseNoteTemplateEn,
+                isJapanese: e == 'ja-JP',
+                appName: File(
+                  p.join(
+                    googlePlayMetaDataDirectory.path,
+                    e,
+                    'title.txt',
+                  ),
+                ).readAsStringSync().trim(),
+              ),
+            )
+            .toList(),
+      };
 
   String get iosBundleId => switch (name) {
         'listen_to_music_by_location' => 'dev.kingu.listenToMusicByLocation',
@@ -147,4 +225,29 @@ extension PackageExtension on Package {
         'obento' => 'dev.kingu.obento',
         _ => throw UnimplementedError(),
       };
+
+  String get changelogUrl =>
+      'https://github.com/KoheiKanagu/garage/blob/main/packages/$name/CHANGELOG.md';
+
+  String get _releaseNoteTemplateJa => switch (name) {
+        _ => '''
+- 軽微な不具合を修正しました。
+- より詳しい変更点は $changelogUrl をご覧ください。
+'''
+      };
+
+  String get _releaseNoteTemplateEn => switch (name) {
+        _ => '''
+- Fixed minor bugs.
+- For more details, check out $changelogUrl
+'''
+      };
+
+  Uri get lp => Uri.parse(
+        switch (name) {
+          'listen_to_music_by_location' => 'https://garage.kingu.dev/locamusic',
+          'obento' => 'https://garage.kingu.dev/obento',
+          _ => throw UnimplementedError(),
+        },
+      );
 }

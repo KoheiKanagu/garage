@@ -1,5 +1,4 @@
 import 'package:grinder/grinder.dart';
-import 'package:path/path.dart' as p;
 
 import '../utils.dart';
 
@@ -9,47 +8,29 @@ import '../utils.dart';
 Future<void> openReleaseNotes() async {
   final packages = await argumentScopes();
 
-  final paths = packages.values.map(
-    (package) {
-      final results = <String>[];
-
-      if (package.hasAppStoreMetaData) {
-        results.addAll(
-          ['ja', 'en-US'].map(
-            (locale) => p.join(
-              package.appStoreMetaDataDirectory.path,
-              locale,
-              'release_notes.txt',
-            ),
-          ),
+  for (final package in packages.values) {
+    // App Store
+    if (package.hasAppStoreMetaData) {
+      for (final e in package.appStoreReleaseNotes) {
+        run(
+          'open',
+          arguments: [
+            e.releaseNote.path,
+          ],
         );
       }
+    }
 
-      if (package.hasGooglePlayMetaData) {
-        results.addAll(
-          ['ja-JP', 'en-US'].map(
-            (locale) => p.join(
-              package.googlePlayMetaDataDirectory.path,
-              locale,
-              'changelogs',
-              'default.txt',
-            ),
-          ),
+    // Google Play Store
+    if (package.hasGooglePlayMetaData) {
+      for (final e in package.googlePlayReleaseNotes) {
+        run(
+          'open',
+          arguments: [
+            e.releaseNote.path,
+          ],
         );
       }
-
-      return results;
-    },
-  ).expand(
-    (e) => e,
-  );
-
-  for (final path in paths) {
-    run(
-      'open',
-      arguments: [
-        path,
-      ],
-    );
+    }
   }
 }
