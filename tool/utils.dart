@@ -4,17 +4,24 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:glob/glob.dart';
 import 'package:grinder/grinder.dart';
 import 'package:melos/melos.dart';
+import 'package:path/path.dart' as p;
 import 'package:pub_semver/pub_semver.dart';
 
 import 'flutterfire_configure.dart';
 
-Future<MelosWorkspace> melosWorkspace() async => Melos(
+Future<MelosWorkspace> melosWorkspace({
+  PackageFilters? packageFilters,
+}) async =>
+    Melos(
       config: await MelosWorkspaceConfig.fromWorkspaceRoot(
         Directory.current,
       ),
-    ).createWorkspace();
+    ).createWorkspace(
+      packageFilters: packageFilters,
+    );
 
 Future<List<Directory>> runMelosList() async {
   final result = await runAsync(
@@ -53,6 +60,38 @@ List<String> argumentPackages() {
   return argsPackages == 'all'
       ? packages.map((e) => e.directory).toList()
       : argsPackages.split(',');
+}
+
+Future<PackageMap> argumentScopes() async {
+  final args = context.invocation.arguments;
+
+  final argsScopes = args.getOption('scopes');
+
+  if (argsScopes == null) {
+    final scopes = await melosWorkspace().then(
+      (v) => v.allPackages.keys.join(','),
+    );
+
+    log('example:');
+    log('```');
+    log('--scopes=$scopes');
+    log('or');
+    log('--scopes=all');
+    log('```');
+    fail('--scopes is required');
+  }
+
+  if (argsScopes == 'all') {
+    return melosWorkspace().then((v) => v.allPackages);
+  }
+
+  return melosWorkspace(
+    packageFilters: PackageFilters(
+      scope: argsScopes.split(',').map(Glob.new).toList(),
+    ),
+  ).then(
+    (v) => v.filteredPackages,
+  );
 }
 
 String argumentPackage() {
@@ -163,4 +202,20 @@ Future<String> waitMergePr() async {
   );
 
   return completer.future;
+}
+
+extension PackageExtension on Package {
+  bool get hasAppStoreMetaData => Directory(
+        p.join(appStoreMetaDataDirectory.path, 'default'),
+      ).existsSync();
+
+  Directory get appStoreMetaDataDirectory => Directory(
+        p.join(path, '.fastlane/metadata'),
+      );
+
+  bool get hasGooglePlayMetaData => googlePlayMetaDataDirectory.existsSync();
+
+  Directory get googlePlayMetaDataDirectory => Directory(
+        p.join(path, '.fastlane/metadata/android'),
+      );
 }
