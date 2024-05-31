@@ -120,6 +120,14 @@ Future<String> waitMergePr() async {
   return completer.future;
 }
 
+typedef ReleaseNote = ({
+  String locale,
+  File releaseNote,
+  String noteTemplate,
+  bool isJapanese,
+  String appName,
+});
+
 extension PackageExtension on Package {
   bool get hasAppStoreMetaData => Directory(
         p.join(appStoreMetaDataDirectory.path, 'default'),
@@ -133,14 +141,7 @@ extension PackageExtension on Package {
         _ => ['ja', 'en-US'],
       };
 
-  List<
-      ({
-        String locale,
-        File releaseNote,
-        String noteTemplate,
-        bool isJapanese,
-        String appName,
-      })> get appStoreReleaseNotes => switch (name) {
+  List<ReleaseNote> get appStoreReleaseNotes => switch (name) {
         _ => appStoreSupportLocales
             .map(
               (e) => (
@@ -177,14 +178,7 @@ extension PackageExtension on Package {
         _ => ['ja-JP', 'en-US'],
       };
 
-  List<
-      ({
-        String locale,
-        File releaseNote,
-        String noteTemplate,
-        bool isJapanese,
-        String appName,
-      })> get googlePlayReleaseNotes => switch (name) {
+  List<ReleaseNote> get googlePlayReleaseNotes => switch (name) {
         _ => googlePlaySupportLocales
             .map(
               (e) => (
