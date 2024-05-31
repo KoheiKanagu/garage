@@ -55,7 +55,19 @@
   },
   "hosting": {
     "public": "firebase/public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "redirects": [
+      {
+        "source": "/obento/changelogs",
+        "destination": "https://github.com/KoheiKanagu/garage/blob/main/packages/obento/CHANGELOG.md",
+        "type": 301
+      },
+      {
+        "source": "/locamusic/changelogs",
+        "destination": "https://github.com/KoheiKanagu/garage/blob/main/packages/listen_to_music_by_location/CHANGELOG.md",
+        "type": 301
+      }
+    ]
   },
   "extensions": {
     "firestore-send-email": "firebase/firestore-send-email@0.1.34"

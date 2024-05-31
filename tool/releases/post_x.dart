@@ -71,7 +71,7 @@ String _build({
     );
   } else {
     text.writeln(
-      '『$appName Version $version has been released!』',
+      '【$appName Version $version has been released!】',
     );
   }
 

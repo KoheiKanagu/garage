@@ -239,7 +239,7 @@ extension PackageExtension on Package {
   String get _releaseNoteTemplateEn => switch (name) {
         _ => '''
 - Fixed minor bugs.
-- For more details, check out $changelogUrl
+- For more details, check out $changelogUrl.
 '''
       };
 
