@@ -220,8 +220,7 @@ extension PackageExtension on Package {
         _ => throw UnimplementedError(),
       };
 
-  String get changelogUrl =>
-      'https://github.com/KoheiKanagu/garage/blob/main/packages/$name/CHANGELOG.md';
+  String get changelogUrl => 'https://garage.kingu.dev/$name/changelogs';
 
   String get _releaseNoteTemplateJa => switch (name) {
         _ => '''
