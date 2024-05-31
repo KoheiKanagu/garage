@@ -1,11 +1,9 @@
 // ignore_for_file: avoid_dynamic_calls
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:grinder/grinder.dart';
 import 'package:melos/melos.dart';
-import 'package:path/path.dart' as p;
 
 import '../utils.dart';
 
@@ -83,59 +81,31 @@ Future<void> createNewReleases() async {
 }
 
 void createReleaseNotesTemplate(Package package) {
-  final changelogUrl = package.changelogUrl;
-
-  final jaTemplate = '''
-- 軽微な不具合を修正しました。
-- より詳しい変更点は $changelogUrl をご覧ください。
-''';
-
-  final enTemplate = '''
-- Fixed minor bugs.
-- For more details, check out $changelogUrl
-''';
-
-  final path = package.path;
-
-  // AppStore向けのリリースノートを作成
-  for (final locale in ['ja', 'en-US']) {
-    final dir = Directory(
-      p.joinAll(
-        [path, '.fastlane/metadata/$locale'],
-      ),
-    );
-
-    if (dir.existsSync()) {
-      final file = File(
-        p.join(dir.path, 'release_notes.txt'),
-      )..writeAsStringSync(locale == 'ja' ? jaTemplate : enTemplate);
+  if (package.hasAppStoreMetaData) {
+    for (final e in package.appStoreReleaseNotes) {
+      e.releaseNote.writeAsStringSync(
+        e.noteTemplate,
+      );
 
       run(
         'open',
         arguments: [
-          file.path,
+          e.releaseNote.path,
         ],
       );
     }
   }
 
-  // Google Play向けのリリースノートを作成
-  for (final locale in ['ja-JP', 'en-US']) {
-    final dir = Directory(
-      p.joinAll(
-        [path, '.fastlane/metadata/android/$locale/changelogs'],
-      ),
-    );
-
-    if (dir.existsSync()) {
-      final file = File(
-        p.join(dir.path, 'default.txt'),
-      )..writeAsStringSync(locale == 'ja-JP' ? jaTemplate : enTemplate);
+  if (package.hasGooglePlayMetaData) {
+    for (final e in package.googlePlayReleaseNotes) {
+      e.releaseNote.writeAsStringSync(
+        e.noteTemplate,
+      );
 
       run(
         'open',
         arguments: [
-          file.path,
+          e.releaseNote.path,
         ],
       );
     }
@@ -208,9 +178,4 @@ void createPr() {
       '--squash',
     ],
   );
-}
-
-extension PackageExtension on Package {
-  String get changelogUrl =>
-      'https://github.com/KoheiKanagu/garage/blob/main/packages/$name/CHANGELOG.md';
 }
