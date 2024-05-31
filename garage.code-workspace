@@ -107,11 +107,6 @@
       "listen_to_music_by_location",
       "obento",
     ],
-    "conventionalCommits.scopes": [
-      "core",
-      "listen_to_music_by_location",
-      "obento",
-    ],
     "cSpell.enabled": true,
     "cSpell.enableFiletypes": [
       "github-actions-workflow"
