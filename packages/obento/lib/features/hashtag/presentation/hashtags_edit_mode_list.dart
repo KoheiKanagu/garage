@@ -54,40 +54,87 @@ class HashtagsEditModeList extends HookConsumerWidget {
             InheritedThemeType.material => ListTile(
                 key: key,
                 title: Text(e),
-                leading: IconButton(
-                  onPressed: () async => onDelete(),
-                  icon: Icon(
-                    Icons.remove_circle,
-                    color: Theme.of(context).colorScheme.error,
-                  ),
-                ),
-                trailing: ReorderableDragStartListener(
-                  index: index,
-                  child: Icon(
-                    Icons.drag_handle,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
+                leading: _LeadingIcon(onDelete),
+                trailing: _TrailingIcon(index),
+                contentPadding: EdgeInsets.zero,
               ),
             InheritedThemeType.cupertino => CupertinoListTile(
                 key: key,
                 backgroundColor:
                     CupertinoColors.systemBackground.resolveFrom(context),
                 title: Text(e),
-                leading: CupertinoButton(
-                  onPressed: () async => onDelete(),
-                  padding: EdgeInsets.zero,
-                  child: Icon(
-                    CupertinoIcons.delete_solid,
-                    color: CupertinoColors.systemRed.resolveFrom(context),
-                  ),
-                ),
-                trailing: ReorderableDragStartListener(
-                  index: index,
-                  child: const Icon(CupertinoIcons.bars),
-                ),
+                leadingSize: _LeadingIcon.size,
+                leading: _LeadingIcon(onDelete),
+                trailing: _TrailingIcon(index),
               ),
           };
+        },
+      ),
+    );
+  }
+}
+
+class _TrailingIcon extends HookConsumerWidget {
+  const _TrailingIcon(
+    this.index,
+  );
+
+  final int index;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeType = InheritedThemeDetector.of(context);
+
+    return ReorderableDragStartListener(
+      index: index,
+      child: Container(
+        color: Colors.transparent,
+        padding: const EdgeInsets.all(16),
+        child: switch (themeType) {
+          InheritedThemeType.material => Icon(
+              Icons.drag_handle,
+              color: Theme.of(context).colorScheme.primary,
+              size: 24,
+            ),
+          InheritedThemeType.cupertino => const Icon(
+              CupertinoIcons.bars,
+              size: 24,
+            ),
+        },
+      ),
+    );
+  }
+}
+
+class _LeadingIcon extends HookConsumerWidget {
+  const _LeadingIcon(
+    this.onPressed,
+  );
+
+  final VoidCallback onPressed;
+
+  static const double size = 24 + 16 + 16;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeType = InheritedThemeDetector.of(context);
+
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        color: Colors.transparent,
+        padding: const EdgeInsets.all(16),
+        child: switch (themeType) {
+          InheritedThemeType.material => Icon(
+              Icons.remove_circle,
+              color: Theme.of(context).colorScheme.error,
+              size: 24,
+            ),
+          InheritedThemeType.cupertino => Icon(
+              CupertinoIcons.delete_solid,
+              color: CupertinoColors.systemRed.resolveFrom(context),
+              size: 24,
+            ),
         },
       ),
     );
