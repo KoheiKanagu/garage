@@ -243,4 +243,16 @@ extension PackageExtension on Package {
           _ => throw UnimplementedError(),
         },
       );
+
+  List<String> get promotionalTexts => appStoreSupportLocales
+      .map(
+        (locale) => File(
+          p.join(
+            appStoreMetaDataDirectory.path,
+            locale,
+            'promotional_text.txt',
+          ),
+        ).readAsStringSync().trim(),
+      )
+      .toList();
 }

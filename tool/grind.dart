@@ -11,6 +11,7 @@ export 'releases/create_new_releases.dart';
 export 'releases/initial_release.dart';
 export 'releases/open_release_notes.dart';
 export 'releases/post_x.dart';
+export 'releases/post_x_initial_release.dart';
 export 'store/deliver_store_metadata.dart';
 export 'store/download_app_privacy_details.dart';
 export 'store/upload_app_privacy_details.dart';
