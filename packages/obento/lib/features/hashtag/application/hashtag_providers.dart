@@ -224,20 +224,3 @@ class HashtagsSelectedController extends _$HashtagsSelectedController {
     _notify();
   }
 }
-
-@riverpod
-Future<String> hashtagPreview(
-  HashtagPreviewRef ref,
-) async {
-  await ref.watch(hashtagsSelectedControllerProvider.notifier).cleanup();
-
-  final selected = ref.watch(hashtagsSelectedControllerProvider);
-
-  final value = await ref.watch(
-    hashtagControllerProvider.selectAsync(
-      (e) => e.hashtag.hashtags,
-    ),
-  );
-
-  return value.where(selected.contains).join('\n');
-}
