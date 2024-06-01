@@ -154,6 +154,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get copy => 'コピー';
 	String get close => '閉じる';
 	String get copied_to_clipboard => 'クリップボードにコピーしました';
+	String get share => '共有';
 }
 
 // Path: service_down
@@ -370,6 +371,7 @@ class _StringsEn extends Translations {
 	@override String get copy => 'Copy';
 	@override String get close => 'Close';
 	@override String get copied_to_clipboard => 'Copied to clipboard';
+	@override String get share => 'Share';
 }
 
 // Path: service_down

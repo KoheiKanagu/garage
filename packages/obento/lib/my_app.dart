@@ -8,11 +8,14 @@ import 'package:obento/features/hashtag/application/hashtag_route.dart'
     as hashtag_route;
 import 'package:obento/features/onboarding/application/onboarding_route.dart'
     as onboarding_route;
+import 'package:obento/features/preview/application/preview_route.dart'
+    as preview_route;
 import 'package:obento/gen/strings.g.dart';
 
 final _routes = [
   ...onboarding_route.$appRoutes,
   ...hashtag_route.$appRoutes,
+  ...preview_route.$appRoutes,
 ];
 
 final myThemeBuilder = MyThemeBuilder(

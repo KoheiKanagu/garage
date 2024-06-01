@@ -17,6 +17,7 @@ import '../../core/test/core.dart';
 Future<void> main() async {
   kTenantId = 'obento-44oe4';
   kAppStoreId = '6499041461';
+  kBannerAdUnitId = '';
   const locale = code_i18n.AppLocale.en;
 
   // i18nのlocaleの初期化は[initialize()]だが、待てないのでここで初期化
