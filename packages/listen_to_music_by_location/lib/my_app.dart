@@ -23,10 +23,13 @@ class MyApp extends HookConsumerWidget {
     super.key,
   });
 
+  static const color = Color(0xFFFA233B);
+  static const darkColor = Color(0xFFFB5C74);
+
   static const theme = CupertinoThemeData(
     primaryColor: CupertinoDynamicColor.withBrightness(
-      color: Color(0xFFFA233B),
-      darkColor: Color(0xFFFB5C74),
+      color: color,
+      darkColor: darkColor,
     ),
   );
 
