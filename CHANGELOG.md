@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-06-01
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`core` - `v1.2.0`](#core---v120)
+ - [`obento` - `v1.2.0`](#obento---v120)
+ - [`listen_to_music_by_location` - `v1.1.2`](#listen_to_music_by_location---v112)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `listen_to_music_by_location` - `v1.1.2`
+
+---
+
+#### `core` - `v1.2.0`
+
+ - **FEAT**: improve preview page ([#370](https://github.com/KoheiKanagu/garage/issues/370)). ([46f18798](https://github.com/KoheiKanagu/garage/commit/46f187980407265d929510db954a05b5ec74a4ed))
+
+#### `obento` - `v1.2.0`
+
+ - **FEAT**: improve preview page ([#370](https://github.com/KoheiKanagu/garage/issues/370)). ([46f18798](https://github.com/KoheiKanagu/garage/commit/46f187980407265d929510db954a05b5ec74a4ed))
+ - **FEAT**(obento): improved usability of UI for sorting and deleting hashtags ([#368](https://github.com/KoheiKanagu/garage/issues/368)). ([c0048921](https://github.com/KoheiKanagu/garage/commit/c0048921a270b811f9e1d54b372532980f2ff56d))
+
+
 ## 2024-05-29
 
 ### Changes

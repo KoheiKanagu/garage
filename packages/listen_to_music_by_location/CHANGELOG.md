@@ -1,3 +1,7 @@
+## 1.1.2
+
+ - Update a dependency to the latest release.
+
 ## 1.1.1
 
  - **FIX**(deps): update dependency app_links to ^6.1.1 ([#358](https://github.com/KoheiKanagu/garage/issues/358)). ([e4166a23](https://github.com/KoheiKanagu/garage/commit/e4166a23302a32c3525b6b46a6a81feaf71f106b))
