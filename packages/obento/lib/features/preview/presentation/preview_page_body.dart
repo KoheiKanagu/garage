@@ -4,6 +4,7 @@ import 'package:core/utils/inherited_theme_detector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:obento/features/preview/application/preview_providers.dart';
@@ -18,6 +19,15 @@ class PreviewPageBody extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final value = ref.watch(hashtagPreviewProvider).value ?? '';
+    final textController = useTextEditingController(
+      text: value,
+      keys: [
+        value,
+      ],
+    )..selection = TextSelection.collapsed(
+        offset: value.length,
+      );
+
     final themeType = InheritedThemeDetector.of(context);
 
     final backgroundColor = switch (themeType) {
@@ -26,86 +36,118 @@ class PreviewPageBody extends HookConsumerWidget {
         CupertinoTheme.of(context).scaffoldBackgroundColor,
     };
 
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
+    return ListView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      children: [
+        Padding(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: backgroundColor,
-                  border: Border.all(
-                    color: Colors.grey,
-                  ),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: backgroundColor,
+              border: Border.all(
+                color: Colors.grey,
+              ),
+            ),
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  radius: 18,
+                  backgroundImage: Assets.images.appIcon.provider(),
                 ),
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: 18,
-                      backgroundImage: Assets.images.appIcon.provider(),
-                    ),
-                    const Gap(16),
-                    Text(value),
-                  ],
+                const Gap(16),
+                Expanded(
+                  child: switch (themeType) {
+                    InheritedThemeType.material => TextField(
+                        controller: textController,
+                        maxLines: null,
+                        minLines: 1,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        autofocus: true,
+                      ),
+                    InheritedThemeType.cupertino => CupertinoTextField(
+                        controller: textController,
+                        maxLines: null,
+                        minLines: 1,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.transparent,
+                            width: 0,
+                          ),
+                          color: Colors.transparent,
+                        ),
+                        autofocus: true,
+                      ),
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Expanded(
+                child: _ShareButton(
+                  () async {
+                    await HapticFeedback.heavyImpact();
+                    await Share.share(textController.text);
+                  },
                 ),
               ),
               const Gap(16),
-              const Row(
-                children: [
-                  Expanded(
-                    child: _ShareButton(),
-                  ),
-                  Gap(12),
-                  Expanded(
-                    child: _CopyButton(),
-                  ),
-                ],
+              Expanded(
+                child: _CopyButton(
+                  () async {
+                    await HapticFeedback.heavyImpact();
+
+                    await Clipboard.setData(
+                      ClipboardData(
+                        text: textController.text,
+                      ),
+                    );
+
+                    if (context.mounted) {
+                      await showOkAlertDialog(
+                        context: context,
+                        title: i18n.copied_to_clipboard,
+                      );
+                    }
+                  },
+                ),
               ),
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 }
 
 class _CopyButton extends HookConsumerWidget {
-  const _CopyButton();
+  const _CopyButton(
+    this.onPressed,
+  );
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeType = InheritedThemeDetector.of(context);
-    final value = ref.watch(hashtagPreviewProvider).value ?? '';
-
-    Future<void> copy() async {
-      await HapticFeedback.heavyImpact();
-
-      await Clipboard.setData(
-        ClipboardData(
-          text: value,
-        ),
-      );
-
-      if (context.mounted) {
-        await showOkAlertDialog(
-          context: context,
-          title: i18n.copied_to_clipboard,
-        );
-      }
-    }
 
     return switch (themeType) {
       InheritedThemeType.material => FilledButton.icon(
-          onPressed: copy,
+          onPressed: onPressed,
           label: Text(i18n.copy),
           icon: const Icon(Icons.copy),
         ),
       InheritedThemeType.cupertino => CupertinoButton.filled(
-          onPressed: copy,
+          onPressed: onPressed,
           padding: const EdgeInsets.symmetric(
             vertical: 16,
           ),
@@ -123,27 +165,24 @@ class _CopyButton extends HookConsumerWidget {
 }
 
 class _ShareButton extends HookConsumerWidget {
-  const _ShareButton();
+  const _ShareButton(
+    this.onPressed,
+  );
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeType = InheritedThemeDetector.of(context);
 
-    Future<void> share() async {
-      await HapticFeedback.heavyImpact();
-
-      final value = ref.watch(hashtagPreviewProvider).value ?? '';
-      await Share.share(value);
-    }
-
     return switch (themeType) {
       InheritedThemeType.material => FilledButton.icon(
-          onPressed: share,
+          onPressed: onPressed,
           label: Text(i18n.share),
           icon: const Icon(Icons.share),
         ),
       InheritedThemeType.cupertino => CupertinoButton.filled(
-          onPressed: share,
+          onPressed: onPressed,
           padding: const EdgeInsets.symmetric(
             vertical: 16,
           ),
