@@ -1,3 +1,7 @@
+## 1.2.0
+
+ - **FEAT**: improve preview page ([#370](https://github.com/KoheiKanagu/garage/issues/370)). ([46f18798](https://github.com/KoheiKanagu/garage/commit/46f187980407265d929510db954a05b5ec74a4ed))
+
 ## 1.1.1
 
  - **FIX**(deps): update slang to ^3.31.0 ([#359](https://github.com/KoheiKanagu/garage/issues/359)). ([5873bba9](https://github.com/KoheiKanagu/garage/commit/5873bba9fdcf8e2df88622021c609d1fe52237d8))
