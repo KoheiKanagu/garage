@@ -58,6 +58,16 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "redirects": [
       {
+        "source": "/terms-of-service",
+        "destination": "https://garage.kingu.dev/terms-of-service",
+        "type": 301
+      },
+      {
+        "source": "/privacy-policy",
+        "destination": "https://garage.kingu.dev/privacy-policy",
+        "type": 301
+      },
+      {
         "source": "/obento/changelogs",
         "destination": "https://github.com/KoheiKanagu/garage/blob/main/packages/obento/CHANGELOG.md",
         "type": 301

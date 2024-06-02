@@ -55,14 +55,14 @@
     },
     "privacy_policy_uri": {
       "defaultValue": {
-        "value": "https://github.com/KoheiKanagu/garage/blob/main/privacy_policy.md"
+        "value": "https://garage.kingu.dev/privacy-policy"
       },
       "description": "プライバシーポリシー",
       "valueType": "STRING"
     },
     "terms_of_service_uri": {
       "defaultValue": {
-        "value": "https://github.com/KoheiKanagu/garage/blob/main/term_of_service.md"
+        "value": "https://garage.kingu.dev/terms-of-service"
       },
       "description": "利用規約",
       "valueType": "STRING"
