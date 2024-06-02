@@ -77,7 +77,7 @@ Future<ProviderContainer> _initialize({
 
   final container = ProviderContainer(
     observers: [
-      ProviderLogger(),
+      talkerRiverpodObserver,
     ],
     overrides: [
       ...overrides,
