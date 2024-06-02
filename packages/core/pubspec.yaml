@@ -49,6 +49,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   talker: ^4.2.3
   talker_flutter: ^4.2.3
+  talker_riverpod_logger: ^1.0.3
   url_launcher: ^6.2.6
   uuid: ^4.4.0
 

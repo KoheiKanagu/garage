@@ -13,7 +13,7 @@ String _$firebaseUserHash() => r'c89432ee835eb5fa5addbb18812e9b17c1100f44';
 /// [fb_auth.User]を取得する
 ///
 /// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
-/// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+/// Providerの名称を変える場合は、[talkerRiverpodObserver] も変更すること
 ///
 /// Copied from [firebaseUser].
 @ProviderFor(firebaseUser)
@@ -56,7 +56,7 @@ class _SystemHash {
 /// サインインしていない場合はnullを返す
 ///
 /// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
-/// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+/// Providerの名称を変える場合は、[talkerRiverpodObserver] も変更すること
 ///
 /// Copied from [firebaseUserIdTokenResult].
 @ProviderFor(firebaseUserIdTokenResult)
@@ -67,7 +67,7 @@ const firebaseUserIdTokenResultProvider = FirebaseUserIdTokenResultFamily();
 /// サインインしていない場合はnullを返す
 ///
 /// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
-/// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+/// Providerの名称を変える場合は、[talkerRiverpodObserver] も変更すること
 ///
 /// Copied from [firebaseUserIdTokenResult].
 class FirebaseUserIdTokenResultFamily
@@ -77,7 +77,7 @@ class FirebaseUserIdTokenResultFamily
   /// サインインしていない場合はnullを返す
   ///
   /// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
-  /// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+  /// Providerの名称を変える場合は、[talkerRiverpodObserver] も変更すること
   ///
   /// Copied from [firebaseUserIdTokenResult].
   const FirebaseUserIdTokenResultFamily();
@@ -87,7 +87,7 @@ class FirebaseUserIdTokenResultFamily
   /// サインインしていない場合はnullを返す
   ///
   /// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
-  /// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+  /// Providerの名称を変える場合は、[talkerRiverpodObserver] も変更すること
   ///
   /// Copied from [firebaseUserIdTokenResult].
   FirebaseUserIdTokenResultProvider call({
@@ -127,7 +127,7 @@ class FirebaseUserIdTokenResultFamily
 /// サインインしていない場合はnullを返す
 ///
 /// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
-/// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+/// Providerの名称を変える場合は、[talkerRiverpodObserver] も変更すること
 ///
 /// Copied from [firebaseUserIdTokenResult].
 class FirebaseUserIdTokenResultProvider
@@ -137,7 +137,7 @@ class FirebaseUserIdTokenResultProvider
   /// サインインしていない場合はnullを返す
   ///
   /// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
-  /// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+  /// Providerの名称を変える場合は、[talkerRiverpodObserver] も変更すること
   ///
   /// Copied from [firebaseUserIdTokenResult].
   FirebaseUserIdTokenResultProvider({

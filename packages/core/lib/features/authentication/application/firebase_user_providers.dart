@@ -9,7 +9,7 @@ part 'firebase_user_providers.g.dart';
 /// [fb_auth.User]を取得する
 ///
 /// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
-/// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+/// Providerの名称を変える場合は、[talkerRiverpodObserver] も変更すること
 @riverpod
 Stream<fb_auth.User?> firebaseUser(
   FirebaseUserRef ref,
@@ -21,7 +21,7 @@ Stream<fb_auth.User?> firebaseUser(
 /// サインインしていない場合はnullを返す
 ///
 /// 機密情報が含まれるため、[kAppEnvProd]の場合はログを抑制している
-/// Providerの名称を変える場合は、[ProviderLogger] も変更すること
+/// Providerの名称を変える場合は、[talkerRiverpodObserver] も変更すること
 @riverpod
 Future<fb_auth.IdTokenResult?> firebaseUserIdTokenResult(
   FirebaseUserIdTokenResultRef ref, {

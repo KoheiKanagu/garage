@@ -67,7 +67,6 @@ export 'utils/media_query_preview.dart';
 export 'utils/my_logger.dart';
 export 'utils/my_navigator_observer.dart';
 export 'utils/my_theme_builder.dart';
-export 'utils/provider_logger.dart';
 export 'utils/store_uri.dart';
 export 'utils/timestamp_converter.dart';
 export 'utils/uri_data_converter.dart';
