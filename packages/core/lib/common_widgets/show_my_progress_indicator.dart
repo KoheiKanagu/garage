@@ -19,16 +19,16 @@ MyProgressIndicator showMyProgressIndicator({
 }
 
 class MyProgressIndicator {
-  MyProgressIndicator(this.context);
+  MyProgressIndicator(
+    BuildContext context,
+  ) : state = Navigator.of(
+          context,
+          rootNavigator: true,
+        );
 
-  final BuildContext context;
+  final NavigatorState state;
 
   void dismiss() {
-    if (context.mounted) {
-      Navigator.of(
-        context,
-        rootNavigator: true,
-      ).pop();
-    }
+    state.pop();
   }
 }

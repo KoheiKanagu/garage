@@ -24,18 +24,7 @@ class MyFeedbackTypePickerField extends HookConsumerWidget {
         context: context,
         title: i18n.feedback.feedback_type_header,
         initialSelectedActionKey: data.type,
-        // ignore: lines_longer_than_80_chars
-        // Since the dialog's theme defaults to the default theme, we need to reference the rootContext
-        builder: (context, child) => switch (themeType) {
-          InheritedThemeType.material => Theme(
-              data: Theme.of(rootContext()!),
-              child: child,
-            ),
-          InheritedThemeType.cupertino => CupertinoTheme(
-              data: CupertinoTheme.of(rootContext()!),
-              child: child,
-            ),
-        },
+        useRootNavigator: false,
         actions: FeedbackType.values
             .map(
               (e) => AlertDialogAction(
