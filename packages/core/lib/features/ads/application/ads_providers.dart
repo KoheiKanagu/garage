@@ -136,6 +136,7 @@ Future<ConsentStatus> adsConsentStatus(
 @riverpod
 Future<BannerAd> adsBanner(
   AdsBannerRef ref, {
+  required Key key,
   required String adUnitId,
   required int width,
 }) async {

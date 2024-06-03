@@ -127,6 +127,7 @@ class _AnonymousStartButton extends HookConsumerWidget {
       }
 
       final indicator = showMyProgressIndicator(
+        context: context,
         builder: (context) => const SizedBox.shrink(),
       );
       progressAnonymousStart.value = true;

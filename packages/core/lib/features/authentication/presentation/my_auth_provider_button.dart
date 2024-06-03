@@ -79,6 +79,7 @@ class MyAuthProviderButton extends HookConsumerWidget {
         return;
       }
       final indicator = showMyProgressIndicator(
+        context: context,
         builder: (context) => const SizedBox.shrink(),
       );
 

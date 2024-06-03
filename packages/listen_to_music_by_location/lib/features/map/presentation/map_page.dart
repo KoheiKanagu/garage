@@ -71,7 +71,9 @@ class MapPage extends HookConsumerWidget {
             return;
           }
 
-          final indicator = showMyProgressIndicator();
+          final indicator = showMyProgressIndicator(
+            context: context,
+          );
 
           String? documentId;
           try {

@@ -24,7 +24,7 @@ final adsConsentStatusProvider =
 );
 
 typedef AdsConsentStatusRef = AutoDisposeFutureProviderRef<ConsentStatus>;
-String _$adsBannerHash() => r'4a99ebcd86c8a2745dafc880abbb259a59068109';
+String _$adsBannerHash() => r'956d97ff836855c54be52acc0e2586177f3027f4';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -58,10 +58,12 @@ class AdsBannerFamily extends Family<AsyncValue<BannerAd>> {
 
   /// See also [adsBanner].
   AdsBannerProvider call({
+    required Key key,
     required String adUnitId,
     required int width,
   }) {
     return AdsBannerProvider(
+      key: key,
       adUnitId: adUnitId,
       width: width,
     );
@@ -72,6 +74,7 @@ class AdsBannerFamily extends Family<AsyncValue<BannerAd>> {
     covariant AdsBannerProvider provider,
   ) {
     return call(
+      key: provider.key,
       adUnitId: provider.adUnitId,
       width: provider.width,
     );
@@ -96,11 +99,13 @@ class AdsBannerFamily extends Family<AsyncValue<BannerAd>> {
 class AdsBannerProvider extends AutoDisposeFutureProvider<BannerAd> {
   /// See also [adsBanner].
   AdsBannerProvider({
+    required Key key,
     required String adUnitId,
     required int width,
   }) : this._internal(
           (ref) => adsBanner(
             ref as AdsBannerRef,
+            key: key,
             adUnitId: adUnitId,
             width: width,
           ),
@@ -112,6 +117,7 @@ class AdsBannerProvider extends AutoDisposeFutureProvider<BannerAd> {
                   : _$adsBannerHash,
           dependencies: AdsBannerFamily._dependencies,
           allTransitiveDependencies: AdsBannerFamily._allTransitiveDependencies,
+          key: key,
           adUnitId: adUnitId,
           width: width,
         );
@@ -123,10 +129,12 @@ class AdsBannerProvider extends AutoDisposeFutureProvider<BannerAd> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
+    required this.key,
     required this.adUnitId,
     required this.width,
   }) : super.internal();
 
+  final Key key;
   final String adUnitId;
   final int width;
 
@@ -143,6 +151,7 @@ class AdsBannerProvider extends AutoDisposeFutureProvider<BannerAd> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
+        key: key,
         adUnitId: adUnitId,
         width: width,
       ),
@@ -157,6 +166,7 @@ class AdsBannerProvider extends AutoDisposeFutureProvider<BannerAd> {
   @override
   bool operator ==(Object other) {
     return other is AdsBannerProvider &&
+        other.key == key &&
         other.adUnitId == adUnitId &&
         other.width == width;
   }
@@ -164,6 +174,7 @@ class AdsBannerProvider extends AutoDisposeFutureProvider<BannerAd> {
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, key.hashCode);
     hash = _SystemHash.combine(hash, adUnitId.hashCode);
     hash = _SystemHash.combine(hash, width.hashCode);
 
@@ -172,6 +183,9 @@ class AdsBannerProvider extends AutoDisposeFutureProvider<BannerAd> {
 }
 
 mixin AdsBannerRef on AutoDisposeFutureProviderRef<BannerAd> {
+  /// The parameter `key` of this provider.
+  Key get key;
+
   /// The parameter `adUnitId` of this provider.
   String get adUnitId;
 
@@ -183,6 +197,8 @@ class _AdsBannerProviderElement
     extends AutoDisposeFutureProviderElement<BannerAd> with AdsBannerRef {
   _AdsBannerProviderElement(super.provider);
 
+  @override
+  Key get key => (origin as AdsBannerProvider).key;
   @override
   String get adUnitId => (origin as AdsBannerProvider).adUnitId;
   @override

@@ -25,7 +25,7 @@ final refreshListenableProvider =
 
 typedef RefreshListenableRef
     = AutoDisposeProviderRef<Raw<ValueNotifier<MyGoRouterListenable>>>;
-String _$myGoRouterHash() => r'23595df284a05e2c4e023a57afac43222aa02399';
+String _$myGoRouterHash() => r'2afa31bacc496c6968a6dcddc542266b8edaa57b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -59,10 +59,12 @@ class MyGoRouterFamily extends Family<Raw<GoRouter>> {
 
   /// See also [myGoRouter].
   MyGoRouterProvider call({
+    required GlobalKey<NavigatorState> navigatorKey,
     required List<RouteBase> routes,
     required String signedInLocation,
   }) {
     return MyGoRouterProvider(
+      navigatorKey: navigatorKey,
       routes: routes,
       signedInLocation: signedInLocation,
     );
@@ -73,6 +75,7 @@ class MyGoRouterFamily extends Family<Raw<GoRouter>> {
     covariant MyGoRouterProvider provider,
   ) {
     return call(
+      navigatorKey: provider.navigatorKey,
       routes: provider.routes,
       signedInLocation: provider.signedInLocation,
     );
@@ -97,11 +100,13 @@ class MyGoRouterFamily extends Family<Raw<GoRouter>> {
 class MyGoRouterProvider extends AutoDisposeProvider<Raw<GoRouter>> {
   /// See also [myGoRouter].
   MyGoRouterProvider({
+    required GlobalKey<NavigatorState> navigatorKey,
     required List<RouteBase> routes,
     required String signedInLocation,
   }) : this._internal(
           (ref) => myGoRouter(
             ref as MyGoRouterRef,
+            navigatorKey: navigatorKey,
             routes: routes,
             signedInLocation: signedInLocation,
           ),
@@ -114,6 +119,7 @@ class MyGoRouterProvider extends AutoDisposeProvider<Raw<GoRouter>> {
           dependencies: MyGoRouterFamily._dependencies,
           allTransitiveDependencies:
               MyGoRouterFamily._allTransitiveDependencies,
+          navigatorKey: navigatorKey,
           routes: routes,
           signedInLocation: signedInLocation,
         );
@@ -125,10 +131,12 @@ class MyGoRouterProvider extends AutoDisposeProvider<Raw<GoRouter>> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
+    required this.navigatorKey,
     required this.routes,
     required this.signedInLocation,
   }) : super.internal();
 
+  final GlobalKey<NavigatorState> navigatorKey;
   final List<RouteBase> routes;
   final String signedInLocation;
 
@@ -145,6 +153,7 @@ class MyGoRouterProvider extends AutoDisposeProvider<Raw<GoRouter>> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
+        navigatorKey: navigatorKey,
         routes: routes,
         signedInLocation: signedInLocation,
       ),
@@ -159,6 +168,7 @@ class MyGoRouterProvider extends AutoDisposeProvider<Raw<GoRouter>> {
   @override
   bool operator ==(Object other) {
     return other is MyGoRouterProvider &&
+        other.navigatorKey == navigatorKey &&
         other.routes == routes &&
         other.signedInLocation == signedInLocation;
   }
@@ -166,6 +176,7 @@ class MyGoRouterProvider extends AutoDisposeProvider<Raw<GoRouter>> {
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, navigatorKey.hashCode);
     hash = _SystemHash.combine(hash, routes.hashCode);
     hash = _SystemHash.combine(hash, signedInLocation.hashCode);
 
@@ -174,6 +185,9 @@ class MyGoRouterProvider extends AutoDisposeProvider<Raw<GoRouter>> {
 }
 
 mixin MyGoRouterRef on AutoDisposeProviderRef<Raw<GoRouter>> {
+  /// The parameter `navigatorKey` of this provider.
+  GlobalKey<NavigatorState> get navigatorKey;
+
   /// The parameter `routes` of this provider.
   List<RouteBase> get routes;
 
@@ -185,6 +199,9 @@ class _MyGoRouterProviderElement
     extends AutoDisposeProviderElement<Raw<GoRouter>> with MyGoRouterRef {
   _MyGoRouterProviderElement(super.provider);
 
+  @override
+  GlobalKey<NavigatorState> get navigatorKey =>
+      (origin as MyGoRouterProvider).navigatorKey;
   @override
   List<RouteBase> get routes => (origin as MyGoRouterProvider).routes;
   @override

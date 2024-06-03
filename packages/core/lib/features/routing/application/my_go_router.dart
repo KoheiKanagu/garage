@@ -7,6 +7,7 @@ import 'package:core/features/onboarding/application/sign_in_route.dart'
     as sign_in_route;
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -80,11 +81,12 @@ Raw<ValueNotifier<MyGoRouterListenable>> refreshListenable(
 @riverpod
 Raw<GoRouter> myGoRouter(
   MyGoRouterRef ref, {
+  required GlobalKey<NavigatorState> navigatorKey,
   required List<RouteBase> routes,
   required String signedInLocation,
 }) =>
     GoRouter(
-      navigatorKey: rootNavigatorStateKey,
+      navigatorKey: navigatorKey,
       routes: [
         ...routes,
         ...sign_in_route.$appRoutes,
