@@ -32,6 +32,7 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(
       myGoRouterProvider(
+        navigatorKey: GlobalObjectKey(context),
         routes: _routes,
         signedInLocation: const hashtag_route.HashtagPageRoute().location,
       ),
