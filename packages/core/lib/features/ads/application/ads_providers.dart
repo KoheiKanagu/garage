@@ -47,12 +47,6 @@ class AdsRequestConsentInfoUpdateController
       () async {
         final available =
             await ConsentInformation.instance.isConsentFormAvailable();
-        logger.debug(
-          {
-            'message': 'isConsentFormAvailable',
-            'available': available,
-          },
-        );
         if (!available) {
           state = false;
           return;
@@ -155,12 +149,6 @@ Future<BannerAd> adsBanner(
     adUnitId: adUnitId,
     listener: BannerAdListener(
       onAdLoaded: (ad) {
-        logger.debug(
-          {
-            'responseInfo': ad.responseInfo,
-            'adUnitId': ad.adUnitId,
-          },
-        );
         loadCompleter.complete();
       },
       onAdFailedToLoad: (ad, error) {
