@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +23,11 @@ final myThemeBuilder = MyThemeBuilder(
 
 class MyApp extends HookConsumerWidget {
   const MyApp({
+    required this.targetPlatform,
     super.key,
   });
+
+  final TargetPlatform targetPlatform;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,21 +40,9 @@ class MyApp extends HookConsumerWidget {
     );
 
     return MyBetterFeedback(
-      child: Platform.isIOS
+      child: targetPlatform == TargetPlatform.iOS
           ? CupertinoApp.router(
               debugShowCheckedModeBanner: false,
-              builder: (context, child) => MediaQueryPreview(
-                context,
-                child,
-                cupertino: true,
-              )
-                  // .disableDynamicIsland()
-                  // .textScale05()
-                  .textScale10()
-                  // .textScale15()
-                  // .textScale20()
-                  // .android()
-                  .build(),
               supportedLocales: AppLocaleUtils.supportedLocales,
               localizationsDelegates: localizationsDelegates,
               theme: myThemeBuilder.cupertinoThemeData,
@@ -61,18 +50,6 @@ class MyApp extends HookConsumerWidget {
             )
           : MaterialApp.router(
               debugShowCheckedModeBanner: false,
-              builder: (context, child) => MediaQueryPreview(
-                context,
-                child,
-                cupertino: true,
-              )
-                  // .disableDynamicIsland()
-                  // .textScale05()
-                  .textScale10()
-                  // .textScale15()
-                  // .textScale20()
-                  // .android()
-                  .build(),
               supportedLocales: AppLocaleUtils.supportedLocales,
               localizationsDelegates: localizationsDelegates,
               theme: myThemeBuilder.materialLightThemeData,

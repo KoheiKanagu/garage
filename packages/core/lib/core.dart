@@ -62,7 +62,6 @@ export 'main_core.dart';
 export 'utils/budoux.dart';
 export 'utils/geo_point_converter.dart';
 export 'utils/inherited_theme_detector.dart';
-export 'utils/media_query_preview.dart';
 export 'utils/my_logger.dart';
 export 'utils/my_navigator_observer.dart';
 export 'utils/my_theme_builder.dart';
