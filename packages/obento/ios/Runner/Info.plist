@@ -264,5 +264,12 @@
 	<string>If you select &quot;Allow Tracking&quot;, ads that are thought to match your interests and concerns will be displayed. This information is only used for ad delivery and does not contain any personal identification information.</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>14.0</string>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
 </dict>
 </plist>
