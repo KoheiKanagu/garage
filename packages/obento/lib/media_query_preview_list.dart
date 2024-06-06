@@ -28,12 +28,14 @@ class MediaQueryPreviewList extends StatelessWidget {
 
   static const double homeBarHeight = 34;
 
-  EdgeInsets get padding {
+  EdgeInsets padding({
+    required bool hasHomeBar,
+  }) {
     var insets = const EdgeInsets.only(
       top: statusBarHeight,
     );
 
-    if (!virtualKeyboard) {
+    if (!virtualKeyboard && hasHomeBar) {
       insets += const EdgeInsets.only(
         bottom: homeBarHeight,
       );
@@ -48,11 +50,18 @@ class MediaQueryPreviewList extends StatelessWidget {
     );
   }
 
-  EdgeInsets get viewPadding {
-    const insets = EdgeInsets.only(
+  EdgeInsets viewPadding({
+    required bool hasHomeBar,
+  }) {
+    var insets = const EdgeInsets.only(
       top: statusBarHeight,
-      bottom: homeBarHeight,
     );
+
+    if (hasHomeBar) {
+      insets += const EdgeInsets.only(
+        bottom: homeBarHeight,
+      );
+    }
 
     return insets;
   }
@@ -88,9 +97,13 @@ class MediaQueryPreviewList extends StatelessWidget {
                                       textScaler: TextScaler.linear(
                                         device.textScaleFactor,
                                       ),
-                                      padding: padding,
+                                      padding: padding(
+                                        hasHomeBar: device.hasHomeBar,
+                                      ),
                                       viewInsets: viewInsets,
-                                      viewPadding: viewPadding,
+                                      viewPadding: viewPadding(
+                                        hasHomeBar: device.hasHomeBar,
+                                      ),
                                     ),
                                     child: Stack(
                                       children: [

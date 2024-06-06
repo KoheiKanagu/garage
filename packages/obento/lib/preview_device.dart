@@ -10,6 +10,7 @@ class PreviewDevice {
     required this.targetPlatform,
     required this.textScaleFactor,
     required this.brightness,
+    required this.hasHomeBar,
   });
 
   factory PreviewDevice.iPhone6_7inch({
@@ -25,6 +26,7 @@ class PreviewDevice {
         targetPlatform: TargetPlatform.iOS,
         textScaleFactor: textScaleFactor,
         brightness: brightness,
+        hasHomeBar: true,
       );
 
   factory PreviewDevice.iPhone5_5inch({
@@ -40,6 +42,7 @@ class PreviewDevice {
         targetPlatform: TargetPlatform.iOS,
         textScaleFactor: textScaleFactor,
         brightness: brightness,
+        hasHomeBar: false,
       );
 
   factory PreviewDevice.android6_7inch({
@@ -55,6 +58,7 @@ class PreviewDevice {
         targetPlatform: TargetPlatform.android,
         textScaleFactor: textScaleFactor,
         brightness: brightness,
+        hasHomeBar: true,
       );
 
   final String name;
@@ -69,6 +73,8 @@ class PreviewDevice {
 
   final Brightness brightness;
 
+  final bool hasHomeBar;
+
   PreviewDevice copyWith({
     String? name,
     double? pixelRatio,
@@ -76,6 +82,7 @@ class PreviewDevice {
     TargetPlatform? targetPlatform,
     double? textScaleFactor,
     Brightness? brightness,
+    bool? hasHomeBar,
   }) =>
       PreviewDevice(
         name: name ?? this.name,
@@ -84,5 +91,6 @@ class PreviewDevice {
         targetPlatform: targetPlatform ?? this.targetPlatform,
         textScaleFactor: textScaleFactor ?? this.textScaleFactor,
         brightness: brightness ?? this.brightness,
+        hasHomeBar: hasHomeBar ?? this.hasHomeBar,
       );
 }
