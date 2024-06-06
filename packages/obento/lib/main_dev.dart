@@ -18,19 +18,6 @@ Future<void> main() async {
   );
 
   if (container != null) {
-    // Widget buildMyApp(Key key) {
-    //   return UncontrolledProviderScope(
-    //     container: container,
-    //     child: MyApp(
-    //       key: key,
-    //     ),
-    //   );
-    // }
-
-    // final view = WidgetsBinding.instance.platformDispatcher.views.first;
-    // final screenSize = view.physicalSize;
-    // final eachWidth = screenSize.width / 5;
-
     // runApp(
     //   const _MyApp(
     //     targetPlatform: TargetPlatform.iOS,
