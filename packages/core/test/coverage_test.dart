@@ -58,7 +58,6 @@ import 'package:core/features/user/domain/user.dart';
 import 'package:core/utils/budoux.dart';
 import 'package:core/utils/geo_point_converter.dart';
 import 'package:core/utils/inherited_theme_detector.dart';
-import 'package:core/utils/media_query_preview.dart';
 import 'package:core/utils/my_logger.dart';
 import 'package:core/utils/my_theme_builder.dart';
 import 'package:core/utils/store_uri.dart';

@@ -25,6 +25,7 @@ dependencies:
   intersperse: ^2.0.0
   intl: any
   jovial_svg: ^1.1.21
+  media_query_preview: ^0.0.1
   pull_down_button: ^0.9.4
   riverpod_annotation: ^2.3.5
   share_plus: ^9.0.0

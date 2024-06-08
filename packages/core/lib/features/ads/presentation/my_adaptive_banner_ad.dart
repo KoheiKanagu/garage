@@ -12,6 +12,7 @@ class MyAdaptiveBannerAd extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final bannerAd = ref.watch(
       adsBannerProvider(
+        key: GlobalObjectKey(context),
         adUnitId: kBannerAdUnitId,
         width: MediaQuery.of(context).size.width.truncate(),
       ),
@@ -23,7 +24,7 @@ class MyAdaptiveBannerAd extends HookConsumerWidget {
         height: data.size.height.toDouble(),
         width: data.size.width.toDouble(),
         child: AdWidget(
-          key: GlobalObjectKey(kBannerAdUnitId),
+          key: GlobalObjectKey(data),
           ad: data,
         ),
       ),

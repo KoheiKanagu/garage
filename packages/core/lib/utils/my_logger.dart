@@ -40,7 +40,6 @@ class CrashlyticsTalkerObserver extends TalkerObserver {
 final talkerRiverpodObserver = TalkerRiverpodObserver(
   talker: logger,
   settings: TalkerRiverpodLoggerSettings(
-    printProviderDisposed: true,
     providerFilter: (provider) {
       if (!kAppEnvProd) {
         final hidden = {

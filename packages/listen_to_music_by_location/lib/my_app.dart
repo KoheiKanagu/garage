@@ -37,6 +37,7 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(
       myGoRouterProvider(
+        navigatorKey: GlobalObjectKey(context),
         routes: _routes,
         signedInLocation: const home_route.HomePageRoute().location,
       ),
@@ -45,18 +46,6 @@ class MyApp extends HookConsumerWidget {
     return MyBetterFeedback(
       child: CupertinoApp.router(
         debugShowCheckedModeBanner: false,
-        builder: (context, child) => MediaQueryPreview(
-          context,
-          child,
-          cupertino: true,
-        )
-            // .disableDynamicIsland()
-            // .textScale05()
-            .textScale10()
-            // .textScale15()
-            // .textScale20()
-            // .android()
-            .build(),
         supportedLocales: AppLocaleUtils.supportedLocales,
         localizationsDelegates: localizationsDelegates,
         theme: theme,

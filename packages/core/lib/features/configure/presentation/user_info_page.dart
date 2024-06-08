@@ -50,9 +50,13 @@ class UserInfoPage extends HookConsumerWidget {
             return;
           }
 
-          final indicator = showMyProgressIndicator();
-          await ref.watch(firebaseUserSignOutProvider.future);
-          indicator.dismiss();
+          if (context.mounted) {
+            final indicator = showMyProgressIndicator(
+              context: context,
+            );
+            await ref.watch(firebaseUserSignOutProvider.future);
+            indicator.dismiss();
+          }
 
           if (context.mounted) {
             await showOkAlertDialog(
@@ -78,9 +82,13 @@ class UserInfoPage extends HookConsumerWidget {
             return;
           }
 
-          final indicator = showMyProgressIndicator();
-          await ref.watch(firebaseUserDeleteProvider.future);
-          indicator.dismiss();
+          if (context.mounted) {
+            final indicator = showMyProgressIndicator(
+              context: context,
+            );
+            await ref.watch(firebaseUserDeleteProvider.future);
+            indicator.dismiss();
+          }
 
           if (context.mounted) {
             await showOkAlertDialog(

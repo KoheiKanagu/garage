@@ -21,7 +21,10 @@ Future<void> main() async {
     runApp(
       UncontrolledProviderScope(
         container: container,
-        child: const MyApp(),
+        child: MyApp(
+          targetPlatform:
+              Platform.isIOS ? TargetPlatform.iOS : TargetPlatform.android,
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart' as code_i18n;
@@ -104,7 +105,10 @@ Future<void> main() async {
     runApp(
       UncontrolledProviderScope(
         container: container,
-        child: const MyApp(),
+        child: MyApp(
+          targetPlatform:
+              Platform.isIOS ? TargetPlatform.iOS : TargetPlatform.android,
+        ),
       ),
     );
   }
