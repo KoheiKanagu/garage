@@ -50,6 +50,7 @@ Future<void> main() async {
           PreviewDevice.iPhone5_5inch(
             textScaleFactor: 0.5,
           ),
+          PreviewDevice.iPhone5_5inch(),
           PreviewDevice.iPhone5_5inch(
             brightness: Brightness.dark,
           ),
