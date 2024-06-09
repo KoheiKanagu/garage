@@ -24,9 +24,7 @@ Future<void> main() async {
 
   Widget buildApp(TargetPlatform targetPlatform) {
     return UncontrolledProviderScope(
-      container: ProviderContainer(
-        parent: container,
-      ),
+      container: container,
       child: MyApp(
         targetPlatform: targetPlatform,
       ),
