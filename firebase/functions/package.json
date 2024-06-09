@@ -38,7 +38,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "^28.5.0",
     "firebase": "^10.12.2",
-    "firebase-functions-test": "^3.2.0",
+    "firebase-functions-test": "^3.3.0",
     "google-auth-library": "^9.10.0",
     "jest": "^29.7.0",
     "typescript": "^5.4.5",
