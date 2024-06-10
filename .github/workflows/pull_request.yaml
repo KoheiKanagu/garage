@@ -107,6 +107,7 @@ jobs:
       ### Build ###
       - run: |
           melos run build_runner:build --no-select
+          git diff --exit-code
 
   update-si:
     timeout-minutes: 30

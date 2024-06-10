@@ -9,7 +9,7 @@ part of 'map_providers.dart';
 // **************************************************************************
 
 String _$mapDrawAnnotationsHash() =>
-    r'914a87b9881e0804f3d1648220923e893eafb6b7';
+    r'4e00daeb9d696cd8905db233167d112002be6b68';
 
 /// Copied from Dart SDK
 class _SystemHash {
