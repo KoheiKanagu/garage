@@ -59,7 +59,7 @@ class HashtagsPageBody extends HookConsumerWidget {
                             },
                           ),
                         ),
-                        _AddChip(hashtags),
+                        const _AddChip(),
                       ],
                     ),
                   ),
@@ -71,11 +71,7 @@ class HashtagsPageBody extends HookConsumerWidget {
 }
 
 class _AddChip extends HookConsumerWidget {
-  const _AddChip(
-    this.currentHashtags,
-  );
-
-  final List<String> currentHashtags;
+  const _AddChip();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
