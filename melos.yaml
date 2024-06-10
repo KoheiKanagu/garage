@@ -12,7 +12,7 @@ command:
       post: |
         melos run pub:get
 
-sdkPath: .fvm/versions/stable
+sdkPath: .fvm/versions/beta
 
 scripts:
   check:
