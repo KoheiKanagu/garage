@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:core/gen/strings.g.dart';
+import 'package:core/utils/calculate_share_position_origin.dart';
 import 'package:core/utils/inherited_theme_detector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,8 @@ class PreviewPageBody extends HookConsumerWidget {
       InheritedThemeType.cupertino =>
         CupertinoTheme.of(context).scaffoldBackgroundColor,
     };
+
+    final shareButtonKey = GlobalKey();
 
     return ListView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -96,8 +99,13 @@ class PreviewPageBody extends HookConsumerWidget {
                 child: _ShareButton(
                   () async {
                     await HapticFeedback.heavyImpact();
-                    await Share.share(textController.text);
+                    await Share.share(
+                      textController.text,
+                      sharePositionOrigin:
+                          calculateSharePositionOrigin(shareButtonKey),
+                    );
                   },
+                  key: shareButtonKey,
                 ),
               ),
               const Gap(16),
@@ -166,8 +174,9 @@ class _CopyButton extends HookConsumerWidget {
 
 class _ShareButton extends HookConsumerWidget {
   const _ShareButton(
-    this.onPressed,
-  );
+    this.onPressed, {
+    required Key key,
+  }) : super(key: key);
 
   final VoidCallback onPressed;
 

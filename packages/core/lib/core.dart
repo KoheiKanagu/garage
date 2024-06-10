@@ -60,6 +60,7 @@ export 'features/user/domain/user.dart';
 export 'gen/assets.gen.dart';
 export 'main_core.dart';
 export 'utils/budoux.dart';
+export 'utils/calculate_share_position_origin.dart';
 export 'utils/geo_point_converter.dart';
 export 'utils/inherited_theme_detector.dart';
 export 'utils/my_logger.dart';
