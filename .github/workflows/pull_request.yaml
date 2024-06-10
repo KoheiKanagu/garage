@@ -40,23 +40,9 @@ jobs:
               - packages/*/assets/si/*
               - packages/*/pubspec.yaml
 
-  check-flutter-version:
-    timeout-minutes: 30
-    runs-on: ubuntu-latest
-    outputs:
-      flutter_version: ${{ steps.check-flutter-version.outputs.flutter_version }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Get Flutter version
-        id: check-flutter-version
-        run: echo "flutter_version=$(yq eval '.environment.flutter' pubspec.yaml)" >>"$GITHUB_OUTPUT"
-
   generate:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    needs: check-flutter-version
-    container:
-      image: ghcr.io/koheikanagu/flutter:${{ needs.check-flutter-version.outputs.flutter_version }}
     permissions: # for KoheiKanagu/composite-actions/setup-firebase-cli@main
       id-token: write
       contents: read
@@ -68,6 +54,19 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.16.0
+        with:
+          channel: beta
+          flutter-version-file: pubspec.yaml
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:"
+          pub-cache-key: "flutter-pub-:os:-:channel:-:version:-:arch:"
+
+      - name: Flutter bootstrap
+        run: |
+          .github/workflows/flutter_bootstrap.sh
 
       - name: Setup Firebase CLI Dev
         uses: KoheiKanagu/composite-actions/setup-firebase-cli@main
@@ -83,9 +82,6 @@ jobs:
   build_runner:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    needs: check-flutter-version
-    container:
-      image: ghcr.io/koheikanagu/flutter:${{ needs.check-flutter-version.outputs.flutter_version }}
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -94,6 +90,19 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.16.0
+        with:
+          channel: beta
+          flutter-version-file: pubspec.yaml
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:"
+          pub-cache-key: "flutter-pub-:os:-:channel:-:version:-:arch:"
+
+      - name: Flutter bootstrap
+        run: |
+          .github/workflows/flutter_bootstrap.sh
 
       ### Build ###
       - run: |
@@ -104,9 +113,6 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - changed-files
-      - check-flutter-version
-    container:
-      image: ghcr.io/koheikanagu/flutter:${{ needs.check-flutter-version.outputs.flutter_version }}
     if: ${{ needs.changed-files.outputs.update_si_any_changed == 'true' }}
     steps:
       - name: Collect Workflow Telemetry
@@ -117,6 +123,19 @@ jobs:
       ### Set up ###
       - uses: actions/checkout@v4
 
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.16.0
+        with:
+          channel: beta
+          flutter-version-file: pubspec.yaml
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:"
+          pub-cache-key: "flutter-pub-:os:-:channel:-:version:-:arch:"
+
+      - name: Flutter bootstrap
+        run: |
+          .github/workflows/flutter_bootstrap.sh
+
       ### Update si ###
       - run: |
           melos run update-si
@@ -125,9 +144,6 @@ jobs:
   fix-format:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    needs: check-flutter-version
-    container:
-      image: ghcr.io/koheikanagu/flutter:${{ needs.check-flutter-version.outputs.flutter_version }}
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -136,6 +152,19 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.16.0
+        with:
+          channel: beta
+          flutter-version-file: pubspec.yaml
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:"
+          pub-cache-key: "flutter-pub-:os:-:channel:-:version:-:arch:"
+
+      - name: Flutter bootstrap
+        run: |
+          .github/workflows/flutter_bootstrap.sh
 
       ### fix and format ###
       - name: Fix and Format
@@ -147,9 +176,6 @@ jobs:
   analyze:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    needs: check-flutter-version
-    container:
-      image: ghcr.io/koheikanagu/flutter:${{ needs.check-flutter-version.outputs.flutter_version }}
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -158,6 +184,19 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.16.0
+        with:
+          channel: beta
+          flutter-version-file: pubspec.yaml
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:"
+          pub-cache-key: "flutter-pub-:os:-:channel:-:version:-:arch:"
+
+      - name: Flutter bootstrap
+        run: |
+          .github/workflows/flutter_bootstrap.sh
 
       ### Analyze ###
       - run: melos run pub:get
@@ -166,9 +205,6 @@ jobs:
   custom_lint:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    needs: check-flutter-version
-    container:
-      image: ghcr.io/koheikanagu/flutter:${{ needs.check-flutter-version.outputs.flutter_version }}
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -177,6 +213,19 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.16.0
+        with:
+          channel: beta
+          flutter-version-file: pubspec.yaml
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:"
+          pub-cache-key: "flutter-pub-:os:-:channel:-:version:-:arch:"
+
+      - name: Flutter bootstrap
+        run: |
+          .github/workflows/flutter_bootstrap.sh
 
       ### Custom Lint ###
       - run: melos run pub:get
@@ -185,9 +234,6 @@ jobs:
   test:
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    needs: check-flutter-version
-    container:
-      image: ghcr.io/koheikanagu/flutter:${{ needs.check-flutter-version.outputs.flutter_version }}
     steps:
       - name: Collect Workflow Telemetry
         uses: catchpoint/workflow-telemetry-action@v2.0.0
@@ -196,6 +242,19 @@ jobs:
 
       ### Set up ###
       - uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.16.0
+        with:
+          channel: beta
+          flutter-version-file: pubspec.yaml
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:"
+          pub-cache-key: "flutter-pub-:os:-:channel:-:version:-:arch:"
+
+      - name: Flutter bootstrap
+        run: |
+          .github/workflows/flutter_bootstrap.sh
 
       ### Test ###
       - name: Test
