@@ -38,6 +38,7 @@ Future<void> main() async {
         Platform.isIOS ? TargetPlatform.iOS : TargetPlatform.android,
       ),
     );
+    return;
   }
 
   // ignore: missing_provider_scope
