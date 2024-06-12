@@ -40,6 +40,12 @@ dependencies:
   in_app_review: ^2.0.9
   intersperse: ^2.0.0
   intl: any
+  isar:
+    version: ^3.1.7
+    hosted: https://pub.isar-community.dev/
+  isar_flutter_libs:
+    version: ^3.1.7
+    hosted: https://pub.isar-community.dev/
   jovial_svg: ^1.1.21
   json_annotation: ^4.9.0
   media_query_preview: ^0.0.2
@@ -67,6 +73,9 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.5.3
   go_router_builder: ^2.7.0
+  isar_generator:
+    version: ^3.1.7
+    hosted: https://pub.isar-community.dev/
   json_serializable: ^6.8.0
   mockito: ^5.4.4
   riverpod_generator: ^2.4.2
