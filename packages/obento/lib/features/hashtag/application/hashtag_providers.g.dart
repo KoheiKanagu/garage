@@ -60,6 +60,20 @@ final hashtagProvider = AutoDisposeFutureProvider<
 
 typedef HashtagRef = AutoDisposeFutureProviderRef<
     ({Hashtag hashtag, DocumentReference<Hashtag> reference})>;
+String _$isarHash() => r'fb52d7affc132eb7bc1b4d3054e86c278e03beff';
+
+/// See also [isar].
+@ProviderFor(isar)
+final isarProvider = AutoDisposeFutureProvider<Isar>.internal(
+  isar,
+  name: r'isarProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$isarHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef IsarRef = AutoDisposeFutureProviderRef<Isar>;
 String _$hashtagControllerHash() => r'75686b89f92fc9e3b1611dddbde1a21cb59e5274';
 
 /// See also [HashtagController].

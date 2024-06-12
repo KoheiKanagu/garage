@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart' as core_i18n;
+import 'package:isar/isar.dart';
 import 'package:obento/constants/collection_path.dart';
 import 'package:obento/features/hashtag/domain/hashtag.dart';
+import 'package:obento/features/hashtag/domain/hashtag_db.dart';
 import 'package:obento/gen/strings.g.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'hashtag_providers.g.dart';
@@ -224,3 +227,12 @@ class HashtagsSelectedController extends _$HashtagsSelectedController {
     _notify();
   }
 }
+
+@riverpod
+Future<Isar> isar(
+  IsarRef ref,
+) async =>
+    Isar.openSync(
+      [HashtagDbSchema],
+      directory: await getApplicationDocumentsDirectory().then((v) => v.path),
+    );
