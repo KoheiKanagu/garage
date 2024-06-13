@@ -236,3 +236,31 @@ Future<Isar> isar(
       [HashtagDbSchema],
       directory: await getApplicationDocumentsDirectory().then((v) => v.path),
     );
+
+@riverpod
+Future<IsarCollection<HashtagDb>> isarHashtagDb(
+  IsarHashtagDbRef ref,
+) =>
+    ref.watch(
+      isarProvider.selectAsync(
+        (e) => e.hashtagDbs,
+      ),
+    );
+
+@riverpod
+class HashtagSearchTextController extends _$HashtagSearchTextController {
+  @override
+  String? build() {
+    return null;
+  }
+
+  // ignore: use_setters_to_change_properties
+  void onChanged(String? value) {
+    final v = value?.trim() ?? '';
+    if (v.isEmpty) {
+      state = null;
+    } else {
+      state = value;
+    }
+  }
+}
