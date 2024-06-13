@@ -19,9 +19,9 @@ const HashtagDbSchema = CollectionSchema(
   name: r'HashtagDb',
   id: -7056519903615754818,
   properties: {
-    r'value': PropertySchema(
+    r'content': PropertySchema(
       id: 0,
-      name: r'value',
+      name: r'content',
       type: IsarType.string,
     )
   },
@@ -30,7 +30,21 @@ const HashtagDbSchema = CollectionSchema(
   deserialize: _hashtagDbDeserialize,
   deserializeProp: _hashtagDbDeserializeProp,
   idName: r'id',
-  indexes: {},
+  indexes: {
+    r'content': IndexSchema(
+      id: 6193209363630369380,
+      name: r'content',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'content',
+          type: IndexType.hash,
+          caseSensitive: true,
+        )
+      ],
+    )
+  },
   links: {},
   embeddedSchemas: {},
   getId: _hashtagDbGetId,
@@ -45,7 +59,7 @@ int _hashtagDbEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.value.length * 3;
+  bytesCount += 3 + object.content.length * 3;
   return bytesCount;
 }
 
@@ -55,7 +69,7 @@ void _hashtagDbSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.value);
+  writer.writeString(offsets[0], object.content);
 }
 
 HashtagDb _hashtagDbDeserialize(
@@ -65,7 +79,7 @@ HashtagDb _hashtagDbDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = HashtagDb(
-    value: reader.readString(offsets[0]),
+    reader.readString(offsets[0]),
   );
   return object;
 }
@@ -169,10 +183,186 @@ extension HashtagDbQueryWhere
       ));
     });
   }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterWhereClause> contentEqualTo(
+      String content) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.equalTo(
+        indexName: r'content',
+        value: [content],
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterWhereClause> contentNotEqualTo(
+      String content) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'content',
+              lower: [],
+              upper: [content],
+              includeUpper: false,
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'content',
+              lower: [content],
+              includeLower: false,
+              upper: [],
+            ));
+      } else {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'content',
+              lower: [content],
+              includeLower: false,
+              upper: [],
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'content',
+              lower: [],
+              upper: [content],
+              includeUpper: false,
+            ));
+      }
+    });
+  }
 }
 
 extension HashtagDbQueryFilter
     on QueryBuilder<HashtagDb, HashtagDb, QFilterCondition> {
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> contentEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'content',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> contentGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'content',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> contentLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'content',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> contentBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'content',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> contentStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'content',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> contentEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'content',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> contentContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'content',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> contentMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'content',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> contentIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'content',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition>
+      contentIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'content',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> idEqualTo(
       Id value) {
     return QueryBuilder.apply(this, (query) {
@@ -225,136 +415,6 @@ extension HashtagDbQueryFilter
       ));
     });
   }
-
-  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> valueEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'value',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> valueGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'value',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> valueLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'value',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> valueBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'value',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> valueStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'value',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> valueEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'value',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> valueContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'value',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> valueMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'value',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> valueIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'value',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> valueIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'value',
-        value: '',
-      ));
-    });
-  }
 }
 
 extension HashtagDbQueryObject
@@ -364,21 +424,33 @@ extension HashtagDbQueryLinks
     on QueryBuilder<HashtagDb, HashtagDb, QFilterCondition> {}
 
 extension HashtagDbQuerySortBy on QueryBuilder<HashtagDb, HashtagDb, QSortBy> {
-  QueryBuilder<HashtagDb, HashtagDb, QAfterSortBy> sortByValue() {
+  QueryBuilder<HashtagDb, HashtagDb, QAfterSortBy> sortByContent() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'value', Sort.asc);
+      return query.addSortBy(r'content', Sort.asc);
     });
   }
 
-  QueryBuilder<HashtagDb, HashtagDb, QAfterSortBy> sortByValueDesc() {
+  QueryBuilder<HashtagDb, HashtagDb, QAfterSortBy> sortByContentDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'value', Sort.desc);
+      return query.addSortBy(r'content', Sort.desc);
     });
   }
 }
 
 extension HashtagDbQuerySortThenBy
     on QueryBuilder<HashtagDb, HashtagDb, QSortThenBy> {
+  QueryBuilder<HashtagDb, HashtagDb, QAfterSortBy> thenByContent() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'content', Sort.asc);
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterSortBy> thenByContentDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'content', Sort.desc);
+    });
+  }
+
   QueryBuilder<HashtagDb, HashtagDb, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -390,26 +462,14 @@ extension HashtagDbQuerySortThenBy
       return query.addSortBy(r'id', Sort.desc);
     });
   }
-
-  QueryBuilder<HashtagDb, HashtagDb, QAfterSortBy> thenByValue() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'value', Sort.asc);
-    });
-  }
-
-  QueryBuilder<HashtagDb, HashtagDb, QAfterSortBy> thenByValueDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'value', Sort.desc);
-    });
-  }
 }
 
 extension HashtagDbQueryWhereDistinct
     on QueryBuilder<HashtagDb, HashtagDb, QDistinct> {
-  QueryBuilder<HashtagDb, HashtagDb, QDistinct> distinctByValue(
+  QueryBuilder<HashtagDb, HashtagDb, QDistinct> distinctByContent(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'value', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'content', caseSensitive: caseSensitive);
     });
   }
 }
@@ -422,9 +482,9 @@ extension HashtagDbQueryProperty
     });
   }
 
-  QueryBuilder<HashtagDb, String, QQueryOperations> valueProperty() {
+  QueryBuilder<HashtagDb, String, QQueryOperations> contentProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'value');
+      return query.addPropertyName(r'content');
     });
   }
 }

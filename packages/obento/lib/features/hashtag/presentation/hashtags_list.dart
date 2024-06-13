@@ -16,8 +16,15 @@ class HashtagsList extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hashtags =
-        ref.watch(hashtagControllerProvider).value?.hashtag.hashtags;
+    final List<String>? hashtags;
+
+    final searchedResult = ref.watch(isarSearchedHashtagsProvider).value;
+
+    if (searchedResult != null) {
+      hashtags = searchedResult;
+    } else {
+      hashtags = ref.watch(hashtagControllerProvider).value?.hashtag.hashtags;
+    }
 
     if (hashtags == null) {
       return const Center(

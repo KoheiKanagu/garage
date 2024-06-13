@@ -74,7 +74,7 @@ final isarProvider = AutoDisposeFutureProvider<Isar>.internal(
 );
 
 typedef IsarRef = AutoDisposeFutureProviderRef<Isar>;
-String _$isarHashtagDbHash() => r'4056f8f65f8ac9fedb97b0f5c83a90a6992cdb95';
+String _$isarHashtagDbHash() => r'52197f526386dbfdae313a6b59a0dfd1c3ebb719';
 
 /// See also [isarHashtagDb].
 @ProviderFor(isarHashtagDb)
@@ -91,7 +91,24 @@ final isarHashtagDbProvider =
 
 typedef IsarHashtagDbRef
     = AutoDisposeFutureProviderRef<IsarCollection<HashtagDb>>;
-String _$hashtagControllerHash() => r'75686b89f92fc9e3b1611dddbde1a21cb59e5274';
+String _$isarSearchedHashtagsHash() =>
+    r'892418458566be1e628154ae2da799eade9cb51a';
+
+/// See also [isarSearchedHashtags].
+@ProviderFor(isarSearchedHashtags)
+final isarSearchedHashtagsProvider =
+    AutoDisposeFutureProvider<List<String>?>.internal(
+  isarSearchedHashtags,
+  name: r'isarSearchedHashtagsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$isarSearchedHashtagsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef IsarSearchedHashtagsRef = AutoDisposeFutureProviderRef<List<String>?>;
+String _$hashtagControllerHash() => r'37e4ba240d08d759167de93f4f64f6338944dc93';
 
 /// See also [HashtagController].
 @ProviderFor(HashtagController)
@@ -144,7 +161,7 @@ final hashtagsSelectedControllerProvider = AutoDisposeNotifierProvider<
 
 typedef _$HashtagsSelectedController = AutoDisposeNotifier<Set<String>>;
 String _$hashtagSearchTextControllerHash() =>
-    r'ab84145445d077a505b265e89dccceea8acf3526';
+    r'3cd2ccf8291b2752f7a789ee36267347973134de';
 
 /// See also [HashtagSearchTextController].
 @ProviderFor(HashtagSearchTextController)

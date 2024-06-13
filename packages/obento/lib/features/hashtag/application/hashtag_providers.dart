@@ -63,6 +63,26 @@ class HashtagController extends _$HashtagController {
         Hashtag hashtag,
         DocumentReference<Hashtag> reference,
       })> build() {
+    ref.listen(
+      hashtagProvider,
+      (_, next) async {
+        final hashtag = next.value?.hashtag;
+
+        if (hashtag != null) {
+          final db = await ref.watch(isarHashtagDbProvider.future);
+          db.isar.writeTxnSync(
+            () {
+              db
+                ..clearSync()
+                ..putAllSync(HashtagDb.fromHashtag(hashtag));
+
+              ref.invalidate(isarSearchedHashtagsProvider);
+            },
+          );
+        }
+      },
+    );
+
     return ref.watch(hashtagProvider.future);
   }
 
@@ -240,12 +260,20 @@ Future<Isar> isar(
 @riverpod
 Future<IsarCollection<HashtagDb>> isarHashtagDb(
   IsarHashtagDbRef ref,
-) =>
-    ref.watch(
-      isarProvider.selectAsync(
-        (e) => e.hashtagDbs,
-      ),
-    );
+) async {
+  final instance = Isar.getInstance();
+
+  // if the instance is already open, use it
+  if (instance?.isOpen ?? false) {
+    return instance!.hashtagDbs;
+  }
+
+  return ref.watch(
+    isarProvider.selectAsync(
+      (e) => e.hashtagDbs,
+    ),
+  );
+}
 
 @riverpod
 class HashtagSearchTextController extends _$HashtagSearchTextController {
@@ -263,4 +291,22 @@ class HashtagSearchTextController extends _$HashtagSearchTextController {
       state = value;
     }
   }
+}
+
+@riverpod
+Future<List<String>?> isarSearchedHashtags(
+  IsarSearchedHashtagsRef ref,
+) async {
+  final searchText = ref.watch(hashtagSearchTextControllerProvider);
+  if (searchText == null) {
+    return null;
+  }
+
+  final db = await ref.watch(isarHashtagDbProvider.future);
+  return db
+      .filter()
+      .contentContains(searchText)
+      .findAllSync()
+      .map((e) => e.content)
+      .toList();
 }
