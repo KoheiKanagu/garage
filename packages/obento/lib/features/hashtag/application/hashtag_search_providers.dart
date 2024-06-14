@@ -71,7 +71,7 @@ Future<List<String>?> hashtagSearchResults(
   final db = await ref.watch(isarHashtagDbProvider.future);
   return db
       .filter()
-      .contentContains(searchText)
+      .wordsElementContains(searchText)
       .findAllSync()
       .map((e) => e.content)
       .toList();

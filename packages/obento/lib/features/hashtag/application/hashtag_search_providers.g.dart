@@ -58,7 +58,7 @@ final hashtagSearchTextEditingControllerProvider =
 typedef HashtagSearchTextEditingControllerRef
     = AutoDisposeProviderRef<TextEditingController>;
 String _$hashtagSearchResultsHash() =>
-    r'12c9e52b9621b1156e1c132a1c212bac799bb12d';
+    r'ac0af07af0abcf46953e8dfecfa3535b41a63356';
 
 /// See also [hashtagSearchResults].
 @ProviderFor(hashtagSearchResults)
