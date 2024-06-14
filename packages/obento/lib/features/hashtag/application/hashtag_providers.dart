@@ -236,12 +236,20 @@ class HashtagsSelectedController extends _$HashtagsSelectedController {
         );
   }
 
+  /// 削除されたタグを削除する
   Future<void> cleanup() async {
     final tags = await ref.watch(
       hashtagControllerProvider.selectAsync((e) => e.hashtag.hashtags),
     );
 
     state = state.where(tags.contains).toSet();
+
+    _notify();
+  }
+
+  /// 全てのタグの選択を解除する
+  Future<void> deselectAll() async {
+    state = {};
 
     _notify();
   }

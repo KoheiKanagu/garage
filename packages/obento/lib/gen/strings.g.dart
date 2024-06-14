@@ -144,6 +144,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get preview => 'プレビュー';
 	String get not_selected => '選択されていません';
 	String get search => '検索';
+	String get deselect_all => '全ての選択を解除';
 }
 
 // Path: <root>
@@ -174,4 +175,5 @@ class _StringsEn extends Translations {
 	@override String get preview => 'Preview';
 	@override String get not_selected => 'Not Selected';
 	@override String get search => 'Search';
+	@override String get deselect_all => 'Deselect All';
 }

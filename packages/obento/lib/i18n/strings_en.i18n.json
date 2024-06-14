@@ -6,5 +6,6 @@
   "delete_hashtag": "Delete ${hashtag}?",
   "preview": "Preview",
   "not_selected": "Not Selected",
-  "search": "Search"
+  "search": "Search",
+  "deselect_all": "Deselect All"
 }

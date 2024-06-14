@@ -96,7 +96,7 @@ final hashtagsEditControllerProvider =
 
 typedef _$HashtagsEditController = AutoDisposeNotifier<Hashtag?>;
 String _$hashtagsSelectedControllerHash() =>
-    r'29b3cb0e54c974b8fc66f8152dbd4a26ceddc305';
+    r'fc398bad8f37ba9cdc52901eccf9fbb9cfc76a88';
 
 /// See also [HashtagsSelectedController].
 @ProviderFor(HashtagsSelectedController)

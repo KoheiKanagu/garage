@@ -6,5 +6,6 @@
   "delete_hashtag": "${hashtag}を削除しますか？",
   "preview": "プレビュー",
   "not_selected": "選択されていません",
-  "search": "検索"
+  "search": "検索",
+  "deselect_all": "全ての選択を解除"
 }
