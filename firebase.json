@@ -59,12 +59,12 @@
     "redirects": [
       {
         "source": "/terms-of-service",
-        "destination": "https://garage.kingu.dev/terms-of-service",
+        "destination": "https://github.com/KoheiKanagu/garage/blob/main/term_of_service.md",
         "type": 301
       },
       {
         "source": "/privacy-policy",
-        "destination": "https://garage.kingu.dev/privacy-policy",
+        "destination": "https://github.com/KoheiKanagu/garage/blob/main/privacy_policy.md",
         "type": 301
       },
       {
