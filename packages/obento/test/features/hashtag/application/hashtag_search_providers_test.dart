@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:obento/features/hashtag/application/hashtag_search_providers.dart';
 
-import '../../../../../core/test/test_utils.dart';
+import '../../../../../core/test/core.dart';
 
 class MockHashtagSearchText extends HashtagSearchText {
   MockHashtagSearchText(this.value);
