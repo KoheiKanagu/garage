@@ -24,16 +24,19 @@ final myThemeBuilder = MyThemeBuilder(
 class MyApp extends HookConsumerWidget {
   const MyApp({
     required this.targetPlatform,
+    required this.navigatorKey,
     super.key,
   });
 
   final TargetPlatform targetPlatform;
 
+  final GlobalKey<NavigatorState> navigatorKey;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(
       myGoRouterProvider(
-        navigatorKey: GlobalObjectKey(context),
+        navigatorKey: navigatorKey,
         routes: _routes,
         signedInLocation: const hashtag_route.HashtagPageRoute().location,
       ),

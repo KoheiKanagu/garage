@@ -24,6 +24,7 @@ Future<void> main() async {
         child: MyApp(
           targetPlatform:
               Platform.isIOS ? TargetPlatform.iOS : TargetPlatform.android,
+          navigatorKey: GlobalKey<NavigatorState>(),
         ),
       ),
     );

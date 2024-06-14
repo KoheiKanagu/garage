@@ -9,7 +9,9 @@ import 'package:media_query_preview/media_query_preview.dart';
 import 'package:obento/constants/firebase_options_dev.dart';
 import 'package:obento/my_app.dart';
 
-Future<void> main() async {
+Future<void> main({
+  GlobalKey<NavigatorState>? navigatorKey,
+}) async {
   kTenantId = 'obento-44oe4';
   kAppStoreId = '6499041461';
   kBannerAdUnitId = kBannerAdUnitIdTest;
@@ -22,20 +24,26 @@ Future<void> main() async {
     throw Exception('Failed to initialize');
   }
 
-  Widget buildApp(TargetPlatform targetPlatform) {
+  Widget buildApp(
+    TargetPlatform targetPlatform,
+    GlobalKey<NavigatorState> navigatorKey,
+  ) {
     return UncontrolledProviderScope(
       container: container,
       child: MyApp(
         targetPlatform: targetPlatform,
+        navigatorKey: navigatorKey,
       ),
     );
   }
 
-  if (kReleaseMode) {
+  const enableMediaQueryPreview = bool.fromEnvironment('media_query_preview');
+  if (kReleaseMode || !enableMediaQueryPreview) {
     // ignore: missing_provider_scope
     runApp(
       buildApp(
         Platform.isIOS ? TargetPlatform.iOS : TargetPlatform.android,
+        navigatorKey ?? GlobalKey<NavigatorState>(),
       ),
     );
     return;
@@ -79,6 +87,9 @@ Future<void> main() async {
       builder: (_, previewDevice) {
         return buildApp(
           previewDevice.targetPlatform,
+          GlobalObjectKey([
+            UniqueKey(),
+          ]),
         );
       },
     ),
