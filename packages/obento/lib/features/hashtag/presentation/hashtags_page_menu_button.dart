@@ -1,9 +1,10 @@
 import 'package:core/core.dart';
-import 'package:core/gen/strings.g.dart';
+import 'package:core/gen/strings.g.dart' as core_strings;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:obento/features/hashtag/application/hashtag_providers.dart';
+import 'package:obento/gen/strings.g.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
 class HashtagsPageMenuButton extends HookConsumerWidget {
@@ -19,10 +20,14 @@ class HashtagsPageMenuButton extends HookConsumerWidget {
       InheritedThemeType.material => PopupMenuButton(
           iconColor: Theme.of(context).colorScheme.primary,
           itemBuilder: (context) {
-            final configure = i18n.configure.title;
-            final edit = i18n.edit;
+            final configure = core_strings.i18n.configure.title;
+            final edit = core_strings.i18n.edit;
 
             return [
+              PopupMenuItem(
+                value: i18n.deselect_all,
+                child: Text(i18n.deselect_all),
+              ),
               PopupMenuItem(
                 value: edit,
                 child: Text(edit),
@@ -34,12 +39,18 @@ class HashtagsPageMenuButton extends HookConsumerWidget {
             ];
           },
           onSelected: (value) {
-            if (value == i18n.configure.title) {
-              const ConfigurePageRoute().push<void>(context);
+            if (value == i18n.deselect_all) {
+              ref
+                  .watch(hashtagsSelectedControllerProvider.notifier)
+                  .deselectAll();
             }
 
-            if (value == i18n.edit) {
+            if (value == core_strings.i18n.edit) {
               ref.watch(hashtagsEditControllerProvider.notifier).edit();
+            }
+
+            if (value == core_strings.i18n.configure.title) {
+              const ConfigurePageRoute().push<void>(context);
             }
           },
         ),
@@ -47,16 +58,25 @@ class HashtagsPageMenuButton extends HookConsumerWidget {
           itemBuilder: (context) => [
             PullDownMenuItem(
               onTap: () {
+                ref
+                    .watch(hashtagsSelectedControllerProvider.notifier)
+                    .deselectAll();
+              },
+              title: i18n.deselect_all,
+              icon: CupertinoIcons.refresh,
+            ),
+            PullDownMenuItem(
+              onTap: () {
                 ref.watch(hashtagsEditControllerProvider.notifier).edit();
               },
-              title: i18n.edit,
+              title: core_strings.i18n.edit,
               icon: CupertinoIcons.pencil,
             ),
             PullDownMenuItem(
               onTap: () {
                 const ConfigurePageRoute().push<void>(context);
               },
-              title: i18n.configure.title,
+              title: core_strings.i18n.configure.title,
               icon: CupertinoIcons.settings,
             ),
           ],
