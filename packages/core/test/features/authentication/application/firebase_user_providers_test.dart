@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../mocks/firebase.mocks.mocks.dart';
-import '../../../test_utils.dart';
+import '../../../utils/create_container.dart';
 
 void main() {
   group('firebaseUserUid', () {
