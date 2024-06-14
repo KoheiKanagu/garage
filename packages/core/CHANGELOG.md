@@ -1,3 +1,15 @@
+## 1.3.0
+
+ - **REFACTOR**: test utils location ([#411](https://github.com/KoheiKanagu/garage/issues/411)). ([919860dc](https://github.com/KoheiKanagu/garage/commit/919860dcdf380b86883db3683d7b61f1f46292c4))
+ - **REFACTOR**: use talker_riverpod_logger ([#374](https://github.com/KoheiKanagu/garage/issues/374)). ([0d491c95](https://github.com/KoheiKanagu/garage/commit/0d491c95b135094ae523197d88a9179b47a8ae08))
+ - **FIX**(deps): update firebase-dart ([#354](https://github.com/KoheiKanagu/garage/issues/354)). ([86969104](https://github.com/KoheiKanagu/garage/commit/869691042ad19f57a2cac3f31e2d2cb2288fc5f6))
+ - **FIX**: calculate sharePositionOrigin for iPad ([#399](https://github.com/KoheiKanagu/garage/issues/399)). ([bb834d38](https://github.com/KoheiKanagu/garage/commit/bb834d38a180c0402db1ae89f3286152dd6d632e))
+ - **FIX**(deps): update firebase-dart (major) ([#393](https://github.com/KoheiKanagu/garage/issues/393)). ([55dce58a](https://github.com/KoheiKanagu/garage/commit/55dce58a7b02c1506c1be2107d76406eb78bc3cd))
+ - **FIX**(deps): update dependency url_launcher to ^6.3.0 ([#391](https://github.com/KoheiKanagu/garage/issues/391)). ([3e98dee9](https://github.com/KoheiKanagu/garage/commit/3e98dee9bff6593d4bdbd3001906b5072b336ef3))
+ - **FIX**(deps): update talker ([#385](https://github.com/KoheiKanagu/garage/issues/385)). ([a75f8900](https://github.com/KoheiKanagu/garage/commit/a75f890039f20c1f95fa6fc9bd35002c99bfef6f))
+ - **FEAT**: support media_query_preview ([#377](https://github.com/KoheiKanagu/garage/issues/377)). ([8779e7ae](https://github.com/KoheiKanagu/garage/commit/8779e7ae48abd3e97faf55c48f79d478c6eaf846))
+ - **FEAT**: Update terms of service and privacy policy URLs ([#373](https://github.com/KoheiKanagu/garage/issues/373)). ([bdf8cbfd](https://github.com/KoheiKanagu/garage/commit/bdf8cbfd8b3ec8487a3735886df4739f8b158891))
+
 ## 1.2.0
 
  - **FEAT**: improve preview page ([#370](https://github.com/KoheiKanagu/garage/issues/370)). ([46f18798](https://github.com/KoheiKanagu/garage/commit/46f187980407265d929510db954a05b5ec74a4ed))
