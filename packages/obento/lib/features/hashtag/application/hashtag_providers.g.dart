@@ -60,7 +60,7 @@ final hashtagProvider = AutoDisposeFutureProvider<
 
 typedef HashtagRef = AutoDisposeFutureProviderRef<
     ({Hashtag hashtag, DocumentReference<Hashtag> reference})>;
-String _$hashtagControllerHash() => r'75686b89f92fc9e3b1611dddbde1a21cb59e5274';
+String _$hashtagControllerHash() => r'abc934dc53c7d34d0d79d3c33b4d7c01f4431ba9';
 
 /// See also [HashtagController].
 @ProviderFor(HashtagController)

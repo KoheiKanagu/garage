@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:core/gen/strings.g.dart' as core_i18n;
 import 'package:obento/constants/collection_path.dart';
+import 'package:obento/features/hashtag/application/hashtag_search_providers.dart';
 import 'package:obento/features/hashtag/domain/hashtag.dart';
+import 'package:obento/features/hashtag/domain/hashtag_db.dart';
 import 'package:obento/gen/strings.g.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -60,6 +62,26 @@ class HashtagController extends _$HashtagController {
         Hashtag hashtag,
         DocumentReference<Hashtag> reference,
       })> build() {
+    ref.listen(
+      hashtagProvider,
+      (_, next) async {
+        final hashtag = next.value?.hashtag;
+
+        if (hashtag != null) {
+          final db = await ref.watch(isarHashtagDbProvider.future);
+          db.isar.writeTxnSync(
+            () {
+              db
+                ..clearSync()
+                ..putAllSync(HashtagDb.fromHashtag(hashtag));
+
+              ref.invalidate(hashtagSearchResultsProvider);
+            },
+          );
+        }
+      },
+    );
+
     return ref.watch(hashtagProvider.future);
   }
 

@@ -6,9 +6,6 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:obento/features/hashtag/application/hashtag_providers.dart';
 import 'package:obento/features/hashtag/presentation/hashtags_page_body.dart';
-import 'package:obento/features/hashtag/presentation/hashtags_page_cancel_button.dart';
-import 'package:obento/features/hashtag/presentation/hashtags_page_menu_button.dart';
-import 'package:obento/features/hashtag/presentation/hashtags_page_save_button.dart';
 import 'package:obento/features/preview/application/preview_route.dart';
 import 'package:obento/gen/strings.g.dart';
 
@@ -19,62 +16,25 @@ class HashtagsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeType = InheritedThemeDetector.of(context);
-
     final isEditMode = ref.watch(hashtagsEditControllerProvider) != null;
 
-    Scaffold wrapScaffold({
-      required AppBar? appBar,
-      required Widget body,
-    }) =>
-        Scaffold(
-          appBar: appBar,
-          body: body,
-          floatingActionButton: Visibility(
-            visible: !isEditMode,
-            child: const _FloatingActionButton(),
-          ),
-          bottomNavigationBar: const SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AdsRequestConsentButton(),
-                MyAdaptiveBannerAd(),
-              ],
-            ),
-          ),
-          extendBody: true,
-        );
-
-    return switch (themeType) {
-      InheritedThemeType.material => wrapScaffold(
-          appBar: AppBar(
-            leadingWidth: double.infinity,
-            leading: isEditMode ? const HashtagsPageCancelButton() : null,
-            actions: [
-              if (isEditMode)
-                const HashtagsPageSaveButton()
-              else
-                const HashtagsPageMenuButton(),
-            ],
-          ),
-          body: const HashtagsPageBody(),
+    return Scaffold(
+      body: const HashtagsPageBody(),
+      floatingActionButton: Visibility(
+        visible: !isEditMode,
+        child: const _FloatingActionButton(),
+      ),
+      bottomNavigationBar: const SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AdsRequestConsentButton(),
+            MyAdaptiveBannerAd(),
+          ],
         ),
-      InheritedThemeType.cupertino => wrapScaffold(
-          appBar: null,
-          body: CupertinoPageScaffold(
-            backgroundColor:
-                CupertinoColors.systemGroupedBackground.resolveFrom(context),
-            navigationBar: CupertinoNavigationBar(
-              leading: isEditMode ? const HashtagsPageCancelButton() : null,
-              trailing: isEditMode
-                  ? const HashtagsPageSaveButton()
-                  : const HashtagsPageMenuButton(),
-            ),
-            child: const HashtagsPageBody(),
-          ),
-        ),
-    };
+      ),
+      extendBody: true,
+    );
   }
 }
 

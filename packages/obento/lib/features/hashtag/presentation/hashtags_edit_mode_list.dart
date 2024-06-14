@@ -19,57 +19,54 @@ class HashtagsEditModeList extends HookConsumerWidget {
 
     final themeType = InheritedThemeDetector.of(context);
 
-    return SafeArea(
-      bottom: false,
-      child: ReorderableListView.builder(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.paddingOf(context).bottom,
-        ),
-        onReorder: ref.watch(hashtagsEditControllerProvider.notifier).swap,
-        onReorderStart: (_) => HapticFeedback.lightImpact(),
-        onReorderEnd: (_) => HapticFeedback.lightImpact(),
-        buildDefaultDragHandles: false,
-        itemCount: hashtags.length,
-        itemBuilder: (context, index) {
-          final e = hashtags[index];
-
-          Future<void> onDelete() async {
-            final result = await showOkCancelAlertDialog(
-              context: context,
-              title: i18n.delete_hashtag(
-                hashtag: hashtags[index],
-              ),
-              okLabel: core_i18n.i18n.delete,
-              isDestructiveAction: true,
-            );
-
-            if (result == OkCancelResult.ok) {
-              ref.watch(hashtagsEditControllerProvider.notifier).delete(index);
-            }
-          }
-
-          final key = ValueKey('Hashtag_$e-$index');
-
-          return switch (themeType) {
-            InheritedThemeType.material => ListTile(
-                key: key,
-                title: Text(e),
-                leading: _LeadingIcon(onDelete),
-                trailing: _TrailingIcon(index),
-                contentPadding: EdgeInsets.zero,
-              ),
-            InheritedThemeType.cupertino => CupertinoListTile(
-                key: key,
-                backgroundColor:
-                    CupertinoColors.systemBackground.resolveFrom(context),
-                title: Text(e),
-                leadingSize: _LeadingIcon.size,
-                leading: _LeadingIcon(onDelete),
-                trailing: _TrailingIcon(index),
-              ),
-          };
-        },
+    return ReorderableListView.builder(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.paddingOf(context).bottom,
       ),
+      onReorder: ref.watch(hashtagsEditControllerProvider.notifier).swap,
+      onReorderStart: (_) => HapticFeedback.lightImpact(),
+      onReorderEnd: (_) => HapticFeedback.lightImpact(),
+      buildDefaultDragHandles: false,
+      itemCount: hashtags.length,
+      itemBuilder: (context, index) {
+        final e = hashtags[index];
+
+        Future<void> onDelete() async {
+          final result = await showOkCancelAlertDialog(
+            context: context,
+            title: i18n.delete_hashtag(
+              hashtag: hashtags[index],
+            ),
+            okLabel: core_i18n.i18n.delete,
+            isDestructiveAction: true,
+          );
+
+          if (result == OkCancelResult.ok) {
+            ref.watch(hashtagsEditControllerProvider.notifier).delete(index);
+          }
+        }
+
+        final key = ValueKey('Hashtag_$e-$index');
+
+        return switch (themeType) {
+          InheritedThemeType.material => ListTile(
+              key: key,
+              title: Text(e),
+              leading: _LeadingIcon(onDelete),
+              trailing: _TrailingIcon(index),
+              contentPadding: EdgeInsets.zero,
+            ),
+          InheritedThemeType.cupertino => CupertinoListTile(
+              key: key,
+              backgroundColor:
+                  CupertinoColors.systemBackground.resolveFrom(context),
+              title: Text(e),
+              leadingSize: _LeadingIcon.size,
+              leading: _LeadingIcon(onDelete),
+              trailing: _TrailingIcon(index),
+            ),
+        };
+      },
     );
   }
 }
