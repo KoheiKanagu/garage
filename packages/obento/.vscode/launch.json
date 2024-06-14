@@ -12,6 +12,18 @@
       "program": "lib/main.dart"
     },
     {
+      "name": "dev with media_query_preview",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--flavor",
+        "dev",
+        "--dart-define",
+        "media_query_preview=true",
+      ],
+      "program": "lib/main.dart"
+    },
+    {
       "name": "prod",
       "request": "launch",
       "type": "dart",
