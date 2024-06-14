@@ -23,6 +23,11 @@ const HashtagDbSchema = CollectionSchema(
       id: 0,
       name: r'content',
       type: IsarType.string,
+    ),
+    r'words': PropertySchema(
+      id: 1,
+      name: r'words',
+      type: IsarType.stringList,
     )
   },
   estimateSize: _hashtagDbEstimateSize,
@@ -31,14 +36,14 @@ const HashtagDbSchema = CollectionSchema(
   deserializeProp: _hashtagDbDeserializeProp,
   idName: r'id',
   indexes: {
-    r'content': IndexSchema(
-      id: 6193209363630369380,
-      name: r'content',
+    r'words': IndexSchema(
+      id: -8729652909246617716,
+      name: r'words',
       unique: false,
       replace: false,
       properties: [
         IndexPropertySchema(
-          name: r'content',
+          name: r'words',
           type: IndexType.hash,
           caseSensitive: true,
         )
@@ -60,6 +65,13 @@ int _hashtagDbEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.content.length * 3;
+  bytesCount += 3 + object.words.length * 3;
+  {
+    for (var i = 0; i < object.words.length; i++) {
+      final value = object.words[i];
+      bytesCount += value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -70,6 +82,7 @@ void _hashtagDbSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.content);
+  writer.writeStringList(offsets[1], object.words);
 }
 
 HashtagDb _hashtagDbDeserialize(
@@ -79,7 +92,8 @@ HashtagDb _hashtagDbDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = HashtagDb(
-    reader.readString(offsets[0]),
+    content: reader.readString(offsets[0]),
+    words: reader.readStringList(offsets[1]) ?? [],
   );
   return object;
 }
@@ -93,6 +107,8 @@ P _hashtagDbDeserializeProp<P>(
   switch (propertyId) {
     case 0:
       return (reader.readString(offset)) as P;
+    case 1:
+      return (reader.readStringList(offset) ?? []) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -184,45 +200,45 @@ extension HashtagDbQueryWhere
     });
   }
 
-  QueryBuilder<HashtagDb, HashtagDb, QAfterWhereClause> contentEqualTo(
-      String content) {
+  QueryBuilder<HashtagDb, HashtagDb, QAfterWhereClause> wordsEqualTo(
+      List<String> words) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'content',
-        value: [content],
+        indexName: r'words',
+        value: [words],
       ));
     });
   }
 
-  QueryBuilder<HashtagDb, HashtagDb, QAfterWhereClause> contentNotEqualTo(
-      String content) {
+  QueryBuilder<HashtagDb, HashtagDb, QAfterWhereClause> wordsNotEqualTo(
+      List<String> words) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(IndexWhereClause.between(
-              indexName: r'content',
+              indexName: r'words',
               lower: [],
-              upper: [content],
+              upper: [words],
               includeUpper: false,
             ))
             .addWhereClause(IndexWhereClause.between(
-              indexName: r'content',
-              lower: [content],
+              indexName: r'words',
+              lower: [words],
               includeLower: false,
               upper: [],
             ));
       } else {
         return query
             .addWhereClause(IndexWhereClause.between(
-              indexName: r'content',
-              lower: [content],
+              indexName: r'words',
+              lower: [words],
               includeLower: false,
               upper: [],
             ))
             .addWhereClause(IndexWhereClause.between(
-              indexName: r'content',
+              indexName: r'words',
               lower: [],
-              upper: [content],
+              upper: [words],
               includeUpper: false,
             ));
       }
@@ -415,6 +431,226 @@ extension HashtagDbQueryFilter
       ));
     });
   }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> wordsElementEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'words',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition>
+      wordsElementGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'words',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition>
+      wordsElementLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'words',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> wordsElementBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'words',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition>
+      wordsElementStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'words',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition>
+      wordsElementEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'words',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition>
+      wordsElementContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'words',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> wordsElementMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'words',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition>
+      wordsElementIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'words',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition>
+      wordsElementIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'words',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> wordsLengthEqualTo(
+      int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'words',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> wordsIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'words',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> wordsIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'words',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> wordsLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'words',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition>
+      wordsLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'words',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<HashtagDb, HashtagDb, QAfterFilterCondition> wordsLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'words',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
 }
 
 extension HashtagDbQueryObject
@@ -472,6 +708,12 @@ extension HashtagDbQueryWhereDistinct
       return query.addDistinctBy(r'content', caseSensitive: caseSensitive);
     });
   }
+
+  QueryBuilder<HashtagDb, HashtagDb, QDistinct> distinctByWords() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'words');
+    });
+  }
 }
 
 extension HashtagDbQueryProperty
@@ -485,6 +727,12 @@ extension HashtagDbQueryProperty
   QueryBuilder<HashtagDb, String, QQueryOperations> contentProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'content');
+    });
+  }
+
+  QueryBuilder<HashtagDb, List<String>, QQueryOperations> wordsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'words');
     });
   }
 }
