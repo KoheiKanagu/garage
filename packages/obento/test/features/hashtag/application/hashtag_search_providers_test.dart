@@ -6,6 +6,7 @@ import '../../../../../core/test/test_utils.dart';
 class MockHashtagSearchText extends HashtagSearchText {
   MockHashtagSearchText(this.value);
 
+  // ignore: avoid_public_notifier_properties
   final String? value;
 
   @override
