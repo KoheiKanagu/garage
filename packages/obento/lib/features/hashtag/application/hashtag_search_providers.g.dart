@@ -40,12 +40,12 @@ final isarHashtagDbProvider =
 typedef IsarHashtagDbRef
     = AutoDisposeFutureProviderRef<IsarCollection<HashtagDb>>;
 String _$hashtagSearchTextEditingControllerHash() =>
-    r'3f71b9856f0367c42027656cffa2aabe55070f1b';
+    r'a82fa902f253b5fbec3071771310cb1dac9e9e68';
 
 /// See also [hashtagSearchTextEditingController].
 @ProviderFor(hashtagSearchTextEditingController)
 final hashtagSearchTextEditingControllerProvider =
-    AutoDisposeProvider<TextEditingController>.internal(
+    AutoDisposeProvider<Raw<TextEditingController>>.internal(
   hashtagSearchTextEditingController,
   name: r'hashtagSearchTextEditingControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -56,7 +56,7 @@ final hashtagSearchTextEditingControllerProvider =
 );
 
 typedef HashtagSearchTextEditingControllerRef
-    = AutoDisposeProviderRef<TextEditingController>;
+    = AutoDisposeProviderRef<Raw<TextEditingController>>;
 String _$hashtagSearchResultsHash() =>
     r'ac0af07af0abcf46953e8dfecfa3535b41a63356';
 

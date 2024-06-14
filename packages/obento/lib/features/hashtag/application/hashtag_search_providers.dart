@@ -34,7 +34,7 @@ Future<IsarCollection<HashtagDb>> isarHashtagDb(
 }
 
 @riverpod
-TextEditingController hashtagSearchTextEditingController(
+Raw<TextEditingController> hashtagSearchTextEditingController(
   HashtagSearchTextEditingControllerRef ref,
 ) =>
     TextEditingController();
