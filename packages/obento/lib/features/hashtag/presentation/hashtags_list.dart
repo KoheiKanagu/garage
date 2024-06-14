@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:obento/features/hashtag/application/hashtag_providers.dart';
+import 'package:obento/features/hashtag/application/hashtag_search_providers.dart';
 import 'package:obento/features/hashtag/presentation/hashtag_chip.dart';
 import 'package:obento/gen/strings.g.dart';
 
@@ -18,7 +19,7 @@ class HashtagsList extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final List<String>? hashtags;
 
-    final searchedResult = ref.watch(isarSearchedHashtagsProvider).value;
+    final searchedResult = ref.watch(hashtagSearchResultsProvider).value;
 
     if (searchedResult != null) {
       hashtags = searchedResult;
