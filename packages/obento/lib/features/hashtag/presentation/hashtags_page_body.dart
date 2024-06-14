@@ -60,6 +60,8 @@ class HashtagsPageBody extends HookConsumerWidget {
               ),
             )
           : CupertinoPageScaffold(
+              backgroundColor:
+                  CupertinoColors.systemGroupedBackground.resolveFrom(context),
               child: CustomScrollView(
                 slivers: [
                   CupertinoSliverNavigationBar(
