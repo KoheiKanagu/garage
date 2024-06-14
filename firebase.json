@@ -76,6 +76,11 @@
         "source": "/locamusic/changelogs",
         "destination": "https://github.com/KoheiKanagu/garage/blob/main/packages/listen_to_music_by_location/CHANGELOG.md",
         "type": 301
+      },
+      {
+        "source": "/listen_to_music_by_location/changelogs",
+        "destination": "https://github.com/KoheiKanagu/garage/blob/main/packages/listen_to_music_by_location/CHANGELOG.md",
+        "type": 301
       }
     ]
   },
