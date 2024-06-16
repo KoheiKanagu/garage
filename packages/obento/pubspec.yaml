@@ -44,7 +44,7 @@ dependencies:
     version: ^3.1.7
     hosted: https://pub.isar-community.dev/
   isar_flutter_libs:
-    version: ^3.1.7
+    version: ^4.0.3
     hosted: https://pub.isar-community.dev/
   jovial_svg: ^1.1.21
   json_annotation: ^4.9.0
