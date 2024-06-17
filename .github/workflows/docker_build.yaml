@@ -26,7 +26,7 @@ jobs:
     outputs:
       flutter_version: ${{ steps.check-flutter-version.outputs.flutter_version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.6
       - name: Get Flutter version
         id: check-flutter-version
         run: echo "flutter_version=$(yq eval '.environment.flutter' pubspec.yaml)" >>"$GITHUB_OUTPUT"
