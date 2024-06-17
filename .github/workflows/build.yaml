@@ -26,7 +26,7 @@ jobs:
         uses: catchpoint/workflow-telemetry-action@v2.0.0
 
       ### Set up ###
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.6
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.16.0
@@ -42,7 +42,7 @@ jobs:
           .github/workflows/flutter_bootstrap.sh
 
       - name: Pods Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v4.0.2
         with:
           path: |
             packages/*/ios/Pods
@@ -65,7 +65,7 @@ jobs:
         uses: catchpoint/workflow-telemetry-action@v2.0.0
 
       ### Set up ###
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.6
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4.2.1
@@ -87,7 +87,7 @@ jobs:
           .github/workflows/flutter_bootstrap.sh
 
       - name: Gradle Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v4.0.2
         with:
           path: |
             ~/.gradle/caches
