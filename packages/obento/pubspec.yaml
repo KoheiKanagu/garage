@@ -48,7 +48,7 @@ dependencies:
     hosted: https://pub.isar-community.dev/
   jovial_svg: ^1.1.21
   json_annotation: ^4.9.0
-  media_query_preview: ^0.0.2
+  media_query_preview: ^0.1.0
   package_info_plus: ^8.0.0
   path_provider: ^2.1.3
   pull_down_button: ^0.9.4
