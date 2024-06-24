@@ -1045,10 +1045,10 @@ packages:
     dependency: "direct main"
     description:
       name: media_query_preview
-      sha256: da4ab75288bb079701f9c44f5e294f531e793ece890e2f737d337eca902d8675
+      sha256: "0c782529000462558c58375a514585aef946bc96961c7751b2da8426e1a3ac09"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.2"
+    version: "0.1.0"
   meta:
     dependency: transitive
     description:
