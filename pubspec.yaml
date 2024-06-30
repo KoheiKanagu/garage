@@ -17,6 +17,6 @@ dev_dependencies:
   path: ^1.9.0
   pub_semver: ^2.1.4
   riverpod_lint: ^2.3.12
-  very_good_analysis: ^5.1.0
+  very_good_analysis: ^6.0.0
   yaml: ^3.1.2
   yaml_edit: ^2.2.1
