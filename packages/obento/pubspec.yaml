@@ -13,7 +13,7 @@ dependencies:
   clock: ^1.1.1
   cloud_firestore: ^5.0.1
   cloud_functions: ^5.0.1
-  collection: ^1.18.0
+  collection: ^1.19.0
   core:
     path: ../core
   cupertino_icons: ^1.0.8
