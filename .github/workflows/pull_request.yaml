@@ -294,7 +294,7 @@ jobs:
 
       - name: Upload a Build Artifact
         if: always()
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v4.3.4
         with:
           name: golden_failures
           path: packages/*/test/**/failures/
