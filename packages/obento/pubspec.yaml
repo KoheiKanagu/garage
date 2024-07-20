@@ -58,7 +58,7 @@ dependencies:
   shared_preferences: ^2.2.3
   slang: ^3.31.1
   slang_flutter: ^3.31.0
-  smooth_page_indicator: ^1.1.0
+  smooth_page_indicator: ^1.2.0+3
   talker: ^4.3.2
   talker_flutter: ^4.3.2
   talker_riverpod_logger: ^1.1.2
