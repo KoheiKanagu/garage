@@ -52,8 +52,12 @@ mixin _$FeedbackData {
   @TimestampConverter()
   Timestamp? get updatedAt => throw _privateConstructorUsedError;
 
+  /// Serializes this FeedbackData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of FeedbackData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FeedbackDataCopyWith<FeedbackData> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -90,6 +94,8 @@ class _$FeedbackDataCopyWithImpl<$Res, $Val extends FeedbackData>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FeedbackData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -153,6 +159,8 @@ class _$FeedbackDataCopyWithImpl<$Res, $Val extends FeedbackData>
     ) as $Val);
   }
 
+  /// Create a copy of FeedbackData
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FeedbackDeviceInfoCopyWith<$Res> get deviceInfo {
@@ -195,6 +203,8 @@ class __$$FeedbackDataImplCopyWithImpl<$Res>
       _$FeedbackDataImpl _value, $Res Function(_$FeedbackDataImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FeedbackData
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -355,7 +365,7 @@ class _$FeedbackDataImpl implements _FeedbackData {
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -371,7 +381,9 @@ class _$FeedbackDataImpl implements _FeedbackData {
       createdAt,
       updatedAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FeedbackData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FeedbackDataImplCopyWith<_$FeedbackDataImpl> get copyWith =>
@@ -402,42 +414,41 @@ abstract class _FeedbackData implements FeedbackData {
   factory _FeedbackData.fromJson(Map<String, dynamic> json) =
       _$FeedbackDataImpl.fromJson;
 
-  @override
-
   /// だれがフィードバックしたか
   /// サインアウト後にフィードバックした場合はnull
-  String? get createdBy;
   @override
+  String? get createdBy;
 
   /// ユーザのメールアドレス
-  String? get email;
   @override
+  String? get email;
 
   /// デバイス情報
-  FeedbackDeviceInfo get deviceInfo;
   @override
+  FeedbackDeviceInfo get deviceInfo;
 
   /// フィードバックの種類
-  FeedbackType get type;
   @override
+  FeedbackType get type;
 
   /// フィードバックの種類（ローカライズ済み）
-  String get typeLocalized;
   @override
+  String get typeLocalized;
 
   /// メールで通知するか
-  bool get notifyByEmail;
   @override
+  bool get notifyByEmail;
 
   /// プッシュ通知で通知するか
-  bool get notifyByPush;
   @override
+  bool get notifyByPush;
 
   /// フィードバックのステータス
-  FeedbackStatus get status;
   @override
+  FeedbackStatus get status;
 
   /// どこからのフィードバックか
+  @override
   FeedbackFrom get from;
   @override
   @TimestampConverter()
@@ -445,8 +456,11 @@ abstract class _FeedbackData implements FeedbackData {
   @override
   @TimestampConverter()
   Timestamp? get updatedAt;
+
+  /// Create a copy of FeedbackData
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FeedbackDataImplCopyWith<_$FeedbackDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

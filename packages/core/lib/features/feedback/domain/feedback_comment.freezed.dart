@@ -39,8 +39,12 @@ mixin _$FeedbackComment {
   List<FeedbackAttachment> get attachments =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this FeedbackComment to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of FeedbackComment
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FeedbackCommentCopyWith<FeedbackComment> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -70,6 +74,8 @@ class _$FeedbackCommentCopyWithImpl<$Res, $Val extends FeedbackComment>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FeedbackComment
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -134,6 +140,8 @@ class __$$FeedbackCommentImplCopyWithImpl<$Res>
       _$FeedbackCommentImpl _value, $Res Function(_$FeedbackCommentImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FeedbackComment
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -243,12 +251,14 @@ class _$FeedbackCommentImpl implements _FeedbackComment {
                 .equals(other._attachments, _attachments));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, createdBy, message, feedbackId,
       createdAt, updatedAt, const DeepCollectionEquality().hash(_attachments));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FeedbackComment
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FeedbackCommentImplCopyWith<_$FeedbackCommentImpl> get copyWith =>
@@ -275,19 +285,18 @@ abstract class _FeedbackComment implements FeedbackComment {
   factory _FeedbackComment.fromJson(Map<String, dynamic> json) =
       _$FeedbackCommentImpl.fromJson;
 
-  @override
-
   /// だれがコメントしたか
   /// サインアウト後のフィードバックの場合はnull
   /// サポートからのコメントの場合は"support"
-  String? get createdBy;
   @override
+  String? get createdBy;
 
   /// メッセージ
-  String? get message;
   @override
+  String? get message;
 
   /// [FeedbackData] のDocumentID
+  @override
   String? get feedbackId;
   @override
   @TimestampConverter()
@@ -295,12 +304,15 @@ abstract class _FeedbackComment implements FeedbackComment {
   @override
   @TimestampConverter()
   Timestamp? get updatedAt;
-  @override
 
   /// 添付ファイル
-  List<FeedbackAttachment> get attachments;
   @override
-  @JsonKey(ignore: true)
+  List<FeedbackAttachment> get attachments;
+
+  /// Create a copy of FeedbackComment
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FeedbackCommentImplCopyWith<_$FeedbackCommentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

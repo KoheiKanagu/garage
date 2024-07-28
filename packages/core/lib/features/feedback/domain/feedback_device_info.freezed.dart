@@ -27,8 +27,12 @@ mixin _$FeedbackDeviceInfo {
   String get appPackageName => throw _privateConstructorUsedError;
   String get appName => throw _privateConstructorUsedError;
 
+  /// Serializes this FeedbackDeviceInfo to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of FeedbackDeviceInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FeedbackDeviceInfoCopyWith<FeedbackDeviceInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +62,8 @@ class _$FeedbackDeviceInfoCopyWithImpl<$Res, $Val extends FeedbackDeviceInfo>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FeedbackDeviceInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -122,6 +128,8 @@ class __$$FeedbackDeviceInfoImplCopyWithImpl<$Res>
       $Res Function(_$FeedbackDeviceInfoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FeedbackDeviceInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -210,12 +218,14 @@ class _$FeedbackDeviceInfoImpl implements _FeedbackDeviceInfo {
             (identical(other.appName, appName) || other.appName == appName));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, osVersion, modelName, locale,
       appVersion, appPackageName, appName);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FeedbackDeviceInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FeedbackDeviceInfoImplCopyWith<_$FeedbackDeviceInfoImpl> get copyWith =>
@@ -254,8 +264,11 @@ abstract class _FeedbackDeviceInfo implements FeedbackDeviceInfo {
   String get appPackageName;
   @override
   String get appName;
+
+  /// Create a copy of FeedbackDeviceInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FeedbackDeviceInfoImplCopyWith<_$FeedbackDeviceInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
