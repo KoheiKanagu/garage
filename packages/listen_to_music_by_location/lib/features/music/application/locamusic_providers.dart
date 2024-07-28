@@ -208,7 +208,7 @@ Future<void> locamusicRegionHandler(
 /// この問題が解決すればProviderを利用する実装に変更予定
 @riverpod
 Future<void> locamusicHandler(
-  LocamusicHandlerRef _, {
+  LocamusicHandlerRef ref, {
   required Stream<
           ({
             Region region,
@@ -286,7 +286,7 @@ Future<void> locamusicHandler(
     },
   );
 
-  _.onDispose(() {
+  ref.onDispose(() {
     logger.debug('cancel locamusicHandler');
     subscription.cancel();
   });
