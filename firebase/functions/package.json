@@ -26,12 +26,12 @@
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "^3.0.3",
-    "@stylistic/eslint-plugin": "^2.3.0",
+    "@stylistic/eslint-plugin": "^2.4.0",
     "@swc/core": "^1.6.13",
     "@swc/jest": "^0.2.36",
     "@tsconfig/node20": "^20.1.4",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/eslint": "^8.56.10",
+    "@types/eslint": "^8.56.11",
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.17.6",
     "@types/node": "20.14.10",
@@ -42,7 +42,7 @@
     "google-auth-library": "^9.11.0",
     "jest": "^29.7.0",
     "typescript": "^5.5.3",
-    "typescript-eslint": "^7.15.0"
+    "typescript-eslint": "^7.17.0"
   },
   "private": true,
   "jest": {
