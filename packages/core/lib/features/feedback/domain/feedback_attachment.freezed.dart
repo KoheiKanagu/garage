@@ -23,8 +23,12 @@ mixin _$FeedbackAttachment {
   @UriDataConverter()
   UriData get path => throw _privateConstructorUsedError;
 
+  /// Serializes this FeedbackAttachment to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of FeedbackAttachment
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FeedbackAttachmentCopyWith<FeedbackAttachment> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$FeedbackAttachmentCopyWithImpl<$Res, $Val extends FeedbackAttachment>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FeedbackAttachment
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -81,6 +87,8 @@ class __$$FeedbackAttachmentImplCopyWithImpl<$Res>
       $Res Function(_$FeedbackAttachmentImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FeedbackAttachment
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -120,11 +128,13 @@ class _$FeedbackAttachmentImpl implements _FeedbackAttachment {
             (identical(other.path, path) || other.path == path));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, path);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FeedbackAttachment
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FeedbackAttachmentImplCopyWith<_$FeedbackAttachmentImpl> get copyWith =>
@@ -150,8 +160,11 @@ abstract class _FeedbackAttachment implements FeedbackAttachment {
   @override
   @UriDataConverter()
   UriData get path;
+
+  /// Create a copy of FeedbackAttachment
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FeedbackAttachmentImplCopyWith<_$FeedbackAttachmentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

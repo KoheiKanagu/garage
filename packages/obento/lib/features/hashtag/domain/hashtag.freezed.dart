@@ -26,8 +26,12 @@ mixin _$Hashtag {
   Timestamp? get updatedAt => throw _privateConstructorUsedError;
   List<String> get hashtags => throw _privateConstructorUsedError;
 
+  /// Serializes this Hashtag to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Hashtag
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $HashtagCopyWith<Hashtag> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -52,6 +56,8 @@ class _$HashtagCopyWithImpl<$Res, $Val extends Hashtag>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Hashtag
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -97,6 +103,8 @@ class __$$HashtagImplCopyWithImpl<$Res>
       _$HashtagImpl _value, $Res Function(_$HashtagImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Hashtag
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -165,12 +173,14 @@ class _$HashtagImpl implements _Hashtag {
             const DeepCollectionEquality().equals(other._hashtags, _hashtags));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, createdAt, updatedAt,
       const DeepCollectionEquality().hash(_hashtags));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Hashtag
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$HashtagImplCopyWith<_$HashtagImpl> get copyWith =>
@@ -200,8 +210,11 @@ abstract class _Hashtag implements Hashtag {
   Timestamp? get updatedAt;
   @override
   List<String> get hashtags;
+
+  /// Create a copy of Hashtag
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$HashtagImplCopyWith<_$HashtagImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

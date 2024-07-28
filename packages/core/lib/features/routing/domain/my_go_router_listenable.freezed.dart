@@ -21,7 +21,9 @@ mixin _$MyGoRouterListenable {
   bool get releasedNewVersion => throw _privateConstructorUsedError;
   Status get serviceStatus => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MyGoRouterListenable
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MyGoRouterListenableCopyWith<MyGoRouterListenable> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +52,8 @@ class _$MyGoRouterListenableCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MyGoRouterListenable
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -102,6 +106,8 @@ class __$$MyGoRouterListenableImplCopyWithImpl<$Res>
       $Res Function(_$MyGoRouterListenableImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MyGoRouterListenable
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -177,7 +183,9 @@ class _$MyGoRouterListenableImpl implements _MyGoRouterListenable {
   int get hashCode => Object.hash(
       runtimeType, signedIn, requiredUpdate, releasedNewVersion, serviceStatus);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MyGoRouterListenable
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MyGoRouterListenableImplCopyWith<_$MyGoRouterListenableImpl>
@@ -201,8 +209,11 @@ abstract class _MyGoRouterListenable implements MyGoRouterListenable {
   bool get releasedNewVersion;
   @override
   Status get serviceStatus;
+
+  /// Create a copy of MyGoRouterListenable
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MyGoRouterListenableImplCopyWith<_$MyGoRouterListenableImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

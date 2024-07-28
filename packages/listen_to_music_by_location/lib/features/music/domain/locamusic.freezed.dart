@@ -32,8 +32,12 @@ mixin _$Locamusic {
   String? get musicId => throw _privateConstructorUsedError;
   bool get allowBuiltInSpeaker => throw _privateConstructorUsedError;
 
+  /// Serializes this Locamusic to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Locamusic
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LocamusicCopyWith<Locamusic> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -64,6 +68,8 @@ class _$LocamusicCopyWithImpl<$Res, $Val extends Locamusic>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Locamusic
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -140,6 +146,8 @@ class __$$LocamusicImplCopyWithImpl<$Res>
       _$LocamusicImpl _value, $Res Function(_$LocamusicImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Locamusic
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -253,12 +261,14 @@ class _$LocamusicImpl implements _Locamusic {
                 other.allowBuiltInSpeaker == allowBuiltInSpeaker));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, geoPoint, distance, createdBy,
       createdAt, updatedAt, deleted, musicId, allowBuiltInSpeaker);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Locamusic
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LocamusicImplCopyWith<_$LocamusicImpl> get copyWith =>
@@ -305,8 +315,11 @@ abstract class _Locamusic implements Locamusic {
   String? get musicId;
   @override
   bool get allowBuiltInSpeaker;
+
+  /// Create a copy of Locamusic
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LocamusicImplCopyWith<_$LocamusicImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
