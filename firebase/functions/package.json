@@ -37,7 +37,7 @@
     "@types/node": "20.14.14",
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "^28.7.0",
-    "firebase": "^10.12.4",
+    "firebase": "^10.12.5",
     "firebase-functions-test": "^3.3.0",
     "google-auth-library": "^9.13.0",
     "jest": "^29.7.0",
