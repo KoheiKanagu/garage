@@ -34,7 +34,7 @@
     "@types/eslint": "^8.56.11",
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.17.7",
-    "@types/node": "20.14.14",
+    "@types/node": "20.14.15",
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "^28.7.0",
     "firebase": "^10.12.5",
