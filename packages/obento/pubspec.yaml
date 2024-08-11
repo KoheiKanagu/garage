@@ -51,7 +51,7 @@ dependencies:
   media_query_preview: ^0.1.0
   package_info_plus: ^8.0.1
   path_provider: ^2.1.4
-  pull_down_button: ^0.10.0
+  pull_down_button: ^0.10.1
   quick_actions: ^1.0.7
   riverpod_annotation: ^2.3.5
   share_plus: ^9.0.0
