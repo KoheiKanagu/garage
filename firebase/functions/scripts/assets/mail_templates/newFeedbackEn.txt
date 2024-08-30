@@ -15,4 +15,4 @@ Feedback about {{type}}
 If you don't recognize this feedback, it's possible that someone else accidentally entered your email address.
 If that's the case, please ignore this email.
 
-kingu.dev Support Team | https://garage.kingu.dev
+kingu.dev Support Team | https://kingu.dev

@@ -8,9 +8,9 @@ class RemoteConfigConstant {
 
   static const String kTermsOfServiceUri = 'terms_of_service_uri';
   static const String kTermsOfServiceUriDefaultValue =
-      'https://garage.kingu.dev/terms-of-service';
+      'https://kingu.dev/apps/term_of_service.html';
 
   static const String kPrivacyPolicyUri = 'privacy_policy_uri';
   static const String kPrivacyPolicyUriDefaultValue =
-      'https://garage.kingu.dev/privacy-policy';
+      'https://kingu.dev/apps/privacy_policy.html';
 }

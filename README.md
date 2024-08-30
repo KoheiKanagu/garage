@@ -4,7 +4,7 @@
 
 This is a group of applications composed of multiple packages, created by [KoheiKanagu](https://github.com/KoheiKanagu).
 
-https://garage.kingu.dev
+<https://kingu.dev>
 
 <!-- # Badges -->
 

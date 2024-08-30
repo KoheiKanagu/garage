@@ -238,8 +238,8 @@ extension PackageExtension on Package {
 
   Uri get lp => Uri.parse(
         switch (name) {
-          'listen_to_music_by_location' => 'https://garage.kingu.dev/locamusic',
-          'obento' => 'https://garage.kingu.dev/obento',
+          'listen_to_music_by_location' => 'https://kingu.dev/apps/locamusic',
+          'obento' => 'https://kingu.dev/apps/obento',
           _ => throw UnimplementedError(),
         },
       );
