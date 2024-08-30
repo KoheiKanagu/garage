@@ -55,16 +55,35 @@
   },
   "hosting": {
     "public": "firebase/public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "redirects": [
       {
+        "source": "/",
+        "destination": "https://kingu.dev",
+        "type": 301
+      },
+      {
+        "source": "/obento",
+        "destination": "https://kingu.dev/apps/obento",
+        "type": 301
+      },
+      {
+        "source": "/locamusic",
+        "destination": "https://kingu.dev/apps/locamusic",
+        "type": 301
+      },
+      {
         "source": "/terms-of-service",
-        "destination": "https://github.com/KoheiKanagu/garage/blob/main/term_of_service.md",
+        "destination": "https://kingu.dev/apps/term_of_service.html",
         "type": 301
       },
       {
         "source": "/privacy-policy",
-        "destination": "https://github.com/KoheiKanagu/garage/blob/main/privacy_policy.md",
+        "destination": "https://kingu.dev/apps/privacy_policy.html",
         "type": 301
       },
       {
