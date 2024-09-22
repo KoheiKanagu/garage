@@ -8,7 +8,7 @@ environment:
   flutter: 3.23.0-0.1.pre
 
 dependencies:
-  adaptive_dialog: ^2.2.0
+  adaptive_dialog: ^2.2.1+2
   app_links: ^6.2.0
   budoux_dart: ^1.2.0
   cached_network_image: ^3.4.0
