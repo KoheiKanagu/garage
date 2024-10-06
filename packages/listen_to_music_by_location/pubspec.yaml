@@ -48,8 +48,8 @@ dependencies:
   quick_actions: ^1.0.7
   riverpod_annotation: ^2.3.5
   shared_preferences: ^2.2.3
-  slang: ^3.31.2
-  slang_flutter: ^3.31.0
+  slang: ^3.32.0
+  slang_flutter: ^3.32.0
   smooth_page_indicator: ^1.2.0+3
   talker: ^4.4.0
   talker_flutter: ^4.4.0
@@ -71,7 +71,7 @@ dev_dependencies:
   pigeon: ^21.1.0
   riverpod_generator: ^2.4.2
   riverpod_lint: ^2.3.12
-  slang_build_runner: ^3.31.0
+  slang_build_runner: ^3.32.0
   test: any
   very_good_analysis: ^6.0.0
 
