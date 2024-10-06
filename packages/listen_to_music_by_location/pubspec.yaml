@@ -42,7 +42,7 @@ dependencies:
   in_app_review: ^2.0.9
   intersperse: ^2.0.0
   intl: any
-  jovial_svg: ^1.1.22
+  jovial_svg: ^1.1.23
   json_annotation: ^4.9.0
   package_info_plus: ^8.0.2
   quick_actions: ^1.0.7
