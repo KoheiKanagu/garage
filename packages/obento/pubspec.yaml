@@ -54,7 +54,7 @@ dependencies:
   pull_down_button: ^0.10.1
   quick_actions: ^1.0.7
   riverpod_annotation: ^2.3.5
-  share_plus: ^9.0.0
+  share_plus: ^10.0.3
   shared_preferences: ^2.2.3
   slang: ^3.31.2
   slang_flutter: ^3.31.0
