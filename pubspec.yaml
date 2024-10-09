@@ -6,7 +6,7 @@ environment:
 
 dev_dependencies:
   collection: ^1.18.0
-  custom_lint: ^0.6.4
+  custom_lint: ^0.6.9
   flutter:
     sdk: flutter
   glob: ^2.1.2
