@@ -55,7 +55,7 @@ dependencies:
   quick_actions: ^1.0.7
   riverpod_annotation: ^2.3.5
   share_plus: ^9.0.0
-  shared_preferences: ^2.2.3
+  shared_preferences: ^2.3.2
   slang: ^3.32.0
   slang_flutter: ^3.32.0
   smooth_page_indicator: ^1.2.0+3
