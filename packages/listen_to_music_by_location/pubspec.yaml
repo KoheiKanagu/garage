@@ -45,7 +45,7 @@ dependencies:
   jovial_svg: ^1.1.22
   json_annotation: ^4.9.0
   package_info_plus: ^8.0.2
-  quick_actions: ^1.0.7
+  quick_actions: ^1.0.8
   riverpod_annotation: ^2.3.5
   shared_preferences: ^2.2.3
   slang: ^3.32.0
